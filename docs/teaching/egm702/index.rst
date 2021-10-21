@@ -1,5 +1,5 @@
-photogrammetry and advanced image analysis
-==========================================
+EGM702: photogrammetry and advanced image analysis
+==================================================
 
 .. toctree::
    :glob:

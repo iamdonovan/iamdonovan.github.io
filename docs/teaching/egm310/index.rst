@@ -1,3 +1,3 @@
-introduction to gis and remote sensing
-======================================
+EGM310: introduction to gis and remote sensing
+==============================================
 
