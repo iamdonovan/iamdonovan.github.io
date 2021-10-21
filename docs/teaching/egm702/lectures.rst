@@ -17,11 +17,11 @@ video playlist
 
 transcripts (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week1_Transcripts.zip`
+:download:`Week 1 Transcripts <../../files/EGM702_Week1_Transcripts.zip>`
 
 slides (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week1.zip`
+:download:`Week 1 Slides <../../files/EGM702_Week1.zip>`
 
 Week 2: DEM and terrain analysis
 --------------------------------
@@ -37,11 +37,11 @@ video playlist
 
 transcripts (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week2_Transcripts.zip`
+:download:`Week 2 Transcripts <../../files/EGM702_Week2_Transcripts.zip>`
 
 slides (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week2.zip`
+:download:`Week 2 Slides <../../files/EGM702_Week2.zip>`
 
 Week 3: Image manipulation and analysis
 ---------------------------------------
@@ -57,11 +57,11 @@ video playlist
 
 transcripts (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week3_Transcripts.zip`
+:download:`Week 3 Transcripts <../../files/EGM702_Week3_Transcripts.zip>`
 
 slides (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week3.zip`
+:download:`Week 3 Slides <../../files/EGM702_Week3.zip>`
 
 
 Week 4: Change detection
@@ -78,11 +78,11 @@ video playlist
 
 transcripts (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week4_Transcripts.zip`
+:download:`Week 4 Transcripts <../../files/EGM702_Week4_Transcripts.zip>`
 
 slides (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week4.zip`
+:download:`Week 4 Slides <../../files/EGM702_Week4.zip>`
 
 
 Week 5: Advanced classification techniques
@@ -99,9 +99,9 @@ video playlist
 
 transcripts (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week5_Transcripts.zip`
+:download:`Week 5 Transcripts <../../files/EGM702_Week5_Transcripts.zip>`
 
 slides (zipped pdfs)
 ^^^^^^^^^^^^^^^^^^^^
-:download:`../../files/EGM702_Week5.zip`
+:download:`Week 5 Slides <../../files/EGM702_Week5.zip>`
 
