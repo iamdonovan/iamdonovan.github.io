@@ -15,12 +15,13 @@ video playlist
     :target: https://www.youtube.com/watch?v=WneDAoe9q0g&list=PLswTWqhRygXvaFSLGwoyJbTu-vCOq2Eob&index=1
     :alt: a slide explaining where photogrammetry is applied
 
-transcripts (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`Week 1 Transcripts <../../files/EGM702_Week1_Transcripts.zip>`
+..
+    transcripts
+    ^^^^^^^^^^^
+    :download:`Week 1 Transcripts <../../files/EGM702_Week1_Transcripts.zip>`
 
-slides (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^
+slides
+^^^^^^
 :download:`Week 1 Slides <../../files/EGM702_Week1.zip>`
 
 Week 2: DEM and terrain analysis
@@ -35,12 +36,13 @@ video playlist
     :target: https://www.youtube.com/watch?v=OZuF_LbYwp0&list=PLswTWqhRygXshYE_3WxLb1SiAuuodhjTA&index=1
     :alt: a slide explaining the difference between accuracy and precision
 
-transcripts (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`Week 2 Transcripts <../../files/EGM702_Week2_Transcripts.zip>`
+..
+    transcripts
+    ^^^^^^^^^^^
+    :download:`Week 2 Transcripts <../../files/EGM702_Week2_Transcripts.zip>`
 
-slides (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^
+slides
+^^^^^^
 :download:`Week 2 Slides <../../files/EGM702_Week2.zip>`
 
 Week 3: Image manipulation and analysis
@@ -55,12 +57,13 @@ video playlist
     :target: https://www.youtube.com/watch?v=vw6YbfAhL6I&list=PLswTWqhRygXt_6LtK6iL6K-PeXsPddYQA&index=1
     :alt: a slide explaining how digital images are stored
 
-transcripts (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`Week 3 Transcripts <../../files/EGM702_Week3_Transcripts.zip>`
+..
+    transcripts
+    ^^^^^^^^^^^
+    :download:`Week 3 Transcripts <../../files/EGM702_Week3_Transcripts.zip>`
 
-slides (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^
+slides
+^^^^^^
 :download:`Week 3 Slides <../../files/EGM702_Week3.zip>`
 
 
@@ -76,12 +79,13 @@ video playlist
     :target: https://www.youtube.com/watch?v=5ENdo-PtxkI&list=PLswTWqhRygXuiCG5-fs0C4jS9Z8uyNVd-&index=1
     :alt: a slide explaining how with multiple images over time, we can map change
 
-transcripts (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`Week 4 Transcripts <../../files/EGM702_Week4_Transcripts.zip>`
+..
+    transcripts
+    ^^^^^^^^^^^
+    :download:`Week 4 Transcripts <../../files/EGM702_Week4_Transcripts.zip>`
 
-slides (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^
+slides
+^^^^^^
 :download:`Week 4 Slides <../../files/EGM702_Week4.zip>`
 
 
@@ -97,11 +101,12 @@ video playlist
     :target: https://www.youtube.com/watch?v=r3O4laOHhO0&list=PLswTWqhRygXs3oc4rxPKNGvjnYxrDRtrP&index=1
     :alt: a slide explaining unsupervised classification, including different algorithms
 
-transcripts (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-:download:`Week 5 Transcripts <../../files/EGM702_Week5_Transcripts.zip>`
+..
+    transcripts
+    ^^^^^^^^^^^
+    :download:`Week 5 Transcripts <../../files/EGM702_Week5_Transcripts.zip>`
 
-slides (zipped pdfs)
-^^^^^^^^^^^^^^^^^^^^
+slides
+^^^^^^
 :download:`Week 5 Slides <../../files/EGM702_Week5.zip>`
 
