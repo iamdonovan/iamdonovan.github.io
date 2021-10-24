@@ -3,15 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to iamdonovan's documentation!
-======================================
+space cameras and glaciers
+==========================
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
+   whataboutbob
    teaching/index
    research/index
+   github
 
 
 Indices and tables
