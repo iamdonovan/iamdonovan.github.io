@@ -3,13 +3,17 @@ about me
 
 I am bob.
 
-current
--------
+Since December 2020, I have been a "Lecturer in Terrestrial Remote Sensing of Environmental Systems" at Ulster University, though I usually just say "Remote Sensing" out of laziness. I've worked on developing courses (modules) on various topics, the results of which you can see under `teaching and related resources <teaching/index.html>`__.
 
+At Ulster, I've continued working on DEM production and processing, including re-processing historic aerial photos to study glacier and other environmental changes. I've also supervised PhD research in different areas, including applications of machine learning for glacier mapping, and Master's research on a wide variety of mostly non-glacier topics.
 
 past bob
 --------
+From 2016-2019, I was a post-doc at the Department of Geosciences, University of Oslo. I was part of the European Space Agency (ESA) glaciers_CCI project, and did research on different topics including DEM production and processing, and estimating global glacier mass changes. I also supervised Master's and undergraduate research on topics that ranged from surge-type glaciers in Svalbard to landslide distribution and development in mainland Norway. In addition to teaching courses at the University of Oslo, I also taught at the ESA Cryosphere Training Course in Longyearbyen, Svalbard, in 2018.
 
+From 2013-2015, I was a post-doc on a variety of projects at the Geophysical Institute, University of Alaska Fairbanks. From 2014-2015, I worked on a project investigating the relationship between floating ice and harbor seal populations in Johns Hopkins Inlet, southeast Alaska. From 2013-2014, I continued work that I started during my PhD, looking at tidewater glacier variation and frontal ablation at tidewater glaciers around Alaska.
+
+From 2008-2013, I was a PhD Student and research assistant at the Geophysical Insitute, University of Alaska Fairbanks. My PhD dissertation looked at tidewater glaciers in Alaska, including patterns of terminus position change and frontal ablation, using primarily remote sensing observations. In addition to those studies, I also managed to do some field work at glaciers in Alaska and Svalbard, and helped teach a field course at Gulkana Glacier, Alaska.
 
 other websites
 --------------
@@ -32,6 +36,8 @@ Hugonnet, R., **R. McNabb**, E. Berthier, B. Menounos, C. Nuth, L. Girod, D. Far
 Nolan, A., W. Kochtitzky, E. M. Enderlin, **R. McNabb**, and K. J. Kreutz, (2021). Kinematics of the exceptionally-short surge cycles of Sít' Kusá (Turner Glacier), Alaska, from 1983 to 2013. Journal of Glaciology 67(**264**), 744-758. doi: `10.1017/jog.2021.29 <https://doi.org/10.1017/jog.2021.29>`__
 
 Rounce, D. R., R. Hock, **R. McNabb**, R. Millan, C. Sommer, M. H. Braun, P. Malz, F. Maussion, J. Mouginot, T. C. Seehaus, and D. E. Shean, (2021). Distributed global debris thickness estimates reveal debris significantly impacts glacier mass balance. *Geophys. Res. Lett.* 48, e2020GL091311. doi: `10.1029/2020GL091311 <https://doi.org/10.1029/2020GL091311>`__
+
+Winton, Ø. A., S. B. Simonsen, A. M. Solgaard, **R. McNabb**, and N. B. Karlsson, (2021). Basal stress controls ice-flow variability during a surge cycle of Hagen Bræ, Greenland. Journal of Glaciology. doi: `10.1017/jog.2021.111 <https://doi.org/10.1017/jog.2021.111>`__
 
 Womble, J. N., P. J. Williams, **R. McNabb**, A. Prakash, R. Gens, B. Sedinger, and C. Acevedo, (2021). Harbor Seals as Sentinels of Ice Dynamics in Tidewater Glacier Fjords. *Frontiers in Marine Science* 8, `doi: 10.3389/fmars.2021.634541 <https://doi.org/10.3389/fmars.2021.634541>`__
 
@@ -74,7 +80,7 @@ Paul, F., T. Bolch, K. Briggs, A. Kääb, M. McMillan, **R. McNabb**, T. Nagler,
 **McNabb, R.**, R. Hock, S. O'Neel, L. A. Rasmussen, Y. Ahn, M. H. Braun, H. Conway, S. J. Herreid, I. R. Joughin, W. T. Pfeffer, B. E. Smith, and M. Truffer, (2012). Using Surface Velocities to Calculate Ice Thickness and Bed Topography: A Case Study at Columbia Glacier, Alaska. *J. Glaciol*. 58(**212**), 1151-1164. doi: `10.3189/2012JoG11J249 <https://doi.org/10.3189/2012JoG11J249>`__
 
 
-.. [1] please note that I am often terribly slow at responding to emails, but can usually be prodded with gentle reminders.
+.. [1] please note that I am often terribly slow at responding to emails, but can usually be prodded with gentle (or otherwise) reminders.
 
 .. |orcid| image:: https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png
     :target: https://orcid.org/0000-0003-0016-493X
