@@ -5,6 +5,7 @@ practicals
    :glob:
    :maxdepth: 2
 
+   setup
    week1
    week2
    week3
