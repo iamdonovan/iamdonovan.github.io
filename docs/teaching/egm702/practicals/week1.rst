@@ -4,7 +4,7 @@ week 1 - dem processing using micmac
 introduction
 ------------
 
-**Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the** `google drive link <https://google.com>`__\ **, then extract the zip file. You should
+**Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the** `google drive link <https://drive.google.com/uc?id=1rwu32Wms_jvrmzkMRckD8kwcgl98qn4k&export=download>`__\ **, then extract the zip file. You should
 have the following files/folders available:**
 ::
 
