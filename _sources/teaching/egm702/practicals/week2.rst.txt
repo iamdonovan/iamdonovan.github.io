@@ -149,7 +149,7 @@ both the elevation and volume changes that we're interested in. When we expect t
 surfaces within the DEM, such as elevation drop due to glacier melt or the collapse of a mountainside, we first need to mask out
 the areas of change, so that we are only estimating the differences over stable terrain (or at least, as well as we can approximate
 it). You should notice that there are several different examples of elevation differences present here. The most obvious have to
-do with the eruption and its aftermath – the collapse of the North flank of the mountain, the deposits of pyroclastic material,
+do with the eruption and its aftermath – the collapse of the North flank of the mountain, the deposits of pyroclastic and landslide material,
 the change in lake levels, and trees that were knocked down due to the force of the initial blast:
 
 .. image:: ../../../img/egm702/week2/labelled_difference.png
