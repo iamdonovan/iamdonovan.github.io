@@ -34,7 +34,7 @@ getting started
 
 To get started, open the Windows command prompt, either by using the search bar, or **Start** > **Windows System** > **Command Prompt**.
 
-To change folders from the command line, you will use the `cd` command. When you open the command prompt, you should be in your **home** folder (for me, this is **C:\Users\bob**). At the command prompt, navigate to the folder where you have saved the data above (for me, this is **C:\Data\MtStHelens**) by typing `cd` followed by the directory name:
+To change folders from the command line, you will use the `cd` command. When you open the command prompt, you should be in your **home** folder (for me, this is **C:\\Users\\bob**). At the command prompt, navigate to the folder where you have saved the data above (for me, this is **C:\\Data\\MtStHelens**) by typing `cd` followed by the directory name:
 ::
 
     C:\Users\bob>cd "C:\Data\MtStHelens\"
@@ -119,7 +119,7 @@ This will re-sample each of the images to a resolution of 50 microns (i.e., 1 pi
 
 If the command runs correctly, you should see the names of each image printed out, along with the residuals (in # of pixels) and the amount of time it took to re-sample each image.
 
-As long as the residuals are small (<2 pixels or so), you can continue. If not, you'll need to adjust your fiducial mark selection, and run ReSampFid again. When you have successfully re-sampled the images, create a new directory called **OrigImg** and move the original image files into it:
+As long as the residuals are small (<2 pixels or so), you can continue. If not, you'll need to adjust your fiducial mark selection, and run ``ReSampFid`` again. When you have successfully re-sampled the images, create a new directory called **OrigImg** and move the original image files into it:
 
 ::
 
