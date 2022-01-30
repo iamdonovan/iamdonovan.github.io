@@ -34,15 +34,25 @@ getting started
 
 To get started, open the Windows command prompt, either by using the search bar, or **Start** > **Windows System** > **Command Prompt**.
 
-To change folders from the command line, you will use the `cd` command. When you open the command prompt, you should be in your **home** folder (for me, this is **C:\\Users\\bob**). At the command prompt, navigate to the folder where you have saved the data above (for me, this is **C:\\Data\\MtStHelens**) by typing `cd` followed by the directory name:
+To change folders from the command line, you will use the `cd` command. When you open the command prompt, you should be in your **home** folder (for me, this is **C:\\Users\\bob**). At the command prompt, navigate to the folder where you have saved the data above (for me, this is **C:\\Data\\MtStHelens**) by typing `cd` followed by the directory name (**note the space between the command and the directory**):
 ::
 
     C:\Users\bob>cd "C:\Data\MtStHelens\"
 
 .. note::
-    In the line above, ``C:\Users\bob`` is the current directory, and ``>`` is the command prompt - if you want to copy/paste the above command, be sure to copy the text *after* the ``>`` (i.e., ``cd C:\Data\MtStHelens``). 
+    In the line above, ``C:\Users\bob`` is the current directory, and ``>`` is the command prompt - if you want to copy/paste the above command, be sure to copy the text *after* the ``>`` (i.e., ``cd C:\Data\MtStHelens``).
 
     For the remaining commands, I will omit the command prompt and only write the command that you will need to use.
+
+
+.. note::
+    If you have saved your data to another drive (e.g., ``D:``), you will first need to change to the correct drive, **before** you try to change directories. So, if your data are saved to ``D:\EGM702\Data``, you will need to first change drives by entering **just** the drive name followed by a colon:
+    ::
+
+        > D:
+        > cd EGM702\Data
+
+    in order to change to the correct directory. Note that you'll need to do this each time you open the command prompt - the default starting disk is ``C:``.
 
 To see the contents of the directory, use the ``dir`` command. You should see something similar to the picture below:
 
