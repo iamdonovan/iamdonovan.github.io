@@ -103,7 +103,13 @@ You'll need to set the locations of each of the fiducial marks in the image (the
 
 You want to get as close to the middle of the dot as possible. You might notice that this isn't easy for **P6**, which is partly obscured - just do the best that you can. When you're satisfied you have the right point, continue for the remainder of the points, then select **File** > **Exit**.
 
-Once you've input the points for each of the four images, move each of the \*S2D.xml files:
+To input the points for the next image (**AR5840034159995.tif**), you'll need to change both the input filename and the output filename in the command:
+
+::
+
+    mm3d SaisieAppuisInitQT "AR5840034159995.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159995.tif.xml
+
+Once that's done, repeat this for the remaining images in the directory. You'll notice that micmac has created two MeasuresIm files for each image, one with an extension **-S2D.xml**, and the other with an extension **-S3D.xml**. You'll need to move each of the **S2D.xml** files:
 
 - MeasuresIm-AR5840034159994.tif-S2D.xml
 - MeasuresIm-AR5840034159995.tif-S2D.xml
@@ -137,6 +143,27 @@ As long as the residuals are small (<2 pixels or so), you can continue. If not, 
     move AR*.tif OrigImg
 
 Note that the wildcard, or asterisk (\*), symbol tells the computer to move anything that matches the pattern ``AR(something).tif`` into the directory **OrigImg** – so it should move all of the scanned images.
+
+.. note::
+    When running ``ReSampFid``, you might get an error message like this:
+    ::
+
+        #####  Name-TAG = MesureAppuiFlottant1Im Nb= 2
+        ------------------------------------------------------------
+        |   Sorry, the following FATAL ERROR happened
+        |
+        |    cElXMLTree::GetUnique
+        |
+        --------------------------------------------------------
+
+    This indicates that you have defined the image points for an image in more than one file, and it most often happens when you accidentally re-use the ouput filename for multiple ``SaisieAppuisInitQT`` commands, e.g.:
+    ::
+
+        mm3d SaisieAppuisInitQT "AR5840034159994.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
+        mm3d SaisieAppuisInitQT "AR5840034159995.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
+
+    To fix this, you'll need to go through each MeasuresIm file and ensure that there is only one set of ``<NameIm>`` tags, and that the image named within the tag matches the MeasuresIm filename (i.e., check that you only have ``<NamePt>AR5840034159994.tif</NamePt>`` in **MeasuresIm-AR5840034159994.tif.xml**, ``<NamePt>AR5840034159995.tif</NamePt>`` in **MeasuresIm-AR5840034159995.tif.xml**, and so on.
+
 
 computing the relative orientation
 ----------------------------------
