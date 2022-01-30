@@ -52,7 +52,7 @@ To change folders from the command line, you will use the `cd` command. When you
         > D:
         > cd EGM702\Data
 
-    in order to change to the correct directory. You'll need to do this each time you open the command prompt - the default starting disk is ``C:``.
+    in order to change to the correct directory. Note that you'll need to do this each time you open the command prompt - the default starting disk is ``C:``.
 
 To see the contents of the directory, use the ``dir`` command. You should see something similar to the picture below:
 
@@ -103,7 +103,13 @@ You'll need to set the locations of each of the fiducial marks in the image (the
 
 You want to get as close to the middle of the dot as possible. You might notice that this isn't easy for **P6**, which is partly obscured - just do the best that you can. When you're satisfied you have the right point, continue for the remainder of the points, then select **File** > **Exit**.
 
-Once you've input the points for each of the four images, move each of the \*S2D.xml files:
+To input the points for the next image (**AR5840034159995.tif**), you'll need to change both the input filename and the output filename in the command:
+
+::
+
+    mm3d SaisieAppuisInitQT "AR5840034159995.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159995.tif.xml
+
+Once that's done, repeat this for the remaining images in the directory. You'll notice that micmac has created two MeasuresIm files for each image, one with an extension **-S2D.xml**, and the other with an extension **-S3D.xml**. You'll need to move each of the **S2D.xml** files:
 
 - MeasuresIm-AR5840034159994.tif-S2D.xml
 - MeasuresIm-AR5840034159995.tif-S2D.xml
