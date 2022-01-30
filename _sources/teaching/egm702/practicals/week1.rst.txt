@@ -144,6 +144,27 @@ As long as the residuals are small (<2 pixels or so), you can continue. If not, 
 
 Note that the wildcard, or asterisk (\*), symbol tells the computer to move anything that matches the pattern ``AR(something).tif`` into the directory **OrigImg** – so it should move all of the scanned images.
 
+.. note::
+    When running ``ReSampFid``, you might get an error message like this:
+    ::
+
+        #####  Name-TAG = MesureAppuiFlottant1Im Nb= 2
+        ------------------------------------------------------------
+        |   Sorry, the following FATAL ERROR happened
+        |
+        |    cElXMLTree::GetUnique
+        |
+        --------------------------------------------------------
+
+    This indicates that you have defined the image points for an image in more than one file, and it most often happens when you accidentally re-use the ouput filename for multiple ``SaisieAppuisInitQT`` commands, e.g.:
+    ::
+
+        mm3d SaisieAppuisInitQT "AR5840034159994.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
+        mm3d SaisieAppuisInitQT "AR5840034159995.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
+
+    To fix this, you'll need to go through each MeasuresIm file and ensure that there is only one set of ``<NameIm>`` tags, and that the image named within the tag matches the MeasuresIm filename (i.e., check that you only have ``<NamePt>AR5840034159994.tif</NamePt>`` in **MeasuresIm-AR5840034159994.tif.xml**, ``<NamePt>AR5840034159995.tif</NamePt>`` in **MeasuresIm-AR5840034159995.tif.xml**, and so on.
+
+
 computing the relative orientation
 ----------------------------------
 

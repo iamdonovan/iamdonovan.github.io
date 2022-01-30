@@ -190,6 +190,25 @@ look like this:</p>
 </pre></div>
 </div>
 <p>Note that the wildcard, or asterisk (*), symbol tells the computer to move anything that matches the pattern <code class="docutils literal notranslate"><span class="pre">AR(something).tif</span></code> into the directory <strong>OrigImg</strong> – so it should move all of the scanned images.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When running <code class="docutils literal notranslate"><span class="pre">ReSampFid</span></code>, you might get an error message like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#####  Name-TAG = MesureAppuiFlottant1Im Nb= 2</span>
+<span class="o">------------------------------------------------------------</span>
+<span class="o">|</span>   <span class="n">Sorry</span><span class="p">,</span> <span class="n">the</span> <span class="n">following</span> <span class="n">FATAL</span> <span class="n">ERROR</span> <span class="n">happened</span>
+<span class="o">|</span>
+<span class="o">|</span>    <span class="n">cElXMLTree</span><span class="p">::</span><span class="n">GetUnique</span>
+<span class="o">|</span>
+<span class="o">--------------------------------------------------------</span>
+</pre></div>
+</div>
+<p>This indicates that you have defined the image points for an image in more than one file, and it most often happens when you accidentally re-use the ouput filename for multiple <code class="docutils literal notranslate"><span class="pre">SaisieAppuisInitQT</span></code> commands, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mm3d</span> <span class="n">SaisieAppuisInitQT</span> <span class="s2">&quot;AR5840034159994.tif&quot;</span> <span class="n">NONE</span> <span class="n">id_fiducial</span><span class="o">.</span><span class="n">txt</span> <span class="n">MeasuresIm</span><span class="o">-</span><span class="n">AR5840034159994</span><span class="o">.</span><span class="n">tif</span><span class="o">.</span><span class="n">xml</span>
+<span class="n">mm3d</span> <span class="n">SaisieAppuisInitQT</span> <span class="s2">&quot;AR5840034159995.tif&quot;</span> <span class="n">NONE</span> <span class="n">id_fiducial</span><span class="o">.</span><span class="n">txt</span> <span class="n">MeasuresIm</span><span class="o">-</span><span class="n">AR5840034159994</span><span class="o">.</span><span class="n">tif</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
+<p>To fix this, you’ll need to go through each MeasuresIm file and ensure that there is only one set of <code class="docutils literal notranslate"><span class="pre">&lt;NameIm&gt;</span></code> tags, and that the image named within the tag matches the MeasuresIm filename (i.e., check that you only have <code class="docutils literal notranslate"><span class="pre">&lt;NamePt&gt;AR5840034159994.tif&lt;/NamePt&gt;</span></code> in <strong>MeasuresIm-AR5840034159994.tif.xml</strong>, <code class="docutils literal notranslate"><span class="pre">&lt;NamePt&gt;AR5840034159995.tif&lt;/NamePt&gt;</span></code> in <strong>MeasuresIm-AR5840034159995.tif.xml</strong>, and so on.</p>
+</div>
 </div>
 <div class="section" id="computing-the-relative-orientation">
 <h2>computing the relative orientation<a class="headerlink" href="#computing-the-relative-orientation" title="Permalink to this headline"></a></h2>
