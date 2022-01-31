@@ -326,12 +326,12 @@ You should notice that the output for ``Campari`` tells you which control point 
 dem extraction and orthophoto generation
 ----------------------------------------
 
-The next step is to extract the DEM and create the orthophoto mosaic. First, run ``Malt`` to do the DEM extraction and create the individual orthophotos:
+The next step is to extract the DEM and create the orthophotomosaic. First, run ``Malt`` to do the DEM extraction and create the individual orthophotos:
 ::
 
     mm3d Malt Ortho "OIS.*tif" TerrainFinal MasqImGlob=filtre.tif NbVI=2 ZoomF=1 DefCor=0 CostTrans=4 EZA=1
 
-This will create two folders, **MEC-Malt** and **Ortho-MEC-Malt**. In **MEC-Malt**, you will find the DEM (**Z_Num9_DeZoom1_STD-Malt.tif**), as well as the correlation image (**Correl_STD-MALT_Num_8.tif**) and the image mask (**AutoMask_STD-MALT_Num_8.tif**). This will also take some time, depending on your computer – on my laptop, it takes around 10-15 minutes for this set of images. 
+This will create two folders, **MEC-Malt** and **Ortho-MEC-Malt**. In **MEC-Malt**, you will find the DEM (**Z_Num9_DeZoom1_STD-MALT.tif**), as well as the correlation image (**Correl_STD-MALT_Num_8.tif**) and the image mask (**AutoMask_STD-MALT_Num_8.tif**). This will also take some time, depending on your computer – on my laptop, it takes around 10-15 minutes for this set of images. 
 
 At the end, you can load the final DEM (**Z_Num9_DeZoom1-STD-MALT.tif**) into **QGIS** or **ArcGIS**. The image below shows a comparison between my results (hillshade, red profile line) and the Shuttle Radar Topography Mission (SRTM) DEM (black line):
 
@@ -368,7 +368,7 @@ This will create a worldfile for both the correlation mask and the AutoMask, ena
 Open the **Raster Calculator**. If you are using **ArcGIS**, skip to the next line below. If you are using **QGIS**, enter the following expression:
 ::
 
-    "Z_Num9_DeZoom1_STD-Malt@1" * ("AutoMask_STD-Malt_Num_8@1" > 0)
+    "Z_Num9_DeZoom1_STD-MALT@1" * ("AutoMask_STD-MALT_Num_8@1" > 0)
 
 .. image:: ../../../img/egm702/week1/qgis_rastercalc.png
     :width: 600
