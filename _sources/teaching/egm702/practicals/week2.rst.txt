@@ -423,7 +423,7 @@ To do the digitizing, I recommend using a combination of the elevation differenc
 next steps
 ----------
 
-I have provided these three DEMs (1979, 1984, and ca. 2015) already co-registered to the ca. 2008 ALOS PALSAR DEM. You can
+I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the ca. 2008 ALOS/PRISM DEM. You can
 check out the tutorial provided here: https://github.com/iamdonovan/dem-coregistration to learn more about how I've done
 this, and how you can co-register your own DEMs, either for your project, or for future work. 
 
