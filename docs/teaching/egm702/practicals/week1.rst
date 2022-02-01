@@ -240,7 +240,19 @@ To display **GCPs.txt** in QGIS, you can add them as a **Delimited Text Layer**.
 This will load the points into the map. You can also display the names of the points (**field_1** in the example above) as labels, so that you know which point is which on the map. 
 
 .. note::
-    To load the points in ArcMap or ArcGIS Pro, you might first need to replace the spaces in the text file with commas.
+    To load the points in ArcMap or ArcGIS Pro, you might first need to replace the spaces in the text file with commas. You may also need to replace the first two lines:
+    ::
+
+        #F= N X Y Z
+        #Here the coordinates are in UTM 10N X=Easting Y=Northing Z=Altitude
+
+    with the following:
+    ::
+
+        name,x,y,z
+
+    To be on the safe side, I recommend copying the file **GCPs.txt** to **GCPs.csv** before making these changes, as you will need the original txt file later on in the practical.
+
 
 We'll start by inputting **GCP0**. This GCP is the junction of two forest roads to the southwest of the mountain (but in the upper left of image **9996**, in the far upper left of image **9997**, and in the upper center of image **9995**). Open image **9995**:
 ::
