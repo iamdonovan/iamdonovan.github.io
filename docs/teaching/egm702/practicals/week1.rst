@@ -187,6 +187,39 @@ After this, you can compute the relative orientation using ``Tapas``:
 
 For these images, the estimated focal length is 302.26 mm, based on the value recorded by the camera at the time of acquisition. At this stage, we will keep the focal length fixed (``LibFoc=0``) to this value (which is stored in **MicMac-LocalChantierDescripteur.xml**). This will calibrate the relative orientation using a basic radial distortion camera model (``RadialBasic``). If you continue to use MicMac for your own projects, you might need to change the camera model used – you can check out the `MicMac Wiki <https://micmac.ensg.eu/index.php/Accueil>`__ to see the other camera models available.
 
+Tapas is run iteratively, meaning that it will go through several steps before finishing the calculation. The output should look something like this (note that you may need to scroll up a bit):
+
+.. image:: ../../../img/egm702/week1/tapas.png
+
+To explain what this means, we'll look at this block of text:
+::
+
+    RES:[OIS-Reech_AR5840034159994.tif][C] ER2 0.652321 Nn 99.7638 Of 2963 Mul 334 Mul-NN 334 Time 0.0829999
+    RES:[OIS-Reech_AR5840034159995.tif][C] ER2 0.693844 Nn 99.6733 Of 6121 Mul 1910 Mul-NN 1907 Time 0.182
+    RES:[OIS-Reech_AR5840034159996.tif][C] ER2 0.648174 Nn 99.6889 Of 11895 Mul 5307 Mul-NN 5297 Time 0.377
+    RES:[OIS-Reech_AR5840034159997.tif][C] ER2 0.659886 Nn 99.7007 Of 12696 Mul 5826 Mul-NN 5814 Time 0.399
+    RES:[OIS-Reech_AR5840034159998.tif][C] ER2 0.677032 Nn 99.7247 Of 10897 Mul 4329 Mul-NN 4320 Time 0.333
+    RES:[OIS-Reech_AR5840034159999.tif][C] ER2 0.697072 Nn 99.7558 Of 4914 Mul 929 Mul-NN 927 Time 0.14
+
+This shows the total residual (in pixels) for all of the tie points found in each image, excluding outliers (**ER2**), as well as the percentage of tie points out of the total number of tie points in each image (**Nn XX of XX**) that were correct within the maximum acceptable error before a point is considered an outlier. It also shows how many points are seen in > 2 images (**Mul**), and the number of points that were properly located (**Mul-NN**), as well as the time it took to do the calculation.
+
+Below that, we see information about the set of images as a whole:
+::
+
+    ----- Stat on type of point (ok/elim) ----
+         *   Perc=99.709% ;  Nb=49342 for Ok
+         *   Perc=0.290991% ;  Nb=144 for PdsResNull
+    ---------------------------------------
+    | |  Residual = 0.671665 ;; Evol, Moy=4.31328e-08 ,Max=5.30388e-08
+    | |  Worst, Res 0.697072 for OIS-Reech_AR5840034159999.tif,  Perc 99.6733 for OIS-Reech_AR5840034159995.tif
+    | |  Cond , Aver 9.23336 Max 58.0925 Prop>100 0
+
+This says that 99.709% of all tie points (49342 points) were "Ok" - that is, using the calibrated camera model and orientation, the location of each point agreed with the predicted location within the maximum allowed error. Only 0.290991% of points (140 points) had an invalid residual.
+
+Below this, we see the total residual for all points in all images was 0.671665 - this indicates that the cameras are generally well-calibrated, and the images are well-placed. If the residual is very high, you might need to re-do the earlier steps of placing the fiducial markers, resampling the images, and finding the tie points. 
+
+You can also see that the "Worst" residual was 0.697072 for image **OIS-Reech_AR5840034159999.tif** - if the residual for an individual image is high, this is a hint as to which image might need to be re-done.
+
 Now, let's visualize the relative orientation using ``AperiCloud`` and **MeshLab** (or **CloudCompare**). First, run this command:
 ::
 
@@ -299,7 +332,58 @@ This will compute a rough transformation between the relative geometry and the r
     :align: center
     :alt: the end of the output of GCP Bascule
 
-As long as your errors aren't large (<2 pixels or so), you can move on. If you have large errors, you'll need to carefully check the locations of your GCPs. If you scroll up in the **Command Prompt** window, you should see a report for each of the GCPs you have input, including which image has the largest error (**ErrMax**). You can use this information to decide which image and which GCP needs to be fixed, either by moving it or by deleting the GCP from the image.
+There are a few things to note here. The first is the output for the individual points, which you can see at the top of the image. If you've only put in **GCP0**, **GCP6**, and **GCP13**, you'll only see residual information for those points - the rest will look like what we see for **GCP5**:
+::
+
+    ==== ADD Pts GCP5 Has Gr 1 Inc [1, 1, 1]
+    NOT OK (UPL) FOR GCP5 , Reason NoPb
+
+What this shows that **GCP5** is not used ("NOT OK"), with the reason given that there are no points to work with ("NoPb"). Below that, you can see the output for **GCP6**:
+::
+
+    ==== ADD Pts GCP6 Has Gr 1 Inc [1, 1, 1]
+    --NamePt GCP6 Ec Estim-Ter [-4.50946,2.33578,-2.32917]           Dist =5.58714 ground units
+    Inc = [1,1,1]PdsIm = [1e+08,1e+08,1e+08]
+        Ecart Estim-Faisceaux 0.00155021 Ter-Faisceau [4.50878,-2.33578,2.32778] D= 5.58601
+          ErrMoy 0.0844219 pixels  Nb measures=3
+         ErrMax = 0.011786 pixels, For Im=OIS-Reech_AR5840034159996.tif,  Point=GCP6
+
+Starting from the bottom:
+::
+
+    ErrMax = 0.011786 pixels, For Im=OIS-Reech_AR5840034159996.tif,  Point=GCP6
+
+This says that the estimated maximum error (``ErrMax``) is 0.011786 pixels, and that's the measurement taken from image **OIS-Reech_AR5840034159996.tif**.
+
+The line before that:
+::
+
+    ErrMoy 0.0844219 pixels  Nb measures=3
+
+Says that the average pixel error (``ErrMoy``) is 0.0844219 pixels, and that there are 3 images where GCP6 has been input (``Nb measures=3``). On the second line:
+::
+
+    --NamePt GCP6 Ec Estim-Ter [-4.50946,2.33578,-2.32917]           Dist =5.58714 ground units
+
+This tells us that for this point (**GCP6**), the difference between the best estimate and the "true" location (``Estim-Ter``) is -4.50946 ground units (meters) in the *x* direction, 2.33578 m in the *y* direction, and -2.32917 m in the *z* direction, for a total distance (:math:`\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}y^2}`) of 5.58714 m. The total distance (**Dist**) is then 5.58714 "ground units" - since we're working with UTM points, this would be meters.
+
+Below that line:
+::
+
+    Ecart Estim-Faisceaux 0.00155021 Ter-Faisceau [4.50878,-2.33578,2.32778] D= 5.58601
+
+This tells us that the difference between the position estimated from the "true" location and the bundle adjustment (``Ter-Faisceau``) is 4.50878 ground units (meters) in the *x* direction, -2.33578 m in the *y* direction, and 2.32778 m in the *z* direction, for a total distance (:math:`\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}y^2}`) of 5.58601 m.
+
+Finally, at the very bottom, we see the following:
+::
+
+   ============================== ERRROR MAX PTS FL =====================
+   ||     Value=0.505585 for Cam=OIS-Reech_AR584003415997.tif and Pt=GCP0 ; MoyErr=0.244851
+   ======================================================================
+
+This gives us the summary for the entire set of GCPs and images. Here, we can see that the maximum error is 0.505585 pixels for **GCP0** in image **OIS-Reech_AR5840034159997.tif**, and the average error for all points in all images (**MoyErr**) is 0.244851 pixels.
+
+As long as your errors aren't very large (both **ErrMax** and **MoyErr** < 2 pixels or so), you can move on to the next steps. If you have large (residual) errors, you'll need to carefully check the locations of your GCPs. By reading the report for each GCP, you can see which image has the largest residual for each point, and try to correct the points to improve the overall residual.
 
 The next step is to run ``SaisieAppuisPredicQT``:
 ::
@@ -326,14 +410,79 @@ Once you've input enough GCPs (at least 10), you can run ``GCPBascule`` again, w
 
     mm3d GCPBascule "OIS.*tif" TerrainInit TerrainBrut GCPs.xml MeasuresFinales-S2D.xml
 
-The next step is to run ``Campari``, which will perform the bundle adjustment and refine the camera calibration even further:
+Check the output of ``GCPBascule``, using the information in the previous section, and make sure that there aren't any large outliers.
+
+As long as the ``GCPBascule`` output looks okay, the next step is to run ``Campari``, which will perform the bundle adjustment and refine the camera calibration even further:
 ::
 
     mm3d Campari "OIS.*tif" TerrainBrut TerrainFinal GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2] SH=HomolMasqFiltered AllFree=1
 
-The numerical values in the GCP option (``5`` and ``2`` in ``GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2]``) are the estimate of the GCP accuracy in world coordinates (first number) and in pixels (second number). For now, I recommend keeping them at these default values, but feel free to experiment after you've gotten the hang of it somewhat.
+This will take the orientation estimated in ``Ori-TerrainBrut`` [we drop the ``Ori-`` when entering the command], and create a new orientation directory, ``Ori-TerrainFinal``. The numerical values in the GCP option (``5`` and ``2`` in ``GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2]``) are the estimate of the GCP accuracy in world coordinates (first number) and in pixels (second number). 
 
-You should notice that the output for ``Campari`` tells you which control point has the greatest error (in pixels), and for which image. If your errors are large, this can be a hint as to which GCPs you should try to re-position (running ``SaisiePredicQT`` again, followed by ``GCPBascule`` and ``Campari``) before moving on to the next steps.
+For now, I recommend keeping them at these default values, but feel free to experiment after you've gotten the hang of it somewhat. 
+
+The ``SH=HomolMasqFiltered`` flag tells ``Campari`` to use the tie points found in ``HomolMasqFiltered`` - if you haven't done the ``HomolFilterMasq`` step, leave this flag out. Finally, the ``AllFree=1`` flag means that we're also refining the camera calibration (focal length, principal point location, radial distortion), in addition to resolving the camera orientations.
+
+The output for ``Campari`` is iterative, meaning that it will go through several steps. At the end of the output, you should see something like this (note that you may need to scroll up):
+
+.. image:: ../../../img/egm702/week1/campari_output.png
+    :width: 400
+    :align: center
+    :alt: the output of campari
+
+The information for each GCP looks fairly similar to the output for ``GCPBascule``. Taking the output for **GCP6** again:
+::
+
+    ==== ADD Pts GCP6 Has Gr 1 Inc [5,5,5]
+    --NamePt GCP6 Ec Estim-Ter [-3.47157,-1.35434,-0.48158]           Dist =3.75739 ground units
+    Inc = [5,5,5]PdsIm = [0.25,0.25,0.25]
+        Ecart Estim-Faisceaux 4.92851 Ter-Faisceau [4.1262,1.5956,5.36046] D= 6.95026
+          ErrMoy 0.595718 pixels  Nb measures=3
+         ErrMax = 0.871427 pixels, For Im=OIS-Reech_AR5840034159997.tif,  Point=GCP6    
+
+We can see that the maximum error (**ErrMax**) of 0.871427 pixels is found in image **OIS-Reech_AR5840034159997.tif**, and the average pixel error of 3 measurements is 0.595718 pixels. The difference between the initial estimate and the "true" location (in *x*, *y*, *z*) is -3.47157 m, -1.35434 m, -0.48158 m, for a total distance of 3.75739 m. The difference between the "true" location and the predicted location after the bundle adjustment (again in *x*, *y*, *z*) is 4.1262 m, 1.5956 m, 5.36046 m, for a total distance of 6.95026 m. 
+
+As with ``GCPBascule``, we can see the maximum error for all points in all images:
+::
+
+   ============================= ERRROR MAX PTS FL ======================
+   ||    Value=3.2908 for Cam=OIS-Reech_AR5840034159995.tif and Pt=GCP4 ; MoyErr=1.0297
+   ======================================================================
+
+In this case, the maximum error is 3.2908 pixels for **GCP4** in image **OIS-Reech_AR5840034159995.tif**, and the average error (**MoyErr**) for all points in all images is 1.0297 pixels. These are generally acceptable errors, though you might want to try working on correcting these further.
+
+The next block of output:
+::
+
+    RES:[OIS-Reech_AR5840034159994.tif][C] ER2 0.705727 Nn 99.7638 Of 2963 Mul 334 Mul-NN 334 Time 0.0899999
+    RES:[OIS-Reech_AR5840034159995.tif][C] ER2 0.781405 Nn 99.6569 Of 6121 Mul 1910 Mul-NN 1907 Time 0.189
+    RES:[OIS-Reech_AR5840034159996.tif][C] ER2 0.734471 Nn 99.7058 Of 11895 Mul 5307 Mul-NN 5298 Time 0.386
+    RES:[OIS-Reech_AR5840034159997.tif][C] ER2 0.727616 Nn 99.7086 Of 12696 Mul 5826 Mul-NN 5815 Time 0.471
+    RES:[OIS-Reech_AR5840034159998.tif][C] ER2 0.737522 Nn 99.7247 Of 10897 Mul 4329 Mul-NN 4321 Time 0.338
+    RES:[OIS-Reech_AR5840034159999.tif][C] ER2 0.732468 Nn 99.7965 Of 4914 Mul 929 Mul-NN 928 Time 0.145
+
+Looks very similar to the output from ``Tapas``. Each line tells us the total residual (in pixels) for all of the tie points found in each image (**ER2**), as well as the percentage of tie points out of the total number of tie points in each image (**Nn XX of XX**) that were correct within the maximum acceptable error before a point is considered an outlier. It also shows how many points are seen in > 2 images (**Mul**), and the number of points that were properly located (**Mul-NN**), as well as the time it took to do the calculation. 
+
+As long as the residual for each image is fairly low (< 2 or so), and the percentage is reasonably close to 100, you should be able to continue to the next step and get usable, if not perfect, results.
+
+And finally, we can see the stats for the whole block of images:
+::
+
+    ----- Stat on type of point (ok/elim) ----
+         *   Perc=99.7171% ;  Nb=49346 for Ok
+         *   Perc=0.282908% ;  Nb=140 for PdsResNull
+    ---------------------------------------
+    | |  Residual = 0.736882 ;; Evol, Moy=9.74916e-09 ,Max=9.14609e-08
+    | |  Worst, Res 0.781405 for OIS-Reech_AR5840034159995.tif,  Perc 99.6569 for OIS-Reech_AR5840034159995.tif
+    | |  Cond , Aver 9.24052 Max 58.2018 Prop>100 0
+
+This says that 99.7171% of all tie points (49346 points) were "Ok" - that is, using the calibrated camera model and orientation, the location of each point agreed with the predicted location within the maximum allowable error before the points are considered outliers. Only 0.282908% of points (140 points) had an invalid residual - it helps that the images have a fair amount of texture, without large featureless areas.
+
+Below this, we see the total residual for all points in all images was 0.736882 - this indicates that the cameras are generally well-calibrated, and the images are well-placed. If the residual is very high (> 2 or so), you'll need to work on improving the placement of your GCPs, using the individual report for each GCP as detailed above. 
+
+You can also see that the "Worst" residual was 0.781405 for image **OIS-Reech_AR5840034159995.tif** - if the residual for an individual image is high, this is a hint as to where you should try to check the positioning of your GCPs.
+
+As before, if the errors here are large, or the percentage of "Ok" points is very low, check the report for the individual GCPs to see which one(s) might need to be re-positioned, and in which image(s). Once you've attempted to correct the position in each image, be sure to run ``SaisiePredicQT`` again, followed by ``GCPBascule`` and ``Campari``, before moving on to the next steps.
 
 dem extraction and orthophoto generation
 ----------------------------------------
