@@ -24,7 +24,7 @@ To begin, point your browser to https://code.earthengine.google.com. If you are 
     :alt: the GEE console with annotations
 
 
-Now, to import the intro script, follow `this link <https://code.earthengine.google.com/0602d0266b47a7ff9708931f20f9523d?noload=true>`__. It should open the following:
+Now, to import the intro script, follow `this link <https://code.earthengine.google.com/eb944bc713d31986b7d4b6bfce06fe76?noload=true>`__. It should open the following:
 
 .. image:: ../../../img/egm702/week3/loaded_script.png
     :width: 600
@@ -115,9 +115,9 @@ archive:
       .filter(ee.Filter.eq('WRS_PATH', 46))
       .filter(ee.Filter.eq('WRS_ROW', 28));
 
-For a refresher on the difference between Surface Reflectance and TOA reflectance, see here: https://www.usgs.gov/core-science-systems/nli/landsat/landsat-collection-1-surface-reflectance.
+For a refresher on the difference between Surface Reflectance and TOA reflectance, see here: https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance
 
-The following set of lines will return the image from these collections that has the lowest cloud cover, selecting only images
+The following set of lines will return the image from the surface reflectance collection that has the lowest cloud cover, selecting only images
 from 2020. It will also make sure to only select the coastal/visible/NIR/SWIR Landsat band layers (Bands 1-7).
 
 .. code-block:: javascript
@@ -175,13 +175,17 @@ The final part of this first section is where we add the images to the map:
 .. code-block:: javascript
 
     // add the best images from each collection to the Map as a true-color composite
-    Map.addLayer(toa_image, {bands: ['B4', 'B3', 'B2'], max: [0.18, 0.22, 0.22], gamma: [0.95, 1.2, 1]}, 'TOA Image');
-    Map.addLayer(sr_image, {bands: ['B4', 'B3', 'B2'], min: 7500, max: 20000, gamma: 1.5}, 'SR Image');
+    Map.addLayer(toa_image, {bands: ['B4', 'B3', 'B2'],
+      min: 0.005, max: 0.4, gamma: 1.5}, 'TOA Image');
+
+    // add SR image after rescaling DN values
+    Map.addLayer(landsatRescale(sr_image), {bands: ['SR_B4', 'SR_B3', 'SR_B2'], 
+      min: 0.005, max: 0.4, gamma: 1.5}, 'SR Image');
 
     // center the image on Mt St Helens with a zoom level of 12
     Map.setCenter(-122.1886, 46.1998, 12);
 
-We want them to be true-colour composites, so we display them with bands 4,3,2. The TOA reflectance image will look a bit difference, so we use slightly different colour settings.
+We want them to be true-colour composites, so we display them with bands 4,3,2. and we'll apply a gamma adjustment to help brighten the image slightly.
 At this point, you can run the script, either by pressing **CTRL + Enter**, or by clicking **Run** at the top of the code editor panel. Once
 the script finishes running, you should see this:
 
@@ -208,8 +212,12 @@ In the **Console** panel, you should see the following:
     :alt: the output to the console after running Step 1.
 
 This shows that the 2 images are the same image, just different processing levels. Now, in the **Map** panel, turn off the SR Image
-to see the TOA Image underneath. What differences do you notice? Why do you think these layers look so different? Try
-adjusting the colours for the TOA or the SR Image – you can start with a 98% stretch by clicking the **Custom** button in the
+to see the TOA Image underneath. 
+
+- What differences do you notice? 
+- Why do you think these layers look so different (or do they)? 
+
+Try adjusting the colours for the TOA or the SR Image – you can start with a 98% stretch by clicking the **Custom** button in the
 visualization parameters panel. Try different band combinations, too. For example, change the display bands to bands 7, 6, and
 5, and apply a 98% stretch to both images. Do you notice more, or less of a difference for this band combination? **Why do you
 think that might be?**
@@ -237,7 +245,7 @@ available within GEE. We'll start by adding the NASADEM, ALOS World 3D – 30 m 
 information on the different DEMs that GEE has available, check the data catalog here: 
 https://developers.google.com/earth-engine/datasets/tags/elevation. 
 
-Uncomment the next block of lines (delete the ``/*`` at line 130 and the ``*/`` at line 150) to add these DEMs to the code editor.
+Uncomment the next block of lines (delete the ``/*`` at line 143 and the ``*/`` at line 163) to add these DEMs to the code editor.
 You should see the following from lines 129--144:
 
 .. code-block:: javascript
@@ -285,7 +293,7 @@ differences? Some questions you might want to ponder:
 - Which DEM do you think was produced from the highest-resolution sensor?
 - What surface(s) are represented by the different DEMs? Are they DTMs or DSMs?
 
-Next, uncomment the following lines (remove the ``/*`` from line 151 and the ``*/`` from line 161):
+Next, uncomment the following lines (remove the ``/*`` from line 164 and the ``*/`` from line 174):
 
 .. code-block:: javascript
 
@@ -320,7 +328,7 @@ You can click the arrow next to each **Object** to expand it and see the results
 
 Expand the stats for each of the DEMs by clicking on the arrows. What do you notice about them – are there differences? Why do you think this might be?
 
-Finally, uncomment the last block of code in this section (remove the ``/*`` from line 163 and the ``*/`` from line 171) to export the SRTM image:
+Finally, uncomment the last block of code in this section (remove the ``/*`` from line 176 and the ``*/`` from line 184) to export the SRTM image:
 
 .. code-block:: javascript
 
@@ -381,7 +389,7 @@ difference, a histogram seems like the appropriate choice:
 
 This will calculate a histogram of the elevation differences with up to 256 bins. Finally, we can print the chart to the **Console**,
 calculate statistics of the differences between the DEMs, and run the ``nmad()`` function defined earlier. Uncomment the last few
-lines in this section (remove the ``//`` from the beginning of lines 192--194), then run the code:
+lines in this section (remove the ``//`` from the beginning of lines 205--207), then run the code:
 
 .. code-block:: javascript
 
@@ -399,8 +407,10 @@ You should see the following in the **Console**:
 If you click the symbol in the upper right corner of the histogram, it will open in a new browser window. On this page, you can
 also download a csv file with the values in the plot, or a Scalable Vector Graphics (SVG) or PNG version of the chart.
 
-Look at the statistics of the DEM differences – what do you notice about the differences? Based on the histogram that you see, and
-the lecture from Week 2, is the standard deviation an appropriate metric to describe the variation in the data? **Why or why not?**
+Look at the statistics of the DEM differences – what do you notice about the differences? Based on the shape of the histogram that you see,
+the lecture from Week 2, and Höhle and Höhle (2009)\ [2]_, is the standard deviation an appropriate metric
+to describe the variation in the data? **Why or why not?** 
+
 Again, post any thoughts/questions you have to the discussion board.
 
 step 4. search all of the images, make an animated gif
@@ -413,7 +423,7 @@ near-infrared false colour composite (near-infrared/red/green) for consistency.
     As of 1 February 2022, Collection 2 MSS scenes are not available in GEE, so the following combines the Collection 1 MSS scenes
     with the Collection 2 TM, ETM+, and OLI scenes.
 
-To be able to run the code in this section, uncomment the whole section (remove the ``/*`` from line 198 and the ``*/`` from line 288).
+To be able to run the code in this section, uncomment the whole section (remove the ``/*`` from line 211 and the ``*/`` from line 301).
 We'll walk through what each block does in turn before running the code.
 
 The first lines in this section set the visualization parameters for the MSS scenes and the other sensors:
@@ -552,4 +562,7 @@ references
 ----------
 
 .. [1] Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. *Rem. Sens. Env.* 202, 18-27. doi: `10.1016/j.rse.2017.06.031 <https://doi.org/10.1016/j.rse.2017.06.031>`__
+
+.. [2] Höhle, J. & Höhle, M. (2009). Accuracy assessment of digital elevation models by means of robust statistical methods. *ISPRS J. Photogramm. Rem. Sens.* 64, 398–406. doi: `10.1016/j.isprsjprs.2009.02.003 <https://doi.org/10.1016/j.isprsjprs.2009.02.003>`__
+
 
