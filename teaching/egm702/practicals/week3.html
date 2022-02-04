@@ -92,7 +92,7 @@
 <style> .green {color:green} </style><div class="section" id="introduction">
 <h2>introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if you have no prior experience with programming, you will be able to complete this practical. All of the programming steps have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.</p>
-<p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id2" id="id1">1</a>). With it, users have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification, and computational power above what an average desktop user has access to.</p>
+<p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id3" id="id1">1</a>). With it, users have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification, and computational power above what an average desktop user has access to.</p>
 </div>
 <div class="section" id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
@@ -271,7 +271,7 @@ wavelength ranges for the different bands of the sensor(s), their resolutions, a
 <p>The final part of this first section is where we add the images to the map:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the best images from each collection to the Map as a true-color composite</span>
 <span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">toa_image</span><span class="p">,</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">],</span> <span class="nx">max</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">],</span> <span class="nx">gamma</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1</span><span class="p">]},</span> <span class="s1">&#39;TOA Image&#39;</span><span class="p">);</span>
-<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">sr_image</span><span class="p">,</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">],</span> <span class="nx">min</span><span class="o">:</span> <span class="mf">7500</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">20000</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span> <span class="s1">&#39;SR Image&#39;</span><span class="p">);</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">sr_image</span><span class="p">,</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span> <span class="nx">min</span><span class="o">:</span> <span class="mf">7500</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">20000</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span> <span class="s1">&#39;SR Image&#39;</span><span class="p">);</span>
 
 <span class="c1">// center the image on Mt St Helens with a zoom level of 12</span>
 <span class="nx">Map</span><span class="p">.</span><span class="nx">setCenter</span><span class="p">(</span><span class="o">-</span><span class="mf">122.1886</span><span class="p">,</span> <span class="mf">46.1998</span><span class="p">,</span> <span class="mf">12</span><span class="p">);</span>
@@ -289,8 +289,12 @@ name, you can make either image visible/invisible.</p>
 <p>In the <strong>Console</strong> panel, you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/console1.png"><img alt="the output to the console after running Step 1." class="align-center" src="../../../_images/console1.png" style="width: 400px;" /></a>
 <p>This shows that the 2 images are the same image, just different processing levels. Now, in the <strong>Map</strong> panel, turn off the SR Image
-to see the TOA Image underneath. What differences do you notice? Why do you think these layers look so different? Try
-adjusting the colours for the TOA or the SR Image – you can start with a 98% stretch by clicking the <strong>Custom</strong> button in the
+to see the TOA Image underneath.</p>
+<ul class="simple">
+<li><p>What differences do you notice?</p></li>
+<li><p>Why do you think these layers look so different (or do they)?</p></li>
+</ul>
+<p>Try adjusting the colours for the TOA or the SR Image – you can start with a 98% stretch by clicking the <strong>Custom</strong> button in the
 visualization parameters panel. Try different band combinations, too. For example, change the display bands to bands 7, 6, and
 5, and apply a 98% stretch to both images. Do you notice more, or less of a difference for this band combination? <strong>Why do you
 think that might be?</strong></p>
@@ -428,9 +432,10 @@ lines in this section (remove the <code class="docutils literal notranslate"><sp
 <a class="reference internal image-reference" href="../../../_images/histogram1.png"><img alt="the histogram showing the differences between the NASADEM and the SRTM DEM." class="align-center" src="../../../_images/histogram1.png" style="width: 600px;" /></a>
 <p>If you click the symbol in the upper right corner of the histogram, it will open in a new browser window. On this page, you can
 also download a csv file with the values in the plot, or a Scalable Vector Graphics (SVG) or PNG version of the chart.</p>
-<p>Look at the statistics of the DEM differences – what do you notice about the differences? Based on the histogram that you see, and
-the lecture from Week 2, is the standard deviation an appropriate metric to describe the variation in the data? <strong>Why or why not?</strong>
-Again, post any thoughts/questions you have to the discussion board.</p>
+<p>Look at the statistics of the DEM differences – what do you notice about the differences? Based on the shape of the histogram that you see,
+the lecture from Week 2, and Höhle and Höhle (2009)<a class="footnote-reference brackets" href="#id4" id="id2">2</a>, is the standard deviation an appropriate metric
+to describe the variation in the data? <strong>Why or why not?</strong></p>
+<p>Again, post any thoughts/questions you have to the discussion board.</p>
 </div>
 <div class="section" id="step-4-search-all-of-the-images-make-an-animated-gif">
 <h2>step 4. search all of the images, make an animated gif<a class="headerlink" href="#step-4-search-all-of-the-images-make-an-animated-gif" title="Permalink to this headline"></a></h2>
@@ -558,8 +563,11 @@ In next week’s practical, we’ll work on additional analyses using GEE, inclu
 <div class="section" id="references">
 <h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. <em>Rem. Sens. Env.</em> 202, 18-27. doi: <a class="reference external" href="https://doi.org/10.1016/j.rse.2017.06.031">10.1016/j.rse.2017.06.031</a></p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Höhle, J. &amp; Höhle, M. (2009). Accuracy assessment of digital elevation models by means of robust statistical methods. <em>ISPRS J. Photogramm. Rem. Sens.</em> 64, 398–406. doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2009.02.003">10.1016/j.isprsjprs.2009.02.003</a></p>
 </dd>
 </dl>
 </div>
@@ -576,7 +584,7 @@ In next week’s practical, we’ll work on additional analyses using GEE, inclu
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Bob McNabb.</p>
+    <p>&#169; Copyright 2021, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
