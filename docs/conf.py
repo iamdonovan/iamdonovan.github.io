@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'iamdonovan'
-copyright = '2021, Bob McNabb'
+copyright = '2021, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
 author = 'Bob McNabb'
 
 
@@ -27,8 +27,10 @@ author = 'Bob McNabb'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-]
+extensions = ['sphinxcontrib.bibtex']
+
+bibtex_bibfiles = ['refs.bib']
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
