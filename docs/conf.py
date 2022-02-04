@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'iamdonovan'
-copyright = '2021, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
+copyright = '2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
 author = 'Bob McNabb'
 
 
