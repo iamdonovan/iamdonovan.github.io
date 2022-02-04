@@ -98,7 +98,7 @@
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using your GEE account. You should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/annotated_window.png"><img alt="the GEE console with annotations" class="align-center" src="../../../_images/annotated_window.png" style="width: 600px;" /></a>
-<p>Now, to import the intro script, follow <a class="reference external" href="https://code.earthengine.google.com/0602d0266b47a7ff9708931f20f9523d?noload=true">this link</a>. It should open the following:</p>
+<p>Now, to import the intro script, follow <a class="reference external" href="https://code.earthengine.google.com/eb944bc713d31986b7d4b6bfce06fe76?noload=true">this link</a>. It should open the following:</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_script.png"><img alt="the gee window after loading the script" class="align-center" src="../../../_images/loaded_script.png" style="width: 600px;" /></a>
 <p>Click the red NEW button in the Script manager, and select <strong>Repository</strong>. Call the repository <code class="docutils literal notranslate"><span class="pre">egm702</span></code>, and then click <strong>Create</strong>. Next, in the code editor, type your name after “Practical 3” – this will enable you to save the script to your new repository. Call it <code class="docutils literal notranslate"><span class="pre">practical3</span></code>, and click <strong>OK</strong> to save the script to the new repository.</p>
 <a class="reference internal image-reference" href="../../../_images/save_script.png"><img alt="the save script dialogue" class="align-center" src="../../../_images/save_script.png" style="width: 300px;" /></a>
@@ -163,8 +163,8 @@ archive:</p>
   <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">));</span>
 </pre></div>
 </div>
-<p>For a refresher on the difference between Surface Reflectance and TOA reflectance, see here: <a class="reference external" href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-collection-1-surface-reflectance">https://www.usgs.gov/core-science-systems/nli/landsat/landsat-collection-1-surface-reflectance</a>.</p>
-<p>The following set of lines will return the image from these collections that has the lowest cloud cover, selecting only images
+<p>For a refresher on the difference between Surface Reflectance and TOA reflectance, see here: <a class="reference external" href="https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance">https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance</a></p>
+<p>The following set of lines will return the image from the surface reflectance collection that has the lowest cloud cover, selecting only images
 from 2020. It will also make sure to only select the coastal/visible/NIR/SWIR Landsat band layers (Bands 1-7).</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Find the least cloudy image from 2020, and clip it to the boundary.</span>
 <span class="kd">var</span> <span class="nx">sr_image</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">((</span><span class="nx">lc08</span><span class="p">)</span>
@@ -270,14 +270,18 @@ wavelength ranges for the different bands of the sensor(s), their resolutions, a
 <p>For information about the band designations for the other Landsat sensors, see this page from the USGS: <a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites</a></p>
 <p>The final part of this first section is where we add the images to the map:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the best images from each collection to the Map as a true-color composite</span>
-<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">toa_image</span><span class="p">,</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">],</span> <span class="nx">max</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">],</span> <span class="nx">gamma</span><span class="o">:</span> <span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1</span><span class="p">]},</span> <span class="s1">&#39;TOA Image&#39;</span><span class="p">);</span>
-<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">sr_image</span><span class="p">,</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span> <span class="nx">min</span><span class="o">:</span> <span class="mf">7500</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">20000</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span> <span class="s1">&#39;SR Image&#39;</span><span class="p">);</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">toa_image</span><span class="p">,</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">],</span>
+  <span class="nx">min</span><span class="o">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span> <span class="s1">&#39;TOA Image&#39;</span><span class="p">);</span>
+
+<span class="c1">// add SR image after rescaling DN values</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">landsatRescale</span><span class="p">(</span><span class="nx">sr_image</span><span class="p">),</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span>
+  <span class="nx">min</span><span class="o">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span> <span class="s1">&#39;SR Image&#39;</span><span class="p">);</span>
 
 <span class="c1">// center the image on Mt St Helens with a zoom level of 12</span>
 <span class="nx">Map</span><span class="p">.</span><span class="nx">setCenter</span><span class="p">(</span><span class="o">-</span><span class="mf">122.1886</span><span class="p">,</span> <span class="mf">46.1998</span><span class="p">,</span> <span class="mf">12</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We want them to be true-colour composites, so we display them with bands 4,3,2. The TOA reflectance image will look a bit difference, so we use slightly different colour settings.
+<p>We want them to be true-colour composites, so we display them with bands 4,3,2. and we’ll apply a gamma adjustment to help brighten the image slightly.
 At this point, you can run the script, either by pressing <strong>CTRL + Enter</strong>, or by clicking <strong>Run</strong> at the top of the code editor panel. Once
 the script finishes running, you should see this:</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_image.png"><img alt="the script after having added the image from step 1." class="align-center" src="../../../_images/loaded_image.png" style="width: 600px;" /></a>
@@ -318,7 +322,7 @@ DD):</p>
 available within GEE. We’ll start by adding the NASADEM, ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM. For more
 information on the different DEMs that GEE has available, check the data catalog here:
 <a class="reference external" href="https://developers.google.com/earth-engine/datasets/tags/elevation">https://developers.google.com/earth-engine/datasets/tags/elevation</a>.</p>
-<p>Uncomment the next block of lines (delete the <code class="docutils literal notranslate"><span class="pre">/*</span></code> at line 130 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> at line 150) to add these DEMs to the code editor.
+<p>Uncomment the next block of lines (delete the <code class="docutils literal notranslate"><span class="pre">/*</span></code> at line 143 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> at line 163) to add these DEMs to the code editor.
 You should see the following from lines 129–144:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// step 2. add a DEM, print statistics</span>
 
@@ -357,7 +361,7 @@ differences? Some questions you might want to ponder:</p>
 <li><p>Which DEM do you think was produced from the highest-resolution sensor?</p></li>
 <li><p>What surface(s) are represented by the different DEMs? Are they DTMs or DSMs?</p></li>
 </ul>
-<p>Next, uncomment the following lines (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 151 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 161):</p>
+<p>Next, uncomment the following lines (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 164 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 174):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// calculate statistics</span>
 <span class="kd">var</span> <span class="nx">alos_stats</span> <span class="o">=</span> <span class="nx">imgStats</span><span class="p">(</span><span class="nx">alos_dsm</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;AVE_DSM&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">nasa_stats</span> <span class="o">=</span> <span class="nx">imgStats</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
@@ -377,7 +381,7 @@ maximum elevation values in each of the different DEMs. Uncomment the next lines
 <p>You can click the arrow next to each <strong>Object</strong> to expand it and see the results:</p>
 <a class="reference internal image-reference" href="../../../_images/printed_stats.png"><img alt="the stats printed to the console panel" class="align-center" src="../../../_images/printed_stats.png" style="width: 400px;" /></a>
 <p>Expand the stats for each of the DEMs by clicking on the arrows. What do you notice about them – are there differences? Why do you think this might be?</p>
-<p>Finally, uncomment the last block of code in this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 163 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 171) to export the SRTM image:</p>
+<p>Finally, uncomment the last block of code in this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 176 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 184) to export the SRTM image:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Export</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">toDrive</span><span class="p">({</span><span class="nx">image</span><span class="o">:</span> <span class="nx">srtm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;elevation&#39;</span><span class="p">),</span>
   <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;MtStHelens_SRTM&#39;</span><span class="p">,</span>
   <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
@@ -422,7 +426,7 @@ difference, a histogram seems like the appropriate choice:</p>
 </div>
 <p>This will calculate a histogram of the elevation differences with up to 256 bins. Finally, we can print the chart to the <strong>Console</strong>,
 calculate statistics of the differences between the DEMs, and run the <code class="docutils literal notranslate"><span class="pre">nmad()</span></code> function defined earlier. Uncomment the last few
-lines in this section (remove the <code class="docutils literal notranslate"><span class="pre">//</span></code> from the beginning of lines 192–194), then run the code:</p>
+lines in this section (remove the <code class="docutils literal notranslate"><span class="pre">//</span></code> from the beginning of lines 205–207), then run the code:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">print</span><span class="p">(</span><span class="nx">hist</span><span class="p">);</span>
 <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;dH statistics: &#39;</span><span class="p">,</span> <span class="nx">imgStats</span><span class="p">(</span><span class="nx">nasa_srtm</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;elevation&#39;</span><span class="p">));</span>
 <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;NMAD: &#39;</span><span class="p">,</span> <span class="nx">nmad</span><span class="p">(</span><span class="nx">nasa_srtm</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;elevation&#39;</span><span class="p">));</span>
@@ -447,7 +451,7 @@ near-infrared false colour composite (near-infrared/red/green) for consistency.<
 <p>As of 1 February 2022, Collection 2 MSS scenes are not available in GEE, so the following combines the Collection 1 MSS scenes
 with the Collection 2 TM, ETM+, and OLI scenes.</p>
 </div>
-<p>To be able to run the code in this section, uncomment the whole section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 198 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 288).
+<p>To be able to run the code in this section, uncomment the whole section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 211 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 301).
 We’ll walk through what each block does in turn before running the code.</p>
 <p>The first lines in this section set the visualization parameters for the MSS scenes and the other sensors:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// set visualization parameters for the MSS scenes</span>
@@ -584,7 +588,7 @@ In next week’s practical, we’ll work on additional analyses using GEE, inclu
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
