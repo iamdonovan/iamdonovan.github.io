@@ -286,6 +286,11 @@ This will load the points into the map. You can also display the names of the po
 
     To be on the safe side, I recommend copying the file **GCPs.txt** to **GCPs.csv** before making these changes, as you will need the original txt file later on in the practical.
 
+.. note::
+
+    You may notice that the air photos are rotated relative to the ground, as they were acquired while flying South-North. 
+    You may find it helpful to rotate your map so that North is to the right (i.e., a 270° rotation), so that what you see 
+    on the map has the same orientation as the air photos.
 
 We'll start by inputting **GCP0**. This GCP is the junction of two forest roads to the southwest of the mountain (but in the upper left of image **9996**, in the far upper left of image **9997**, and in the upper center of image **9995**). Open image **9995**:
 ::
