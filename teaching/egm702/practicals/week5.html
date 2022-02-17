@@ -98,10 +98,15 @@ interpret the results.</p>
 </div>
 <div class="section" id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While developing this practical, I had a number of issues with chrome freezing that did not occur when I switched to a different browser
+(firefox). If you notice that the window is repeatedly freezing, it may be worth switching browsers.</p>
+</div>
 <p>To begin, import the script for this week by following <a class="reference external" href="https://code.earthengine.google.com/921bdf0b679cf3452bd5c11643b42eb4?noload=true">this link</a>
 and saving it to your account. If you are not already logged in, you will need to log in using your GEE account.</p>
 <p>When you open the script, you should see the following (you may have to zoom/pan to the study area; alternatively, run the
-script to centre the map):</p>
+script to center the map):</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_script1.png"><img alt="the gee window when the script has been loaded" class="align-center" src="../../../_images/loaded_script1.png" style="width: 600px;" /></a>
 <p>You can see a number of points identified on the map – these represent the training points that we will use for the classification.
 These individual feature collections represent the following things:</p>
@@ -118,7 +123,7 @@ These individual feature collections represent the following things:</p>
 <td><p>forest</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clearCut</span></code></p></td>
-<td><p>forest that has been cut down</p></td>
+<td><p>forest that has been recently cut down</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">newGrowth</span></code></p></td>
 <td><p>new vegetation that has grown post-eruption</p></td>
@@ -142,21 +147,21 @@ These individual feature collections represent the following things:</p>
   <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">newGrowth</span><span class="p">)</span> <span class="c1">// landcover value 3</span>
   <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">soil</span><span class="p">)</span> <span class="c1">// landcover value 4</span>
   <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">snow</span><span class="p">);</span> <span class="c1">// landcover value 5</span>
-  <span class="c1">//.merge(yourClass);</span>
+  <span class="c1">//.merge(yourClass); // remove the comment to add your new feature class</span>
 </pre></div>
 </div>
 <p>This will merge each of the training points that you can see on the map above into a single <code class="docutils literal notranslate"><span class="pre">FeatureCollection</span></code>. Each of the points
 has a property, <code class="docutils literal notranslate"><span class="pre">landcover</span></code>, with an associated value – for example, the value for the <code class="docutils literal notranslate"><span class="pre">water</span></code> class is <code class="docutils literal notranslate"><span class="pre">0</span></code>, for <code class="docutils literal notranslate"><span class="pre">forest</span></code> it’s <code class="docutils literal notranslate"><span class="pre">1</span></code>, and so on.
-These are the training points we will use to run the Random Forest classification later in the practical. If you decide to add
-additional landcover classes, you can do so by creating a new <code class="docutils literal notranslate"><span class="pre">FeatureCollection</span></code> from the <strong>Geometry Imports</strong> menu:</p>
+These are the training points we will use to run the Random Forest classification later in the practical.</p>
+<p>If you decide to add additional landcover classes, you can do so by creating a new <code class="docutils literal notranslate"><span class="pre">FeatureCollection</span></code> from the <strong>Geometry Imports</strong> menu:</p>
 <a class="reference internal image-reference" href="../../../_images/geometry_import.png"><img alt="the geometry import dialogue" class="align-center" src="../../../_images/geometry_import.png" style="width: 400px;" /></a>
 <p>Be sure to give the new <code class="docutils literal notranslate"><span class="pre">FeatureCollection</span></code> a name, and add a property called <code class="docutils literal notranslate"><span class="pre">landcover</span></code> with a value that is not already being
 used – for example, we have numbers 0-5 currently in use, so give the new class a value of <code class="docutils literal notranslate"><span class="pre">6</span></code>. As you add additional classes, be
 sure to use unique values, or else your classification results will not make sense. The next lines:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B6&#39;</span><span class="p">,</span> <span class="s1">&#39;B7&#39;</span><span class="p">,</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B7&#39;</span><span class="p">,</span>
   <span class="c1">//&#39;NDVI&#39;, &#39;NDWI&#39;, &#39;mNDWI&#39;, //uncomment to add NDVI, NDWI, mNDWI to classification</span>
-  <span class="c1">//&#39;Slope&#39;, // uncomment to add slope as a classification parameter in Step 5</span>
-  <span class="c1">//&#39;elevation&#39; // uncomment to add elevation as a classification parameter in Step 5</span>
+  <span class="c1">//&#39;Slope&#39;, // uncomment to add slope as a classification parameter</span>
+  <span class="c1">//&#39;elevation&#39; // uncomment to add elevation as a classification parameter</span>
 <span class="p">];</span>
 </pre></div>
 </div>
@@ -165,25 +170,27 @@ at the difference made by using spectral indices or elevation parameters. The fi
 bands to the selected Landsat image:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add NDVI, NDWI, mNDWI, and Slope layers to each of the training and test images</span>
 <span class="nx">img</span> <span class="o">=</span> <span class="nx">img</span>
-  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B4&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;NDVI&#39;</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;NDWI&#39;</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B6&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;mNDWI&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;NDVI&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;NDWI&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B6&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;mNDWI&#39;</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Terrain</span><span class="p">.</span><span class="nx">slope</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;Slope&#39;</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">.</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;elevation&#39;</span><span class="p">))</span>
   <span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Here, we’re using the <code class="docutils literal notranslate"><span class="pre">normalizedDifference()</span></code> function to calculate the NDVI, NDWI, and modified NDWI (mNDWI) and add each of
-these to our image, as well as adding the Slope and elevation from the NASADEM to the image. When you run the script, it
-should centre on Mt St Helens and add a false-colour composite of the OLI image to the map:</p>
+<p>Here, we’re using the <code class="docutils literal notranslate"><span class="pre">normalizedDifference()</span></code> function to calculate the NDVI (normalized difference vegetation index), NDWI
+(normalized difference water index; McFeeters, 1996<a class="footnote-reference brackets" href="#id6" id="id1">1</a>), and modified NDWI (mNDWI; Xu, 2006<a class="footnote-reference brackets" href="#id7" id="id2">2</a>).</p>
+<p>It will then add each of these to our image, as well as adding the Slope and elevation from the NASADEM to the image.
+When you run the script, it should center on Mt St Helens and add a false-colour composite of the OLI image to the map:</p>
 <a class="reference internal image-reference" href="../../../_images/image_loaded.png"><img alt="the gee window with the first landsat image loaded" class="align-center" src="../../../_images/image_loaded.png" style="width: 600px;" /></a>
 </div>
 <div class="section" id="step-2-unsupervised-classification">
 <h2>step 2. unsupervised classification<a class="headerlink" href="#step-2-unsupervised-classification" title="Permalink to this headline"></a></h2>
 <p>Earth Engine provides methods to do both unsupervised and supervised classification. We’re going to start by doing an
 unsupervised classification (clustering) on our OLI image, as it can help us to decide what classes it might make sense to use.</p>
-<p>Rather than running the classification using all of the pixels in the image, we’ll take a random sample of 5000 pixels:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">training</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">sample</span><span class="p">({</span>
+<p>To start, uncomment this section of the script (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 54 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 95).</p>
+<p>Rather than running the classification using all of the pixels in the original Landsat bands, we’ll take a random sample of 5000 pixels:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">training</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">).</span><span class="nx">sample</span><span class="p">({</span>
   <span class="nx">region</span><span class="o">:</span> <span class="nx">boundary</span><span class="p">,</span>
   <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
   <span class="nx">numPixels</span><span class="o">:</span> <span class="mf">5000</span>
@@ -192,8 +199,8 @@ unsupervised classification (clustering) on our OLI image, as it can help us to 
 </div>
 <p>This can help improve the performance of the clustering, but it also prevents us from causing <code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">Memory</span></code> errors when we
 run our script – remember that we’re running this on an image with at least 7 bands, and even though we’ve clipped the image
-to a size of 1070x1250 pixels, that still leaves a lot of values that the machine has to try to keep track of (1070x1250 = 1.33M
-pixels).</p>
+to a size of 1070x1250 pixels, that still leaves a lot of values that the machine has to try to keep track of (1070 * 1250 = 1.33M
+pixels/band * 7 bands = 9.36M pixels).</p>
 <p>The next lines:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// train the unsupervised clusterer with a maximum of 16 classes</span>
 <span class="kd">var</span> <span class="nx">clusterer</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Clusterer</span><span class="p">.</span><span class="nx">wekaKMeans</span><span class="p">(</span><span class="mf">16</span><span class="p">).</span><span class="nx">train</span><span class="p">(</span><span class="nx">training</span><span class="p">);</span>
@@ -202,9 +209,9 @@ pixels).</p>
 <span class="kd">var</span> <span class="nx">unsupervised</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">cluster</span><span class="p">(</span><span class="nx">clusterer</span><span class="p">);</span> <span class="c1">// returns an image with a single band, &#39;cluster&#39;</span>
 </pre></div>
 </div>
-<p>Will run the <em>k</em>-means clustering algorithm on the sample of 5000 pixels. In this case, we’re telling the algorithm to use 16 classes
+<p>Will run the <em>k</em>-means clustering algorithm on the sample of 5000 pixels. Here, we’re telling the algorithm to use at most 16 classes
 – you can try a few different values to get an idea for how changing this value changes the results of the clustering.</p>
-<p>The following lines will sample the cluster values at each of the training points defined earlier, then plot a chart showing the
+<p>The next block of code will sample the cluster values at each of the training points defined earlier, then plot a chart showing the
 landcover value as a function of the cluster value. This will help us to determine whether it makes sense to use the landcover
 values as we have defined them, as well as to determine whether our chosen training points represent spectrally distinct classes:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// sample the cluster values at each of the training points</span>
@@ -253,25 +260,26 @@ the chosen feature points for these two classes.</p>
 <p>When we have large amounts of overlap between feature classes like this, we might want to think about what each of these
 classes represent - what are the actual physical objects or surfaces that we’re trying to identify here? Is the difference between
 ‘new growth’ – i.e., vegetation that has started growing on land after the volcanic eruption, and ‘clear cut’ land a physical
-difference, or a semantic difference? Remember that it can be very difficult to differentiate between different landcovers if the
-difference is a semantic one, rather than a physical one – it might not make sense to try to differentiate between these different
+difference, or a semantic difference?</p>
+<p>Remember that it can be very difficult to differentiate between different landcovers if the
+difference is a <em>semantic</em> one, rather than a <em>physical</em> one – it might not make sense to try to differentiate between these different
 classes, and instead combine them. This could also mean, however, that we’ve not done a great job selecting our training points,
 and it might point to a need to do a better job selecting distinct training points.</p>
 <p>Uncomment the second line of the <code class="docutils literal notranslate"><span class="pre">bands</span></code> variable and re-run the script. Does this make a difference in the clustering? What
 about for the chart or confusion matrix comparing the landcover and cluster values for each training point?</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B6&#39;</span><span class="p">,</span> <span class="s1">&#39;B7&#39;</span><span class="p">,</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B7&#39;</span><span class="p">,</span>
   <span class="s1">&#39;NDVI&#39;</span><span class="p">,</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">,</span> <span class="s1">&#39;mNDWI&#39;</span><span class="p">,</span> <span class="c1">//uncomment to add NDVI, NDWI, mNDWI to classification</span>
   <span class="c1">//&#39;Slope&#39;, // uncomment to add slope as a classification parameter in Step 5</span>
   <span class="c1">//&#39;elevation&#39; // uncomment to add elevation as a classification parameter in Step 5</span>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>Re-comment this line after you’ve examined the results, and move on to the next section.</p>
+<p>Re-comment this line, and this section (add a <code class="docutils literal notranslate"><span class="pre">/*</span></code> to line 54 and a <code class="docutils literal notranslate"><span class="pre">*/</span></code> to line 95), after you’ve examined the results, and move on to the next section.</p>
 </div>
 <div class="section" id="step-3-train-different-classifiers">
 <h2>step 3. train different classifiers<a class="headerlink" href="#step-3-train-different-classifiers" title="Permalink to this headline"></a></h2>
-<p>The code in this section will help us run a Random Forest classification on our chosen image, and examine the results. The
-following lines of code:</p>
+<p>The code in this section will help us run a Random Forest classification on our chosen image, and examine the results.
+Start by uncommenting this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 98 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 141). The following lines of code:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select training points from the training image</span>
 <span class="kd">var</span> <span class="nx">training</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">sampleRegions</span><span class="p">({</span>
   <span class="nx">collection</span><span class="o">:</span> <span class="nx">trainingPoints</span><span class="p">,</span>
@@ -321,32 +329,151 @@ measurements to compare our different classifiers:</p>
 </div>
 <p>When you run the script, you should see the following in the <strong>console</strong> panels (remember that your results may differ slightly):</p>
 <a class="reference internal image-reference" href="../../../_images/error_matrix.png"><img alt="the error matrix and accuracy values for the 100-tree random forest classification" class="align-center" src="../../../_images/error_matrix.png" style="width: 400px;" /></a>
-<p>From this example, we can see that the overall accuracy is quite high (82.6%), with a reasonably high kappa statistics (0.788).
-However, we can also see a significant overlap between the clear cut and new growth classes, as we suspected might happen
-based on the results of the unsupervised classification.</p>
+<p>To help you understand this, I’ve added row/column labels to this table below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 18%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>water</p></th>
+<th class="head"><p>forest</p></th>
+<th class="head"><p>clear cut</p></th>
+<th class="head"><p>new growth</p></th>
+<th class="head"><p>soil</p></th>
+<th class="head"><p>snow</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>0</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>clear cut</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>9</p></td>
+<td><p>7</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>new growth</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>5</p></td>
+<td><p>8</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>soil</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>14</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>snow</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>6</p></td>
+</tr>
+</tbody>
+</table>
+<p>Like with the unsupervised classification error matrix, the “rows” of this matrix correspond to the landcover class that we
+have identified, while the columns correspond to the classified values. In the example above, we see that 9 of our training samples
+were classified as landcover class 0 (water), and there were no water training samples that were classified as something else.</p>
+<p>The same is true for the forest class (value 1), soil (value 4), and snow (value 5). We do see some significant overlap between
+the clear cut and new growth classes, as we suspected might happen based on the results of the unsupervised classification. Of the 16
+samples classified as clear cut (value 2), 7 were classified as new growth (value 3), and there’s a similar split for new growth.</p>
+<p>From this example, we can also see that the overall accuracy is decently high (82.6%), with a reasonably high kappa statistics (0.788).</p>
 <p>Return to the <code class="docutils literal notranslate"><span class="pre">bands</span></code> variable, uncomment the second line again, and re-run the script. How does the result for the testing data
 change? What about if you add slope and elevation data to the classification? Re-comment each of these lines before moving on
 to the next section.</p>
 </div>
 <div class="section" id="step-4-classify-the-image-and-examine-the-results">
 <h2>step 4. classify the image and examine the results<a class="headerlink" href="#step-4-classify-the-image-and-examine-the-results" title="Permalink to this headline"></a></h2>
-<p>The code in this section will classify the image using the two classifiers trained and tested in the previous section:</p>
+<p>Uncomment this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 144 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 188), and run the script again. The code in this section
+will classify the image using the two classifiers trained and tested in the previous section, then add the classified images to the map
+(note that you will need to toggle the layers on using the <strong>Layers</strong> menu):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">classified100</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier100</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">classified10</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier10</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">classPalette</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;013dd6&#39;</span><span class="p">,</span> <span class="s1">&#39;059e2a&#39;</span><span class="p">,</span> <span class="s1">&#39;a6613d&#39;</span><span class="p">,</span> <span class="s1">&#39;2aff53&#39;</span><span class="p">,</span> <span class="s1">&#39;e3d4ae&#39;</span><span class="p">,</span> <span class="s1">&#39;fffbf4&#39;</span><span class="p">];</span>
 
 <span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">classified10</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">5</span><span class="p">,</span> <span class="nx">palette</span><span class="o">:</span> <span class="nx">classPalette</span><span class="p">},</span> <span class="s1">&#39;RF 10&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">classified100</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">5</span><span class="p">,</span> <span class="nx">palette</span><span class="o">:</span> <span class="nx">classPalette</span><span class="p">},</span> <span class="s1">&#39;RF 100&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">classified100</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">5</span><span class="p">,</span> <span class="nx">palette</span><span class="o">:</span> <span class="nx">classPalette</span><span class="p">},</span> <span class="s1">&#39;RF 100&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Run the script and examine the results:</p>
+<p>It will also count the number of pixels in each class for the two classifiers, and print the results to the console:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add some summary statistics (area for each classification, e.g.)</span>
+<span class="kd">var</span> <span class="nx">class10</span> <span class="o">=</span>  <span class="nx">classified10</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">0</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">1</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;forest&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">2</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;clear cut&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">3</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;new growth&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">4</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;soil&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified10</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">5</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;snow&#39;</span><span class="p">));</span>
+
+<span class="kd">var</span> <span class="nx">count10</span> <span class="o">=</span> <span class="nx">class10</span><span class="p">.</span><span class="nx">reduceRegion</span><span class="p">({</span>
+  <span class="nx">reducer</span><span class="o">:</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">count</span><span class="p">(),</span>
+  <span class="nx">geometry</span><span class="o">:</span> <span class="nx">boundary</span><span class="p">,</span>
+  <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
+  <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e13</span><span class="p">,</span>
+  <span class="nx">tileScale</span><span class="o">:</span> <span class="mf">8</span>
+<span class="p">});</span>
+
+<span class="c1">// add some summary statistics (area for each classification, e.g.)</span>
+<span class="kd">var</span> <span class="nx">class100</span> <span class="o">=</span>  <span class="nx">classified100</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">0</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;water&#39;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">1</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;forest&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">2</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;clear cut&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">3</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;new growth&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">4</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;soil&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">classified100</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mf">5</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;snow&#39;</span><span class="p">));</span>
+
+<span class="kd">var</span> <span class="nx">count100</span> <span class="o">=</span> <span class="nx">class100</span><span class="p">.</span><span class="nx">reduceRegion</span><span class="p">({</span>
+  <span class="nx">reducer</span><span class="o">:</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">count</span><span class="p">(),</span>
+  <span class="nx">geometry</span><span class="o">:</span> <span class="nx">boundary</span><span class="p">,</span>
+  <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
+  <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e13</span><span class="p">,</span>
+  <span class="nx">tileScale</span><span class="o">:</span> <span class="mf">8</span>
+<span class="p">});</span>
+
+<span class="nx">print</span><span class="p">(</span><span class="s2">&quot;RF 10 Classification results:&quot;</span><span class="p">,</span> <span class="nx">count10</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="s2">&quot;RF 100 Classification results:&quot;</span><span class="p">,</span> <span class="nx">count100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>How do the pixel counts compare for the two classifers? Which class has the biggest difference between the two?</p>
+<p>When you run the script, you will also see the classified image displayed in the map:</p>
 <a class="reference internal image-reference" href="../../../_images/classified_image.png"><img alt="the random forest classified image" class="align-center" src="../../../_images/classified_image.png" style="width: 600px;" /></a>
 <p>Note that when you are zoomed out, the classification will look different due to the way that the image is re-sampled at lower
 resolutions. Zoom in on the peak. Are there significant differences between the different classified images (RF 100 and RF 10)?
-What are they?</p>
-<p>Re-run the script after adding the NDVI, NDWI, and mNDWI bands back to the image. How does the classified image change?
-What about after adding the slope and elevation information?</p>
+What are they? How does this compare to the numerical summary?</p>
+<p>the result change significantly if you add the normalized difference indices back to the classification (uncomment line 26)?
+Uncomment line 26 to add the NDVI, NDWI, and mNDWI bands back to the image, then re-run the script. How does the classified
+image change? What about the numerical results? What about after adding the slope and elevation information?</p>
+<p>Leave this section uncommented as you move on to the next sections - this will enable you to compare the pixel-based and object-based
+classification results.</p>
 </div>
 <div class="section" id="step-5-export-the-classified-image-s">
 <h2>step 5. export the classified image(s)<a class="headerlink" href="#step-5-export-the-classified-image-s" title="Permalink to this headline"></a></h2>
@@ -365,43 +492,282 @@ ArcGIS, QGIS, or ERDAS Imagine.</p>
 </div>
 <div class="section" id="step-6-image-segmentation">
 <h2>step 6. image segmentation<a class="headerlink" href="#step-6-image-segmentation" title="Permalink to this headline"></a></h2>
-<p>run the bit to see what it looks like</p>
-<dl class="simple">
-<dt>run again with the second scale</dt><dd><ul class="simple">
-<li><p>how does the scale affect the shape of the objects created?</p></li>
-<li><p>think about size of “objects” you’re trying to identify</p></li>
-</ul>
-</dd>
-<dt>add texture with GLCM</dt><dd><ul class="simple">
-<li><p>explain ASM</p></li>
-<li><p>explain Contrast</p></li>
-<li><p>direct to literature/documentation for other info</p></li>
-</ul>
-</dd>
-<dt>need to add:</dt><dd><ul class="simple">
-<li><p>ASM, Contrast to snic image (and calculate mean value per cluster)</p></li>
-<li><p>maybe elevation?</p></li>
-</ul>
-</dd>
-<dt>use the classifier points from earlier to train a random forest classifier</dt><dd><ul class="simple">
-<li><p>how does the result look vs the pixel-based?</p></li>
-<li><p>compare accuracy</p></li>
-</ul>
-</dd>
-</dl>
+<p>The last few sections of the practical will take us through an example of object-based classification, to illustrate some of the differences
+between object-based image analysis (OBIA) and pixel-based classification.</p>
+<p>Start by uncommenting the first part of this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 203 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 241). The following lines of code:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// set parameters for the size of the seeds and clusters for image segmentation</span>
+<span class="c1">// 4 appears to be the minimum value for seed size</span>
+<span class="kd">var</span> <span class="nx">seedSize</span> <span class="o">=</span> <span class="mf">4</span><span class="p">;</span> <span class="c1">//corresponds to 4 * 30 = 120 m spacing;</span>
+<span class="kd">var</span> <span class="nx">clusterScale</span> <span class="o">=</span> <span class="mf">30</span><span class="p">;</span>
+
+<span class="c1">// create a layer to seed the segmentation algorithm</span>
+<span class="kd">var</span> <span class="nx">seeds</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">seedGrid</span><span class="p">(</span><span class="nx">seedSize</span><span class="p">);</span>
+
+<span class="c1">// run simple non-iterative clustering (SNIC) on the image, using our seed layer</span>
+<span class="kd">var</span> <span class="nx">snic</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">SNIC</span><span class="p">({</span>
+  <span class="nx">image</span><span class="o">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">),</span>
+  <span class="nx">compactness</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+  <span class="nx">connectivity</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span>
+  <span class="nx">neighborhoodSize</span><span class="o">:</span> <span class="mf">128</span><span class="p">,</span>
+  <span class="nx">seeds</span><span class="o">:</span> <span class="nx">seeds</span>
+<span class="p">});</span>
+</pre></div>
 </div>
-<div class="section" id="step-7-support-vector-machine-classification">
-<h2>step 7. support vector machine classification<a class="headerlink" href="#step-7-support-vector-machine-classification" title="Permalink to this headline"></a></h2>
-<p>use obia, svm to classify water? glacier? forest?</p>
+<p>will use an algorithm called simple non-iterative clustering (SNIC; Achanta and Susstrunk, 2017<a class="footnote-reference brackets" href="#id8" id="id3">3</a>) to segment our image,
+creating the objects that we’ll use for the classification. This section starts by setting two parameters,
+<code class="docutils literal notranslate"><span class="pre">seedSize</span></code> and <code class="docutils literal notranslate"><span class="pre">clusterScale</span></code>. I’ve added these here, rather than using the values directly in the
+code below, so that it’s easier to change the values if we want to experiment later on.</p>
+<p>The next block of code will create a vector layer from the objects, fixed at a specific scale (here, 30 m, corresponding to the original image resolution).
+We can then add a layer to the map that shows the boundaries of the objects.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select the clusters (image segments, or objects) from our snic layer</span>
+<span class="kd">var</span> <span class="nx">clusters</span> <span class="o">=</span> <span class="nx">snic</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s2">&quot;clusters&quot;</span><span class="p">);</span>
+
+<span class="c1">// visualize the clusters by creating vectors, then displaying the outlines</span>
+<span class="kd">var</span> <span class="nx">vectors</span> <span class="o">=</span> <span class="nx">clusters</span><span class="p">.</span><span class="nx">reduceToVectors</span><span class="p">({</span>
+  <span class="nx">geometryType</span><span class="o">:</span> <span class="s1">&#39;polygon&#39;</span><span class="p">,</span>
+  <span class="nx">reducer</span><span class="o">:</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">countEvery</span><span class="p">(),</span>
+  <span class="nx">scale</span><span class="o">:</span> <span class="nx">clusterScale</span><span class="p">,</span>
+  <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e13</span><span class="p">,</span>
+  <span class="nx">geometry</span><span class="o">:</span> <span class="nx">boundary</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">empty</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">().</span><span class="kr">byte</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">outline</span> <span class="o">=</span> <span class="nx">empty</span><span class="p">.</span><span class="nx">paint</span><span class="p">({</span>
+  <span class="nx">featureCollection</span><span class="o">:</span> <span class="nx">vectors</span><span class="p">,</span>
+  <span class="nx">color</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+  <span class="nx">width</span><span class="o">:</span> <span class="mf">1</span>
+<span class="p">});</span>
+
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">outline</span><span class="p">,</span> <span class="p">{</span><span class="nx">palette</span><span class="o">:</span> <span class="s1">&#39;669999&#39;</span><span class="p">},</span> <span class="s1">&#39;segments&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Run the script, then toggle the <code class="docutils literal notranslate"><span class="pre">segments</span></code> layer on - you should see the outlines layer, with the original false color image underneath.
+Zoom in to have a look around - how do the object boundaries you see relate to the image underneath? Do they agree? Are there areas where
+the boundaries vary significantly from what you can see in the underlying image?</p>
+<a class="reference internal image-reference" href="../../../_images/segmented_image.png"><img alt="a satellite image and image segments" class="align-center" src="../../../_images/segmented_image.png" style="width: 600px;" /></a>
+<p>One thing to note here is that SNIC starts with a grid spaced by <code class="docutils literal notranslate"><span class="pre">seedSize</span></code> pixels and uses this to segment the image - the objects
+that we end up with depends on the size of the grid that we start with. To illustrate this, uncomment
+(remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 243 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 277) and run the script again.</p>
+<p>The only change I’ve made here is to create a seed grid with twice the spacing as the original:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a layer to seed the segmentation algorithm</span>
+<span class="kd">var</span> <span class="nx">seeds</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">seedGrid</span><span class="p">(</span><span class="mf">2</span> <span class="o">*</span> <span class="nx">seedSize</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>After that, the code is mostly the same (aside from a color change for the <code class="docutils literal notranslate"><span class="pre">coarse</span> <span class="pre">segements</span></code> layer). Zoom in on some of the lakes
+North of the peak - you should notice that some of the objects for some of the lakes using the coarser seed grid include both “lake”
+and “not lake”, while the original boundaries do a decent job of picking the shorelines:</p>
+<a class="reference internal image-reference" href="../../../_images/segmentation_comparison.png"><img alt="a comparison of two segmentation scales" class="align-center" src="../../../_images/segmentation_comparison.png" style="width: 600px;" /></a>
+<p>This is something to keep in mind - the scale of our segmentation determines the size of the objects that we end up with. If we segment the image
+too coarsely, we may end up losing detail that we’re interested in.</p>
+<p>Once you’ve had a look around, go ahead and re-comment the coarse segmentation section (add a <code class="docutils literal notranslate"><span class="pre">/*</span></code> to line 243 and a <code class="docutils literal notranslate"><span class="pre">*/</span></code> to line 277), then
+move on to the next section.</p>
+</div>
+<div class="section" id="step-7-obia-features">
+<h2>step 7. obia features<a class="headerlink" href="#step-7-obia-features" title="Permalink to this headline"></a></h2>
+<p>One of the things that we can do with OBIA that is more difficult to incorporate into pixel-based analysis is use image properties such
+as texture or contrast, or even the shape of our segments, to aid our classification.</p>
+<p>Here, we’ll have a look at including texture into our classification using metrics extracted using the Gray Level Co-occurrence
+Matrix (GLCM; Haralick et al., 1973<a class="footnote-reference brackets" href="#id9" id="id4">4</a>). The GLCM contains information about how frequently combinations of pixel values appear
+in a specified relationship in the image. We can use this, and the statistical metrics that we can extract from the GLCM,
+to analyze the texture of the image.</p>
+<p>Here, we’ll look at three examples: the Angular Second Moment (ASM), the local contrast, and the entropy. The Angular Second Moment measures how many
+repeated pairs of values we see within each small window. The local contrast tells us how much variation we see in the small area, and the
+entropy measures the randomness of the values in each small window.</p>
+<p>Uncomment the lines in this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 280 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 301), then run the script.</p>
+<p>Before we compute the GLCM, we make a grayscale image from the NIR, Red, and Green bands, following Tassi and Vizzari (2020)<a class="footnote-reference brackets" href="#id10" id="id5">5</a>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a grayscale image to run texture on, following Tassi and Vizzari (2020)</span>
+<span class="c1">// paper: https://doi.org/10.3390/rs12223776</span>
+<span class="c1">// GEE script: https://code.earthengine.google.com/?accept_repo=users/mvizzari/Tassi_Vizzari_RS2020</span>
+<span class="kd">var</span> <span class="nx">gray</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">expression</span><span class="p">(</span>
+  <span class="s1">&#39;(0.3 * NIR) + (0.59 * R) + (0.11 * G)&#39;</span><span class="p">,</span>
+  <span class="p">{</span><span class="s1">&#39;NIR&#39;</span><span class="o">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B5&#39;</span><span class="p">),</span>
+   <span class="s1">&#39;R&#39;</span><span class="o">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">),</span>
+   <span class="s1">&#39;G&#39;</span><span class="o">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">)</span>
+<span class="p">}).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">);</span>
+
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">gray</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">7500</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">17500</span><span class="p">},</span> <span class="s1">&#39;grayscale&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>this helps simplify the process somewhat - as we’ve seen in the lectures, there is often redundant information in nearby bands.</p>
+<p>Once we’ve created this layer, we compute the GLCM and display the three images we’re interested in (the ASM, Contrast, and Entropy).</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the GLCM for the grayscale image</span>
+<span class="kd">var</span> <span class="nx">glcm</span> <span class="o">=</span> <span class="nx">gray</span><span class="p">.</span><span class="nx">toInt</span><span class="p">().</span><span class="nx">glcmTexture</span><span class="p">({</span><span class="nx">size</span><span class="o">:</span> <span class="mf">2</span><span class="p">})</span>
+  <span class="p">.</span><span class="nx">reproject</span><span class="p">({</span><span class="nx">crs</span><span class="o">:</span> <span class="nx">gray</span><span class="p">.</span><span class="nx">projection</span><span class="p">(),</span> <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">});</span>
+
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;GLCM Image&#39;</span><span class="p">,</span> <span class="nx">glcm</span><span class="p">);</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_asm&#39;</span><span class="p">),</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">0.0281</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.0354</span><span class="p">},</span> <span class="s1">&#39;ASM&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_contrast&#39;</span><span class="p">),</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">3e5</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">5e6</span><span class="p">},</span> <span class="s1">&#39;Contrast&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_ent&#39;</span><span class="p">),</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">3.391</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">3.577</span><span class="p">},</span> <span class="s1">&#39;Entropy&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The result of this is an image, <code class="docutils literal notranslate"><span class="pre">glcm</span></code>, that contains 18 variables for each band in the original image. For a full list of the variables,
+you can see the <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-glcmtexture">documentation</a>. You can also see a list of the
+bands for the <code class="docutils literal notranslate"><span class="pre">glcm</span></code> image in the <strong>Console</strong>.</p>
+<p>Finally, have a look at the images that have been loaded in the map: the Angular Second Moment (ASM), the Contrast, and the Entropy.
+Take a look at the ASM image first:</p>
+<a class="reference internal image-reference" href="../../../_images/asm.png"><img alt="an image showing the angular second moment in the grayscale image" class="align-center" src="../../../_images/asm.png" style="width: 600px;" /></a>
+<p>Remember that this tells us something about the repeated pairs of values within the specified window (here, a window of size 2) - brighter
+colors indicate higher values (more repeated values), darker colors indicate lower values
+(fewer repeated values). Before moving on to the contrast image, see if you can answer the following questions:</p>
+<ul>
+<li><p>Where do you see the most repeated values (brightest “colors”)?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>What surfaces do these values represent?</p></li>
+<li><p>Why do you think this would be so?</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Look at the grayscale image (toggle it on in the <strong>Layers</strong>). How does the image that you see here compare to the ASM image? That is, where do you see more variation in the “color” values?</p></li>
+</ul>
+<p>Now, have a look at the Contrast layer:</p>
+<a class="reference internal image-reference" href="../../../_images/contrast.png"><img alt="an image showing the local contrast in the grayscale image" class="align-center" src="../../../_images/contrast.png" style="width: 600px;" /></a>
+<p>Here, the bright colors represent the greatest contrast (i.e., difference) in values within the given window. In a way, this is showing us the same sort
+of information as the ASM layer - high contrast indicates more variation (and therefore fewer repeated values), while low contrast indicates less variation
+(and therefore more repeated values).</p>
+<p>Finally, have a look at the Entropy layer:</p>
+<a class="reference internal image-reference" href="../../../_images/entropy.png"><img alt="an image showing the local entropy in the grayscale image" class="align-center" src="../../../_images/entropy.png" style="width: 600px;" /></a>
+<p>This is almost the inverse of the ASM layer - areas with high ASM values typically have lower Entropy. This makes some level of sense, given that more repeat
+values implies that the distribution is likely less random than values that are more spread out.</p>
+<p>Try to compare the three images some more. What patterns do you see in the contrast image? How could you use the texture information to help differentiate
+between, for example, the surfaces on north flank of the volcano and the clear-cut areas in the southwest of the image, which have similar values in the
+grayscale image?</p>
+<p>Once you’ve spent some time thinking about these questions, move on to the next section, where we’ll add the texture bands to our image, and use this to classify
+the scene using OBIA.</p>
+</div>
+<div class="section" id="step-8-obia-classification">
+<h2>step 8. obia classification<a class="headerlink" href="#step-8-obia-classification" title="Permalink to this headline"></a></h2>
+<p>Now that we’ve segmented the image and had a look at the image texture, we’ll move on to actually classifying the image using OBIA.</p>
+<p>Uncomment the first part of this section section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 304 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 370), then run the script.
+The first block of code in this section:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the vector labels</span>
+<span class="kd">var</span> <span class="nx">labels</span> <span class="o">=</span> <span class="nx">vectors</span>
+  <span class="p">.</span><span class="nx">reduceToImage</span><span class="p">({</span>
+    <span class="nx">properties</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
+    <span class="nx">reducer</span><span class="o">:</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">first</span><span class="p">()</span>
+<span class="p">}).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">).</span><span class="nx">toInt</span><span class="p">();</span>
+
+<span class="c1">// add the id layer to the image</span>
+<span class="nx">img</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">labels</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>will get the <code class="docutils literal notranslate"><span class="pre">id</span></code> (or <code class="docutils literal notranslate"><span class="pre">label</span></code>) for each of the image objects we created by segmenting the image, then add a layer to the image that labels each
+pixel with the <code class="docutils literal notranslate"><span class="pre">id</span></code> of the object it’s part of. This is how we actually do the “object-based” part of the classification - the actual classification
+is quite similar to the pixel-based method we’ve already seen.</p>
+<p>After this, we can add the texture bands to our image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">img</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_asm&#39;</span><span class="p">))</span>
+  <span class="c1">//.addBands(glcm.select(&#39;gray_contrast&#39;)) // uncomment to add contrast</span>
+  <span class="c1">//.addBands(glcm.select(&#39;gray_ent&#39;)); // uncomment to add entropy</span>
+</pre></div>
+</div>
+<p>To start with, we’ve only added the ASM layer. Once we’ve had a look at those results, we’ll see how adding additional texture layers changes the classification
+results.</p>
+<p>The next block:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the mean, std, and median values of all bands for each object</span>
+<span class="kd">var</span> <span class="nx">img_mean</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">reduceConnectedComponents</span><span class="p">({</span>
+  <span class="nx">reducer</span><span class="o">:</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">mean</span><span class="p">(),</span>
+  <span class="nx">labelBand</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">img_std</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">reduceConnectedComponents</span><span class="p">({</span>
+  <span class="nx">reducer</span><span class="o">:</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">stdDev</span><span class="p">(),</span>
+  <span class="nx">labelBand</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">img_med</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">reduceConnectedComponents</span><span class="p">({</span>
+  <span class="nx">reducer</span><span class="o">:</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">median</span><span class="p">(),</span>
+  <span class="nx">labelBand</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">pred_bands</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">cat</span><span class="p">([</span>
+  <span class="nx">img_mean</span><span class="p">,</span>
+  <span class="nx">img_std</span><span class="p">,</span>
+  <span class="nx">img_med</span>
+<span class="p">]).</span><span class="kr">float</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>will calculate the mean, standard deviation, and median values for each object for each of the image bands
+(surface reflectance, normalized difference indices, slope, ASM, contrast, and entropy, depending on which of lines 26–28 and 317–318 you’ve uncommented).
+These are the values that will go into our classification - rather than the individual pixel values we used earlier.</p>
+<p>When you run the script, you should see the confusion matrix, accuracy, and kappa values for the object-based classifer printed to the console
+(note that this may take some time to finish):</p>
+<a class="reference internal image-reference" href="../../../_images/obia_accuracy.png"><img alt="the error matrix and accuracy values for the OBIA classifier" class="align-center" src="../../../_images/obia_accuracy.png" style="width: 400px;" /></a>
+<p>How does this compare to the pixel-based accuracy values? Try adding the contrast image (uncomment line 317) - how does this impact the
+accuracy results?</p>
+<p>What about if you add the entropy layer (uncomment line 318)?</p>
+<p>Once you’ve trained a few different classifiers by commenting/uncommenting lines 26–28 and 317–318, you can move on to the
+next part of the section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 371 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 398, then re-run the script).</p>
+<p>The final part of this section will apply the OBIA classifier we’ve just trained, count the number of pixels belonging to
+each classification, and then display the result in the map and the <strong>Console</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// apply the classification</span>
+<span class="kd">var</span> <span class="nx">obia</span> <span class="o">=</span> <span class="nx">pred_bands</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">pred_bands</span><span class="p">.</span><span class="nx">bandNames</span><span class="p">()).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
+
+<span class="c1">// add the classified layer to the map</span>
+<span class="kd">var</span> <span class="nx">classPalette</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;013dd6&#39;</span><span class="p">,</span> <span class="s1">&#39;059e2a&#39;</span><span class="p">,</span> <span class="s1">&#39;a6613d&#39;</span><span class="p">,</span> <span class="s1">&#39;2aff53&#39;</span><span class="p">,</span> <span class="s1">&#39;e3d4ae&#39;</span><span class="p">,</span> <span class="s1">&#39;fffbf4&#39;</span><span class="p">];</span>
+
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">obia</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">5</span><span class="p">,</span> <span class="nx">palette</span><span class="o">:</span> <span class="nx">classPalette</span><span class="p">},</span> <span class="s1">&#39;OBIA Random Forest&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">outline</span><span class="p">,</span> <span class="p">{</span><span class="nx">palette</span><span class="o">:</span> <span class="s1">&#39;ffffff&#39;</span><span class="p">},</span> <span class="s1">&#39;segments&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We’ve also added the segments layer again, so that we can compare the classification with the object boundaries:</p>
+<a class="reference internal image-reference" href="../../../_images/obia_classified.png"><img alt="the OBIA classified image" class="align-center" src="../../../_images/obia_classified.png" style="width: 600px;" /></a>
+<p>How does this classified image compare to the RF results? Where do you see big differences? Do the boundaries of the
+classification line up with the image segments?</p>
+<p>Have a look at the numeric results, as well - where are the biggest differences between the pixel-based results and
+the object-based results? As you look around the map, do the classified results line up with what you expect to see?</p>
+</div>
+<div class="section" id="step-9-exporting-the-obia-classification">
+<h2>step 9. exporting the obia classification<a class="headerlink" href="#step-9-exporting-the-obia-classification" title="Permalink to this headline"></a></h2>
+<p>The code in this section will enable you to export the classified image to your Google Drive, and use them in, for example,
+ArcGIS, QGIS, or ERDAS Imagine. To do so, uncomment this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 401 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 409),
+then re-run the script:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Export</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">toDrive</span><span class="p">({</span><span class="nx">image</span><span class="o">:</span> <span class="nx">obia</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;classification&#39;</span><span class="p">),</span>
+  <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;OBIA Classification&#39;</span><span class="p">,</span>
+  <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
+  <span class="nx">region</span><span class="o">:</span> <span class="nx">boundary</span><span class="p">,</span>
+  <span class="nx">crs</span><span class="o">:</span> <span class="s1">&#39;epsg:32610&#39;</span><span class="p">,</span>
+  <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e13</span>
+<span class="p">});</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>You can try to improve on the results in a few ways here. To start with, you could increase the the number of training samples
+for each class. To do this for water, for example, highlight the <code class="docutils literal notranslate"><span class="pre">water</span></code> layer in the <strong>Geometry Imports</strong> panel by
+clicking on it:</p>
+<a class="reference internal image-reference" href="../../../_images/geometry_imports.png"><img alt="the configure geometry import panel" class="align-center" src="../../../_images/geometry_imports.png" style="width: 300px;" /></a>
+<p>Make sure that <strong>Point drawing</strong> is enabled by clicking on <strong>Add a marker</strong> in the drawing toolbar:</p>
+<a class="reference internal image-reference" href="../../../_images/point_drawing.png"><img alt="the &quot;add a marker&quot; button highlighted in the drawing toolbar" class="align-center" src="../../../_images/point_drawing.png" style="width: 300px;" /></a>
+<p>Then click on the map to add points. Make sure that you don’t completely overload a class - you want to make sure that the number
+of training samples is somewhat balanced, so that the accuracy results aren’t skewed as a result.</p>
 <p>The example classes provided may not adequately describe the image – can you think of any other classes it might make sense
-to add to the classification? Try adding another class or two by including a number of training samples. Make sure that the
+to add to the classification? You can try adding another class or two by including a number of training samples. Make sure that the
 number of points between the training classes is somewhat balanced – otherwise, there is a chance that you will have
 insufficient samples for training.</p>
 <p>We have added a number of additional bands to the data in order to help classify the results. Can you think of any other spectral
 indices or band ratios, either from the lectures or your own reading, that it might make sense to try to include?</p>
+</div>
+<div class="section" id="references-and-notes">
+<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this headline"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>McFeeters, S. K. (1996). <em>Int. J. Rem. Sens.</em>, 17(<strong>7</strong>), 1425–1432. doi: <a class="reference external" href="https://doi.org/10.1080/01431169608948714">10.1080/01431169608948714</a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Xu, H. (2006). <em>Int. J. Rem. Sens.</em>, 27(<strong>14</strong>), 3025-3033. doi: <a class="reference external" href="https://doi.org/10.1080/01431160600589179">10.1080/01431160600589179</a></p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Achanta, R. and S. Susstrunk (2017). In <em>Proc. IEEE Conf. Comp. Vis. Patt. Recog.</em>, pp. 4651–4660. doi: <a class="reference external" href="https://doi.org/10.1109/CVPR.2017.520">10.1109/CVPR.2017.520</a> [<a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Achanta_Superpixels_and_Polygons_CVPR_2017_paper.pdf">open-access pdf</a>]</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Haralick, R. M., K. Shanmugam and I. Dinstein (1973). <em>IEEE Trans. Systems, Man, Cybernetics</em>, SMC-3(<strong>6</strong>), pp. 610-621. doi: <a class="reference external" href="http://doi.org/10.1109/TSMC.1973.4309314">10.1109/TSMC.1973.4309314.</a></p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Tassi, A. and M. Vizzari (2020). <em>Rem. Sens.</em> 12, 3776. doi: <a class="reference external" href="https://doi.org/10.3390/rs12223776">10.3390/rs12223776</a></p>
+</dd>
+</dl>
 </div>
 </div>
 
