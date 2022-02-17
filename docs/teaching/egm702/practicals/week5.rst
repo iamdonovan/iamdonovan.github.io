@@ -18,7 +18,7 @@ getting started
     (firefox). If you notice that the window is repeatedly freezing, it may be worth switching browsers.
 
 
-To begin, import the script for this week by following `this link <https://code.earthengine.google.com/921bdf0b679cf3452bd5c11643b42eb4?noload=true>`__ 
+To begin, import the script for this week by following `this link <https://code.earthengine.google.com/448e6db525da2127c2a149a867a700ca?noload=true>`__ 
 and saving it to your account. If you are not already logged in, you will need to log in using your GEE account.
 
 When you open the script, you should see the following (you may have to zoom/pan to the study area; alternatively, run the
@@ -719,7 +719,7 @@ each classification, and then display the result in the map and the **Console**:
 We've also added the segments layer again, so that we can compare the classification with the object boundaries (you'll need to
 turn this on in the **Layers** menu):
 
-.. image:: ../../../img/egm702/week5/obia_.png
+.. image:: ../../../img/egm702/week5/obia_classified.png
     :width: 600
     :align: center
     :alt: the OBIA classified image
