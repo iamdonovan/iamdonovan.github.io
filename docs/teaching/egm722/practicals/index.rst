@@ -62,16 +62,21 @@ practicals
 
 .. note::
 
-    The following linked pages are non-interactive overviews of the things covered in each practical. To actually run the practicals yourself, you'll need to go through the steps of cloning the github repository and setting up the environment outlined above, or follow the binder link to run the practicals online.
+    The following linked pages are contain instructions for getting started with each practical, as well as non-interactive overviews of the notebook. 
+    To actually run the practicals yourself, you'll need to go through the steps of cloning the github repository and setting up the environment outlined above,
+    or follow the binder link to run the practicals online.
 
-- [Week 1 - Introduction to git and programming with python](/egm722/practicals/week1)
-- [Week 2 - Mapping with cartopy](/egm722/practicals/week2)
-- [Week 3 - Working with vector data in python](/egm722/practicals/week3)
-- [Week 4 - Working with raster data in python](/egm722/practicals/week4)
-- [Week 5 - Additional exercises](/egm722/practicals/week5)
+.. toctree::
+   :glob:
+   :maxdepth: 1
 
+   week1
+   week2
+   week3
+   week4
+   week5
 
 .. |binder| image:: https://mybinder.org/badge_logo.svg
-     :target: https://mybinder.org/v2/gh/iamdonovan/egm722/main
+     :target: https://mybinder.org/v2/gh/iamdonovan/egm722.binder/main
 
 
