@@ -18,7 +18,7 @@ getting started
     (firefox). If you notice that the window is repeatedly freezing, it may be worth switching browsers.
 
 
-To begin, import the script for this week by following `this link <https://code.earthengine.google.com/448e6db525da2127c2a149a867a700ca?noload=true>`__ 
+To begin, import the script for this week by following `this link <https://code.earthengine.google.com/346f363b3e39da496d6305f53ea54658?noload=true>`__ 
 and saving it to your account. If you are not already logged in, you will need to log in using your GEE account.
 
 When you open the script, you should see the following (you may have to zoom/pan to the study area; alternatively, run the
