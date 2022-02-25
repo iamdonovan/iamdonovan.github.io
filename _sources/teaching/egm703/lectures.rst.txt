@@ -3,7 +3,9 @@ lectures
 
 Here, you will find links to YouTube playlists of the lectures for each week, as well as transcripts and the slides in pdf format.
 
-week 1: thermal remote sensing
+.. _egm703 week1: 
+
+thermal remote sensing
 ------------------------------
 
 video playlist
@@ -24,8 +26,10 @@ slides
 :download:`Week 1 Slides <../../files/EGM703_Week1.zip>`
 
 
-week 2: hyperspectral remote sensing
-------------------------------------
+.. _egm703 week2: 
+
+hyperspectral remote sensing
+-------------------------------
 
 video playlist
 ^^^^^^^^^^^^^^
@@ -44,8 +48,9 @@ slides
 ^^^^^^
 :download:`Week 2 Slides <../../files/EGM703_Week2.zip>`
 
+.. _egm703 week3: 
 
-week 3: principles of microwave remote sensing
+principles of microwave remote sensing
 ----------------------------------------------
 
 video playlist
@@ -65,8 +70,9 @@ slides
 ^^^^^^
 :download:`Week 3 Slides <../../files/EGM703_Week3.zip>`
 
+.. _egm703 week4:
 
-week 4: applications of microwave remote sensing
+applications of microwave remote sensing
 ------------------------------------------------
 
 video playlist
@@ -86,8 +92,9 @@ slides
 ^^^^^^
 :download:`Week 4 Slides <../../files/EGM703_Week4.zip>`
 
+.. _egm703 week5:
 
-week 5: subsurface remote sensing
+subsurface remote sensing
 ---------------------------------
 
 video playlist
