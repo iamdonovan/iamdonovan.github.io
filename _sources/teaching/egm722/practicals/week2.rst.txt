@@ -1,8 +1,5 @@
-Practical 2 - Mapping with cartopy
+mapping with cartopy
 ==================================
-
-Introduction
-------------
 
 In this practical, we'll create a map using similar data to what you used in the first practical of EGM711. This time, rather than
 using ArcGIS Pro, we'll use ``cartopy``, ``matplotlib``, and ``geopandas``, python packages used for making maps, plotting data, and

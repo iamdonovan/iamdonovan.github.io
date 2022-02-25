@@ -3,7 +3,9 @@ lectures
 
 Here, you will find links to YouTube playlists of the lectures for each week, as well as transcripts and the slides in pdf format.
 
-week 1 - introduction to git and programming
+.. _egm722 week1:
+
+introduction to git and programming
 --------------------------------------------
 
 week 1 video playlist
@@ -25,7 +27,9 @@ week 1 slides
 :download:`Week 1 Slides <../../files/EGM722_Week1.zip>`
 
 
-week 2 - additional python concepts
+.. _egm722 week2:
+
+additional python concepts
 -----------------------------------
 
 week 2 video playlist

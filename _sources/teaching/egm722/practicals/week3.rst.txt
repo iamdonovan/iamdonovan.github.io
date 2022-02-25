@@ -1,8 +1,5 @@
-Practical 3 - Vector data using shapely and geopandas
-==================================================================
-
-Introduction
-------------
+vector data using shapely and geopandas
+=========================================
 
 In this practical, you’ll gain some more experience working with vector data in python. You will learn about the different vector
 data types available in the shapely package, and how we can use the geopandas package to perform different vector data

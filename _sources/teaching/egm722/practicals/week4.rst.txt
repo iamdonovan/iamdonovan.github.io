@@ -1,8 +1,5 @@
-Practical 4 - Raster data using rasterio
-=====================================================
-
-Introduction
-------------
+raster data using rasterio
+===========================
 
 In this practical, you’ll gain some more experience working with raster data in python using rasterio and numpy. We will also
 learn about opening and closing files using python, as well as using ``*args`` and ``**kwargs`` to add more flexibility to our function

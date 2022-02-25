@@ -1,8 +1,5 @@
-Practical 1 - Intro to Python
-==========================================
-
-Introduction
-------------
+intro to python
+================
 
 To get started in the world of programming using python, we will use `Jupyter Notebooks <https://jupyter.org/>`__, which
 provide a way for creating and sharing documents that have interactive code snippets alongside narrative text, images, and more.
