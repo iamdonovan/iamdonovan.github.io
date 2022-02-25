@@ -21,6 +21,9 @@ The aim of this module is to provide you with skills and experience to use progr
 
 Using open-source python packages, the module demonstrates how many standard GIS tools can be used programmatically to automate repetitive tasks and produce repeatable analyses.
 
+Before moving on to the :doc:`lectures` and :doc:`practicals<practicals/index>` below, be sure to visit the :doc:`setup<setup/index>` page 
+to make sure that you have the software and materials set up in order to get started.
+
 +---------+-----------------------+-------------------------+
 | week    | lecture theme         | practical               |
 +---------+-----------------------+-------------------------+
