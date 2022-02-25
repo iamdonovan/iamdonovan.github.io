@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practical 5 - Vector and raster operations using python &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="additional resources" href="../resources.html" />
+    <link rel="prev" title="Practical 4 - Raster data using rasterio" href="week4.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#unis-spring-2017">unis (spring 2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#esa-cryosphere-training-course-june-2018">esa cryosphere training course (june 2018)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#ulster-2020-present">ulster (2020-present)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">EGM722: programming for gis and remote sensing</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../setup/index.html">setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#content">content</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
+          <li><a href="../index.html">EGM722: programming for gis and remote sensing</a> &raquo;</li>
+          <li><a href="index.html">practicals</a> &raquo;</li>
+      <li>Practical 5 - Vector and raster operations using python</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/teaching/egm722/practicals/week5.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="practical-5-vector-and-raster-operations-using-python">
+<h1>Practical 5 - Vector and raster operations using python<a class="headerlink" href="#practical-5-vector-and-raster-operations-using-python" title="Permalink to this headline"></a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<p>In this practical, we’ll see how we can combine vector and raster data for different analyses, including computing zonal statistics
+for a raster, and rasterizing a vector dataset.</p>
+<p>The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the different steps of
+the practical.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<p>To get started with this week’s practical, open Anaconda Navigator, then launch the command prompt (make sure that your
+egm722 environment is selected).</p>
+<p>Before we download the Week 5 practical notebook and data using git, we need to install a new python package, rasterstats,
+using conda. To do this, type the following at the command prompt, then press enter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">rasterstats</span>
+</pre></div>
+</div>
+<p>You should see something like the following (it may take a minute):</p>
+<p><strong>conda install</strong></p>
+<p>Type y and press enter, and conda will install rasterstats into your current environment (egm722). Now, navigate to your
+repository folder.</p>
+<p>First, make sure that you’re on the main branch by typing git checkout main. This will switch to the main branch, if you are not
+already on it. Next, type git pull upstream main and press enter. Just like last week, this will pull (fetch and merge) the
+upstream main branch into your current branch. You should see something like the following:</p>
+<p><strong>git update</strong></p>
+<p>This has downloaded the update to the main branch that included the data and workbook for Practical 5. As with last week, you
+can now push these changes to your remote (GitHub) repository using git push. Last but not least, you can also check that you
+have 5 folders in the current directory (Weeks 1-5):</p>
+<p><strong>week 5 dir</strong></p>
+<p>At this point, you can launch Jupyter Notebooks from the command prompt, or from Anaconda Navigator, and begin to work
+through the notebook.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to follow the instructions
+above to open the notebook and run it on your own computer!</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<p>Up to now, we have worked with either vector data or raster data, but we
+haven’t really used them together. In this week’s practical, we’ll learn
+how we can combine these two data types, and see some examples of
+different analyses, such as zonal statistics or sampling raster data,
+that we can automate using python.</p>
+</div>
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>learn how to use <code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> to perform zonal statistics</p></li>
+<li><p>learn how to handle exceptions using try…except</p></li>
+<li><p>rasterize polygon data using <code class="docutils literal notranslate"><span class="pre">rasterio</span></code></p></li>
+<li><p>learn how to mask and select (index) rasters using vector data</p></li>
+<li><p>see additional plotting examples using matplotlib</p></li>
+</ul>
+</div>
+<div class="section" id="data-provided">
+<h2>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline"></a></h2>
+<p>In the data_files folder, you should have the following: -
+LCM2015_Aggregate_100m.tif - NI_DEM.tif</p>
+</div>
+<div class="section" id="id1">
+<h2>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<p>In this practical, we’ll look at a number of different GIS tasks related
+to working with both raster and vector data in python, as well as a few
+different python and programming concepts. To get started, run the cell
+below.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> notebook
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">rasterio</span> <span class="k">as</span> <span class="nn">rio</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">rasterstats</span> <span class="kn">import</span> <span class="n">zonal_stats</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span> <span class="c1"># update the font size for our plots to be size 22</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="zonal-statistics">
+<h2>2. Zonal statistics<a class="headerlink" href="#zonal-statistics" title="Permalink to this headline"></a></h2>
+<p>In GIS, <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-zonal-statistics-works.htm">zonal
+statistics</a>
+is a process whereby you calculate statistics for the pixels of a raster
+in different groups, or zones, defined by properties in another dataset.
+In this example, we’re going to use the Northern Ireland County border
+dataset from Week 2, along with a re-classified version of the Northern
+Ireland <a class="reference external" href="https://catalogue.ceh.ac.uk/documents/47f053a0-e34f-4534-a843-76f0a0998a2f">Land Cover
+Map</a>
+2015<a class="reference external" href="#fn1">1</a>.</p>
+<p>The Land Cover Map tells, for each pixel, what type of land cover is
+associated with a location - that is, whether it’s woodland (and what
+kind of woodland), grassland, urban or built-up areas, and so on. For
+our re-classified version of the dataset, we’re working with the
+aggregate class data, re-sampled to 100m resolution from the original
+25m resolution.</p>
+<p>The raster data type is <em>unsigned integer</em> with a <em>bitdepth</em> of 8 bits -
+that is, it has a range of possible values from 0 to 255. Even though it
+has this range of possible values, we only use 10 (11) of them:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Raster value</p></th>
+<th class="head"><p>Aggregate class name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>No Data</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Broadleaf woodland</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Coniferous woodland</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Arable</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Improved grassland</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Semi-natural grassland</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>Mountain, heath, bog</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>Saltwater</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>Freshwater</p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>Coastal</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>Built-up areas and gardens</p></td>
+</tr>
+</tbody>
+</table>
+<p>In this part of the practical, we’ll try to work out the percentage of
+the entire country that is covered by each of these different
+landcovers, as well as each of the different counties. To start, we’ll
+load the <code class="docutils literal notranslate"><span class="pre">LCM2015_Aggregate_100m.tif</span></code> raster, as well as the counties
+shapefile from Week 2:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># open the land cover raster and read the data</span>
+<span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/LCM2015_Aggregate_100m.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataset</span><span class="p">:</span>
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">bounds</span>
+    <span class="n">crs</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">crs</span>
+    <span class="n">landcover</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">affine_tfm</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">transform</span>
+
+<span class="c1"># now, load the county dataset from the week 2 folder</span>
+<span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../Week2/data_files/Counties.shp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, we’ll define a function that takes an array, and returns a
+<strong>dict</strong> object containing the count (number of pixels) for each of the
+unique values in the array:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">count_unique</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Count the unique elements of an array.</span>
+
+<span class="sd">    :param array: Input array</span>
+<span class="sd">    :param nodata: nodata value to ignore in the counting</span>
+
+<span class="sd">    :returns count_dict: a dictionary of unique values and counts</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">count_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">nodata</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">count_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">array</span> <span class="o">==</span> <span class="n">val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">count_dict</span>
+</pre></div>
+</div>
+<p>Here, we have two input parameters: the first, <code class="docutils literal notranslate"><span class="pre">array</span></code>, is our array
+(or raster data). The next, <code class="docutils literal notranslate"><span class="pre">nodata</span></code>, is the value of the array that
+we should ignore. We then define an empty <strong>dict</strong>
+(<code class="docutils literal notranslate"><span class="pre">count_dict</span> <span class="pre">=</span> <span class="pre">{}</span></code>).</p>
+<p>With
+<code class="docutils literal notranslate"><span class="pre">`numpy.unique()</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html">https://numpy.org/doc/stable/reference/generated/numpy.unique.html</a>&gt;`__,
+we get an array containing the unique values of the input array. Note
+that this works for data like this raster, where we have a limited
+number of pre-defined values. For something like a digital elevation
+model, which represents continuous floating-point values, we wouldn’t
+want to use this approach to bin the data.</p>
+<p>Next, for each of the different unique values <code class="docutils literal notranslate"><span class="pre">val</span></code>, we find all of
+the locations in <code class="docutils literal notranslate"><span class="pre">array</span></code> that have that value (<code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">==</span> <span class="pre">val</span></code>). Note
+that this is actually a boolean array, with values of either <code class="docutils literal notranslate"><span class="pre">True</span></code>
+where <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">==</span> <span class="pre">val</span></code>, and <code class="docutils literal notranslate"><span class="pre">False</span></code> where <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">!=</span> <span class="pre">val</span></code>.
+<code class="docutils literal notranslate"><span class="pre">`numpy.count_nonzero()</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.count_nonzero.html">https://numpy.org/doc/stable/reference/generated/numpy.count_nonzero.html</a>&gt;`__
+the counts the number of non-zero (in this case, <code class="docutils literal notranslate"><span class="pre">True</span></code>) values in the
+array - that is, this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">array</span> <span class="o">==</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>tells us the number of pixels in <code class="docutils literal notranslate"><span class="pre">array</span></code> that are equal to <code class="docutils literal notranslate"><span class="pre">val</span></code>. We
+then assign this to our dictionary with a key that is a <strong>str</strong>
+representation of the value, before returning our <code class="docutils literal notranslate"><span class="pre">count_dict</span></code>
+variable at the end of the function.</p>
+<p>Run the cell below to define the function and run it on our
+<code class="docutils literal notranslate"><span class="pre">landcover</span></code> raster.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">count_unique</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Count the unique elements of an array.</span>
+
+<span class="sd">    :param array: Input array</span>
+<span class="sd">    :param nodata: nodata value to ignore in the counting</span>
+
+<span class="sd">    :returns count_dict: a dictionary of unique values and counts</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">count_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">nodata</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">count_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">array</span> <span class="o">==</span> <span class="n">val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">count_dict</span>
+
+<span class="n">unique_landcover</span> <span class="o">=</span> <span class="n">count_unique</span><span class="p">(</span><span class="n">landcover</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">unique_landcover</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So this provides us with a <strong>dict</strong> object with keys corresponding to
+each of the unique values (1-10).</p>
+<p>Can you work out the percentage area of Northern Ireland that is covered
+by each of the 10 landcover classes?</p>
+<p>In the following cell, we use
+<code class="docutils literal notranslate"><span class="pre">`rasterstats.zonal_stats()</span></code> &lt;<a class="reference external" href="https://pythonhosted.org/rasterstats/manual.html#zonal-statistics">https://pythonhosted.org/rasterstats/manual.html#zonal-statistics</a>&gt;`__
+with our <code class="docutils literal notranslate"><span class="pre">counties</span></code> and <code class="docutils literal notranslate"><span class="pre">landcover</span></code> datasets to do the same exercise
+as above (counting unique pixel values). Rather than counting the pixels
+in the entire raster, however, we want to count the number of pixels
+with each land cover value that fall within a specific area defined by
+the features in the <code class="docutils literal notranslate"><span class="pre">counties</span></code> dataset:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_stats</span> <span class="o">=</span> <span class="n">zonal_stats</span><span class="p">(</span><span class="n">counties</span><span class="p">,</span> <span class="n">landcover</span><span class="p">,</span> <span class="n">affine</span><span class="o">=</span><span class="n">affine_tfm</span><span class="p">,</span> <span class="n">categorical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">county_stats</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-zip-built-in">
+<h2>3. The zip built-in<a class="headerlink" href="#the-zip-built-in" title="Permalink to this headline"></a></h2>
+<p>This isn’t a very readable result, though. If we want to interpret the
+results for each county, we have to know what land cover name
+corresponds to each of the values in the raster. One way that we could
+do this is by writing a function that re-names each of the keys in the
+<strong>dict</strong>. This example shows one way we could do this: the function
+takes the original <strong>dict</strong> object (<em>dict_in</em>), as well as a list of the
+‘old’ keys (<em>old_names</em>), and the corresponding ‘new’ keys
+(<em>new_names</em>).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rename_dict</span><span class="p">(</span><span class="n">dict_in</span><span class="p">,</span> <span class="n">old_names</span><span class="p">,</span> <span class="n">new_names</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Rename the keys of a dictionary, given a list of old and new keynames</span>
+
+<span class="sd">    :param dict_in: the dictionary to rename</span>
+<span class="sd">    :param old_names: a list of old keys</span>
+<span class="sd">    :param new_names: a list of new key names</span>
+
+<span class="sd">    :returns dict_out: a dictionary with the keys re-named</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">dict_out</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">new</span><span class="p">,</span> <span class="n">old</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">new_names</span><span class="p">,</span> <span class="n">old_names</span><span class="p">):</span>
+        <span class="n">dict_out</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_in</span><span class="p">[</span><span class="n">old</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">dict_out</span>
+</pre></div>
+</div>
+<p>For this function, we’re also making use of the built-in function
+<code class="docutils literal notranslate"><span class="pre">zip()</span></code>
+(<a class="reference external" href="https://docs.python.org/3.8/library/functions.html#zip">documentation</a>).
+In Python 3, <code class="docutils literal notranslate"><span class="pre">zip()</span></code> returns an <strong>iterator</strong> object that combines
+elements from each of the iterable objects passed as arguments. As an
+example:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>So, with <code class="docutils literal notranslate"><span class="pre">zip(x,</span> <span class="pre">y)</span></code>, each of the elements of <code class="docutils literal notranslate"><span class="pre">x</span></code> is paired with the
+corresponding element from <code class="docutils literal notranslate"><span class="pre">y</span></code>. If <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are different
+lengths, <code class="docutils literal notranslate"><span class="pre">zip(x,</span> <span class="pre">y)</span></code> will only use up to the shorter of the two:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Let’s see what happens when we run our function <code class="docutils literal notranslate"><span class="pre">rename_dict()</span></code> using
+the stats for our first county (County Tyrone - remember that the output
+from zonal_stats will have correspond to the rows of our input vector
+data):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">old_names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+<span class="n">new_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Broadleaf woodland&#39;</span><span class="p">,</span> <span class="s1">&#39;Coniferous woodland&#39;</span><span class="p">,</span> <span class="s1">&#39;Arable&#39;</span><span class="p">,</span> <span class="s1">&#39;Improved grassland&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;Semi-natural grassland&#39;</span><span class="p">,</span> <span class="s1">&#39;Mountain, heath, bog&#39;</span><span class="p">,</span> <span class="s1">&#39;Saltwater&#39;</span><span class="p">,</span> <span class="s1">&#39;Freshwater&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;Coastal&#39;</span><span class="p">,</span> <span class="s1">&#39;Built-up areas and gardens&#39;</span><span class="p">]</span>
+
+<span class="n">rename_dict</span><span class="p">(</span><span class="n">county_stats</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">old_names</span><span class="p">,</span> <span class="n">new_names</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Have a look at the <em>keys</em> for <code class="docutils literal notranslate"><span class="pre">county_stats</span></code> - you should notice that
+there are no pixels corresponding to landcover class 7 (Saltwater),
+which makes sense given that County Tyrone is an inland county:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">county_stats</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">county_stats</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>To run this for each of our counties, we could run some checks to make
+sure that we only try to access keys that exist in <code class="docutils literal notranslate"><span class="pre">dict_in</span></code>. For
+example, we could add an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement to the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rename_dict</span><span class="p">(</span><span class="n">dict_in</span><span class="p">,</span> <span class="n">old_names</span><span class="p">,</span> <span class="n">new_names</span><span class="p">):</span>
+    <span class="n">dict_out</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">new</span><span class="p">,</span> <span class="n">old</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">new_names</span><span class="p">,</span> <span class="n">old_names</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">old</span> <span class="ow">in</span> <span class="n">dict_in</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">dict_out</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_in</span><span class="p">[</span><span class="n">old</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">dict_out</span>
+</pre></div>
+</div>
+<p>But, this is also an example of an exception that isn’t necessarily
+something that requires us to stop executing our program. We don’t
+expect each landcover type to be present in each county, so we don’t
+want our program to stop as soon as it finds out that one of the
+counties doesn’t have a particular landcover type.</p>
+</div>
+<div class="section" id="handling-exceptions-with-try-except">
+<h2>4. Handling Exceptions with try … except<a class="headerlink" href="#handling-exceptions-with-try-except" title="Permalink to this headline"></a></h2>
+<p>Python provides a way to handle these kind of exceptions: the
+<a class="reference external" href="https://realpython.com/python-exceptions/#the-try-and-except-block-handling-exceptions">try…except</a>
+block:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># run some code</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># run this if the try block causes an exception</span>
+</pre></div>
+</div>
+<p>In general, it’s <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#programming-recommendations">not
+recommended</a>
+to just have a bare <code class="docutils literal notranslate"><span class="pre">except:</span></code> clause, as this will make it harder to
+interrupt a program. In our specific case, we only want the interpreter
+to ignore <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> exceptions - if there are other problems, we
+still need to know about those:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rename_dict</span><span class="p">(</span><span class="n">dict_in</span><span class="p">,</span> <span class="n">old_names</span><span class="p">,</span> <span class="n">new_names</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Rename the keys of a dictionary, given a list of old and new keynames</span>
+
+<span class="sd">    :param dict_in: the dictionary to rename</span>
+<span class="sd">    :param old_names: a list of old keys</span>
+<span class="sd">    :param new_names: a list of new key names</span>
+
+<span class="sd">    :returns dict_out: a dictionary with the keys re-named</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">dict_out</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">new</span><span class="p">,</span> <span class="n">old</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">new_names</span><span class="p">,</span> <span class="n">old_names</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dict_out</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_in</span><span class="p">[</span><span class="n">old</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">dict_out</span>
+</pre></div>
+</div>
+<p>Notice how for each pair of names, we try to assign the value
+corresponding to <code class="docutils literal notranslate"><span class="pre">old</span></code> in <code class="docutils literal notranslate"><span class="pre">dict_in</span></code>. If <code class="docutils literal notranslate"><span class="pre">old</span></code> is not a valid key
+for <code class="docutils literal notranslate"><span class="pre">dict_in</span></code>, we just move onto the next one. Now, let’s run this new
+function on <code class="docutils literal notranslate"><span class="pre">county_stats[0]</span></code> again:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rename_dict</span><span class="p">(</span><span class="n">county_stats</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">old_names</span><span class="p">,</span> <span class="n">new_names</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We’ll do one last thing before moving on here. Just like with the
+<strong>dict</strong> outputs of <code class="docutils literal notranslate"><span class="pre">zonal_stats()</span></code>, the <strong>list</strong> of <strong>dict</strong> objects
+isn’t very readable. Let’s create a new <strong>dict</strong> object that takes the
+county names as keys, and returns the re-named <strong>dict</strong> objects for
+each:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">renamed_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">rename_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">old_names</span><span class="p">,</span> <span class="n">new_names</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">county_stats</span><span class="p">]</span> <span class="c1"># create a list of renamed dict objects</span>
+<span class="n">nice_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">counties</span><span class="o">.</span><span class="n">CountyName</span><span class="p">]</span>
+<span class="n">stats_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">nice_names</span><span class="p">,</span> <span class="n">renamed_list</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">stats_dict</span><span class="p">[</span><span class="s1">&#39;Tyrone&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats_dict</span><span class="p">[</span><span class="s1">&#39;Antrim&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Depending on how we’re using the data, it might be easier to keep the
+output of <code class="docutils literal notranslate"><span class="pre">zonal_stats()</span></code> as-is, rather than using these long,
+complicated keys. For visualization and readability purposes, though, it
+helps to be able to easily and quickly understand what the outputs
+actually represent.</p>
+<p>What is the total area (in km2) covered by “Mountain, heath, bog” in
+County Down?</p>
+</div>
+<div class="section" id="rasterizing-vector-data-using-rasterio">
+<h2>5. Rasterizing vector data using rasterio<a class="headerlink" href="#rasterizing-vector-data-using-rasterio" title="Permalink to this headline"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> provides a nice tool for quickly and easily extracting
+zonal statistics from a raster using vector data. Sometimes, though, we
+might want to <em>rasterize</em> our vector data - for example, in order to
+mask our raster data, or to be able to select pixels. To do this, we can
+use the
+<code class="docutils literal notranslate"><span class="pre">`rasterio.features</span></code> &lt;<a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.features.html">https://rasterio.readthedocs.io/en/latest/api/rasterio.features.html</a>&gt;`__
+module:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rasterio.features</span> <span class="c1"># we have imported rasterio as rio, so this will be rio.features (and rasterio.features)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">rasterio.features</span></code>has a number of different methods, but the one we
+are interested in here is <code class="docutils literal notranslate"><span class="pre">rasterize()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>rio.features.rasterize(
+    shapes,
+    out_shape=None,
+    fill=0,
+    out=None,
+    transform=Affine(1.0, 0.0, 0.0,
+       0.0, 1.0, 0.0),
+    all_touched=False,
+    merge_alg=&lt;MergeAlg.replace: &#39;REPLACE&#39;&gt;,
+    default_value=1,
+    dtype=None,
+)
+Docstring:
+Return an image array with input geometries burned in.
+
+Warnings will be raised for any invalid or empty geometries, and
+an exception will be raised if there are no valid shapes
+to rasterize.
+
+Parameters
+----------
+shapes : iterable of (`geometry`, `value`) pairs or iterable over
+    geometries. The `geometry` can either be an object that
+    implements the geo interface or GeoJSON-like object. If no
+    `value` is provided the `default_value` will be used. If `value`
+    is `None` the `fill` value will be used.
+out_shape : tuple or list with 2 integers
+    Shape of output numpy ndarray.
+fill : int or float, optional
+    Used as fill value for all areas not covered by input
+    geometries.
+...
+</pre></div>
+</div>
+<p>Here, we pass an <strong>iterable</strong> (<strong>list</strong>, <strong>tuple</strong>, <strong>array</strong>, etc.)
+that contains (<strong>geometry</strong>, <strong>value</strong>) pairs. <strong>value</strong> determines the
+pixel values in the output raster that the <strong>geometry</strong> overlaps. If we
+don’t provide a <strong>value</strong>, it takes the <code class="docutils literal notranslate"><span class="pre">default_value</span></code> or the
+<code class="docutils literal notranslate"><span class="pre">fill</span></code> value.</p>
+<p>So, to create a rasterized version of our county outlines, we could do
+the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">shapes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">],</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;COUNTY_ID&#39;</span><span class="p">]))</span>
+
+<span class="n">county_mask</span> <span class="o">=</span> <span class="n">rio</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">rasterize</span><span class="p">(</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                     <span class="n">out_shape</span><span class="o">=</span><span class="n">landcover</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">affine_tfm</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first line uses <code class="docutils literal notranslate"><span class="pre">zip()</span></code> and <code class="docutils literal notranslate"><span class="pre">list()</span></code> to create a list of
+(<strong>geometry</strong>, <strong>value</strong>) pairs, and the second line actually creates
+the rasterized array, <code class="docutils literal notranslate"><span class="pre">county_mask</span></code>. Note that in the call to
+<code class="docutils literal notranslate"><span class="pre">rasterio.features.rasterize()</span></code>, we have to set the output shape
+(<code class="docutils literal notranslate"><span class="pre">out_shape</span></code>) of the raster, as well as the <code class="docutils literal notranslate"><span class="pre">transform</span></code> - that is,
+how we go from pixel coordinates in the array to real-world coordinates.
+Since we want to use this rasterized output with our <code class="docutils literal notranslate"><span class="pre">landcover</span></code>, we
+use the <code class="docutils literal notranslate"><span class="pre">shape</span></code> of the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> raster, as well as its
+<code class="docutils literal notranslate"><span class="pre">transform</span></code> (<code class="docutils literal notranslate"><span class="pre">affine_tfm</span></code>) - that way, the outputs will line up as
+we expect. Run the cell below to see what the output looks like:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shapes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">],</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;COUNTY_ID&#39;</span><span class="p">]))</span>
+
+<span class="n">county_mask</span> <span class="o">=</span> <span class="n">rio</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">rasterize</span><span class="p">(</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                     <span class="n">out_shape</span><span class="o">=</span><span class="n">landcover</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">affine_tfm</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">county_mask</span><span class="p">)</span> <span class="c1"># visualize the rasterized output</span>
+</pre></div>
+</div>
+<p>As you can see, this provides us with an <strong>array</strong> whose values
+correspond to the <code class="docutils literal notranslate"><span class="pre">COUNTY_ID</span></code> of the county feature at that location
+(check the <code class="docutils literal notranslate"><span class="pre">counties</span></code> <strong>GeoDataFrame</strong> again to see which county
+corresponds to which ID). In the next section, we’ll see how we can use
+arrays like this to investigate our data further.</p>
+</div>
+<div class="section" id="masking-and-indexing-rasters">
+<h2>6. Masking and indexing rasters<a class="headerlink" href="#masking-and-indexing-rasters" title="Permalink to this headline"></a></h2>
+<p>So far, we’ve seen how we can index an array (or a list, a tuple, …)
+using simple indexing (e.g., <code class="docutils literal notranslate"><span class="pre">myList[0]</span></code>) or <em>slicing</em> (e.g.,
+<code class="docutils literal notranslate"><span class="pre">myList[2:4]</span></code>). <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays, however, can <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.indexing.html">actually be
+indexed</a>
+using other arrays of type <code class="docutils literal notranslate"><span class="pre">bool</span></code> (the elements of the array are
+boolean (<code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code>) values). In this section, we’ll see how we
+can use this, along with our rasterized vectors, to select and
+investigate values from a raster using boolean indexing.</p>
+<p>To start, we’ll open our dem raster - note that this raster has the same
+georeferencing information as our landcover raster, so we don’t have to
+load all of that information, just the raster band:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/NI_DEM.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataset</span><span class="p">:</span>
+    <span class="n">dem</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From the previous section, we have an array with values corresponding
+each of the counties of Northern Ireland. Using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, we can use
+this array to select elements of other rasters by creating a <em>mask</em>, or
+a boolean array - that is, an array with values of <code class="docutils literal notranslate"><span class="pre">True</span></code> and
+<code class="docutils literal notranslate"><span class="pre">False</span></code>. For example, we can create a mask corresponding to County
+Antrim (<code class="docutils literal notranslate"><span class="pre">COUNTY_ID=1</span></code>) like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">county_antrim</span> <span class="o">=</span> <span class="n">county_mask</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Let’s see what this mask looks like:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_antrim</span> <span class="o">=</span> <span class="n">county_mask</span> <span class="o">==</span> <span class="mi">1</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">county_antrim</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also combine expressions using functions like
+<code class="docutils literal notranslate"><span class="pre">`np.logical_and()</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.logical_and.html">https://numpy.org/doc/stable/reference/generated/numpy.logical_and.html</a>&gt;`__
+or
+<code class="docutils literal notranslate"><span class="pre">`np.logical_or()</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.logical_or.html">https://numpy.org/doc/stable/reference/generated/numpy.logical_or.html</a>&gt;`__.
+If we wanted to create a mask corresponding to both County Antrim and
+County Down, we could do the following:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">antrim_and_down</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">county_mask</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="n">county_mask</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">antrim_and_down</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We could then find the mean elevation of these two counties by indexing,
+or selecting, pixels from <code class="docutils literal notranslate"><span class="pre">dem</span></code> using our mask:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad_elevation</span> <span class="o">=</span> <span class="n">dem</span><span class="p">[</span><span class="n">antrim_and_down</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean elevation: </span><span class="si">{:.2f}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ad_elevation</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>Now let’s say we wanted to investigate the two types of woodland we
+have, broadleaf and conifer. One thing we might want to look at is the
+area-elevation distribution of each type. To do this, we first have to
+select the pixels from the DEM that correspond to the broadleaf
+woodlands, and all of the pixels corresponding to conifer woodlands:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">broad_els</span> <span class="o">=</span> <span class="n">dem</span><span class="p">[</span><span class="n">landcover</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># get all dem values where landcover = 1</span>
+<span class="n">conif_els</span> <span class="o">=</span> <span class="n">dem</span><span class="p">[</span><span class="n">landcover</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># get all dem values where landcover = 2</span>
+</pre></div>
+</div>
+<p>Now, we have two different arrays, <code class="docutils literal notranslate"><span class="pre">broad_els</span></code> and <code class="docutils literal notranslate"><span class="pre">conif_els</span></code>, each
+corresponding to the DEM pixel values of each landcover type. We can
+plot a histogram of these arrays using
+<code class="docutils literal notranslate"><span class="pre">`plt.hist()</span></code> &lt;<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html</a>&gt;`__,
+but this will only tell us the number of pixels - for the area-elevation
+distribution, we have to convert the pixel counts into areas by
+multiplying with the pixel area (100 m x 100 m).</p>
+<p>First, though, we can use <code class="docutils literal notranslate"><span class="pre">numpy.histogram()</span></code>, along with an array
+representing our elevation bins, to produce a count of the number of
+pixels with an elevation that falls within each bin. Let’s try
+elevations ranging from 0 to 600 meters, with a spacing of 5 meters:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">el_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># create an array of values ranging from 0 to 600, spaced by 5.</span>
+
+<span class="n">broad_count</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">broad_els</span><span class="p">,</span> <span class="n">el_bins</span><span class="p">)</span> <span class="c1"># bin the broadleaf elevations using the elevation bins</span>
+<span class="n">conif_count</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">conif_els</span><span class="p">,</span> <span class="n">el_bins</span><span class="p">)</span> <span class="c1"># bin the conifer elevations using the elevation bins</span>
+
+<span class="n">broad_area</span> <span class="o">=</span> <span class="n">broad_count</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">100</span> <span class="c1"># convert the pixel counts to an area by multipling by the pixel size in x, y</span>
+<span class="n">conif_area</span> <span class="o">=</span> <span class="n">conif_count</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p>Finally, we can plot the area-elevation distribution for each land cover
+type using
+<code class="docutils literal notranslate"><span class="pre">`matplotlib.pyplot.bar()</span></code> &lt;<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.bar.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.bar.html</a>&gt;`__:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span> <span class="c1"># create a new figure and axes object</span>
+
+<span class="c1"># plot the area-elevation distributions using matplotlib.pyplot.bar(), converting from sq m to sq km:</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">el_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">broad_area</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;edge&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Broadleaf Woodland&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">el_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">conif_area</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;edge&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Conifer Woodland&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">)</span> <span class="c1"># set the x limits of the plot</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span> <span class="c1"># set the y limits of the plot</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Elevation (m)&#39;</span><span class="p">)</span> <span class="c1"># add an x label</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Area (km$^2$)&#39;</span><span class="p">)</span> <span class="c1"># add a y label</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> <span class="c1"># add a legend</span>
+</pre></div>
+</div>
+<p>From this, we can clearly see that Conifer woodlands tend to be found at
+much higher elevations than Broadleaf woodlands, and at a much larger
+range of elevations (0-500 m, compared to 0-250 m or so). With these
+samples (<code class="docutils literal notranslate"><span class="pre">broad_els</span></code>, <code class="docutils literal notranslate"><span class="pre">conif_els</span></code>), we can also calculate statistics
+for each of these samples using <code class="docutils literal notranslate"><span class="pre">numpy</span></code> functions such as
+<code class="docutils literal notranslate"><span class="pre">np.mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">np.median()</span></code>, <code class="docutils literal notranslate"><span class="pre">np.std()</span></code>, and so on.</p>
+<p>Of the 10 different landcover types shown here, which one has the
+highest mean elevation? What about the largest spread in elevation
+values?</p>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>That’s all for this practical. In lieu of an an additional exercise this
+week, spend some time working on your project - are there concepts or
+examples from this practical that you can incorporate into your project?</p>
+<div class="section" id="footnotes">
+<h3>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="#fn1-back">1</a>Rowland, C.S.; Morton, R.D.; Carrasco, L.; McShane,
+G.; O’Neil, A.W.; Wood, C.M. (2017). Land Cover Map 2015 (25m raster, N.
+Ireland). NERC Environmental Information Data Centre.
+<a class="reference external" href="https://doi.org/10.5285/47f053a0-e34f-4534-a843-76f0a0998a2f">doi:10.5285/47f053a0-e34f-4534-a843-76f0a0998a2f</a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week4.html" class="btn btn-neutral float-left" title="Practical 4 - Raster data using rasterio" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../resources.html" class="btn btn-neutral float-right" title="additional resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

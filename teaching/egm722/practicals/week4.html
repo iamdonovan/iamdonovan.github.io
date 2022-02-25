@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practical 4 - Raster data using rasterio &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Practical 5 - Vector and raster operations using python" href="week5.html" />
+    <link rel="prev" title="Practical 3 - Vector data using shapely and geopandas" href="week3.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#unis-spring-2017">unis (spring 2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#esa-cryosphere-training-course-june-2018">esa cryosphere training course (june 2018)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#ulster-2020-present">ulster (2020-present)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">EGM722: programming for gis and remote sensing</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../setup/index.html">setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#content">content</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
+          <li><a href="../index.html">EGM722: programming for gis and remote sensing</a> &raquo;</li>
+          <li><a href="index.html">practicals</a> &raquo;</li>
+      <li>Practical 4 - Raster data using rasterio</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/teaching/egm722/practicals/week4.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="practical-4-raster-data-using-rasterio">
+<h1>Practical 4 - Raster data using rasterio<a class="headerlink" href="#practical-4-raster-data-using-rasterio" title="Permalink to this headline"></a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<p>In this practical, you’ll gain some more experience working with raster data in python using rasterio and numpy. We will also
+learn about opening and closing files using python, as well as using <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> to add more flexibility to our function
+definitions.</p>
+<p>The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the different steps of
+the practical. An exercise, introduced at the end of the Notebook file, can be completed using the file <strong>assignment_script.py</strong>.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<p>To get started with this week’s practical, open Anaconda Navigator, then launch the command prompt (make sure that your
+egm722 environment is selected).</p>
+<p>When the command prompt opens, navigate to your repository folder using cd, then type dir and press enter. You should see
+something similar to the following:</p>
+<p><strong>week 4 dir</strong></p>
+<p>To download the Week 4 practical notebook and data, we’ll need to use git.</p>
+<p>First, make sure that you’re on the main branch by typing git checkout main. This will switch to the main branch, if you are not
+already on it.</p>
+<p>At the command prompt, type git pull upstream main and press enter. Just like last week, this will pull (fetch and merge) the
+upstream main branch into your current branch. You should see something like the following:</p>
+<p><strong>week 4 update</strong></p>
+<p>This has downloaded the update to the main branch that included the data and workbook for Practical 4. As with last week, you
+can now push these changes to your remote (GitHub) repository using git push. Last but not least, you can also check that you
+have 4 folders in the current directory (Weeks 1-4).</p>
+<p>At this point, you can launch Jupyter Notebooks from the command prompt, or from Anaconda Navigator, and begin to work
+through the notebook.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to follow the instructions
+above to open the notebook and run it on your own computer!</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<p>Up to now, you have gained some experience working with basic features
+of python, used cartopy and matplotlib to create a map, and explored
+using shapely and geopandas to work with vector data. In this week’s
+practical, we’ll be looking at working with raster data using rasterio
+and numpy.</p>
+</div>
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Learn about opening and viewing raster data using rasterio and
+cartopy</p></li>
+<li><p>Become familiar with opening files using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code> to unpack arguments in a function</p></li>
+<li><p>Use rasterio to reproject raster data</p></li>
+</ul>
+</div>
+<div class="section" id="data-provided">
+<h2>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline"></a></h2>
+<p>In the data_files folder, you should have the following files: -
+NI_mosaic.tif</p>
+</div>
+<div class="section" id="id1">
+<h2>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<p>In this practical, we’ll be working with raster data. As a quick
+refresher, raster data are gridded datasets that contain anything from
+aerial and satellite images to elevation, temperature, or classisfied
+land cover. A raster is made up of pixels (or cells), where each pixel
+value represents the dataset’s value at a given location.</p>
+<p>To get started, run the following cell to import rasterio and
+matplotlib.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> notebook
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">rasterio</span> <span class="k">as</span> <span class="nn">rio</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<p>In the box below, we load the dataset using <code class="docutils literal notranslate"><span class="pre">rio.open()</span></code>, then view
+some of the attributes of the dataset.</p>
+<p><code class="docutils literal notranslate"><span class="pre">rio.open()</span></code> creates a
+<a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.io.html#rasterio.io.DatasetReader">DatasetReader</a>
+object that we use to read the dataset and its attributes. When we do
+this, we don’t actually load the full raster into memory - we just open
+the file and read the metadata and other attributes. Later on, we’ll
+load the raster into memory; for now, we’ll look at the different
+attributes of the <strong>DatasetReader</strong> object.</p>
+<p>For starters, the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute is the filename for the dataset,
+and the <code class="docutils literal notranslate"><span class="pre">mode</span></code> refers to how the dataset has been opened (<code class="docutils literal notranslate"><span class="pre">r</span></code> for
+read, <code class="docutils literal notranslate"><span class="pre">w</span></code> for write, <code class="docutils literal notranslate"><span class="pre">r+</span></code> for read/write). We can also check how
+many <em>layers</em>, or <em>bands</em>, the datset has using <code class="docutils literal notranslate"><span class="pre">count</span></code>, and check the
+size of the image using <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code>. Finally, we can see
+the different types of data (e.g., integer, floating point, etc.) that
+each band has using <code class="docutils literal notranslate"><span class="pre">dtypes</span></code>.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/NI_Mosaic.tif&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> opened in </span><span class="si">{}</span><span class="s1"> mode&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">dataset</span><span class="o">.</span><span class="n">mode</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;image has </span><span class="si">{}</span><span class="s1"> band(s)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">count</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;image size (width, height): </span><span class="si">{}</span><span class="s1"> x </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;band 1 dataype is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="c1"># note that the band name (Band 1) differs from the list index [0]</span>
+</pre></div>
+</div>
+<p>We can also look at the georeferencing information for the dataset. The
+<code class="docutils literal notranslate"><span class="pre">bounds</span></code> attribute gives locations for the left, bottom, right, and
+top sides of the image:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that these values are in the coordinate reference system (CRS) of
+the dataset, which we can view using the <code class="docutils literal notranslate"><span class="pre">crs</span></code> attribute:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This dataset has a CRS of <strong>EPSG:32629</strong>, which corresponds to WGS84 UTM
+Zone 29N. Finally, the <code class="docutils literal notranslate"><span class="pre">transform</span></code> of a dataset is a 2x3 affine
+transformation matrix that maps pixel locations to real-world
+coordinates. The matrix has the following form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">d</span> <span class="n">e</span> <span class="n">f</span> <span class="o">|</span>
+</pre></div>
+</div>
+<p>where <em>a</em> corresponds to the pixel width, <em>b</em> is the row rotation
+(normally 0), <em>c</em> is the x coordinate of the upper-left corner of the
+image, <em>d</em> is the column rotation (normally 0), <em>e</em> is the height of a
+pixel, and <em>f</em> is the y coordinate of the upper-left corner of the
+image.</p>
+</div>
+<div class="section" id="loading-the-data">
+<h2>2. Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline"></a></h2>
+<p>To load the data, we use the <code class="docutils literal notranslate"><span class="pre">read()</span></code>
+<a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.io.html#rasterio.io.DatasetReader.read">method</a>
+of the <strong>DatasetReader</strong> object. This returns a
+<a class="reference external" href="https://numpy.org/doc/stable/">numpy</a> array:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">read()</span></code> will load all of the bands associated with the
+dataset. To load specific bands, we can pass individual indices, or a
+list of indices, that we want to load (e.g., <code class="docutils literal notranslate"><span class="pre">dataset.read(1)</span></code> to load
+the first band or <code class="docutils literal notranslate"><span class="pre">dataset.read([1,</span> <span class="pre">2])</span></code> to load the first 2 bands).</p>
+<p>Note that when we pass indices to the <code class="docutils literal notranslate"><span class="pre">read()</span></code> method, we start
+indexing from 1, rather than 0. This is not the case for the array that
+is returned, however - here, the indices start from 0. This can be
+confusing, so it’s good to pay attention to what kind of object you are
+working with when you start indexing.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># returns a tuple with the number of image bands bands, image height, and image width.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span> <span class="c1"># will return an IndexError, because while there are 7 bands, the indices range from 0 to 6.</span>
+</pre></div>
+</div>
+<p>If we want to get a specific pixel value, we can index the array just
+like we would a <strong>list</strong> or <strong>tuple</strong>. For example, to get the value of
+the center pixel in Band 1, we can do the following. For the arrays that
+we are using, the first index corresponds to the band (if there’s more
+than one band), the second index (first index if there’s only one band)
+corresponds to the row (y) location, and the third (second) index
+corresponds to the column (x) location:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">])</span> <span class="c1"># note that // performs floor division, as indices have to be integers</span>
+</pre></div>
+</div>
+<p>Using the <strong>DatasetReader</strong> object, we can also find the pixel indices
+corresponding to spatial locations, and vice-versa, using both the
+<code class="docutils literal notranslate"><span class="pre">index()</span></code> method and the <code class="docutils literal notranslate"><span class="pre">transform</span></code> attribute. Note that the
+spatial locations should be in the same CRS as the image transform - if
+they are not, the image indices returned might not make sense:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centeri</span><span class="p">,</span> <span class="n">centerj</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span> <span class="c1"># note that centeri corresponds to the row, and centerj the column</span>
+<span class="n">centerx</span><span class="p">,</span> <span class="n">centery</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">transform</span> <span class="o">*</span> <span class="p">(</span><span class="n">centerj</span><span class="p">,</span> <span class="n">centeri</span><span class="p">)</span> <span class="c1"># note the reversal here, from i,j to j,i</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">centerx</span><span class="p">,</span> <span class="n">centery</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">centeri</span><span class="p">,</span> <span class="n">centerj</span><span class="p">)</span> <span class="o">==</span> <span class="n">dataset</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">centerx</span><span class="p">,</span> <span class="n">centery</span><span class="p">))</span> <span class="c1"># check that these are the same</span>
+</pre></div>
+</div>
+<p>If we don’t want to load the whole image at once, we can also choose a
+<code class="docutils literal notranslate"><span class="pre">window</span></code> using <code class="docutils literal notranslate"><span class="pre">read</span></code>. The format for this is a <strong>tuple</strong> of
+<strong>tuples</strong> corresponding to the top/bottom indices and left/right
+indices of the window. We can combine this with <code class="docutils literal notranslate"><span class="pre">index()</span></code> to load a
+subset of the image based on spatial location (for example, using a
+vector dataset). Here, we can select a 1 km window around the center
+pixel:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top</span><span class="p">,</span> <span class="n">lft</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">centerx</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="n">centery</span><span class="o">+</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">bot</span><span class="p">,</span> <span class="n">rgt</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">centerx</span><span class="o">+</span><span class="mi">500</span><span class="p">,</span> <span class="n">centery</span><span class="o">-</span><span class="mi">500</span><span class="p">)</span>
+
+<span class="n">subset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="p">((</span><span class="n">top</span><span class="p">,</span> <span class="n">bot</span><span class="p">),</span> <span class="p">(</span><span class="n">lft</span><span class="p">,</span> <span class="n">rgt</span><span class="p">)))</span> <span class="c1"># format is (top, bottom), (left, right)</span>
+
+<span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># remember to close the dataset now that we&#39;re done with it.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-with-statement">
+<h2>3. The with statement<a class="headerlink" href="#the-with-statement" title="Permalink to this headline"></a></h2>
+<p>In python, we use the built-in <code class="docutils literal notranslate"><span class="pre">open()</span></code> function to open files on the
+disk, in almost exactly the same way that <code class="docutils literal notranslate"><span class="pre">rasterio.open()</span></code> works. If
+you were to run the line of code below, you would see an output like
+this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">42</span><span class="p">]:</span> <span class="n">dataset</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">42</span><span class="p">]:</span> <span class="o">&lt;</span><span class="nb">open</span> <span class="n">DatasetReader</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_files/NI_Mosaic.tif&#39;</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Here, the file is <code class="docutils literal notranslate"><span class="pre">open</span></code>, with a mode <code class="docutils literal notranslate"><span class="pre">r</span></code> for reading. Once we are
+done with the file (either reading, writing, appending, or whatever it
+happens to be), we have to remember to <em>close</em> the file using the
+<code class="docutils literal notranslate"><span class="pre">close()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;my_file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>However, sometimes things happen. For example, an exception might be
+raised, or the interpreter might crash, and the file might <a class="reference external" href="https://askubuntu.com/a/701536">stay
+open</a>.</p>
+<p>One way that we can handle opening/closing files without having to
+remember to explicitly close them is using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;my_file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>This is exactly the same as what’s written above - within the <code class="docutils literal notranslate"><span class="pre">with</span></code>
+statement, we can use the variable <code class="docutils literal notranslate"><span class="pre">f</span></code> exactly as we would in the
+other example. In the cell below, we can re-open the dataset, extract
+the different attributes that we will need for the next few exercises,
+and then close the file:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/NI_Mosaic.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataset</span><span class="p">:</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">bounds</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="displaying-raster-data-using-matplotlib-and-cartopy">
+<h2>4. Displaying raster data using matplotlib and cartopy<a class="headerlink" href="#displaying-raster-data-using-matplotlib-and-cartopy" title="Permalink to this headline"></a></h2>
+<p>Now that we’ve loaded our image, we can use cartopy and matplotlib to
+display it, just like we did for mapping vector data in Weeks 2 and 3.
+To start, we’ll create a new cartopy <strong>CRS</strong> object, and use this to
+create a matplotlib <strong>Axes</strong> object:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myCRS</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">UTM</span><span class="p">(</span><span class="mi">29</span><span class="p">)</span> <span class="c1"># note that this matches with the CRS of our image</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">myCRS</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Now, we will use
+<code class="docutils literal notranslate"><span class="pre">`imshow()</span></code> &lt;<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.imshow.html">https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.imshow.html</a>&gt;`__
+to display a single band from our image. We’ll use the
+<a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites?qt-news_science_products=0#qt-news_science_products">Landsat</a>
+Near Infrared band - for our image, which is based on Landsat 5 TM
+images, this is Band 4 (remember that this corresponds to index 3 of our
+bands array):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see from the link above, <code class="docutils literal notranslate"><span class="pre">imshow()</span></code> has a number of
+arguments that we can use to display our image. As we are using only a
+single band, we can set the minimum (<code class="docutils literal notranslate"><span class="pre">vmin</span></code>) and maximum (<code class="docutils literal notranslate"><span class="pre">vmax</span></code>)
+values of the image to stretch the display to, as well as what colormap
+to use (<code class="docutils literal notranslate"><span class="pre">cmap</span></code>). For more information about colormaps, you can check
+out <a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">this
+tutorial</a>,
+as well as a recent
+<a class="reference external" href="https://www.nature.com/articles/s41467-020-19160-7">paper</a> on the
+(mis)use of color in science.</p>
+<p>But, mouse over the figure window above - what coordinates do you see in
+the bottom right corner? Do they look correct? By default, <code class="docutils literal notranslate"><span class="pre">imshow()</span></code>
+uses the row/column indices of the image, rather than the geographic
+coordinates. To set these properly, we have to tell <code class="docutils literal notranslate"><span class="pre">imshow()</span></code> both
+the <code class="docutils literal notranslate"><span class="pre">tranform</span></code> (CRS) to use, as well as the <code class="docutils literal notranslate"><span class="pre">extent</span></code> of the image.
+Run the cell below, then mouse back over the figure above. The
+coordinates (both the projected and geographic coordinates) should look
+more correct now.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">myCRS</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This is not the only way that we can display images, however. We can
+also display them as RGB color composites. Try the following code:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">transform</span><span class="o">=</span><span class="n">myCRS</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>So that didn’t work. Remember that <code class="docutils literal notranslate"><span class="pre">dataset.read()</span></code> loaded the raster
+in a way that the bands are the first index, the rows are the second
+index, and the columns are the third index. But, <code class="docutils literal notranslate"><span class="pre">imshow()</span></code> expects
+that the image indices are in the order (rows, columns, bands). From the
+documentation, we also see that:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">:</span> <span class="n">array</span><span class="o">-</span><span class="n">like</span> <span class="ow">or</span> <span class="n">PIL</span> <span class="n">image</span>
+    <span class="n">The</span> <span class="n">image</span> <span class="n">data</span><span class="o">.</span> <span class="n">Supported</span> <span class="n">array</span> <span class="n">shapes</span> <span class="n">are</span><span class="p">:</span>
+
+    <span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span> <span class="n">an</span> <span class="n">image</span> <span class="k">with</span> <span class="n">scalar</span> <span class="n">data</span><span class="o">.</span> <span class="n">The</span> <span class="n">values</span> <span class="n">are</span> <span class="n">mapped</span> <span class="n">to</span> <span class="n">colors</span> <span class="n">using</span> <span class="n">normalization</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">colormap</span><span class="o">.</span>
+        <span class="n">See</span> <span class="n">parameters</span> <span class="n">norm</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">.</span>
+    <span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="n">an</span> <span class="n">image</span> <span class="k">with</span> <span class="n">RGB</span> <span class="n">values</span> <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">1</span> <span class="nb">float</span> <span class="ow">or</span> <span class="mi">0</span><span class="o">-</span><span class="mi">255</span> <span class="nb">int</span><span class="p">)</span><span class="o">.</span>
+    <span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="n">an</span> <span class="n">image</span> <span class="k">with</span> <span class="n">RGBA</span> <span class="n">values</span> <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">1</span> <span class="nb">float</span> <span class="ow">or</span> <span class="mi">0</span><span class="o">-</span><span class="mi">255</span> <span class="nb">int</span><span class="p">),</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">including</span> <span class="n">transparency</span><span class="o">.</span>
+    <span class="n">The</span> <span class="n">first</span> <span class="n">two</span> <span class="n">dimensions</span> <span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="n">define</span> <span class="n">the</span> <span class="n">rows</span> <span class="ow">and</span> <span class="n">columns</span> <span class="n">of</span> <span class="n">the</span> <span class="n">image</span><span class="o">.</span>
+
+    <span class="n">Out</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="nb">range</span> <span class="n">RGB</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="n">values</span> <span class="n">are</span> <span class="n">clipped</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>So, we need to also scale our image to have values between 0-1 (or
+0-255). We could try do this each and every time that we want to display
+an image, but this makes for unreadable code and also increases the
+likelihood that we will make a mistake writing our code. In other words,
+this is a perfect place to write a function:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">img_display</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">bands</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">extent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This is where you should write a docstring.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># first, we transpose the image to re-order the indices</span>
+    <span class="n">dispimg</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># next, we have to scale the image.</span>
+    <span class="n">dispimg</span> <span class="o">=</span> <span class="n">dispimg</span> <span class="o">/</span> <span class="n">dispimg</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="c1"># finally, we display the image</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dispimg</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">bands</span><span class="p">],</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">handle</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">img_display</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">myCRS</span><span class="p">,</span> <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span>
+<span class="n">fig</span> <span class="c1"># just to save you from scrolling back up to see</span>
+</pre></div>
+</div>
+<p>So that worked, but the image is very dark - this is because of the way
+the we “normalized” the values to fall between 0 and 1, using the
+maximum of all of the bands:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">maxvals</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">count</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">maxvals</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From the code below, we see that not all of the bands have the same
+range of values. Bands 1-3 have fairly low maximum values (2500-4100),
+while Band 5 has the highest values of all, over twice as high as in
+bands 1-3. So, rather than normalizing using the maximum value of all of
+the bands, we might want to instead normalize based on the maximum value
+of a given band. However, that might still result in dark or washed-out
+images. Let’s instead try a <a class="reference external" href="https://theailearner.com/2019/01/30/contrast-stretching/">percentile
+stretch</a>,
+which should give a bit nicer results:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">percentile_stretch</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">pmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="mf">100.</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This is where you should write a docstring.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># here, we make sure that pmin &lt; pmax, and that they are between 0, 100</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">pmin</span> <span class="o">&lt;</span> <span class="n">pmax</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;0 &lt;= pmin &lt; pmax &lt;= 100&#39;</span><span class="p">)</span>
+    <span class="c1"># here, we make sure that the image is only 2-dimensional</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Image can only have two dimensions (row, column)&#39;</span><span class="p">)</span>
+
+    <span class="n">minval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">pmin</span><span class="p">)</span>
+    <span class="n">maxval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">pmax</span><span class="p">)</span>
+
+    <span class="n">stretched</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span> <span class="o">-</span> <span class="n">minval</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">maxval</span> <span class="o">-</span> <span class="n">minval</span><span class="p">)</span> <span class="c1"># stretch the image to 0, 1</span>
+    <span class="n">stretched</span><span class="p">[</span><span class="n">image</span> <span class="o">&lt;</span> <span class="n">minval</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># set anything less than minval to the new minimum, 0.</span>
+    <span class="n">stretched</span><span class="p">[</span><span class="n">image</span> <span class="o">&gt;</span> <span class="n">maxval</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># set anything greater than maxval to the new maximum, 1.</span>
+
+    <span class="k">return</span> <span class="n">stretched</span>
+</pre></div>
+</div>
+<p>Here, we have a few things happening. In the function header, we have
+two parameters, <em>pmin</em> and <em>pmax</em>, that we provide default values of 0
+and 100, respectively:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">percentile_stretch</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">pmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>We’ve seen this before, but it’s worth re-stating here that if we call
+the function like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stretched</span> <span class="o">=</span> <span class="n">percentile_stretch</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It will use the default values for <em>pmin</em> and <em>pmax</em>. Using default
+values like this provides us a way to make sure that necessary
+parameters are always set, without us always having to remember to set
+them when we call a function.</p>
+<p>Next, note the two conditional statements at the beginning of the
+function. We first check that pmin &gt;= 0 (because it’s a percentage),
+that pmin &lt; pmax, and that pmax &lt;= 100 (because it’s a percentage). If
+any of these things are not true, we <strong>raise</strong> a <strong>ValueError</strong>, with a
+message indicating what caused the error. We also want to make sure that
+our image only has two dimensions (i.e., we are operating on a single
+band), so we check that the number of dimensions (<code class="docutils literal notranslate"><span class="pre">ndim</span></code>) is equal to
+2.</p>
+<p>After that, we stretch the image to values between 0 and 1, and make
+sure to set any values below our minimum/maximum values to be equal to 0
+or 1, respectively.</p>
+<p>Now, we should update <code class="docutils literal notranslate"><span class="pre">img_display()</span></code> to use <code class="docutils literal notranslate"><span class="pre">percentile_stretch()</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">img_display</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">bands</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">pmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This is where you should write a docstring.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">dispimg</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="c1"># make a copy of the original image,</span>
+    <span class="c1"># but be sure to cast it as a floating-point image, rather than an integer</span>
+
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="c1"># loop over each band, stretching using percentile_stretch()</span>
+        <span class="n">dispimg</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">percentile_stretch</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">pmin</span><span class="o">=</span><span class="n">pmin</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="n">pmax</span><span class="p">)</span>
+
+    <span class="c1"># next, we transpose the image to re-order the indices</span>
+    <span class="n">dispimg</span> <span class="o">=</span> <span class="n">dispimg</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># finally, we display the image</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dispimg</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">bands</span><span class="p">],</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">handle</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+</div>
+<p>Now, run the new function:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">img_display</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">myCRS</span><span class="p">,</span> <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="n">pmin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="mf">99.9</span><span class="p">)</span>
+<span class="n">fig</span> <span class="c1"># just to save you from scrolling back up to see</span>
+</pre></div>
+</div>
+<p>That looks much better - we can now see the image, it has good contrast,
+and the image is displayed in the correct location on the map (you can
+verify this by mousing over the figure).</p>
+</div>
+<div class="section" id="functions-with-args-and-kwargs">
+<h2>5. functions with *args and **kwargs<a class="headerlink" href="#functions-with-args-and-kwargs" title="Permalink to this headline"></a></h2>
+<p>At the moment, however, our function has a lot of extra
+parameters/arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">img_display</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">bands</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">pmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Rather than explicitly specifying the transform and extent each time,
+for example, we can change this to use the <a class="reference external" href="https://realpython.com/python-kwargs-and-args/">unpacking
+operator</a>, <code class="docutils literal notranslate"><span class="pre">**</span></code>. In
+this way, we can define a <strong>dict</strong> of keyword arguments (kwargs) to pass
+to <code class="docutils literal notranslate"><span class="pre">percentile_stretch()</span></code> and <code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">new_img_display</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">bands</span><span class="p">,</span> <span class="n">stretch_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">imshow_args</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This is where you should write a docstring.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">dispimg</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="c1"># make a copy of the original image,</span>
+    <span class="c1"># but be sure to cast it as a floating-point image, rather than an integer</span>
+
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="c1"># loop over each band, stretching using percentile_stretch()</span>
+        <span class="k">if</span> <span class="n">stretch_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># if stretch_args is None, use the default values for percentile_stretch</span>
+            <span class="n">dispimg</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">percentile_stretch</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">b</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dispimg</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">percentile_stretch</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="o">**</span><span class="n">stretch_args</span><span class="p">)</span>
+
+    <span class="c1"># next, we transpose the image to re-order the indices</span>
+    <span class="n">dispimg</span> <span class="o">=</span> <span class="n">dispimg</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># finally, we display the image</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dispimg</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">bands</span><span class="p">],</span> <span class="o">**</span><span class="n">imshow_args</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">handle</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+</div>
+<p>Now, create a <strong>dict</strong> called my_kwargs with keys <code class="docutils literal notranslate"><span class="pre">extent</span></code> and
+<code class="docutils literal notranslate"><span class="pre">transform</span></code>, using the values we passed to <code class="docutils literal notranslate"><span class="pre">ax.imshow()</span></code> previously:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;extent&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span>
+             <span class="s1">&#39;transform&#39;</span><span class="p">:</span> <span class="n">myCRS</span><span class="p">}</span>
+
+<span class="n">my_stretch</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;pmin&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;pmax&#39;</span><span class="p">:</span> <span class="mf">99.9</span><span class="p">}</span>
+
+<span class="n">h</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">new_img_display</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">stretch_args</span><span class="o">=</span><span class="n">my_stretch</span><span class="p">,</span> <span class="o">**</span><span class="n">my_kwargs</span><span class="p">)</span>
+<span class="n">fig</span>
+</pre></div>
+</div>
+<p>You should see that this is the same image as before - the only thing
+that’s changed is how we call the function. Feel free to try different
+stretch values, to see how it changes the image. If you’re interested in
+learning more about Landsat <a class="reference external" href="https://youtu.be/jc8NVHwjhlQ">band
+combinations</a> and <a class="reference external" href="https://youtu.be/LYVi7F4U8Eg">image
+enhancement</a> in general, you are
+welcome to watch the lecture videos provided by these links.</p>
+</div>
+<div class="section" id="reprojecting-rasters-using-rasterio">
+<h2>6. Reprojecting rasters using rasterio<a class="headerlink" href="#reprojecting-rasters-using-rasterio" title="Permalink to this headline"></a></h2>
+<p>Fortunately, our image was provided in a geographic format that matches
+what we’ve been working with (WGS84 UTM Zone 29N). But, what if we need
+to have our image in a different format? In that case, we can use the
+<code class="docutils literal notranslate"><span class="pre">rasterio.warp</span></code> sub-module to reproject the image. The example below
+comes directly from an example provided in the <a class="reference external" href="https://rasterio.readthedocs.io/en/latest/topics/reproject.html#reprojecting-a-geotiff-dataset">rasterio
+documentation</a>,
+and it makes use of two concepts that we’ve introduced in this
+practical: the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement, and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>. For more details
+about the different functions, such as
+<code class="docutils literal notranslate"><span class="pre">rasterio.warp.calculate_default_transform()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">rasterio.warp.reproject</span></code>, check out the
+<a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.warp.html">documentation</a>.</p>
+<p>The first part of this example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/NI_Mosaic.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">transform</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">rio</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">calculate_default_transform</span><span class="p">(</span>
+            <span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">dst_crs</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="o">*</span><span class="n">src</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>opens the <code class="docutils literal notranslate"><span class="pre">NI_Mosaic.tif</span></code> file, and find the new <code class="docutils literal notranslate"><span class="pre">transform</span></code>,
+<code class="docutils literal notranslate"><span class="pre">width</span></code>, and <code class="docutils literal notranslate"><span class="pre">height</span></code> attribute values for the reprojected (output)
+raster. Next, we copy the <code class="docutils literal notranslate"><span class="pre">meta</span></code> attribute, a <code class="docutils literal notranslate"><span class="pre">dict</span></code> object, from
+the source dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We then <code class="docutils literal notranslate"><span class="pre">update</span></code> (change) some of the attributes of the <code class="docutils literal notranslate"><span class="pre">dict</span></code>
+object to match the output dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;crs&#39;</span><span class="p">:</span> <span class="n">dst_crs</span><span class="p">,</span>
+    <span class="s1">&#39;transform&#39;</span><span class="p">:</span> <span class="n">transform</span><span class="p">,</span>
+    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Finally, we open the new (reprojected) dataset, and reproject each band
+from the source dataset to the output dataset, using a nearest-neighbor
+resampling (<code class="docutils literal notranslate"><span class="pre">Resampling.nearest</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/NI_Mosaic_ITM.tif&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># ranging from 1 to the number of bands + 1</span>
+        <span class="n">rio</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">reproject</span><span class="p">(</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">rio</span><span class="o">.</span><span class="n">band</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+            <span class="n">destination</span><span class="o">=</span><span class="n">rio</span><span class="o">.</span><span class="n">band</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+            <span class="n">src_transform</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span>
+            <span class="n">src_crs</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span>
+            <span class="n">dst_transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+            <span class="n">dst_crs</span><span class="o">=</span><span class="n">dst_crs</span><span class="p">,</span>
+            <span class="n">resampling</span><span class="o">=</span><span class="n">Resampling</span><span class="o">.</span><span class="n">nearest</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that this example only reprojects the raster from one CRS to
+another. If we wanted to, say, reproject the raster while also changing
+the pixel size or cropping to a particular data frame, we would need to
+calculate the new <code class="docutils literal notranslate"><span class="pre">transform</span></code>, <code class="docutils literal notranslate"><span class="pre">width</span></code>, and <code class="docutils literal notranslate"><span class="pre">height</span></code> values
+accordingly.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rasterio.warp</span> <span class="c1"># note: we will be able to use rio.warp here, since we&#39;ve previously imported rasterio as rio.</span>
+<span class="n">dst_crs</span> <span class="o">=</span> <span class="s1">&#39;epsg:2157&#39;</span> <span class="c1"># irish transverse mercator EPSG code</span>
+
+<span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/NI_Mosaic.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">transform</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">rio</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">calculate_default_transform</span><span class="p">(</span>
+            <span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="n">dst_crs</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="o">*</span><span class="n">src</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># this copies the meta dict object</span>
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;crs&#39;</span><span class="p">:</span> <span class="n">dst_crs</span><span class="p">,</span>
+        <span class="s1">&#39;transform&#39;</span><span class="p">:</span> <span class="n">transform</span><span class="p">,</span>
+        <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+        <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span>
+    <span class="p">})</span> <span class="c1"># note: to change the values in a dictionary, we use the update() method</span>
+
+    <span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/NI_Mosaic_ITM.tif&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># ranging from 1 to the number of bands + 1</span>
+            <span class="n">rio</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">reproject</span><span class="p">(</span>
+                <span class="n">source</span><span class="o">=</span><span class="n">rio</span><span class="o">.</span><span class="n">band</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+                <span class="n">destination</span><span class="o">=</span><span class="n">rio</span><span class="o">.</span><span class="n">band</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+                <span class="n">src_transform</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span>
+                <span class="n">src_crs</span><span class="o">=</span><span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span>
+                <span class="n">dst_transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+                <span class="n">dst_crs</span><span class="o">=</span><span class="n">dst_crs</span><span class="p">,</span>
+                <span class="n">resampling</span><span class="o">=</span><span class="n">rio</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">Resampling</span><span class="o">.</span><span class="n">nearest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>That wraps up the practical for this week. Next week, we’ll look at some
+more programming concepts, as well as ways that we can work with both
+raster data and vector data. In the meantime, use the
+<code class="docutils literal notranslate"><span class="pre">assignment_script.py</span></code> file in the Week4 folder to work on a script
+that combines the concepts we’ve used this week, as well as some of the
+material from previous weeks, to produce a map that overlays the county
+borders and town/city locations on the satellite image provided.</p>
+<p>For an additional challenge, try this: In the image below, notice how
+the area outside of the county borders has been covered by a
+semi-transparent overlay. Can you work out how to do this? Check over
+the <code class="docutils literal notranslate"><span class="pre">import</span></code> statements in <code class="docutils literal notranslate"><span class="pre">assignment_script.py</span></code> <strong>carefully</strong> -
+there’s at least one import that we haven’t used yet, but it should help
+point you in the right direction.</p>
+<p>I’ll provide my example next week, but try to think about the different
+steps involved and how you might solve this, using some of the examples
+provided in previous weeks. Good luck!</p>
+<div class="figure align-default" id="id2">
+<img alt="Example map for Week 4 assignment" src="../../../_images/example_map.png" />
+<p class="caption"><span class="caption-text">Example map for Week 4 assignment</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week3.html" class="btn btn-neutral float-left" title="Practical 3 - Vector data using shapely and geopandas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="week5.html" class="btn btn-neutral float-right" title="Practical 5 - Vector and raster operations using python" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practical 3 - Vector data using shapely and geopandas &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Practical 4 - Raster data using rasterio" href="week4.html" />
+    <link rel="prev" title="Practical 2 - Mapping with cartopy" href="week2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#unis-spring-2017">unis (spring 2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#esa-cryosphere-training-course-june-2018">esa cryosphere training course (june 2018)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#ulster-2020-present">ulster (2020-present)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">EGM722: programming for gis and remote sensing</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../setup/index.html">setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#content">content</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
+          <li><a href="../index.html">EGM722: programming for gis and remote sensing</a> &raquo;</li>
+          <li><a href="index.html">practicals</a> &raquo;</li>
+      <li>Practical 3 - Vector data using shapely and geopandas</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/teaching/egm722/practicals/week3.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="practical-3-vector-data-using-shapely-and-geopandas">
+<h1>Practical 3 - Vector data using shapely and geopandas<a class="headerlink" href="#practical-3-vector-data-using-shapely-and-geopandas" title="Permalink to this headline"></a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<p>In this practical, you’ll gain some more experience working with vector data in python. You will learn about the different vector
+data types available in the shapely package, and how we can use the geopandas package to perform different vector data
+operations and analyses.</p>
+<p>The practical this week is provided as a Jupyter Notebook, where you can interactively work through the different steps of
+plotting the data. There is a second file, exercise_script.py, which you can modify to perform additional analyses, based on what
+you’ve learned in the Jupyter Notebook and the mapping exercise in Practical 2.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<p>To get started with this week’s practical, open Anaconda Navigator, then launch the command prompt (make sure that your
+egm722 environment is selected).</p>
+<p>When the command prompt opens, navigate to your repository folder using cd, then type dir and press enter. You should see
+something similar to the following:</p>
+<p><strong>week 3 dir</strong></p>
+<p>To download the Week 3 practical notebook and data, we’ll need to use git.</p>
+<p>First, make sure that you’re on the main branch by typing git checkout main. This will switch to the main branch, if you are not
+already on it.</p>
+<p>At the command prompt, type git pull upstream main and press enter. This will pull (fetch and merge) the upstream main
+branch into your current branch. You should see something like the following:</p>
+<p><strong>week 3 updates</strong></p>
+<p>This has downloaded the update to the main branch that included the data and workbook for Practical 3. If you type git status at
+the command prompt and press enter, you should now see the following:</p>
+<p><strong>week 3 status</strong></p>
+<p>Your local branch should now be ahead of the origin branch by a number of commits – you have not yet published (pushed) the
+changes that you just integrated. You can do so now using git push.</p>
+<p>Last but not least, you can check that there are now 3 folders in the current directory:</p>
+<p><strong>week 3 updated dir</strong></p>
+<p>At this point, you can launch Jupyter Notebooks from the command prompt, or from Anaconda Navigator, and begin to work
+through the notebook.</p>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>Once you have finished the notebook and the exercise, make sure to send me an e-mail with some
+ideas for your coding project. They do not have to be completely fleshed out, but you should try to have a general idea of what
+you would like to work on for the final project – ideally, this will be something related to your work, or a potential MSc thesis
+topic.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to follow the instructions
+above to open the notebook and run it on your own computer!</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<p>Up to now, you have gained some experience working with basic features
+of python, and used cartopy and matplotlib to create a map. In each of
+these practicals, you have loaded different vector datasets using a
+module called geopandas. In this week’s practical, we’ll be looking at
+working vector data in a bit more depth, including the different
+geometry types available using shapely, analyses like spatial joins and
+summarizing based on attributes, and how to reproject vector data from
+one coordinate reference system to another.</p>
+</div>
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Gain experience working with different vector data types using
+shapely</p></li>
+<li><p>Use geopandas to re-project vector datasets from one coordinate
+reference system to another</p></li>
+<li><p>Summarize features using the groupby method of a GeoDataFrame</p></li>
+<li><p>Learn how to perform different vector data operations using geopandas
+and shapely</p></li>
+</ul>
+</div>
+<div class="section" id="data-provided">
+<h2>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline"></a></h2>
+<p>In the data_files folder, you should have the following: - NI_roads.shp,
+a shapefile of roads in Northern Ireland - Counties.shp, a shapefile of
+county outlines for Northern Ireland - NI_Wards.shp, a shapefile of
+electoral wards for Northern Ireland</p>
+</div>
+<div class="section" id="id1">
+<h2>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<p>In this practical, we’ll be working with vector data. As a quick
+refresher, the three main types of vector data that we will work with
+are:</p>
+<ul class="simple">
+<li><p><strong>Point</strong>: point data represent a single point in space. For our
+purposes, points are either two-dimensional (x, y) or
+three-dimensional (x, y, z). In shapely, the corresponding <strong>class</strong>
+of data is a <strong>Point</strong>.</p></li>
+<li><p><strong>Line</strong>: lines are a sequence of at least two points that are joined
+together. In shapely, the corresponding <strong>class</strong> of data is known as
+a <strong>LineString</strong>.</p></li>
+<li><p><strong>Polygon</strong>: polygons are a sequence of at least three points that
+are connected to form a ring, as well as any additional rings that
+represent holes in the polygon. In shapely, the corresponding
+<strong>class</strong> of data is a <strong>Polygon</strong>.</p></li>
+</ul>
+<p>We can also have <strong>Collections</strong> of vector data, where each feature
+represents a collection of <strong>Point</strong>, <strong>Line</strong>, or <strong>Polygon</strong> objects.
+In shapely, these are represented as <strong>MultiPoint</strong>,
+<strong>MultiLineString</strong>, or <strong>MultiPolygon</strong> objects.</p>
+<p>To get started, run the following cell to import geopandas and shapely.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this lets us use the figures interactively</span>
+<span class="o">%</span><span class="k">matplotlib</span> notebook
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shapely-geometry-types">
+<h2>2. Shapely geometry types<a class="headerlink" href="#shapely-geometry-types" title="Permalink to this headline"></a></h2>
+<div class="section" id="points">
+<h3>2.1 Points<a class="headerlink" href="#points" title="Permalink to this headline"></a></h3>
+<p>As we saw in Week 1, to create a Point, we pass x, y (and optionally, z)
+coordinates to the Point class constructor:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">)</span> <span class="c1"># creates a 2d point with coordinates -6.677, 55.150</span>
+<span class="n">pt2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">6.658</span><span class="p">,</span> <span class="mf">55.213</span><span class="p">)</span>
+
+<span class="n">pt3d</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">86.925278</span><span class="p">,</span> <span class="mf">27.988056</span><span class="p">,</span> <span class="mf">8848.86</span><span class="p">)</span> <span class="c1"># creates a 3d point</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="c1"># print a well-known text (WKT) representation of the Point object</span>
+</pre></div>
+</div>
+<p>The last line, <code class="docutils literal notranslate"><span class="pre">print(pt)</span></code>, prints a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry">well-known-text</a>
+(WKT) representation of the <strong>Point</strong> object. WKT is a standard
+representation of vector geometry objects - most <code class="docutils literal notranslate"><span class="pre">python</span></code> libraries
+and GIS softwares are able to read and/or translate WKT into other
+formats, such as ESRI Shapefiles, GeoJSON, etc.</p>
+<p>Remember that in python, we can find the attributes and methods for an
+object by looking up the documentation (for shapely, this can be found
+<a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">here</a>), or
+using the built-in function <code class="docutils literal notranslate"><span class="pre">dir()</span></code>. To find out more about a
+particular function, we can use the built-in function <code class="docutils literal notranslate"><span class="pre">help()</span></code> (or, in
+jupyter notebooks/ipython, the <code class="docutils literal notranslate"><span class="pre">?</span></code> operator).</p>
+<p>As an example, let’s use the built-in function <code class="docutils literal notranslate"><span class="pre">dir()</span></code> to look at the
+methods and attributes associated with the <strong>Point</strong> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">pt</span><span class="p">))</span>
+<span class="p">[</span><span class="s1">&#39;__and__&#39;</span><span class="p">,</span> <span class="s1">&#39;__array_interface__&#39;</span><span class="p">,</span> <span class="s1">&#39;__bool__&#39;</span><span class="p">,</span> <span class="s1">&#39;__class__&#39;</span><span class="p">,</span> <span class="s1">&#39;__del__&#39;</span><span class="p">,</span> <span class="s1">&#39;__delattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__dict__&#39;</span><span class="p">,</span> <span class="s1">&#39;__dir__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__eq__&#39;</span><span class="p">,</span> <span class="s1">&#39;__format__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ge__&#39;</span><span class="p">,</span> <span class="s1">&#39;__geo_interface__&#39;</span><span class="p">,</span> <span class="s1">&#39;__geom__&#39;</span><span class="p">,</span> <span class="s1">&#39;__getattribute__&#39;</span><span class="p">,</span> <span class="s1">&#39;__gt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__hash__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init__&#39;</span><span class="p">,</span> <span class="s1">&#39;__init_subclass__&#39;</span><span class="p">,</span> <span class="s1">&#39;__le__&#39;</span><span class="p">,</span> <span class="s1">&#39;__lt__&#39;</span><span class="p">,</span> <span class="s1">&#39;__module__&#39;</span><span class="p">,</span> <span class="s1">&#39;__ne__&#39;</span><span class="p">,</span> <span class="s1">&#39;__new__&#39;</span><span class="p">,</span> <span class="s1">&#39;__nonzero__&#39;</span><span class="p">,</span> <span class="s1">&#39;__or__&#39;</span><span class="p">,</span> <span class="s1">&#39;__p__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce__&#39;</span><span class="p">,</span> <span class="s1">&#39;__reduce_ex__&#39;</span><span class="p">,</span> <span class="s1">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__setstate__&#39;</span><span class="p">,</span> <span class="s1">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s1">&#39;__str__&#39;</span><span class="p">,</span> <span class="s1">&#39;__sub__&#39;</span><span class="p">,</span> <span class="s1">&#39;__subclasshook__&#39;</span><span class="p">,</span> <span class="s1">&#39;__weakref__&#39;</span><span class="p">,</span> <span class="s1">&#39;__xor__&#39;</span><span class="p">,</span> <span class="s1">&#39;_crs&#39;</span><span class="p">,</span> <span class="s1">&#39;_ctypes_data&#39;</span><span class="p">,</span> <span class="s1">&#39;_geom&#39;</span><span class="p">,</span> <span class="s1">&#39;_get_coords&#39;</span><span class="p">,</span> <span class="s1">&#39;_is_empty&#39;</span><span class="p">,</span> <span class="s1">&#39;_lgeos&#39;</span><span class="p">,</span> <span class="s1">&#39;_ndim&#39;</span><span class="p">,</span> <span class="s1">&#39;_other_owned&#39;</span><span class="p">,</span> <span class="s1">&#39;_repr_svg_&#39;</span><span class="p">,</span> <span class="s1">&#39;_set_coords&#39;</span><span class="p">,</span> <span class="s1">&#39;almost_equals&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;array_interface&#39;</span><span class="p">,</span> <span class="s1">&#39;array_interface_base&#39;</span><span class="p">,</span> <span class="s1">&#39;boundary&#39;</span><span class="p">,</span> <span class="s1">&#39;bounds&#39;</span><span class="p">,</span> <span class="s1">&#39;buffer&#39;</span><span class="p">,</span> <span class="s1">&#39;centroid&#39;</span><span class="p">,</span> <span class="s1">&#39;contains&#39;</span><span class="p">,</span> <span class="s1">&#39;convex_hull&#39;</span><span class="p">,</span> <span class="s1">&#39;coords&#39;</span><span class="p">,</span> <span class="s1">&#39;covers&#39;</span><span class="p">,</span> <span class="s1">&#39;crosses&#39;</span><span class="p">,</span> <span class="s1">&#39;ctypes&#39;</span><span class="p">,</span> <span class="s1">&#39;difference&#39;</span><span class="p">,</span> <span class="s1">&#39;disjoint&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">,</span> <span class="s1">&#39;empty&#39;</span><span class="p">,</span> <span class="s1">&#39;envelope&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="s1">&#39;equals_exact&#39;</span><span class="p">,</span> <span class="s1">&#39;geom_type&#39;</span><span class="p">,</span> <span class="s1">&#39;geometryType&#39;</span><span class="p">,</span> <span class="s1">&#39;has_z&#39;</span><span class="p">,</span> <span class="s1">&#39;hausdorff_distance&#39;</span><span class="p">,</span> <span class="s1">&#39;impl&#39;</span><span class="p">,</span> <span class="s1">&#39;interpolate&#39;</span><span class="p">,</span> <span class="s1">&#39;intersection&#39;</span><span class="p">,</span> <span class="s1">&#39;intersects&#39;</span><span class="p">,</span> <span class="s1">&#39;is_closed&#39;</span><span class="p">,</span> <span class="s1">&#39;is_empty&#39;</span><span class="p">,</span> <span class="s1">&#39;is_ring&#39;</span><span class="p">,</span> <span class="s1">&#39;is_simple&#39;</span><span class="p">,</span> <span class="s1">&#39;is_valid&#39;</span><span class="p">,</span> <span class="s1">&#39;length&#39;</span><span class="p">,</span> <span class="s1">&#39;minimum_clearance&#39;</span><span class="p">,</span> <span class="s1">&#39;minimum_rotated_rectangle&#39;</span><span class="p">,</span> <span class="s1">&#39;overlaps&#39;</span><span class="p">,</span> <span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="s1">&#39;relate&#39;</span><span class="p">,</span> <span class="s1">&#39;relate_pattern&#39;</span><span class="p">,</span> <span class="s1">&#39;representative_point&#39;</span><span class="p">,</span> <span class="s1">&#39;simplify&#39;</span><span class="p">,</span> <span class="s1">&#39;svg&#39;</span><span class="p">,</span> <span class="s1">&#39;symmetric_difference&#39;</span><span class="p">,</span> <span class="s1">&#39;to_wkb&#39;</span><span class="p">,</span> <span class="s1">&#39;to_wkt&#39;</span><span class="p">,</span> <span class="s1">&#39;touches&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;union&#39;</span><span class="p">,</span> <span class="s1">&#39;within&#39;</span><span class="p">,</span> <span class="s1">&#39;wkb&#39;</span><span class="p">,</span> <span class="s1">&#39;wkb_hex&#39;</span><span class="p">,</span> <span class="s1">&#39;wkt&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here, in addition to the <strong>special</strong> or <strong>magic</strong> methods (denoted with
+__ at the beginning and end of the method name), there are a number of
+methods that we might find useful, including <code class="docutils literal notranslate"><span class="pre">Point.distance()</span></code>. To
+see what this method does, we can use <code class="docutils literal notranslate"><span class="pre">help(Point.distance)</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">help</span><span class="p">(</span><span class="n">Point</span><span class="o">.</span><span class="n">distance</span><span class="p">)</span>
+<span class="n">Help</span> <span class="n">on</span> <span class="n">method</span> <span class="n">distance</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">base</span><span class="p">:</span>
+
+<span class="n">distance</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="n">method</span> <span class="n">of</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">Point</span> <span class="n">instance</span>
+    <span class="n">Unitless</span> <span class="n">distance</span> <span class="n">to</span> <span class="n">other</span> <span class="n">geometry</span> <span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So, <code class="docutils literal notranslate"><span class="pre">Point.distance()</span></code> provides the distance from the point object to
+some other geometry. Because shapely does not directly deal with
+coordinate systems, this distance is <strong>unitless</strong>. This means that <strong>we
+have to make sure that the two objects have the same reference system -
+if we do not, the distance returned will not make sense.</strong> We will cover
+working with coordinate reference systems later on in the practical.</p>
+<p>Use the cell below to work out how we can access the x, y coordinates of
+a Point object. Can you see more than one way to do this? If so, are
+there differences between them?</p>
+<p>One of the common operations we might want to do with a Point object is
+to create a <strong>buffer</strong> around the point. In the list of associated
+methods and attributes of Point objects above, you should see there is a
+method called <code class="docutils literal notranslate"><span class="pre">buffer</span></code>. A look at the help for this method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">help</span><span class="p">(</span><span class="n">Point</span><span class="o">.</span><span class="n">buffer</span><span class="p">)</span>
+<span class="n">Help</span> <span class="n">on</span> <span class="n">method</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">base</span><span class="p">:</span>
+
+<span class="n">buffer</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">quadsegs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cap_style</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">join_style</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mitre_limit</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">single_sided</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="n">method</span> <span class="n">of</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">Point</span> <span class="n">instance</span>
+    <span class="n">Get</span> <span class="n">a</span> <span class="n">geometry</span> <span class="n">that</span> <span class="n">represents</span> <span class="nb">all</span> <span class="n">points</span> <span class="n">within</span> <span class="n">a</span> <span class="n">distance</span>
+    <span class="n">of</span> <span class="n">this</span> <span class="n">geometry</span><span class="o">.</span>
+
+    <span class="n">A</span> <span class="n">positive</span> <span class="n">distance</span> <span class="n">produces</span> <span class="n">a</span> <span class="n">dilation</span><span class="p">,</span> <span class="n">a</span> <span class="n">negative</span> <span class="n">distance</span> <span class="n">an</span>
+    <span class="n">erosion</span><span class="o">.</span> <span class="n">A</span> <span class="n">very</span> <span class="n">small</span> <span class="ow">or</span> <span class="n">zero</span> <span class="n">distance</span> <span class="n">may</span> <span class="n">sometimes</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span>
+    <span class="s2">&quot;tidy&quot;</span> <span class="n">a</span> <span class="n">polygon</span><span class="o">.</span>
+
+    <span class="n">Parameters</span>
+    <span class="o">----------</span>
+    <span class="n">distance</span> <span class="p">:</span> <span class="nb">float</span>
+        <span class="n">The</span> <span class="n">distance</span> <span class="n">to</span> <span class="n">buffer</span> <span class="n">around</span> <span class="n">the</span> <span class="nb">object</span><span class="o">.</span>
+    <span class="n">resolution</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">optional</span>
+        <span class="n">The</span> <span class="n">resolution</span> <span class="n">of</span> <span class="n">the</span> <span class="n">buffer</span> <span class="n">around</span> <span class="n">each</span> <span class="n">vertex</span> <span class="n">of</span> <span class="n">the</span>
+        <span class="nb">object</span><span class="o">.</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>shows that <code class="docutils literal notranslate"><span class="pre">buffer</span></code> takes a <strong>positional parameter</strong> of <em>distance</em>, as
+well as a number of <strong>keyword parameters</strong> that determine how the buffer
+operation is done. Remember that the buffer distance will be in the same
+coordinate system as our point - shapely does not, by itself, do any
+conversion between coordinate systems or units.</p>
+<p>Note that the object returned by buffer is a Polygon, rather than a
+point - this makes sense, as the buffer is a two-dimensional surface
+around the point location.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt_buffer</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pt_buffer</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="linestrings">
+<h3>2.2. LineStrings<a class="headerlink" href="#linestrings" title="Permalink to this headline"></a></h3>
+<p>Instead of using a single x, y coordinate pair, a <strong>LineString</strong> object
+takes either a list of <strong>Point</strong> objects, or a list of coordinate
+<strong>tuples</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([</span><span class="n">pt</span><span class="p">,</span> <span class="n">pt2</span><span class="p">])</span> <span class="c1"># method one of creating a LineString, using a list of Point objects</span>
+<span class="n">line2</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.658</span><span class="p">,</span> <span class="mf">55.213</span><span class="p">)])</span> <span class="c1"># method two, using a list of coordinate tuples</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span>
+
+<span class="n">line1</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span> <span class="c1"># check to see if these are the same geometry</span>
+</pre></div>
+</div>
+<p>The coordinates of a <strong>LineString</strong> are stored as a <strong>tuple</strong> in an
+attribute called <strong>xy</strong>. The <strong>tuple</strong> has two items representing the X
+and Y coordinate values. If we want the x and y coordinates as separate
+variables, we can access them using their respective indices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>We can also combine this using <strong>tuple assignment</strong>, or <strong>unpacking</strong>,
+which assigns values from a <strong>tuple</strong> on the right-hand side of the
+assignment to a comma-separated grouping of variables on the left-hand
+side:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">xy</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>LineString</strong> objects have a number of the same methods that <strong>Point</strong>
+objects do, including <code class="docutils literal notranslate"><span class="pre">buffer</span></code> and <code class="docutils literal notranslate"><span class="pre">distance</span></code>. <strong>LineString</strong>
+objects also have a <code class="docutils literal notranslate"><span class="pre">length</span></code> (just like with distance, it is
+<strong>unitless</strong>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also find the <code class="docutils literal notranslate"><span class="pre">centroid</span></code> (center) of the <strong>LineString</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">center</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">centroid</span> <span class="c1"># get the centerpoint of the line</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The last two methods of <strong>LineString</strong> objects that we will explore for
+now are <code class="docutils literal notranslate"><span class="pre">project</span></code> and <code class="docutils literal notranslate"><span class="pre">interpolate</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">help</span><span class="p">(</span><span class="n">LineString</span><span class="o">.</span><span class="n">project</span><span class="p">)</span>
+<span class="n">Help</span> <span class="n">on</span> <span class="n">function</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">base</span><span class="p">:</span>
+
+<span class="n">project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">Returns</span> <span class="n">the</span> <span class="n">distance</span> <span class="n">along</span> <span class="n">this</span> <span class="n">geometry</span> <span class="n">to</span> <span class="n">a</span> <span class="n">point</span> <span class="n">nearest</span> <span class="n">the</span>
+    <span class="n">specified</span> <span class="n">point</span>
+
+    <span class="n">If</span> <span class="n">the</span> <span class="n">normalized</span> <span class="n">arg</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">,</span> <span class="k">return</span> <span class="n">the</span> <span class="n">distance</span> <span class="n">normalized</span> <span class="n">to</span> <span class="n">the</span>
+    <span class="n">length</span> <span class="n">of</span> <span class="n">the</span> <span class="n">linear</span> <span class="n">geometry</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>So <code class="docutils literal notranslate"><span class="pre">project</span></code> returns the distance along the <strong>LineString</strong> that comes
+closest to the <strong>Point</strong> (or other object). <code class="docutils literal notranslate"><span class="pre">interpolate</span></code>, on the
+other hand, does something a bit different:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">help</span><span class="p">(</span><span class="n">LineString</span><span class="o">.</span><span class="n">interpolate</span><span class="p">)</span>
+<span class="n">Help</span> <span class="n">on</span> <span class="n">function</span> <span class="n">interpolate</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">base</span><span class="p">:</span>
+
+<span class="n">interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">Return</span> <span class="n">a</span> <span class="n">point</span> <span class="n">at</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">distance</span> <span class="n">along</span> <span class="n">a</span> <span class="n">linear</span> <span class="n">geometry</span>
+
+    <span class="n">Negative</span> <span class="n">length</span> <span class="n">values</span> <span class="n">are</span> <span class="n">taken</span> <span class="k">as</span> <span class="n">measured</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">reverse</span>
+    <span class="n">direction</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">the</span> <span class="n">geometry</span><span class="o">.</span> <span class="n">Out</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="nb">range</span> <span class="n">index</span>
+    <span class="n">values</span> <span class="n">are</span> <span class="n">handled</span> <span class="n">by</span> <span class="n">clamping</span> <span class="n">them</span> <span class="n">to</span> <span class="n">the</span> <span class="n">valid</span> <span class="nb">range</span> <span class="n">of</span> <span class="n">values</span><span class="o">.</span>
+    <span class="n">If</span> <span class="n">the</span> <span class="n">normalized</span> <span class="n">arg</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">,</span> <span class="n">the</span> <span class="n">distance</span> <span class="n">will</span> <span class="n">be</span> <span class="n">interpreted</span> <span class="k">as</span> <span class="n">a</span>
+    <span class="n">fraction</span> <span class="n">of</span> <span class="n">the</span> <span class="n">geometry</span><span class="s1">&#39;s length.</span>
+</pre></div>
+</div>
+<p>it returns the point along the line at a specified distance; the
+distance can be in the units of the <strong>LineString</strong>’s coordinates
+(<code class="docutils literal notranslate"><span class="pre">normalized=False</span></code>), or it can be as a fraction of the total length
+of the <strong>LineString</strong> (<code class="docutils literal notranslate"><span class="pre">normalized=True</span></code>).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">center</span><span class="p">)</span> <span class="o">/</span> <span class="n">line1</span><span class="o">.</span><span class="n">length</span> <span class="c1"># check to see how far along the line our centerpoint is</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="polygons">
+<h3>2.3. Polygons<a class="headerlink" href="#polygons" title="Permalink to this headline"></a></h3>
+<p>The last basic geometry type we will look at in this practical are
+<strong>Polygon</strong> objects. Similar to <strong>LineString</strong> objects, we can create a
+<strong>Polygon</strong> object using a list of coordinate pairs, or a list of
+<strong>Point</strong> objects:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly1</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.658</span><span class="p">,</span> <span class="mf">55.213</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.722</span><span class="p">,</span> <span class="mf">55.189</span><span class="p">)])</span>
+<span class="n">poly2</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([</span><span class="n">pt</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">6.722</span><span class="p">,</span> <span class="mf">55.189</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">poly1</span><span class="p">)</span> <span class="c1"># print a well</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">poly2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">poly1</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">poly2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that even though we only passed three <strong>Point</strong> objects (or
+coordinate pairs) to the <strong>Polygon</strong> constructor, the <strong>Polygon</strong> has
+four vertices, with the first and last vertex being the same - this is
+because the <strong>Polygon</strong> exterior is <em>closed</em>. Note also the double
+parentheses - this is because a <strong>Polygon</strong> potentially has two sets of
+coordinates - the <em>Shell</em>, or <em>exterior</em>, and <em>holes</em>, or <em>interiors</em>.
+To create a <strong>Polygon</strong> with a hole in it, we would need to pass a list
+of coordinates that describe the <em>holes</em>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">polygon_with_hole</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">shell</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.658</span><span class="p">,</span> <span class="mf">55.213</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.722</span><span class="p">,</span> <span class="mf">55.189</span><span class="p">)],</span>
+                            <span class="n">holes</span><span class="o">=</span><span class="p">[[(</span><span class="o">-</span><span class="mf">6.684</span><span class="p">,</span> <span class="mf">55.168</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.704</span><span class="p">,</span> <span class="mf">55.187</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.672</span><span class="p">,</span> <span class="mf">55.196</span><span class="p">)]])</span> <span class="c1"># note the double brackets</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">polygon_with_hole</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note the double brackets in the <code class="docutils literal notranslate"><span class="pre">holes</span></code> keyword argument - this is
+necessary, because <code class="docutils literal notranslate"><span class="pre">holes</span></code> is expecting a sequence of coordinate
+sequences that describe the <em>holes</em> - effectively, a list of <strong>Polygon</strong>
+shells.</p>
+<p>Accessing the coordinates of a <strong>Polygon</strong> object is a little more
+complicated than it is for <strong>Point</strong> and <strong>LineString</strong> objects - this
+is because <strong>Polygon</strong> objects have two sets of coordinates, the
+exterior (<em>shell</em>) and interior (<em>holes</em>). But, the <code class="docutils literal notranslate"><span class="pre">exterior</span></code>
+attribute of the <strong>Polygon</strong> is just a <strong>LinearRing</strong> (a special case of
+<strong>LineString</strong> where the first and last coordinates are the same), and
+the <code class="docutils literal notranslate"><span class="pre">interiors</span></code> attribute is an <strong>InteriorRingSequence</strong> (basically, a
+collection of <strong>LinearRings</strong> that have to obey <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#polygons">additional
+rules</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">exterior</span><span class="p">)</span> <span class="c1"># this is a single LinearRing</span>
+<span class="k">for</span> <span class="n">lr</span> <span class="ow">in</span> <span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">interiors</span><span class="p">:</span> <span class="c1"># this is potentially multiple LinearRing objects</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Polygon</strong> objects have nonzero <code class="docutils literal notranslate"><span class="pre">area</span></code> and non-zero <code class="docutils literal notranslate"><span class="pre">length</span></code>
+(perimeter) - as with the equivalent attributes for <strong>Point</strong> and
+<strong>LineString</strong> objects, these are <strong>unitless</strong>. <strong>Polygon</strong> objects also
+have a <code class="docutils literal notranslate"><span class="pre">centroid</span></code>, and we can bound the geometry using <em>either</em> the
+minimum bounding box parallel to the coordinate axes (<code class="docutils literal notranslate"><span class="pre">envelope</span></code>), or
+a rotated minimum bounding box (<code class="docutils literal notranslate"><span class="pre">minimum_rotated_rectangle</span></code>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;perimeter: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">length</span><span class="p">)</span> <span class="c1"># print the perimeter</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;area: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="c1"># print the area</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;centroid: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span> <span class="c1"># get the centerpoint of the rectangle</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bounding coordinates: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span> <span class="c1"># get the minimum x, minimum y, maximum x, maximum y coordinates</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bounding box: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">envelope</span><span class="p">)</span> <span class="c1"># get the minimum bounding rectangle of the polygon, parallel to the coordinate axes</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;rotated bounding box: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">minimum_rotated_rectangle</span><span class="p">)</span> <span class="c1"># get the smallest possible rectangle that covers the polygon</span>
+</pre></div>
+</div>
+<p>There are a number of additional methods that we will cover more as we
+continue through the practicals - for now, this should be enough to give
+an idea for how these geometry objects work.</p>
+</div>
+<div class="section" id="interactions-between-geometry-objects">
+<h3>2.4 Interactions between geometry objects<a class="headerlink" href="#interactions-between-geometry-objects" title="Permalink to this headline"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">shapely</span></code> also provides a number of methods that we can use to check
+the spatial relationship between different objects. For example, the
+following code shows how we can use the <code class="docutils literal notranslate"><span class="pre">contains</span></code>
+<a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.contains">method</a>
+of a shapely geometry object to see whether a <strong>Point</strong> (or other
+geometry) is located fully within the object:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="n">pt1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">pt2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">pt1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">pt2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>We can also check to see whether two geometry objects
+<a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.intersects">intersect</a>
+using the <code class="docutils literal notranslate"><span class="pre">intersects</span></code> method. To actually get the intersection of the
+two geometries, we use the <code class="docutils literal notranslate"><span class="pre">intersection</span></code> method, which returns the
+geometry of the intersection (whether this is a <strong>Point</strong>, a
+<strong>LineString</strong>, a <strong>Polygon</strong>, or a mixed collection of geometries
+depends on the geometries and how they intersect):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="n">line2</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">line2</span><span class="p">))</span> <span class="c1"># intersects() returns True if the geometries touch/intersect/overlap, False otherwise</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">poly</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">line2</span><span class="p">))</span> <span class="c1"># if the geometries intersect, this will be the Point(s) of intersection</span>
+</pre></div>
+</div>
+<p>There are a number of other methods provided by <code class="docutils literal notranslate"><span class="pre">shapely</span></code> that we can
+use to determine the relationship between geometry objects, including
+<code class="docutils literal notranslate"><span class="pre">touches</span></code>, <code class="docutils literal notranslate"><span class="pre">within</span></code>, and <code class="docutils literal notranslate"><span class="pre">overlaps</span></code>. Have a look at the full list
+from the <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">shapely user
+manual</a> to see
+the rest.</p>
+</div>
+</div>
+<div class="section" id="geopandas-geodataframes">
+<h2>3. geopandas GeoDataFrames<a class="headerlink" href="#geopandas-geodataframes" title="Permalink to this headline"></a></h2>
+<p>We have used geopandas in the past two practicals to read provided
+shapefiles and work with the data they contain - in Practical 1, we
+translated a comma-separated variable (CSV) file into a shapefile, and
+in Practical 2, we read shapefile data and plotted it on a map using
+<code class="docutils literal notranslate"><span class="pre">cartopy</span></code>.</p>
+<p>This week, we will extend this introduction to look at how we can use
+geopandas to do various GIS analyses, such as spatial joins and clipping
+operations, as well as projecting from one coordinate reference system
+to another.</p>
+<p>To begin, load the <strong>NI_roads</strong> dataset from the <strong>data_files</strong> folder
+and print the <strong>header</strong> (first 5 lines of the <strong>GeoDataFrame</strong>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data_files/NI_roads.shp&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">roads</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>So this dataset has three columns: <strong>SURVEY</strong>, <strong>Road_class</strong>, and
+<strong>geometry</strong>. Note that each of the geometries is a <strong>LineString</strong>
+object, which means…</p>
+<div class="section" id="coordinate-reference-systems-using-proj">
+<h3>3.1 Coordinate reference systems using PROJ<a class="headerlink" href="#coordinate-reference-systems-using-proj" title="Permalink to this headline"></a></h3>
+<p>To start with, let’s see if we can figure out how many kilometers of
+motorway are represented in the dataset - i.e., the sum of the length of
+all of the <strong>LineString</strong> objects that have the attribute <em>MOTORWAY</em>.
+First, Let’s check what the coordinate reference system (CRS) of our
+<strong>GeoDataFrame</strong> is, using the <code class="docutils literal notranslate"><span class="pre">crs</span></code> attribute:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+<p>So this dataset has a <em>Geographic</em> coordinate reference system,
+<strong>EPSG:4326</strong>. EPSG codes (originally organized by the European
+Petroleum Survey Group) are a common way of working with coordinate
+reference systems. Each CRS in the <a class="reference external" href="https://epsg.org/home.html">EPSG
+registry</a> has a unique code and standard
+well-known text representation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">crs</span></code> attribute of the <strong>GeoDataFrame</strong> is actually a
+<strong>pyproj.CRS</strong> object.
+<a class="reference external" href="https://pyproj4.github.io/pyproj/stable/">pyproj</a> is a python
+interface to the <a class="reference external" href="https://proj.org/">PROJ</a> library, which is a
+software for transforming geospatial coordinates from one CRS to
+another.</p>
+<p>Each <strong>pyproj.CRS</strong> object provides a number of methods for converting
+to different formats, including well-known text, EPSG codes, JavaScript
+Object Notation (JSON), and PROJ string (i.e.,
+<code class="docutils literal notranslate"><span class="pre">'+proj=longlat</span> <span class="pre">+datum=WGS84</span> <span class="pre">+no_defs</span> <span class="pre">+type=crs'</span></code>).</p>
+<p>Because this is a <em>Geographic</em> CRS, the length information provided by
+<code class="docutils literal notranslate"><span class="pre">LineString.length</span></code> will also be in geographic units, which doesn’t
+really make sense for us - we first have to convert the <strong>GeoDataFrame</strong>
+to a different CRS. To do this, we can use the method <code class="docutils literal notranslate"><span class="pre">to_crs</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>In [8]: help(roads.to_crs)
+Help on method to_crs in module geopandas.geodataframe:
+
+to_crs(crs=None, epsg=None, inplace=False) method of geopandas.geodataframe.GeoDataFrame instance
+    Transform geometries to a new coordinate reference system.
+
+    Transform all geometries in an active geometry column to a different coordinate
+    reference system.  The ``crs`` attribute on the current GeoSeries must
+    be set.  Either ``crs`` or ``epsg`` may be specified for output.
+
+    This method will transform all points in all objects. It has no notion
+    or projecting entire geometries.  All segments joining points are
+    assumed to be lines in the current projection, not geodesics. Objects
+    crossing the dateline (or other projection boundary) will have
+    undesirable behavior.
+</pre></div>
+</div>
+<p>So, to transform the <strong>GeoDataFrame</strong> to a different CRS, we have to
+provide either a CRS or an EPSG code. We can also choose to do this in
+place (<code class="docutils literal notranslate"><span class="pre">inplace=True</span></code>), or assign the output to a new <strong>GeoDataFrame</strong>
+object (<code class="docutils literal notranslate"><span class="pre">inplace=False</span></code>). Let’s transform the <strong>GeoDataFrame</strong> to
+Irish Transverse Mercator, and assign the output to a new variable,
+<strong>roads_itm</strong>.</p>
+<p>Using the search function on the<a class="reference external" href="https://epsg.org/search/by-name">EPSG
+registry</a>, or using an internet
+search, look up the EPSG code for the Irish Transverse Mercator CRS and
+enter it in the method call below:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads_itm</span> <span class="o">=</span> <span class="n">roads</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">roads_itm</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Note that only the <strong>geometry</strong> column has changed - instead of
+geographic coordinates (e.g., (-6.21243, 54.48706)), the points in each
+<strong>LineString</strong> should be in a projected CRS (e.g., (715821.764,
+861315.722)). Now, when we access the <code class="docutils literal notranslate"><span class="pre">length</span></code> attributes of our
+<strong>LineString</strong> objects, the units will be in meters (the same units as
+our CRS).</p>
+</div>
+<div class="section" id="summarizing-data-using-geopandas">
+<h3>3.2 Summarizing data using geopandas<a class="headerlink" href="#summarizing-data-using-geopandas" title="Permalink to this headline"></a></h3>
+<p>So that’s the first part of our problem solved - our coordinates are in
+meters, and the lengths will be as well. The next step is to select all
+of the features that correspond to Motorways and sum the lengths. We saw
+an example of this in Practical 1 - we can slice the <strong>GeoDataFrame</strong> by
+returning all of the rows where <code class="docutils literal notranslate"><span class="pre">'Road_class'</span> <span class="pre">==</span> <span class="pre">'MOTORWAY'</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads_itm</span><span class="p">[</span><span class="n">roads_itm</span><span class="p">[</span><span class="s1">&#39;Road_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MOTORWAY&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>But first, we might want to add a column to our <strong>GeoDataFrame</strong> that
+contains the <code class="docutils literal notranslate"><span class="pre">length</span></code> of each of the features. To do this, we can
+<em>iterate</em> over the rows of the <strong>GeoDataFrame</strong> using the <code class="docutils literal notranslate"><span class="pre">iterrows</span></code>
+method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>In [9]: help(roads_itm.iterrows)
+Iterate over DataFrame rows as (index, Series) pairs.
+
+Yields
+------
+index : label or tuple of label
+    The index of the row. A tuple for a `MultiIndex`.
+data : Series
+    The data of the row as a Series.
+...
+</pre></div>
+</div>
+<p>Because <code class="docutils literal notranslate"><span class="pre">iterrows</span></code> returns an (index, Series) pair at each step, we
+use <strong>tuple assignment</strong> in our <code class="docutils literal notranslate"><span class="pre">for</span></code> loop. This gives us two
+variables, <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">row</span></code>, which we can use in the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.
+<code class="docutils literal notranslate"><span class="pre">i</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the <code class="docutils literal notranslate"><span class="pre">row</span></code>, while <code class="docutils literal notranslate"><span class="pre">row</span></code>
+corresponds to the actual data of the <code class="docutils literal notranslate"><span class="pre">row</span></code>, with each of the columns
+that the full <strong>GeoDataFrame</strong> has.</p>
+<p>We can access each column in the same way that we do for the full
+<strong>GeoDataFrame</strong> - either <code class="docutils literal notranslate"><span class="pre">row[column]</span></code> or <code class="docutils literal notranslate"><span class="pre">row.column</span></code>. We can
+assign a new column in the original <strong>GeoDataFrame</strong> using the <code class="docutils literal notranslate"><span class="pre">.loc</span></code>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html">property</a>,
+which uses either a <em>label</em> or a <strong>Boolean array</strong> to index the
+<strong>GeoDataFrame</strong>. So the line below,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">roads_itm</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">length</span>
+</pre></div>
+</div>
+<p>assigns the <code class="docutils literal notranslate"><span class="pre">length</span></code> property of the row’s geometry to a new column,
+<strong>Length</strong>, at the corresponding index. Putting it all together, it
+looks like this:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">roads_itm</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1"># iterate over each row in the GeoDataFrame</span>
+    <span class="n">roads_itm</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">length</span> <span class="c1"># assign the row&#39;s geometry length to a new column, Length</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">roads_itm</span><span class="o">.</span><span class="n">head</span><span class="p">())</span> <span class="c1"># print the updated GeoDataFrame to see the changes</span>
+</pre></div>
+</div>
+<p>Finally, we can subset our <strong>GeoDataFrame</strong> to select only <em>MOTORWAY</em>
+features, and sum their length:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_roads</span> <span class="o">=</span> <span class="n">roads_itm</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">sum_motorway</span> <span class="o">=</span> <span class="n">roads_itm</span><span class="p">[</span><span class="n">roads_itm</span><span class="p">[</span><span class="s1">&#39;Road_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MOTORWAY&#39;</span><span class="p">][</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1"> total m of roads&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sum_roads</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1"> total m of motorway&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sum_motorway</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In the cell above, look at the <code class="docutils literal notranslate"><span class="pre">print</span></code> function argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1"> total m of motorway&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sum_motorway</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Here, we use the <code class="docutils literal notranslate"><span class="pre">format</span></code> <a class="reference external" href="https://docs.python.org/3.8/library/string.html#format-string-syntax">string
+method</a>
+and curly braces ({ }) to insert the value of our <code class="docutils literal notranslate"><span class="pre">sum_motorway</span></code>
+variable. Note that within the curly braces, there is a <em>format
+specification</em> - rather than printing the string in an unformatted way
+(which would contain a lot of extra decimal places), we can tell the
+<code class="docutils literal notranslate"><span class="pre">format</span></code> method to clean up the output using <code class="docutils literal notranslate"><span class="pre">:</span></code> and a <a class="reference external" href="https://docs.python.org/3.8/library/string.html#formatspec">format
+specification</a>.
+In this case, <code class="docutils literal notranslate"><span class="pre">.2f</span></code> tells the <code class="docutils literal notranslate"><span class="pre">format</span></code> method format the number to
+have 2 places after the decimal.</p>
+<p>Let’s say now that we want to find the sum of all of the different road
+classes in our dataset. We could, of course, repeat the exercise above
+for each of the different values of <em>Road_class</em>. But, <strong>pandas</strong> (and
+by extension, <strong>geopandas</strong>) provide a nicer way to summarize data based
+on certain properties: the <code class="docutils literal notranslate"><span class="pre">groupby</span></code>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html">method</a>.
+The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method returns an object that contains information about
+the groups; to see different properties, we can call methods like
+<code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">sum</span></code>, etc.</p>
+<p>If we want to summarize our dataset by <em>Road_class</em> and find the <code class="docutils literal notranslate"><span class="pre">sum</span></code>
+of the <em>Length</em> of each group, then, it would like this:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads_itm</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Road_class&#39;</span><span class="p">])[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span> <span class="c1"># convert to km</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method returns a <strong>GeoDataFrame</strong>, which we can then
+index to return a single column, <em>Length</em>. As this is a numeric column,
+we can also use arithmetic on it to divide by a conversion factor. The
+<code class="docutils literal notranslate"><span class="pre">groupby</span></code> method is a very useful way to quickly summarize a
+<strong>DataFrame</strong> (or a <strong>GeoDataFrame</strong> - remember that this is a <strong>child</strong>
+class of <strong>DataFrame</strong>).</p>
+</div>
+</div>
+<div class="section" id="spatial-data-operations-using-geopandas-and-shapely">
+<h2>4. Spatial data operations using geopandas and shapely<a class="headerlink" href="#spatial-data-operations-using-geopandas-and-shapely" title="Permalink to this headline"></a></h2>
+<p>Oftentimes in GIS analysis, we want to summarize our data spatially, as
+well as thematically. In this section, we will be looking at two
+examples of this kind of analysis: first, using a <a class="reference external" href="https://gisgeography.com/spatial-join/">spatial
+join</a>, and second, using a
+clipping operation.</p>
+<p>The cell below will load the Counties shapefile in <strong>data_files</strong> and
+test whether the CRS of the <code class="docutils literal notranslate"><span class="pre">counties</span></code> <strong>GeoDataFrame</strong> is the same as
+the CRS of the <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code> <strong>GeoDataFrame</strong>. Remember that the
+<strong>shapely</strong> geometry objects in the <strong>GeoDataFrame</strong> don’t have any
+inherent information about the CRS of the object. So, in order to
+perform operations like a spatial join, we have to first ensure that the
+two <strong>GeoDataFrame</strong> objects have the same CRS.</p>
+<p>If, when you first load the shapefile, the test below returns False,
+write a line of code that will ensure that the test returns True.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data_files/Counties.shp&#39;</span><span class="p">)</span> <span class="c1"># load the Counties shapefile</span>
+<span class="c1"># your line of code might go here.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">counties</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">roads_itm</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span> <span class="c1"># test if the crs is the same for roads_itm and counties.</span>
+</pre></div>
+</div>
+<p>Now that the two <strong>GeoDataFrame</strong> objects have the same CRS, we can
+proceed with the spatial join using <code class="docutils literal notranslate"><span class="pre">gpd.sjoin</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">join</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">counties</span><span class="p">,</span> <span class="n">roads_itm</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">lsuffix</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">rsuffix</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span> <span class="c1"># perform the spatial join</span>
+<span class="n">join</span> <span class="c1"># show the joined table</span>
+</pre></div>
+</div>
+<p>Now, we can see that our table has additional columns - we have the
+unnamed <em>index</em>, <em>COUNTY_ID</em>, <em>CountyName</em>, <em>Area_SqKM</em>, <em>OBJECTID</em>, and
+<em>geometry</em> from the <code class="docutils literal notranslate"><span class="pre">counties</span></code> <strong>GeoDataFrame</strong>, and <em>index_right</em>
+(because it has the same name as <em>index</em> in the left <strong>GeoDataFrame</strong>),
+<em>SURVEY</em>, <em>Road_class</em>, and <em>Length</em> from the <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code>
+<strong>GeoDataFrame</strong>.</p>
+<p>Like we did with <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code>, we can again summarize our
+<strong>GeoDataFrame</strong> using <code class="docutils literal notranslate"><span class="pre">groupby</span></code>; this time, we’ll use the
+<em>CountyName</em> property to see the total length of roads by each county,
+and by <em>Road_class</em>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">join_total</span> <span class="o">=</span> <span class="n">join</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># find the total length of roads in the join GeoDataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;CountyName&#39;</span><span class="p">,</span> <span class="s1">&#39;Road_class&#39;</span><span class="p">])[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1"># summarize the road lengths by CountyName, Road_class</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sum_roads</span> <span class="o">/</span> <span class="n">join_total</span><span class="p">)</span> <span class="c1"># check that the total length of roads is the same between both GeoDataFrames; this should be 1.</span>
+</pre></div>
+</div>
+<p>We can see that the total length of roads is <strong>not</strong> the same in both
+<strong>GeoDataFrame</strong> objects - our <code class="docutils literal notranslate"><span class="pre">join</span></code> <strong>GeoDataFrame</strong> has somehow
+increased the length of roads.</p>
+<p>In reality, what has happened here is that we have double-counted any
+road feature that is located in multiple counties - you can also see
+this by comparing the total number of objects in the <code class="docutils literal notranslate"><span class="pre">join</span></code>
+<strong>GeoDataFrame</strong> and the <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code> <strong>GeoDataFrame</strong>. Obviously, we
+don’t want to double-count roads - to get around this, we can use the
+<code class="docutils literal notranslate"><span class="pre">gpd.clip</span></code> method to clip <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code> to each of the county
+boundaries in the <code class="docutils literal notranslate"><span class="pre">counties</span></code> <strong>GeoDataFrame</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>In [10]: help(gpd.clip)
+Help on function clip in module geopandas.tools.clip:
+
+clip(gdf, mask, keep_geom_type=False)
+    Clip points, lines, or polygon geometries to the mask extent.
+
+    Both layers must be in the same Coordinate Reference System (CRS).
+    The `gdf` will be clipped to the full extent of the clip object.
+
+    If there are multiple polygons in mask, data from `gdf` will be
+    clipped to the total boundary of all polygons in mask.
+...
+</pre></div>
+</div>
+<p>But, we have to do this for each of the boundaries - <code class="docutils literal notranslate"><span class="pre">gpd.clip</span></code> will
+take the total boundary for the <strong>GeoDataFrame</strong> if there are multiple
+<strong>Polygon</strong> objects. Using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to loop over the <code class="docutils literal notranslate"><span class="pre">counties</span></code>
+<strong>GeoDataFrame</strong>, we can clip <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code> to each county, and combine
+the results in another <strong>GeoDataFrame</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clipped</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># initialize an empty list</span>
+<span class="k">for</span> <span class="n">county</span> <span class="ow">in</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">tmp_clip</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">roads_itm</span><span class="p">,</span> <span class="n">counties</span><span class="p">[</span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">county</span><span class="p">])</span> <span class="c1"># clip the roads by county border</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tmp_clip</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">tmp_clip</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">length</span> <span class="c1"># we have to update the length for any clipped roads</span>
+        <span class="n">tmp_clip</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;CountyName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">county</span> <span class="c1"># set the county name for each road feature</span>
+    <span class="n">clipped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_clip</span><span class="p">)</span> <span class="c1"># add the clipped GeoDataFrame to the</span>
+
+<span class="c1"># pandas has a function, concat, which will combine (concatenate) a list of DataFrames (or GeoDataFrames)</span>
+<span class="c1"># we can then create a GeoDataFrame from the combined DataFrame, as the combined DataFrame will have a geometry column.</span>
+<span class="n">clipped_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">clipped</span><span class="p">))</span>
+<span class="n">clip_total</span> <span class="o">=</span> <span class="n">clipped_gdf</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">sum_roads</span> <span class="o">/</span> <span class="n">clip_total</span> <span class="c1"># check that the total length of roads is the same between both GeoDataFrames; this should be close to 1.</span>
+</pre></div>
+</div>
+<p>So we don’t have perfect overlap, but this has more to do with the fact
+that there isn’t perfect overlap between the <code class="docutils literal notranslate"><span class="pre">counties</span></code> boundary and
+the <code class="docutils literal notranslate"><span class="pre">roads</span></code> features - there are a good number of places where the
+roads extend beyond the boundary. To fix this, we could first clip
+<code class="docutils literal notranslate"><span class="pre">roads_itm</span></code> to the entire <code class="docutils literal notranslate"><span class="pre">counties</span></code> <strong>GeoDataFrame</strong>, which would
+eliminate these extraneous stretches of road. For now, though, agrement
+to within .01% is acceptable for our purposes - much better than the
+1.5% disagreement from the spatial join alone.</p>
+<p>To wrap up, write a line or two of code in the cell below that will
+summarize the <code class="docutils literal notranslate"><span class="pre">clipped_gdf</span></code> GeoDataFrame by county and road type.
+Which county has the most Motorways? The most roads in total?</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code goes here!</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercise-and-next-steps">
+<h2>5. Exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline"></a></h2>
+<p>Now that you’ve gained some experience working with <code class="docutils literal notranslate"><span class="pre">shapely</span></code> geometry
+objects and <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <strong>GeoDataFrame</strong> objects, have a look at
+<strong>exercise_script.py</strong> in this folder. Using the topics covered in the
+Week 2 practical and this practical, modify this script to do the
+following: 1. Load the counties and ward data 2. Using a spatial join,
+summarize the total population by county. What county has the highest
+population? What about the lowest? 3. Create a map like the one below to
+show population information by census area, with the county boundaries
+plotted overtop of the chloropleth map.</p>
+<img alt="../../../_images/sample_map.png" src="../../../_images/sample_map.png" />
+<div class="section" id="additional-exercise-questions">
+<h3>Additional exercise questions<a class="headerlink" href="#additional-exercise-questions" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>Are there any Wards that are located in more than one county? If so,
+how many, and what is the total population of these Wards?</p></li>
+<li><p>What Ward has the highest population? What about the lowest
+population?</p></li>
+<li><p>Repeat the exercise above using <strong>exercise_script.py</strong>, but this time
+use the population density (in number of residents per square km).</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week2.html" class="btn btn-neutral float-left" title="Practical 2 - Mapping with cartopy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="week4.html" class="btn btn-neutral float-right" title="Practical 4 - Raster data using rasterio" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
