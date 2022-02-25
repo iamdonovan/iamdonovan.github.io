@@ -1,0 +1,2 @@
+setting up conda/anaconda
+==========================

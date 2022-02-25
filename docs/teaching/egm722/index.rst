@@ -6,6 +6,7 @@ EGM722: programming for gis and remote sensing
    :hidden:
    :maxdepth: 2
 
+   setup/index
    lectures
    practicals/index
    resources
