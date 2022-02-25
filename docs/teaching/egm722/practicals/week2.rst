@@ -25,36 +25,24 @@ available for a particular repository:
     :align: center
     :alt: the github repository
 
-As you can see above, the available branches are ``main``, the default **branch** that we used in last week's practical, and branches for weeks 2 through 5.
+You should be able to see that the available branches are ``main``, the default **branch** that we used in last week's practical,
+and branches for weeks 2 through 5.
+
+If you open up the folder where you've **cloned** your repository, you should only see the **Week1** folder - no **Week2**, **Week3**, and so on:
+
+.. image:: ../../../img/egm722/week2/week1_folder.png
+    :width: 600
+    :align: center
+    :alt: the repository folder showing only Week 1 materials
+
+We want to be able to work with each of the weeks at the same time, without having to switch branches each time. To do this, we'll need to add each week's folder
+to the main branch.
 
 Each week, we'll see how we can **merge**, or integrate, that week's branch into the ``main`` branch. This week, we'll use **GitHub Desktop** to do this.
 In the coming weeks, we'll also introduce other options such as the command-line interface or
 `Pull Requests <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests>`_.
 
 For now, open up **GitHub Desktop**. You should see something like this:
-
-.. image:: ../../../img/egm722/week2/fork.png
-    :width: 600
-    :align: center
-    :alt: the forked github repository
-
-This is because the original course repository is **upstream** of your fork – it contains changes that you have not integrated into
-your repository (yet!). The following sections will walk you through the steps to integrate these changes into your repository, so
-that you can get the Week 2 material in your repository and on your local computer.
-
-The first section provides the instructions using :ref:`GitHub Desktop<desktop integration>`; the second will provide you 
-with the same steps using the :ref:`command-line interface<command-line integration>`.
-
-.. note::
-
-    You will only need to follow the instructions for **one** of the two methods, either the command line or GitHub Desktop.
-
-.. _desktop integration:
-
-Integrating upstream changes (GitHub Desktop)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Open **GitHub Desktop**. You should see something like the following:
 
 .. image:: ../../../img/egm722/week2/desktop1.png
     :width: 600
@@ -63,155 +51,86 @@ Open **GitHub Desktop**. You should see something like the following:
 
 Click the button that shows the current branch (**main**) – you should see the following:
 
-.. image:: ../../../img/egm722/week2/desktop2.png
+.. image:: ../../../img/egm722/week2/desktop_branches.png
     :width: 600
     :align: center
     :alt: the github desktop window
 
-In addition to your **main** branch, you should also see **upstream/main** and **upstream/dev/week2**, which is the branch we want to
-incorporate into your fork. If you click on **upstream/dev2**, it will create (**checkout**) a new local branch, **dev/week2**, which is a
-copy of the upstream branch.
+In addition to your **local** ``main`` branch, you should also see **upstream** versions of each of the branches (``main``, ``week2``--``week5``), 
+as well as **origin** versions.
 
-Next, we want to **merge** these changes into our main branch. First, select the **main** branch again by clicking on it:
+These are different things, and it's important to keep track of the differences:
 
-.. image:: ../../../img/egm722/week2/desktop_merge.png
+- The **local** branches are the versions that are stored on *your* computer, *local*\ ly. 
+- The **origin** branches are the versions stored on *your* GitHub repository
+- The **upstream** branches are the versions that are stored in the repository that you forked from (https://github.com/iamdonovan/egm722)
+
+Right now, you should only have the ``main`` branch on your machine. To work with (**checkout**) the ``week2`` branch, we need to download
+it. Select the **origin** ``week2`` (``origin/week2``) branch, and **GitHub Desktop** will download the files on the ``week2`` branch
+to your computer, and switch (**checkout**) the ``week2`` branch. You should see that the "Current branch" has changed:
+
+.. image:: ../../../img/egm722/week2/desktop_week2.png
     :width: 600
     :align: center
-    :alt: the merge menu in the github desktop window
+    :alt: the github desktop window
 
-At the bottom of the menu, you should see a button that says "Choose a branch to merge into **main**" – if you see another
-branch here, you'll need to switch branches by clicking on your **main** branch in the menu.
+And, you can see that the contents of your repository folder have changed:
 
-When you click on "Choose a branch to merge into **main**", you will see the following menu:
-
-.. image:: ../../../img/egm722/week2/desktop_merge2.png
+.. image:: ../../../img/egm722/week2/week2_folder.png
     :width: 600
     :align: center
-    :alt: the merge menu in the github desktop window
+    :alt: the repository folder showing only Week 2 materials
 
-Select your local **dev/week2** branch – at the bottom of the menu, you should see something that says "This will merge 
-**5 commits** from **dev/week2** into **main**" along with a green checkmark that indicates that there are no **conflicts**
-(in other words, no files that have been changed in both branches). If there are no conflicts, click on the **Merge** 
-button at the bottom of the menu.
+Remember - **the files are not gone**. When you switch from one branch to another, **git** changes the files in the folder to reflect
+the state of the branch you're working on. Because there is no **Week1** folder on the ``week2`` branch, it's been temporarily removed.
+You can verify this by switching branches in **GitHub Desktop** and seeing how the folder contents change.
 
-The last step is to **push** your changes to the origin (your GitHub repository). Click the **Push origin** button at 
-the top of the window:
+Make sure that you're on the ``main`` branch before continuing.
+
+To **merge** the two branches, click on the **Branch** menu, then select **Merge into current branch...**. In the menu that opens,
+select the **local** ``week2`` branch:
+
+.. image:: ../../../img/egm722/week2/merge_week2.png
+    :width: 600
+    :align: center
+    :alt: merging the week2 branch into main using github desktop
+
+You should see that a green checkmark appears, indicating that there aren't any **conflicts** (files that have been changed on 
+both branches). The message:
+
+    This will merge **2 commits** from **week2** into **main**
+
+Tells us the number of commits that will be merged into ``main``. Note that you may see a different number of commits here - as
+long as you have no conflicts, this isn't a problem.
+
+Select **Create a merge commit** - this will create a new commit that merges the two branches together. For now, don't worry about
+the other options for merging branches together.
+
+Once you've created the merge commit, you should see that **Fetch origin** has changed to **Push origin** - this will **push**
+(upload) the changes you've made locally to your **GitHub** repository:
 
 .. image:: ../../../img/egm722/week2/desktop_push.png
     :width: 600
     :align: center
     :alt: pushing changes from the github desktop window
 
-When you return to your GitHub repository, you should see that your changes have been integrated into the **main** branch:
+Once the changes have been pushed, go back to your **GitHub** repository (:samp:`https://github.com/<{your_username}>/egm722`). 
+You should now see that your ``main`` branch has both the **Week1** and **Week2** folders:
 
-.. image:: ../../../img/egm722/week2/fork_merge.png
+.. image:: ../../../img/egm722/week2/github_merged.png
     :width: 600
     :align: center
-    :alt: the merged changes in the forked repository
+    :alt: the github repository showing the merged files
 
-We still haven't pushed the local **dev/week2** branch to the GitHub repository – to do this, we'll need to set the remote location
-for the branch either by using the **config** file, or by using the command line.
+You can also confirm the changes in your **local** folder:
 
-Publishing local branches (GitHub Desktop)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-From the **Command Prompt**, navigate to your local repository directory, then type:
-::
-
-    git config --local --edit
-
-and press **ENTER**:
-
-.. image:: ../../../img/egm722/week2/prompt1.png
-    :width: 400
-    :align: center
-    :alt: opening the editor from the command prompt
-
-This will open your configured text editor. You should see something like this:
-
-.. image:: ../../../img/egm722/week2/config1.png
-    :width: 400
-    :align: center
-    :alt: the config file in the text editor
-
-Under ``[branch "dev/week2"]``, change **remote** from ``upstream`` to ``origin``:
-
-.. image:: ../../../img/egm722/week2/config2.png
-    :width: 400
-    :align: center
-    :alt: the config file with the remote value changed
-
-Save and close the file, and go back to **GitHub Desktop**. You should now see the option to **Publish branch** at the top:
-
-.. image:: ../../../img/egm722/week2/desktop_publish.png
+.. image:: ../../../img/egm722/week2/merged.png
     :width: 600
     :align: center
-    :alt: the publish branch option in github desktop
+    :alt: the repository folder showing the merged materials
 
-When you press this, it will upload the current branch to your GitHub repository. To check, head to the repository page – you
-should now see there are 2 branches instead of 1:
-
-.. image:: ../../../img/egm722/week2/fork_merged.png
-    :width: 600
-    :align: center
-    :alt: the forked repository with the changes merged
-
-If this is the case, you can switch branches back to **main** from **GitHub Desktop**, then start working on the Jupyter Notebook. If
-you do not see this, you can ask for help in the Discussion Forum.
-
-.. _command-line integration:
-
-Integrating upstream changes (command line)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To integrate the upstream changes using the command line, first open the **Command Prompt** and navigate to the folder
-containing your local repository. This repository is a *fork* of iamdonovan/egm722 – meaning that any changes to
-iamdonovan/egm722 are happening **upstream** of this repository.
-
-To bring the upstream changes to the local repository, use the ``git checkout`` command:
-::
-
-    git checkout -b dev/week2 upstream/dev/week2
-
-This will **checkout** the upstream branch (**dev/week2**) into a new local branch of the same name. You should see there is a new
-directory in the folder, Week2, which contains the files for the Week 2 practical:
-
-.. image:: ../../../img/egm722/week2/prompt2.png
-    :width: 400
-    :align: center
-    :alt: the week 2 directory
-
-Next, switch back to the main branch using ``git checkout``:
-::
-
-    git checkout main
-
-You should see that the Week2 folder has disappeared – this is because when we change branches, git updates the files/folders
-that it tracks to match the status of whatever branch we're on.
-
-Now, we can merge these changes into the local **main** branch using ``git merge``:
-::
-
-    git merge dev/week2
-
-This will merge the changes from **dev/week2** into the local **main** branch. We still haven't pushed the local **dev/week2** branch to
-the GitHub repository – to do this, we use ``git push``.
-
-At the moment, the **origin** for the **dev/week2** branch is set to the upstream repository, rather than your fork on GitHub – if you
-try to push the changes, you should see an error message. You can either edit the config file following the steps on pages 4-5 of
-this handout, or use the ``-u`` flag:
-::
-
-    git push -u origin dev/week2
-
-This will set the remote location for dev/week2 to point to origin (an alias for the URL for your GitHub repository), rather than
-the upstream repository (`<https://github.com/iamdonovan/egm722>`_). When you open your repository on GitHub, you should see
-there are now 2 branches, **main** and **dev/week2**; your main branch should now also include the Week2 folder.
-
-Running the notebook
----------------------
-
-At this point, you should be ready to open jupyter and work your way through the notebook, following the same initial steps as last week.
+At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the same initial
+steps as last week.
 
 Running the script
 -------------------
