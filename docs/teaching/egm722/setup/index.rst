@@ -5,11 +5,12 @@ setup
    :glob:
    :maxdepth: 1 
 
-   conda
-   git
    github
+   git
+   desktop
    fork
    clone
+   conda
    environment
 
 
