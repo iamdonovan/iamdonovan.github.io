@@ -21,22 +21,17 @@ In this module, students will develop an in-depth understanding of advanced remo
 
 Material from current and past iterations of EGM703 can be found by following the links along the side.
 
-content
--------
-
-+---------+---------------------------------------------+-------------------------------------------------------+
-| week    | lecture theme                               | practical theme                                       |
-+---------+---------------------------------------------+-------------------------------------------------------+
-| 1       | thermal remote sensing                      | hotspot detection and urban heat island mapping       |
-+---------+---------------------------------------------+-------------------------------------------------------+
-| 2       | hyperspectral remote sensing                | hyperspectral remote sensing with EO-1 Hyperion       |
-+---------+---------------------------------------------+-------------------------------------------------------+
-| 3       | principles of microwave remote sensing      | SAR image processing and flood mapping using ESA SNAP |
-+---------+---------------------------------------------+-------------------------------------------------------+
-| 4       | applications of microwave remote sensing    | measuring deformation using InSAR                     |
-+---------+---------------------------------------------+-------------------------------------------------------+
-| 5       | subsurface remote sensing                   | interpreting radar images                             |
-+---------+---------------------------------------------+-------------------------------------------------------+
-
-
++---------+-----------------------+-------------------------+
+| week    | lecture theme         | practical               |
++---------+-----------------------+-------------------------+
+| 1       | :ref:`egm703 week1`   | :doc:`practicals/week1` |
++---------+-----------------------+-------------------------+
+| 2       | :ref:`egm703 week2`   | :doc:`practicals/week2` |
++---------+-----------------------+-------------------------+
+| 3       | :ref:`egm703 week3`   | :doc:`practicals/week3` |
++---------+-----------------------+-------------------------+
+| 4       | :ref:`egm703 week4`   | :doc:`practicals/week4` |
++---------+-----------------------+-------------------------+
+| 5       | :ref:`egm703 week5`   |                         |
++---------+-----------------------+-------------------------+
 
