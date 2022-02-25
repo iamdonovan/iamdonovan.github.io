@@ -1,21 +1,42 @@
 cloning the repository
 =======================
 
-(with github desktop)
+Once you have :doc:`forked<fork>` the repository, you can **clone** (download) your fork to your computer. This will take a copy of the
+repository that's saved on **GitHub**, and create a local version on your computer.
 
-**github**
+To do this, first open **GitHub Desktop** if it isn't open already. You should see something like this (if you haven't,
+you may need to login to your **GitHub** account - see :doc:`here<desktop>` for instructions):
 
-make sure that you've forked the repository (if not, turn around!)
+.. image:: ../../../img/egm722/setup/clone/desktop_initial.png
+    :width: 600
+    :align: center
+    :alt: the starting point for github desktop
 
-**github desktop**
+You should also see your repository listed under **Your repositories**. Click on **Clone a repository from the Internet**, and
+you should see your forked version of the **egm722** repository (it will be listed as :samp:`<{your_username}>/egm722`):
 
+.. image:: ../../../img/egm722/setup/clone/desktop_clone.png
+    :width: 600
+    :align: center
+    :alt: the starting point for github desktop
 
-**highlighted repository**
+Select a local path to save the repository to, and make a note of the location (you'll need it for all of the practicals in
+the module!).
 
-**save to local folder**
+Select **Clone**, and you should see the following:
 
-**downloading**
+.. image:: ../../../img/egm722/setup/clone/cloning.png
+    :width: 600
+    :align: center
+    :alt: the repository being cloned to the local computer
 
-**planning to use this?**
+Finally, you'll see the following:
 
-next, move on to setting up the conda environment
+.. image:: ../../../img/egm722/setup/clone/purposes.png
+    :width: 600
+    :align: center
+    :alt: a dialog asking what you're planning to do with the repository
+
+This is asking you what your purpose is with the repository - whether you want to develop your own version, or if you plan to contribute
+to the **upstream** fork. For this module, you won't be contributing to the **upstream** fork (at least, not regularly), so choose
+**For my own purposes**, then continue.
