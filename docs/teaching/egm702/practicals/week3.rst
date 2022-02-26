@@ -1,4 +1,4 @@
-week 3 - introduction to google earth engine
+introduction to google earth engine
 ============================================
 
 .. raw:: html

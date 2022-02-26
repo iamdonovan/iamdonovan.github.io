@@ -1,4 +1,4 @@
-week 2 - dem differencing
+dem differencing
 =========================
 
 introduction

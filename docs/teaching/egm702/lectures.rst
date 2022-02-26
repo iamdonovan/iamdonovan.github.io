@@ -3,7 +3,9 @@ lectures
 
 Here, you will find links to YouTube playlists of the lectures for each week, as well as transcripts and the slides in pdf format.
 
-Week 1: Photogrammetry
+.. _egm702 week1:
+
+photogrammetry
 ----------------------
 
 video playlist
@@ -24,7 +26,9 @@ slides
 ^^^^^^
 :download:`Week 1 Slides <../../files/EGM702_Week1.zip>`
 
-Week 2: DEM and terrain analysis
+.. _egm702 week2:
+
+DEM and terrain analysis
 --------------------------------
 
 video playlist
@@ -45,7 +49,9 @@ slides
 ^^^^^^
 :download:`Week 2 Slides <../../files/EGM702_Week2.zip>`
 
-Week 3: Image manipulation and analysis
+.. _egm702 week3:
+
+image manipulation and analysis
 ---------------------------------------
 
 video playlist
@@ -66,8 +72,9 @@ slides
 ^^^^^^
 :download:`Week 3 Slides <../../files/EGM702_Week3.zip>`
 
+.. _egm702 week4:
 
-Week 4: Change detection
+change detection
 ------------------------
 
 video playlist
@@ -88,8 +95,9 @@ slides
 ^^^^^^
 :download:`Week 4 Slides <../../files/EGM702_Week4.zip>`
 
+.. _egm702 week5:
 
-Week 5: Advanced classification techniques
+advanced classification techniques
 -------------------------------------------
 
 video playlist
