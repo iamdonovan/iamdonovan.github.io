@@ -1,4 +1,4 @@
-week 2 - hyperspectral image analysis
+hyperspectral image analysis
 =====================================
 
 overview

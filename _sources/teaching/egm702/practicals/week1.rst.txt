@@ -1,4 +1,4 @@
-week 1 - dem processing using micmac
+dem processing using micmac
 ====================================
 
 introduction

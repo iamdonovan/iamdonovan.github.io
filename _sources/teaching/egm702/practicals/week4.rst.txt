@@ -1,4 +1,4 @@
-week 4 - change detection in earth engine
+change detection in earth engine
 =========================================
 
 introduction

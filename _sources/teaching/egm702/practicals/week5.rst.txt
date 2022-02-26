@@ -1,4 +1,4 @@
-week 5 - classification in earth engine
+classification in earth engine
 =======================================
 
 introduction

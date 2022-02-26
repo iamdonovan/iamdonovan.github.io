@@ -1,4 +1,4 @@
-week 4 - InSAR Processing
+InSAR Processing
 =========================
 
 For this week's practical, we'll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look complex) image, through to a terrain-corrected interferogram that you can use to estimate surface displacement. In particular, by the end of this practical, you will be able to use SNAP to:
