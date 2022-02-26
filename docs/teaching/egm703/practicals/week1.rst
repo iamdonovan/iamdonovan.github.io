@@ -1,4 +1,4 @@
-week 1 - urban heat islands
+urban heat islands
 ===========================
 
 For this week's practical, we'll learn the steps of processing a raw Landsat image through to Land Surface Temperature, with the purpose of investigating urban heat islands. In particular, by the end of this practical, you will be able to use QGIS or ArcGIS Pro to:
