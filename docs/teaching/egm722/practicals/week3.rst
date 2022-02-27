@@ -6,44 +6,120 @@ data types available in the shapely package, and how we can use the geopandas pa
 operations and analyses.
 
 The practical this week is provided as a Jupyter Notebook, where you can interactively work through the different steps of
-plotting the data. There is a second file, exercise_script.py, which you can modify to perform additional analyses, based on what
+plotting the data. There is a second file, **exercise_script.py**, which you can modify to perform additional analyses, based on what
 you’ve learned in the Jupyter Notebook and the mapping exercise in Practical 2.
+
+.. note::
+
+    In the main folder, you should also see an example script, **week3_example.py**. Be sure to try out the exercise, and see
+    if you can't figure out a solution on your own, before having a look at the (one of many possible) solution offered there.
 
 Getting Started
 ---------------
 
-To get started with this week’s practical, open Anaconda Navigator, then launch the command prompt (make sure that your
-egm722 environment is selected).
+:doc:`Last week<week2>`, we saw how we can use **GitHub Desktop** to merge two branches (in this case, ``week2`` into ``main``).
+This week, we're going to see how to do this using the command line.
 
-When the command prompt opens, navigate to your repository folder using cd, then type dir and press enter. You should see
-something similar to the following:
+To get started with this week’s practical, open Anaconda Navigator, then launch the **Command Prompt** - either from 
+**Anaconda Navigator**(make sure that your egm722 environment is selected), or from the **Start Menu**.
+
+When the **Command Prompt** opens, navigate to your repository folder using ``cd``, then type ``dir`` and press **Enter**. 
+You should see something similar to the following:
 
 **week 3 dir**
 
-To download the Week 3 practical notebook and data, we’ll need to use git.
+To merge the ``week3`` branch of our repository into ``main``, we'll use **git** from the command line. 
 
-First, make sure that you’re on the main branch by typing git checkout main. This will switch to the main branch, if you are not
-already on it.
+First, make sure that you’re on the ``week3`` branch by typing:
+::
 
-At the command prompt, type git pull upstream main and press enter. This will pull (fetch and merge) the upstream main
-branch into your current branch. You should see something like the following:
+     git checkout week3
+
+This will switch to the ``week3`` branch, if you are not already on it.
+
+Remember that at the :ref:`start<desktop branches>` of last week's practical, we discussed the difference between
+**local**, **origin**, and **upstream** branches: 
+
+- **local** branches are the ones stored *local*\ ly on your computer,
+- **origin** branches are the branches of your repository stored on GitHub,
+- **upstream** branches are the branches of the repository that you forked the egm722 repository from (https://github.com/iamdonovan/egm722).
+
+Sometimes, there may be changes to the **upstream** repository that we want to integrate into our local version of a repository. For
+example, for this module I may have added an additional exercise to the practical in one week, and you want to make sure that you have
+this before you **merge** that week's branch into the ``main`` branch.
+
+To be able to keep track of the **upstream** changes, we need to make sure that our local repository knows where the **upstream** repository
+is. First, double-check what **remote** (not **local**) repositories git is keeping track of by typing the following at the command line:
+::
+
+    git remote -v
+
+This will list the **remote** repositories, and their nicknames. You should see an output like this:
+
+**remote output**
+
+If you only see **origin**, then we need to add the **upstream** remote location using ``git remote add``:
+::
+
+    git remote add upstream https://github.com/iamdonovan/egm722.git
+
+This adds the URL for the **upstream** repository (https://github.com/iamdonovan/egm722.git) to our local configuration. You can check that this
+worked by typing ``git remote -v`` again - you should now see two lines for the **upstream** repository:
+
+**remote upstream added**
+
+Now, we can tell **git** to specifically **pull** the **upstream** version of a particular branch:
+::
+
+    git pull upstream
+
+This will **pull** (**fetch** and **merge**) the **upstream** version of the current branch (if it exists) into the **local**
+version of the current branch.
+
+We can also specify the branch we want to merge into the current branch:
+::
+
+    git pull upstream <branch>
+
+For example, ``git pull upstream week3`` would merge the **upstream** ``week3`` branch into our current branch (``week3``).
+Go ahead and enter this command now:
+::
+
+    git pull upstream week3
+
+You should see the following output:
+
+**week3 pull upstream**
+
+This indicates that there's been no change to the **upstream** branch that isn't already in our **origin** branch, so we can safely
+merge the **local** ``main`` and ``week3`` branches.
+
+Now, switch back to the ``main`` branch:
+::
+
+    git checkout main
+
+And enter the following command:
+::
+
+    git merge week3
+
+This will open up a text editor:
+
+**merge commit message**
+
+To allow us to write a detailed commit message for our merge commit. For now, it's enough to leave this as-is. In the future,
+you might want to make sure that you write out a more detailed message about the changes that are being integrated (and why).
+
+Once you finish the message, you should see the following output:
 
 **week 3 updates**
 
-This has downloaded the update to the main branch that included the data and workbook for Practical 3. If you type git status at
-the command prompt and press enter, you should now see the following:
+This tells us what files have been changed (``18 files``) and how (``854 insertions(+)``). Because none the files in the **Week3** 
+folder were present in the ``main`` branch, we'll only see additions/insertions. As you work on your project and commit changes 
+to existing files, you'll also see deletions (lines that are deleted or changed.
 
-**week 3 status**
-
-Your local branch should now be ahead of the origin branch by a number of commits – you have not yet published (pushed) the
-changes that you just integrated. You can do so now using git push.
-
-Last but not least, you can check that there are now 3 folders in the current directory:
-
-**week 3 updated dir**
-
-At this point, you can launch Jupyter Notebooks from the command prompt, or from Anaconda Navigator, and begin to work
-through the notebook.
+At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the practical exercise.
 
 Next steps
 ----------
