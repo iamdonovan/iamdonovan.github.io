@@ -3,7 +3,9 @@ lectures
 
 Here, you will find links to YouTube playlists of the lectures for each week, as well as transcripts and the slides in pdf format.
 
-week 9: fundamentals of terrestrial remote sensing
+.. _egm310 week9:
+
+fundamentals of terrestrial remote sensing
 --------------------------------------------------
 
 week 9 video playlist
@@ -23,11 +25,12 @@ week 9 slides
 ^^^^^^^^^^^^^
 :download:`Week 9 Slides <../../files/EGM310_Week9.zip>`
 
+.. _egm310 week10:
 
-week 10: satellites and sensors
+satellites and sensors
 -------------------------------
 
-weeek 10 video playlist
+week 10 video playlist
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 .. image:: ../../img/egm310/week10.png
@@ -44,8 +47,9 @@ week 10 slides
 ^^^^^^^^^^^^^^
 :download:`Week 10 Slides <../../files/EGM310_Week10.zip>`
 
+.. _egm310 week11:
 
-week 11: images and classification
+images and classification
 ----------------------------------
 
 week 11 video playlist
@@ -65,8 +69,9 @@ week 11 slides
 ^^^^^^^^^^^^^^
 :download:`Week 11 Slides <../../files/EGM310_Week11.zip>`
 
+.. _egm310 week12:
 
-week 12: applications of terrestrial remote sensing
+applications of terrestrial remote sensing
 ---------------------------------------------------
 
 week 12 video playlist
