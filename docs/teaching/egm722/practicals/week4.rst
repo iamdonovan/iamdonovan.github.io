@@ -11,30 +11,27 @@ the practical. An exercise, introduced at the end of the Notebook file, can be c
 Getting Started
 ---------------
 
-To get started with this week’s practical, open Anaconda Navigator, then launch the command prompt (make sure that your
-egm722 environment is selected).
+:doc:`Last week<week3>`, we saw how we can use the command-line interface (CLI) of **git** to merge two branches (in this case,
+``week3`` into ``main``). This week, we're going to see how to do this on GitHub, using a **Pull Request**.
 
-When the command prompt opens, navigate to your repository folder using cd, then type dir and press enter. You should see
-something similar to the following:
+Head over to your GitHub repository (:samp:`https://github.com/<{your_username}>/egm722`).
 
-**week 4 dir**
+(check the different branches)
 
-To download the Week 4 practical notebook and data, we’ll need to use git.
 
-First, make sure that you’re on the main branch by typing git checkout main. This will switch to the main branch, if you are not
-already on it.
+(compare week4 and main)
 
-At the command prompt, type git pull upstream main and press enter. Just like last week, this will pull (fetch and merge) the
-upstream main branch into your current branch. You should see something like the following:
 
-**week 4 update**
+(open the pull request)
 
-This has downloaded the update to the main branch that included the data and workbook for Practical 4. As with last week, you
-can now push these changes to your remote (GitHub) repository using git push. Last but not least, you can also check that you
-have 4 folders in the current directory (Weeks 1-4).
 
-At this point, you can launch Jupyter Notebooks from the command prompt, or from Anaconda Navigator, and begin to work
-through the notebook.
+(confirm the merge + close the pull request)
+
+
+(now, pull the changes to your local machine)
+
+
+At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the practical exercise.
 
 .. note::
     
