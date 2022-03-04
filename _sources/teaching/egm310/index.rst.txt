@@ -17,19 +17,17 @@ The topics covered include:
 - images and classification (band combinations, image enhancement, classification, accuracy assessment)
 - applications of (terrestrial) remote sensing (change detection, water resources, surface motion, archaeology)
 
-content
--------
 
-+---------+-----------------------------------------------+--------------------------------------------------------+
-| week    | lecture theme                                 | practical theme                                        |
-+---------+-----------------------------------------------+--------------------------------------------------------+
-| 9       | fundamentals of terrestrial remote sensing    | introduction to ERDAS Imagine and multispectral images |
-+---------+-----------------------------------------------+--------------------------------------------------------+
-| 10      | satellites and sensors                        | image interrogation and interpretation                 |
-+---------+-----------------------------------------------+--------------------------------------------------------+
-| 11      | images and classification                     | image classification                                   |
-+---------+-----------------------------------------------+--------------------------------------------------------+
-| 12      | applications of terrestrial remote sensing    |                                                        |
-+---------+-----------------------------------------------+--------------------------------------------------------+
++---------+----------------------+--------------------------------------------------------+
+| week    | lecture theme        | practical theme                                        |
++---------+----------------------+--------------------------------------------------------+
+| 9       | :ref:`egm310 week9`  | introduction to ERDAS Imagine and multispectral images |
++---------+----------------------+--------------------------------------------------------+
+| 10      | :ref:`egm310 week10` | image interrogation and interpretation                 |
++---------+----------------------+--------------------------------------------------------+
+| 11      | :ref:`egm310 week11` | image classification                                   |
++---------+----------------------+--------------------------------------------------------+
+| 12      | :ref:`egm310 week12` |                                                        |
++---------+----------------------+--------------------------------------------------------+
 
 
