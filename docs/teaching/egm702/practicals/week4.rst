@@ -1,9 +1,6 @@
 change detection in earth engine
 =========================================
 
-introduction
-------------
-
 In this practical, you’ll get an introduction to using Google Earth Engine (GEE) to do change detection and analysis. Just like last
 week, you should be able to do finish the practical even if you have no prior experience with programming. All of the
 programming steps have been provided for you in a script, and your task will be to run each step in turn and analyse and
