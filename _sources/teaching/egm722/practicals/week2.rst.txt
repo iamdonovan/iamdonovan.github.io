@@ -48,6 +48,8 @@ For now, open up **GitHub Desktop**. You should see something like this:
 
 Click the button that shows the current branch (**main**) – you should see the following:
 
+.. _desktop branches:
+
 .. image:: ../../../img/egm722/week2/desktop_branches.png
     :width: 600
     :align: center
@@ -82,7 +84,15 @@ Remember - **the files are not gone**. When you switch from one branch to anothe
 the state of the branch you're working on. Because there is no **Week1** folder on the ``week2`` branch, it's been temporarily removed.
 You can verify this by switching branches in **GitHub Desktop** and seeing how the folder contents change.
 
-Make sure that you're on the ``main`` branch before continuing.
+.. note::
+
+    **Make sure that you're on the** ``main`` **branch before continuing**.
+
+    As good practice, you should also click the "**Fetch origin**" button before continuing. 
+
+    There shouldn't be any changes on the remote repository that aren't on your local computer, so this won't make
+    much of a difference right now. If you're working collaboratively with others, though, it's good to make sure that you're not missing
+    important changes before merging different branches.
 
 To **merge** the two branches, click on the **Branch** menu, then select **Merge into current branch...**. In the menu that opens,
 select the **local** ``week2`` branch:
