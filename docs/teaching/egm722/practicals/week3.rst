@@ -26,16 +26,25 @@ To get started with this week’s practical, open Anaconda Navigator, then launc
 When the **Command Prompt** opens, navigate to your repository folder using ``cd``, then type ``dir`` and press **Enter**. 
 You should see something similar to the following:
 
-**week 3 dir**
+.. image:: ../../../img/egm722/week3/main_dir.png
+    :width: 400
+    :align: center
+    :alt: the dir of the main branch
 
-To merge the ``week3`` branch of our repository into ``main``, we'll use **git** from the command line. 
-
-First, make sure that you’re on the ``week3`` branch by typing:
+Switch to the ``week3`` branch by typing:
 ::
 
      git checkout week3
 
-This will switch to the ``week3`` branch, if you are not already on it.
+and pressing **Enter**. Next, type ``dir`` and press **Enter** again. You should now see this:
+
+.. image:: ../../../img/egm722/week3/week3_dir.png
+    :width: 400
+    :align: center
+    :alt: the dir of the week3 branch
+
+
+To merge the ``week3`` branch of our repository into ``main``, we'll use **git** from the command line. 
 
 Remember that at the :ref:`start<desktop branches>` of last week's practical, we discussed the difference between
 **local**, **origin**, and **upstream** branches: 
@@ -56,30 +65,28 @@ is. First, double-check what **remote** (not **local**) repositories git is keep
 
 This will list the **remote** repositories, and their nicknames. You should see an output like this:
 
-**remote output**
+.. image:: ../../../img/egm722/week3/remote_v.png
+    :width: 400
+    :align: center
+    :alt: the remote repositories for this repository
 
-If you only see **origin**, then we need to add the **upstream** remote location using ``git remote add``:
-::
+.. note::
 
-    git remote add upstream https://github.com/iamdonovan/egm722.git
+    If you only see **origin**, then we need to add the **upstream** remote location using ``git remote add``:
+    ::
 
-This adds the URL for the **upstream** repository (https://github.com/iamdonovan/egm722.git) to our local configuration. You can check that this
-worked by typing ``git remote -v`` again - you should now see two lines for the **upstream** repository:
+        git remote add upstream https://github.com/iamdonovan/egm722.git
 
-**remote upstream added**
+    This adds the URL for the **upstream** repository (https://github.com/iamdonovan/egm722.git) to our local configuration. You can check that this
+    worked by typing ``git remote -v`` again - you should now see two lines for the **upstream** repository, as above.
 
 Now, we can tell **git** to specifically **pull** the **upstream** version of a particular branch:
 ::
 
-    git pull upstream
-
-This will **pull** (**fetch** and **merge**) the **upstream** version of the current branch (if it exists) into the **local**
-version of the current branch.
-
-We can also specify the branch we want to merge into the current branch:
-::
-
     git pull upstream <branch>
+
+This will **pull** (**fetch** and **merge**) the **upstream** version of <**branch**> (if it exists) into the **local**
+version of the current branch.
 
 For example, ``git pull upstream week3`` would merge the **upstream** ``week3`` branch into our current branch (``week3``).
 Go ahead and enter this command now:
@@ -89,7 +96,10 @@ Go ahead and enter this command now:
 
 You should see the following output:
 
-**week3 pull upstream**
+.. image:: ../../../img/egm722/week3/pull_upstream.png
+    :width: 400
+    :align: center
+    :alt: pulling the upstream changes into the current branch
 
 This indicates that there's been no change to the **upstream** branch that isn't already in our **origin** branch, so we can safely
 merge the **local** ``main`` and ``week3`` branches.
@@ -104,20 +114,35 @@ And enter the following command:
 
     git merge week3
 
-This will open up a text editor:
+You should now see the following output in the window:
 
-**merge commit message**
-
-To allow us to write a detailed commit message for our merge commit. For now, it's enough to leave this as-is. In the future,
-you might want to make sure that you write out a more detailed message about the changes that are being integrated (and why).
-
-Once you finish the message, you should see the following output:
-
-**week 3 updates**
+.. image:: ../../../img/egm722/week3/updates.png
+    :width: 400
+    :align: center
+    :alt: the updates displayed after merging week3 into main
 
 This tells us what files have been changed (``18 files``) and how (``854 insertions(+)``). Because none the files in the **Week3** 
 folder were present in the ``main`` branch, we'll only see additions/insertions. As you work on your project and commit changes 
 to existing files, you'll also see deletions (lines that are deleted or changed.
+
+You should also see Weeks 1--3 in your repository folder:
+
+.. image:: ../../../img/egm722/week3/merged_week3.png
+    :width: 400
+    :align: center
+    :alt: the repository folder after merging week3 into main
+
+The last thing to do now is to **push** these changes to your GitHub repository:
+::
+
+    git push
+
+You can confirm that the changes are now on your remote repository by heading over to GitHub:
+
+.. image:: ../../../img/egm722/week3/week3_remote.png
+    :width: 600
+    :align: center
+    :alt: the github repository, with the merged changes updated
 
 At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the practical exercise.
 
