@@ -4,7 +4,7 @@ EGM703: advanced active and passive remote sensing
 .. toctree::
    :glob:
    :hidden:
-   :maxdepth: 2
+   :maxdepth: 1
 
    lectures
    practicals/index

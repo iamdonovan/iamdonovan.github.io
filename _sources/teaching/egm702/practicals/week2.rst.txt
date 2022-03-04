@@ -1,9 +1,6 @@
 dem differencing
 =========================
 
-introduction
-------------
-
 **Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the** `google drive link <https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&export=download>`__\ **, then extract the zip file. You should
 have the following files/folders available:**
 ::
