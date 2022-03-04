@@ -13,7 +13,7 @@ In preparing the materials for this module, I have used the following textbooks 
 - Lillesand, T. M., R. W. Kiefer, and J. W. Chipman (2015). *Remote Sensing and Image Interpretation (7*\ |th| *ed.)*. Wiley. ISBN 9781118343289 [`Google Books <https://www.google.co.uk/books/edition/Remote_Sensing_and_Image_Interpretation/AFHDCAAAQBAJ?hl=en&gbpv=0>`__]
 
 
-week 9 - fundamentals of terrestrial remote sensing	
+week 9: fundamentals of terrestrial remote sensing	
 ---------------------------------------------------
 
 **Part 1: What is (Terrestrial) Remote Sensing?**
@@ -48,7 +48,7 @@ week 9 - fundamentals of terrestrial remote sensing
 - Landsat 8: Band by Band [`NASA <https://www.youtube.com/watch?v=A6WzAc1FTeA>`__]
 
 
-week 10 - satellites and sensors
+week 10: satellites and sensors
 --------------------------------
 
 **Part 1: Satellites and Sensors**
@@ -92,7 +92,7 @@ week 10 - satellites and sensors
 - Digital Images [`computerphile <https://www.youtube.com/watch?v=06OHflWNCOE>`__]
 
 
-week 11 - images and classification
+week 11: images and classification
 -----------------------------------
 
 **Part 1: Band Combinations**
@@ -134,7 +134,7 @@ week 11 - images and classification
 - Evaluating the Classification [`Geo Data Design <https://www.youtube.com/watch?v=2bhU7RJwBfo>`__]
 
 
-week 12 - applications of terrestrial remote sensing
+week 12: applications of terrestrial remote sensing
 ----------------------------------------------------
 
 **Part 1: Applications - Change Detection**
