@@ -4,7 +4,7 @@ EGM702: photogrammetry and advanced image analysis
 .. toctree::
    :glob:
    :hidden:
-   :maxdepth: 2
+   :maxdepth: 1
 
    lectures
    practicals/index

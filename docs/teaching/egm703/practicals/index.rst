@@ -3,7 +3,7 @@ practicals
 
 .. toctree::
    :glob:
-   :maxdepth: 2
+   :maxdepth: 1
 
    week1
    week2
