@@ -99,11 +99,54 @@ the practical. An exercise, introduced at the end of the Notebook file, can be c
 <p><a class="reference internal" href="week3.html"><span class="doc">Last week</span></a>, we saw how we can use the command-line interface (CLI) of <strong>git</strong> to merge two branches (in this case,
 <code class="docutils literal notranslate"><span class="pre">week3</span></code> into <code class="docutils literal notranslate"><span class="pre">main</span></code>). This week, we’re going to see how to do this on GitHub, using a <strong>Pull Request</strong>.</p>
 <p>Head over to your GitHub repository (<code class="samp docutils literal notranslate"><span class="pre">https://github.com/&lt;</span><em><span class="pre">your_username</span></em><span class="pre">&gt;/egm722</span></code>).</p>
-<p>(check the different branches)</p>
-<p>(compare week4 and main)</p>
-<p>(open the pull request)</p>
-<p>(confirm the merge + close the pull request)</p>
-<p>(now, pull the changes to your local machine)</p>
+<p>By now, you should have merged the <code class="docutils literal notranslate"><span class="pre">week2</span></code> and <code class="docutils literal notranslate"><span class="pre">week3</span></code> branches, so your <code class="docutils literal notranslate"><span class="pre">main</span></code> branch should look like this:</p>
+<a class="reference internal image-reference" href="../../../_images/week3_remote.png"><img alt="the main branch of the github repository, with the merged changes for weeks 1-3" class="align-center" src="../../../_images/week3_remote.png" style="width: 600px;" /></a>
+<p>Like we saw last week, we can confirm that there aren’t any changes in to the <strong>upstream</strong> <code class="docutils literal notranslate"><span class="pre">week4</span></code> branch
+by switching to the <code class="docutils literal notranslate"><span class="pre">week4</span></code> branch:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t see “This branch is up to date with iamdonovan:week4”, you can <strong>fetch</strong> the upstream changes by
+clicking the dropdown menu:</p>
+<a class="reference internal image-reference" href="../../../_images/fetch_upstream.png"><img alt="the fetch upstream button highlighted" class="align-center" src="../../../_images/fetch_upstream.png" style="width: 600px;" /></a>
+</div>
+<p>There are a number of different ways to actually open a <strong>Pull Request</strong>. From the <code class="docutils literal notranslate"><span class="pre">branches</span></code> page
+(<code class="samp docutils literal notranslate"><span class="pre">https://github.com/&lt;</span><em><span class="pre">your_username</span></em><span class="pre">&gt;/egm722/branches</span></code>), you can open a <strong>Pull Request</strong> for a
+specific branch by clicking the button next to that branch:</p>
+<a class="reference internal image-reference" href="../../../_images/branches.png"><img alt="the branches page on github, showing all branches in the repository" class="align-center" src="../../../_images/branches.png" style="width: 600px;" /></a>
+<p>Otherwise, you can click on the <strong>Pull Requests</strong> tab:</p>
+<a class="reference internal image-reference" href="../../../_images/pull_requests.png"><img alt="the pull requests tab" class="align-center" src="../../../_images/pull_requests.png" style="width: 600px;" /></a>
+<p>and click on the green <strong>New pull request</strong> button to start a new pull request:</p>
+<a class="reference internal image-reference" href="../../../_images/new_pullrequest.png"><img alt="the first step in creating a pull request: the comparison" class="align-center" src="../../../_images/new_pullrequest.png" style="width: 600px;" /></a>
+<p>Note that the default behavior may be to try to <strong>merge</strong> from your fork into the <strong>upstream</strong> repository,
+so make sure that you’re attempting to merge the correct branches. You’ll need to change the branch that you’re
+merging into to <code class="samp docutils literal notranslate"><span class="pre">&lt;</span><em><span class="pre">your_username</span></em><span class="pre">&gt;/egm722:main</span></code>, and the branch that you’re merging from to
+<code class="samp docutils literal notranslate"><span class="pre">&lt;</span><em><span class="pre">your_username</span></em><span class="pre">&gt;/egm722:week4</span></code>. It should look like this:</p>
+<a class="reference internal image-reference" href="../../../_images/right_branches.png"><img alt="comparing the correct branches for the pull request." class="align-center" src="../../../_images/right_branches.png" style="width: 600px;" /></a>
+<p>Once you’ve done this, scroll down to see the comparison showing which files have changed:</p>
+<a class="reference internal image-reference" href="../../../_images/comparison.png"><img alt="the comparison of two files using git diff" class="align-center" src="../../../_images/comparison.png" style="width: 600px;" /></a>
+<p>Here, deletions are shown on the left, while additions are shown on the right. For each file that has changed
+(either because it’s being added, or because it has been modified), you can see the summary of the changes in
+the upper left of each entry.</p>
+<p>For this file, <strong>README.md</strong>, there have been 2 changes: 1 deletion and 1 addition. Most of the changes that you
+see should be additions, since most of the files are only present on the <code class="docutils literal notranslate"><span class="pre">week4</span></code> branch.</p>
+<p>Once you’ve had a look at the comparison for the different files, you can click on the green <strong>Create pull request</strong>
+button, which will take you to the following page:</p>
+<a class="reference internal image-reference" href="../../../_images/create_pr.png"><img alt="the open a pull request page" class="align-center" src="../../../_images/create_pr.png" style="width: 600px;" /></a>
+<p>Depending on the project and repository settings, the pull request might need to be reviewed by others before
+it can be approved. The <strong>Message</strong> field above allows you to explain what the proposed changes are and why they
+should be approved. Since you’re only making a change on your repository, you can leave this blank (though it’s
+good practice to explain what you’re doing in case you ever have to review what you’ve done – future you will
+thank you…).</p>
+<p>Once you’ve written the message, you can press the <strong>Create pull request</strong> button. As long as there aren’t
+<strong>conflicting</strong> changes (lines that have been changed in both branches), you should be able
+to <strong>merge</strong> the pull requrst by clicking the <strong>Merge pull request</strong> button:</p>
+<a class="reference internal image-reference" href="../../../_images/no_conflicts.png"><img alt="the button indicating that you can safely merge the pull request" class="align-center" src="../../../_images/no_conflicts.png" style="width: 600px;" /></a>
+<p>You should then see the following screen, indicating that the two branches have been successfully merged:</p>
+<a class="reference internal image-reference" href="../../../_images/pr_merged.png"><img alt="the successfully merged pull request" class="align-center" src="../../../_images/pr_merged.png" style="width: 600px;" /></a>
+<p>If you head back to the main repository page, you should see that the changes have been merged:</p>
+<a class="reference internal image-reference" href="../../../_images/week4_approved.png"><img alt="the successfully merged changes in the main branch" class="align-center" src="../../../_images/week4_approved.png" style="width: 600px;" /></a>
+<p>Now, on your computer, you can <strong>pull</strong> the changes to your machine using either <strong>GitHub Desktop</strong> or the command line:</p>
+<a class="reference internal image-reference" href="../../../_images/week4_pull.png"><img alt="github desktop showing the &quot;pull origin&quot; button" class="align-center" src="../../../_images/week4_pull.png" style="width: 600px;" /></a>
 <p>At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the practical exercise.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
