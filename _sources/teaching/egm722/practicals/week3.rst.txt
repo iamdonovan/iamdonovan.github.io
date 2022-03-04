@@ -21,7 +21,7 @@ Getting Started
 This week, we're going to see how to do this using the command line.
 
 To get started with this week’s practical, open Anaconda Navigator, then launch the **Command Prompt** - either from 
-**Anaconda Navigator**(make sure that your egm722 environment is selected), or from the **Start Menu**.
+**Anaconda Navigator** (make sure that your egm722 environment is selected), or from the **Start Menu**.
 
 When the **Command Prompt** opens, navigate to your repository folder using ``cd``, then type ``dir`` and press **Enter**. 
 You should see something similar to the following:
