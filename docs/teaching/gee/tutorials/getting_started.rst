@@ -30,7 +30,7 @@ To see the sample script for this tutorial, follow this link.
 landsat
 ---------
 
-For this example, we're using a Landsat 8 image showing the `Malaspina Glacier<https://en.wikipedia.org/wiki/Malaspina_Glacier>`__ (Sít' Tlein)
+For this example, we're using a Landsat 8 image showing the `Malaspina Glacier <https://en.wikipedia.org/wiki/Malaspina_Glacier>`__ (Sít' Tlein)
 and surrounding area in Alaska (USA) and Canada.
 
 The sensor carried by Landsat 8 is the Operational Land Imager/Thermal InfraRed Sensor (OLI/TIRS). The table below shows the
@@ -127,8 +127,8 @@ Next, the ``visParams`` that we're adding is:
 
     {bands: ['B4', 'B3', 'B2'], min: 0.02, max: 0.5, gamma: 1.2}
 
-tells the map to display bands 4, 3, and 2 as an RGB (making this a "`natural color <https://gisgeography.com/landsat-8-bands-combinations/>`__" composite).
-We also set the ``min``(imum) display value to 0.02, and the ``max``(imum) display value to 0.5. We also apply 
+tells the map to display bands 4, 3, and 2 as an RGB (making this a `natural color <https://gisgeography.com/landsat-8-bands-combinations>`__ composite).
+We also set the ``min``\ (imum) display value to 0.02, and the ``max``\ (imum) display value to 0.5. We also apply 
 a gamma correction to help brighten the image somewhat.
 
 Finally, we give the layer a ``name`` ('Sample Image'), and tell GEE to display the image.
@@ -143,8 +143,8 @@ The next part of this script:
     // set the map background to the satellite layer
     Map.setOptions('SATELLITE');
 
-uses ``Map.centerObject()`` (`documentation<https://developers.google.com/earth-engine/apidocs/map-centerobject>`__) to center the **Map**
-on the image at a zoom level of 8, and uses ``Map.setOption()`` (`documentation<https://developers.google.com/earth-engine/apidocs/map-setoptions>`__
+uses ``Map.centerObject()`` (`documentation <https://developers.google.com/earth-engine/apidocs/map-centerobject>`__) to center the **Map**
+on the image at a zoom level of 8, and uses ``Map.setOption()`` (`documentation <https://developers.google.com/earth-engine/apidocs/map-setoptions>`__
 to set the basemap to use satellite imagery, rather than the default basemap.
 
 Once you run the script (click **Run**, or press **CTRL + Enter**), you should see the following output:
@@ -226,7 +226,7 @@ At the very end of the script, I've included the following:
       maxPixels: 1e12
     });
 
-This calls ``Export.image.toDrive()`` (`documentation<https://developers.google.com/earth-engine/apidocs/export-image-todrive>`__),
+This calls ``Export.image.toDrive()`` (`documentation <https://developers.google.com/earth-engine/apidocs/export-image-todrive>`__),
 which creates a **Task** that you can run to save the image to your Google Drive.
 
 If you click on the **Tasks** tab, you should see
