@@ -594,7 +594,12 @@ Run the script – you should see this image (you may have to turn off the Lands
 
 In this image, red colors correspond to increases in both NIR and Red reflectance, white corresponds to increases in NIR and
 decreases in Red reflectance, purple corresponds to decreases in NIR and increases in Red reflectance, and blue corresponds to
-decreases in both NIR and Red reflectance.
+decreases in both NIR and Red reflectance. You can also consult the diagram shown below:
+
+.. image:: ../../../img/egm702/week4/change_vector.png
+    :width: 400
+    :align: center
+    :alt: a diagram showing how the colors of the reclassified image correspond to the change vector angles
 
 In a number of areas, the blue color represents forest growth. To understand why this is, we have to remember both what
 these changes represent – a decrease in both Red and NIR reflectance – and also what the forest is replacing: in many cases,
