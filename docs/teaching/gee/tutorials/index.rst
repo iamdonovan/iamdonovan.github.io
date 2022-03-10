@@ -1,19 +1,6 @@
 gee tutorials
 ================
 
-.. toctree::
-   :glob:
-   :hidden:
-   :maxdepth: 2
-
-   getting_started
-   spectral
-   vectors
-   mapping
-   band_maths
-   classification/index
-   advanced/index
-
 In these tutorials, you'll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. 
 Even if you have no prior experience with programming, you should be able to follow along with the examples.
 
@@ -72,43 +59,27 @@ use some others depending on the application.
 contents
 ---------
 
-- :doc:`getting_started`
+.. toctree::
+   :glob:
+   :maxdepth: 2
 
-    - adding images
-    - inspector
-    - exporting data
+   getting_started/index
+   classification/index
+   change_detection/index
+   advanced/index
 
-
-- :doc:`spectral`
-
-    - adding geometries (points)
-    - plotting
-
-        - extracting data from points
-        - aggregating to plot spectral signatures
-        - export to png, csv, etc.
-
-    - use different images to show spectral resolution
-
-
-- :doc:`vectors`
-
-    - importing vector data (country outlines?)
-    - clipping using vector geometry
-
-
-- manual mapping
+- manual mapping (?)
 
     - mention GEEDiT
-    - mosaicking cloud-free images
     - digitizing tools
+    - editing polygons?
 
 
 - band maths
 
+    - differencing, addition
     - normalized difference indices
-    - thresholding
-    - edting polygons?
+    - thresholding (adapt the water mask exercise)
     - functions?
     
 
@@ -124,14 +95,13 @@ contents
     - object-based classification
     - accuracy analysis
 
-
 - zonal stats?
 
 
 - "advanced" topics
 
     - animated gif
-    - land surface temperature?
+    - land surface temperature? (SR product has temperature...)
 
 
 references
