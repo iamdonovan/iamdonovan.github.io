@@ -1,5 +1,5 @@
-getting started
-================
+adding and exporting images
+============================
 
 .. raw:: html
 
