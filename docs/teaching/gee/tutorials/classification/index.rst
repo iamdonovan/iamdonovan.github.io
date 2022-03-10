@@ -7,6 +7,5 @@ image classification in earth engine
 
    pixel
    obia
+   accuracy
 
-
-- accuracy analysis
