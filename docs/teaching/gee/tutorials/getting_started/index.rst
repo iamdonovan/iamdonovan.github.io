@@ -11,3 +11,6 @@ getting started
    image_collections
    mapping
    band_maths
+
+
+- zonal stats?

@@ -68,42 +68,6 @@ contents
    change_detection/index
    advanced/index
 
-- manual mapping (?)
-
-    - mention GEEDiT
-    - digitizing tools
-    - editing polygons?
-
-
-- band maths
-
-    - differencing, addition
-    - normalized difference indices
-    - thresholding (adapt the water mask exercise)
-    - functions?
-    
-
-- change detection
-
-    - multi-temporal classification (https://twitter.com/spatialthoughts/status/1328052808361275393)
-    - change vector analysis (simple 2-band version)
-
-
-- classification
-
-    - pixel-based classification
-    - object-based classification
-    - accuracy analysis
-
-- zonal stats?
-
-
-- "advanced" topics
-
-    - animated gif
-    - land surface temperature? (SR product has temperature...)
-
-
 references
 ----------
 
