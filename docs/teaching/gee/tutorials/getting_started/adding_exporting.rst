@@ -162,7 +162,7 @@ to set the basemap to use satellite imagery, rather than the default basemap.
 
 Once you run the script (click **Run**, or press **CTRL + Enter**), you should see the following:
 
-.. image:: img/getting_started/script_run.png
+.. image:: img/adding_exporting/script_run.png
     :width: 600
     :align: center
     :alt: the gee console after running the example script
@@ -207,7 +207,7 @@ The script also contains the following line:
 This will **print** the information about the image to the **Console**. If you expand the list (click on the small arrow), you should
 be able to see the following:
 
-.. image:: img/getting_started/console_expanded.png
+.. image:: img/adding_exporting/console_expanded.png
     :width: 400
     :align: center
     :alt: the gee console output after expanding the image
@@ -222,7 +222,7 @@ the inspector tool
 Now that we've added an image to the **Map**, we can zoom around the map (scroll in/out, or use the `+`/`-` buttons on the left side of the map) 
 to examine it further:
 
-.. image:: img/getting_started/zoomed_in.png
+.. image:: img/adding_exporting/zoomed_in.png
     :width: 600
     :align: center
     :alt: the map after zooming in
@@ -233,7 +233,7 @@ To examine (or *inspect*) different pixel or feature values for the layers in th
 Click on the **Inspector** tab, then click on the map window somewhere in the lake. You should see something like the following
 in the **Inspector** tab (note that it probably won't be exactly the same):
 
-.. image:: img/getting_started/inspector_tab.png
+.. image:: img/adding_exporting/inspector_tab.png
     :width: 600
     :align: center
     :alt: the inspector tab showing the list view
@@ -243,14 +243,14 @@ clicked, based on the current scale.
 
 You can also click on the chart symbol next to the layer name:
 
-.. image:: img/getting_started/switch_views.png
+.. image:: img/adding_exporting/switch_views.png
     :width: 400
     :align: center
     :alt: the button for swapping between list and chart views
 
 To swap between the list and chart views:
 
-.. image:: img/getting_started/inspector_plot.png
+.. image:: img/adding_exporting/inspector_plot.png
     :width: 600
     :align: center
     :alt: the inspector tab showing the chart view
@@ -258,7 +258,7 @@ To swap between the list and chart views:
 From the chart view, you can also click the highlighted button to open the chart in a new window, where you can download
 the chart as an SVG or PNG file, or the data as a comma-separated variable (CSV) file:
 
-.. image:: img/getting_started/inspector_graph.png
+.. image:: img/adding_exporting/inspector_graph.png
     :width: 600
     :align: center
     :alt: the inspector tab showing the chart view
@@ -287,7 +287,7 @@ which creates a **Task** that you can run to save the image to your Google Drive
 
 If you click on the **Tasks** tab, you should see the following:
 
-.. image:: img/getting_started/tasks_menu.png
+.. image:: img/adding_exporting/tasks_menu.png
     :width: 400
     :align: center
     :alt: the gee tasks menu
@@ -301,7 +301,7 @@ to export the image to Google Drive.
 
 When you click **RUN**, you will see the following dialogue:
 
-.. image:: img/getting_started/export.png
+.. image:: img/adding_exporting/export.png
     :width: 600
     :align: center
     :alt: the map after zooming in

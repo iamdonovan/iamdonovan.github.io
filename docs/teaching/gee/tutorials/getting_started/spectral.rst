@@ -18,7 +18,7 @@ importing geometries
 In the previous tutorial, we used the **Inspector** tab to look at band values for different points by
 clicking on the map:
 
-.. image:: img/getting_started/inspector_tab.png
+.. image:: img/adding_exporting/inspector_tab.png
     :width: 600
     :align: center
     :alt: the inspector tab showing the list view
