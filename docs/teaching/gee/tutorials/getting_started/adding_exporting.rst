@@ -17,7 +17,7 @@ By the end of the tutorial, you will be able to:
 
 To begin, point your browser to https://code.earthengine.google.com. If you are not already logged in, log in using your GEE account. You should see something like this:
 
-.. image:: ../../../img/egm702/week3/annotated_window.png
+.. image:: img/adding_exporting/annotated_window.png
     :width: 600
     :align: center
     :alt: the GEE console with annotations
@@ -178,7 +178,7 @@ When you mouse over the **Layers** button in the upper right of the **Map** pane
 If you click on the gear icon, you can open the visualization parameters for each image and adjust them - for example, by applying
 a 98% stretch instead of a custom range:
 
-.. image:: ../../../img/egm702/week3/layer_parameters.png
+.. image:: img/adding_exporting/layer_parameters.png
     :width: 400
     :align: center
     :alt: the layer visualization settings
