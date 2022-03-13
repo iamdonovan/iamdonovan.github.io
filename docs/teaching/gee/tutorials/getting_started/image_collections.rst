@@ -1,14 +1,17 @@
 image collections and vectors
 ==============================
 
-Lorem Ipsum, etc.
+In the previous tutorials, we've focused on adding individual **Image**\ s to the **Map**
+using their ``id``. This isn't the only way to find **Image**\ s to use, however. Very often,
+we might want to do some processing or analysis for many **Image**\ s. For this, we use **ImageCollection**\ s.
+
+In this tutorial, you will see how you can:
 
 - **import** GEE Datasets
 - filter **ImageCollection**\ s and **FeatureCollection**\ s to select objects matching specific criteria
 - apply a mask to cloudy pixels using a **function** and ``map()``
 - buffer a **Geometry**
 - clip an **Image** to a **Geometry**
-
 
 adding dataset imports
 ------------------------
