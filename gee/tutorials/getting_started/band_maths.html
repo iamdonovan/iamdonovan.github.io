@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>band maths &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="zonal statistics" href="zonal_stats.html" />
+    <link rel="prev" title="manual mapping (digitizing)" href="mapping.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../teaching/index.html">teaching and related resources</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">google earth engine</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">gee tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#getting-an-earth-engine-account">getting an earth engine account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#script-repository">script repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#data-catalog">data catalog</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">getting started</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l5"><a class="reference internal" href="spectral.html">spectral signatures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">band maths</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#reminder-spectral-signatures">reminder: spectral signatures</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#color-composites">color composites</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#band-arithmetic-maths">band arithmetic (maths)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#normalized-differences">normalized differences</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#more-complicated-expressions">more complicated expressions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#reclassifying">reclassifying</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#plotting-a-histogram">plotting a histogram</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#thresholding">thresholding</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#references-and-notes">references and notes</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../classification/index.html">image classification in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/index.html">change detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../advanced/index.html">advanced topics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#references">references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">google earth engine</a> &raquo;</li>
+          <li><a href="../index.html">gee tutorials</a> &raquo;</li>
+          <li><a href="index.html">getting started</a> &raquo;</li>
+      <li>band maths</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/gee/tutorials/getting_started/band_maths.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="band-maths">
+<h1>band maths<a class="headerlink" href="#band-maths" title="Permalink to this headline"></a></h1>
+<p>In this tutorial, you’ll see how you can use band math(s) to enhance the differences in reflectance
+of different surface types, in order to help identify these features in images.</p>
+<p>In particular, after finishing this tutorial, you will:</p>
+<ul class="simple">
+<li><p>be able to use arithmetic operations on different bands</p></li>
+<li><p>apply normalized difference operations</p></li>
+<li><p>reclassify images</p></li>
+<li><p>plot histograms</p></li>
+<li><p>apply thresholds to classify surface types</p></li>
+</ul>
+<div class="section" id="reminder-spectral-signatures">
+<h2>reminder: spectral signatures<a class="headerlink" href="#reminder-spectral-signatures" title="Permalink to this headline"></a></h2>
+<p>In the <a class="reference internal" href="spectral.html"><span class="doc">spectral signatures</span></a> signatures tutorial, we saw how the spectral reflectances for different
+surfaces varies with wavelength:</p>
+<a class="reference internal image-reference" href="../../../_images/final_chart.png"><img alt="the final chart produced in the tutorial" class="align-center" src="../../../_images/final_chart.png" style="width: 600px;" /></a>
+<p>In the plot above, we see that (fresh) snow is very bright in visible wavelengths (0.4 – 0.7 µm),
+fairly bright in the near infrared band (~0.9 µm), and has almost no reflectance in the shortwave
+infrared (SWIR), above 1.6 µm or so.</p>
+<p>Forest, on the other hand, is quite dark in visible wavelengths, brighter in the near infrared (NIR), and
+still brighter in the SWIR than in the visible wavelengths.</p>
+<p>Water is dark almost everywhere, though turbid water is quite a bit brighter, at least in visible and NIR
+wavelengths.</p>
+<p>One of the ways that we can try to start distinguishing between different surface types is by using
+arithmetic operations (addition, subtraction, multiplication, division) to enhance the differences.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you run the script, each of the <strong>Image</strong>s discussed below will load in the <strong>Map</strong>, but the only visible
+<strong>Image</strong> will be the natural color composite. To view each of the <strong>Image</strong>s, you will need to toggle them
+to visible using the <strong>Layers</strong> menu.</p>
+</div>
+</div>
+<div class="section" id="color-composites">
+<h2>color composites<a class="headerlink" href="#color-composites" title="Permalink to this headline"></a></h2>
+<p>In this tutorial, we’re looking at a 1 July 2018 (Happy Canada Day!) Landsat image of Nordland County,
+Norway. In the center of the image, we can see two large glaciers, Vestisen and Østisen
+(collectively, <a class="reference external" href="https://en.wikipedia.org/wiki/Svartisen">Svartisen</a>), along with a few other
+glaciers and snow-covered mountains in the northeastern part of the image.</p>
+<p>At the beginning of the script, we’ve added our <code class="docutils literal notranslate"><span class="pre">img</span></code> import to the <strong>Map</strong> using two different
+visualization parameters, <code class="docutils literal notranslate"><span class="pre">visParams</span></code> and <code class="docutils literal notranslate"><span class="pre">infraParams</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the image as a natural color composite</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B[1-7]&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">),</span> <span class="nx">visParams</span><span class="p">,</span> <span class="s1">&#39;natural color&#39;</span><span class="p">);</span>
+
+<span class="c1">// add the image as a false color composite</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B[1-7]&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">),</span>
+  <span class="nx">infraParams</span><span class="p">,</span> <span class="s1">&#39;infrared false color&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If you expand these two <strong>imports</strong> by clicking on the arrow next to each one:</p>
+<a class="reference internal image-reference" href="../../../_images/imports.png"><img alt="the visparams and infraparams imports" class="align-center" src="../../../_images/imports.png" style="width: 400px;" /></a>
+<p>you can see that the “natural color” image is displayed using OLI bands 4, 3, and 2, corresponding
+to visible red, green, and blue light, respectively:</p>
+<a class="reference internal image-reference" href="../../../_images/naturalcolor.png"><img alt="the natural color image added to the map" class="align-center" src="../../../_images/naturalcolor.png" style="width: 600px;" /></a>
+<p>As covered in the <a class="reference internal" href="mapping.html"><span class="doc">manual mapping (digitizing)</span></a> tutorial, this broadly speaking shows the world as we see it, but it’s
+not the only way to view images. Depending on the application, other color combinations can help us enhance
+certain features, making the image somewhat easier to interpret.</p>
+<p>The “infrared false color” image is displayed using an RGB composite of the SWIR2, SWIR1, and NIR bands
+(OLI bands 7, 6, and 5, respectively), which colors snow and ice in a bright blue:</p>
+<a class="reference internal image-reference" href="../../../_images/falsecolor.png"><img alt="the infrared (SWIR2/SWIR1/NIR) false color image added to the map" class="align-center" src="../../../_images/falsecolor.png" style="width: 600px;" /></a>
+<p>The reason for this is that snow and ice have very little reflectance at shortwave infrared wavelengths - as a
+result, the RGB value for these pixels is very close to (0, 0, 255). We can also see that water, which has very
+little reflectance at infrared wavelengths, appears almost black, corresponding to an RGB value of (0, 0, 0).
+Meanwhile, the vegetation and other land surfaces are some mixture of blue, green, and yellow – vegetation typically
+has high reflectance in the near infrared, with reflectance decreasing with increasing wavelength in the shortwave infrared.</p>
+</div>
+<div class="section" id="band-arithmetic-maths">
+<h2>band arithmetic (maths)<a class="headerlink" href="#band-arithmetic-maths" title="Permalink to this headline"></a></h2>
+<p>Color composites are one way that we can aid in image interpretation, and they can be especially useful for
+manual interpretation.</p>
+<p>To fully exploit the relationships between spectral bands, though, we often turn to band arithmetic, or band math(s).</p>
+<p>One of the simplest things that we can do is take the difference between two bands – this helps highlight
+areas that are brighter (have a higher reflectance) or darker (have a lower reflectance) in one band compared to
+another.</p>
+<p>In the script, we’ve used <code class="docutils literal notranslate"><span class="pre">ee.Image.select()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-select">documentation</a>)
+to select the near infrared band (OLI band 5), along with <code class="docutils literal notranslate"><span class="pre">ee.Image.subtract()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-subtract">documentation</a>)
+to take the difference between the near infrared and red (OLI band 4) reflectances:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">difference</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B5&#39;</span><span class="p">).</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B4&#39;</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;nir_red&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>you can also see that we’ve used <code class="docutils literal notranslate"><span class="pre">ee.Image.rename()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-rename">documentation</a>)
+to change the name of the band to <code class="docutils literal notranslate"><span class="pre">nir_red</span></code> – otherwise, it will have the same name as the first band we’ve used (<code class="docutils literal notranslate"><span class="pre">B5</span></code>).</p>
+<p>We then add this to the map using a <a class="reference external" href="https://developers.google.com/earth-engine/guides/image_visualization#color-palettes">color palette</a>
+to determine how the image values should be displayed – in this case, ranging from a bluish color
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Web_colors">hex color</a> <code class="docutils literal notranslate"><span class="pre">2c7fb8</span></code>) for values close to the <code class="docutils literal notranslate"><span class="pre">min</span></code>, a greenish color (<code class="docutils literal notranslate"><span class="pre">7fcdbb</span></code>)
+for values close to 0, and a yellowish color (<code class="docutils literal notranslate"><span class="pre">edf8b1</span></code>) for values close to the <code class="docutils literal notranslate"><span class="pre">max</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/difference.png"><img alt="the NIR/red difference image, added to the map" class="align-center" src="../../../_images/difference.png" style="width: 600px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To pick the color palettes displayed in this tutorial, I used the excellent <a class="reference external" href="https://colorbrewer2.org/">colorbrewer2.org</a>.</p>
+</div>
+<p>This helps differentiate between vegetation (yellow) and other surfaces - because healthy vegetation tends to have much higher
+reflectance in the near infrared compared to visible red bands, we see a strong positive difference between the two.</p>
+<p>In addition to subtraction, we can also take the <strong>ratio</strong> of the visible red and SWIR1 bands:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">ratio</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B4&#39;</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B6&#39;</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;red_swir&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This helps to highlight snow and ice<a class="footnote-reference brackets" href="#id6" id="id1">1</a> – because snow and ice are bright (high reflectance) at visible wavelengths,
+but dark (low reflectance) at shortwave infrared wavelengths, this ratio is very high for snow and ice, but
+much closer to 1 for most other surfaces.</p>
+<p>By adding this <strong>Image</strong> to the map with a color scale ranging between 1 and 50:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ratio</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">50</span><span class="p">,</span>
+  <span class="nx">palette</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;2c7fb8&#39;</span><span class="p">,</span> <span class="s1">&#39;7fcdbb&#39;</span><span class="p">,</span> <span class="s1">&#39;edf8b1&#39;</span><span class="p">]},</span> <span class="s1">&#39;Red/SWIR1 ratio&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>we see that most of the land surface is solid blue (values close to or less than 1), water has higher values but is still
+mostly blue (values closer to 1), and snow/ice is mostly solid yellow (values much greater than 1):</p>
+<a class="reference internal image-reference" href="../../../_images/ratio.png"><img alt="the red/swir band ratio image added to the map" class="align-center" src="../../../_images/ratio.png" style="width: 600px;" /></a>
+<p>In addition to subtraction and division, <code class="docutils literal notranslate"><span class="pre">ee.Image</span></code> has methods for:</p>
+<ul class="simple">
+<li><p>addition (<code class="docutils literal notranslate"><span class="pre">add</span></code>, <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-add">documentation</a>)</p></li>
+<li><p>multiplication (<code class="docutils literal notranslate"><span class="pre">multiply</span></code>, <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-multiply">documentation</a>)</p></li>
+<li><p>exponentiation (<code class="docutils literal notranslate"><span class="pre">pow</span></code>, <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-pow">documentation</a>)</p></li>
+</ul>
+<p>as well as trigonmentric functions like <code class="docutils literal notranslate"><span class="pre">sin</span></code>, <code class="docutils literal notranslate"><span class="pre">cos</span></code>, <code class="docutils literal notranslate"><span class="pre">tan</span></code>, and so on. For a full list of the available functions,
+have a look along the side bar in the <code class="docutils literal notranslate"><span class="pre">ee.Image</span></code> <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image">documentation</a>.</p>
+</div>
+<div class="section" id="normalized-differences">
+<h2>normalized differences<a class="headerlink" href="#normalized-differences" title="Permalink to this headline"></a></h2>
+<p>A <strong>normalized difference</strong> is where we take the difference between two bands of an image, and <em>normalize</em> it by dividing
+the difference by the sum of the two bands:</p>
+<div class="math notranslate nohighlight">
+\[\rm{normDiff}(B_1, B_2) = \frac{B_1 - B_2}{B_1 + B_2}\]</div>
+<p>Like a band ratio, this has the benefit of enhancing the differences between the two bands: pixels where <span class="math notranslate nohighlight">\(B_1 &lt; B_2\)</span> will have
+values less than 0 ranging all the way to –1; where <span class="math notranslate nohighlight">\(B_1 &gt; B_2\)</span>, the normalized difference will be positive, up to +1.</p>
+<p>This also has the benefit of being bounded between –1 and +1, making it easier to compare values from one image to the next.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Even though this is a normalized “difference”, it’s a nonlinear transformation of a spectral ratio, <strong>not</strong> a spectral difference.</p>
+</div>
+<div class="section" id="normalized-difference-vegetation-index">
+<span id="ndvi"></span><h3>normalized difference vegetation index<a class="headerlink" href="#normalized-difference-vegetation-index" title="Permalink to this headline"></a></h3>
+<p>Probably the most common, and certainly one of the oldest, normalized difference indices is the normalized difference
+vegetation index (NDVI<a class="footnote-reference brackets" href="#id7" id="id2">2</a>), calculated as the normalized difference between the near-infrared and visible red
+reflectance:</p>
+<div class="math notranslate nohighlight">
+\[\rm{NDVI} = \frac{\rho_{\rm{NIR}} - \rho_{\rm{red}}}{\rho_{\rm{NIR}} + \rho_{\rm{red}}}\]</div>
+<p>Because of how common normalize difference indices are in remote sensing, GEE has a dedicated method
+for computing a normlized difference, <code class="docutils literal notranslate"><span class="pre">ee.Image.normalizedDifference()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-normalizeddifference">documentation</a>).
+To calculate the NDVI using a Landsat OLI image, then, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.normalizedDifference()</span></code>
+using the near infrared (B5) and red (B4) bands:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">ndvi</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B4&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;ndvi&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Because most healthy vegetation has significantly higher reflectance at NIR wavelengths compared to visible
+red wavelengths, high NDVI values typically correspond to healthy vegetation.</p>
+<p>When we add the NDVI <strong>Image</strong> to the <strong>Map</strong> using the given palette, ranging from –1 (hex value <code class="docutils literal notranslate"><span class="pre">f7fcb9</span></code>)
+to 1 (hex value <code class="docutils literal notranslate"><span class="pre">31a354</span></code>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+  <span class="nx">palette</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;f7fcb9&#39;</span><span class="p">,</span> <span class="s1">&#39;addd8e&#39;</span><span class="p">,</span> <span class="s1">&#39;31a354&#39;</span><span class="p">]},</span> <span class="s1">&#39;NDVI&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>we can see that water and snow/ice have NDVI values close to zero or negative, represented by more yellow
+colors in the <strong>Map</strong>, while vegetated areas such as forests have NDVI values closer to 1, and are represented
+by darker green colors in the <strong>Map</strong>.</p>
+<a class="reference internal image-reference" href="../../../_images/ndvi.png"><img alt="the normalized difference vegetation index image, added to the map" class="align-center" src="../../../_images/ndvi.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="normalized-difference-snow-index">
+<span id="ndsi"></span><h3>normalized difference snow index<a class="headerlink" href="#normalized-difference-snow-index" title="Permalink to this headline"></a></h3>
+<p>Earlier, we saw the ratio of the visible red and SWIR1 bands, highlighting snow and ice. A commonly-used
+normalized difference index for snow and ice is the normalized difference snow (and ice) index, or
+NDSI<a class="footnote-reference brackets" href="#id8" id="id3">3</a>.</p>
+<p>The NDSI is calculated as the normalized difference of the visible green and shortwave infrared bands:</p>
+<div class="math notranslate nohighlight">
+\[\rm{NDSI} = \frac{\rho_{\rm{green}} - \rho_{\rm{SWIR1}}}{\rho_{\rm{green}} + \rho_{\rm{SWIR1}}}\]</div>
+<p>To calculate the NDVI using a Landsat OLI image, then, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.normalizedDifference()</span></code>
+with the green (B3) and shortwave infrared 1 (B6) bands:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">ndsi</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B6&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;ndsi&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In the script, we add this to the <strong>Map</strong> using a color palette ranging from from a reddish color
+(hex color <code class="docutils literal notranslate"><span class="pre">fc8d59</span></code>) at low values (–1), to more yellow colors (hex color <code class="docutils literal notranslate"><span class="pre">ffffbf</span></code>) at values
+near 0, to blue colors (hex color <code class="docutils literal notranslate"><span class="pre">91bfdb</span></code>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ndsi</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+  <span class="nx">palette</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;fc8d59&#39;</span><span class="p">,</span> <span class="s1">&#39;ffffbf&#39;</span><span class="p">,</span> <span class="s1">&#39;91bfdb&#39;</span><span class="p">]},</span> <span class="s1">&#39;NDSI&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In the resulting <strong>Map</strong>, we can see how most of the land area has a negative or close to zero NDSI value,
+snow/ice have very high (close to 1) NDSI values, and water has intermediate positive NDSI values:</p>
+<a class="reference internal image-reference" href="../../../_images/ndsi.png"><img alt="the normalized difference snow index image, added to the map" class="align-center" src="../../../_images/ndsi.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="normalized-difference-water-index">
+<span id="ndwi"></span><h3>normalized difference water index<a class="headerlink" href="#normalized-difference-water-index" title="Permalink to this headline"></a></h3>
+<p>Another commonly used normalized difference index is the normalized difference water index (NDWI<a class="footnote-reference brackets" href="#id9" id="id4">4</a><a class="footnote-reference brackets" href="#id10" id="id5">5</a>), which helps to identify
+water bodies in a satellite image:</p>
+<div class="math notranslate nohighlight">
+\[\rm{NDWI} = \frac{\rho_{\rm{green}} - \rho_{\rm{NIR}}}{\rho_{\rm{green}} + \rho_{\rm{NIR}}}\]</div>
+<p>As we see in the spectral signature plot above, water typically has higher reflectance at visible green wavelengths than in the near
+infrared, where it has almost no reflectance whatsover. As a result, the NDWI for water is typically close to 1, and for most other
+surfaces it’s closer to zero or even negative (as it is for vegetation, for instance).</p>
+<p>In GEE for Landsat 8 OLI, we calculate the NDWI for an image as follows:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">ndwi</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;ndwi&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>and we can add it to the map using a palette ranging from yellow to blue:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ndwi</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>
+  <span class="nx">palette</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;edf8b1&#39;</span><span class="p">,</span> <span class="s1">&#39;7fcdbb&#39;</span><span class="p">,</span> <span class="s1">&#39;2c7fb8&#39;</span><span class="p">]},</span> <span class="s1">&#39;NDWI&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/ndwi.png"><img alt="the normalized difference water index image, added to the map" class="align-center" src="../../../_images/ndwi.png" style="width: 600px;" /></a>
+<p>Here, we can see that most of the land surface is yellow (indicating NDWI values near or below -0.5), while the ocean and lakes show up as mostly solid blue
+(indicating values above 0.5). The snow-covered peaks and glaciers show up somewhere in the middle, with NDWI values somewhere near 0.</p>
+</div>
+</div>
+<div class="section" id="more-complicated-expressions">
+<h2>more complicated expressions<a class="headerlink" href="#more-complicated-expressions" title="Permalink to this headline"></a></h2>
+<p>In addition to <strong>method</strong>s such as <code class="docutils literal notranslate"><span class="pre">ee.Image.divide()</span></code> or <code class="docutils literal notranslate"><span class="pre">ee.Image.normalizedDifference()</span></code>, we can also use
+<code class="docutils literal notranslate"><span class="pre">ee.Image.expression()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-expression">documentation</a>)
+to write more complicated formulas.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ee.Image.expression()</span></code> takes two arguments: <code class="docutils literal notranslate"><span class="pre">expression</span></code>, a <strong>String</strong> representing the expression to apply,
+and <code class="docutils literal notranslate"><span class="pre">map</span></code>, a <strong>Dictionary</strong> that maps input images to the <code class="docutils literal notranslate"><span class="pre">expression</span></code>.</p>
+<p>In this example, we’re creating a <a class="reference external" href="https://en.wikipedia.org/wiki/Grayscale">grayscale</a> image, by taking a weighted combination
+of three input bands: the near infrared, red, and green bands. The equation we’re using is:</p>
+<div class="math notranslate nohighlight">
+\[\rm{gray} = 0.52 * \rho_{\rm{NIR}} + 0.25 * \rho_{\rm{red}} + 0.23 \rho_{\rm{green}},\]</div>
+<p>using <code class="docutils literal notranslate"><span class="pre">ee.Image.expression()</span></code>, this looks like:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">gray</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">expression</span><span class="p">({</span>
+  <span class="nx">expression</span><span class="o">:</span> <span class="s1">&#39;(0.52 * NIR) + (0.25 * R) + (0.23 * G)&#39;</span><span class="p">,</span>
+  <span class="nx">map</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;NIR&#39;</span><span class="o">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B5&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;R&#39;</span><span class="o">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B4&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;G&#39;</span><span class="o">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B3&#39;</span><span class="p">)}</span>
+<span class="p">}).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>here, you can see that each key of <code class="docutils literal notranslate"><span class="pre">map</span></code> corresponds to the variables in <code class="docutils literal notranslate"><span class="pre">expression</span></code>:
+<code class="docutils literal notranslate"><span class="pre">NIR</span></code> is B5 of the input image; <code class="docutils literal notranslate"><span class="pre">R</span></code> is B4, and <code class="docutils literal notranslate"><span class="pre">G</span></code> is B3.</p>
+<p>When added to the <strong>Map</strong>, the new <code class="docutils literal notranslate"><span class="pre">grayscale</span></code> image looks like this:</p>
+<a class="reference internal image-reference" href="../../../_images/grayscale.png"><img alt="the grayscale image added to the map" class="align-center" src="../../../_images/grayscale.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="reclassifying">
+<h2>reclassifying<a class="headerlink" href="#reclassifying" title="Permalink to this headline"></a></h2>
+<p>In GIS, “reclassifying” a raster means replacing the values of a raster with different values. For example,
+we might want to group the values of our NDVI <strong>Image</strong> like so:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 58%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>range</p></th>
+<th class="head"><p>new value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>[-1, -0.5]</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>(-0.5, 0]</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>(0, 0.5]</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>(0.5, 1]</p></td>
+<td><p>4</p></td>
+</tr>
+</tbody>
+</table>
+<p>one way that we can do this in GEE is using <code class="docutils literal notranslate"><span class="pre">ee.Image.where()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-where">documentation</a>).
+<code class="docutils literal notranslate"><span class="pre">ee.Image.where()</span></code> takes two inputs:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code>, the test image that determines which input pixels are returned</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code>, the value to use where <code class="docutils literal notranslate"><span class="pre">test</span></code> is not zero.</p></li>
+</ul>
+<p>The code to reclassify the NDVI <strong>Image</strong> looks like this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">ndviReclass</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="o">-</span><span class="mf">1</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)),</span> <span class="mf">1</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">0</span><span class="p">)),</span> <span class="mf">2</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">0</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)),</span> <span class="mf">3</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">1</span><span class="p">)),</span> <span class="mf">4</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;reclass_ndvi&#39;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">geometry</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>First, we create an <strong>Image</strong> with a constant value (<code class="docutils literal notranslate"><span class="pre">ee.Image(1)</span></code>), then apply
+each of our categories.</p>
+<p>For the first category, <span class="math notranslate nohighlight">\(-1\leq\rm{NDVI}\leq -0.5\)</span>, the line looks like this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="o">-</span><span class="mf">1</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">ndvi</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)),</span> <span class="mf">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">test</span></code> here is where <span class="math notranslate nohighlight">\(-1\leq\rm{NDVI}\)</span> <strong>and</strong> <span class="math notranslate nohighlight">\(\rm{NDVI}\leq -0.5\)</span>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ee.Image.gte()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-gte">documentation</a>)
+returns <code class="docutils literal notranslate"><span class="pre">true</span></code> wherever the first <strong>Image</strong> value is greater than or equal to the second value,
+and <code class="docutils literal notranslate"><span class="pre">false</span></code> wherever this is not the case. Similarly, <code class="docutils literal notranslate"><span class="pre">ee.Image.gt()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-gt">documentation</a>) tests whether
+the first value is greater than (not equal to) the second value; <code class="docutils literal notranslate"><span class="pre">ee.Image.lte()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-lte">documentation</a>) tests whether
+the first value is less than or equal to the second; and <code class="docutils literal notranslate"><span class="pre">ee.Image.lt()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-lt">documentation</a>) tests whether
+the first value is less than (not equal to) the second value.</p>
+<p>For each of these, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.and()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-and">documentation</a>)
+to test whether both conditions are true. Wherever both conditions are true, the output in the <code class="docutils literal notranslate"><span class="pre">ndviReclass</span></code> <strong>Image</strong>
+will be equal to 1.</p>
+<p>The remaining lines repeat this for the other categories, before using <code class="docutils literal notranslate"><span class="pre">ee.Image.rename()</span></code>
+to rename the output band, and finally to <strong>clip</strong> the <strong>Image</strong> to the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> of the <code class="docutils literal notranslate"><span class="pre">ndvi</span></code> <strong>Image</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Without this last step, <code class="docutils literal notranslate"><span class="pre">ndviReclass</span></code> would have a global extent.</p>
+</div>
+<p>When we add the reclassified image to the <strong>Map</strong> using the <code class="docutils literal notranslate"><span class="pre">reclassVis</span></code> visualization parameters imported at the
+top of the script:</p>
+<a class="reference internal image-reference" href="../../../_images/reclass.png"><img alt="the reclassified NDVI image" class="align-center" src="../../../_images/reclass.png" style="width: 600px;" /></a>
+<p>Category 1 (<span class="math notranslate nohighlight">\(-1\leq\rm{NDVI}\leq -0.5\)</span>) has a light yellow color (hex color <code class="docutils literal notranslate"><span class="pre">ffffcc`),</span> <span class="pre">category</span> <span class="pre">2</span> <span class="pre">has</span>
+<span class="pre">a</span> <span class="pre">pale</span> <span class="pre">green</span> <span class="pre">color</span> <span class="pre">(hex</span> <span class="pre">color</span> <span class="pre">``c2e699</span></code>), and categories 3 and 4 have darker green colors (hex colors <code class="docutils literal notranslate"><span class="pre">78c679</span></code>
+and <code class="docutils literal notranslate"><span class="pre">238443</span></code>, respectively).</p>
+</div>
+<div class="section" id="plotting-a-histogram">
+<h2>plotting a histogram<a class="headerlink" href="#plotting-a-histogram" title="Permalink to this headline"></a></h2>
+<p>One exceedingly useful way to view information about the distribution of pixel values in an <strong>Image</strong> is with a histogram.
+To create a histogram in GEE, we use <code class="docutils literal notranslate"><span class="pre">ui.Chart.image.histogram()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ui-chart-image-histogram">documentation</a>).</p>
+<p>In the script, the following block of code will create a histogram <strong>Chart</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">histogram</span> <span class="o">=</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">histogram</span><span class="p">({</span>
+  <span class="nx">image</span><span class="o">:</span> <span class="nx">ndwi</span><span class="p">,</span>
+  <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e13</span>
+<span class="p">}).</span><span class="nx">setOptions</span><span class="p">({</span>
+  <span class="nx">hAxis</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;NDWI value&#39;</span><span class="p">,</span>
+    <span class="nx">titleTextStyle</span><span class="o">:</span> <span class="p">{</span><span class="nx">italic</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">bold</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">vAxis</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;number of pixels&#39;</span><span class="p">,</span>
+    <span class="nx">titleTextStyle</span><span class="o">:</span> <span class="p">{</span><span class="nx">italic</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">bold</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>In the above, we’re using two arguments to <code class="docutils literal notranslate"><span class="pre">ui.Chart.image.histogram()</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image</span></code>, the <strong>Image</strong> to use to generate the histogram (the <code class="docutils literal notranslate"><span class="pre">ndwi</span></code> <strong>Image</strong>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maxPixels</span></code>, to override the default maximum number of pixels (1e6 pixels).</p></li>
+</ul>
+<p>As we’ve seen before, we then use <code class="docutils literal notranslate"><span class="pre">ui.Chart.setOptions()</span></code> to set the axis labels for the <strong>Chart</strong>.</p>
+<p>To view the <strong>Chart</strong>, we have to use <code class="docutils literal notranslate"><span class="pre">print()</span></code> to display it in the <strong>Console</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/ndwi_hist.png"><img alt="a histogram of NDWI values" class="align-center" src="../../../_images/ndwi_hist.png" style="width: 600px;" /></a>
+<p>This histogram shows effectively three different groups: a group with a peak around –0.7, representing
+most of the land pixels (e.g., forest, rock/soil); a second, smaller group with a peak around 0.1, representing
+snow/ice, and the third, largest group with a peak somewhere around 0.75, representing water.</p>
+</div>
+<div class="section" id="thresholding">
+<h2>thresholding<a class="headerlink" href="#thresholding" title="Permalink to this headline"></a></h2>
+<p>From the histogram above, we can select a <em>threshold</em> value to separate out, or <em>classify</em>, “water” and “not water” pixels.
+Any pixels with an NDWI value greater than the threshold represent “water”, while pixels with a value less than the
+threshold represent “not water.”</p>
+<p>Have a look at the following <strong>function</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getMask</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">thresh</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">mask</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="nx">thresh</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">mask</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">mask</span><span class="p">.</span><span class="nx">neq</span><span class="p">(</span><span class="mf">0</span><span class="p">)).</span><span class="nx">reduceToVectors</span><span class="p">({</span><span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e13</span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This <strong>function</strong> takes two arguments: <code class="docutils literal notranslate"><span class="pre">img</span></code>, an <strong>Image</strong> to threshold,
+and <code class="docutils literal notranslate"><span class="pre">thresh</span></code>, the threshold value to use.</p>
+<p>As we saw above with reclassification, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.gte()</span></code> to get an image with pixel
+values equal to 1 anywhere that <code class="docutils literal notranslate"><span class="pre">img</span></code> is greater than (or equal to) <code class="docutils literal notranslate"><span class="pre">thresh</span></code>, and
+0 everywhere else.</p>
+<p>This line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span><span class="o">.</span><span class="n">updateMask</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">neq</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">reduceToVectors</span><span class="p">({</span><span class="n">maxPixels</span><span class="p">:</span> <span class="mf">1e13</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>uses <code class="docutils literal notranslate"><span class="pre">ee.Image.updateMask()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-updatemask">documentation</a>),
+along with <code class="docutils literal notranslate"><span class="pre">ee.Image.neq()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-neq">documentation</a>), to
+mask any pixels where the NDWI value is less than the threshold.</p>
+<p>Finally, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.reduceToVectors()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-reducetovectors">documentation</a>)
+to convert the <strong>Image</strong> to a <strong>FeatureCollection</strong>.</p>
+<p>We then call this <strong>function</strong> to the <code class="docutils literal notranslate"><span class="pre">ndwi</span></code> <strong>Image</strong> with a threshold value of 0.2, to create a water mask:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">water</span> <span class="o">=</span> <span class="nx">getMask</span><span class="p">(</span><span class="nx">ndwi</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>and add the water mask <strong>FeatureCollection</strong> to the <strong>Map</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">water</span><span class="p">,</span> <span class="p">{},</span> <span class="s1">&#39;Water Mask&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/waterpolygons.png"><img alt="the water polygon mask added to the map" class="align-center" src="../../../_images/waterpolygons.png" style="width: 600px;" /></a>
+<p>Finally, the script exports the water mask to Google Drive, so that you can download it to your computer and use it in your
+GIS software of choice.</p>
+</div>
+<div class="section" id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>In this tutorial, we’ve seen how to apply different arithmetic operations to enhance the spectral differences between different
+surface types, to help aid interpretation. We’ve applied a few different normalized difference operations, and seen how to
+use <code class="docutils literal notranslate"><span class="pre">ee.Image.expression()</span></code> to apply more complicated arithmetic expressions. We’ve also seen how to reclassify images, plot histograms,
+and apply thresholds to help classify different surface types.</p>
+<p>If you’re interested in some additional practice, here are some suggestions:</p>
+<ul class="simple">
+<li><p>try some different band ratios or differences – is there a ratio or normalized difference that works well to highlight the built-up areas in the <strong>Image</strong>?</p></li>
+<li><p>modify the script to create a glacier (+ snow) mask</p></li>
+<li><p>note: <code class="docutils literal notranslate"><span class="pre">ui.Chart.image.histogram()</span></code> will plot <strong>Image</strong>s with multiple bands. Create an <strong>Image</strong> with the NDVI, NDWI, and NDSI <strong>Image</strong>s as separate bands, then create a histogram that plots all three bands.</p></li>
+</ul>
+</div>
+<div class="section" id="references-and-notes">
+<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this headline"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>see, e.g., Albert, T.H. (2002). <em>Polar Geogr.</em>, 26, 210–226. doi: <a class="reference external" href="https://doi.org/10.1080/789610193">10.1080/789610193</a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Rouse, J. W., et al. (1974). <em>Proceedings, 3rd Earth Resource Technology Satellite (ERTS) Symposium</em> 1, 48–62. [<a class="reference external" href="https://ntrs.nasa.gov/citations/19740022614">open-source link</a>]</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Hall, D.K., et al. (1995). <em>Rem. Sens. Env.</em> 54, 127–140. doi: <a class="reference external" href="https://doi.org/10.1016/0034-4257(95)00137-P">10.1016/0034-4257(95)00137-P</a></p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>McFeeters, S. K. (1996). <em>Int. J. Rem. Sens.</em>, 17(<strong>7</strong>), 1425–1432. doi: <a class="reference external" href="https://doi.org/10.1080/01431169608948714">10.1080/01431169608948714</a></p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Note that there are, confusingly, two NDWIs in common use - this one, for water bodies, and a second, using the NIR and SWIR bands, for measuring moisture content in vegetation.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mapping.html" class="btn btn-neutral float-left" title="manual mapping (digitizing)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="zonal_stats.html" class="btn btn-neutral float-right" title="zonal statistics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

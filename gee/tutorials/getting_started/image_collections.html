@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>image collections and vectors &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="manual mapping (digitizing)" href="mapping.html" />
+    <link rel="prev" title="spectral signatures" href="spectral.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../teaching/index.html">teaching and related resources</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">google earth engine</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">gee tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#getting-an-earth-engine-account">getting an earth engine account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#script-repository">script repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#data-catalog">data catalog</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">getting started</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l5"><a class="reference internal" href="spectral.html">spectral signatures</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">image collections and vectors</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#adding-dataset-imports">adding dataset imports</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#filtering">filtering</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#functions-mapping-and-masking">functions, mapping, and masking</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#mosaicking">mosaicking</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#buffering-geometries">buffering geometries</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#clipping-images">clipping images</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#counting-valid-pixels">counting valid pixels</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="band_maths.html">band maths</a></li>
+<li class="toctree-l5"><a class="reference internal" href="zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../classification/index.html">image classification in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/index.html">change detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../advanced/index.html">advanced topics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#references">references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">google earth engine</a> &raquo;</li>
+          <li><a href="../index.html">gee tutorials</a> &raquo;</li>
+          <li><a href="index.html">getting started</a> &raquo;</li>
+      <li>image collections and vectors</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/gee/tutorials/getting_started/image_collections.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="image-collections-and-vectors">
+<h1>image collections and vectors<a class="headerlink" href="#image-collections-and-vectors" title="Permalink to this headline"></a></h1>
+<p>In the previous tutorials, we’ve focused on adding individual <strong>Image</strong>s to the <strong>Map</strong>
+using their <code class="docutils literal notranslate"><span class="pre">id</span></code>. This isn’t the only way to find <strong>Image</strong>s to use, however. Very often,
+we might want to do some processing or analysis for many <strong>Image</strong>s. For this, we use <strong>ImageCollection</strong>s.</p>
+<p>In this tutorial, you will see how you can:</p>
+<ul class="simple">
+<li><p><strong>import</strong> GEE Datasets</p></li>
+<li><p>filter <strong>ImageCollection</strong>s and <strong>FeatureCollection</strong>s to select objects matching specific criteria</p></li>
+<li><p>apply a mask to cloudy pixels using a <strong>function</strong> and <code class="docutils literal notranslate"><span class="pre">map()</span></code></p></li>
+<li><p>buffer a <strong>Geometry</strong></p></li>
+<li><p>clip an <strong>Image</strong> to a <strong>Geometry</strong></p></li>
+</ul>
+<div class="section" id="adding-dataset-imports">
+<h2>adding dataset imports<a class="headerlink" href="#adding-dataset-imports" title="Permalink to this headline"></a></h2>
+<p>In the previous tutorial, we saw how to <strong>import</strong> geometries, using the <strong>Drawing</strong> tools. These are not the only
+things that we can import, however. When you open the script, you should see the following imports at the top of the script:</p>
+<a class="reference internal image-reference" href="../../../_images/imports1.png"><img alt="datasets and parameters imported at the top of the script" class="align-center" src="../../../_images/imports1.png" style="width: 500px;" /></a>
+<p>There are four imports here:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lc08</span></code>, the “USGS Landsat 8 Surface Reflectance Tier 1” <strong>ImageCollection</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">borders</span></code>, the “Global Administrative Unit Layers 2015, Country Boundaries” <strong>FeatureCollection</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">visParams</span></code>, a dictionary with visualization parameters to pass to <code class="docutils literal notranslate"><span class="pre">Map.addLayer()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">countVis</span></code>, a dictionary with visualization parameters to pass to <code class="docutils literal notranslate"><span class="pre">Map.addLayer()</span></code></p></li>
+</ul>
+<p>The first two (<code class="docutils literal notranslate"><span class="pre">lc08</span></code> and <code class="docutils literal notranslate"><span class="pre">borders</span></code>) are GEE Datasets - you can click the link in the <strong>Imports</strong> description
+to find out more about them. To import GEE datasets into a script, you can add them to the code editor like this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">borders</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">FeatureCollection</span><span class="p">(</span><span class="s2">&quot;FAO/GAUL/2015/level0&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When you do this, you should see that this gets underlined in yellow:</p>
+<a class="reference internal image-reference" href="../../../_images/underline.png"><img alt="a yellow underline under a variable declaration, indicating it can be added as an import" class="align-center" src="../../../_images/underline.png" style="width: 500px;" /></a>
+<p>When you mouse over this line, you should see the following message:</p>
+<a class="reference internal image-reference" href="../../../_images/import.png"><img alt="the message stating the the variable can be added to the script as an import" class="align-center" src="../../../_images/import.png" style="width: 500px;" /></a>
+<p>Click “Convert” to add the variable as an import:</p>
+<a class="reference internal image-reference" href="../../../_images/imported.png"><img alt="the variable, added as an import to the script" class="align-center" src="../../../_images/imported.png" style="width: 500px;" /></a>
+</div>
+<div class="section" id="filtering">
+<h2>filtering<a class="headerlink" href="#filtering" title="Permalink to this headline"></a></h2>
+<p>The first line of the script:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select a single vector from the borders import</span>
+<span class="kd">var</span> <span class="nx">country</span> <span class="o">=</span> <span class="nx">borders</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;ADM0_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;Iceland&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>uses <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.filter()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-filter">documentation</a>)
+and <code class="docutils literal notranslate"><span class="pre">ee.Filter.eq()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-filter-eq">documentation</a>)
+to select only those <strong>Feature</strong>s that match the given metadata value.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ee.Filter.eq()</span></code> takes two parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>, the property name to filter on</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code>, the value to compare</p></li>
+</ul>
+<p>and returns a <strong>Filter</strong> object. Here, we’re filtering over the <code class="docutils literal notranslate"><span class="pre">ADM0_NAME</span></code> property (the UN country name)
+to select only <strong>Feature</strong>s that match <code class="docutils literal notranslate"><span class="pre">Iceland</span></code> - in other words, we’re selecting the <strong>Feature</strong> that
+corresponds to the country of Iceland.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The result of this operation is a <strong>FeatureCollection</strong> - even if there’s only one <strong>Feature</strong> (or no <strong>Feature</strong>s)
+that match the criteria.</p>
+</div>
+<p>The next few lines of code are things we’ve seen already - using <code class="docutils literal notranslate"><span class="pre">Map.centerObject()</span></code> to center the <strong>Map</strong> on our
+country polygon(s), and <code class="docutils literal notranslate"><span class="pre">Map.setOptions()</span></code> to change the background image from the default to the satellite basemap.</p>
+<p>The next block of code uses a few different <strong>method</strong>s to filter the entire Landsat 8 <strong>ImageCollection</strong>. The first,
+<code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.filterBounds()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-imagecollection-filterbounds">documentation</a>),
+will filter the <strong>ImageCollection</strong> based on whether the images intersect with the given geometry (in this case, our
+country boundary):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">imgs</span> <span class="o">=</span> <span class="nx">lc08</span>
+  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">country</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, just like with the <strong>FeatureCollection</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.filter()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-imagecollection-filter">documentation</a>)
+to apply a <strong>Filter</strong>. Here, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Filter.lte()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-filter-lte">documentation</a>) to return
+only <strong>Image</strong>s with a cloud cover less than or equal to 10%:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="mf">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Finally,  we use <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.filter()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ee.Filter.calendarRange()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-filter-calendarrange">documentation</a>)
+to select only images that have months between June (month 6) and August (month 8).</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">calendarRange</span><span class="p">(</span><span class="mf">6</span><span class="p">,</span> <span class="mf">8</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>The end result, at least for this example, is a total of 46 Images that meet all of the criteria - we can see this using
+<code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.size()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-imagecollection-size">documentation</a>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">print</span><span class="p">(</span><span class="s1">&#39;Total number of images:&#39;</span><span class="p">,</span> <span class="nx">imgs</span><span class="p">.</span><span class="nx">size</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="functions-mapping-and-masking">
+<h2>functions, mapping, and masking<a class="headerlink" href="#functions-mapping-and-masking" title="Permalink to this headline"></a></h2>
+<p>This gives us an <strong>ImageCollection</strong> that we can mosaic to produce a cloud-free mosaic. However, it is often the case that if
+we limit ourselves to “cloud-free” (i.e., the ‘CLOUD_COVER’ metadata value is equal to 0) images, we end up with very little to
+work with:</p>
+<a class="reference internal image-reference" href="../../../_images/no_images.png"><img alt="there are no images with exactly 0 cloud cover" class="align-center" src="../../../_images/no_images.png" style="width: 600px;" /></a>
+<p>But, even low values of cloud cover can still end up in our mosaic:</p>
+<a class="reference internal image-reference" href="../../../_images/clouds.png"><img alt="the mosaicked image without clouds masked" class="align-center" src="../../../_images/clouds.png" style="width: 600px;" /></a>
+<p>To make sure that we aren’t using clouds, we can apply a <strong>mask</strong> to our images using <code class="docutils literal notranslate"><span class="pre">map()</span></code> and a <strong>function</strong>.</p>
+<p>Landsat surface reflectance products have a QA (quality assessment) band that flags pixels that are (or might be) clouds,
+cloud shadow, snow, water, cloud confidence, and so on.</p>
+<p>Rather than masking every single possible pixel value, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.bitwiseAnd()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-bitwiseand">documenation</a>) to select pixels where
+the specific bit is set. For Landsat 8 SR products:</p>
+<ul class="simple">
+<li><p>bit 3 corresponds to cloud shadow</p></li>
+<li><p>bit 5 corresponds to cloud</p></li>
+<li><p>bit 7 corresponds to high confidence cloud shadow</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a full list of which bits correspond to what,
+see the <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C01_T1_SR#bands">data catalog</a> and
+scroll down to the <cite>pixel_qa</cite> band to view the bitmask.</p>
+</div>
+<p>So, to mask out all of the cloud pixels, we would use:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">qa</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;pixel_qa&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">cloud</span> <span class="o">=</span> <span class="nx">qa</span>
+  <span class="p">.</span><span class="nx">bitwiseAnd</span><span class="p">(</span><span class="mf">1</span> <span class="o">&lt;&lt;</span> <span class="mf">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This uses the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Left_shift">left-shift</a>
+(<code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>) operator to compare the left-hand side (<code class="docutils literal notranslate"><span class="pre">1</span></code>) to the left by the right-hand side number of bits. Written in 16-bit
+(digit) binary, the left-hand value (<code class="docutils literal notranslate"><span class="pre">1</span></code>) looks like this:</p>
+<blockquote>
+<div><p>0000000000000001</p>
+</div></blockquote>
+<p>When we shift it to the left by 5 bits, we have this:</p>
+<blockquote>
+<div><p>0000000000100000</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">ee.Image.bitwiseAnd()</span></code> then compares each pixel of the image to this value, returning “<code class="docutils literal notranslate"><span class="pre">true</span></code>” wherever the pixel in
+the image has a value of <code class="docutils literal notranslate"><span class="pre">1</span></code> in the 5th bit, and “<code class="docutils literal notranslate"><span class="pre">false</span></code>” wherever the image has a value of <code class="docutils literal notranslate"><span class="pre">0</span></code> in the 5th bit.</p>
+<p>But, we don’t <em>just</em> want to mask the cloudy pixels - we only want to mask out the pixels that are high-confidence clouds
+(where the 7th bit is also equal to 1). So, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.and()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-and">documentation</a>) along with <code class="docutils literal notranslate"><span class="pre">ee.Image.bitwiseAnd()</span></code>
+to combine these two:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">and</span><span class="p">(</span><span class="nx">qa</span><span class="p">.</span><span class="nx">bitwiseAnd</span><span class="p">(</span><span class="mf">1</span> <span class="o">&lt;&lt;</span> <span class="mf">7</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Finally, we also want to mask any pixels that might be cloud shadow (bit 3), so we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.or()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-or">documentation</a>) with <code class="docutils literal notranslate"><span class="pre">ee.Image.bitwiseAnd()</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">or</span><span class="p">(</span><span class="nx">qa</span><span class="p">.</span><span class="nx">bitwiseAnd</span><span class="p">(</span><span class="mf">1</span> <span class="o">&lt;&lt;</span> <span class="mf">3</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>This provides an image where pixel values are <code class="docutils literal notranslate"><span class="pre">true</span></code> if they match the criteria (high-confidence cloud OR cloud shadow),
+and <code class="docutils literal notranslate"><span class="pre">false</span></code> where they don’t match the criteria.</p>
+<p>Finally, not all of the bands of Landsat (or other sensors) cover exactly the same area - there are small differences at
+the edges of the scene. To mosaic the images together in a nice way, we want to exclude these pixels from the mask.</p>
+<p>To do this, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.mask()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-mask">documentation</a>)
+to get the <code class="docutils literal notranslate"><span class="pre">NoData</span></code> mask for the image, then combine this with <code class="docutils literal notranslate"><span class="pre">ee.Image.reduce()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-reduce">documentation</a>) and <code class="docutils literal notranslate"><span class="pre">ee.Reducer.min()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-reducer-min">documentation</a>) to get a mask of all of the pixels that have values
+in all bands:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">edge</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">mask</span><span class="p">().</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">min</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>Then, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.updateMask()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-updatemask">documentation</a>)
+to mask out areas where there are clouds, using the cloud mask we’ve computed. To do this, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.not()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-not">documentation</a>) – this will mask out pixels where the cloud mask
+has been set (note that using the cloud mask directly will mask out pixels where there are no clouds), and additionally using the
+edge pixel mask:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">image</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">cloud</span><span class="p">.</span><span class="nx">not</span><span class="p">()).</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">edge</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now, to do this efficiently over the entire <strong>ImageCollection</strong>, we want to combine all of these individual steps into a <strong>function</strong>, then
+pass that function to <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.map()</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// a function that will mask cloudy pixels</span>
+<span class="kd">function</span> <span class="nx">cloudMask</span><span class="p">(</span><span class="nx">image</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// select the pixel_qa band</span>
+  <span class="kd">var</span> <span class="nx">qa</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;pixel_qa&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">cloud</span> <span class="o">=</span> <span class="nx">qa</span>
+    <span class="p">.</span><span class="nx">bitwiseAnd</span><span class="p">(</span><span class="mf">1</span> <span class="o">&lt;&lt;</span> <span class="mf">5</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">and</span><span class="p">(</span><span class="nx">qa</span><span class="p">.</span><span class="nx">bitwiseAnd</span><span class="p">(</span><span class="mf">1</span> <span class="o">&lt;&lt;</span> <span class="mf">7</span><span class="p">))</span>
+    <span class="p">.</span><span class="nx">or</span><span class="p">(</span><span class="nx">qa</span><span class="p">.</span><span class="nx">bitwiseAnd</span><span class="p">(</span><span class="mf">1</span> <span class="o">&lt;&lt;</span> <span class="mf">3</span><span class="p">));</span>
+  <span class="c1">// Remove edge pixels that don&#39;t occur in all bands</span>
+  <span class="kd">var</span> <span class="nx">edge</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">mask</span><span class="p">().</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">min</span><span class="p">());</span>
+
+  <span class="c1">// set the mask</span>
+  <span class="k">return</span> <span class="nx">image</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">cloud</span><span class="p">.</span><span class="nx">not</span><span class="p">()).</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">edge</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">imgs</span> <span class="o">=</span> <span class="nx">imgs</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">cloudMask</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To confirm that the mask has worked, you can add a sample image to the <strong>Map</strong> using <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.first()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-imagecollection-first">documentation</a>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add a sample image to the map:</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">imgs</span><span class="p">.</span><span class="nx">first</span><span class="p">().</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B[1-7]&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">),</span> <span class="nx">visParams</span><span class="p">,</span> <span class="s1">&#39;sample&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You should see something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/sample_image.png"><img alt="a sample image showing clouds masked out" class="align-center" src="../../../_images/sample_image.png" style="width: 600px;" /></a>
+<p>Note that while a large number of the clouds have been masked out, it’s not perfect (since we only included “high confidence”
+cloud pixels). If we want to include lower-confidence pixels as well, we can remove <code class="docutils literal notranslate"><span class="pre">.and(qa.bitwiseAnd(1</span> <span class="pre">&lt;&lt;</span> <span class="pre">7))</span></code> from our function.</p>
+</div>
+<div class="section" id="mosaicking">
+<h2>mosaicking<a class="headerlink" href="#mosaicking" title="Permalink to this headline"></a></h2>
+<p>Now that we have our collection of masked images, we’re ready to mosaic (combine) them together. Remember that right now, we have
+a number of overlapping images stored as an <strong>ImageCollection</strong> – what we want to do is combine all of the individual images
+into a single image that covers the whole area.</p>
+<p>Earth Engine has a <a class="reference external" href="https://developers.google.com/earth-engine/guides/ic_composite_mosaic">number of ways</a> to do this -
+we can use <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.mosaic()</span></code>, (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-imagecollection-mosaic">documentation</a>),
+which composites the images according to their order in the <strong>ImageCollection</strong>. With our cloud-masked images, though, this leads to a somewhat
+patchy result:</p>
+<a class="reference internal image-reference" href="../../../_images/mosaic.png"><img alt="the result of running ee.ImageCollection.mosaic()" class="align-center" src="../../../_images/mosaic.png" style="width: 600px;" /></a>
+<p>We could also use a <strong>Reducer</strong> to composite the images. If we have an image collection of normalized difference vegetation index (NDVI) images,
+for example, we might want to see the “greenest” pixel value over the course of a season using <code class="docutils literal notranslate"><span class="pre">ee.Reducer.max()</span></code>. Instead of that, though,
+this script takes an <em>average</em> (median) of all of the valid pixel values, then composites them into an image, using <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.median()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-imagecollection-median">documentation</a>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// mosaic the images using median</span>
+<span class="kd">var</span> <span class="nx">median</span> <span class="o">=</span> <span class="nx">imgs</span><span class="p">.</span><span class="nx">median</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>This returns an <strong>Image</strong> where each pixel is the median value of all of the valid (unmasked) pixel values from the <strong>ImageCollection</strong>.</p>
+<p>This is not the only way to composite the images, but it is a way to give us a relatively smooth-looking mosaic – for other applications, it might
+make sense to use another method.</p>
+</div>
+<div class="section" id="buffering-geometries">
+<h2>buffering geometries<a class="headerlink" href="#buffering-geometries" title="Permalink to this headline"></a></h2>
+<p>Note that so far, our images cover an area much larger than our area of interest, because <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.filterBounds()</span></code> takes any image
+that intersects the given geometry, even if it’s a tiny overlap.</p>
+<p>To restrict our mosaic to our area of interest, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.clip()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-clip">documentation</a>) to clip the <strong>Image</strong> to a <strong>Feature</strong>, <strong>Geometry</strong>, or
+even another <strong>Image</strong>.</p>
+<p>However, our country boundaries are fairly low-resolution - by clipping directly to the <code class="docutils literal notranslate"><span class="pre">country</span></code> <strong>Feature</strong>, we might lose details at the coastline.
+So, we can apply a <strong>buffer</strong> to expand the outline, using <code class="docutils literal notranslate"><span class="pre">ee.Feature.buffer()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-feature-buffer">documentation</a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">ee.Feature.buffer()</span></code> takes the following inputs:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">distance</span></code>, the distance to buffer the input by</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maxError</span></code> (optional), the maximum error tolerated with the approximation of the buffer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proj</span></code>, the projection to use for the buffer.</p></li>
+</ul>
+<p>For this example, we’ll use a buffer of 1000 m, and we’ll use the <code class="docutils literal notranslate"><span class="pre">epsg:3857</span></code> <a class="reference external" href="https://epsg.io/3857">projection</a>
+(this is the WGS 84 Pseudo-Mercator projection, used by among other things, Google Maps):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// buffer the boundary by 1 km (1000 m)</span>
+<span class="kd">var</span> <span class="nx">buffered</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Feature</span><span class="p">(</span><span class="nx">country</span><span class="p">.</span><span class="nx">first</span><span class="p">()).</span><span class="nx">buffer</span><span class="p">({</span>
+  <span class="nx">distance</span><span class="o">:</span> <span class="mf">1000</span><span class="p">,</span>
+  <span class="nx">proj</span><span class="o">:</span> <span class="s1">&#39;epsg:3857&#39;</span> <span class="c1">// pseudo-mercator projection</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Note that we’re also using the <code class="docutils literal notranslate"><span class="pre">first()</span></code> method to select only the first <strong>Feature</strong> from our filtered <strong>FeatureCollection</strong>,
+<code class="docutils literal notranslate"><span class="pre">country</span></code> - we need to make sure that we’re using a <strong>Feature</strong>, as there is no <code class="docutils literal notranslate"><span class="pre">buffer</span></code> method for <strong>FeatureCollection</strong>s.</p>
+</div>
+<div class="section" id="clipping-images">
+<h2>clipping images<a class="headerlink" href="#clipping-images" title="Permalink to this headline"></a></h2>
+<p>We can now use <code class="docutils literal notranslate"><span class="pre">ee.Image.clip()</span></code> with our buffered outline to clip the mosaic:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">median</span> <span class="o">=</span> <span class="nx">median</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">buffered</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now, when we add the image to the <strong>Map</strong>, areas outside of the coastline of Iceland (defined by our <strong>Feature</strong>) will be masked out.</p>
+</div>
+<div class="section" id="counting-valid-pixels">
+<h2>counting valid pixels<a class="headerlink" href="#counting-valid-pixels" title="Permalink to this headline"></a></h2>
+<p>One last thing we might want to do is see how many pixels went into the calculation – that is, how many valid (non-cloudy) pixels
+from the <strong>ImageCollection</strong> were there for each pixel of the mosaic?</p>
+<p>To do this, we use <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.count()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-imagecollection-count">documentation</a>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">valid_count</span> <span class="o">=</span> <span class="nx">imgs</span><span class="p">.</span><span class="nx">count</span><span class="p">().</span><span class="nx">clip</span><span class="p">(</span><span class="nx">buffered</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When you run the script, you should see the following <strong>Map</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/script_run1.png"><img alt="the result of running the script" class="align-center" src="../../../_images/script_run1.png" style="width: 600px;" /></a>
+<p>To see the number of valid pixels, you can toggle on the “number of valid pixels” <strong>Image</strong> from the <strong>Layers</strong> menu:</p>
+<a class="reference internal image-reference" href="../../../_images/count.png"><img alt="a layer showing the valid pixel count for the mosaic" class="align-center" src="../../../_images/count.png" style="width: 600px;" /></a>
+<p>In this image, darker blue colors represent fewer valid pixels, while green/yellow pixels represent more valid pixels.</p>
+</div>
+<div class="section" id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>This script also contains an <code class="docutils literal notranslate"><span class="pre">Export.image.toDrive()</span></code> call, to export the mosaicked + clipped image to Google Drive.</p>
+<p>If you’ve made it this far, you should be able to filter <strong>ImageCollection</strong>s and <strong>FeatureCollection</strong>s based
+on metadata and other properties (including <strong>Feature</strong>s). You’ve also seen how you can compare image bits to mask out cloudy
+or other pixels, buffer geometries, clip images, and even count the number of unmasked pixels in an <strong>ImageCollection</strong>.</p>
+<p>If you’re interested in some additional practice, here are some suggestions:</p>
+<ul class="simple">
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">valid_count</span></code>, can you apply a <strong>Reducer</strong> to find the average number of valid pixels per pixel of the mosaic? What about the maximum and minimum numbers?</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cloudMask()</span></code> function written above only includes high-confidence cloud pixels and cloud shadow pixels. Using the information in the Data Catalog, can you add an additional check to mask high- and medium-confidence cirrus pixels?</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="spectral.html" class="btn btn-neutral float-left" title="spectral signatures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mapping.html" class="btn btn-neutral float-right" title="manual mapping (digitizing)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

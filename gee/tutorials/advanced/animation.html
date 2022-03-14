@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>creating an animation &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="sample exercises" href="../../exercises/index.html" />
+    <link rel="prev" title="advanced topics" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../teaching/index.html">teaching and related resources</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">google earth engine</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">gee tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#getting-an-earth-engine-account">getting an earth engine account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#script-repository">script repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#data-catalog">data catalog</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../getting_started/index.html">getting started</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../classification/index.html">image classification in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/index.html">change detection</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">advanced topics</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#references">references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">google earth engine</a> &raquo;</li>
+          <li><a href="../index.html">gee tutorials</a> &raquo;</li>
+          <li><a href="index.html">advanced topics</a> &raquo;</li>
+      <li>creating an animation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/gee/tutorials/advanced/animation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="creating-an-animation">
+<h1>creating an animation<a class="headerlink" href="#creating-an-animation" title="Permalink to this headline"></a></h1>
+<p>In the last part of the practical, we’ll gather all of the cloud-free Landsat images over Mt St Helens, and make an animated gif
+showing the changes over time. Because we’re using all of the different Landsat sensors (MSS, TM, ETM+, and OLI), we’ll use a
+near-infrared false colour composite (near-infrared/red/green) for consistency.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As of 1 February 2022, Collection 2 MSS scenes are not available in GEE, so the following combines the Collection 1 MSS scenes
+with the Collection 2 TM, ETM+, and OLI scenes.</p>
+</div>
+<p>To be able to run the code in this section, uncomment the whole section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 211 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 301).
+We’ll walk through what each block does in turn before running the code.</p>
+<p>The first lines in this section set the visualization parameters for the MSS scenes and the other sensors:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// set visualization parameters for the MSS scenes</span>
+<span class="kd">var</span> <span class="nx">mssVisParams</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B6&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B4&#39;</span><span class="p">],</span> <span class="c1">// select bands 6, 5, and 4</span>
+  <span class="nx">min</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span> <span class="c1">// set the minimum display value for each band</span>
+  <span class="nx">max</span><span class="o">:</span> <span class="mf">120</span><span class="p">,</span> <span class="c1">// set the maximum display value for each band</span>
+  <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span> <span class="c1">// set the gamma adjustment to help brighten the images</span>
+<span class="p">};</span>
+
+<span class="c1">// set visualization parameters for all of the other sensors</span>
+<span class="kd">var</span> <span class="nx">srVisParams</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span> <span class="c1">// select bands 4, 3, and 2</span>
+  <span class="nx">min</span><span class="o">:</span> <span class="mf">7000</span><span class="p">,</span> <span class="c1">// set the minimum display value for each band</span>
+  <span class="nx">max</span><span class="o">:</span> <span class="mf">20000</span><span class="p">,</span> <span class="c1">// set the maximum display value for each band</span>
+  <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.25</span> <span class="c1">// set the gamma adjustment to help brighten the images</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>When we create the animated gif at the end of the script, this will tell the computer how to display each frame of the output gif. The
+next lines will select all cloud-free MSS scenes that have an acceptable geometric accuracy for our purposes (&lt;25 m error) :</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">mss</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM01/C01/T1&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM01/C01/T2&quot;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM02/C01/T1&quot;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM02/C01/T2&quot;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM03/C01/T1&quot;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM03/C01/T2&quot;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c1">// select only cloud-free images</span>
+  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">or</span><span class="p">(</span>
+    <span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;DATA_TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;L1TP&#39;</span><span class="p">),</span>
+    <span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;DATA_TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;L1GT&#39;</span><span class="p">)))</span> <span class="c1">// only use L1TP and L1GT images</span>
+  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;GEOMETRIC_RMSE_MODEL&#39;</span><span class="p">,</span> <span class="s1">&#39;less_than&#39;</span><span class="p">,</span> <span class="mf">25</span><span class="p">)</span> <span class="c1">// remove any large distortions</span>
+  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">)</span> <span class="c1">// select only WRS row 28 images</span>
+  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">boundary</span><span class="p">).</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;B[4-6]&#39;</span><span class="p">]);</span> <span class="c1">// select bands 4, 5, and 6.</span>
+</pre></div>
+</div>
+<p>The next block of lines will repeat this for Landsat 5 TM and Landsat 7 ETM+ scenes:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get Landsat TM5 scenes</span>
+<span class="kd">var</span> <span class="nx">lt05</span> <span class="o">=</span> <span class="nx">mosaicByDate</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c1">// select only cloud-free images</span>
+  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span> <span class="mf">46</span><span class="p">))</span> <span class="c1">// select only WRS path 46 images</span>
+  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">))</span> <span class="c1">// select only WRS row 28 images</span>
+  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span> <span class="c1">// make sure to only select images within our boundary</span>
+  <span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B[2-4]&#39;</span><span class="p">]),</span> <span class="c1">// select bands 4, 3, 2</span>
+<span class="s1">&#39;LT05&#39;</span><span class="p">);</span>
+
+<span class="c1">// get Landsat 7 ETM+ scenes</span>
+<span class="kd">var</span> <span class="nx">le07</span> <span class="o">=</span> <span class="nx">mosaicByDate</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LE07/C02/T1_L2&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c1">// select only cloud-free images</span>
+  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span> <span class="mf">46</span><span class="p">))</span> <span class="c1">// select only WRS path 46 images</span>
+  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">))</span> <span class="c1">// select only WRS row 28 images</span>
+  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span> <span class="c1">// make sure to only select images within our boundary</span>
+  <span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B[2-4]&#39;</span><span class="p">]),</span> <span class="c1">// select bands 4, 3, 2</span>
+<span class="s1">&#39;LE07&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>After that, we select only the cloud-free Landsat 8 images:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">lc08</span><span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once we have lists for each of these sensors, we’ll merge the results and sort them:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// sort the MSS scenes by acquisition time.</span>
+<span class="kd">var</span> <span class="nx">mssSorted</span> <span class="o">=</span> <span class="nx">mss</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;system:time_start&#39;</span><span class="p">);</span>
+
+<span class="c1">// merge and sort the other Landsat scenes.</span>
+<span class="kd">var</span> <span class="nx">landsatSorted</span> <span class="o">=</span> <span class="nx">lt05</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">le07</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">mosaicByDate</span><span class="p">(</span><span class="nx">lc08</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">]),</span> <span class="c1">// rename bands to match older sensors</span>
+                      <span class="s1">&#39;LC08&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;system:time_start&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>After we have the images sorted, we can create the visualization images and merge the two collections into one:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// make RGB images to display for each of the MSS scenes</span>
+<span class="kd">var</span> <span class="nx">mssVis</span> <span class="o">=</span> <span class="nx">mssSorted</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">img</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">img</span><span class="p">.</span><span class="nx">visualize</span><span class="p">(</span><span class="nx">mssVisParams</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// make RGB images to display for each of the other sensors</span>
+<span class="kd">var</span> <span class="nx">landsatVis</span> <span class="o">=</span> <span class="nx">landsatSorted</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">img</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">img</span><span class="p">.</span><span class="nx">visualize</span><span class="p">(</span><span class="nx">srVisParams</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">gifBoundary</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// now, merge the MSS and other sensors.</span>
+<span class="kd">var</span> <span class="nx">visAll</span> <span class="o">=</span> <span class="nx">mssVis</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">landsatVis</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Finally, we’ll set the parameters for the animated gif and create a link to trigger processing for the gif. This will make a gif that is
+scaled so that the longest dimension is 425 pixels. The images will be cropped to the gifBoundary polygon defined at the top of
+the script, and displayed using a pseudo-Mercator projection (EPSG:3857), which is the same one used by Google Maps.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">gifParams</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;region&#39;</span><span class="o">:</span> <span class="nx">gifBoundary</span><span class="p">,</span>
+  <span class="s1">&#39;dimensions&#39;</span><span class="o">:</span> <span class="mf">425</span><span class="p">,</span>
+  <span class="s1">&#39;crs&#39;</span><span class="o">:</span> <span class="s1">&#39;EPSG:3857&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;framesPerSecond&#39;</span><span class="o">:</span> <span class="mf">3</span>
+<span class="p">};</span>
+
+<span class="c1">// print a URL to start processing the gif.</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">visAll</span><span class="p">.</span><span class="nx">getVideoThumbURL</span><span class="p">(</span><span class="nx">gifParams</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>At this time, you can run the script one final time. In the <strong>Console</strong>, you should see a link at the bottom:</p>
+<a class="reference internal image-reference" href="../../../_images/console_link.png"><img alt="the link to the animated gif, printed to the console" class="align-center" src="../../../_images/console_link.png" style="width: 400px;" /></a>
+<p>Click this link to create the gif. Once it finishes processing and loads the gif, you can download the gif by right-clicking the image
+and clicking <strong>Save</strong>.</p>
+<p>Watch the gif – what changes do you see? You should notice a number of different things happen, including the
+initial 1980 eruption, subsequent eruptions, seasonal snow cover, and even the <a class="reference external" href="https://www.usgs.gov/landsat-missions/landsat-7">SLC failure</a>
+of the Landsat 7 ETM+ sensor.</p>
+<p>By the end of the gif, you should see that a great deal of vegetation has started to recover.
+In next week’s practical, we’ll work on additional analyses using GEE, including change analysis and plotting time series of values.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="advanced topics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../exercises/index.html" class="btn btn-neutral float-right" title="sample exercises" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

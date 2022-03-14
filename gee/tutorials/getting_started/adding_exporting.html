@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>adding and exporting images &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="spectral signatures" href="spectral.html" />
+    <link rel="prev" title="getting started" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../teaching/index.html">teaching and related resources</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">google earth engine</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">gee tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#getting-an-earth-engine-account">getting an earth engine account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#script-repository">script repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#data-catalog">data catalog</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">getting started</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">adding and exporting images</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#landsat">landsat</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#adding-images-to-the-map">adding images to the map</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#changing-display-parameters">changing display parameters</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#the-print-function">the print function</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#the-inspector-tool">the inspector tool</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#exporting-data">exporting data</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="spectral.html">spectral signatures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="band_maths.html">band maths</a></li>
+<li class="toctree-l5"><a class="reference internal" href="zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../classification/index.html">image classification in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/index.html">change detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../advanced/index.html">advanced topics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#references">references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">google earth engine</a> &raquo;</li>
+          <li><a href="../index.html">gee tutorials</a> &raquo;</li>
+          <li><a href="index.html">getting started</a> &raquo;</li>
+      <li>adding and exporting images</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/gee/tutorials/getting_started/adding_exporting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="adding-and-exporting-images">
+<h1>adding and exporting images<a class="headerlink" href="#adding-and-exporting-images" title="Permalink to this headline"></a></h1>
+<style> .green {color:green} </style><p>This tutorial is designed to get you started looking at satellite images using Google Earth Engine.
+By the end of the tutorial, you will be able to:</p>
+<ul class="simple">
+<li><p>add images to the map and change the display properties</p></li>
+<li><p>use the <cite>print()</cite> function to view image metadata</p></li>
+<li><p>use the inspector tool to examine pixel values</p></li>
+<li><p>export data to google drive</p></li>
+</ul>
+<p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using your GEE account. You should see something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/annotated_window.png"><img alt="the GEE console with annotations" class="align-center" src="../../../_images/annotated_window.png" style="width: 600px;" /></a>
+<p>The <strong>Code editor</strong> is where you can write your script to load data and process your results; the <strong>Map</strong> is where you can view images and other datasets, and
+the <strong>Console</strong> is where you can see outputs, charts, and other things that you print out.</p>
+<p>To see the sample script for this tutorial, follow this link.</p>
+<div class="section" id="landsat">
+<h2>landsat<a class="headerlink" href="#landsat" title="Permalink to this headline"></a></h2>
+<p>For this example, we’re using a Landsat 8 image showing the <a class="reference external" href="https://en.wikipedia.org/wiki/Malaspina_Glacier">Malaspina Glacier</a> (Sít’ Tlein)
+and surrounding area in Alaska (USA) and Canada.</p>
+<p>The sensor carried by Landsat 8 is the Operational Land Imager/Thermal InfraRed Sensor (OLI/TIRS). The table below shows the
+wavelength ranges for the different bands of the sensor(s), their resolutions, and their names:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 24%" />
+<col style="width: 28%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>sensor</strong></p></td>
+<td><p><strong>band</strong></p></td>
+<td><p><strong>wavelength (µm)</strong></p></td>
+<td><p><strong>name</strong></p></td>
+<td><p><strong>resolution (m)</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>oli</p></td>
+<td><p>1</p></td>
+<td><p>0.43 – 0.45</p></td>
+<td><p>coastal aerosol</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>2</p></td>
+<td><p>0.45 – 0.51</p></td>
+<td><p>blue</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>3</p></td>
+<td><p>0.53 – 0.59</p></td>
+<td><p>green</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>4</p></td>
+<td><p>0.64 – 0.67</p></td>
+<td><p>red</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>5</p></td>
+<td><p>0.85 – 0.88</p></td>
+<td><p>near infrared</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>6</p></td>
+<td><p>1.57 – 1.65</p></td>
+<td><p>shortwave infrared 1</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>7</p></td>
+<td><p>2.11 – 2.29</p></td>
+<td><p>shortwave infrared 2</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>8</p></td>
+<td><p>0.50 – 0.68</p></td>
+<td><p>panchromatic</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>9</p></td>
+<td><p>1.36 – 1.38</p></td>
+<td><p>cirrus</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-odd"><td><p>tirs</p></td>
+<td><p>10</p></td>
+<td><p>10.6 – 11.19</p></td>
+<td><p>thermal infrared 1</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>11</p></td>
+<td><p>11.5 – 12.51</p></td>
+<td><p>thermal infrared 2</p></td>
+<td><p>100</p></td>
+</tr>
+</tbody>
+</table>
+<p>For information about the band designations for the other Landsat sensors, see this page from the USGS: <a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites</a></p>
+</div>
+<div class="section" id="adding-images-to-the-map">
+<h2>adding images to the map<a class="headerlink" href="#adding-images-to-the-map" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For this example, I’m using the Collections 1 Surface Reflectance product, because there appear to be some issues with the Collection 2
+Surface Reflectance product masking out otherwise valid pixels (see, e.g., <a class="reference external" href="https://code.earthengine.google.com/219273a5bbaffc9dfd0b909d2def1df2">this example</a>).</p>
+<p>I will update the tutorial and the script if/when the issue gets resolved, but for now we’ll stick with the C1 datasets.</p>
+</div>
+<p>If we know the GEE <strong>id</strong> of the image we want to use, we can add it directly to the script by <strong>declaring</strong> it as a <strong>variable</strong>, using <code class="docutils literal notranslate"><span class="pre">ee.Image()</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LC08/C01/T1_SR/LC08_062018_20190821&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Earth Engine <strong>id</strong> of Landsat images is not the same as the USGS <strong>granule id</strong> - if you know the USGS id of the image you
+want, you’ll need to “translate” it to the GEE catalog.</p>
+<p>As an example, the image we’re using here has a GEE <strong>id</strong> of:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">dataset/<strong>sensor</strong>/C**collection**/<strong>tier</strong>/<strong>sensor</strong>_<strong>PPPRRR_YYYYMMDD</strong></div>
+<div class="line">LANDSAT/LC08/C02/T1/LC08_062018_20190821</div>
+</div>
+</div></blockquote>
+<p>and a USGS granule id of:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>sensor</strong>_level_<strong>PPPRRR_YYYYMMDD</strong>_processed_<strong>collection</strong>_<strong>tier</strong></div>
+<div class="line">LC08_L1TP_062018_20190821_20200827_02_T1</div>
+</div>
+</div></blockquote>
+<p>For more information about the naming convention(s), you can check out the following page from USGS:
+<a class="reference external" href="https://www.usgs.gov/faqs/what-naming-convention-landsat-collection-2-level-1-and-level-2-scenes">https://www.usgs.gov/faqs/what-naming-convention-landsat-collection-2-level-1-and-level-2-scenes</a></p>
+</div>
+<p>Now, we can use the <code class="docutils literal notranslate"><span class="pre">img</span></code> variable in our script, and add it to the <strong>Map</strong> window:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the image to the map as a true-color composite</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B[1-9]&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">),</span>
+  <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">],</span> <span class="nx">min</span><span class="o">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span>
+  <span class="s1">&#39;Sample Image&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>There’s quite a bit happening here. First, we’re using <code class="docutils literal notranslate"><span class="pre">Map.addLayer()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/map-addlayer">click here for the documentation</a>)
+to add the image to the <strong>Map</strong>. <code class="docutils literal notranslate"><span class="pre">Map.addLayer()</span></code> has the following <strong>syntax</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">eeObject</span><span class="p">,</span> <span class="nx">visParams</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">shown</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eeObject</span></code> is the <strong>object</strong> that we want to add to the <strong>Map</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">visParams</span></code> tells GEE how to display the object</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> is the name we want to use for the layer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shown</span></code> tells GEE to display the image (<code class="docutils literal notranslate"><span class="pre">true</span></code>) or not (<code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
+<li><p>and <code class="docutils literal notranslate"><span class="pre">opacity</span></code> is the opacity of the layer ranging from 0–1.</p></li>
+</ul>
+<p>So, the <strong>object</strong> that we’re adding to the map is:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B[1-9]&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This <strong>selects</strong> bands <code class="docutils literal notranslate"><span class="pre">B2</span></code>, <code class="docutils literal notranslate"><span class="pre">B3</span></code>, and <code class="docutils literal notranslate"><span class="pre">B4</span></code> from <code class="docutils literal notranslate"><span class="pre">img</span></code>, then multiplies each band by <code class="docutils literal notranslate"><span class="pre">0.0001</span></code>
+to convert from the raw DN values to reflectance values.</p>
+<p>Next, the <code class="docutils literal notranslate"><span class="pre">visParams</span></code> that we’re adding is:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">],</span> <span class="nx">min</span><span class="o">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This tells the map to display bands 4, 3, and 2 as an RGB (making this a <a class="reference external" href="https://gisgeography.com/landsat-8-bands-combinations">natural color</a> composite).
+We also set the <code class="docutils literal notranslate"><span class="pre">min</span></code>(imum) display value to 0.01, and the <code class="docutils literal notranslate"><span class="pre">max</span></code>(imum) display value to 0.75. We also apply
+a gamma correction to help brighten the image somewhat.</p>
+<p>Finally, we give the layer a <code class="docutils literal notranslate"><span class="pre">name</span></code> (<code class="docutils literal notranslate"><span class="pre">'Sample</span> <span class="pre">Image'</span></code>), and tell GEE to display the image (<code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
+<p>The next part of the example script:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// center the map on the image, at a zoom level of 8</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">centerObject</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="mf">8</span><span class="p">);</span>
+
+<span class="c1">// set the map background to the satellite layer</span>
+<span class="nx">Map</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="s1">&#39;SATELLITE&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>uses <code class="docutils literal notranslate"><span class="pre">Map.centerObject()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/map-centerobject">documentation</a>) to center the <strong>Map</strong>
+on the image at a zoom level of 8, and uses <code class="docutils literal notranslate"><span class="pre">Map.setOption()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/map-setoptions">documentation</a>)
+to set the basemap to use satellite imagery, rather than the default basemap.</p>
+<p>Once you run the script (click <strong>Run</strong>, or press <strong>CTRL + Enter</strong>), you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/script_run.png"><img alt="the gee console after running the example script" class="align-center" src="../../../_images/script_run.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="changing-display-parameters">
+<h2>changing display parameters<a class="headerlink" href="#changing-display-parameters" title="Permalink to this headline"></a></h2>
+<p>In addition to setting the display parameters for the layer in the script, we can also change the display parameters after the script
+is finished running.</p>
+<p>When you mouse over the <strong>Layers</strong> button in the upper right of the <strong>Map</strong> panel, you should see a single layer (Sample Image).
+If you click on the gear icon, you can open the visualization parameters for each image and adjust them - for example, by applying
+a 98% stretch instead of a custom range:</p>
+<a class="reference internal image-reference" href="../../../_images/layer_parameters.png"><img alt="the layer visualization settings" class="align-center" src="../../../_images/layer_parameters.png" style="width: 400px;" /></a>
+<p>To change the bands that are displayed, you can select the different bands to make an RGB combination from the dropdown menus; you can also
+choose to display the image as a single-band (grayscale) image.</p>
+<p>You can also adjust the transparency slider for the different layers displayed here, and by checking/unchecking the box next to the layer
+name, you can make either image visible/invisible.</p>
+<p>Finally, you can use the <strong>Import</strong> button to save the current settings as an import that you can use in the script - we’ll talk a bit more
+about imports in a later tutorial.</p>
+<p>In order to apply any changes, click on the <strong>Apply</strong> button, then <strong>Close</strong> to close the visualization settings window.</p>
+</div>
+<div class="section" id="the-print-function">
+<h2>the print function<a class="headerlink" href="#the-print-function" title="Permalink to this headline"></a></h2>
+<p>The script also contains the following line:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// print information about the image</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">img</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This will <strong>print</strong> the information about the image to the <strong>Console</strong>. If you expand the list (click on the small arrow), you should
+be able to see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/console_expanded.png"><img alt="the gee console output after expanding the image" class="align-center" src="../../../_images/console_expanded.png" style="width: 400px;" /></a>
+<p>You can expand the <strong>bands</strong> list to see the different bands available in the image, while the <strong>properties</strong> object contains
+all of the different metadata for the image. In later tutorials, we’ll actually use this metadata for selecting and processing
+images; for now, it’s enough to look at it and get familiar with it.</p>
+</div>
+<div class="section" id="the-inspector-tool">
+<h2>the inspector tool<a class="headerlink" href="#the-inspector-tool" title="Permalink to this headline"></a></h2>
+<p>Now that we’ve added an image to the <strong>Map</strong>, we can zoom around the map (scroll in/out, or use the <cite>+</cite>/<cite>-</cite> buttons on the left side of the map)
+to examine it further:</p>
+<a class="reference internal image-reference" href="../../../_images/zoomed_in.png"><img alt="the map after zooming in" class="align-center" src="../../../_images/zoomed_in.png" style="width: 600px;" /></a>
+<p>Here, we’ve zoomed in on Malaspina Lake, between the glacier and the ocean more or less in the middle of the image.</p>
+<p>To examine (or <em>inspect</em>) different pixel or feature values for the layers in the map, we can use the <strong>Inspector</strong> tab.
+Click on the <strong>Inspector</strong> tab, then click on the map window somewhere in the lake. You should see something like the following
+in the <strong>Inspector</strong> tab (note that it probably won’t be exactly the same):</p>
+<a class="reference internal image-reference" href="../../../_images/inspector_tab.png"><img alt="the inspector tab showing the list view" class="align-center" src="../../../_images/inspector_tab.png" style="width: 600px;" /></a>
+<p>This shows the <strong>list</strong> view for the <strong>Inspector</strong> tool - for each layer, and each band, it will list the pixel value where you’ve
+clicked, based on the current scale.</p>
+<p>You can also click on the chart symbol next to the layer name:</p>
+<a class="reference internal image-reference" href="../../../_images/switch_views.png"><img alt="the button for swapping between list and chart views" class="align-center" src="../../../_images/switch_views.png" style="width: 400px;" /></a>
+<p>To swap between the list and chart views:</p>
+<a class="reference internal image-reference" href="../../../_images/inspector_plot.png"><img alt="the inspector tab showing the chart view" class="align-center" src="../../../_images/inspector_plot.png" style="width: 600px;" /></a>
+<p>From the chart view, you can also click the highlighted button to open the chart in a new window, where you can download
+the chart as an SVG or PNG file, or the data as a comma-separated variable (CSV) file:</p>
+<a class="reference internal image-reference" href="../../../_images/inspector_graph.png"><img alt="the inspector tab showing the chart view" class="align-center" src="../../../_images/inspector_graph.png" style="width: 600px;" /></a>
+<p>You can spend some time moving around the map and viewing the output of the <strong>Inspector</strong> tool - be sure to pay attention to the
+reflectances in different bands for different surfaces. What surfaces have the highest reflectance values? In what bands?</p>
+</div>
+<div class="section" id="exporting-data">
+<h2>exporting data<a class="headerlink" href="#exporting-data" title="Permalink to this headline"></a></h2>
+<p>At the very end of the script, I’ve included the following:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// export the image to Drive</span>
+<span class="nx">Export</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">toDrive</span><span class="p">({</span><span class="nx">image</span><span class="o">:</span> <span class="nx">img</span><span class="p">,</span>
+  <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;Sample Image&#39;</span><span class="p">,</span>
+  <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
+  <span class="nx">region</span><span class="o">:</span> <span class="nx">img</span><span class="p">.</span><span class="nx">geometry</span><span class="p">(),</span>
+  <span class="nx">crs</span><span class="o">:</span> <span class="s1">&#39;epsg:32608&#39;</span><span class="p">,</span>
+  <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e12</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>This calls <code class="docutils literal notranslate"><span class="pre">Export.image.toDrive()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/export-image-todrive">documentation</a>),
+which creates a <strong>Task</strong> that you can run to save the image to your Google Drive.</p>
+<p>If you click on the <strong>Tasks</strong> tab, you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/tasks_menu.png"><img alt="the gee tasks menu" class="align-center" src="../../../_images/tasks_menu.png" style="width: 400px;" /></a>
+<p>Here, you can see the different <strong>Tasks</strong> created by the script - in this case, we have one <strong>Task</strong> that has not yet been submitted,
+to export the image to Google Drive.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>GEE will not initiate Tasks automatically - you will need to submit the task before the image will actually be exported.</p>
+</div>
+<p>When you click <strong>RUN</strong>, you will see the following dialogue:</p>
+<a class="reference internal image-reference" href="../../../_images/export.png"><img alt="the map after zooming in" class="align-center" src="../../../_images/export.png" style="width: 600px;" /></a>
+<p>This allows you to enter a filename for your export, choose which folder to export the file to, and so on. When you’ve entered the
+necessary information and are happy, you can click <strong>RUN</strong> again.</p>
+<p>In general, running the task might take some time, depending on the size of the image. You can click the
+‘Refresh’ button in the <strong>Tasks</strong> tab to check the status to see if it’s finished running.</p>
+<p>That’s all for this tutorial - by now, you should be able to add an image to the <strong>Map</strong>, use the <strong>Inspector</strong> tool to investigate
+pixel and feature values in the <strong>Map</strong> window, and <strong>Export</strong> an image from GEE to your Google Drive.</p>
+<p>In the next tutorial, we’ll see how you can build on this to examine the surface reflectance values of various surface types.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="spectral.html" class="btn btn-neutral float-right" title="spectral signatures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
