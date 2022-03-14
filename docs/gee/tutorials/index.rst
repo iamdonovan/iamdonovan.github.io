@@ -35,8 +35,12 @@ script repository
 For each of the different tutorials, I've created a script that will show the different steps. You are welcome to use these, 
 or create your own scripts using the sample code provided as you read through the tutorial.
 
-You can access the repository (collection) of scripts `here <https://google.com>`__. *To be completed...*
+You can access the repository (collection) of scripts `here <https://code.earthengine.google.com/?accept_repo=users/robertmcnabb/gee_tutorials>`__.
 
+When you open the repository, it will be added in your account under **Reader**. You will be able to view, and run,
+each of the scripts from your own account. If you want to save them to your acount, you'll first have to edit the script (the easiest
+way to do this is by adding a comment at the top of the script), then click **Save** -- you'll then be asked if you want to make
+a copy of the script.
 
 data catalog
 -------------
