@@ -7,7 +7,7 @@ for large vector datasets.
 
 .. toctree::
    :glob:
-   :maxdepth: 1
+   :maxdepth: 2
 
    adding_exporting
    spectral
