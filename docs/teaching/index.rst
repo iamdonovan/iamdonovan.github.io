@@ -17,19 +17,11 @@ esa cryosphere training course (june 2018)
 ulster (2020-present)
 ---------------------
 
-- :doc:`egm310/index`
-- :doc:`egm702/index`
-- :doc:`egm703/index`
-- :doc:`egm722/index`
-
-
 .. toctree::
    :glob:
-   :hidden:
-   :maxdepth: 4
+   :maxdepth: 2
 
    egm310/index
    egm702/index
    egm703/index
    egm722/index
-   gee/index
