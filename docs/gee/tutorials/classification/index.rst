@@ -1,11 +1,11 @@
-image classification in earth engine
-=====================================
+image classification 
+=====================
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
+   unsupervised
    pixel
    obia
-   accuracy
 
