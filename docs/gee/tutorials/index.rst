@@ -70,7 +70,9 @@ contents
    getting_started/index
    classification/index
    change_detection/index
+   enhancement/index
    advanced/index
+
 
 references
 ----------
