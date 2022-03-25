@@ -36,7 +36,33 @@ Switch to the ``week3`` branch by typing:
 
      git checkout week3
 
-and pressing **Enter**. Next, type ``dir`` and press **Enter** again. You should now see this:
+and pressing **Enter**. 
+
+.. note::
+
+    If you see some version of the following:
+    
+    .. highlight:: none
+    
+    ::
+
+        hint: If you meant to check out a remote tracking branch on, e.g., 'origin',
+        hint: you can do so by fully qualifying the name with the --track option:
+        hint:
+        hint:     git checkout --track origin/<name>
+        hint:
+        hint: If you'd like to always have checkouts of an ambiguous <name> prefer
+        hint: one remote, e.g. the 'origin' remote, consider setting
+        hint: checkout.defaultRemote=origin in your config
+
+    What this is telling you is that you *either* have to explicitly specify **which** remote branch
+    you want to check out (e.g., ``origin`` or ``upstream``), **or** you should set your 
+    ``defaultRemote`` option using ``git config``:
+    ::
+
+        git config --global checkout.defaultRemote origin
+
+Next, type ``dir`` and press **Enter** again. You should now see this:
 
 .. image:: ../../../img/egm722/week3/week3_dir.png
     :width: 400
