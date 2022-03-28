@@ -23,5 +23,4 @@ and working your way to the bottom in order.
    clone
    conda
    environment
-
-
+   jupyter

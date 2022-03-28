@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>setting up conda/anaconda &mdash; iamdonovan  documentation</title>
+  <title>configuring jupyter &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,8 +17,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="setting up a conda environment" href="environment.html" />
-    <link rel="prev" title="cloning the repository" href="clone.html" /> 
+    <link rel="next" title="lectures" href="../lectures.html" />
+    <link rel="prev" title="setting up a conda environment" href="environment.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,13 +52,9 @@
 <li class="toctree-l5"><a class="reference internal" href="desktop.html">installing github desktop</a></li>
 <li class="toctree-l5"><a class="reference internal" href="fork.html">forking the repository</a></li>
 <li class="toctree-l5"><a class="reference internal" href="clone.html">cloning the repository</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">setting up conda/anaconda</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#introduction">introduction</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#installing-anaconda">installing anaconda</a></li>
-</ul>
-</li>
+<li class="toctree-l5"><a class="reference internal" href="conda.html">setting up conda/anaconda</a></li>
 <li class="toctree-l5"><a class="reference internal" href="environment.html">setting up a conda environment</a></li>
-<li class="toctree-l5"><a class="reference internal" href="jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">configuring jupyter</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
@@ -92,9 +88,9 @@
           <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
           <li><a href="../index.html">EGM722: programming for gis and remote sensing</a> &raquo;</li>
           <li><a href="index.html">setup</a> &raquo;</li>
-      <li>setting up conda/anaconda</li>
+      <li>configuring jupyter</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/teaching/egm722/setup/conda.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/teaching/egm722/setup/jupyter.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -102,31 +98,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="setting-up-conda-anaconda">
-<h1>setting up conda/anaconda<a class="headerlink" href="#setting-up-conda-anaconda" title="Permalink to this headline"></a></h1>
-<div class="section" id="introduction">
-<h2>introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
-<p>This page provides instructions for installing <strong>conda</strong>, an open-source package management system.
-<strong>conda</strong> can be used from both the command-line as well as via a graphical user interface (GUI). We will primarily be using
-the GUI provided by <a class="reference external" href="https://docs.anaconda.com/anaconda/navigator/">Anaconda Navigator</a>, part of the Anaconda® distribution,
-but we will occasionally make use of the command-line interface (CLI).</p>
+  <div class="section" id="configuring-jupyter">
+<h1>configuring jupyter<a class="headerlink" href="#configuring-jupyter" title="Permalink to this headline"></a></h1>
+<p>By default, <strong>jupyter notebook</strong> will open in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory (on Windows, this is most likely <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;</span></code>.
+If you have cloned the repository to a different location (e.g., <code class="docutils literal notranslate"><span class="pre">C:\egm722\</span></code>, or an external drive such as <code class="docutils literal notranslate"><span class="pre">D:\</span></code>),
+you may want to set notebook to open to that folder.</p>
+<p>To do this, open the <strong>Command Prompt</strong> from <strong>Anaconda Navigator</strong> (make sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is active).</p>
+<p>At the <strong>Command Prompt</strong>, enter the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span> <span class="o">--</span><span class="n">generate</span><span class="o">-</span><span class="n">config</span>
+</pre></div>
 </div>
-<div class="section" id="installing-anaconda">
-<h2>installing anaconda<a class="headerlink" href="#installing-anaconda" title="Permalink to this headline"></a></h2>
-<p>To begin, navigate to <a class="reference external" href="https://docs.anaconda.com/anaconda/install/">https://docs.anaconda.com/anaconda/install/</a>, which contains detailed, operating-system dependent instructions
-for installing Anaconda. Anaconda is available for Windows, macOS, and Linux operating systems; most of the instructions for this
-course will be given using Windows, but I am happy to work with you on setting yourself up in another operating system if need be.
-Follow the instructions for downloading and installing Anaconda using the link above. When the installation is finished, move on to
-the next step, <a class="reference internal" href="environment.html"><span class="doc">setting up a conda environment</span></a>.</p>
+<p>This will create a new folder, <code class="docutils literal notranslate"><span class="pre">.jupyter</span></code>, in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory, along with a python script in that directory: <code class="docutils literal notranslate"><span class="pre">jupyter_notebook_config.py</span></code>.</p>
+<p>Next, enter the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="o">--</span><span class="n">paths</span>
+</pre></div>
 </div>
+<p>This will show you the path to the version of <strong>jupyter</strong> used by your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment:</p>
+<a class="reference internal image-reference" href="../../../_images/jupyter_config.png"><img alt="the output of jupyter --paths" class="align-center" src="../../../_images/jupyter_config.png" style="width: 600px;" /></a>
+<p>In the example above, it’s:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">e16006469</span>\<span class="n">Anaconda3</span>\<span class="n">envs</span>\<span class="n">egm722</span>\<span class="n">etc</span>\<span class="n">jupyter</span>
+</pre></div>
+</div>
+<p>Now, copy the script <code class="docutils literal notranslate"><span class="pre">jupyter_notebook_config.py</span></code> into that folder (you will probably have to create a new folder, <code class="docutils literal notranslate"><span class="pre">jupyter</span></code>, in
+<code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;\Anaconda3\envs\etc</span></code>).</p>
+<p>Open the newly-copied script in your IDE of choice, and search for <code class="docutils literal notranslate"><span class="pre">notebook_dir</span></code> - for me, it’s at line 385:</p>
+<a class="reference internal image-reference" href="../../../_images/initial.png"><img alt="the lines in jupyter_notebook_config.py to edit" class="align-center" src="../../../_images/initial.png" style="width: 600px;" /></a>
+<p>Uncomment this line (remove the # and the space from the start), and add the path to your repository here:</p>
+<a class="reference internal image-reference" href="../../../_images/updated1.png"><img alt="the lines in jupyter_notebook_config.py, edited to update the default directory" class="align-center" src="../../../_images/updated1.png" style="width: 600px;" /></a>
+<p>Now, save the file, and re-launch <strong>jupyter notebook</strong> from <strong>Anaconda Navigator</strong>, making sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is still enabled.
+You should see that it opens in your repository folder by default:</p>
+<a class="reference internal image-reference" href="../../../_images/open.png"><img alt="jupyter-notebook, open to the newly set default directory" class="align-center" src="../../../_images/open.png" style="width: 600px;" /></a>
 </div>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="clone.html" class="btn btn-neutral float-left" title="cloning the repository" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="environment.html" class="btn btn-neutral float-right" title="setting up a conda environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="environment.html" class="btn btn-neutral float-left" title="setting up a conda environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../lectures.html" class="btn btn-neutral float-right" title="lectures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
