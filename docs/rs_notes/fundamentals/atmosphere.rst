@@ -2,7 +2,7 @@ interaction with the atmosphere
 =================================
 
 earth's atmosphere
-----------------
+--------------------
 
 
 
