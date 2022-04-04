@@ -8,6 +8,7 @@ EGM722: programming for gis and remote sensing
 
    setup/index
    lectures
+   faq/index
    practicals/index
    resources
 
