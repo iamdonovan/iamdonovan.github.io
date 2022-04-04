@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>git troubleshooting &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="python troubleshooting" href="python.html" />
+    <link rel="prev" title="help! something went wrong!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#unis-spring-2017">unis (spring 2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#esa-cryosphere-training-course-june-2018">esa cryosphere training course (june 2018)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#ulster-2020-present">ulster (2020-present)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">EGM722: programming for gis and remote sensing</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../setup/index.html">setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">help! something went wrong!</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">git troubleshooting</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#fixing-merge-conflicts">fixing merge conflicts</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#restoring-a-deleted-branch">restoring a deleted branch</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../practicals/index.html">practicals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gee/index.html">google earth engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
+          <li><a href="../index.html">EGM722: programming for gis and remote sensing</a> &raquo;</li>
+          <li><a href="index.html">help! something went wrong!</a> &raquo;</li>
+      <li>git troubleshooting</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/teaching/egm722/faq/git.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="git-troubleshooting">
+<h1>git troubleshooting<a class="headerlink" href="#git-troubleshooting" title="Permalink to this headline"></a></h1>
+<p>On this page, you will find some help/suggestions for how to untangle the occasional knot
+that can arise when working with git.</p>
+<div class="section" id="fixing-merge-conflicts">
+<h2>fixing merge conflicts<a class="headerlink" href="#fixing-merge-conflicts" title="Permalink to this headline"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Jupyter notebook (<strong>.ipynb</strong>) files contain not just the markup/code for the notebook, but also any/all outputs,
+records of whether each cell has been executed (run), etc.</p>
+<p>As such, it is <strong>VERY IMPORTANT</strong> for you to clear all of the outputs <strong>before</strong> you <strong>commit</strong> these files.</p>
+<p>If you don’t, you are going to have a bad time trying to clean up the merge conflicts.</p>
+</div>
+<p>When merging different branches using <strong>git</strong>, you might see the following message:</p>
+<a class="reference internal image-reference" href="../../../_images/conflict.png"><img alt="a merge conflict error message" class="align-center" src="../../../_images/conflict.png" style="width: 600px;" /></a>
+<p>Don’t panic. All this means is that the same file (or files) has been edited on multiple branches, and <strong>git</strong> doesn’t know which
+version is the “correct” one.</p>
+<p>When you see this message, you’ll need to open the file in a <strong>text</strong> editor (e.g., NotePad, Notepad++, but <strong>not</strong> Microsoft Word).</p>
+<p>You’re going to be looking for lines that look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="n">HEAD</span>
+
+<span class="o">&lt;</span><span class="n">some</span> <span class="n">stuff</span><span class="o">&gt;</span>
+
+<span class="o">=======</span>
+
+<span class="o">&lt;</span><span class="n">some</span> <span class="n">other</span> <span class="n">stuff</span><span class="o">&gt;</span>
+
+<span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">cfa26ae841c9e6d252ce80239f31e4c5b568efb6</span>
+</pre></div>
+</div>
+<p>All you need to do is delete either <code class="docutils literal notranslate"><span class="pre">&lt;some</span> <span class="pre">stuff&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;some</span> <span class="pre">other</span> <span class="pre">stuff&gt;</span></code>, depending on which version you want to keep. So, for example, with this:</p>
+<a class="reference internal image-reference" href="../../../_images/example.png"><img alt="an example merge conflict" class="align-center" src="../../../_images/example.png" style="width: 600px;" /></a>
+<p>we want to keep the “import os” statement. So, we delete this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="n">HEAD</span>
+<span class="o">=======</span>
+</pre></div>
+</div>
+<p>as well as this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;&gt;&gt;&gt;&gt; cfa26ae841c9e6d252ce80239f31e4c5b568efb6</span>
+</pre></div>
+</div>
+<p>so that we’re left with the version that we want:</p>
+<a class="reference internal image-reference" href="../../../_images/fixed.png"><img alt="the fixed merge conflict" class="align-center" src="../../../_images/fixed.png" style="width: 600px;" /></a>
+<p>Once you’re done editing the file (note that there may be multiple conflicts, so you’ll need to check the file <strong>carefully!</strong>), you can add it like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="o">&lt;</span><span class="n">the</span> <span class="n">file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>followed by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">status</span>
+</pre></div>
+</div>
+<p>If you have successfully cleared all of the conflicts, you should see something like the following:</p>
+<a class="reference internal image-reference" href="../../../_images/merging.png"><img alt="the output of git status after fixing the conflict" class="align-center" src="../../../_images/merging.png" style="width: 600px;" /></a>
+<p>At this point, you can commit the merge using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;this is a commit message that makes sense&quot;</span>
+</pre></div>
+</div>
+<p>and continue working.</p>
+</div>
+<div class="section" id="restoring-a-deleted-branch">
+<h2>restoring a deleted branch<a class="headerlink" href="#restoring-a-deleted-branch" title="Permalink to this headline"></a></h2>
+<p>If you accidentally delete a branch before it has been fully merged into the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch, don’t panic.</p>
+<p>Open up a <strong>Command Prompt</strong> window, and navigate to your repository (in the example below, this is <code class="docutils literal notranslate"><span class="pre">C:\Users\e16006469\egm722\bobtheburner</span></code>):</p>
+<a class="reference internal image-reference" href="../../../_images/deleted_branch.png"><img alt="terminal output showing that a branch has been deleted" class="align-center" src="../../../_images/deleted_branch.png" style="width: 600px;" /></a>
+<p>From the above, you can see from <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span></code> that there is no local <code class="docutils literal notranslate"><span class="pre">week5</span></code> branch. From <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-r</span></code>, which lists all of the
+remote branches, you can see that there is no remote <code class="docutils literal notranslate"><span class="pre">week5</span></code> branch, either.</p>
+<p>And, finally, from the output of the <code class="docutils literal notranslate"><span class="pre">dir</span></code> command, you can see that we only have the files for weeks 1-4 in our current working directory.</p>
+<p>To fix this, we can check out the <code class="docutils literal notranslate"><span class="pre">upstream/week5</span></code> branch, which fortunately still exists.</p>
+<p>First, though, check the list of remote repositories using <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/check_remote.png"><img alt="checking the remote repositories using git" class="align-center" src="../../../_images/check_remote.png" style="width: 600px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you don’t see <code class="docutils literal notranslate"><span class="pre">upstream</span></code> as one of your remote repositories, you can add it with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">upstream</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">iamdonovan</span><span class="o">/</span><span class="n">egm722</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>this will add a new remote repository (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span></code>), call it <code class="docutils literal notranslate"><span class="pre">upstream</span></code>, and point it to the iamdonovan/egm722 repository.</p>
+</div>
+<p>Now you need to make sure that you download (<code class="docutils literal notranslate"><span class="pre">fetch</span></code>) all of the remote branches, so that when you try to check something out from
+the new remote, git recognizes it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">fetch</span> <span class="o">--</span><span class="nb">all</span>
+</pre></div>
+</div>
+<p>You should see something like the following:</p>
+<a class="reference internal image-reference" href="../../../_images/fetch_all.png"><img alt="the terminal output of git fetch" class="align-center" src="../../../_images/fetch_all.png" style="width: 600px;" /></a>
+<p>Now, you can check out the deleted branch from the upstream repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="o">&lt;</span><span class="n">deleted</span> <span class="n">branch</span><span class="o">&gt;</span> <span class="n">upstream</span><span class="o">/&lt;</span><span class="n">deleted</span> <span class="n">branch</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/restored.png"><img alt="the terminal showing that the deleted branch has been restored" class="align-center" src="../../../_images/restored.png" style="width: 600px;" /></a>
+<p>And you should be able to continue working with the branch as you did before deleting it.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="help! something went wrong!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="python.html" class="btn btn-neutral float-right" title="python troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
