@@ -50,7 +50,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="index.html">help! something went wrong!</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="git.html">git troubleshooting</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">python troubleshooting</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">python troubleshooting</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#error-messages">error messages</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#warnings">warnings</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../practicals/index.html">practicals</a></li>
@@ -95,6 +99,80 @@
              
   <div class="section" id="python-troubleshooting">
 <h1>python troubleshooting<a class="headerlink" href="#python-troubleshooting" title="Permalink to this headline"></a></h1>
+<div class="section" id="error-messages">
+<h2>error messages<a class="headerlink" href="#error-messages" title="Permalink to this headline"></a></h2>
+<p>There are a great number of different <code class="docutils literal notranslate"><span class="pre">Error</span></code>s that can be raised in python. Most of the time, the type
+of <code class="docutils literal notranslate"><span class="pre">Error</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">NameError</span></code>, <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>, etc.) plus the associated error message should be enough
+to help you understand what went wrong, though this is not always the case - especially when you’re just
+starting out.</p>
+<p>The list compiled here is not exhaustive, but it should help you get an idea for some of the “most common”
+error messages that you’ll encounter when starting out.</p>
+<div class="section" id="nameerror">
+<h3>NameError<a class="headerlink" href="#nameerror" title="Permalink to this headline"></a></h3>
+<p>If you see a message like the following:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;&lt;name&gt;&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+</pre></div>
+</div>
+<p>It means that you’re trying to use a variable that has not yet been defined. In a script, you’ll need
+to check that you’ve actually defined the variable in question before trying to use it. In a jupyter
+notebook, you’ll most likely need to check that you’ve run the cell where that variable is defined.</p>
+</div>
+<div class="section" id="modulenotfounderror">
+<h3>ModuleNotFoundError<a class="headerlink" href="#modulenotfounderror" title="Permalink to this headline"></a></h3>
+<p>If you see a message like the following:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ne">ModuleNotFoundError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;&lt;module&gt;&#39;</span>
+</pre></div>
+</div>
+<p>It most likely means that you have launched jupyter/python from the wrong conda environment (usually <strong>base</strong>
+instead of <strong>egm722</strong>).</p>
+<p>It may also mean that you haven’t installed <code class="docutils literal notranslate"><span class="pre">&lt;module&gt;</span></code> into the current environment, but I would first check
+what conda environment you’ve launched from.</p>
+</div>
+<div class="section" id="attributeerror">
+<h3>AttributeError<a class="headerlink" href="#attributeerror" title="Permalink to this headline"></a></h3>
+<p>If you see a message like the following:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;&lt;object&gt;&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;&lt;attribute&gt;&#39;</span>
+</pre></div>
+</div>
+<p>It means that you are attempting to access an attribute of an object that does not exist. Most likely, it means
+you either have a typo (e.g., <code class="docutils literal notranslate"><span class="pre">xmas</span></code> instead of <code class="docutils literal notranslate"><span class="pre">xmax</span></code>), but there can be other causes as well.</p>
+</div>
+<div class="section" id="keyerror">
+<h3>KeyError<a class="headerlink" href="#keyerror" title="Permalink to this headline"></a></h3>
+<p>If you see a message like the following:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ne">KeyError</span><span class="p">:</span> <span class="s1">&#39;&lt;key&gt;&#39;</span>
+</pre></div>
+</div>
+<p>it means that you have tried to use a <strong>Key</strong> in a <strong>dict</strong> (or <strong>pandas.DataFrame</strong>, <strong>geopandas.GeoDataFrame</strong>,
+or similar object types) that does not exist. Most likely, it means that you haven’t added that particular column
+to the <strong>DataFrame</strong> yet.</p>
+</div>
+</div>
+<div class="section" id="warnings">
+<h2>warnings<a class="headerlink" href="#warnings" title="Permalink to this headline"></a></h2>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">Error</span></code>s, <code class="docutils literal notranslate"><span class="pre">Warning</span></code>s are not critical. This doesn’t mean that you can safely ignore them, but it does
+mean that your program managed to run without raising an <code class="docutils literal notranslate"><span class="pre">Exception</span></code> that stopped its execution.</p>
+<p>There are a great many kinds of <code class="docutils literal notranslate"><span class="pre">Warning</span></code> messages that you might encounter, but these are probably the most common.</p>
+<div class="section" id="futurewarning">
+<h3>FutureWarning<a class="headerlink" href="#futurewarning" title="Permalink to this headline"></a></h3>
+<p>If you see a message like this:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ne">FutureWarning</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="ow">is</span> <span class="n">deprecated</span><span class="p">;</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">future</span> <span class="n">version</span> <span class="n">this</span> <span class="n">will</span> <span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;.</span> <span class="n">Do</span> <span class="o">&lt;</span><span class="n">Z</span><span class="o">&gt;</span> <span class="n">instead</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>It usually means that the default behavior of something is going to change in a future version. In order for your code
+to continue working as expected, you’ll need to modify it in the way suggested (<code class="docutils literal notranslate"><span class="pre">&lt;Z&gt;</span></code>).</p>
+</div>
+<div class="section" id="userwarning">
+<h3>UserWarning<a class="headerlink" href="#userwarning" title="Permalink to this headline"></a></h3>
+<p>If you see a message like this:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="ne">UserWarning</span><span class="p">:</span> <span class="n">The</span> <span class="n">default</span> <span class="n">value</span> <span class="k">for</span> <span class="o">&lt;</span><span class="n">argument</span><span class="o">&gt;</span> <span class="n">to</span> <span class="o">&lt;</span><span class="n">function</span><span class="o">&gt;</span> <span class="n">will</span> <span class="n">change</span> <span class="kn">from</span> <span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="n">to</span> <span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;</span> <span class="n">after</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>it means that in a future version of the package you’re using, the default behavior for &lt;function&gt; is going to change.
+In order to make sure that things continue working as expected, you should explicitly set the value of <code class="docutils literal notranslate"><span class="pre">&lt;argument&gt;</span></code>
+to <code class="docutils literal notranslate"><span class="pre">&lt;X&gt;</span></code>.</p>
+</div>
+</div>
 </div>
 
 
