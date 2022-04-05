@@ -18,7 +18,7 @@ NameError
 
 If you see a message like the following:
 
-.. code-block:: python3
+.. code-block:: pytb
 
     NameError: name '<name>' is not defined
 
@@ -33,7 +33,7 @@ ModuleNotFoundError
 
 If you see a message like the following:
 
-.. code-block:: python3
+.. code-block:: pytb
 
     ModuleNotFoundError: No module named '<module>'
 
@@ -49,7 +49,7 @@ AttributeError
 
 If you see a message like the following:
 
-.. code-block:: python3
+.. code-block:: pytb
 
     AttributeError: '<object>' object has no attribute '<attribute>'
 
@@ -62,7 +62,7 @@ KeyError
 
 If you see a message like the following:
 
-.. code-block:: python3
+.. code-block:: pytb
 
     KeyError: '<key>'
 
@@ -84,7 +84,7 @@ FutureWarning
 
 If you see a message like this:
 
-.. code-block:: python3
+.. code-block:: pytb
 
     FutureWarning: <X> is deprecated; in a future version this will <Y>. Do <Z> instead.
 
@@ -97,7 +97,7 @@ UserWarning
 
 If you see a message like this:
 
-.. code-block:: python3
+.. code-block:: pytb
 
     UserWarning: The default value for <argument> to <function> will change from <X> to <Y> after <version>
 
