@@ -10,6 +10,7 @@ EGM722: programming for gis and remote sensing
    lectures
    faq/index
    practicals/index
+   project/index
    resources
 
 The aim of this module is to provide you with skills and experience to use programming tools for specialised and reproducible GIS and remote sensing analysis. The topics covered include (but are not limited to):
