@@ -10,14 +10,13 @@ computer to do as much of the work for us as possible.
 
 In general, we can characterize classifications in a few different ways; for these tutorials, we focus on three:
 
-- :doc:`unsupervised`, where we have nearly no input into how the computer classifies pixels;
-- (supervised) :doc:`pixel`, where individual pixels are classified based on input data;
-- (supervised) :doc:`obia`, where pixels are grouped together before being classified based on input data.
+- *unsupervised* methods, where we have nearly no input into how the computer classifies pixels;
+- (supervised) *pixel-based* methods, where individual pixels are classified based on input data;
+- (supervised) *object-based*, where pixels are grouped together before being classified based on input data.
 
 .. toctree::
    :glob:
-   :hidden:
-   :maxdepth: 1
+   :maxdepth: 2
 
    unsupervised
    pixel

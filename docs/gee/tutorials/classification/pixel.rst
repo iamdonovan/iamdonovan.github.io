@@ -4,97 +4,174 @@ pixel-based classification
 Lorem ipsum, etc.
 
 
-selecting training points
+In this tutorial, ...
+
+adding training points
 --------------------------
 
+To run a supervised classification, we need to provide **labeled training** data - that is, a number of points where
+we have identified what **class** the points belongs to. 
 
+The classification algorithm then takes these points, and the associated input data such as reflectance in different bands,
+and determines the "rules" for how to classify points based on the input data.
+
+When you open the script, you should see there are a number of **Geometry Imports**:
+
+**script open**
+
+Specifically, there are five **FeatureCollection** imports representing landcover classes (``water``, ``forest``, ``grassland``, ``builtup``,
+and ``bare``), each with 40 points. To add more points to each of these, you can use the **Geometry Editing** tools:
+
+**geometry imports**
+
+Click on the layer that you want to add points to - for example, ``water``:
+
+**water highlighted**
+
+Then, click on the map to add the point:
+
+**point added**
+
+If you want to move or delete a point, click on the **Stop drawing** button (the hand), then select the point you
+want to edit:
+
+**point selected**
+
+Then, either click and drag to move the **Point**, or click on **Delete** to delete the **Point**. 
+
+.. note::
+
+    For the purposes of this tutorial, 40 points for each class is sufficient to give you an idea for how the process works.
+    To get a robust classification result and accuracy assessment, however, you will most likely need to add significantly more training
+    points.
+
+
+adding classes
+---------------
+
+You might also want to add additional landcover classes to the classification by adding a new **FeatureCollection** as follows.
+First, mouse back over the **Geometry Imports**. At the bottom of the **Geometry Imports** menu, click on "**new layer**" 
+to add a new layer, then click on the gear icon to open the configuration panel:
+
+.. image:: img/spectral/configuration_panel.png
+    :width: 600
+    :align: center
+    :alt: the configuration panel for the geometry imports
+
+As a reminder, when adding geometry features from the map, you can choose to import them as a **Geometry**, a **Feature**,
+or a **FeatureCollection**:
+
+- **Geometry** means only vector data (no attributes/properties)
+- **Feature** means you can have a geometry and attributes/properties, it will be treated as a single feature by GEE. So, if you have multiple points in a **Feature**, it will be imported as a **MultiPoint Feature**
+- **FeatureCollection** means that each geometric object is treated as a **Feature** -- so, multiple points are treated as individual points. 
+
+Make sure that you add the new class as a **FeatureCollection**, and give it an appropriate name. Next, click the **+property** button to add a new property:
+
+.. image:: img/spectral/new_property.png
+    :width: 400
+    :align: center
+    :alt: the configure geometry import panel with a new property
+
+Call this property ``landcover`` (left box), and give it a value of ``5`` (right box), since landcover values 0-4 currently
+correspond to the 5 classes that have already been imported.
+
+Change the color to something more appropriate, then click **OK**. You should now see the import at the top of the script.
+
+You can now add points to the new **FeatureCollection** by following the digitizing instructions from above.
+
+Finally, you need to make sure to add your new class to the **FeatureCollection** of training points in the script at line 11:
+
+.. code-block:: javascript
+
+    var trainingPoints = water
+      .merge(forest)
+      .merge(grassland)
+      .merge(builtup)
+      .merge(bare);
+
+To do this, delete the semicolon at the end of line 11, and add ``.merge(yourNewClass);`` on line 12 (remembering, of course, to replace
+``yourNewClass`` with the actual name of the **FeatureCollection**).
 
 splitting the training dataset
 -------------------------------
 
-
-training a classifier
-----------------------
-
-
-
-accuracy assessment
----------------------
-
-
-classifying the image
-----------------------
-
-
-
-summarizing results
---------------------
-
-
-
-next steps
------------
-
-
-references
-------------
-
-The code in this section will help us run a Random Forest classification on our chosen image, and examine the results. 
-Start by uncommenting this section (remove the ``/*`` from line 98 and the ``*/`` from line 141). The following lines of code:
+Once we have training points, we can use ``ee.Image.sampleRegions()`` 
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-sampleregions>`__) to get the **Image** values at those
+points, which is what we'll use to train the **Classifier**:
 
 .. code-block:: javascript
 
-    // select training points from the training image
+    var bands = ['SR_B1', 'SR_B2', 'SR_B3', 'SR_B4', 'SR_B5', 'SR_B6', 'SR_B7'];
+
     var training = img.select(bands).sampleRegions({
       collection: trainingPoints,
       properties: ['landcover'],
       scale: 30
     });
 
-    // split the training points into training, testing data
+This will select each of the bands in ``bands``, then extract the values at each of the points in the ``trainingPoints``
+**FeatureCollection**. To make sure that we include the ``landcover`` value for each point, we add this to the 
+``properties`` parameter when we call ``ee.Image.sampleRegions()`` - otherwise, this information wouldn't be included
+in the training dataset.
+
+The next step in training a **Classifier** is to *split* the training dataset into two parts: one, the *training* split,
+is what we'll use to actually train the **Classifier**. The second part, the *testing* split, is what we'll use to
+check how good a job the **Classifier** has actually done. The goal here is to make sure that the
+
+To split our dataset, we first use ``ee.FeatureCollection.randomColumn()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-featurecollection-randomcolumn>`__). This will
+add a column, ``'random'``, to the **FeatureCollection**, and fill the column with uniformly-distributed random
+numbers that fall in the range [0, 1).
+
+We then use ``ee.FeatureCollection.filter()`` to select the **Feature**\ s where the random value is less than 0.7,
+which form our *training* data, and the **Feature**\ s where the random value is greater than or equal to 0.7,
+which form our *testing* data:
+
+.. code-block:: javascript
+
     var split = 0.7;
     var withRandom = training.randomColumn('random');
     var trainingPartition = withRandom.filter(ee.Filter.lt('random', split));
     var testingPartition = withRandom.filter(ee.Filter.gte('random', split));
 
-will select the image band values for each of the training points, then split them into training and test data using a 70-30 split
-(i.e., 70% of the data will be used for training, 30% for testing).
+training a classifier
+----------------------
 
-The following lines of code will initialize a Random Forest classifier using 100 individual "trees" and train the classifier using the
-training data.
+Once we've split the input data into *training* and *testing* partitions, we can "train" our **Classifier**.
+
+GEE has a number of **Classifier** algorithms implemented:
+
+- Maximum Entropy (``amnhMaxent``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent>`__)\ [1]_\ [2]_
+- Support Vector Machine (``libsvm``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm>`__)\ [3]_
+- Minimum Distane (``minimumDistance``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance>`__)\ [4]_
+- CART (``smileCart``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart>`__)\ [5]_
+- Gradient Tree Boost (``smileGradientTreeBoost``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost>`__)\ [6]_
+- Naive Bayes (``smileNaiveBayes``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes>`__)\ [7]_
+- Random Forest (``smileRandomForest``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest>`__)\ [8]_
+
+In this example, we're using ``ee.Classifier.smileRandomForest()`` to do a Random Forest classification.
 
 .. code-block:: javascript
 
-    // initialize a random forest with 100 "trees"
-    var classifier100 = ee.Classifier.smileRandomForest(100).train({
+    var classifier = ee.Classifier.smileRandomForest(100).train({
       features: trainingPartition,
       classProperty: 'landcover',
       inputProperties: bands
     });
 
-A second block of code will initialize a Random Forest classifier with only 10 trees, to enable us to compare the results of using
-different numbers of trees. 
+this will initialize a Random Forest **Classifier** with 100 trees, then use ``ee.Classifier.train()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-train>`__) to train 
+the classifier. The inputs to ``ee.Classifier.train()`` used above are:
 
-Finally, we will classify the testing data, then look at the confusion matrix and accuracy
-measurements to compare our different classifiers:
+- ``features``, the **FeatureCollection** to use to train the **Classifier**
+- ``classProperty``, the property of ``features`` that contains the classification information
+- ``inputProperties``, a list of the properties from ``features`` to use to train the **Classifier**
 
-.. code-block:: javascript
+So, this will train the **Classifier** based on the ``'landcover'`` property
 
-    // classify the testing data using our trained classifiers
-    var test100 = testingPartition.classify(classifier100);
-    var test10 = testingPartition.classify(classifier10);
 
-    // make the confsuion matrix for the different test datasets
-    var cm100 = test100.errorMatrix('landcover', 'classification');
-    var cm10 = test10.errorMatrix('landcover', 'classification');
-
-    // print the confusion matricies, overall accuracy, and kappa statistics
-    print('RF 100 error matrix: ', cm100, 
-      'RF100 accuracy: ', cm100.accuracy(),
-      'RF100 kappa: ', cm100.kappa());
-    print('RF 10 error matrix: ', cm10, 
-      'RF10 accuracy: ', cm10.accuracy(),
-      'RF10 kappa: ', cm10.kappa());
+accuracy assessment
+---------------------
 
 When you run the script, you should see the following in the **console** panels (remember that your results may differ slightly):
 
@@ -105,21 +182,19 @@ When you run the script, you should see the following in the **console** panels 
 
 To help you understand this, I've added row/column labels to this table below:
 
-+----------------+-------+--------+-----------+------------+------+------+
-|                | water | forest | clear cut | new growth | soil | snow |
-+================+=======+========+===========+============+======+======+
-| **water**      | 9     | 0      | 0         | 0          | 0    | 0    |
-+----------------+-------+--------+-----------+------------+------+------+
-| **forest**     | 0     | 11     | 0         | 0          | 0    | 0    |
-+----------------+-------+--------+-----------+------------+------+------+
-| **clear cut**  | 0     | 0      | 9         | 7          | 0    | 0    |
-+----------------+-------+--------+-----------+------------+------+------+
-| **new growth** | 0     | 0      | 5         | 8          | 0    | 0    |
-+----------------+-------+--------+-----------+------------+------+------+
-| **soil**       | 0     | 0      | 0         | 0          | 14   | 0    |
-+----------------+-------+--------+-----------+------------+------+------+
-| **snow**       | 0     | 0      | 0         | 0          | 0    | 6    |
-+----------------+-------+--------+-----------+------------+------+------+
++----------------+-------+--------+-----------+------------+-----------+
+|                | water | forest | grassland | built-up   | bare soil |
++================+=======+========+===========+============+===========+
+| **water**      | 9     | 0      | 0         | 0          | 0         |
++----------------+-------+--------+-----------+------------+-----------+
+| **forest**     | 0     | 11     | 0         | 0          | 0         |
++----------------+-------+--------+-----------+------------+-----------+
+| **grassland**  | 0     | 0      | 9         | 7          | 0         |
++----------------+-------+--------+-----------+------------+-----------+
+| **built-up**   | 0     | 0      | 5         | 8          | 0         |
++----------------+-------+--------+-----------+------------+-----------+
+| **bare soil**  | 0     | 0      | 0         | 0          | 14        |
++----------------+-------+--------+-----------+------------+-----------+
 
 Like with the unsupervised classification error matrix, the "rows" of this matrix correspond to the landcover class that we
 have identified, while the columns correspond to the classified values. In the example above, we see that 9 of our training samples
@@ -135,99 +210,47 @@ Return to the ``bands`` variable, uncomment the second line again, and re-run th
 change? What about if you add slope and elevation data to the classification? Re-comment each of these lines before moving on
 to the next section.
 
-apply the classifier
----------------------
+overall accuracy, producer's/user's accuracy, etc.
 
-Uncomment this section (remove the ``/*`` from line 144 and the ``*/`` from line 188), and run the script again. The code in this section
-will classify the image using the two classifiers trained and tested in the previous section, then add the classified images to the map
-(note that you will need to toggle the layers on using the **Layers** menu):
+.. math:: 
 
-.. code-block:: javascript
+    \kappa = \frac{p_o - p_e}{1 - p_e}
 
-    var classified100 = img.select(bands).classify(classifier100);
-    var classified10 = img.select(bands).classify(classifier10);
 
-    var classPalette = ['013dd6', '059e2a', 'a6613d', '2aff53', 'e3d4ae', 'fffbf4'];
 
-    Map.addLayer(classified10, {min: 0, max: 5, palette: classPalette}, 'RF 10', false);
-    Map.addLayer(classified100, {min: 0, max: 5, palette: classPalette}, 'RF 100', false);
+classifying the image
+----------------------
 
-It will also count the number of pixels in each class for the two classifiers, and print the results to the console:
 
-.. code-block:: javascript
 
-    // add some summary statistics (area for each classification, e.g.)
-    var class10 =  classified10.updateMask(classified10.eq(0)).rename('water')
-      .addBands(classified10.updateMask(classified10.eq(1)).rename('forest'))
-      .addBands(classified10.updateMask(classified10.eq(2)).rename('clear cut'))
-      .addBands(classified10.updateMask(classified10.eq(3)).rename('new growth'))
-      .addBands(classified10.updateMask(classified10.eq(4)).rename('soil'))
-      .addBands(classified10.updateMask(classified10.eq(5)).rename('snow'));
+summarizing results
+--------------------
 
-    var count10 = class10.reduceRegion({
-      reducer: ee.Reducer.count(),
-      geometry: boundary,
-      scale: 30,
-      maxPixels: 1e13,
-      tileScale: 8
-    });
 
-    // add some summary statistics (area for each classification, e.g.)
-    var class100 =  classified100.updateMask(classified100.eq(0)).rename('water')
-      .addBands(classified100.updateMask(classified100.eq(1)).rename('forest'))
-      .addBands(classified100.updateMask(classified100.eq(2)).rename('clear cut'))
-      .addBands(classified100.updateMask(classified100.eq(3)).rename('new growth'))
-      .addBands(classified100.updateMask(classified100.eq(4)).rename('soil'))
-      .addBands(classified100.updateMask(classified100.eq(5)).rename('snow'));
-
-    var count100 = class100.reduceRegion({
-      reducer: ee.Reducer.count(),
-      geometry: boundary,
-      scale: 30,
-      maxPixels: 1e13,
-      tileScale: 8
-    });
-
-    print("RF 10 Classification results:", count10);
-    print("RF 100 Classification results:", count100);
-
-How do the pixel counts compare for the two classifers? Which class has the biggest difference between the two?
-
-When you run the script, you will also see the classified image displayed in the map:
-
-.. image:: ../../../img/egm702/week5/classified_image.png
-    :width: 600
-    :align: center
-    :alt: the random forest classified image
-
-Note that when you are zoomed out, the classification will look different due to the way that the image is re-sampled at lower
-resolutions. Zoom in on the peak. Are there significant differences between the different classified images (RF 100 and RF 10)?
-What are they? How does this compare to the numerical summary?
-
-the result change significantly if you add the normalized difference indices back to the classification (uncomment line 26)?
-Uncomment line 26 to add the NDVI, NDWI, and mNDWI bands back to the image, then re-run the script. How does the classified
-image change? What about the numerical results? What about after adding the slope and elevation information?
-
-Leave this section uncommented as you move on to the next sections - this will enable you to compare the pixel-based and object-based
-classification results.
-
-export the classification
---------------------------
-
-The code in this section will enable you to export the classified image to your Google Drive, and use them in, for example,
-ArcGIS, QGIS, or ERDAS Imagine.
-
-.. code-block:: javascript
-
-    Export.image.toDrive({image: classified100.select('classification'),
-      description: 'RandomForestClassification',
-      scale: 30,
-      region: boundary,
-      crs: 'epsg:32610',
-      maxPixels: 1e12
-    });
-
-You can change the image name (``classified100``) to export a different image, or duplicate this block of code to export multiple images.
 
 next steps
 -----------
+
+- how does changing the number of 'trees' in the random forest classifier impact the estimated accuracy of the classification? 
+- try a different classifier
+- clouds
+
+references
+------------
+
+.. [1] This particular implementation is the American Museum of Natural History (AMNH) maximum-entropy classifier; for more information about the software, see https://biodiversityinformatics.amnh.org/open_source/maxent/
+
+.. [2] e.g., De Martino, A. and D. De Martino (2018). *Heliyon*, 4(**4**), e00596. doi: `10.1016/j.heliyon.2018.e00596 <https://doi.org/10.1016/j.heliyon.2018.e00596>`__
+
+.. [3] e.g., Mountrakis, G., et al. (2011). *ISPRS J. Photogramm. Rem. Sens.* 66, 247–259. doi: `10.1016/j.isprsjprs.2010.11.001 <https://doi.org/10.1016/j.isprsjprs.2010.11.001>`__
+
+.. [4] e.g., Wacker, A. G. and D. A. Landgrebe (1972). *LARS Technical Reports*. Paper 25. http://docs.lib.purdue.edu/larstech/25
+
+.. [5] e.g., 
+
+.. [6] e.g., 
+
+.. [7] e.g., 
+
+.. [8] e.g., 
+
