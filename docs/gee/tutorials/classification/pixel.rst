@@ -167,11 +167,65 @@ the classifier. The inputs to ``ee.Classifier.train()`` used above are:
 - ``classProperty``, the property of ``features`` that contains the classification information
 - ``inputProperties``, a list of the properties from ``features`` to use to train the **Classifier**
 
-So, this will train the **Classifier** based on the ``'landcover'`` property
+So, this will train the **Classifier** using the ``trainingPartition`` **FeatureCollection**,
+based on the ``'landcover'`` property, using the image bands listed in ``bands``.
 
 
 accuracy assessment
 ---------------------
+
+Once we've trained the classifier, we can use the *testing* dataset to evaluate how accurate it is. First, we
+have to use ``ee.FeatureCollection.classify()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-featurecollection-classify>`__) to classify
+the testing data:
+
+.. code-block:: javascript
+
+    var test = testingPartition.classify(classifier);
+
+Next, we can create a "confusion matrix" to display how many of the training objects were
+correctly or incorrectly classified as each object:
+
+.. code-block:: javascript
+
+    var cm = test.errorMatrix('landcover', 'classification');
+
+This uses ``ee.FeatureCollection.errorMatrix()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-featurecollection-errormatrix>`__) to create a
+**ConfusionMatrix** object (`documentation <https://developers.google.com/earth-engine/apidocs/ee-confusionmatrix>`__).
+
+The following line:
+
+.. code-block:: javascript
+
+    print('confusion matrix: ', cm,
+      'overall accuracy: ', cm.accuracy(),
+      'kappa: ', cm.kappa(),
+      "producer's accuracy:", cm.producersAccuracy(),
+      "consumer's accuracy:", cm.consumersAccuracy());
+
+will print the **ConfusionMatrix** object, along with the *overall accuracy*, *kappa* score, *producer's* accuracy,
+and *consumer's* accuracy to the **Console**:
+
+- the *overall* accuracy is the number of correctly classified **Feature**\ s, divided by the total number of **Feature**\ s
+- the *producer's* accuracy is the probability that a particular class is correctly classified, and it's the number of correctly classified **Feature**\ s divided by the total number of **Feature**\s in each row of the **ConfusionMatrix**.
+- the *consumer's* accuracy is the probability that the map classification is correct, and it's the number of correctly classified **Feature**\ s divided by the total number of **Feature**\s in each column of the **ConfusionMatrix**.
+
+.. note::
+
+    The documentation for ``ee.ConfusionMatrix.producersAccuracy()`` and ``ee.ConfusionMatrix.consumersAccuracy()``
+    appears to be incorrect - that is, based on the example code provided, ``ee.ConfusionMatrix.producersAccuracy()``
+    uses the values in each *row* of the sample **Array**, while ``ee.ConfusionMatrix.consumersAccuracy()`` uses the
+    values in each *column*.
+
+The *kappa* score, or statistic, is calculated as follows:
+
+.. math::
+
+    \kappa = \frac{p_o - p_e}{1 - p_e}
+
+where :math:`p_o` is the observed accuracy of the classifier, and :math:`p_e` is the hypothetical probability of chance agreement.
+The *kappa* score thus gives a measure of how much better the classifier performs than would be expected by random chance.
 
 When you run the script, you should see the following in the **console** panels (remember that your results may differ slightly):
 
@@ -185,47 +239,69 @@ To help you understand this, I've added row/column labels to this table below:
 +----------------+-------+--------+-----------+------------+-----------+
 |                | water | forest | grassland | built-up   | bare soil |
 +================+=======+========+===========+============+===========+
-| **water**      | 9     | 0      | 0         | 0          | 0         |
+| **water**      | 15    | 0      | 0         | 0          | 0         |
 +----------------+-------+--------+-----------+------------+-----------+
-| **forest**     | 0     | 11     | 0         | 0          | 0         |
+| **forest**     | 0     | 13     | 0         | 0          | 0         |
 +----------------+-------+--------+-----------+------------+-----------+
-| **grassland**  | 0     | 0      | 9         | 7          | 0         |
+| **grassland**  | 0     | 0      | 9         | 0          | 1         |
 +----------------+-------+--------+-----------+------------+-----------+
-| **built-up**   | 0     | 0      | 5         | 8          | 0         |
+| **built-up**   | 0     | 0      | 0         | 8          | 2         |
 +----------------+-------+--------+-----------+------------+-----------+
-| **bare soil**  | 0     | 0      | 0         | 0          | 14        |
+| **bare soil**  | 0     | 0      | 0         | 4          | 8         |
 +----------------+-------+--------+-----------+------------+-----------+
 
-Like with the unsupervised classification error matrix, the "rows" of this matrix correspond to the landcover class that we
-have identified, while the columns correspond to the classified values. In the example above, we see that 9 of our training samples
-were classified as landcover class 0 (water), and there were no water training samples that were classified as something else.
+The "rows" of this matrix correspond to the landcover class that we have identified,
+while the columns correspond to the classified values. In the example above, we see that 15 of our training samples
+were classified as landcover class 0 (water), and there were no water training samples that were classified as
+something else. The same is true for the forest class (value 1), while one grassland **Feature** (value 2) was
+classified as bare soil.
 
-The same is true for the forest class (value 1), soil (value 4), and snow (value 5). We do see some significant overlap between 
-the clear cut and new growth classes, as we suspected might happen based on the results of the unsupervised classification. Of the 16
-samples classified as clear cut (value 2), 7 were classified as new growth (value 3), and there's a similar split for new growth.
+Of the 10 built-up **Feature**\ s in our testing dataset, 8 were correctly classified, while 2 were mis-classified as
+bare soil.
 
-From this example, we can also see that the overall accuracy is decently high (82.6%), with a reasonably high kappa statistics (0.788).
+Four bare soil **Feature**\ s were mis-classified as built-up areas, and the remaining 8 were correctly
+classified as bare soil.
 
-Return to the ``bands`` variable, uncomment the second line again, and re-run the script. How does the result for the testing data
-change? What about if you add slope and elevation data to the classification? Re-comment each of these lines before moving on
-to the next section.
+From this example, we can also see that the overall accuracy is decently high (88.3%), with a reasonably high
+kappa statistic (0.853).
 
-overall accuracy, producer's/user's accuracy, etc.
+The *producer's* accuracy is similarly high for each class except for bare soil, where 4 of the 12 test **Feature**\ s
+were misclassified.
 
-.. math:: 
++---------------+-----------------------+-----------------------+
+| class         | producer's accuracy   | consumer's accuracy   |
++===============+=======================+=======================+
+| **water**     | 15/15 = 100%          | 15/15 = 100%          |
++---------------+-----------------------+-----------------------+
+| **forest**    | 13/13 = 100%          | 13/13 = 100%          |
++---------------+-----------------------+-----------------------+
+| **grassland** | 9/10 = 90%            | 9/9 = 100%            |
++---------------+-----------------------+-----------------------+
+| **built-up**  | 8/10 = 80%            | 8/12 = 66.7%          |
++---------------+-----------------------+-----------------------+
+| **bare soil** | 8/12 = 66.7%          | 8/11 = 72.7%          |
++---------------+-----------------------+-----------------------+
 
-    \kappa = \frac{p_o - p_e}{1 - p_e}
-
-
+While these are encouraging results, it's worth keeping in mind that
 
 classifying the image
 ----------------------
 
+.. code-block:: javascript
+
+    var classified = img.select(bands).classify(classifier);
 
 
-summarizing results
---------------------
 
+examining the results
+----------------------
+
+spectral signatures
+.......................
+
+
+landcover area by class
+........................
 
 
 next steps
@@ -233,6 +309,7 @@ next steps
 
 - how does changing the number of 'trees' in the random forest classifier impact the estimated accuracy of the classification? 
 - try a different classifier
+- additional bands? NDVI, NDWI, etc.
 - clouds
 
 references
