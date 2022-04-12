@@ -23,6 +23,7 @@ time to set up, particularly if it's been a while since anyone has used the link
    week3
    week4
    week5
+   debugging
 
 
 .. |binder| image:: https://mybinder.org/badge_logo.svg

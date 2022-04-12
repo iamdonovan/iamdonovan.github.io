@@ -30,33 +30,13 @@ This will open the following window:
 
 Click **Browse**, then navigate to ``C:\`` and create a new folder, ``MicMac``. Click **Extract** to extract the files.
 
-When this has finished, you need to add ``C:\MicMac\bin`` to your Windows path. In the **Search bar** at the bottom of the screen, type "Control panel" and open the **Control Panel**. Select **System and Security**:
+When this has finished, you need to add ``C:\MicMac\bin`` to your Windows path. In the **Search bar** at the bottom of the screen,
+type "environment" and select **Edit environment variables for your account**:
 
-.. image:: ../../../img/egm702/install/system_security.png
+.. image:: ../../../img/egm702/install/environment.png
     :width: 600
     :align: center
-    :alt: the control panel with "system and security" highlighted
-
-Then **System**:
-
-.. image:: ../../../img/egm702/install/system.png
-    :width: 600
-    :align: center
-    :alt: the system and security control panel with "system" highlighted
-
-And finally, click on **Change Settings**:
-
-.. image:: ../../../img/egm702/install/change_settings.png
-    :width: 600
-    :align: center
-    :alt: the system control panel with "change settings" highlighted
-
-From the **Advanced** tab, click on **Environment Variables**:
-
-.. image:: ../../../img/egm702/install/environment_variables.png
-    :width: 400
-    :align: center
-    :alt: the system properties dialogue with "environment variables" highlighted
+    :alt: the search for "environment" with "edit environment variables for your account" highlighted.
 
 Select **Path**, then **Edit**:
 
