@@ -106,6 +106,13 @@ Once the new project has been created, you should see something like this:
     :align: center
     :alt: the pycharm interface with the egm722 project opened
 
+topics:
+
+- the file browser
+- opening a script
+- terminal, TODO, python console, etc.
+- mention git (provide links to further help)
+
 .. _adding interpreter:
 
 adding an interpreter
@@ -168,7 +175,7 @@ To change the interpreter, you can select a different one from the drop menu, or
 selecting **Show all**. This will bring up the following window (note that your list will not be the same as this one):
 
 .. image:: ../../../img/egm722/setup/pycharm/interpreters_list.png
-    :width: 600
+    :width: 400
     :align: center
     :alt: a list of all of the available interpreters
 
