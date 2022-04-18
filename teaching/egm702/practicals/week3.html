@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>introduction to google earth engine &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -104,11 +105,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="introduction-to-google-earth-engine">
+  <section id="introduction-to-google-earth-engine">
 <h1>introduction to google earth engine<a class="headerlink" href="#introduction-to-google-earth-engine" title="Permalink to this headline"></a></h1>
 <style> .green {color:green} </style><p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if you have no prior experience with programming, you will be able to complete this practical. All of the programming steps have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.</p>
 <p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id3" id="id1">1</a>). With it, users have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification, and computational power above what an average desktop user has access to.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using your GEE account. You should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/annotated_window1.png"><img alt="the GEE console with annotations" class="align-center" src="../../../_images/annotated_window1.png" style="width: 600px;" /></a>
@@ -116,8 +117,8 @@
 <a class="reference internal image-reference" href="../../../_images/loaded_script.png"><img alt="the gee window after loading the script" class="align-center" src="../../../_images/loaded_script.png" style="width: 600px;" /></a>
 <p>Click the red NEW button in the Script manager, and select <strong>Repository</strong>. Call the repository <code class="docutils literal notranslate"><span class="pre">egm702</span></code>, and then click <strong>Create</strong>. Next, in the code editor, type your name after “Practical 3” – this will enable you to save the script to your new repository. Call it <code class="docutils literal notranslate"><span class="pre">practical3</span></code>, and click <strong>OK</strong> to save the script to the new repository.</p>
 <a class="reference internal image-reference" href="../../../_images/save_script.png"><img alt="the save script dialogue" class="align-center" src="../../../_images/save_script.png" style="width: 300px;" /></a>
-</div>
-<div class="section" id="running-the-script">
+</section>
+<section id="running-the-script">
 <h2>running the script<a class="headerlink" href="#running-the-script" title="Permalink to this headline"></a></h2>
 <p>Once you have saved the script, you should see the following in the code editor:</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_saved_script.png"><img alt="the gee window after loading and saving the script" class="align-center" src="../../../_images/loaded_saved_script.png" style="width: 600px;" /></a>
@@ -146,8 +147,8 @@ In the GEE code editor, comments are coloured <span class="green">green</span>.<
 <p>If you scroll down through the script, you should see a number of function definitions. Don’t worry too much about these right
 now – they’re there to help make the code a bit easier to read/understand, and help to avoid re-writing the same lines of code
 over and over again.</p>
-</div>
-<div class="section" id="step-1-finding-the-best-image-in-a-given-year">
+</section>
+<section id="step-1-finding-the-best-image-in-a-given-year">
 <h2>step 1. finding the best image in a given year<a class="headerlink" href="#step-1-finding-the-best-image-in-a-given-year" title="Permalink to this headline"></a></h2>
 <p>The first lines to pay attention to look like this, beginning at line 83:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// -----------------------------------------------------------------------------------------------------</span>
@@ -329,8 +330,8 @@ DD):</p>
 </pre></div>
 </div>
 <p>Once you’ve looked around the area, move on to the next step.</p>
-</div>
-<div class="section" id="step-2-add-a-dem-print-statistics">
+</section>
+<section id="step-2-add-a-dem-print-statistics">
 <h2>step 2. add a dem, print statistics<a class="headerlink" href="#step-2-add-a-dem-print-statistics" title="Permalink to this headline"></a></h2>
 <p>Now that we’ve seen a little of how we can search, add, and display Landsat images, let’s take a look at some of the different DEMs
 available within GEE. We’ll start by adding the NASADEM, ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM. For more
@@ -414,8 +415,8 @@ You should notice that the <strong>Tasks</strong> tab is highlighted:</p>
 <p>Click <strong>RUN</strong> to export the file to your Google Drive. In the window that opens up, you can choose a different folder, resolution, or
 place to export it. In general, running the task might take some time, depending on the size of the image. You can click the
 ‘Refresh’ button to check the status to see if it’s finished running.</p>
-</div>
-<div class="section" id="step-3-band-maths-and-charts">
+</section>
+<section id="step-3-band-maths-and-charts">
 <h2>step 3. band maths and charts<a class="headerlink" href="#step-3-band-maths-and-charts" title="Permalink to this headline"></a></h2>
 <p>In addition to displaying images and calculating statistics, we can also perform different calculations with images, such as
 differencing them or calculating ratios. The first line in this section will subtract the NASADEM from the SRTM, and cast the
@@ -454,8 +455,8 @@ also download a csv file with the values in the plot, or a Scalable Vector Graph
 the lecture from Week 2, and Höhle and Höhle (2009)<a class="footnote-reference brackets" href="#id4" id="id2">2</a>, is the standard deviation an appropriate metric
 to describe the variation in the data? <strong>Why or why not?</strong></p>
 <p>Again, post any thoughts/questions you have to the discussion board.</p>
-</div>
-<div class="section" id="step-4-search-all-of-the-images-make-an-animated-gif">
+</section>
+<section id="step-4-search-all-of-the-images-make-an-animated-gif">
 <h2>step 4. search all of the images, make an animated gif<a class="headerlink" href="#step-4-search-all-of-the-images-make-an-animated-gif" title="Permalink to this headline"></a></h2>
 <p>In the last part of the practical, we’ll gather all of the cloud-free Landsat images over Mt St Helens, and make an animated gif
 showing the changes over time. Because we’re using all of the different Landsat sensors (MSS, TM, ETM+, and OLI), we’ll use a
@@ -577,8 +578,8 @@ initial 1980 eruption, subsequent eruptions, seasonal snow cover, and even the <
 of the Landsat 7 ETM+ sensor.</p>
 <p>By the end of the gif, you should see that a great deal of vegetation has started to recover.
 In next week’s practical, we’ll work on additional analyses using GEE, including change analysis and plotting time series of values.</p>
-</div>
-<div class="section" id="references">
+</section>
+<section id="references">
 <h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -588,8 +589,8 @@ In next week’s practical, we’ll work on additional analyses using GEE, inclu
 <dd><p>Höhle, J. &amp; Höhle, M. (2009). Accuracy assessment of digital elevation models by means of robust statistical methods. <em>ISPRS J. Photogramm. Rem. Sens.</em> 64, 398–406. doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2009.02.003">10.1016/j.isprsjprs.2009.02.003</a></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

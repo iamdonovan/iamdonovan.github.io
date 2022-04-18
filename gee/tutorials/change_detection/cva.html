@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>change vector analysis &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -17,8 +18,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="repeat classification" href="repeat_classification.html" />
-    <link rel="prev" title="change detection" href="index.html" /> 
+    <link rel="next" title="time series analysis" href="time_series.html" />
+    <link rel="prev" title="repeat classification" href="repeat_classification.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,13 +47,15 @@
 <li class="toctree-l3"><a class="reference internal" href="../index.html#data-catalog">data catalog</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../getting_started/index.html">getting started</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../classification/index.html">image classification in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../classification/index.html">image classification</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="index.html">change detection</a><ul class="current">
-<li class="toctree-l5 current"><a class="current reference internal" href="#">change vector analysis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="multitemporal_composites.html">multi-temporal color composites</a></li>
 <li class="toctree-l5"><a class="reference internal" href="repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">change vector analysis</a></li>
 <li class="toctree-l5"><a class="reference internal" href="time_series.html">time series analysis</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../enhancement/index.html">image enhancement</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../advanced/index.html">advanced topics</a></li>
 </ul>
 </li>
@@ -93,16 +96,84 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="change-vector-analysis">
+  <section id="change-vector-analysis">
 <h1>change vector analysis<a class="headerlink" href="#change-vector-analysis" title="Permalink to this headline"></a></h1>
+<p>For this part of the practical, we’re going to look at the post-eruption recovery using Landsat 5 TM images from 1984 and 2011.
+Uncomment the first part of this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 328 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 336):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select two surface reflectance images, one from 1984 and one from 2011.</span>
+<span class="kd">var</span> <span class="nx">tm1984</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2/LT05_046028_19840719&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0000275</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tm2011</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2/LT05_046028_20110730&quot;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0000275</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
+</pre></div>
 </div>
+<p>Run the script, and have a look at the two images – what do you notice? What changes stand out the most in between the two
+images? You might notice that the area North of the peak has regained some vegetation since the 1980 eruptions, or you may
+notice some areas of clear-cutting in the surrounding forests.</p>
+<p>To investigate these changes, we’re going to use change vector analysis (CVA). While CVA can be used for any number of band
+differences, we’re going to stick to the differences in NIR and Red reflectance between the two images.</p>
+<p>Once you’ve looked around the two images and observed some of the changes, uncomment the next block of code
+(remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 337 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 368), which will
+compute the difference between the two images and select the NIR and Red bands. It will also calculate the magnitudes and
+angles of the change vectors, and re-classify the angles so that the values in the image correspond to the quadrant the angle
+falls in.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// compute the difference between the two images, and select bands 4 and 3 (NIR and Red)</span>
+<span class="kd">var</span> <span class="nx">diff</span> <span class="o">=</span> <span class="nx">tm2011</span><span class="p">.</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">).</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">]);</span>
+
+<span class="c1">// compute the magnitude of the change vectors as the square root of the</span>
+<span class="c1">// sum of the squared differences.</span>
+<span class="kd">var</span> <span class="nx">magnitude</span> <span class="o">=</span> <span class="nx">diff</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mf">2</span><span class="p">).</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">sum</span><span class="p">().</span><span class="nx">unweighted</span><span class="p">()).</span><span class="nx">sqrt</span><span class="p">().</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;magnitude&#39;</span><span class="p">);</span>
+
+<span class="c1">// compute the angle of the change vectors and convert to degrees</span>
+<span class="kd">var</span> <span class="nx">angle</span> <span class="o">=</span> <span class="nx">diff</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">).</span><span class="nx">atan2</span><span class="p">(</span><span class="nx">diff</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">))</span>
+  <span class="p">.</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">180</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;angle&#39;</span><span class="p">);</span>
+
+<span class="c1">// create a reclassified image of the angles, with the value set to the quadrant</span>
+<span class="c1">// each angle range corresponds to.</span>
+<span class="kd">var</span> <span class="nx">angleReclass</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">0</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">90</span><span class="p">)),</span> <span class="mf">1</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">90</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">180</span><span class="p">)),</span> <span class="mf">2</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">90</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">0</span><span class="p">)),</span> <span class="mf">4</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">180</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="o">-</span><span class="mf">90</span><span class="p">)),</span> <span class="mf">3</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The next line will mask the reclassified image so that only large changes (magnitude greater than 200) are shown:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// threshold the reclass image by changes w/ magnitude greater than 0.06</span>
+<span class="nx">angleReclass</span> <span class="o">=</span> <span class="nx">angleReclass</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">magnitude</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="mf">0.06</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>The final block of code will add the difference,magnitude, angle, and re-classified angle images to the map:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">diff</span><span class="p">,</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="nx">min</span><span class="o">:</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.25</span><span class="p">,</span>
+  <span class="nx">palette</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;7b3294&#39;</span><span class="p">,</span><span class="s1">&#39;c2a5cf&#39;</span><span class="p">,</span><span class="s1">&#39;f7f7f7&#39;</span><span class="p">,</span><span class="s1">&#39;a6dba0&#39;</span><span class="p">,</span><span class="s1">&#39;008837&#39;</span><span class="p">]},</span> <span class="s1">&#39;difference&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">magnitude</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">0.02</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">1.36</span><span class="p">,</span>
+  <span class="nx">palette</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;f1eef6&#39;</span><span class="p">,</span><span class="s1">&#39;d7b5d8&#39;</span><span class="p">,</span><span class="s1">&#39;df65b0&#39;</span><span class="p">,</span><span class="s1">&#39;dd1c77&#39;</span><span class="p">,</span><span class="s1">&#39;980043&#39;</span><span class="p">]},</span> <span class="s1">&#39;magnitude&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">angle</span><span class="p">,</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="o">-</span><span class="mf">180</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">180</span><span class="p">,</span>
+  <span class="nx">palette</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;e66101&#39;</span><span class="p">,</span><span class="s1">&#39;fdb863&#39;</span><span class="p">,</span><span class="s1">&#39;f7f7f7&#39;</span><span class="p">,</span><span class="s1">&#39;b2abd2&#39;</span><span class="p">,</span><span class="s1">&#39;5e3c99&#39;</span><span class="p">]},</span> <span class="s1">&#39;angle&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">angleReclass</span><span class="p">,</span> <span class="p">{</span><span class="nx">palette</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;ff0000&#39;</span><span class="p">,</span><span class="s1">&#39;ffffff&#39;</span><span class="p">,</span><span class="s1">&#39;0014ff&#39;</span><span class="p">,</span><span class="s1">&#39;cc00ff&#39;</span><span class="p">]},</span> <span class="s1">&#39;reclass angle&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Run the script – you should see this image (you may have to turn off the Landsat scenes first):</p>
+<a class="reference internal image-reference" href="../../../_images/angle_reclass.png"><img alt="the reclassified angle image" class="align-center" src="../../../_images/angle_reclass.png" style="width: 600px;" /></a>
+<p>In this image, red colors correspond to increases in both NIR and Red reflectance, white corresponds to increases in NIR and
+decreases in Red reflectance, purple corresponds to decreases in NIR and increases in Red reflectance, and blue corresponds to
+decreases in both NIR and Red reflectance. You can also consult the diagram shown below:</p>
+<a class="reference internal image-reference" href="../../../_images/change_vector.png"><img alt="a diagram showing how the colors of the reclassified image correspond to the change vector angles" class="align-center" src="../../../_images/change_vector.png" style="width: 400px;" /></a>
+<p>In a number of areas, the blue color represents forest growth. To understand why this is, we have to remember both what
+these changes represent – a decrease in both Red and NIR reflectance – and also what the forest is replacing: in many cases,
+grassy meadows or new-growth trees, both of which tend to have higher spectral reflectance than conifer forests:</p>
+<a class="reference internal image-reference" href="../../../_images/spectral_plot_vis.png"><img alt="a plot showing spectral reflectance for a variety of surface types" class="align-center" src="../../../_images/spectral_plot_vis.png" style="width: 600px;" /></a>
+<p>See if you can work out what some of the other differences represent – remember that some changes might represent more
+than one kind of change. You can also try looking at the angle image and interpreting it more directly, or changing the
+reclassification to represent more angle ranges.</p>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="change detection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="repeat_classification.html" class="btn btn-neutral float-right" title="repeat classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="repeat_classification.html" class="btn btn-neutral float-left" title="repeat classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="time_series.html" class="btn btn-neutral float-right" title="time series analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

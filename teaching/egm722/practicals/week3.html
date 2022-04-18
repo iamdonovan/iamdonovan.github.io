@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>vector data using shapely and geopandas &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -51,6 +52,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="week1.html">intro to python</a></li>
+<li class="toctree-l5"><a class="reference internal" href="debugging.html">debugging exercise</a></li>
 <li class="toctree-l5"><a class="reference internal" href="week2.html">mapping with cartopy</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">vector data using shapely and geopandas</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#getting-started">Getting Started</a></li>
@@ -67,7 +69,6 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="week4.html">raster data using rasterio</a></li>
 <li class="toctree-l5"><a class="reference internal" href="week5.html">vector and raster operations using python</a></li>
-<li class="toctree-l5"><a class="reference internal" href="debugging.html">debugging exercise</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../project/index.html">programming project</a></li>
@@ -110,7 +111,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="vector-data-using-shapely-and-geopandas">
+  <section id="vector-data-using-shapely-and-geopandas">
 <h1>vector data using shapely and geopandas<a class="headerlink" href="#vector-data-using-shapely-and-geopandas" title="Permalink to this headline"></a></h1>
 <p>In this practical, you’ll gain some more experience working with vector data in python. You will learn about the different vector
 data types available in the shapely package, and how we can use the geopandas package to perform different vector data
@@ -123,7 +124,7 @@ you’ve learned in the Jupyter Notebook and the mapping exercise in Practical 2
 <p>In the main folder, you should also see an example script, <strong>week3_example.py</strong>. Be sure to try out the exercise, and see
 if you can’t figure out a solution on your own, before having a look at the (one of many possible) solution offered there.</p>
 </div>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p><a class="reference internal" href="week2.html"><span class="doc">Last week</span></a>, we saw how we can use <strong>GitHub Desktop</strong> to merge two branches (in this case, <code class="docutils literal notranslate"><span class="pre">week2</span></code> into <code class="docutils literal notranslate"><span class="pre">main</span></code>).
 This week, we’re going to see how to do this using the command line.</p>
@@ -223,8 +224,8 @@ to existing files, you’ll also see deletions (lines that are deleted or change
 <p>You can confirm that the changes are now on your remote repository by heading over to GitHub:</p>
 <a class="reference internal image-reference" href="../../../_images/week3_remote.png"><img alt="the github repository, with the merged changes updated" class="align-center" src="../../../_images/week3_remote.png" style="width: 600px;" /></a>
 <p>At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the practical exercise.</p>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
 <p>Once you have finished the notebook and the exercise, make sure to send me an e-mail with some
 ideas for your coding project. They do not have to be completely fleshed out, but you should try to have a general idea of what
@@ -235,9 +236,9 @@ topic.</p>
 <p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to follow the instructions
 above to open the notebook and run it on your own computer!</p>
 </div>
-</div>
+</section>
 <hr class="docutils" />
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
 <p>Up to now, you have gained some experience working with basic features
 of python, and used cartopy and matplotlib to create a map. In each of
@@ -247,8 +248,8 @@ working vector data in a bit more depth, including the different
 geometry types available using shapely, analyses like spatial joins and
 summarizing based on attributes, and how to reproject vector data from
 one coordinate reference system to another.</p>
-</div>
-<div class="section" id="objectives">
+</section>
+<section id="objectives">
 <h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Gain experience working with different vector data types using
@@ -259,15 +260,15 @@ reference system to another</p></li>
 <li><p>Learn how to perform different vector data operations using geopandas
 and shapely</p></li>
 </ul>
-</div>
-<div class="section" id="data-provided">
+</section>
+<section id="data-provided">
 <h2>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline"></a></h2>
 <p>In the data_files folder, you should have the following: - NI_roads.shp,
 a shapefile of roads in Northern Ireland - Counties.shp, a shapefile of
 county outlines for Northern Ireland - NI_Wards.shp, a shapefile of
 electoral wards for Northern Ireland</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h2>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>In this practical, we’ll be working with vector data. As a quick
 refresher, the three main types of vector data that we will work with
@@ -298,10 +299,10 @@ In shapely, these are represented as <strong>MultiPoint</strong>,
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="shapely-geometry-types">
+</section>
+<section id="shapely-geometry-types">
 <h2>2. Shapely geometry types<a class="headerlink" href="#shapely-geometry-types" title="Permalink to this headline"></a></h2>
-<div class="section" id="points">
+<section id="points">
 <h3>2.1 Points<a class="headerlink" href="#points" title="Permalink to this headline"></a></h3>
 <p>As we saw in Week 1, to create a Point, we pass x, y (and optionally, z)
 coordinates to the Point class constructor:</p>
@@ -388,8 +389,8 @@ around the point location.</p>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pt_buffer</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="linestrings">
+</section>
+<section id="linestrings">
 <h3>2.2. LineStrings<a class="headerlink" href="#linestrings" title="Permalink to this headline"></a></h3>
 <p>Instead of using a single x, y coordinate pair, a <strong>LineString</strong> object
 takes either a list of <strong>Point</strong> objects, or a list of coordinate
@@ -472,8 +473,8 @@ of the <strong>LineString</strong> (<code class="docutils literal notranslate"><
 <span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="polygons">
+</section>
+<section id="polygons">
 <h3>2.3. Polygons<a class="headerlink" href="#polygons" title="Permalink to this headline"></a></h3>
 <p>The last basic geometry type we will look at in this practical are
 <strong>Polygon</strong> objects. Similar to <strong>LineString</strong> objects, we can create a
@@ -536,8 +537,8 @@ a rotated minimum bounding box (<code class="docutils literal notranslate"><span
 <p>There are a number of additional methods that we will cover more as we
 continue through the practicals - for now, this should be enough to give
 an idea for how these geometry objects work.</p>
-</div>
-<div class="section" id="interactions-between-geometry-objects">
+</section>
+<section id="interactions-between-geometry-objects">
 <h3>2.4 Interactions between geometry objects<a class="headerlink" href="#interactions-between-geometry-objects" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">shapely</span></code> also provides a number of methods that we can use to check
 the spatial relationship between different objects. For example, the
@@ -574,9 +575,9 @@ use to determine the relationship between geometry objects, including
 from the <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">shapely user
 manual</a> to see
 the rest.</p>
-</div>
-</div>
-<div class="section" id="geopandas-geodataframes">
+</section>
+</section>
+<section id="geopandas-geodataframes">
 <h2>3. geopandas GeoDataFrames<a class="headerlink" href="#geopandas-geodataframes" title="Permalink to this headline"></a></h2>
 <p>We have used geopandas in the past two practicals to read provided
 shapefiles and work with the data they contain - in Practical 1, we
@@ -596,7 +597,7 @@ and print the <strong>header</strong> (first 5 lines of the <strong>GeoDataFrame
 <p>So this dataset has three columns: <strong>SURVEY</strong>, <strong>Road_class</strong>, and
 <strong>geometry</strong>. Note that each of the geometries is a <strong>LineString</strong>
 object, which means…</p>
-<div class="section" id="coordinate-reference-systems-using-proj">
+<section id="coordinate-reference-systems-using-proj">
 <h3>3.1 Coordinate reference systems using PROJ<a class="headerlink" href="#coordinate-reference-systems-using-proj" title="Permalink to this headline"></a></h3>
 <p>To start with, let’s see if we can figure out how many kilometers of
 motorway are represented in the dataset - i.e., the sum of the length of
@@ -664,8 +665,8 @@ geographic coordinates (e.g., (-6.21243, 54.48706)), the points in each
 861315.722)). Now, when we access the <code class="docutils literal notranslate"><span class="pre">length</span></code> attributes of our
 <strong>LineString</strong> objects, the units will be in meters (the same units as
 our CRS).</p>
-</div>
-<div class="section" id="summarizing-data-using-geopandas">
+</section>
+<section id="summarizing-data-using-geopandas">
 <h3>3.2 Summarizing data using geopandas<a class="headerlink" href="#summarizing-data-using-geopandas" title="Permalink to this headline"></a></h3>
 <p>So that’s the first part of our problem solved - our coordinates are in
 meters, and the lengths will be as well. The next step is to select all
@@ -757,9 +758,9 @@ we can also use arithmetic on it to divide by a conversion factor. The
 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method is a very useful way to quickly summarize a
 <strong>DataFrame</strong> (or a <strong>GeoDataFrame</strong> - remember that this is a <strong>child</strong>
 class of <strong>DataFrame</strong>).</p>
-</div>
-</div>
-<div class="section" id="spatial-data-operations-using-geopandas-and-shapely">
+</section>
+</section>
+<section id="spatial-data-operations-using-geopandas-and-shapely">
 <h2>4. Spatial data operations using geopandas and shapely<a class="headerlink" href="#spatial-data-operations-using-geopandas-and-shapely" title="Permalink to this headline"></a></h2>
 <p>Oftentimes in GIS analysis, we want to summarize our data spatially, as
 well as thematically. In this section, we will be looking at two
@@ -861,8 +862,8 @@ Which county has the most Motorways? The most roads in total?</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code goes here!</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="exercise-and-next-steps">
+</section>
+<section id="exercise-and-next-steps">
 <h2>5. Exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline"></a></h2>
 <p>Now that you’ve gained some experience working with <code class="docutils literal notranslate"><span class="pre">shapely</span></code> geometry
 objects and <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <strong>GeoDataFrame</strong> objects, have a look at
@@ -874,7 +875,7 @@ population? What about the lowest? 3. Create a map like the one below to
 show population information by census area, with the county boundaries
 plotted overtop of the chloropleth map.</p>
 <img alt="../../../_images/sample_map.png" src="../../../_images/sample_map.png" />
-<div class="section" id="additional-exercise-questions">
+<section id="additional-exercise-questions">
 <h3>Additional exercise questions<a class="headerlink" href="#additional-exercise-questions" title="Permalink to this headline"></a></h3>
 <ol class="arabic simple">
 <li><p>Are there any Wards that are located in more than one county? If so,
@@ -884,9 +885,9 @@ population?</p></li>
 <li><p>Repeat the exercise above using <strong>exercise_script.py</strong>, but this time
 use the population density (in number of residents per square km).</p></li>
 </ol>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

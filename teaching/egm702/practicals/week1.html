@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>dem processing using micmac &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -105,7 +106,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="dem-processing-using-micmac">
+  <section id="dem-processing-using-micmac">
 <h1>dem processing using micmac<a class="headerlink" href="#dem-processing-using-micmac" title="Permalink to this headline"></a></h1>
 <p><strong>Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the</strong> <a class="reference external" href="https://drive.google.com/uc?id=1rwu32Wms_jvrmzkMRckD8kwcgl98qn4k&amp;export=download">google drive link</a><strong>, then extract the zip file. You should
 have the following files/folders available:</strong></p>
@@ -131,7 +132,7 @@ have the following files/folders available:</strong></p>
 <p>The instructions/images below assume that you are using MicMac in a Windows environment; the commands will be the same for a MacOS/Linux environment, but you’ll need to open
 a terminal rather than the Windows command prompt.</p>
 </div>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>To get started, open the Windows command prompt, either by using the search bar, or <strong>Start</strong> &gt; <strong>Windows System</strong> &gt; <strong>Command Prompt</strong>.</p>
 <p>To change folders from the command line, you will use the <cite>cd</cite> command. When you open the command prompt, you should be in your <strong>home</strong> folder (for me, this is <strong>C:\Users\bob</strong>). At the command prompt, navigate to the folder where you have saved the data above (for me, this is <strong>C:\Data\MtStHelens</strong>) by typing <cite>cd</cite> followed by the directory name (<strong>note the space between the command and the directory</strong>):</p>
@@ -165,8 +166,8 @@ a terminal rather than the Windows command prompt.</p>
 <p>In a MacOS/linux environment, the help message may just display to the terminal window, rather than opening a popup window.</p>
 </div>
 <p>The help text shows you the arguments that you have to use to run the command, as well as optional named arguments and their meanings. For other commands, such as <code class="docutils literal notranslate"><span class="pre">Malt</span></code>, the text will print directly to the command window.</p>
-</div>
-<div class="section" id="resampling-the-images">
+</section>
+<section id="resampling-the-images">
 <h2>resampling the images<a class="headerlink" href="#resampling-the-images" title="Permalink to this headline"></a></h2>
 <p>The first thing we have to do is make sure the images are re-sampled to a consistent geometry. To do this in MicMac, we use the <code class="docutils literal notranslate"><span class="pre">SaisieAppuisInitQT</span></code> command. We’ll start with the first image, <strong>AR5840034159994.tif</strong>. To begin, type the following (or copy &amp; paste) at the command prompt (note the lack of space in <strong>MeasuresIm-AR5840034159994.tif.xml</strong>). You may also have to re-type the quotation marks, as the command prompt may not recognize them:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mm3d</span> <span class="n">SaisieAppuisInitQT</span> <span class="s2">&quot;AR5840034159994.tif&quot;</span> <span class="n">NONE</span> <span class="n">id_fiducial</span><span class="o">.</span><span class="n">txt</span> <span class="n">MeasuresIm</span><span class="o">-</span><span class="n">AR5840034159994</span><span class="o">.</span><span class="n">tif</span><span class="o">.</span><span class="n">xml</span>
@@ -224,8 +225,8 @@ mm3d SaisieAppuisInitQT <span class="s2">&quot;AR5840034159995.tif&quot;</span> 
 </div>
 <p>To fix this, you’ll need to go through each MeasuresIm file and ensure that there is only one set of <code class="docutils literal notranslate"><span class="pre">&lt;NameIm&gt;</span></code> tags, and that the image named within the tag matches the MeasuresIm filename (i.e., check that you only have <code class="docutils literal notranslate"><span class="pre">&lt;NamePt&gt;AR5840034159994.tif&lt;/NamePt&gt;</span></code> in <strong>MeasuresIm-AR5840034159994.tif.xml</strong>, <code class="docutils literal notranslate"><span class="pre">&lt;NamePt&gt;AR5840034159995.tif&lt;/NamePt&gt;</span></code> in <strong>MeasuresIm-AR5840034159995.tif.xml</strong>, and so on.</p>
 </div>
-</div>
-<div class="section" id="computing-the-relative-orientation">
+</section>
+<section id="computing-the-relative-orientation">
 <h2>computing the relative orientation<a class="headerlink" href="#computing-the-relative-orientation" title="Permalink to this headline"></a></h2>
 <p>The next step is to find tie points to help compute the relative orientation of the images. First, run <code class="docutils literal notranslate"><span class="pre">Tapioca</span></code>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mm3d Tapioca MulScale <span class="s2">&quot;OIS.*tif&quot;</span> <span class="m">400</span> <span class="m">1200</span>
@@ -277,8 +278,8 @@ RES:<span class="o">[</span>OIS-Reech_AR5840034159999.tif<span class="o">][</spa
 <p class="admonition-title">Note</p>
 <p>If you encounter errors along the way, you can e-mail me, or try searching google for potential resolutions. Be warned that a number of the results, as well as the error messages, may be in French. There is also a forum and a <a class="reference external" href="https://reddit.com/r/micmac">subreddit</a> where you can ask the developers and other users for help - most people are quite helpful and happy to help.</p>
 </div>
-</div>
-<div class="section" id="computing-the-absolute-orientation">
+</section>
+<section id="computing-the-absolute-orientation">
 <h2>computing the absolute orientation<a class="headerlink" href="#computing-the-absolute-orientation" title="Permalink to this headline"></a></h2>
 <p>At this point, we’re ready to compute the absolute orientation of the images - taking them from the relative geometry to the real world.</p>
 <p>To do this, we need to find a number of Ground Control Points (GCPs), which will help the software solve the absolute orientation of the cameras, and compute the 3-dimensional location for each pixel in the images.</p>
@@ -387,8 +388,8 @@ NOT OK <span class="o">(</span>UPL<span class="o">)</span> FOR GCP5 , Reason NoP
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisPredicQT <span class="s2">&quot;OIS-Reech_AR584003415999[6-9].tif&quot;</span> TerrainInit GCPs.xml MeasuresFinales.xml
 </pre></div>
 </div>
-</div>
-<div class="section" id="bundle-adjustment">
+</section>
+<section id="bundle-adjustment">
 <h2>bundle adjustment<a class="headerlink" href="#bundle-adjustment" title="Permalink to this headline"></a></h2>
 <p>Once you’ve input enough GCPs (at least 10), you can run <code class="docutils literal notranslate"><span class="pre">GCPBascule</span></code> again, which will refine the transformation estimated in the previous steps:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mm3d GCPBascule <span class="s2">&quot;OIS.*tif&quot;</span> TerrainInit TerrainBrut GCPs.xml MeasuresFinales-S2D.xml
@@ -446,8 +447,8 @@ RES:<span class="o">[</span>OIS-Reech_AR5840034159999.tif<span class="o">][</spa
 <p>Below this, we see the total residual for all points in all images was 0.736882 - this indicates that the cameras are generally well-calibrated, and the images are well-placed. If the residual is very high (&gt; 2 or so), you’ll need to work on improving the placement of your GCPs, using the individual report for each GCP as detailed above.</p>
 <p>You can also see that the “Worst” residual was 0.781405 for image <strong>OIS-Reech_AR5840034159995.tif</strong> - if the residual for an individual image is high, this is a hint as to where you should try to check the positioning of your GCPs.</p>
 <p>As before, if the errors here are large, or the percentage of “Ok” points is very low, check the report for the individual GCPs to see which one(s) might need to be re-positioned, and in which image(s). Once you’ve attempted to correct the position in each image, be sure to run <code class="docutils literal notranslate"><span class="pre">SaisiePredicQT</span></code> again, followed by <code class="docutils literal notranslate"><span class="pre">GCPBascule</span></code> and <code class="docutils literal notranslate"><span class="pre">Campari</span></code>, before moving on to the next steps.</p>
-</div>
-<div class="section" id="dem-extraction-and-orthophoto-generation">
+</section>
+<section id="dem-extraction-and-orthophoto-generation">
 <h2>dem extraction and orthophoto generation<a class="headerlink" href="#dem-extraction-and-orthophoto-generation" title="Permalink to this headline"></a></h2>
 <p>The next step is to extract the DEM and create the orthophotomosaic. First, run <code class="docutils literal notranslate"><span class="pre">Malt</span></code> to do the DEM extraction and create the individual orthophotos:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mm3d Malt Ortho <span class="s2">&quot;OIS.*tif&quot;</span> TerrainFinal <span class="nv">MasqImGlob</span><span class="o">=</span>filtre.tif <span class="nv">NbVI</span><span class="o">=</span><span class="m">2</span> <span class="nv">ZoomF</span><span class="o">=</span><span class="m">1</span> <span class="nv">DefCor</span><span class="o">=</span><span class="m">0</span> <span class="nv">CostTrans</span><span class="o">=</span><span class="m">4</span> <span class="nv">EZA</span><span class="o">=</span><span class="m">1</span>
@@ -461,8 +462,8 @@ RES:<span class="o">[</span>OIS-Reech_AR5840034159999.tif<span class="o">][</spa
 </pre></div>
 </div>
 <p>This will create a mosaicked version of the images, which you can open using <strong>QGIS</strong> or <strong>ArcGIS</strong>.</p>
-</div>
-<div class="section" id="cleaning-up-the-outputs">
+</section>
+<section id="cleaning-up-the-outputs">
 <h2>cleaning up the outputs<a class="headerlink" href="#cleaning-up-the-outputs" title="Permalink to this headline"></a></h2>
 <p>The final step (for now) is to clean up the output DEM and Orthophoto, masking out the parts of the DEM raster that aren’t covered by the images.</p>
 <p>First, cd into <strong>MEC-Malt</strong>:</p>
@@ -488,8 +489,8 @@ copy Z_Num9_DeZoom1_STD-MALT.tfw AutoMask_STD-MALT_Num_8.tfw
 <a class="reference internal image-reference" href="../../../_images/arcgis_rastercalc.png"><img alt="the arcgis raster calculator window" class="align-center" src="../../../_images/arcgis_rastercalc.png" style="width: 600px;" /></a>
 <p>Save the masked DEM to your directory as <strong>MtStHelens_DEM.tif</strong> (or similar).</p>
 <p>At this point, you’re done – we’ll work a bit more on analyzing our DEMs in the <a class="reference external" href="week2.html">week 2 practical</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

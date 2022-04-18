@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>dem differencing &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -104,7 +105,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="dem-differencing">
+  <section id="dem-differencing">
 <h1>dem differencing<a class="headerlink" href="#dem-differencing" title="Permalink to this headline"></a></h1>
 <p><strong>Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the</strong> <a class="reference external" href="https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&amp;export=download">google drive link</a><strong>, then extract the zip file. You should
 have the following files/folders available:</strong></p>
@@ -124,7 +125,7 @@ have the following files/folders available:</strong></p>
 <li><p>World of Change: Devastation and Recovery at Mt St Helens [<a class="reference external" href="https://earthobservatory.nasa.gov/world-of-change/StHelens">NASA Earth Observatory</a>]</p></li>
 <li><p>Footage of the 1980 Mt St Helens Eruption [<a class="reference external" href="https://www.youtube.com/watch?v=AYla6q3is6w">YouTube</a>]</p></li>
 </ul>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>Open up ArcGIS Pro, and create a new project in your Week 2 folder. You may need to add a folder connection to your Week 2 folder – if so, do that now.</p>
 <p>Import the provided data into the map, re-arranging the drawing order as follows:</p>
@@ -167,8 +168,8 @@ swipe back and forth between different DEMs – make sure that the DEM you want 
 panel</strong>. You should be able to clearly see the enormous differences that took place between the 1979 acquisition and the 1984
 acquisition. In the remainder of the practical, we will work on quantifying these differences. If you haven’t already, this is a good
 place to save your map.</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h2>dem differencing<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>The next step is to actually difference the two DEMs (in this case, the 1979 and the 1984 DEMs). From the <strong>Geoprocessing</strong> tab,
 enter “raster calculator” in the search bar and press <strong>Enter</strong>. Open the <strong>Raster Calculator</strong> tool from the <strong>Spatial Analyst</strong> toolbox. To
@@ -191,8 +192,8 @@ The map should look something like this (note that I’ve turned off the two sha
 <p>You should now clearly see where the mountainside has collapsed, as well the landslide and lahar/pyroclastic material deposits to the North
 of the volcano, and the two lakes that have dramatically increased their levels (Coldwater Lake and Spirit Lake, from West to
 East).</p>
-</div>
-<div class="section" id="accuracy-estimation">
+</section>
+<section id="accuracy-estimation">
 <h2>accuracy estimation<a class="headerlink" href="#accuracy-estimation" title="Permalink to this headline"></a></h2>
 <p>The next step is to estimate how accurate our DEM difference is, as this will tell us something about how well we can estimate
 both the elevation and volume changes that we’re interested in. When we expect to see changes in elevation of different
@@ -266,8 +267,8 @@ points. You can also run this on a selection of the points (for example, using t
 creating a new layer from the selection (right-click, <strong>Selection</strong> &gt; <strong>Make Layer from Selected Features</strong>), then exporting the table
 from that layer to a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file. You’ll need to change the filename for the data in the notebook as well before running the
 calculations.</p>
-</div>
-<div class="section" id="filling-nodata-values">
+</section>
+<section id="filling-nodata-values">
 <h2>filling nodata values<a class="headerlink" href="#filling-nodata-values" title="Permalink to this headline"></a></h2>
 <p>You may notice that there are a number of voids, or gaps, in the DEM difference. I have masked the clouds present in the 1984
 image, as well as a few other areas where there are blunders (large errors) in one or the other DEM. There are also smaller gaps
@@ -318,8 +319,8 @@ two rasters (filled_dZ and dZ):</p>
 <a class="reference internal image-reference" href="../../../_images/dz_with_holes.png"><img alt="the swipe tool showing the elevation difference with and without holes filled" class="align-center" src="../../../_images/dz_with_holes.png" style="width: 600px;" /></a>
 <p>You should see that the filled raster no longer has holes where the original dZ raster did. At this point, you can move on to
 estimating some volume changes.</p>
-</div>
-<div class="section" id="estimating-elevation-and-volume-changes">
+</section>
+<section id="estimating-elevation-and-volume-changes">
 <h2>estimating elevation and volume changes<a class="headerlink" href="#estimating-elevation-and-volume-changes" title="Permalink to this headline"></a></h2>
 <p>For this step, we’ll start by calculating the lake volume changes. To do this, we’ll use the <strong>Zonal Statistics as Table</strong> tool from the
 <strong>Spatial Analyst</strong> toolbox. Open the tool, then set the <strong>Input feature zone data</strong> to <code class="docutils literal notranslate"><span class="pre">1984_shapes</span></code>, and the <strong>Zone field</strong> to <code class="docutils literal notranslate"><span class="pre">name</span></code>.
@@ -347,8 +348,8 @@ tool to find the statistics for each of these areas. You are welcome to try all 
 least try one of them – this will form part of the investigation that you will present for Assessment Part 1, as well as part of the
 report you will submit for Assessment Part 2.</p>
 <p>To do the digitizing, I recommend using a combination of the elevation difference raster and the Landsat images to guide you.</p>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
 <p>I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the ca. 2008 ALOS/PRISM DEM. You can
 check out the tutorial provided here: <a class="reference external" href="https://github.com/iamdonovan/dem-coregistration">https://github.com/iamdonovan/dem-coregistration</a> to learn more about how I’ve done
@@ -360,8 +361,8 @@ without having to download and set it up yourself:</p>
 lava dome in the middle of the caldera has continued to grow, and a glacier has even grown since the 1980 eruption. Logging
 activity has also continued in the areas around the mountain, which we can see in the satellite images, as well as the derived
 DEMs.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

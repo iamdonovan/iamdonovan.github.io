@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>spectral signatures &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -105,7 +106,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="spectral-signatures">
+  <section id="spectral-signatures">
 <h1>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this headline"></a></h1>
 <p>This tutorial is designed to have you use Google Earth Engine (GEE) to examine the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Spectral_signature">spectral signatures</a> of different surfaces.
@@ -118,7 +119,7 @@ After finishing this tutorial, you should be able to:</p>
 <li><p>export the data plotted in a chart to a CSV</p></li>
 <li><p>use spectral signatures to investigate differences in spectral signatures for different surface types</p></li>
 </ul>
-<div class="section" id="importing-geometries">
+<section id="importing-geometries">
 <h2>importing geometries<a class="headerlink" href="#importing-geometries" title="Permalink to this headline"></a></h2>
 <p>In the previous tutorial, we used the <strong>Inspector</strong> tab to look at band values for different points by
 clicking on the map:</p>
@@ -176,8 +177,8 @@ button:</p>
 <p class="admonition-title">Note</p>
 <p>There’s nothing inherently special about using 10 points here - this is only for illustrative purposes.</p>
 </div>
-</div>
-<div class="section" id="merging-features">
+</section>
+<section id="merging-features">
 <h2>merging features<a class="headerlink" href="#merging-features" title="Permalink to this headline"></a></h2>
 <p>The first part of this script (lines 1  – 14) are things we’ve seen in the previous tutorial:</p>
 <ul class="simple">
@@ -209,8 +210,8 @@ end of line 19, and add a new <code class="docutils literal notranslate"><span c
 </pre></div>
 </div>
 <p>Now, the <code class="docutils literal notranslate"><span class="pre">water</span></code> points will be included whenever we use the <code class="docutils literal notranslate"><span class="pre">samplePoints</span></code> object later on.</p>
-</div>
-<div class="section" id="extracting-image-values">
+</section>
+<section id="extracting-image-values">
 <h2>extracting image values<a class="headerlink" href="#extracting-image-values" title="Permalink to this headline"></a></h2>
 <p>Now that we have a <strong>FeatureCollection</strong> with all of the points, we can use it to select the surface reflectance
 values from our image at our sample points. First, we make sure to only use the surface reflectance bands (bands 1-7):</p>
@@ -238,8 +239,8 @@ standard deviation (<code class="docutils literal notranslate"><span class="pre"
 (<code class="docutils literal notranslate"><span class="pre">ee.Reducer.robustLinearRegression()</span></code>).</p>
 <p>For this tutorial, we want to be able to plot the mean reflectance for different surface types in different bands – so
 we’re using <code class="docutils literal notranslate"><span class="pre">ee.Reducer.mean()</span></code>. In other tutorials, we’ll make use of more complicated reducers.</p>
-</div>
-<div class="section" id="extracting-feature-values">
+</section>
+<section id="extracting-feature-values">
 <h2>extracting feature values<a class="headerlink" href="#extracting-feature-values" title="Permalink to this headline"></a></h2>
 <p>The output of our image reduction is a <strong>FeatureCollection</strong>, <code class="docutils literal notranslate"><span class="pre">ptRefl</span></code>. To look at what’s been added to our points,
 you can add <code class="docutils literal notranslate"><span class="pre">print(ptRefl);</span></code> to the script after line 32, and re-run the script. You should see this in the <strong>Console</strong>:</p>
@@ -304,8 +305,8 @@ You should see something like this (remember that your values will be different!
 <a class="reference internal image-reference" href="../../../_images/array.png"><img alt="the array printed to the console" class="align-center" src="../../../_images/array.png" style="width: 400px;" /></a>
 <p>This is the data that we’ll use to create the our plot - each element of the list represents the reflectance values
 for our sample points in the given band (ordered based on <code class="docutils literal notranslate"><span class="pre">bandNames</span></code>).</p>
-</div>
-<div class="section" id="creating-a-chart">
+</section>
+<section id="creating-a-chart">
 <h2>creating a chart<a class="headerlink" href="#creating-a-chart" title="Permalink to this headline"></a></h2>
 <p>Before we’re ready to plot the results, we’ll create a <strong>List</strong> with the central wavelengths (in µm) of our bands
 (<a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">source</a>):</p>
@@ -399,8 +400,8 @@ would not be updated:</p>
 <a class="reference internal image-reference" href="../../../_images/final_chart.png"><img alt="the final chart produced in the tutorial" class="align-center" src="../../../_images/final_chart.png" style="width: 600px;" /></a>
 <p>Finally, open the chart in a new window by clicking the button in the upper right corner of the chart. From here,
 you can save the chart as a SVG or PNG file, or export the data as a CSV.</p>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
 <p>At this point, you’ve seen how you can import geometries (or <strong>Feature</strong>s, or <strong>FeatureCollection</strong>s) to your script.
 You’ve also seen how to extract image values using those geometries, and how to plot those values in a chart.</p>
@@ -410,8 +411,8 @@ You’ve also seen how to extract image values using those geometries, and how t
 <li><p>Experiment with adding additional points to each <strong>Feature</strong> - how does this affect the surface reflectance plot?</p></li>
 <li><p>For an extra challenge, try to adapt this script to use a different image source, such as <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR">Sentinel-2</a>, <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S3_OLCI">Sentinel-3</a>, or <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD43A4">MODIS</a>. Comparing these datasets to the Landsat plot would give you a way to see how a sensor’s spectral resolution affects the spectral data you can extract for each surface – are there surfaces where this makes a significant difference in what you see with the spectral signature?</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

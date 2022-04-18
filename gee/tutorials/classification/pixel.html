@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pixel-based image classification &mdash; iamdonovan  documentation</title>
+  <title>pixel-based classification &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,11 +15,12 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="object-based image classification" href="obia.html" />
-    <link rel="prev" title="image classification in earth engine" href="index.html" /> 
+    <link rel="next" title="object-based classification" href="obia.html" />
+    <link rel="prev" title="unsupervised classification" href="unsupervised.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,13 +48,25 @@
 <li class="toctree-l3"><a class="reference internal" href="../index.html#data-catalog">data catalog</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../getting_started/index.html">getting started</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="index.html">image classification in earth engine</a><ul class="current">
-<li class="toctree-l5 current"><a class="current reference internal" href="#">pixel-based image classification</a></li>
-<li class="toctree-l5"><a class="reference internal" href="obia.html">object-based image classification</a></li>
-<li class="toctree-l5"><a class="reference internal" href="accuracy.html">accuracy analysis</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">image classification</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">pixel-based classification</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#adding-training-points">adding training points</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#adding-classes">adding classes</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#splitting-the-training-dataset">splitting the training dataset</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#training-a-classifier">training a classifier</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#accuracy-assessment">accuracy assessment</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#classifying-the-image">classifying the image</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#examining-the-results">examining the results</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#references">references</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="obia.html">object-based classification</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/index.html">change detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../enhancement/index.html">image enhancement</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../advanced/index.html">advanced topics</a></li>
 </ul>
 </li>
@@ -82,8 +96,8 @@
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">google earth engine</a> &raquo;</li>
           <li><a href="../index.html">gee tutorials</a> &raquo;</li>
-          <li><a href="index.html">image classification in earth engine</a> &raquo;</li>
-      <li>pixel-based image classification</li>
+          <li><a href="index.html">image classification</a> &raquo;</li>
+      <li>pixel-based classification</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/gee/tutorials/classification/pixel.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,16 +107,347 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="pixel-based-image-classification">
-<h1>pixel-based image classification<a class="headerlink" href="#pixel-based-image-classification" title="Permalink to this headline"></a></h1>
+  <section id="pixel-based-classification">
+<h1>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this headline"></a></h1>
+<p>Lorem ipsum, etc.</p>
+<p>In this tutorial, …</p>
+<section id="adding-training-points">
+<h2>adding training points<a class="headerlink" href="#adding-training-points" title="Permalink to this headline"></a></h2>
+<p>To run a supervised classification, we need to provide <strong>labeled training</strong> data - that is, a number of points where
+we have identified what <strong>class</strong> the points belongs to.</p>
+<p>The classification algorithm then takes these points, and the associated input data such as reflectance in different bands,
+and determines the “rules” for how to classify points based on the input data.</p>
+<p>When you open the script, you should see there are a number of <strong>Geometry Imports</strong>:</p>
+<p><strong>script open</strong></p>
+<p>Specifically, there are five <strong>FeatureCollection</strong> imports representing landcover classes (<code class="docutils literal notranslate"><span class="pre">water</span></code>, <code class="docutils literal notranslate"><span class="pre">forest</span></code>, <code class="docutils literal notranslate"><span class="pre">grassland</span></code>, <code class="docutils literal notranslate"><span class="pre">builtup</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">bare</span></code>), each with 40 points. To add more points to each of these, you can use the <strong>Geometry Editing</strong> tools:</p>
+<p><strong>geometry imports</strong></p>
+<p>Click on the layer that you want to add points to - for example, <code class="docutils literal notranslate"><span class="pre">water</span></code>:</p>
+<p><strong>water highlighted</strong></p>
+<p>Then, click on the map to add the point:</p>
+<p><strong>point added</strong></p>
+<p>If you want to move or delete a point, click on the <strong>Stop drawing</strong> button (the hand), then select the point you
+want to edit:</p>
+<p><strong>point selected</strong></p>
+<p>Then, either click and drag to move the <strong>Point</strong>, or click on <strong>Delete</strong> to delete the <strong>Point</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the purposes of this tutorial, 40 points for each class is sufficient to give you an idea for how the process works.
+To get a robust classification result and accuracy assessment, however, you will most likely need to add significantly more training
+points.</p>
 </div>
+</section>
+<section id="adding-classes">
+<h2>adding classes<a class="headerlink" href="#adding-classes" title="Permalink to this headline"></a></h2>
+<p>You might also want to add additional landcover classes to the classification by adding a new <strong>FeatureCollection</strong> as follows.
+First, mouse back over the <strong>Geometry Imports</strong>. At the bottom of the <strong>Geometry Imports</strong> menu, click on “<strong>new layer</strong>”
+to add a new layer, then click on the gear icon to open the configuration panel:</p>
+<a class="reference internal image-reference" href="gee/tutorials/classification/img/spectral/configuration_panel.png"><img alt="the configuration panel for the geometry imports" class="align-center" src="gee/tutorials/classification/img/spectral/configuration_panel.png" style="width: 600px;" /></a>
+<p>As a reminder, when adding geometry features from the map, you can choose to import them as a <strong>Geometry</strong>, a <strong>Feature</strong>,
+or a <strong>FeatureCollection</strong>:</p>
+<ul class="simple">
+<li><p><strong>Geometry</strong> means only vector data (no attributes/properties)</p></li>
+<li><p><strong>Feature</strong> means you can have a geometry and attributes/properties, it will be treated as a single feature by GEE. So, if you have multiple points in a <strong>Feature</strong>, it will be imported as a <strong>MultiPoint Feature</strong></p></li>
+<li><p><strong>FeatureCollection</strong> means that each geometric object is treated as a <strong>Feature</strong> – so, multiple points are treated as individual points.</p></li>
+</ul>
+<p>Make sure that you add the new class as a <strong>FeatureCollection</strong>, and give it an appropriate name. Next, click the <strong>+property</strong> button to add a new property:</p>
+<a class="reference internal image-reference" href="gee/tutorials/classification/img/spectral/new_property.png"><img alt="the configure geometry import panel with a new property" class="align-center" src="gee/tutorials/classification/img/spectral/new_property.png" style="width: 400px;" /></a>
+<p>Call this property <code class="docutils literal notranslate"><span class="pre">landcover</span></code> (left box), and give it a value of <code class="docutils literal notranslate"><span class="pre">5</span></code> (right box), since landcover values 0-4 currently
+correspond to the 5 classes that have already been imported.</p>
+<p>Change the color to something more appropriate, then click <strong>OK</strong>. You should now see the import at the top of the script.</p>
+<p>You can now add points to the new <strong>FeatureCollection</strong> by following the digitizing instructions from above.</p>
+<p>Finally, you need to make sure to add your new class to the <strong>FeatureCollection</strong> of training points in the script at line 11:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">trainingPoints</span> <span class="o">=</span> <span class="nx">water</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">forest</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">grassland</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">builtup</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">bare</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To do this, delete the semicolon at the end of line 11, and add <code class="docutils literal notranslate"><span class="pre">.merge(yourNewClass);</span></code> on line 12 (remembering, of course, to replace
+<code class="docutils literal notranslate"><span class="pre">yourNewClass</span></code> with the actual name of the <strong>FeatureCollection</strong>).</p>
+</section>
+<section id="splitting-the-training-dataset">
+<h2>splitting the training dataset<a class="headerlink" href="#splitting-the-training-dataset" title="Permalink to this headline"></a></h2>
+<p>Once we have training points, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-sampleregions">documentation</a>) to get the <strong>Image</strong> values at those
+points, which is what we’ll use to train the <strong>Classifier</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SR_B1&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B7&#39;</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">training</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">sampleRegions</span><span class="p">({</span>
+  <span class="nx">collection</span><span class="o">:</span> <span class="nx">trainingPoints</span><span class="p">,</span>
+  <span class="nx">properties</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;landcover&#39;</span><span class="p">],</span>
+  <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>This will select each of the bands in <code class="docutils literal notranslate"><span class="pre">bands</span></code>, then extract the values at each of the points in the <code class="docutils literal notranslate"><span class="pre">trainingPoints</span></code>
+<strong>FeatureCollection</strong>. To make sure that we include the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> value for each point, we add this to the
+<code class="docutils literal notranslate"><span class="pre">properties</span></code> parameter when we call <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code> - otherwise, this information wouldn’t be included
+in the training dataset.</p>
+<p>The next step in training a <strong>Classifier</strong> is to <em>split</em> the training dataset into two parts: one, the <em>training</em> split,
+is what we’ll use to actually train the <strong>Classifier</strong>. The second part, the <em>testing</em> split, is what we’ll use to
+check how good a job the <strong>Classifier</strong> has actually done. The goal here is to make sure that the</p>
+<p>To split our dataset, we first use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.randomColumn()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-randomcolumn">documentation</a>). This will
+add a column, <code class="docutils literal notranslate"><span class="pre">'random'</span></code>, to the <strong>FeatureCollection</strong>, and fill the column with uniformly-distributed random
+numbers that fall in the range [0, 1).</p>
+<p>We then use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.filter()</span></code> to select the <strong>Feature</strong>s where the random value is less than 0.7,
+which form our <em>training</em> data, and the <strong>Feature</strong>s where the random value is greater than or equal to 0.7,
+which form our <em>testing</em> data:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">split</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">withRandom</span> <span class="o">=</span> <span class="nx">training</span><span class="p">.</span><span class="nx">randomColumn</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">trainingPartition</span> <span class="o">=</span> <span class="nx">withRandom</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">lt</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="nx">split</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">testingPartition</span> <span class="o">=</span> <span class="nx">withRandom</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="nx">split</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="training-a-classifier">
+<h2>training a classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this headline"></a></h2>
+<p>Once we’ve split the input data into <em>training</em> and <em>testing</em> partitions, we can “train” our <strong>Classifier</strong>.</p>
+<p>GEE has a number of <strong>Classifier</strong> algorithms implemented:</p>
+<ul class="simple">
+<li><p>Maximum Entropy (<code class="docutils literal notranslate"><span class="pre">amnhMaxent</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent">documentation</a>)<a class="footnote-reference brackets" href="#id9" id="id1">1</a><a class="footnote-reference brackets" href="#id10" id="id2">2</a></p></li>
+<li><p>Support Vector Machine (<code class="docutils literal notranslate"><span class="pre">libsvm</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm">documentation</a>)<a class="footnote-reference brackets" href="#id11" id="id3">3</a></p></li>
+<li><p>Minimum Distane (<code class="docutils literal notranslate"><span class="pre">minimumDistance</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance">documentation</a>)<a class="footnote-reference brackets" href="#id12" id="id4">4</a></p></li>
+<li><p>CART (<code class="docutils literal notranslate"><span class="pre">smileCart</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart">documentation</a>)<a class="footnote-reference brackets" href="#id13" id="id5">5</a></p></li>
+<li><p>Gradient Tree Boost (<code class="docutils literal notranslate"><span class="pre">smileGradientTreeBoost</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost">documentation</a>)<a class="footnote-reference brackets" href="#id14" id="id6">6</a></p></li>
+<li><p>Naive Bayes (<code class="docutils literal notranslate"><span class="pre">smileNaiveBayes</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes">documentation</a>)<a class="footnote-reference brackets" href="#id15" id="id7">7</a></p></li>
+<li><p>Random Forest (<code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest">documentation</a>)<a class="footnote-reference brackets" href="#id16" id="id8">8</a></p></li>
+</ul>
+<p>In this example, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Classifier.smileRandomForest()</span></code> to do a Random Forest classification.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">classifier</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Classifier</span><span class="p">.</span><span class="nx">smileRandomForest</span><span class="p">(</span><span class="mf">100</span><span class="p">).</span><span class="nx">train</span><span class="p">({</span>
+  <span class="nx">features</span><span class="o">:</span> <span class="nx">trainingPartition</span><span class="p">,</span>
+  <span class="nx">classProperty</span><span class="o">:</span> <span class="s1">&#39;landcover&#39;</span><span class="p">,</span>
+  <span class="nx">inputProperties</span><span class="o">:</span> <span class="nx">bands</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>this will initialize a Random Forest <strong>Classifier</strong> with 100 trees, then use <code class="docutils literal notranslate"><span class="pre">ee.Classifier.train()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-train">documentation</a>) to train
+the classifier. The inputs to <code class="docutils literal notranslate"><span class="pre">ee.Classifier.train()</span></code> used above are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">features</span></code>, the <strong>FeatureCollection</strong> to use to train the <strong>Classifier</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">classProperty</span></code>, the property of <code class="docutils literal notranslate"><span class="pre">features</span></code> that contains the classification information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inputProperties</span></code>, a list of the properties from <code class="docutils literal notranslate"><span class="pre">features</span></code> to use to train the <strong>Classifier</strong></p></li>
+</ul>
+<p>So, this will train the <strong>Classifier</strong> using the <code class="docutils literal notranslate"><span class="pre">trainingPartition</span></code> <strong>FeatureCollection</strong>,
+based on the <code class="docutils literal notranslate"><span class="pre">'landcover'</span></code> property, using the image bands listed in <code class="docutils literal notranslate"><span class="pre">bands</span></code>.</p>
+</section>
+<section id="accuracy-assessment">
+<h2>accuracy assessment<a class="headerlink" href="#accuracy-assessment" title="Permalink to this headline"></a></h2>
+<p>Once we’ve trained the classifier, we can use the <em>testing</em> dataset to evaluate how accurate it is. First, we
+have to use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.classify()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-classify">documentation</a>) to classify
+the testing data:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="nx">testingPartition</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Next, we can create a “confusion matrix” to display how many of the training objects were
+correctly or incorrectly classified as each object:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">cm</span> <span class="o">=</span> <span class="nx">test</span><span class="p">.</span><span class="nx">errorMatrix</span><span class="p">(</span><span class="s1">&#39;landcover&#39;</span><span class="p">,</span> <span class="s1">&#39;classification&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This uses <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.errorMatrix()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-errormatrix">documentation</a>) to create a
+<strong>ConfusionMatrix</strong> object (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-confusionmatrix">documentation</a>).</p>
+<p>The following line:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">print</span><span class="p">(</span><span class="s1">&#39;confusion matrix: &#39;</span><span class="p">,</span> <span class="nx">cm</span><span class="p">,</span>
+  <span class="s1">&#39;overall accuracy: &#39;</span><span class="p">,</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">accuracy</span><span class="p">(),</span>
+  <span class="s1">&#39;kappa: &#39;</span><span class="p">,</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">kappa</span><span class="p">(),</span>
+  <span class="s2">&quot;producer&#39;s accuracy:&quot;</span><span class="p">,</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">producersAccuracy</span><span class="p">(),</span>
+  <span class="s2">&quot;consumer&#39;s accuracy:&quot;</span><span class="p">,</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">consumersAccuracy</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>will print the <strong>ConfusionMatrix</strong> object, along with the <em>overall accuracy</em>, <em>kappa</em> score, <em>producer’s</em> accuracy,
+and <em>consumer’s</em> accuracy to the <strong>Console</strong>:</p>
+<ul class="simple">
+<li><p>the <em>overall</em> accuracy is the number of correctly classified <strong>Feature</strong>s, divided by the total number of <strong>Feature</strong>s</p></li>
+<li><p>the <em>producer’s</em> accuracy is the probability that a particular class is correctly classified, and it’s the number of correctly classified <strong>Feature</strong>s divided by the total number of <strong>Feature</strong>s in each row of the <strong>ConfusionMatrix</strong>.</p></li>
+<li><p>the <em>consumer’s</em> accuracy is the probability that the map classification is correct, and it’s the number of correctly classified <strong>Feature</strong>s divided by the total number of <strong>Feature</strong>s in each column of the <strong>ConfusionMatrix</strong>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The documentation for <code class="docutils literal notranslate"><span class="pre">ee.ConfusionMatrix.producersAccuracy()</span></code> and <code class="docutils literal notranslate"><span class="pre">ee.ConfusionMatrix.consumersAccuracy()</span></code>
+appears to be incorrect - that is, based on the example code provided, <code class="docutils literal notranslate"><span class="pre">ee.ConfusionMatrix.producersAccuracy()</span></code>
+uses the values in each <em>row</em> of the sample <strong>Array</strong>, while <code class="docutils literal notranslate"><span class="pre">ee.ConfusionMatrix.consumersAccuracy()</span></code> uses the
+values in each <em>column</em>.</p>
+</div>
+<p>The <em>kappa</em> score, or statistic, is calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[\kappa = \frac{p_o - p_e}{1 - p_e}\]</div>
+<p>where <span class="math notranslate nohighlight">\(p_o\)</span> is the observed accuracy of the classifier, and <span class="math notranslate nohighlight">\(p_e\)</span> is the hypothetical probability of chance agreement.
+The <em>kappa</em> score thus gives a measure of how much better the classifier performs than would be expected by random chance.</p>
+<p>When you run the script, you should see the following in the <strong>console</strong> panels (remember that your results may differ slightly):</p>
+<a class="reference internal image-reference" href="../../../_images/error_matrix.png"><img alt="the error matrix and accuracy values for the 100-tree random forest classification" class="align-center" src="../../../_images/error_matrix.png" style="width: 400px;" /></a>
+<p>To help you understand this, I’ve added row/column labels to this table below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 18%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>water</p></th>
+<th class="head"><p>forest</p></th>
+<th class="head"><p>grassland</p></th>
+<th class="head"><p>built-up</p></th>
+<th class="head"><p>bare soil</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>0</p></td>
+<td><p>13</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>grassland</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>built-up</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>8</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>bare soil</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>4</p></td>
+<td><p>8</p></td>
+</tr>
+</tbody>
+</table>
+<p>The “rows” of this matrix correspond to the landcover class that we have identified,
+while the columns correspond to the classified values. In the example above, we see that 15 of our training samples
+were classified as landcover class 0 (water), and there were no water training samples that were classified as
+something else. The same is true for the forest class (value 1), while one grassland <strong>Feature</strong> (value 2) was
+classified as bare soil.</p>
+<p>Of the 10 built-up <strong>Feature</strong>s in our testing dataset, 8 were correctly classified, while 2 were mis-classified as
+bare soil.</p>
+<p>Four bare soil <strong>Feature</strong>s were mis-classified as built-up areas, and the remaining 8 were correctly
+classified as bare soil.</p>
+<p>From this example, we can also see that the overall accuracy is decently high (88.3%), with a reasonably high
+kappa statistic (0.853).</p>
+<p>The <em>producer’s</em> accuracy is similarly high for each class except for bare soil, where 4 of the 12 test <strong>Feature</strong>s
+were misclassified.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>class</p></th>
+<th class="head"><p>producer’s accuracy</p></th>
+<th class="head"><p>consumer’s accuracy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>15/15 = 100%</p></td>
+<td><p>15/15 = 100%</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>13/13 = 100%</p></td>
+<td><p>13/13 = 100%</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>grassland</strong></p></td>
+<td><p>9/10 = 90%</p></td>
+<td><p>9/9 = 100%</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>built-up</strong></p></td>
+<td><p>8/10 = 80%</p></td>
+<td><p>8/12 = 66.7%</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>bare soil</strong></p></td>
+<td><p>8/12 = 66.7%</p></td>
+<td><p>8/11 = 72.7%</p></td>
+</tr>
+</tbody>
+</table>
+<p>While these are encouraging results, it’s worth keeping in mind that</p>
+</section>
+<section id="classifying-the-image">
+<h2>classifying the image<a class="headerlink" href="#classifying-the-image" title="Permalink to this headline"></a></h2>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">classified</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="examining-the-results">
+<h2>examining the results<a class="headerlink" href="#examining-the-results" title="Permalink to this headline"></a></h2>
+<section id="spectral-signatures">
+<h3>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this headline"></a></h3>
+</section>
+<section id="landcover-area-by-class">
+<h3>landcover area by class<a class="headerlink" href="#landcover-area-by-class" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>how does changing the number of ‘trees’ in the random forest classifier impact the estimated accuracy of the classification?</p></li>
+<li><p>try a different classifier</p></li>
+<li><p>additional bands? NDVI, NDWI, etc.</p></li>
+<li><p>clouds</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>This particular implementation is the American Museum of Natural History (AMNH) maximum-entropy classifier; for more information about the software, see <a class="reference external" href="https://biodiversityinformatics.amnh.org/open_source/maxent/">https://biodiversityinformatics.amnh.org/open_source/maxent/</a></p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>e.g., De Martino, A. and D. De Martino (2018). <em>Heliyon</em>, 4(<strong>4</strong>), e00596. doi: <a class="reference external" href="https://doi.org/10.1016/j.heliyon.2018.e00596">10.1016/j.heliyon.2018.e00596</a></p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>e.g., Mountrakis, G., et al. (2011). <em>ISPRS J. Photogramm. Rem. Sens.</em> 66, 247–259. doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2010.11.001">10.1016/j.isprsjprs.2010.11.001</a></p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>e.g., Wacker, A. G. and D. A. Landgrebe (1972). <em>LARS Technical Reports</em>. Paper 25. <a class="reference external" href="http://docs.lib.purdue.edu/larstech/25">http://docs.lib.purdue.edu/larstech/25</a></p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>e.g.,</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>e.g.,</p>
+</dd>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>e.g.,</p>
+</dd>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>e.g.,</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="image classification in earth engine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="obia.html" class="btn btn-neutral float-right" title="object-based image classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="unsupervised.html" class="btn btn-neutral float-left" title="unsupervised classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="obia.html" class="btn btn-neutral float-right" title="object-based classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

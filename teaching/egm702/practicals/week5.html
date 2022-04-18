@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>classification in earth engine &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -109,13 +110,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="classification-in-earth-engine">
+  <section id="classification-in-earth-engine">
 <h1>classification in earth engine<a class="headerlink" href="#classification-in-earth-engine" title="Permalink to this headline"></a></h1>
 <p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) to do image classification. Just like the previous
 weeks, you should be able to do finish the practical even if you have no prior experience with programming. All of the
 programming steps have been provided for you in a script, and your task will be to run each step in turn and analyse and
 interpret the results.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -155,8 +156,8 @@ These individual feature collections represent the following things:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="step-1-merging-training-data-and-loading-images">
+</section>
+<section id="step-1-merging-training-data-and-loading-images">
 <h2>step 1. merging training data and loading images<a class="headerlink" href="#step-1-merging-training-data-and-loading-images" title="Permalink to this headline"></a></h2>
 <p>In the first lines of the script, you should see the following:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// merge all of the different training points into a single featurecollection</span>
@@ -202,8 +203,8 @@ bands to the selected Landsat image:</p>
 <p>It will then add each of these to our image, as well as adding the Slope and elevation from the NASADEM to the image.
 When you run the script, it should center on Mt St Helens and add a false-colour composite of the OLI image to the map:</p>
 <a class="reference internal image-reference" href="../../../_images/image_loaded.png"><img alt="the gee window with the first landsat image loaded" class="align-center" src="../../../_images/image_loaded.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="step-2-unsupervised-classification">
+</section>
+<section id="step-2-unsupervised-classification">
 <h2>step 2. unsupervised classification<a class="headerlink" href="#step-2-unsupervised-classification" title="Permalink to this headline"></a></h2>
 <p>Earth Engine provides methods to do both unsupervised and supervised classification. We’re going to start by doing an
 unsupervised classification (clustering) on our OLI image, as it can help us to decide what classes it might make sense to use.</p>
@@ -294,8 +295,8 @@ about for the chart or confusion matrix comparing the landcover and cluster valu
 </pre></div>
 </div>
 <p>Re-comment this line, and this section (add a <code class="docutils literal notranslate"><span class="pre">/*</span></code> to line 54 and a <code class="docutils literal notranslate"><span class="pre">*/</span></code> to line 95), after you’ve examined the results, and move on to the next section.</p>
-</div>
-<div class="section" id="step-3-train-different-classifiers">
+</section>
+<section id="step-3-train-different-classifiers">
 <h2>step 3. train different classifiers<a class="headerlink" href="#step-3-train-different-classifiers" title="Permalink to this headline"></a></h2>
 <p>The code in this section will help us run a Random Forest classification on our chosen image, and examine the results.
 Start by uncommenting this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 98 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 141). The following lines of code:</p>
@@ -430,8 +431,8 @@ samples classified as clear cut (value 2), 7 were classified as new growth (valu
 <p>Return to the <code class="docutils literal notranslate"><span class="pre">bands</span></code> variable, uncomment the second line again, and re-run the script. How does the result for the testing data
 change? What about if you add slope and elevation data to the classification? Re-comment each of these lines before moving on
 to the next section.</p>
-</div>
-<div class="section" id="step-4-classify-the-image-and-examine-the-results">
+</section>
+<section id="step-4-classify-the-image-and-examine-the-results">
 <h2>step 4. classify the image and examine the results<a class="headerlink" href="#step-4-classify-the-image-and-examine-the-results" title="Permalink to this headline"></a></h2>
 <p>Uncomment this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 144 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 188), and run the script again. The code in this section
 will classify the image using the two classifiers trained and tested in the previous section, then add the classified images to the map
@@ -493,8 +494,8 @@ Uncomment line 26 to add the NDVI, NDWI, and mNDWI bands back to the image, then
 image change? What about the numerical results? What about after adding the slope and elevation information?</p>
 <p>Leave this section uncommented as you move on to the next sections - this will enable you to compare the pixel-based and object-based
 classification results.</p>
-</div>
-<div class="section" id="step-5-export-the-classified-image-s">
+</section>
+<section id="step-5-export-the-classified-image-s">
 <h2>step 5. export the classified image(s)<a class="headerlink" href="#step-5-export-the-classified-image-s" title="Permalink to this headline"></a></h2>
 <p>The code in this section will enable you to export the classified image to your Google Drive, and use them in, for example,
 ArcGIS, QGIS, or ERDAS Imagine.</p>
@@ -508,8 +509,8 @@ ArcGIS, QGIS, or ERDAS Imagine.</p>
 </pre></div>
 </div>
 <p>You can change the image name (<code class="docutils literal notranslate"><span class="pre">classified100</span></code>) to export a different image, or duplicate this block of code to export multiple images.</p>
-</div>
-<div class="section" id="step-6-image-segmentation">
+</section>
+<section id="step-6-image-segmentation">
 <h2>step 6. image segmentation<a class="headerlink" href="#step-6-image-segmentation" title="Permalink to this headline"></a></h2>
 <p>The last few sections of the practical will take us through an example of object-based classification, to illustrate some of the differences
 between object-based image analysis (OBIA) and pixel-based classification.</p>
@@ -581,8 +582,8 @@ and “not lake”, while the original boundaries do a decent job of picking the
 too coarsely, we may end up losing detail that we’re interested in.</p>
 <p>Once you’ve had a look around, go ahead and re-comment the coarse segmentation section (add a <code class="docutils literal notranslate"><span class="pre">/*</span></code> to line 243 and a <code class="docutils literal notranslate"><span class="pre">*/</span></code> to line 277), then
 move on to the next section.</p>
-</div>
-<div class="section" id="step-7-obia-features">
+</section>
+<section id="step-7-obia-features">
 <h2>step 7. obia features<a class="headerlink" href="#step-7-obia-features" title="Permalink to this headline"></a></h2>
 <p>One of the things that we can do with OBIA that is more difficult to incorporate into pixel-based analysis is use image properties such
 as texture or contrast, or even the shape of our segments, to aid our classification.</p>
@@ -654,8 +655,8 @@ between, for example, the surfaces on north flank of the volcano and the clear-c
 grayscale image?</p>
 <p>Once you’ve spent some time thinking about these questions, move on to the next section, where we’ll add the texture bands to our image, and use this to classify
 the scene using OBIA.</p>
-</div>
-<div class="section" id="step-8-obia-classification">
+</section>
+<section id="step-8-obia-classification">
 <h2>step 8. obia classification<a class="headerlink" href="#step-8-obia-classification" title="Permalink to this headline"></a></h2>
 <p>Now that we’ve segmented the image and had a look at the image texture, we’ll move on to actually classifying the image using OBIA.</p>
 <p>Uncomment the first part of this section section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 304 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 370), then run the script.
@@ -736,8 +737,8 @@ turn this on in the <strong>Layers</strong> menu):</p>
 classification line up with the image segments?</p>
 <p>Have a look at the numeric results, as well - where are the biggest differences between the pixel-based results and
 the object-based results? As you look around the map, do the classified results line up with what you expect to see?</p>
-</div>
-<div class="section" id="step-9-exporting-the-obia-classification">
+</section>
+<section id="step-9-exporting-the-obia-classification">
 <h2>step 9. exporting the obia classification<a class="headerlink" href="#step-9-exporting-the-obia-classification" title="Permalink to this headline"></a></h2>
 <p>The code in this section will enable you to export the classified image to your Google Drive, and use them in, for example,
 ArcGIS, QGIS, or ERDAS Imagine. To do so, uncomment this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 401 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 409),
@@ -751,8 +752,8 @@ then re-run the script:</p>
 <span class="p">});</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
 <p>You can try to improve on the results in a few ways here. To start with, you could increase the the number of training samples
 for each class. To do this for water, for example, highlight the <code class="docutils literal notranslate"><span class="pre">water</span></code> layer in the <strong>Geometry Imports</strong> panel by
@@ -768,8 +769,8 @@ number of points between the training classes is somewhat balanced – otherwise
 insufficient samples for training.</p>
 <p>We have added a number of additional bands to the data in order to help classify the results. Can you think of any other spectral
 indices or band ratios, either from the lectures or your own reading, that it might make sense to try to include?</p>
-</div>
-<div class="section" id="references-and-notes">
+</section>
+<section id="references-and-notes">
 <h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this headline"></a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -788,8 +789,8 @@ indices or band ratios, either from the lectures or your own reading, that it mi
 <dd><p>Tassi, A. and M. Vizzari (2020). <em>Rem. Sens.</em> 12, 3776. doi: <a class="reference external" href="https://doi.org/10.3390/rs12223776">10.3390/rs12223776</a></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

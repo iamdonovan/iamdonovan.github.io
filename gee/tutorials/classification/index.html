@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>image classification in earth engine &mdash; iamdonovan  documentation</title>
+  <title>image classification &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,7 +18,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="pixel-based image classification" href="pixel.html" />
+    <link rel="next" title="unsupervised classification" href="unsupervised.html" />
     <link rel="prev" title="zonal statistics" href="../getting_started/zonal_stats.html" /> 
 </head>
 
@@ -46,13 +47,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../index.html#data-catalog">data catalog</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../getting_started/index.html">getting started</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">image classification in earth engine</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="pixel.html">pixel-based image classification</a></li>
-<li class="toctree-l5"><a class="reference internal" href="obia.html">object-based image classification</a></li>
-<li class="toctree-l5"><a class="reference internal" href="accuracy.html">accuracy analysis</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">image classification</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l5"><a class="reference internal" href="pixel.html">pixel-based classification</a></li>
+<li class="toctree-l5"><a class="reference internal" href="obia.html">object-based classification</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/index.html">change detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../enhancement/index.html">image enhancement</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../advanced/index.html">advanced topics</a></li>
 </ul>
 </li>
@@ -82,7 +84,7 @@
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">google earth engine</a> &raquo;</li>
           <li><a href="../index.html">gee tutorials</a> &raquo;</li>
-      <li>image classification in earth engine</li>
+      <li>image classification</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/gee/tutorials/classification/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -92,23 +94,64 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="image-classification-in-earth-engine">
-<h1>image classification in earth engine<a class="headerlink" href="#image-classification-in-earth-engine" title="Permalink to this headline"></a></h1>
+  <section id="image-classification">
+<h1>image classification<a class="headerlink" href="#image-classification" title="Permalink to this headline"></a></h1>
+<p>Remotely-sensed imagery can be difficult to interpret for a number of reasons. The ultimate goal in remote sensing is to derive
+information from the raw image data - that is, we want to identify, or <em>classify</em>, what we see in the image.</p>
+<p>Because identifying each pixel by hand (or even large groups of pixels) is tedious and time-consuming, we want to try to avoid this
+as much as possible, at least on a large scale. For that, we turn to (semi) automated <em>classification</em>, so that we can get the
+computer to do as much of the work for us as possible.</p>
+<p>In general, we can characterize classifications in a few different ways; for these tutorials, we focus on three:</p>
+<ul class="simple">
+<li><p><em>unsupervised</em> methods, where we have nearly no input into how the computer classifies pixels;</p></li>
+<li><p>(supervised) <em>pixel-based</em> methods, where individual pixels are classified based on input data;</p></li>
+<li><p>(supervised) <em>object-based</em>, where pixels are grouped together before being classified based on input data.</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pixel.html">pixel-based image classification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="obia.html">object-based image classification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accuracy.html">accuracy analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsupervised.html">unsupervised classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#selecting-sample-points">selecting sample points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#training-a-clusterer">training a clusterer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#applying-the-classification">applying the classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#viewing-the-clusters">viewing the clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#stratified-sampling">stratified sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#creating-a-scatter-plot">creating a scatter plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#plotting-spectral-signatures">plotting spectral signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#next-steps">next steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised.html#references">references</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pixel.html">pixel-based classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#adding-training-points">adding training points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#adding-classes">adding classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#splitting-the-training-dataset">splitting the training dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#training-a-classifier">training a classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#accuracy-assessment">accuracy assessment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#classifying-the-image">classifying the image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#examining-the-results">examining the results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#next-steps">next steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pixel.html#references">references</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="obia.html">object-based classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="obia.html#image-segmentation">image segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obia.html#image-texture">image texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obia.html#classification">classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obia.html#exporting-the-classification">exporting the classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obia.html#next-steps">next steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="obia.html#references">references</a></li>
+</ul>
+</li>
 </ul>
 </div>
-</div>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../getting_started/zonal_stats.html" class="btn btn-neutral float-left" title="zonal statistics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pixel.html" class="btn btn-neutral float-right" title="pixel-based image classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="unsupervised.html" class="btn btn-neutral float-right" title="unsupervised classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

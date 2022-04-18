@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>manual mapping (digitizing) &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -109,7 +110,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="manual-mapping-digitizing">
+  <section id="manual-mapping-digitizing">
 <h1>manual mapping (digitizing)<a class="headerlink" href="#manual-mapping-digitizing" title="Permalink to this headline"></a></h1>
 <p>In this tutorial, we’ll see how we can use GEE’s digitizing tools to map features. The images we’ll be looking at
 show the Geldingadalir (Fagradalsfjall) volcanic eruption on the Reykjanes Peninsula, Iceland, on 26 June 2021:</p>
@@ -118,7 +119,7 @@ show the Geldingadalir (Fagradalsfjall) volcanic eruption on the Reykjanes Penin
 in the natural color image as a large, black area surrounding the active fissure.</p>
 <p>In this tutorial, we’ll see how we can use different band combinations, along with the GEE digitizing features,
 to map the lava flow and determine its area, as well as other properties.</p>
-<div class="section" id="geedit">
+<section id="geedit">
 <h2>GEEDiT<a class="headerlink" href="#geedit" title="Permalink to this headline"></a></h2>
 <p>Before getting started, I want to plug the Google Earth Engine Digitisation Tool<a class="footnote-reference brackets" href="#id2" id="id1">1</a>, GEEDiT. This is a tool for
 that was designed for rapid digitizing of features from satellite imagery, with a range of tools to help make the
@@ -130,8 +131,8 @@ check out the following links to use it and learn more about it:</p>
 <li><p><a class="reference external" href="https://liverpoolgee.wordpress.com/geedit-geedit-reviewer/">GEEDiT version 2</a></p></li>
 <li><p><a class="reference external" href="https://twitter.com/JamesMLea/status/1479414214649384963">Video walkthroughs</a></p></li>
 </ul>
-</div>
-<div class="section" id="landsat-band-combinations">
+</section>
+<section id="landsat-band-combinations">
 <h2>(Landsat) band combinations<a class="headerlink" href="#landsat-band-combinations" title="Permalink to this headline"></a></h2>
 <p>In the first two tutorials, we’ve been looking at “natural” (or “true”) color composites - that is, the RGB bands displayed
 in the <strong>Map</strong> correspond to visible red, green, and blue wavelengths (for Landsat 8 OLI, Bands 4, 3, and 2).</p>
@@ -188,8 +189,8 @@ interested in.</p>
 <li><p>if you want to digitize the “active” lava flow, what band combination do you think would work best?</p></li>
 <li><p>if you want to digitize the entire lava flow, including cooled lava, what band combination would you use?</p></li>
 </ul>
-</div>
-<div class="section" id="digitizing-tools">
+</section>
+<section id="digitizing-tools">
 <h2>digitizing tools<a class="headerlink" href="#digitizing-tools" title="Permalink to this headline"></a></h2>
 <p>If you haven’t already done so, run the script to add the images to the map.</p>
 <p>We can start digitizing the same way that we added points in the <a class="reference internal" href="spectral.html"><span class="doc">spectral signatures</span></a> tutorial. First, hover over <strong>Geometry Imports</strong>
@@ -218,8 +219,8 @@ covered by lava. In the end, you should have something that looks like this:</p>
 <a class="reference internal image-reference" href="../../../_images/rings.png"><img alt="the rings displayed on the map" class="align-center" src="../../../_images/rings.png" style="width: 600px;" /></a>
 <p>Once you have added these two <strong>Geometry</strong> layers, uncomment the second section of this script (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 24,
 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 61).</p>
-</div>
-<div class="section" id="editing-polygons">
+</section>
+<section id="editing-polygons">
 <h2>editing polygons<a class="headerlink" href="#editing-polygons" title="Permalink to this headline"></a></h2>
 <p>We can also move the vertices of our polygon. Make sure that you’re no longer drawing (click on the left-most (hand) button in the <strong>Drawing tools</strong>),
 then click on your polygon:</p>
@@ -231,8 +232,8 @@ then click on your polygon:</p>
 <p>Be careful with this – you can’t easily move the polygon back to its exact original position!</p>
 </div>
 <p>To finish editing the vertices, click anywhere else in the <strong>Map</strong>, or click on <strong>Exit</strong> at the top of the <strong>Map</strong>.</p>
-</div>
-<div class="section" id="differncing-geometries">
+</section>
+<section id="differncing-geometries">
 <h2>differncing geometries<a class="headerlink" href="#differncing-geometries" title="Permalink to this headline"></a></h2>
 <p>To remove the <code class="docutils literal notranslate"><span class="pre">rings</span></code> from our <code class="docutils literal notranslate"><span class="pre">exterior</span></code> polygon, we use <code class="docutils literal notranslate"><span class="pre">ee.Geometry.difference()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-geometry-difference">documentation</a>):</p>
@@ -240,12 +241,12 @@ then click on your polygon:</p>
 </pre></div>
 </div>
 <p>Once we’ve done this, we can add the new <strong>Polygon</strong> to the <strong>Map</strong>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">lavaflow</span><span class="p">,</span> <span class="p">{},</span> <span class="s1">&#39;lava flow&#39;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">lavaflow</span><span class="p">,</span> <span class="p">{},</span> <span class="s1">&#39;lava flow&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/polygon_added.png"><img alt="the finished, differenced polygon added to the map" class="align-center" src="../../../_images/polygon_added.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="transforming-features">
+</section>
+<section id="transforming-features">
 <h2>transforming features<a class="headerlink" href="#transforming-features" title="Permalink to this headline"></a></h2>
 <p>At the moment, <code class="docutils literal notranslate"><span class="pre">lavaflow</span></code> is a <strong>Polygon</strong> - it has coordinates, but no other properties – not even
 a projection.</p>
@@ -264,8 +265,8 @@ to project the feature to a given coordinate reference system:</p>
 </ul>
 <p>Here, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Image.projection()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-projection">documentation</a>) to
 make sure that we transform the <strong>Feature</strong> to the same coordinate system as <code class="docutils literal notranslate"><span class="pre">img</span></code> (<a class="reference external" href="https://epsg.io/32627">EPSG:32627</a>, WGS 84 UTM zone 27N).</p>
-</div>
-<div class="section" id="adding-values-to-features">
+</section>
+<section id="adding-values-to-features">
 <h2>adding values to features<a class="headerlink" href="#adding-values-to-features" title="Permalink to this headline"></a></h2>
 <p>Now that we have a <strong>Feature</strong> that has been projected to a coordinate system, we can calculate properties like area and perimeter,
 using <code class="docutils literal notranslate"><span class="pre">ee.Geometry.Polygon.area()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-geometry-polygon-area">documentation</a>) and
@@ -297,8 +298,8 @@ to add the properties to our <strong>Feature</strong>:</p>
 <span class="p">});</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="exporting-polygons">
+</section>
+<section id="exporting-polygons">
 <h2>exporting polygons<a class="headerlink" href="#exporting-polygons" title="Permalink to this headline"></a></h2>
 <p>Once we have our <strong>Feature</strong>, transformed to an appropriate coordinate reference system with added properties, we can export our
 digitized outline to Google Drive using <code class="docutils literal notranslate"><span class="pre">Export.table.toDrive()</span></code>
@@ -314,8 +315,8 @@ digitized outline to Google Drive using <code class="docutils literal notranslat
 <p>Once you have run the script, you can run the <strong>Task</strong> from the <strong>Tasks</strong> tab to start the process. You can then import your feature
 into your GIS software of choice:</p>
 <a class="reference internal image-reference" href="../../../_images/qgis.png"><img alt="the QGIS window with the exported shapefile loaded" class="align-center" src="../../../_images/qgis.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
 <p>At this point, you’ve seen how you can use GEE to map, or digitize, objects visible in satellite images. You’ve also
 seen how to add properties to these features, and export them to a file.</p>
@@ -325,16 +326,16 @@ seen how to add properties to these features, and export them to a file.</p>
 <li><p>alternatively, use the <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S1_GRD">Sentinel-1 GRD</a> product to digitize the outlines. Sentinel-1 is a C-band synthetic aperture radar (SAR) sensor, which means it has the ability to “see” through clouds and even at night. These images will be more difficult to interpret than the optical images we’ve used so far, but it can provide a very powerful alternative (or complement) to the datasets we’ve been using.</p></li>
 <li><p>using GEEDiT, digitize the lava flow area over time, then create a chart showing the area change.</p></li>
 </ul>
-</div>
-<div class="section" id="references">
+</section>
+<section id="references">
 <h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Lea, J. M (2018). <em>Earth Surf. Dynam.</em>, 6, 551–561 . doi: <a class="reference external" href="https://doi.org/10.5194/esurf-6-551-2018">10.5194/esurf-6-551-2018</a></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

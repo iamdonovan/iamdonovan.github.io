@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pansharpening &mdash; iamdonovan  documentation</title>
+  <title>multi-temporal color composites &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="edge detection" href="edge_detection.html" />
-    <link rel="prev" title="image filtering" href="filtering.html" /> 
+    <link rel="next" title="repeat classification" href="repeat_classification.html" />
+    <link rel="prev" title="change detection" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,22 +48,14 @@
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../getting_started/index.html">getting started</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../classification/index.html">image classification</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../change_detection/index.html">change detection</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="index.html">image enhancement</a><ul class="current">
-<li class="toctree-l5"><a class="reference internal" href="filtering.html">image filtering</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">pansharpening</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#rgb-and-hsv-colorspaces">RGB and HSV colorspaces</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#image-transformation">image transformation</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#hsv-pan-sharpening">hsv pan-sharpening</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#references">references</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">change detection</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">multi-temporal color composites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cva.html">change vector analysis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="time_series.html">time series analysis</a></li>
 </ul>
 </li>
-<li class="toctree-l5"><a class="reference internal" href="edge_detection.html">edge detection</a></li>
-<li class="toctree-l5"><a class="reference internal" href="unmixing.html">spectral unmixing</a></li>
-<li class="toctree-l5"><a class="reference internal" href="pca.html">principle component analysis</a></li>
-</ul>
-</li>
+<li class="toctree-l4"><a class="reference internal" href="../enhancement/index.html">image enhancement</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../advanced/index.html">advanced topics</a></li>
 </ul>
 </li>
@@ -93,10 +85,10 @@
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">google earth engine</a> &raquo;</li>
           <li><a href="../index.html">gee tutorials</a> &raquo;</li>
-          <li><a href="index.html">image enhancement</a> &raquo;</li>
-      <li>pansharpening</li>
+          <li><a href="index.html">change detection</a> &raquo;</li>
+      <li>multi-temporal color composites</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/gee/tutorials/enhancement/pansharpening.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/gee/tutorials/change_detection/multitemporal_composites.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -104,31 +96,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="pansharpening">
-<h1>pansharpening<a class="headerlink" href="#pansharpening" title="Permalink to this headline"></a></h1>
-<section id="rgb-and-hsv-colorspaces">
-<h2>RGB and HSV colorspaces<a class="headerlink" href="#rgb-and-hsv-colorspaces" title="Permalink to this headline"></a></h2>
-</section>
-<section id="image-transformation">
-<h2>image transformation<a class="headerlink" href="#image-transformation" title="Permalink to this headline"></a></h2>
-</section>
-<section id="hsv-pan-sharpening">
-<h2>hsv pan-sharpening<a class="headerlink" href="#hsv-pan-sharpening" title="Permalink to this headline"></a></h2>
-</section>
-<section id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
-</section>
-<section id="references">
-<h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
-</section>
+  <section id="multi-temporal-color-composites">
+<h1>multi-temporal color composites<a class="headerlink" href="#multi-temporal-color-composites" title="Permalink to this headline"></a></h1>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="filtering.html" class="btn btn-neutral float-left" title="image filtering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="edge_detection.html" class="btn btn-neutral float-right" title="edge detection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="change detection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="repeat_classification.html" class="btn btn-neutral float-right" title="repeat classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

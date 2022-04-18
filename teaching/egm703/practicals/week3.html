@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SAR image processing &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -104,7 +105,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="sar-image-processing">
+  <section id="sar-image-processing">
 <h1>SAR image processing<a class="headerlink" href="#sar-image-processing" title="Permalink to this headline"></a></h1>
 <p>For this week’s practical, we’ll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look complex) image, through to a calibrated, terrain-corrected image. In particular, by the end of this practical, you will be able to use SNAP to:</p>
 <ul class="simple">
@@ -124,7 +125,7 @@
 download the GRD (ground range detected) product, which has been multi-looked and reprojected to ground range (instead of slant range).</p>
 <p>Because we’ll need to work with SLC images for interferometry, I thought it would be best to use the SLC images here, which require some additional processing steps.</p>
 </div>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -156,8 +157,8 @@ download the GRD (ground range detected) product, which has been multi-looked an
 <p>As we work our way through the workflow here, we’ll take care of each of these different issues in turn. Have a look at the <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">q</span></code> bands, as well. These are the real (<em>i</em>) and complex (<em>q</em>) components of the measured signal. We will work with these a bit more next week - for now, you can go ahead and close them.</p>
 <a class="reference internal image-reference" href="../../../_images/i_iw1_VH.png"><img alt="subswath 1 VH i band" class="align-center" src="../../../_images/i_iw1_VH.png" style="width: 600px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/q_iw1_VH.png"><img alt="subswath 1 VH q band" class="align-center" src="../../../_images/q_iw1_VH.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="splitting-the-data">
+</section>
+<section id="splitting-the-data">
 <h2>splitting the data<a class="headerlink" href="#splitting-the-data" title="Permalink to this headline"></a></h2>
 <p>We’ll start by splitting the data, to only work with a single sub-swath. Under <strong>Radar</strong>, select <strong>Sentinel-1 TOPS</strong> &gt; <strong>S1 TOPS Split</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/tops_split1.png"><img alt="the first TOPS Split window, showing I/O Parameters" class="align-center" src="../../../_images/tops_split1.png" style="width: 400px;" /></a>
@@ -166,16 +167,16 @@ download the GRD (ground range detected) product, which has been multi-looked an
 <p>Select <code class="docutils literal notranslate"><span class="pre">IW2</span></code> as the <strong>Subswath</strong>, and select both the <strong>VH</strong> and <strong>VV</strong> polarizations. Click <strong>Run</strong>.</p>
 <p>You should see two products in the <strong>Product Explorer</strong> panel: the original image, and the split IW2 image. Open the <strong>Intensity_IW2_VH</strong> band for the split image - it should look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/split_intensity.png"><img alt="subswath 2 VH intensity" class="align-center" src="../../../_images/split_intensity.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="calibrating-the-data">
+</section>
+<section id="calibrating-the-data">
 <h2>calibrating the data<a class="headerlink" href="#calibrating-the-data" title="Permalink to this headline"></a></h2>
 <p>Next, we’ll calibrate the data, so that we can eventually compare the image to other scenes. Under <strong>Radar</strong>, select <strong>Radiometric</strong> &gt; <strong>Calibrate</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/calibration1.png"><img alt="the first calibration dialogue window, showing I/O Parameters" class="align-center" src="../../../_images/calibration1.png" style="width: 400px;" /></a>
 <p>Be sure that the split image is selected - if it is, you can leave the Target Name/Directory as-is. Under <strong>Processing Parameters</strong>, make sure to select both polarisations, then click <strong>Run</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/calibration2.png"><img alt="the second calibration dialogue window, showing Processing Parameters" class="align-center" src="../../../_images/calibration2.png" style="width: 400px;" /></a>
 <p>You should see that there are now only two bands in the calibrated image - <code class="docutils literal notranslate"><span class="pre">Sigma0_IW2_VH</span></code> and <code class="docutils literal notranslate"><span class="pre">Sigma0_IW2_VV</span></code>. These are the calibrated, normalized radar cross-section values - in effect, the amount of energy reflected back to the sensor by the ground. Without this step, comparing images acquired at different times or incidence angles becomes more difficult - it’s similar to comparing optical images that haven’t been atmospherically corrected.</p>
-</div>
-<div class="section" id="debursting-the-data">
+</section>
+<section id="debursting-the-data">
 <h2>debursting the data<a class="headerlink" href="#debursting-the-data" title="Permalink to this headline"></a></h2>
 <p>Next, we need to combine the bursts, to get rid of the demarcation lines that we can see in the image:</p>
 <a class="reference internal image-reference" href="../../../_images/demarcation.png"><img alt="the calibrated image, showing the different bursts and demarcation lines" class="align-center" src="../../../_images/demarcation.png" style="width: 600px;" /></a>
@@ -183,8 +184,8 @@ download the GRD (ground range detected) product, which has been multi-looked an
 <a class="reference internal image-reference" href="../../../_images/deburst2.png"><img alt="the second deburst dialogue window, showing Processing Parameters" class="align-center" src="../../../_images/deburst2.png" style="width: 400px;" /></a>
 <p>When the process has finished running, you should be able to see that the shape has changed somewhat, because the overlapping areas have been merged. The demarcation lines are also gone, and we have a single image:</p>
 <a class="reference internal image-reference" href="../../../_images/deburst_image.png"><img alt="the deburst image with VH polarization" class="align-center" src="../../../_images/deburst_image.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="speckle-reduction">
+</section>
+<section id="speckle-reduction">
 <h2>speckle reduction<a class="headerlink" href="#speckle-reduction" title="Permalink to this headline"></a></h2>
 <p>Now that we’ve combined each of the bursts, we can move on to speckle filtering and geometric correction. Speckle filtering is an optional step - we don’t necessarily have to do it (and for some applications we don’t want to do it), but for visualizing and interpreting an image, it can help to reduce the noise.</p>
 <p>Under <strong>Radar</strong>, select <strong>Speckle Filtering</strong> &gt; <strong>Single Product Speckle Filter</strong>. We’ll use <em>Lee Sigma</em> in this example, but there are a number of different algorithms available - <a class="reference external" href="https://earth.esa.int/documents/653194/656796/Speckle_Filtering.pdf">this</a> document provides a good overview with references for some of the different algorithms implemented. Under <strong>Processing Parameters</strong>, make sure to select both source bands - for now, leave the other parameters as-is, but feel free to experiment with different combinations after you’ve made it through the remaining steps.</p>
@@ -192,8 +193,8 @@ download the GRD (ground range detected) product, which has been multi-looked an
 <p>Once the tool finishes running, open the <code class="docutils literal notranslate"><span class="pre">Sigma0_IW2_VH</span></code> band:</p>
 <a class="reference internal image-reference" href="../../../_images/filtered.png"><img alt="the speckle filtered image" class="align-center" src="../../../_images/filtered.png" style="width: 600px;" /></a>
 <p>Notice the difference in the apparent noise level, compared to the original image. At the zoomed-out level, we can see quite a bit more detail in the filtered image. If we zoom in, we should see that this is true on smaller scales, as well. Note that this process isn’t perfect - there’s still some texture in the image, for example.</p>
-</div>
-<div class="section" id="geocoding">
+</section>
+<section id="geocoding">
 <h2>geocoding<a class="headerlink" href="#geocoding" title="Permalink to this headline"></a></h2>
 <p>Next, we need to geocode (terrain-correct) the image, in order to be able to use it in a GIS software or other satellite images. Under <strong>Radar</strong>, select <strong>Geometric</strong> &gt; <strong>Terrain Correction</strong> &gt; <strong>Range-Doppler Terrain Correction</strong>. Under <strong>Processing Parameters</strong>, be sure to select both source bands:</p>
 <a class="reference internal image-reference" href="../../../_images/tc_dialogue.png"><img alt="the second terrain correction dialogue window, showing Processing Parameters" class="align-center" src="../../../_images/tc_dialogue.png" style="width: 400px;" /></a>
@@ -205,8 +206,8 @@ download the GRD (ground range detected) product, which has been multi-looked an
 <p>Make sure to also turn off the <code class="docutils literal notranslate"><span class="pre">Mask</span> <span class="pre">out</span> <span class="pre">areas</span> <span class="pre">without</span> <span class="pre">elevation</span></code> option, as we still want to be able to see parts of the image that are at sea level, even though they’re masked out in the DEM.</p>
 <p>When the process has finished (this will probably take some time!), open the terrain-corrected VH <span class="math notranslate nohighlight">\(\sigma^0\)</span> - it should look quite a bit different than what we’ve been seeing:</p>
 <a class="reference internal image-reference" href="../../../_images/geocoded.png"><img alt="the geocoded image" class="align-center" src="../../../_images/geocoded.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="convert-to-db">
+</section>
+<section id="convert-to-db">
 <h2>convert to dB<a class="headerlink" href="#convert-to-db" title="Permalink to this headline"></a></h2>
 <p>Finally, we’ll convert the values from linear to log (decibel) values - this will help to increase the contrast in darker regions, helping interpretation. Right-click on the first image band, then select <strong>Linear to/from dB</strong>. This will create a virtual image with the values scaled using the expression <span class="math notranslate nohighlight">\(10\log_{10}({\rm \sigma_{\rm VH}})\)</span>:</p>
 <a class="reference internal image-reference" href="../../../_images/geocoded_db.png"><img alt="the geocoded image, converted to decibels" class="align-center" src="../../../_images/geocoded_db.png" style="width: 600px;" /></a>
@@ -216,8 +217,8 @@ download the GRD (ground range detected) product, which has been multi-looked an
 <a class="reference internal image-reference" href="../../../_images/export2.png"><img alt="the subset export dialogue" class="align-center" src="../../../_images/export2.png" style="width: 400px;" /></a>
 <p>Here, I’m choosing to export the dB images separately - first the VH band and then the VV band - in part because of how large the images are (~2 GB per band!). If space is a concern, you can also select a spatial subset.</p>
 <p>At this point, we’re done with SNAP. There are a number of other tools/features in the software, including for processing other SAR datasets such as ERS, ENVISAT, or ALOS-PALSAR. The software also supports processing and analysis of other Sentinel datasets, including Sentinel-2 and Sentinel-3. Next week, we’ll see how we can use the SNAP for interferometric SAR (InSAR) applications.</p>
-</div>
-<div class="section" id="questions">
+</section>
+<section id="questions">
 <h2>questions<a class="headerlink" href="#questions" title="Permalink to this headline"></a></h2>
 <p>Now that you’ve procssed and exported both images, you can load them into a GIS software of your choice. I would recommend adding a basemap (for example, the ESRI Basemap) or an optical image (e.g., Sentinel-2, Landsat), to help with some of the interpretation. Think about the following questions - if you need help or want to discuss, be sure to post it on Blackboard:</p>
 <ol class="arabic simple">
@@ -225,8 +226,8 @@ download the GRD (ground range detected) product, which has been multi-looked an
 <li><p>Along the riverbanks, there are a number of significantly bright patches - can you think of a mechanism that we’ve discussed that would cause these areas to be brighter than other areas?</p></li>
 <li><p>What differences do you notice between the VH and VV polarization? Can you explain why, for example, you might expect more scattering in VV polarization than in VH polarization for water?</p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

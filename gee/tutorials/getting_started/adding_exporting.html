@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>adding and exporting images &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -105,7 +106,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="adding-and-exporting-images">
+  <section id="adding-and-exporting-images">
 <h1>adding and exporting images<a class="headerlink" href="#adding-and-exporting-images" title="Permalink to this headline"></a></h1>
 <style> .green {color:green} </style><p>This tutorial is designed to get you started looking at satellite images using Google Earth Engine.
 By the end of the tutorial, you will be able to:</p>
@@ -120,7 +121,7 @@ By the end of the tutorial, you will be able to:</p>
 <p>The <strong>Code editor</strong> is where you can write your script to load data and process your results; the <strong>Map</strong> is where you can view images and other datasets, and
 the <strong>Console</strong> is where you can see outputs, charts, and other things that you print out.</p>
 <p>To see the sample script for this tutorial, follow this link.</p>
-<div class="section" id="landsat">
+<section id="landsat">
 <h2>landsat<a class="headerlink" href="#landsat" title="Permalink to this headline"></a></h2>
 <p>For this example, we’re using a Landsat 8 image showing the <a class="reference external" href="https://en.wikipedia.org/wiki/Malaspina_Glacier">Malaspina Glacier</a> (Sít’ Tlein)
 and surrounding area in Alaska (USA) and Canada.</p>
@@ -210,8 +211,8 @@ wavelength ranges for the different bands of the sensor(s), their resolutions, a
 </tbody>
 </table>
 <p>For information about the band designations for the other Landsat sensors, see this page from the USGS: <a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites</a></p>
-</div>
-<div class="section" id="adding-images-to-the-map">
+</section>
+<section id="adding-images-to-the-map">
 <h2>adding images to the map<a class="headerlink" href="#adding-images-to-the-map" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -246,7 +247,7 @@ want, you’ll need to “translate” it to the GEE catalog.</p>
 </div>
 <p>Now, we can use the <code class="docutils literal notranslate"><span class="pre">img</span></code> variable in our script, and add it to the <strong>Map</strong> window:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the image to the map as a true-color composite</span>
-<span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B[1-9]&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">),</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B[1-9]&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">),</span>
   <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">],</span> <span class="nx">min</span><span class="o">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span>
   <span class="s1">&#39;Sample Image&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 </pre></div>
@@ -254,7 +255,7 @@ want, you’ll need to “translate” it to the GEE catalog.</p>
 <p>There’s quite a bit happening here. First, we’re using <code class="docutils literal notranslate"><span class="pre">Map.addLayer()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/map-addlayer">click here for the documentation</a>)
 to add the image to the <strong>Map</strong>. <code class="docutils literal notranslate"><span class="pre">Map.addLayer()</span></code> has the following <strong>syntax</strong>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">eeObject</span><span class="p">,</span> <span class="nx">visParams</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">shown</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">)</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">eeObject</span><span class="p">,</span> <span class="nx">visParams</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">shown</span><span class="p">,</span> <span class="nx">opacity</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>where:</p>
@@ -281,10 +282,10 @@ a gamma correction to help brighten the image somewhat.</p>
 <p>Finally, we give the layer a <code class="docutils literal notranslate"><span class="pre">name</span></code> (<code class="docutils literal notranslate"><span class="pre">'Sample</span> <span class="pre">Image'</span></code>), and tell GEE to display the image (<code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
 <p>The next part of the example script:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// center the map on the image, at a zoom level of 8</span>
-<span class="nx">Map</span><span class="p">.</span><span class="nx">centerObject</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="mf">8</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">centerObject</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="mf">8</span><span class="p">);</span>
 
 <span class="c1">// set the map background to the satellite layer</span>
-<span class="nx">Map</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="s1">&#39;SATELLITE&#39;</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="s1">&#39;SATELLITE&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>uses <code class="docutils literal notranslate"><span class="pre">Map.centerObject()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/map-centerobject">documentation</a>) to center the <strong>Map</strong>
@@ -292,8 +293,8 @@ on the image at a zoom level of 8, and uses <code class="docutils literal notran
 to set the basemap to use satellite imagery, rather than the default basemap.</p>
 <p>Once you run the script (click <strong>Run</strong>, or press <strong>CTRL + Enter</strong>), you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/script_run.png"><img alt="the gee console after running the example script" class="align-center" src="../../../_images/script_run.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="changing-display-parameters">
+</section>
+<section id="changing-display-parameters">
 <h2>changing display parameters<a class="headerlink" href="#changing-display-parameters" title="Permalink to this headline"></a></h2>
 <p>In addition to setting the display parameters for the layer in the script, we can also change the display parameters after the script
 is finished running.</p>
@@ -308,8 +309,8 @@ name, you can make either image visible/invisible.</p>
 <p>Finally, you can use the <strong>Import</strong> button to save the current settings as an import that you can use in the script - we’ll talk a bit more
 about imports in a later tutorial.</p>
 <p>In order to apply any changes, click on the <strong>Apply</strong> button, then <strong>Close</strong> to close the visualization settings window.</p>
-</div>
-<div class="section" id="the-print-function">
+</section>
+<section id="the-print-function">
 <h2>the print function<a class="headerlink" href="#the-print-function" title="Permalink to this headline"></a></h2>
 <p>The script also contains the following line:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// print information about the image</span>
@@ -322,8 +323,8 @@ be able to see the following:</p>
 <p>You can expand the <strong>bands</strong> list to see the different bands available in the image, while the <strong>properties</strong> object contains
 all of the different metadata for the image. In later tutorials, we’ll actually use this metadata for selecting and processing
 images; for now, it’s enough to look at it and get familiar with it.</p>
-</div>
-<div class="section" id="the-inspector-tool">
+</section>
+<section id="the-inspector-tool">
 <h2>the inspector tool<a class="headerlink" href="#the-inspector-tool" title="Permalink to this headline"></a></h2>
 <p>Now that we’ve added an image to the <strong>Map</strong>, we can zoom around the map (scroll in/out, or use the <cite>+</cite>/<cite>-</cite> buttons on the left side of the map)
 to examine it further:</p>
@@ -344,8 +345,8 @@ the chart as an SVG or PNG file, or the data as a comma-separated variable (CSV)
 <a class="reference internal image-reference" href="../../../_images/inspector_graph.png"><img alt="the inspector tab showing the chart view" class="align-center" src="../../../_images/inspector_graph.png" style="width: 600px;" /></a>
 <p>You can spend some time moving around the map and viewing the output of the <strong>Inspector</strong> tool - be sure to pay attention to the
 reflectances in different bands for different surfaces. What surfaces have the highest reflectance values? In what bands?</p>
-</div>
-<div class="section" id="exporting-data">
+</section>
+<section id="exporting-data">
 <h2>exporting data<a class="headerlink" href="#exporting-data" title="Permalink to this headline"></a></h2>
 <p>At the very end of the script, I’ve included the following:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// export the image to Drive</span>
@@ -377,8 +378,8 @@ necessary information and are happy, you can click <strong>RUN</strong> again.</
 <p>That’s all for this tutorial - by now, you should be able to add an image to the <strong>Map</strong>, use the <strong>Inspector</strong> tool to investigate
 pixel and feature values in the <strong>Map</strong> window, and <strong>Export</strong> an image from GEE to your Google Drive.</p>
 <p>In the next tutorial, we’ll see how you can build on this to examine the surface reflectance values of various surface types.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

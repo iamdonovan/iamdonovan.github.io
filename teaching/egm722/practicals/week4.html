@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>raster data using rasterio &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -51,6 +52,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="week1.html">intro to python</a></li>
+<li class="toctree-l5"><a class="reference internal" href="debugging.html">debugging exercise</a></li>
 <li class="toctree-l5"><a class="reference internal" href="week2.html">mapping with cartopy</a></li>
 <li class="toctree-l5"><a class="reference internal" href="week3.html">vector data using shapely and geopandas</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">raster data using rasterio</a><ul>
@@ -68,7 +70,6 @@
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="week5.html">vector and raster operations using python</a></li>
-<li class="toctree-l5"><a class="reference internal" href="debugging.html">debugging exercise</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../project/index.html">programming project</a></li>
@@ -111,14 +112,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="raster-data-using-rasterio">
+  <section id="raster-data-using-rasterio">
 <h1>raster data using rasterio<a class="headerlink" href="#raster-data-using-rasterio" title="Permalink to this headline"></a></h1>
 <p>In this practical, you’ll gain some more experience working with raster data in python using rasterio and numpy. We will also
 learn about opening and closing files using python, as well as using <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> to add more flexibility to our function
 definitions.</p>
 <p>The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the different steps of
 the practical. An exercise, introduced at the end of the Notebook file, can be completed using the file <strong>assignment_script.py</strong>.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p><a class="reference internal" href="week3.html"><span class="doc">Last week</span></a>, we saw how we can use the command-line interface (CLI) of <strong>git</strong> to merge two branches (in this case,
 <code class="docutils literal notranslate"><span class="pre">week3</span></code> into <code class="docutils literal notranslate"><span class="pre">main</span></code>). This week, we’re going to see how to do this on GitHub, using a <strong>Pull Request</strong>.</p>
@@ -178,17 +179,17 @@ to <strong>merge</strong> the pull request by clicking the <strong>Merge pull re
 <p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to follow the instructions
 above to open the notebook and run it on your own computer!</p>
 </div>
-</div>
+</section>
 <hr class="docutils" />
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
 <p>Up to now, you have gained some experience working with basic features
 of python, used cartopy and matplotlib to create a map, and explored
 using shapely and geopandas to work with vector data. In this week’s
 practical, we’ll be looking at working with raster data using rasterio
 and numpy.</p>
-</div>
-<div class="section" id="objectives">
+</section>
+<section id="objectives">
 <h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Learn about opening and viewing raster data using rasterio and
@@ -197,13 +198,13 @@ cartopy</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code> to unpack arguments in a function</p></li>
 <li><p>Use rasterio to reproject raster data</p></li>
 </ul>
-</div>
-<div class="section" id="data-provided">
+</section>
+<section id="data-provided">
 <h2>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline"></a></h2>
 <p>In the data_files folder, you should have the following files: -
 NI_mosaic.tif</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h2>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>In this practical, we’ll be working with raster data. As a quick
 refresher, raster data are gridded datasets that contain anything from
@@ -268,8 +269,8 @@ coordinates. The matrix has the following form:</p>
 image, <em>d</em> is the column rotation (normally 0), <em>e</em> is the height of a
 pixel, and <em>f</em> is the y coordinate of the upper-left corner of the
 image.</p>
-</div>
-<div class="section" id="loading-the-data">
+</section>
+<section id="loading-the-data">
 <h2>2. Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline"></a></h2>
 <p>To load the data, we use the <code class="docutils literal notranslate"><span class="pre">read()</span></code>
 <a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.io.html#rasterio.io.DatasetReader.read">method</a>
@@ -327,8 +328,8 @@ pixel:</p>
 <span class="n">dataset</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># remember to close the dataset now that we&#39;re done with it.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="the-with-statement">
+</section>
+<section id="the-with-statement">
 <h2>3. The with statement<a class="headerlink" href="#the-with-statement" title="Permalink to this headline"></a></h2>
 <p>In python, we use the built-in <code class="docutils literal notranslate"><span class="pre">open()</span></code> function to open files on the
 disk, in almost exactly the same way that <code class="docutils literal notranslate"><span class="pre">rasterio.open()</span></code> works. If
@@ -366,8 +367,8 @@ and then close the file:</p>
     <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">bounds</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="displaying-raster-data-using-matplotlib-and-cartopy">
+</section>
+<section id="displaying-raster-data-using-matplotlib-and-cartopy">
 <h2>4. Displaying raster data using matplotlib and cartopy<a class="headerlink" href="#displaying-raster-data-using-matplotlib-and-cartopy" title="Permalink to this headline"></a></h2>
 <p>Now that we’ve loaded our image, we can use cartopy and matplotlib to
 display it, just like we did for mapping vector data in Weeks 2 and 3.
@@ -547,8 +548,8 @@ or 1, respectively.</p>
 <p>That looks much better - we can now see the image, it has good contrast,
 and the image is displayed in the correct location on the map (you can
 verify this by mousing over the figure).</p>
-</div>
-<div class="section" id="functions-with-args-and-kwargs">
+</section>
+<section id="functions-with-args-and-kwargs">
 <h2>5. functions with *args and **kwargs<a class="headerlink" href="#functions-with-args-and-kwargs" title="Permalink to this headline"></a></h2>
 <p>At the moment, however, our function has a lot of extra
 parameters/arguments:</p>
@@ -601,8 +602,8 @@ learning more about Landsat <a class="reference external" href="https://youtu.be
 combinations</a> and <a class="reference external" href="https://youtu.be/LYVi7F4U8Eg">image
 enhancement</a> in general, you are
 welcome to watch the lecture videos provided by these links.</p>
-</div>
-<div class="section" id="reprojecting-rasters-using-rasterio">
+</section>
+<section id="reprojecting-rasters-using-rasterio">
 <h2>6. Reprojecting rasters using rasterio<a class="headerlink" href="#reprojecting-rasters-using-rasterio" title="Permalink to this headline"></a></h2>
 <p>Fortunately, our image was provided in a geographic format that matches
 what we’ve been working with (WGS84 UTM Zone 29N). But, what if we need
@@ -685,8 +686,8 @@ accordingly.</p>
                 <span class="n">resampling</span><span class="o">=</span><span class="n">rio</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">Resampling</span><span class="o">.</span><span class="n">nearest</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
 <p>That wraps up the practical for this week. Next week, we’ll look at some
 more programming concepts, as well as ways that we can work with both
@@ -704,12 +705,14 @@ point you in the right direction.</p>
 <p>I’ll provide my example next week, but try to think about the different
 steps involved and how you might solve this, using some of the examples
 provided in previous weeks. Good luck!</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <img alt="Example map for Week 4 assignment" src="../../../_images/example_map.png" />
-<p class="caption"><span class="caption-text">Example map for Week 4 assignment</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
-</div>
-</div>
-</div>
+<figcaption>
+<p><span class="caption-text">Example map for Week 4 assignment</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
 
 
            </div>

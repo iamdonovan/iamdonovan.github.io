@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>unsupervised classification &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -105,7 +106,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="unsupervised-classification">
+  <section id="unsupervised-classification">
 <h1>unsupervised classification<a class="headerlink" href="#unsupervised-classification" title="Permalink to this headline"></a></h1>
 <p>For this tutorial, we’re going to use a 15 February 2022 Landsat 9 image covering <a class="reference external" href="https://en.wikipedia.org/wiki/Harrat_Khaybar">Harrat Khaybar</a>,
 a volcanic field in Saudi Arabia:</p>
@@ -122,7 +123,7 @@ identify what each of these classes represent.</p>
 <li><p>how to select a stratified sample of pixels from an <strong>Image</strong></p></li>
 <li><p>how to plot the spectral characteristics of classes to see their differences</p></li>
 </ul>
-<div class="section" id="selecting-sample-points">
+<section id="selecting-sample-points">
 <h2>selecting sample points<a class="headerlink" href="#selecting-sample-points" title="Permalink to this headline"></a></h2>
 <p>The <strong>Image</strong> that we’re using is 7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels - that’s a lot. To help improve
 performance of the clustering algorithm, and prevent <code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">Memory</span></code> errors when we run the script, we want to take a
@@ -137,8 +138,8 @@ random sample of pixels.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ee.Image.sample</span></code> takes a number of arguments - here, we’re specifying the <code class="docutils literal notranslate"><span class="pre">region</span></code> (<code class="docutils literal notranslate"><span class="pre">img.geometry()</span></code>),
 the <code class="docutils literal notranslate"><span class="pre">scale</span></code> of the <strong>Image</strong> in meters, and <code class="docutils literal notranslate"><span class="pre">numPixels</span></code>, the number of pixels to sample.</p>
-</div>
-<div class="section" id="training-a-clusterer">
+</section>
+<section id="training-a-clusterer">
 <h2>training a clusterer<a class="headerlink" href="#training-a-clusterer" title="Permalink to this headline"></a></h2>
 <p>Next, we use these sample points to train a <strong>Clusterer</strong> using <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaKMeans()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekakmeans">documentation</a>). This will train
@@ -154,8 +155,8 @@ different numbers of clusters to see the effects on the end results. You can als
 such as <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaXMeans()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekaxmeans">documentation</a>)
 or <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaCascadeKMeans()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekacascadekmeans">documentation</a>),
 which are designed to optimize the number of clusters based on the input data.</p>
-</div>
-<div class="section" id="applying-the-classification">
+</section>
+<section id="applying-the-classification">
 <h2>applying the classification<a class="headerlink" href="#applying-the-classification" title="Permalink to this headline"></a></h2>
 <p>Once we’ve trained the <strong>Clusterer</strong>, we can then apply it to the <strong>Image</strong> using <code class="docutils literal notranslate"><span class="pre">ee.Image.cluster()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-cluster">documentation</a>):</p>
@@ -163,21 +164,21 @@ which are designed to optimize the number of clusters based on the input data.</
 </pre></div>
 </div>
 <p>This will assign a cluster, or class, value to each pixel based on its spectral properties.</p>
-</div>
-<div class="section" id="viewing-the-clusters">
+</section>
+<section id="viewing-the-clusters">
 <h2>viewing the clusters<a class="headerlink" href="#viewing-the-clusters" title="Permalink to this headline"></a></h2>
 <p>To view the clusters on the <strong>Map</strong>, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.randomVisualizer()</span></code>
 (<cite>documentation &lt;https://developers.google.com/earth-engine/apidocs/ee-image-randomvisualizer&gt;__</cite>)
 to provide a random palette to display the image (like we did for the <a class="reference internal" href="../getting_started/zonal_stats.html"><span class="doc">zonal statistics</span></a> tutorial):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">randomVisualizer</span><span class="p">(),</span> <span class="p">{},</span> <span class="s1">&#39;clusters&#39;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">randomVisualizer</span><span class="p">(),</span> <span class="p">{},</span> <span class="s1">&#39;clusters&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>This should produce the following artistic image in the <strong>Map</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/clustered_results.png"><img alt="the clustered image added to the map window" class="align-center" src="../../../_images/clustered_results.png" style="width: 600px;" /></a>
 <p>Remember that the class values in the image (0–15) don’t yet correspond to any physical meaning - in order to finish the
 classification, we would need identify what physical surfaces or objects the class values represent.</p>
-</div>
-<div class="section" id="stratified-sampling">
+</section>
+<section id="stratified-sampling">
 <h2>stratified sampling<a class="headerlink" href="#stratified-sampling" title="Permalink to this headline"></a></h2>
 <p>To view the spectral properties of the clusters, we can create a scatter plot that plots the reflectance
 in one band versus the reflectance in a different band, colored by cluster.</p>
@@ -213,8 +214,8 @@ we’re using the following:</p>
 just like we are for using <code class="docutils literal notranslate"><span class="pre">print()</span></code>, we are limited to 5000 elements / 16 classes ~= 300 elements / class. To show more
 elements per class, we would need to reduce the number of classes.</p>
 </div>
-</div>
-<div class="section" id="creating-a-scatter-plot">
+</section>
+<section id="creating-a-scatter-plot">
 <h2>creating a scatter plot<a class="headerlink" href="#creating-a-scatter-plot" title="Permalink to this headline"></a></h2>
 <p>To create the scatter plot, we’ll use <code class="docutils literal notranslate"><span class="pre">ui.Chart.feature.groups()</span></code>
 (<cite>documentation &lt;https://developers.google.com/earth-engine/apidocs/ui-chart-feature-groups&gt;__</cite>).</p>
@@ -262,8 +263,8 @@ place – <strong>function</strong>s are a way to clean up our script and easily
 <a class="reference internal image-reference" href="../../../_images/nir_swir2_scatter.png"><img alt="the SWIR2 vs. NIR scatter plot for each cluster" class="align-center" src="../../../_images/nir_swir2_scatter.png" style="width: 600px;" /></a>
 <p>The plot above shows the SWIR2 (<code class="docutils literal notranslate"><span class="pre">SR_B7</span></code>) values vs. NIR (<code class="docutils literal notranslate"><span class="pre">SR_B5</span></code>) values for each cluster. Note that there is some
 overlap between the clusters, because the clustering has been done in seven dimensions, rather than just two.</p>
-</div>
-<div class="section" id="plotting-spectral-signatures">
+</section>
+<section id="plotting-spectral-signatures">
 <h2>plotting spectral signatures<a class="headerlink" href="#plotting-spectral-signatures" title="Permalink to this headline"></a></h2>
 <p>The final plot we’ll have a look at will plot the median values in each band for each cluster; in effect, it shows
 us the spectral signature of each cluster.</p>
@@ -344,8 +345,8 @@ each line (<code class="docutils literal notranslate"><span class="pre">series</
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
 <p>At this point, you’ve seen how to select a random sample from an <strong>Image</strong>, and train and apply a
 <strong>Clusterer</strong> to that <strong>Image</strong>. You’ve also seen a few examples of how to plot the spectral values of
@@ -357,8 +358,8 @@ the clusters, to aid in investigating what physical surface(s) each cluster belo
 <li><p>Instead of specifying the number of clusters, try using <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaXMeans()</span></code> or <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaCascadeKMeans()</span></code> to choose an optimal number of classes for the image.</p></li>
 <li><p>Another option for changing, or improving, the performance of the <strong>Clusterer</strong> is by providing a random <em>seed</em><a class="footnote-reference brackets" href="#id6" id="id3">3</a> – does this have any impact on the results you see?</p></li>
 </ul>
-</div>
-<div class="section" id="references">
+</section>
+<section id="references">
 <h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -371,8 +372,8 @@ the clusters, to aid in investigating what physical surface(s) each cluster belo
 <dd><p>Arthur, D. and S. Vassilvitskii (2007). in: <em>Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms, SODA ’07</em>. pp. 1027–1035. doi: <cite>10.5555/1283383.1283494 &lt;https://doi.org/10.5555/1283383.1283494&gt;__</cite></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

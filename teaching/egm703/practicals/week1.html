@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>urban heat islands &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -107,7 +108,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="urban-heat-islands">
+  <section id="urban-heat-islands">
 <h1>urban heat islands<a class="headerlink" href="#urban-heat-islands" title="Permalink to this headline"></a></h1>
 <p>For this week’s practical, we’ll learn the steps of processing a raw Landsat image through to Land Surface Temperature, with the purpose of investigating urban heat islands. In particular, by the end of this practical, you will be able to use QGIS or ArcGIS Pro to:</p>
 <ul class="simple">
@@ -120,7 +121,7 @@
 <p class="admonition-title">Note</p>
 <p>The following instructions were written using QGIS 3.16.3, which is also what the example images show. The instructions should be transferrable to other flavors of QGIS, and even ArcGIS Pro, though there may be some differences in naming/appearance.</p>
 </div>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <p>You can download the data used for this practical from the module page on Blackboard. If you don’t have access to the module page on Blackboard, you can still follow along with this practical by downloading the images from <a class="reference external" href="https://earthexplorer.usgs.gov">Earth Explorer</a>. The three Landsat images used for this practical are:</p>
 <ul class="simple">
@@ -142,8 +143,8 @@ The main differences between the two are the levels where the image will be satu
 though you are welcome to complete the steps for both images to see the differences for yourself. Just make sure that you use the correct rescaling values from the metadata for the image!</p>
 </div>
 <p>Once you have unzipped/untarred your image data, open up your GIS software. We’ll start by adding the Landsat 8 image and creating a color composite of (almost) all of the bands for visualization - feel free to repeat this for each of the other two images, though the bands will be different for the TM/ETM+ images.</p>
-</div>
-<div class="section" id="building-a-color-composite">
+</section>
+<section id="building-a-color-composite">
 <h2>building a color composite<a class="headerlink" href="#building-a-color-composite" title="Permalink to this headline"></a></h2>
 <p>In QGIS, the tool to use can be found under <strong>Raster</strong> &gt; <strong>Miscellaneous</strong> &gt; <strong>Build Virtual Raster</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/build_virtual_raster.png"><img alt="the build virtual raster window" class="align-center" src="../../../_images/build_virtual_raster.png" style="width: 600px;" /></a>
@@ -156,8 +157,8 @@ though you are welcome to complete the steps for both images to see the differen
 <p>You can change the symbology by double-clicking on the layer name to open the <strong>Layer Properties</strong> window, then selecting the <strong>Symbology</strong> tab:</p>
 <a class="reference internal image-reference" href="../../../_images/symbology1.png"><img alt="the symbology window" class="align-center" src="../../../_images/symbology1.png" style="width: 600px;" /></a>
 <p>Change the symbology to a false-color composite of bands 6, 5, and 4 (654). You can also stretch the image by right-clicking on the layer name and selecting <strong>Stretch Using Current Extent</strong>, which can help improve the contrast as we look at the scene.</p>
-</div>
-<div class="section" id="converting-raw-images-to-top-of-atmosphere-radiance">
+</section>
+<section id="converting-raw-images-to-top-of-atmosphere-radiance">
 <h2>converting raw images to top-of-atmosphere radiance<a class="headerlink" href="#converting-raw-images-to-top-of-atmosphere-radiance" title="Permalink to this headline"></a></h2>
 <p>Now that you have the image bands loaded, we can work on the first step of calculating land surface temperature: converting the raw images to top-of-atmosphere (TOA) spectral radiance. The equation for converting the raw image values (DNs) to radiance <span class="math notranslate nohighlight">\(L_\lambda\)</span> is given by:</p>
 <div class="math notranslate nohighlight">
@@ -173,8 +174,8 @@ though you are welcome to complete the steps for both images to see the differen
 <p>Save the image to your workspace as <strong>Radiance_B10.tif</strong> (or something similar), then press <strong>OK</strong>. Once the tool is finished, load the radiance raster to your map (if it doesn’t load automatically). It should look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/radiance_map.png"><img alt="radiance raster map window" class="align-center" src="../../../_images/radiance_map.png" style="width: 600px;" /></a>
 <p>Note that the units for this raster are the units of radiance, Watts per square meter per steradian per micrometer (<span class="math notranslate nohighlight">\(\rm W\ m^{-2}\ srad^{-1}\ {\mu}m^{-1}\)</span>). Because this is just a rescaling of the raw image, it should look very similar to the original image.</p>
-</div>
-<div class="section" id="converting-raw-images-to-top-of-atmosphere-reflectance">
+</section>
+<section id="converting-raw-images-to-top-of-atmosphere-reflectance">
 <h2>converting raw images to top-of-atmosphere reflectance<a class="headerlink" href="#converting-raw-images-to-top-of-atmosphere-reflectance" title="Permalink to this headline"></a></h2>
 <p>Next, we’ll convert the raw bands to top-of-atmosphere reflectance (<span class="math notranslate nohighlight">\(\rho_\lambda\)</span>) using the metadata. Similarly for the radiance, the formula is:</p>
 <div class="math notranslate nohighlight">
@@ -192,8 +193,8 @@ though you are welcome to complete the steps for both images to see the differen
 <p class="admonition-title">Note</p>
 <p>Be sure to double-check the rescaling factors for your particular image/sensor - for OLI/TIRS, they are the same for all bands, but this is not the case for ETM+/TM.</p>
 </div>
-</div>
-<div class="section" id="atmospheric-correction-optional">
+</section>
+<section id="atmospheric-correction-optional">
 <h2>atmospheric correction (optional)<a class="headerlink" href="#atmospheric-correction-optional" title="Permalink to this headline"></a></h2>
 <p>When calculating the NDVI, correcting for atmospheric effects is not strictly necessary, as the differences between top-of-atmosphere NDVI and surface NDVI are generally small<a class="footnote-reference brackets" href="#id15" id="id2">2</a>. But, you might be interested in learning how to do (one kind of) atmospheric correction for yourself.</p>
 <p>We’ll use OLI Band 4 (visible red) for this example; the procedure is basically the same for any band. The method is based on Chavez (1988)<a class="footnote-reference brackets" href="#id16" id="id3">3</a> and Chavez (1996)<a class="footnote-reference brackets" href="#id17" id="id4">4</a>; however, because we have already converted the images to TOA reflectance, we only need to subtract the dark-object reflectance from our raster, rather than converting from raw images to radiance to reflectance.</p>
@@ -220,8 +221,8 @@ though you are welcome to complete the steps for both images to see the differen
 <p class="admonition-title">Note</p>
 <p>If you have taken EGM722, this might be a great place to practice your programming skills and write a script that will save you from having to do this for each of the other bands.</p>
 </div>
-</div>
-<div class="section" id="calculating-brightness-temperature">
+</section>
+<section id="calculating-brightness-temperature">
 <h2>calculating brightness temperature<a class="headerlink" href="#calculating-brightness-temperature" title="Permalink to this headline"></a></h2>
 <p>Next, we can calculate the <strong>brightness temperature</strong> using the method discussed in this week’s lecture. The formula to use will be:</p>
 <div class="math notranslate nohighlight">
@@ -246,11 +247,11 @@ though you are welcome to complete the steps for both images to see the differen
 <p>Save the output to your workspace as <strong>BrightnessTemp.tif</strong>. Once the tool is finished, load the radiance raster to your map (if it doesn’t load automatically). It should look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/brightnesstemp_map.png"><img alt="brightness temperature map window" class="align-center" src="../../../_images/brightnesstemp_map.png" style="width: 600px;" /></a>
 <p>Have a look around the map - you might want to flip back and forth between the composite image and the brightness temperature to investigate different features. What are the darkest objects that you can see in the image? What about the brightest objects?</p>
-</div>
-<div class="section" id="calculating-assigning-emissivity-values">
+</section>
+<section id="calculating-assigning-emissivity-values">
 <h2>calculating/assigning emissivity values<a class="headerlink" href="#calculating-assigning-emissivity-values" title="Permalink to this headline"></a></h2>
 <p>The next thing we’ll need to do is estimate the emissivity, <span class="math notranslate nohighlight">\(\varepsilon\)</span>, of each pixel in order to convert brightness temperature to land surface temperature. As discussed in this week’s lectures and <a class="reference external" href="https://www.zotero.org/groups/4390042/egm703/collections/6WN2LFUQ">reading</a>, there are a number of different ways to do this; we’ll look at two examples in this practical.</p>
-<div class="section" id="estimating-emissivity-using-partial-vegetation">
+<section id="estimating-emissivity-using-partial-vegetation">
 <h3>estimating emissivity using partial vegetation<a class="headerlink" href="#estimating-emissivity-using-partial-vegetation" title="Permalink to this headline"></a></h3>
 <p>The first method we’ll use is based on Sobrino et al. (2004)<a class="footnote-reference brackets" href="#id17" id="id5">4</a> and Avdan and Jovanovska (2016)<a class="footnote-reference brackets" href="#id18" id="id6">5</a>. It uses the normalized difference vegetation index (NDVI) to assign an emissivity value to each pixel, based on observed relationships between vegetation cover and land surface emissivity. To get started, we’ll need to calculate the NDVI using the NIR (band 5) and the Visible Red (band 4) bands.</p>
 <div class="admonition note">
@@ -300,12 +301,12 @@ though you are welcome to complete the steps for both images to see the differen
 </div>
 <a class="reference internal image-reference" href="../../../_images/emissivity_rastercalc.png"><img alt="raster calculator formula for emissivity" class="align-center" src="../../../_images/emissivity_rastercalc.png" style="width: 600px;" /></a>
 <p>Save the output to your workspace as <strong>Emissivity.TIF</strong>. Once the tool has finished running, you can continue on to the section on <a class="reference internal" href="#land-surface-temperature-calculation">land surface temperature calculation</a> below.</p>
-</div>
-</div>
-<div class="section" id="optional-other-methods-of-estimating-emissivity">
+</section>
+</section>
+<section id="optional-other-methods-of-estimating-emissivity">
 <h2>optional: other methods of estimating emissivity<a class="headerlink" href="#optional-other-methods-of-estimating-emissivity" title="Permalink to this headline"></a></h2>
 <p>The method outlined above is one way of estimating emissivity values in order to calculate land surface temperature from brightness temperature. You can click on the tabs below to display other methods of estimating emissivity data:</p>
-<div class="section" id="assigning-emissivity-from-classified-images">
+<section id="assigning-emissivity-from-classified-images">
 <h3>assigning emissivity from classified images<a class="headerlink" href="#assigning-emissivity-from-classified-images" title="Permalink to this headline"></a></h3>
 <p>Rather than assuming that emissivity values vary between the given values for soil (<span class="math notranslate nohighlight">\(\varepsilon_{s\lambda} = 0.996\)</span>) and vegetation (<span class="math notranslate nohighlight">\(\varepsilon_{v\lambda} = 0.973\)</span>), you can perform a classification on the image and assign values based on each class.</p>
 <p>For example, you could do a supervised classification for classes like built-up areas, water, bare soil, and different types of vegetation. There are a number of different resources you can use to get emissivity values for different surfaces, including the MODIS (Moderate Resolution Imaging Spectrometer) <a class="reference external" href="https://icess.eri.ucsb.edu/modis/EMIS/html/em.html">UCSB Emissivity Library</a><a class="footnote-reference brackets" href="#id19" id="id8">6</a> and the <a class="reference external" href="https://speclib.jpl.nasa.gov/">ECOSTRESS/ASTER spectral library</a><a class="footnote-reference brackets" href="#id20" id="id9">7</a><a class="footnote-reference brackets" href="#id21" id="id10">8</a></p>
@@ -337,15 +338,15 @@ though you are welcome to complete the steps for both images to see the differen
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="other-sources-of-emissivity-data">
+</section>
+<section id="other-sources-of-emissivity-data">
 <h3>other sources of emissivity data<a class="headerlink" href="#other-sources-of-emissivity-data" title="Permalink to this headline"></a></h3>
 <p>Alternatively, sensors such as MODIS or ASTER have been used to estimate global emissivity values at various spatial resolutions.</p>
 <p>The <a class="reference external" href="https://modis.gsfc.nasa.gov/data/dataprod/mod11.php">MODIS Land Surface Temperature and Emissivity dataset (MOD11)</a> provides daily gridded values of both emissivity and land surface temperature, at either 1 km or 6 km pixel size.</p>
 <p>The <a class="reference external" href="https://lpdaac.usgs.gov/products/ag100v003/">ASTER Global Emissivity Dataset</a>, or the <a class="reference external" href="https://lpdaac.usgs.gov/products/ast_05v003/">ASTER Level-2 Surface Emissivity</a> products are produced using the five ASTER thermal bands. The global dataset is a composite of all clear-sky ASTER pixels acquired between 2000 and 2008, while the Level-2 products are produced for each individual ASTER scene - especially useful for studies in regions where the ground cover can change dramatically throughout the year (for example, because it snows).</p>
-</div>
-</div>
-<div class="section" id="land-surface-temperature-calculation">
+</section>
+</section>
+<section id="land-surface-temperature-calculation">
 <h2>land surface temperature calculation<a class="headerlink" href="#land-surface-temperature-calculation" title="Permalink to this headline"></a></h2>
 <p>Once you have an emissivity value for each pixel, you can use the following equation to calculate the land surface temperature, <span class="math notranslate nohighlight">\(T_s\)</span> using the brightness temperature and the emissivity:</p>
 <div class="math notranslate nohighlight">
@@ -367,7 +368,7 @@ though you are welcome to complete the steps for both images to see the differen
 <p>You should see, for example, the bands of clouds scattered throughout the scene showing up as cold features. You can also see the surface temperature of Lake Michigan is around 22ºC - remember that this is <strong>not</strong> necessarily the water temperature, but rather the <a class="reference external" href="https://podaac.jpl.nasa.gov/forum/viewtopic.php?f=7&amp;t=298">skin temperature</a> of the water - depending on the water conditions, this can vary considerably from the temperature at depth.</p>
 <p>You should also see that closer to the lake, temperatures in the city are cooler than they are even a few hundred meters inland. The same is true for areas around some of the various green belts and parks scattered throughout the city:</p>
 <a class="reference internal image-reference" href="../../../_images/lst_map_markup.png"><img alt="labeled chicago land surface temperatures" class="align-center" src="../../../_images/lst_map_markup.png" style="width: 600px;" /></a>
-<div class="section" id="optional-profiling-using-the-qgis-profile-tool">
+<section id="optional-profiling-using-the-qgis-profile-tool">
 <h3>optional: profiling using the QGIS profile tool<a class="headerlink" href="#optional-profiling-using-the-qgis-profile-tool" title="Permalink to this headline"></a></h3>
 <p>To create a profile of a raster in QGIS, you can install the <strong>Profile tool</strong> plugin. Go to <strong>Plugins</strong> &gt; <strong>Manage and Install Plugins</strong>. Under the <strong>All</strong> tab, search for “profile tool”:</p>
 <a class="reference internal image-reference" href="../../../_images/plugin_window.png"><img alt="profile tool plugin window" class="align-center" src="../../../_images/plugin_window.png" style="width: 600px;" /></a>
@@ -376,13 +377,13 @@ though you are welcome to complete the steps for both images to see the differen
 <a class="reference internal image-reference" href="../../../_images/qgis_profile.png"><img alt="an example of a profile drawn in the QGIS map window" class="align-center" src="../../../_images/qgis_profile.png" style="width: 600px;" /></a>
 <p>To draw lines with multiple nodes, you can simply start a profile with a single click, then continue clicking to add nodes. When you have finished adding nodes, double-click to stop drawing.</p>
 <p>To add additional layers, simply highlight them in the layer menu, then click <strong>Add Layer</strong>. Note that it can be difficult to compare layers using the profile tool if they have vastly different values (e.g., it’s hard to draw a profile of both emissivity values and land surface temperature). You can, however, export the profile values by selecting the <strong>Table</strong> tab in the profile tool panel, then copying and pasting the values into a spreadsheet or CSV file.</p>
-</div>
-<div class="section" id="optional-profiling-using-arcgis-pro">
+</section>
+<section id="optional-profiling-using-arcgis-pro">
 <h3>optional: profiling using ArcGIS Pro<a class="headerlink" href="#optional-profiling-using-arcgis-pro" title="Permalink to this headline"></a></h3>
 <p>If you are using ArcGIS Pro, you can use <strong>Line Map Notes</strong> or create a <strong>Profile Graph</strong> by following the detailed instructions <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/help/analysis/3d-analyst/interactively-create-a-profile-graph-with-digitized-lines-on-a-surface.htm#ESRI_SECTION1_2EA3A0418D2C4A16AC9F53A1A42C3874">here</a>.</p>
-</div>
-</div>
-<div class="section" id="further-investigation">
+</section>
+</section>
+<section id="further-investigation">
 <h2>further investigation<a class="headerlink" href="#further-investigation" title="Permalink to this headline"></a></h2>
 <p>Now that we have a map of land surface temperature, we can conduct additional investigations. For example, repeating the above methods for the 1990 and 1999 images provided, you can look at how these patterns have changed over time, keeping in mind that these images represent snapshots of a single day.</p>
 <p>By comparing US Census data with land surface temperatures, Huang et al. (2011)<a class="footnote-reference brackets" href="#id22" id="id11">9</a> found that land surface temperature in Baltimore, MD, USA was “statistically higher in block groups that are characterized by low income, high poverty, less education, more ethnic minorities, more elderly people and greater risk of crime.” In a study of over 1,000 US counties, Benz and Burney (2021)<a class="footnote-reference brackets" href="#id23" id="id12">10</a> found that the poorest census tracts within a county were significantly hotter than the richest areas in 76% of US counties surveyed. The reasons for these differences are primarily physical: wealthier neighborhoods tend to have more green space and trees, while poorer neighborhoods tend to have more pavement and other heat-trapping surfaces.</p>
@@ -393,8 +394,8 @@ though you are welcome to complete the steps for both images to see the differen
 <p>If you have already taken EGM722, you should be able to write a script to extract the temperature data <em>and</em> make scatterplots of the land surface temperature vs. the different socioeconomic data. Check the <a class="reference external" href="https://github.com/iamdonovan/egm722/blob/main/Week5/Practical5.ipynb">Week 5 Practical</a> tutorial for a refresher.</p>
 </div>
 <p>Throughout the Landsat scene, you can see a number of extremely bright, hot (<span class="math notranslate nohighlight">\(T_s\)</span> &gt; 45&amp;deg;C) objects. Can you identify these objects? What is it about these particular objects that makes them so incredibly bright in the thermal infrared?</p>
-</div>
-<div class="section" id="notes">
+</section>
+<section id="notes">
 <h2>notes<a class="headerlink" href="#notes" title="Permalink to this headline"></a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -431,8 +432,8 @@ though you are welcome to complete the steps for both images to see the differen
 <dd><p>Manson, S., J. Schroeder, D. Van Riper, T. Kugler, and S. Ruggles. IPUMS National Historical Geographic Information System: Version 16.0. Minneapolis, MN: IPUMS. 2021. doi: <a class="reference external" href="http://doi.org/10.18128/D050.V16.0">10.18128/D050.V16.0</a>)</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

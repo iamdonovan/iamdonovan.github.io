@@ -26,17 +26,19 @@ Using open-source python packages, the module demonstrates how many standard GIS
 Before moving on to the :doc:`lectures` and :doc:`practicals<practicals/index>` below, be sure to visit the :doc:`setup<setup/index>` page 
 to make sure that you have the software and materials set up in order to get started.
 
-+---------+-----------------------+-------------------------+
-| week    | lecture theme         | practical               |
-+---------+-----------------------+-------------------------+
-| 1       | :ref:`egm722 week1`   | :doc:`practicals/week1` |
-+---------+-----------------------+-------------------------+
-| 2       | :ref:`egm722 week2`   | :doc:`practicals/week2` |
-+---------+-----------------------+-------------------------+
-| 3       |                       | :doc:`practicals/week3` |
-+---------+-----------------------+-------------------------+
-| 4       |                       | :doc:`practicals/week4` |
-+---------+-----------------------+-------------------------+
-| 5       |                       | :doc:`practicals/week5` |
-+---------+-----------------------+-------------------------+
++---------+-----------------------+-----------------------------+
+| week    | lecture theme         | practical                   |
++---------+-----------------------+-----------------------------+
+| 1       | :ref:`egm722 week1`   | :doc:`practicals/week1`     |
+|         |                       |                             |
+|         |                       | :doc:`practicals/debugging` |
++---------+-----------------------+-----------------------------+
+| 2       | :ref:`egm722 week2`   | :doc:`practicals/week2`     |
++---------+-----------------------+-----------------------------+
+| 3       |                       | :doc:`practicals/week3`     |
++---------+-----------------------+-----------------------------+
+| 4       |                       | :doc:`practicals/week4`     |
++---------+-----------------------+-----------------------------+
+| 5       |                       | :doc:`practicals/week5`     |
++---------+-----------------------+-----------------------------+
 

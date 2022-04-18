@@ -41,7 +41,10 @@ creating a new project
 
 When you first open PyCharm, you should see a screen similar to the following:
 
-**first-time open**
+.. image:: ../../../img/egm722/setup/pycharm/fresh_open.png
+    :width: 400
+    :align: center
+    :alt: the window that displays when you open pycharm for the first time
 
 Select **Create New Project**, which will open the following window:
 
