@@ -53,7 +53,13 @@
 <li class="toctree-l4"><a class="reference internal" href="../practicals/index.html">practicals</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="index.html">programming project</a><ul class="current">
 <li class="toctree-l5"><a class="reference internal" href="github.html">creating a new github repository</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">environment.yml</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">environment.yml</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#name">name</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#channels">channels</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#dependencies">dependencies</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#creating-your-own-file">creating your own file</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
@@ -105,22 +111,66 @@
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span><span class="w"></span>
 <span class="nt">dependencies</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python=3.8.8</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geopandas=0.9.0</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cartopy=0.18.0</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notebook=6.2.0</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rasterio=1.2.0</span><span class="w"></span>
-<span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">C:\Users\e16006469\Anaconda3\envs\egm722</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python=3.9</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geopandas</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cartopy</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notebook</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rasterio</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyepsg</span><span class="w"></span>
 </pre></div>
 </div>
-<p>This shows that there are 5 listed <strong>dependencies</strong> (packages to install):</p>
+<p>Below, I will walk through the different sections of the file to help explain what they are.</p>
+<section id="name">
+<h2>name<a class="headerlink" href="#name" title="Permalink to this headline"></a></h2>
+<p>The first line of the file tells <strong>conda</strong> what to call the new environment - in this example, the new environment will be
+called <code class="docutils literal notranslate"><span class="pre">egm722</span></code>. In your <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file, you should change this to a name that fits with your project - don’t
+just re-use the <code class="docutils literal notranslate"><span class="pre">egm722</span></code> name!</p>
+</section>
+<section id="channels">
+<h2>channels<a class="headerlink" href="#channels" title="Permalink to this headline"></a></h2>
+<p>The next heading is the <strong>channels</strong> heading, which tells <strong>conda</strong> where to look for packages.
+Under the <strong>channels</strong> heading, you can see that we’ve added two channels, listed in order of preference:</p>
 <ul class="simple">
-<li><p>python (version 3.8.8)</p></li>
-<li><p>geopandas (version 0.9.0)</p></li>
-<li><p>cartopy (version 0.18.0)</p></li>
-<li><p>notebook (version 6.2.0)</p></li>
-<li><p>rasterio (version 1.2.0).</p></li>
+<li><p>conda-forge</p></li>
+<li><p>defaults</p></li>
 </ul>
+<p>This means that when we tell <strong>conda</strong> to install packages, it will first look on the <strong>conda-forge</strong> channel; if the
+package is not available on that channel, it will look on the other default channels.</p>
+</section>
+<section id="dependencies">
+<h2>dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
+<p>Underneath the <strong>channels</strong> heading is the <strong>dependencies</strong> heading. This is where we tell <strong>conda</strong> what packages need
+to be installed, and (optionally) what versions it should try to install.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be cautions when specifying version numbers. If you are overly specific with versions, it will make it more
+difficult for <strong>conda</strong> to install the environment.</p>
+</div>
+<p>In the example above, we see that there are 5 listed <strong>dependencies</strong> (packages to install):</p>
+<ul class="simple">
+<li><p>python (version 3.9)</p></li>
+<li><p>geopandas (any version)</p></li>
+<li><p>cartopy (any version)</p></li>
+<li><p>notebook (any version)</p></li>
+<li><p>rasterio (any version)</p></li>
+<li><p>pyepsg (any version)</p></li>
+</ul>
+<p>This will create an environment with python version 3.9, and install the <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, <code class="docutils literal notranslate"><span class="pre">cartopy</span></code>, <code class="docutils literal notranslate"><span class="pre">notebook</span></code>,
+<code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, and <code class="docutils literal notranslate"><span class="pre">pyepsg</span></code> packages.</p>
+<p>This list might seem quite short - for example, you will have noticed in the practicals that we use a number of
+packages that aren’t named here. This is because when <strong>conda</strong> installs these packages, it will also install any
+and all dependencies for those packages - we don’t need to explicitly list every single package that needs to be
+installed in order for those packages to also be installed.</p>
+<p>In addition to specifying a specific version (<code class="docutils literal notranslate"><span class="pre">python=3.9</span></code>), we could also specify a range of versions. For example,
+we could tell <strong>conda</strong> to create an environment with a python version greater than 3.5 like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python&gt;3.5</span><span class="w"></span>
+</pre></div>
+</div>
+<p>For more explanation for how to specify versions, or version ranges, see
+<a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/resources/package-spec.html#package-match-specifications">the conda documentation</a>.</p>
+</section>
+<section id="creating-your-own-file">
+<h2>creating your own file<a class="headerlink" href="#creating-your-own-file" title="Permalink to this headline"></a></h2>
 <p>To create your own <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file, you’ll need to open a <em>text</em> editor (<strong>NOT</strong> Microsoft Word).</p>
 <p>The easiest thing to do is to copy the text from above and adapt it to your specific project, starting with the
 environment <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
@@ -131,6 +181,7 @@ those packages will have their own dependencies.</p>
 <p>You can choose whether to specify specific versions or not, though remember that this can sometimes make
 it more difficult to install dependencies. In general, it’s probably safer to leave these off, unless there
 are reasons for requiring a specific version – if you’re not sure, just ask.</p>
+</section>
 </section>
 
 
