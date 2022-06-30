@@ -126,7 +126,7 @@ we might want to do some processing or analysis for many <strong>Image</strong>s
 <p>In the previous tutorial, we saw how to <strong>import</strong> geometries, using the <strong>Drawing</strong> tools. These are not the only
 things that we can import, however. When you open the script, you should see the following imports at the top of the script:</p>
 <a class="reference internal image-reference" href="../../../_images/imports1.png"><img alt="datasets and parameters imported at the top of the script" class="align-center" src="../../../_images/imports1.png" style="width: 500px;" /></a>
-<p>There are four imports here:</p>
+<p><br /> There are four imports here:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">lc08</span></code>, the “USGS Landsat 8 Surface Reflectance Tier 1” <strong>ImageCollection</strong></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">borders</span></code>, the “Global Administrative Unit Layers 2015, Country Boundaries” <strong>FeatureCollection</strong></p></li>
@@ -140,9 +140,9 @@ to find out more about them. To import GEE datasets into a script, you can add t
 </div>
 <p>When you do this, you should see that this gets underlined in yellow:</p>
 <a class="reference internal image-reference" href="../../../_images/underline.png"><img alt="a yellow underline under a variable declaration, indicating it can be added as an import" class="align-center" src="../../../_images/underline.png" style="width: 500px;" /></a>
-<p>When you mouse over this line, you should see the following message:</p>
+<p><br /> When you mouse over this line, you should see the following message:</p>
 <a class="reference internal image-reference" href="../../../_images/import.png"><img alt="the message stating the the variable can be added to the script as an import" class="align-center" src="../../../_images/import.png" style="width: 500px;" /></a>
-<p>Click “Convert” to add the variable as an import:</p>
+<p><br /> Click “Convert” to add the variable as an import:</p>
 <a class="reference internal image-reference" href="../../../_images/imported.png"><img alt="the variable, added as an import to the script" class="align-center" src="../../../_images/imported.png" style="width: 500px;" /></a>
 </section>
 <section id="filtering">
@@ -204,9 +204,9 @@ to select only images that have months between June (month 6) and August (month 
 we limit ourselves to “cloud-free” (i.e., the ‘CLOUD_COVER’ metadata value is equal to 0) images, we end up with very little to
 work with:</p>
 <a class="reference internal image-reference" href="../../../_images/no_images.png"><img alt="there are no images with exactly 0 cloud cover" class="align-center" src="../../../_images/no_images.png" style="width: 600px;" /></a>
-<p>But, even low values of cloud cover can still end up in our mosaic:</p>
+<p><br /> But, even low values of cloud cover can still end up in our mosaic:</p>
 <a class="reference internal image-reference" href="../../../_images/clouds.png"><img alt="the mosaicked image without clouds masked" class="align-center" src="../../../_images/clouds.png" style="width: 600px;" /></a>
-<p>To make sure that we aren’t using clouds, we can apply a <strong>mask</strong> to our images using <code class="docutils literal notranslate"><span class="pre">map()</span></code> and a <strong>function</strong>.</p>
+<p><br /> To make sure that we aren’t using clouds, we can apply a <strong>mask</strong> to our images using <code class="docutils literal notranslate"><span class="pre">map()</span></code> and a <strong>function</strong>.</p>
 <p>Landsat surface reflectance products have a QA (quality assessment) band that flags pixels that are (or might be) clouds,
 cloud shadow, snow, water, cloud confidence, and so on.</p>
 <p>Rather than masking every single possible pixel value, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.bitwiseAnd()</span></code>
@@ -301,7 +301,7 @@ pass that function to <code class="docutils literal notranslate"><span class="pr
 </div>
 <p>You should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/sample_image.png"><img alt="a sample image showing clouds masked out" class="align-center" src="../../../_images/sample_image.png" style="width: 600px;" /></a>
-<p>Note that while a large number of the clouds have been masked out, it’s not perfect (since we only included “high confidence”
+<p><br /> Note that while a large number of the clouds have been masked out, it’s not perfect (since we only included “high confidence”
 cloud pixels). If we want to include lower-confidence pixels as well, we can remove <code class="docutils literal notranslate"><span class="pre">.and(qa.bitwiseAnd(1</span> <span class="pre">&lt;&lt;</span> <span class="pre">7))</span></code> from our function.</p>
 </section>
 <section id="mosaicking">
@@ -372,9 +372,9 @@ from the <strong>ImageCollection</strong> were there for each pixel of the mosai
 </div>
 <p>When you run the script, you should see the following <strong>Map</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/script_run1.png"><img alt="the result of running the script" class="align-center" src="../../../_images/script_run1.png" style="width: 600px;" /></a>
-<p>To see the number of valid pixels, you can toggle on the “number of valid pixels” <strong>Image</strong> from the <strong>Layers</strong> menu:</p>
+<p><br /> To see the number of valid pixels, you can toggle on the “number of valid pixels” <strong>Image</strong> from the <strong>Layers</strong> menu:</p>
 <a class="reference internal image-reference" href="../../../_images/count.png"><img alt="a layer showing the valid pixel count for the mosaic" class="align-center" src="../../../_images/count.png" style="width: 600px;" /></a>
-<p>In this image, darker blue colors represent fewer valid pixels, while green/yellow pixels represent more valid pixels.</p>
+<p><br /> In this image, darker blue colors represent fewer valid pixels, while green/yellow pixels represent more valid pixels.</p>
 </section>
 <section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>

@@ -124,26 +124,26 @@ After finishing this tutorial, you should be able to:</p>
 <p>In the previous tutorial, we used the <strong>Inspector</strong> tab to look at band values for different points by
 clicking on the map:</p>
 <a class="reference internal image-reference" href="../../../_images/inspector_tab.png"><img alt="the inspector tab showing the list view" class="align-center" src="../../../_images/inspector_tab.png" style="width: 600px;" /></a>
-<p>While useful, this is also limited - we can only do this for one point at a time, the value depends
+<p><br /> While useful, this is also limited - we can only do this for one point at a time, the value depends
 at least in part by the zoom level of the <strong>Map</strong> window, and if we want to save the data for later
 analysis, we have to do it every single time we click on a new point.</p>
 <p>In this tutorial, we’ll see how we can use a number of different tools in GEE to plot data and also
 export it for later analysis.</p>
 <p>To get started, look at the top of the script. You should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/imports2.png"><img alt="the imports at the top of the script" class="align-center" src="../../../_images/imports2.png" style="width: 600px;" /></a>
-<p>These are the <strong>Imports</strong> for the script - in addition to the geometries shown here, you can also
+<p><br /> These are the <strong>Imports</strong> for the script - in addition to the geometries shown here, you can also
 import <strong>Assets</strong> (files uploaded to GEE), <strong>Image</strong>s or <strong>Image Collection</strong>s, and even
 display settings for <strong>Map</strong> layers.</p>
 <p>Run the script - you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/script_run2.png"><img alt="the inspector tab showing the list view" class="align-center" src="../../../_images/script_run2.png" style="width: 600px;" /></a>
-<p>Next, we’ll add points for another surface type - instead of turbid water (water with lots of suspended
+<p><br /> Next, we’ll add points for another surface type - instead of turbid water (water with lots of suspended
 sediments), we’ll choose points over deep water.</p>
 <p>First, mouse over the <strong>Geometry Imports</strong> menu:</p>
 <a class="reference internal image-reference" href="../../../_images/geometry_imports.png"><img alt="the geometry imports menu" class="align-center" src="../../../_images/geometry_imports.png" style="width: 400px;" /></a>
-<p>At the bottom of the <strong>Geometry Imports</strong> menu, click on “<strong>new layer</strong>” to add a new layer, then click on
+<p><br /> At the bottom of the <strong>Geometry Imports</strong> menu, click on “<strong>new layer</strong>” to add a new layer, then click on
 the gear icon to open the configuration panel:</p>
 <a class="reference internal image-reference" href="../../../_images/configuration_panel1.png"><img alt="the configuration panel for the geometry imports" class="align-center" src="../../../_images/configuration_panel1.png" style="width: 600px;" /></a>
-<p>When adding geometry features from the map, you can choose to import them as a <strong>Geometry</strong>, a <strong>Feature</strong>,
+<p><br /> When adding geometry features from the map, you can choose to import them as a <strong>Geometry</strong>, a <strong>Feature</strong>,
 or a <strong>FeatureCollection</strong>:</p>
 <ul class="simple">
 <li><p><strong>Geometry</strong> means only vector data (no attributes/properties)</p></li>
@@ -153,26 +153,26 @@ or a <strong>FeatureCollection</strong>:</p>
 <p>For this tutorial, we’ve imported the sample points as <strong>Feature</strong>s. Make sure that you’ve set <strong>Import as</strong> to <strong>Feature</strong>,
 and change the name from <code class="docutils literal notranslate"><span class="pre">geometry</span></code> to <code class="docutils literal notranslate"><span class="pre">water</span></code>:</p>
 <a class="reference internal image-reference" href="../../../_images/new_feature.png"><img alt="the configure geometry import panel" class="align-center" src="../../../_images/new_feature.png" style="width: 400px;" /></a>
-<p>Next, click the <strong>+property</strong> button to add a new property:</p>
+<p><br /> Next, click the <strong>+property</strong> button to add a new property:</p>
 <a class="reference internal image-reference" href="../../../_images/new_property1.png"><img alt="the configure geometry import panel with a new property" class="align-center" src="../../../_images/new_property1.png" style="width: 400px;" /></a>
-<p>Call this property <code class="docutils literal notranslate"><span class="pre">name</span></code> (left box), and give it a value of <code class="docutils literal notranslate"><span class="pre">water</span></code> (right box). Add a second property called <code class="docutils literal notranslate"><span class="pre">label</span></code>, and
+<p><br /> Call this property <code class="docutils literal notranslate"><span class="pre">name</span></code> (left box), and give it a value of <code class="docutils literal notranslate"><span class="pre">water</span></code> (right box). Add a second property called <code class="docutils literal notranslate"><span class="pre">label</span></code>, and
 give it a value of <code class="docutils literal notranslate"><span class="pre">3</span></code> – our other three imports (<code class="docutils literal notranslate"><span class="pre">snow</span></code>, <code class="docutils literal notranslate"><span class="pre">turbidWater</span></code>, and <code class="docutils literal notranslate"><span class="pre">forest</span></code>) have <code class="docutils literal notranslate"><span class="pre">label</span></code> values of
 <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, and <code class="docutils literal notranslate"><span class="pre">2</span></code>, respectively.</p>
 <p>Change the color to something more appropriate, then click <strong>OK</strong>. You should now see the import at the top of the script:</p>
 <a class="reference internal image-reference" href="../../../_images/import_added.png"><img alt="the imports with the new import added" class="align-center" src="../../../_images/import_added.png" style="width: 400px;" /></a>
-<p>Next, we have to actually add points to the <strong>Feature</strong>. Make sure that <strong>Add a marker</strong> is highlighted in the digitizing menu,
+<p><br /> Next, we have to actually add points to the <strong>Feature</strong>. Make sure that <strong>Add a marker</strong> is highlighted in the digitizing menu,
 and that <strong>Point drawing</strong> is on:</p>
 <a class="reference internal image-reference" href="../../../_images/drawing_menu.png"><img alt="the drawing menu showing the &quot;add a marker&quot; button" class="align-center" src="../../../_images/drawing_menu.png" style="width: 400px;" /></a>
-<p>If it’s not, you can mouse over the <strong>Geometry Imports</strong> menu and click on the import you want to add geometries to. Once drawing
+<p><br /> If it’s not, you can mouse over the <strong>Geometry Imports</strong> menu and click on the import you want to add geometries to. Once drawing
 is turned on, you can add points by clicking on the <strong>Map</strong> – a new marker will display each time you click:</p>
 <a class="reference internal image-reference" href="../../../_images/new_point.png"><img alt="a new point marker added to the map" class="align-center" src="../../../_images/new_point.png" style="width: 600px;" /></a>
-<p>Add 10 points to the class by clicking in the <strong>Map</strong> in areas where you see deep water - try to avoid areas with high turbidity
+<p><br /> Add 10 points to the class by clicking in the <strong>Map</strong> in areas where you see deep water - try to avoid areas with high turbidity
 (e.g., lots of brown/green color).</p>
 <a class="reference internal image-reference" href="../../../_images/ten_points.png"><img alt="10 new point markers added to the map" class="align-center" src="../../../_images/ten_points.png" style="width: 600px;" /></a>
-<p>Once you’ve added your points, turn off <strong>Point drawing</strong> by clicking on the import name, or clicking on the <strong>Stop drawing</strong> (hand)
+<p><br /> Once you’ve added your points, turn off <strong>Point drawing</strong> by clicking on the import name, or clicking on the <strong>Stop drawing</strong> (hand)
 button:</p>
 <a class="reference internal image-reference" href="../../../_images/stop_drawing.png"><img alt="the drawing menu showing the &quot;stop drawing&quot; button" class="align-center" src="../../../_images/stop_drawing.png" style="width: 400px;" /></a>
-<p>Now that we’ve added an additional point, we can move on to look at the script in more detail.</p>
+<p><br /> Now that we’ve added an additional point, we can move on to look at the script in more detail.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There’s nothing inherently special about using 10 points here - this is only for illustrative purposes.</p>
@@ -245,14 +245,14 @@ we’re using <code class="docutils literal notranslate"><span class="pre">ee.Re
 <p>The output of our image reduction is a <strong>FeatureCollection</strong>, <code class="docutils literal notranslate"><span class="pre">ptRefl</span></code>. To look at what’s been added to our points,
 you can add <code class="docutils literal notranslate"><span class="pre">print(ptRefl);</span></code> to the script after line 32, and re-run the script. You should see this in the <strong>Console</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/featurecollection.png"><img alt="the console with the feature collection printed" class="align-center" src="../../../_images/featurecollection.png" style="width: 400px;" /></a>
-<p>You can expand the object by clicking on it to view its properties. First, look at the <code class="docutils literal notranslate"><span class="pre">columns</span></code> <strong>Object</strong>:</p>
+<p><br /> You can expand the object by clicking on it to view its properties. First, look at the <code class="docutils literal notranslate"><span class="pre">columns</span></code> <strong>Object</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/columns.png"><img alt="the feature collection columns expanded" class="align-center" src="../../../_images/columns.png" style="width: 400px;" /></a>
-<p>This shows what properties each <strong>Feature</strong> in the <strong>FeatureCollection</strong> has, analogous to the fields in an attribute table.
+<p><br /> This shows what properties each <strong>Feature</strong> in the <strong>FeatureCollection</strong> has, analogous to the fields in an attribute table.
 You can see that we have columns for each of the image bands that we extracted (<code class="docutils literal notranslate"><span class="pre">B1</span></code> – <code class="docutils literal notranslate"><span class="pre">B7</span></code>), plus the <code class="docutils literal notranslate"><span class="pre">label</span></code> and
 <code class="docutils literal notranslate"><span class="pre">name</span></code> properties from our original imports.</p>
 <p>When you expand the <code class="docutils literal notranslate"><span class="pre">features</span></code> <strong>List</strong>, you can see that each <strong>Feature</strong> has 9 <strong>properties</strong>, corresponding to the <code class="docutils literal notranslate"><span class="pre">columns</span></code>:</p>
 <a class="reference internal image-reference" href="../../../_images/properties.png"><img alt="the feature collection properties expanded" class="align-center" src="../../../_images/properties.png" style="width: 400px;" /></a>
-<p>We want to extract these values and plot them in a chart, so that we can see how they compare to each other.</p>
+<p><br /> We want to extract these values and plot them in a chart, so that we can see how they compare to each other.</p>
 <p>One of the ways that we can do this is using <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.aggregate_array()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-aggregate_array">documentation</a>).
 This will create a <strong>List</strong> object that contains all of the values of a given property from each <strong>Feature</strong>
@@ -303,7 +303,7 @@ to this function, and combines the results into a <strong>List</strong> - making
 <p>You can see what this looks like by adding <code class="docutils literal notranslate"><span class="pre">print(reflectances);</span></code> after line 42, and re-running the script.
 You should see something like this (remember that your values will be different!):</p>
 <a class="reference internal image-reference" href="../../../_images/array.png"><img alt="the array printed to the console" class="align-center" src="../../../_images/array.png" style="width: 400px;" /></a>
-<p>This is the data that we’ll use to create the our plot - each element of the list represents the reflectance values
+<p><br /> This is the data that we’ll use to create the our plot - each element of the list represents the reflectance values
 for our sample points in the given band (ordered based on <code class="docutils literal notranslate"><span class="pre">bandNames</span></code>).</p>
 </section>
 <section id="creating-a-chart">
@@ -342,7 +342,7 @@ along the x-axis.</p>
 <p>The rest of this section is how we can adjust the chart options to make it more clear. If we don’t,
 the basic chart looks like this:</p>
 <a class="reference internal image-reference" href="../../../_images/ugly_chart.png"><img alt="the default chart options. your (default) figures are ugly." class="align-center" src="../../../_images/ugly_chart.png" style="width: 400px;" /></a>
-<p>This isn’t particularly clear (or attractive), so we add the following. First, we use <code class="docutils literal notranslate"><span class="pre">ui.Chart.setSeriesNames()</span></code>
+<p><br /> This isn’t particularly clear (or attractive), so we add the following. First, we use <code class="docutils literal notranslate"><span class="pre">ui.Chart.setSeriesNames()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ui-chart-setseriesnames">documentation</a>) to
 change the labels for each <strong>series</strong> (group of data), using the <code class="docutils literal notranslate"><span class="pre">categories</span></code> value so that it matches
 the <code class="docutils literal notranslate"><span class="pre">name</span></code> property for each <strong>Feature</strong>:</p>
@@ -386,7 +386,7 @@ or differentiate them. Here, I’ve plotted each line according to the color of 
 <p>Note that if you were to run the script now, <code class="docutils literal notranslate"><span class="pre">water</span></code> would be added to the plot, but the colors and line style
 would not be updated:</p>
 <a class="reference internal image-reference" href="../../../_images/default_water.png"><img alt="the plot, with &quot;water&quot; having the default options" class="align-center" src="../../../_images/default_water.png" style="width: 400px;" /></a>
-<p>To set the properties for this series, you’ll need to add a line to the <code class="docutils literal notranslate"><span class="pre">series</span></code> <strong>Dictionary</strong>:</p>
+<p><br /> To set the properties for this series, you’ll need to add a line to the <code class="docutils literal notranslate"><span class="pre">series</span></code> <strong>Dictionary</strong>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">series</span><span class="o">:</span> <span class="p">{</span>
   <span class="mf">0</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;e1fff9&#39;</span><span class="p">},</span>
   <span class="mf">1</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;d6bc87&#39;</span><span class="p">},</span>
@@ -398,7 +398,7 @@ would not be updated:</p>
 </div>
 <p>Once you’ve set the properties, you should see that the <code class="docutils literal notranslate"><span class="pre">water</span></code> line has been updated accordingly:</p>
 <a class="reference internal image-reference" href="../../../_images/final_chart.png"><img alt="the final chart produced in the tutorial" class="align-center" src="../../../_images/final_chart.png" style="width: 600px;" /></a>
-<p>Finally, open the chart in a new window by clicking the button in the upper right corner of the chart. From here,
+<p><br /> Finally, open the chart in a new window by clicking the button in the upper right corner of the chart. From here,
 you can save the chart as a SVG or PNG file, or export the data as a CSV.</p>
 </section>
 <section id="next-steps">

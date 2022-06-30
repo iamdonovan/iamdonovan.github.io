@@ -111,7 +111,7 @@
 <p>For this tutorial, we’re going to use a 15 February 2022 Landsat 9 image covering <a class="reference external" href="https://en.wikipedia.org/wiki/Harrat_Khaybar">Harrat Khaybar</a>,
 a volcanic field in Saudi Arabia:</p>
 <a class="reference internal image-reference" href="../../../_images/harrat_khaybar.png"><img alt="closeup of Harrat Khaybar, the study area for this tutorial." class="align-center" src="../../../_images/harrat_khaybar.png" style="width: 600px;" /></a>
-<p><em>Unsupervised classification</em> is a classification technique where we have little to no input to the classification routine. Instead,
+<p><br /> <em>Unsupervised classification</em> is a classification technique where we have little to no input to the classification routine. Instead,
 the classification algorithm determines how to group, or “cluster,” pixels, based on their properties.</p>
 <p>It’s important to note that the classes output by an unsupervised classification have no meaning, in the sense that they’re only
 groups of pixels based on the image data. After running an unsupervised classification, then, the next task is to interpret and
@@ -175,7 +175,7 @@ to provide a random palette to display the image (like we did for the <a class="
 </div>
 <p>This should produce the following artistic image in the <strong>Map</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/clustered_results.png"><img alt="the clustered image added to the map window" class="align-center" src="../../../_images/clustered_results.png" style="width: 600px;" /></a>
-<p>Remember that the class values in the image (0–15) don’t yet correspond to any physical meaning - in order to finish the
+<p><br /> Remember that the class values in the image (0–15) don’t yet correspond to any physical meaning - in order to finish the
 classification, we would need identify what physical surfaces or objects the class values represent.</p>
 </section>
 <section id="stratified-sampling">
@@ -218,7 +218,7 @@ elements per class, we would need to reduce the number of classes.</p>
 <section id="creating-a-scatter-plot">
 <h2>creating a scatter plot<a class="headerlink" href="#creating-a-scatter-plot" title="Permalink to this headline"></a></h2>
 <p>To create the scatter plot, we’ll use <code class="docutils literal notranslate"><span class="pre">ui.Chart.feature.groups()</span></code>
-(<cite>documentation &lt;https://developers.google.com/earth-engine/apidocs/ui-chart-feature-groups&gt;__</cite>).</p>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ui-chart-feature-groups">documentation</a>).</p>
 <p>Because we’re limited to plotting two bands at a time, we’ll create a <strong>function</strong> that enables us to easily make multiple
 plots - instead of copying + pasting the code for the <strong>Chart</strong> multiple times and changing the parameters, we only need to
 call the function multiple times. If we want to change something about our <strong>Chart</strong>, we only have to change it one
@@ -261,7 +261,7 @@ place – <strong>function</strong>s are a way to clean up our script and easily
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/nir_swir2_scatter.png"><img alt="the SWIR2 vs. NIR scatter plot for each cluster" class="align-center" src="../../../_images/nir_swir2_scatter.png" style="width: 600px;" /></a>
-<p>The plot above shows the SWIR2 (<code class="docutils literal notranslate"><span class="pre">SR_B7</span></code>) values vs. NIR (<code class="docutils literal notranslate"><span class="pre">SR_B5</span></code>) values for each cluster. Note that there is some
+<p><br /> The plot above shows the SWIR2 (<code class="docutils literal notranslate"><span class="pre">SR_B7</span></code>) values vs. NIR (<code class="docutils literal notranslate"><span class="pre">SR_B5</span></code>) values for each cluster. Note that there is some
 overlap between the clusters, because the clustering has been done in seven dimensions, rather than just two.</p>
 </section>
 <section id="plotting-spectral-signatures">
@@ -333,7 +333,7 @@ along with <code class="docutils literal notranslate"><span class="pre">ee.List.
 </div>
 <p>The result of this is another <strong>Chart</strong> object that we can print to the <strong>Console</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/unsupervised_signatures.png"><img alt="the spectral signatures for the 16 classes of the unsupervised classification" class="align-center" src="../../../_images/unsupervised_signatures.png" style="width: 600px;" /></a>
-<p>Here, we can see that there’s probably a good deal of overlap between different clusters in each band - possibly indicating
+<p><br /> Here, we can see that there’s probably a good deal of overlap between different clusters in each band - possibly indicating
 that we could reduce the number of clusters,</p>
 <p>Note that unlike in the <a class="reference internal" href="../getting_started/spectral.html"><span class="doc">spectral signatures</span></a> tutorial, we’re setting the <code class="docutils literal notranslate"><span class="pre">lineWidth</span></code>
 property of each line together, rather than specifying the properties of each line individually. To set the properties of

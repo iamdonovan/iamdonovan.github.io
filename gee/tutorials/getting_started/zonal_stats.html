@@ -135,7 +135,7 @@ We then add this to the <strong>Map</strong> using <code class="docutils literal
 <p>The options for displaying vector data on the <strong>Map</strong> are quite limited, though – we can’t actually set display properties in the same
 way that we can for <strong>Image</strong> data:</p>
 <a class="reference internal image-reference" href="../../../_images/vectors.png"><img alt="the vector data after being added to the map" class="align-center" src="../../../_images/vectors.png" style="width: 600px;" /></a>
-<p>If we want to display vector data using different colors, we have to use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.reduceToImage()</span></code>
+<p><br /> If we want to display vector data using different colors, we have to use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.reduceToImage()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-reducetoimage">documentation</a>):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">countryImg</span> <span class="o">=</span> <span class="nx">country</span><span class="p">.</span><span class="nx">reduceToImage</span><span class="p">({</span>
   <span class="nx">properties</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;ADM1_CODE&#39;</span><span class="p">],</span>
@@ -316,7 +316,7 @@ the outputs using the <code class="docutils literal notranslate"><span class="pr
 <p>The <code class="docutils literal notranslate"><span class="pre">areas</span></code> object is a <strong>Dictionary</strong> with a single <strong>key</strong>, <code class="docutils literal notranslate"><span class="pre">groups</span></code>, which is a list containing a <strong>Dictionary</strong> for each
 landcover class. Each of these has two <strong>key</strong>s, one for the landcover code value, and one for the calculated sum:</p>
 <a class="reference internal image-reference" href="../../../_images/groups.png"><img alt="the output of ee.Image.reduceRegion()" class="align-center" src="../../../_images/groups.png" style="width: 400px;" /></a>
-<p>This is somewhat unwieldy - we want to combine these into a single <strong>Dictionary</strong> with <strong>key</strong>/<strong>value</strong> pairs corresponding to
+<p><br /> This is somewhat unwieldy - we want to combine these into a single <strong>Dictionary</strong> with <strong>key</strong>/<strong>value</strong> pairs corresponding to
 each landcover class.</p>
 <p>To do this, we first pull the landcover classes out of the <strong>Dictionary</strong> using <code class="docutils literal notranslate"><span class="pre">ee.Dictionary.get()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-dictionary-get">documentation</a>). Similar to with <code class="docutils literal notranslate"><span class="pre">ee.List.get()</span></code>,
@@ -412,7 +412,7 @@ image that we want to use:</p>
 </div>
 <p>Using <code class="docutils literal notranslate"><span class="pre">print()</span></code>, we can see that this has updated each <strong>Feature</strong> with the new properties:</p>
 <a class="reference internal image-reference" href="../../../_images/updated_collection.png"><img alt="the updated featurecollection properties" class="align-center" src="../../../_images/updated_collection.png" style="width: 400px;" /></a>
-<p>Finally, we export the new <strong>FeatureCollection</strong> to Drive using <code class="docutils literal notranslate"><span class="pre">Export.table.toDrive()</span></code>:</p>
+<p><br /> Finally, we export the new <strong>FeatureCollection</strong> to Drive using <code class="docutils literal notranslate"><span class="pre">Export.table.toDrive()</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Export</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">toDrive</span><span class="p">({</span>
   <span class="n">collection</span><span class="p">:</span> <span class="n">summarized</span><span class="p">,</span>
   <span class="n">description</span><span class="p">:</span> <span class="s1">&#39;CountryStats&#39;</span><span class="p">,</span>

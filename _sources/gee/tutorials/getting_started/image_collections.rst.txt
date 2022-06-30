@@ -24,7 +24,7 @@ things that we can import, however. When you open the script, you should see the
     :align: center
     :alt: datasets and parameters imported at the top of the script
 
-There are four imports here:
+|br| There are four imports here:
 
 - ``lc08``, the "USGS Landsat 8 Surface Reflectance Tier 1" **ImageCollection**
 - ``borders``, the "Global Administrative Unit Layers 2015, Country Boundaries" **FeatureCollection**
@@ -45,14 +45,14 @@ When you do this, you should see that this gets underlined in yellow:
     :align: center
     :alt: a yellow underline under a variable declaration, indicating it can be added as an import
 
-When you mouse over this line, you should see the following message:
+|br| When you mouse over this line, you should see the following message:
 
 .. image:: img/image_collections/import.png
     :width: 500
     :align: center
     :alt: the message stating the the variable can be added to the script as an import
 
-Click "Convert" to add the variable as an import:
+|br| Click "Convert" to add the variable as an import:
 
 .. image:: img/image_collections/imported.png
     :width: 500
@@ -138,14 +138,14 @@ work with:
     :align: center
     :alt: there are no images with exactly 0 cloud cover
 
-But, even low values of cloud cover can still end up in our mosaic:
+|br| But, even low values of cloud cover can still end up in our mosaic:
 
 .. image:: img/image_collections/clouds.png
     :width: 600
     :align: center
     :alt: the mosaicked image without clouds masked
 
-To make sure that we aren't using clouds, we can apply a **mask** to our images using ``map()`` and a **function**.
+|br| To make sure that we aren't using clouds, we can apply a **mask** to our images using ``map()`` and a **function**.
 
 Landsat surface reflectance products have a QA (quality assessment) band that flags pixels that are (or might be) clouds,
 cloud shadow, snow, water, cloud confidence, and so on.
@@ -265,7 +265,7 @@ You should see something like this:
     :align: center
     :alt: a sample image showing clouds masked out
 
-Note that while a large number of the clouds have been masked out, it's not perfect (since we only included "high confidence"
+|br| Note that while a large number of the clouds have been masked out, it's not perfect (since we only included "high confidence"
 cloud pixels). If we want to include lower-confidence pixels as well, we can remove ``.and(qa.bitwiseAnd(1 << 7))`` from our function.
 
 mosaicking
@@ -364,14 +364,14 @@ When you run the script, you should see the following **Map**:
     :align: center
     :alt: the result of running the script
 
-To see the number of valid pixels, you can toggle on the "number of valid pixels" **Image** from the **Layers** menu:
+|br| To see the number of valid pixels, you can toggle on the "number of valid pixels" **Image** from the **Layers** menu:
 
 .. image:: img/image_collections/count.png
     :width: 600
     :align: center
     :alt: a layer showing the valid pixel count for the mosaic
 
-In this image, darker blue colors represent fewer valid pixels, while green/yellow pixels represent more valid pixels.
+|br| In this image, darker blue colors represent fewer valid pixels, while green/yellow pixels represent more valid pixels.
 
 next steps
 ------------

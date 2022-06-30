@@ -23,7 +23,7 @@ clicking on the map:
     :align: center
     :alt: the inspector tab showing the list view
 
-While useful, this is also limited - we can only do this for one point at a time, the value depends
+|br| While useful, this is also limited - we can only do this for one point at a time, the value depends
 at least in part by the zoom level of the **Map** window, and if we want to save the data for later
 analysis, we have to do it every single time we click on a new point.
 
@@ -37,7 +37,7 @@ To get started, look at the top of the script. You should see the following:
     :align: center
     :alt: the imports at the top of the script
 
-These are the **Imports** for the script - in addition to the geometries shown here, you can also
+|br| These are the **Imports** for the script - in addition to the geometries shown here, you can also
 import **Assets** (files uploaded to GEE), **Image**\ s or **Image Collection**\ s, and even
 display settings for **Map** layers.
 
@@ -48,7 +48,7 @@ Run the script - you should see the following:
     :align: center
     :alt: the inspector tab showing the list view
 
-Next, we'll add points for another surface type - instead of turbid water (water with lots of suspended
+|br| Next, we'll add points for another surface type - instead of turbid water (water with lots of suspended
 sediments), we'll choose points over deep water.
 
 First, mouse over the **Geometry Imports** menu:
@@ -58,7 +58,7 @@ First, mouse over the **Geometry Imports** menu:
     :align: center
     :alt: the geometry imports menu
 
-At the bottom of the **Geometry Imports** menu, click on "**new layer**" to add a new layer, then click on
+|br| At the bottom of the **Geometry Imports** menu, click on "**new layer**" to add a new layer, then click on
 the gear icon to open the configuration panel:
 
 .. image:: img/spectral/configuration_panel.png
@@ -66,7 +66,7 @@ the gear icon to open the configuration panel:
     :align: center
     :alt: the configuration panel for the geometry imports
 
-When adding geometry features from the map, you can choose to import them as a **Geometry**, a **Feature**,
+|br| When adding geometry features from the map, you can choose to import them as a **Geometry**, a **Feature**,
 or a **FeatureCollection**:
 
 - **Geometry** means only vector data (no attributes/properties)
@@ -81,14 +81,14 @@ and change the name from ``geometry`` to ``water``:
     :align: center
     :alt: the configure geometry import panel
 
-Next, click the **+property** button to add a new property:
+|br| Next, click the **+property** button to add a new property:
 
 .. image:: img/spectral/new_property.png
     :width: 400
     :align: center
     :alt: the configure geometry import panel with a new property
 
-Call this property ``name`` (left box), and give it a value of ``water`` (right box). Add a second property called ``label``, and 
+|br| Call this property ``name`` (left box), and give it a value of ``water`` (right box). Add a second property called ``label``, and
 give it a value of ``3`` -- our other three imports (``snow``, ``turbidWater``, and ``forest``) have ``label`` values of 
 ``0``, ``1``, and ``2``, respectively.
 
@@ -99,7 +99,7 @@ Change the color to something more appropriate, then click **OK**. You should no
     :align: center
     :alt: the imports with the new import added
 
-Next, we have to actually add points to the **Feature**. Make sure that **Add a marker** is highlighted in the digitizing menu,
+|br| Next, we have to actually add points to the **Feature**. Make sure that **Add a marker** is highlighted in the digitizing menu,
 and that **Point drawing** is on:
 
 .. image:: img/spectral/drawing_menu.png
@@ -107,7 +107,7 @@ and that **Point drawing** is on:
     :align: center
     :alt: the drawing menu showing the "add a marker" button
 
-If it's not, you can mouse over the **Geometry Imports** menu and click on the import you want to add geometries to. Once drawing
+|br| If it's not, you can mouse over the **Geometry Imports** menu and click on the import you want to add geometries to. Once drawing
 is turned on, you can add points by clicking on the **Map** -- a new marker will display each time you click:
 
 .. image:: img/spectral/new_point.png
@@ -115,7 +115,7 @@ is turned on, you can add points by clicking on the **Map** -- a new marker will
     :align: center
     :alt: a new point marker added to the map
 
-Add 10 points to the class by clicking in the **Map** in areas where you see deep water - try to avoid areas with high turbidity
+|br| Add 10 points to the class by clicking in the **Map** in areas where you see deep water - try to avoid areas with high turbidity
 (e.g., lots of brown/green color).
 
 .. image:: img/spectral/ten_points.png
@@ -123,7 +123,7 @@ Add 10 points to the class by clicking in the **Map** in areas where you see dee
     :align: center
     :alt: 10 new point markers added to the map
 
-Once you've added your points, turn off **Point drawing** by clicking on the import name, or clicking on the **Stop drawing** (hand)
+|br| Once you've added your points, turn off **Point drawing** by clicking on the import name, or clicking on the **Stop drawing** (hand)
 button:
 
 .. image:: img/spectral/stop_drawing.png
@@ -131,7 +131,7 @@ button:
     :align: center
     :alt: the drawing menu showing the "stop drawing" button
 
-Now that we've added an additional point, we can move on to look at the script in more detail.
+|br| Now that we've added an additional point, we can move on to look at the script in more detail.
 
 .. note::
 
@@ -223,14 +223,14 @@ you can add ``print(ptRefl);`` to the script after line 32, and re-run the scrip
     :align: center
     :alt: the console with the feature collection printed
 
-You can expand the object by clicking on it to view its properties. First, look at the ``columns`` **Object**:
+|br| You can expand the object by clicking on it to view its properties. First, look at the ``columns`` **Object**:
 
 .. image:: img/spectral/columns.png
     :width: 400
     :align: center
     :alt: the feature collection columns expanded
 
-This shows what properties each **Feature** in the **FeatureCollection** has, analogous to the fields in an attribute table.
+|br| This shows what properties each **Feature** in the **FeatureCollection** has, analogous to the fields in an attribute table.
 You can see that we have columns for each of the image bands that we extracted (``B1`` -- ``B7``), plus the ``label`` and
 ``name`` properties from our original imports.
 
@@ -241,7 +241,7 @@ When you expand the ``features`` **List**, you can see that each **Feature** has
     :align: center
     :alt: the feature collection properties expanded
 
-We want to extract these values and plot them in a chart, so that we can see how they compare to each other.
+|br| We want to extract these values and plot them in a chart, so that we can see how they compare to each other.
 
 One of the ways that we can do this is using ``ee.FeatureCollection.aggregate_array()`` 
 (`documentation <https://developers.google.com/earth-engine/apidocs/ee-featurecollection-aggregate_array>`__).
@@ -313,7 +313,7 @@ You should see something like this (remember that your values will be different!
     :align: center
     :alt: the array printed to the console
 
-This is the data that we'll use to create the our plot - each element of the list represents the reflectance values
+|br| This is the data that we'll use to create the our plot - each element of the list represents the reflectance values
 for our sample points in the given band (ordered based on ``bandNames``).
 
 
@@ -367,7 +367,7 @@ the basic chart looks like this:
     :align: center
     :alt: the default chart options. your (default) figures are ugly.
 
-This isn't particularly clear (or attractive), so we add the following. First, we use ``ui.Chart.setSeriesNames()``
+|br| This isn't particularly clear (or attractive), so we add the following. First, we use ``ui.Chart.setSeriesNames()``
 (`documentation <https://developers.google.com/earth-engine/apidocs/ui-chart-setseriesnames>`__) to
 change the labels for each **series** (group of data), using the ``categories`` value so that it matches
 the ``name`` property for each **Feature**:
@@ -422,7 +422,7 @@ would not be updated:
     :align: center
     :alt: the plot, with "water" having the default options
 
-To set the properties for this series, you'll need to add a line to the ``series`` **Dictionary**:
+|br| To set the properties for this series, you'll need to add a line to the ``series`` **Dictionary**:
 
 .. code-block:: javascript
 
@@ -441,7 +441,7 @@ Once you've set the properties, you should see that the ``water`` line has been 
     :align: center
     :alt: the final chart produced in the tutorial
 
-Finally, open the chart in a new window by clicking the button in the upper right corner of the chart. From here, 
+|br| Finally, open the chart in a new window by clicking the button in the upper right corner of the chart. From here,
 you can save the chart as a SVG or PNG file, or export the data as a CSV.
 
 next steps
