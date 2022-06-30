@@ -325,8 +325,8 @@ next steps
 -----------
 
 
-references
------------
+references and notes
+---------------------
 
 .. [3] Achanta, R. and S. Susstrunk (2017). In *Proc. IEEE Conf. Comp. Vis. Patt. Recog.*, pp. 4651--4660. doi: `10.1109/CVPR.2017.520 <https://doi.org/10.1109/CVPR.2017.520>`__ [`open-access pdf <https://openaccess.thecvf.com/content_cvpr_2017/papers/Achanta_Superpixels_and_Polygons_CVPR_2017_paper.pdf>`__]
 

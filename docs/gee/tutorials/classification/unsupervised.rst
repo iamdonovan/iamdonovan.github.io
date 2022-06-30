@@ -318,8 +318,8 @@ If you're interested in some additional practice, here are some suggestions:
 - Instead of specifying the number of clusters, try using ``ee.Clusterer.wekaXMeans()`` or ``ee.Clusterer.wekaCascadeKMeans()`` to choose an optimal number of classes for the image.
 - Another option for changing, or improving, the performance of the **Clusterer** is by providing a random *seed*\ [3]_ -- does this have any impact on the results you see?
 
-references
------------
+references and notes
+---------------------
 
 .. [1] Frank, E., M. A. Hall., and I. H. Witten (2016). The WEKA Workbench. Online Appendix for "Data Mining: Practical Machine Learning Tools and Techniques", Morgan Kaufmann, Fourth Edition, 2016. [`pdf <https://www.cs.waikato.ac.nz/ml/weka/Witten_et_al_2016_appendix.pdf>`__]
 
