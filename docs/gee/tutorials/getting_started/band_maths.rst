@@ -69,7 +69,7 @@ If you expand these two **imports** by clicking on the arrow next to each one:
     :align: center
     :alt: the visparams and infraparams imports
 
-you can see that the "natural color" image is displayed using OLI bands 4, 3, and 2, corresponding 
+|br| you can see that the "natural color" image is displayed using OLI bands 4, 3, and 2, corresponding
 to visible red, green, and blue light, respectively:
 
 .. image:: img/band_maths/naturalcolor.png
@@ -77,7 +77,7 @@ to visible red, green, and blue light, respectively:
     :align: center
     :alt: the natural color image added to the map
 
-As covered in the :doc:`mapping` tutorial, this broadly speaking shows the world as we see it, but it's
+|br| As covered in the :doc:`mapping` tutorial, this broadly speaking shows the world as we see it, but it's
 not the only way to view images. Depending on the application, other color combinations can help us enhance
 certain features, making the image somewhat easier to interpret.
 
@@ -89,7 +89,7 @@ The "infrared false color" image is displayed using an RGB composite of the SWIR
     :align: center
     :alt: the infrared (SWIR2/SWIR1/NIR) false color image added to the map
 
-The reason for this is that snow and ice have very little reflectance at shortwave infrared wavelengths - as a
+|br| The reason for this is that snow and ice have very little reflectance at shortwave infrared wavelengths - as a
 result, the RGB value for these pixels is very close to (0, 0, 255). We can also see that water, which has very
 little reflectance at infrared wavelengths, appears almost black, corresponding to an RGB value of (0, 0, 0). 
 Meanwhile, the vegetation and other land surfaces are some mixture of blue, green, and yellow -- vegetation typically
@@ -161,7 +161,7 @@ mostly blue (values closer to 1), and snow/ice is mostly solid yellow (values mu
     :align: center
     :alt: the red/swir band ratio image added to the map
 
-In addition to subtraction and division, ``ee.Image`` has methods for:
+|br| In addition to subtraction and division, ``ee.Image`` has methods for:
 
 - addition (``add``, `documentation <https://developers.google.com/earth-engine/apidocs/ee-image-add>`__)
 - multiplication (``multiply``, `documentation <https://developers.google.com/earth-engine/apidocs/ee-image-multiply>`__)
@@ -307,7 +307,7 @@ and we can add it to the map using a palette ranging from yellow to blue:
     :align: center
     :alt: the normalized difference water index image, added to the map
 
-Here, we can see that most of the land surface is yellow (indicating NDWI values near or below -0.5), while the ocean and lakes show up as mostly solid blue
+|br| Here, we can see that most of the land surface is yellow (indicating NDWI values near or below -0.5), while the ocean and lakes show up as mostly solid blue
 (indicating values above 0.5). The snow-covered peaks and glaciers show up somewhere in the middle, with NDWI values somewhere near 0.
 
 more complicated expressions
@@ -469,7 +469,7 @@ To view the **Chart**, we have to use ``print()`` to display it in the **Console
     :align: center
     :alt: a histogram of NDWI values
 
-This histogram shows effectively three different groups: a group with a peak around --0.7, representing
+|br| This histogram shows effectively three different groups: a group with a peak around --0.7, representing
 most of the land pixels (e.g., forest, rock/soil); a second, smaller group with a peak around 0.1, representing
 snow/ice, and the third, largest group with a peak somewhere around 0.75, representing water.
 
@@ -526,7 +526,7 @@ and add the water mask **FeatureCollection** to the **Map**:
     :align: center
     :alt: the water polygon mask added to the map
 
-Finally, the script exports the water mask to Google Drive, so that you can download it to your computer and use it in your 
+|br| Finally, the script exports the water mask to Google Drive, so that you can download it to your computer and use it in your
 GIS software of choice.
 
 next steps

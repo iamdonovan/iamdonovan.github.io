@@ -4,6 +4,9 @@ pixel-based classification
 In this tutorial, we'll look at doing a pixel-based classification of a Landsat 8 image acquired on 24 June, 2020,
 covering a portion of the Amazon Rainforest south of Santarém, Brazil.
 
+Pixel-based classification is a *supervised* classification technique, where we first have to train the computer how
+to classify the image based on its characteristics, before classifying each pixel of the image.
+
 By the end of this tutorial, you should be able to use Earth Engine to:
 
 - select points to train a **Classifier**

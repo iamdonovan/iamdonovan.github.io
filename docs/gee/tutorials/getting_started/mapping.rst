@@ -9,7 +9,7 @@ show the Geldingadalir (Fagradalsfjall) volcanic eruption on the Reykjanes Penin
     :align: center
     :alt: the Fagradalsfjall eruption on 26 June 2021
 
-By this point, the eruption, which began on 19 March 2021, has spread throughout parts of the valley, and can be seen
+|br| By this point, the eruption, which began on 19 March 2021, has spread throughout parts of the valley, and can be seen
 in the natural color image as a large, black area surrounding the active fissure.
 
 In this tutorial, we'll see how we can use different band combinations, along with the GEE digitizing features,
@@ -27,7 +27,7 @@ workflow of digitizing easier:
     :align: center
     :alt: the GEEDiT user interface
 
-If you are planning to do large-scale mapping of features, GEEDiT is a great (and easy!) tool to use. You can
+|br| If you are planning to do large-scale mapping of features, GEEDiT is a great (and easy!) tool to use. You can
 check out the following links to use it and learn more about it:
 
 - `GEEDiT version 2 <https://liverpoolgee.wordpress.com/geedit-geedit-reviewer/>`__
@@ -65,7 +65,7 @@ When you run the script, you will see the natural color image loaded into the **
     :align: center
     :alt: the Fagradalsfjall eruption on 26 June 2021
 
-The script will have also loaded (but not displayed) several other band combinations, including the near infrared false color composite
+|br| The script will have also loaded (but not displayed) several other band combinations, including the near infrared false color composite
 (bands 5, 4, and 3), a 654 false color composite, and a 764 false color composite.
 
 .. note::
@@ -93,7 +93,7 @@ open the **Configure geometry import** dialogue:
     :align: center
     :alt: configuring the new layer as a geometry
 
-Make sure that you're adding the layer as a ``Geometry`` before continuing. Call this layer "``exterior``" -- in the
+|br| Make sure that you're adding the layer as a ``Geometry`` before continuing. Call this layer "``exterior``" -- in the
 images above, you can see that there are a number of "holes" in the lava flow - areas (hilltops) where the ground has not yet been covered
 by lava. 
 
@@ -123,7 +123,7 @@ Once you're done, you should have something that looks like this (your outline m
     :align: center
     :alt: the finished polygon
 
-Now, repeat the process of adding a new **Geometry** layer called ``rings``, and digitize the areas inside of the outer boundary that aren't 
+|br| Now, repeat the process of adding a new **Geometry** layer called ``rings``, and digitize the areas inside of the outer boundary that aren't
 covered by lava. In the end, you should have something that looks like this:
 
 .. image:: img/mapping/rings.png
@@ -131,7 +131,7 @@ covered by lava. In the end, you should have something that looks like this:
     :align: center
     :alt: the rings displayed on the map
 
-Once you have added these two **Geometry** layers, uncomment the second section of this script (remove the ``/*`` from line 24,
+|br| Once you have added these two **Geometry** layers, uncomment the second section of this script (remove the ``/*`` from line 24,
 and the ``*/`` from line 61).
 
 editing polygons
@@ -145,7 +145,7 @@ then click on your polygon:
     :align: center
     :alt: editing the polygon
 
-You can click/drag on vertices to move them, or click and drag on entire shapes to move them:
+|br| You can click/drag on vertices to move them, or click and drag on entire shapes to move them:
 
 .. image:: img/mapping/moved.png
     :width: 600

@@ -9,7 +9,7 @@ a volcanic field in Saudi Arabia:
     :align: center
     :alt: closeup of Harrat Khaybar, the study area for this tutorial.
 
-*Unsupervised classification* is a classification technique where we have little to no input to the classification routine. Instead,
+|br| *Unsupervised classification* is a classification technique where we have little to no input to the classification routine. Instead,
 the classification algorithm determines how to group, or "cluster," pixels, based on their properties.
 
 It's important to note that the classes output by an unsupervised classification have no meaning, in the sense that they're only
@@ -95,7 +95,7 @@ This should produce the following artistic image in the **Map**:
     :align: center
     :alt: the clustered image added to the map window
 
-Remember that the class values in the image (0--15) don't yet correspond to any physical meaning - in order to finish the
+|br| Remember that the class values in the image (0--15) don't yet correspond to any physical meaning - in order to finish the
 classification, we would need identify what physical surfaces or objects the class values represent.
 
 stratified sampling
@@ -145,7 +145,7 @@ creating a scatter plot
 ------------------------
 
 To create the scatter plot, we'll use ``ui.Chart.feature.groups()`` 
-(`documentation <https://developers.google.com/earth-engine/apidocs/ui-chart-feature-groups>__`). 
+(`documentation <https://developers.google.com/earth-engine/apidocs/ui-chart-feature-groups>`__).
 
 Because we're limited to plotting two bands at a time, we'll create a **function** that enables us to easily make multiple 
 plots - instead of copying + pasting the code for the **Chart** multiple times and changing the parameters, we only need to
@@ -198,7 +198,7 @@ To see the **Chart**, remember that we have to print it to the **Console**:
     :align: center
     :alt: the SWIR2 vs. NIR scatter plot for each cluster
 
-The plot above shows the SWIR2 (``SR_B7``) values vs. NIR (``SR_B5``) values for each cluster. Note that there is some
+|br| The plot above shows the SWIR2 (``SR_B7``) values vs. NIR (``SR_B5``) values for each cluster. Note that there is some
 overlap between the clusters, because the clustering has been done in seven dimensions, rather than just two.
 
 plotting spectral signatures
@@ -289,7 +289,7 @@ The result of this is another **Chart** object that we can print to the **Consol
     :align: center
     :alt: the spectral signatures for the 16 classes of the unsupervised classification
 
-Here, we can see that there's probably a good deal of overlap between different clusters in each band - possibly indicating
+|br| Here, we can see that there's probably a good deal of overlap between different clusters in each band - possibly indicating
 that we could reduce the number of clusters, 
 
 Note that unlike in the :doc:`../getting_started/spectral` tutorial, we're setting the ``lineWidth``

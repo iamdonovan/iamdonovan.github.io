@@ -22,7 +22,7 @@ To begin, point your browser to https://code.earthengine.google.com. If you are 
     :align: center
     :alt: the GEE console with annotations
 
-The **Code editor** is where you can write your script to load data and process your results; the **Map** is where you can view images and other datasets, and
+|br| The **Code editor** is where you can write your script to load data and process your results; the **Map** is where you can view images and other datasets, and
 the **Console** is where you can see outputs, charts, and other things that you print out.
 
 To see the sample script for this tutorial, follow this link.
@@ -183,7 +183,7 @@ a 98% stretch instead of a custom range:
     :align: center
     :alt: the layer visualization settings
 
-To change the bands that are displayed, you can select the different bands to make an RGB combination from the dropdown menus; you can also
+|br| To change the bands that are displayed, you can select the different bands to make an RGB combination from the dropdown menus; you can also
 choose to display the image as a single-band (grayscale) image.
 
 You can also adjust the transparency slider for the different layers displayed here, and by checking/unchecking the box next to the layer
@@ -212,7 +212,7 @@ be able to see the following:
     :align: center
     :alt: the gee console output after expanding the image
 
-You can expand the **bands** list to see the different bands available in the image, while the **properties** object contains
+|br| You can expand the **bands** list to see the different bands available in the image, while the **properties** object contains
 all of the different metadata for the image. In later tutorials, we'll actually use this metadata for selecting and processing
 images; for now, it's enough to look at it and get familiar with it.
 
@@ -227,7 +227,7 @@ to examine it further:
     :align: center
     :alt: the map after zooming in
 
-Here, we've zoomed in on Malaspina Lake, between the glacier and the ocean more or less in the middle of the image.
+|br| Here, we've zoomed in on Malaspina Lake, between the glacier and the ocean more or less in the middle of the image.
 
 To examine (or *inspect*) different pixel or feature values for the layers in the map, we can use the **Inspector** tab.
 Click on the **Inspector** tab, then click on the map window somewhere in the lake. You should see something like the following
@@ -238,7 +238,7 @@ in the **Inspector** tab (note that it probably won't be exactly the same):
     :align: center
     :alt: the inspector tab showing the list view
 
-This shows the **list** view for the **Inspector** tool - for each layer, and each band, it will list the pixel value where you've
+|br| This shows the **list** view for the **Inspector** tool - for each layer, and each band, it will list the pixel value where you've
 clicked, based on the current scale.
 
 You can also click on the chart symbol next to the layer name:
@@ -248,14 +248,14 @@ You can also click on the chart symbol next to the layer name:
     :align: center
     :alt: the button for swapping between list and chart views
 
-To swap between the list and chart views:
+|br| To swap between the list and chart views:
 
 .. image:: img/adding_exporting/inspector_plot.png
     :width: 600
     :align: center
     :alt: the inspector tab showing the chart view
 
-From the chart view, you can also click the highlighted button to open the chart in a new window, where you can download
+|br| From the chart view, you can also click the highlighted button to open the chart in a new window, where you can download
 the chart as an SVG or PNG file, or the data as a comma-separated variable (CSV) file:
 
 .. image:: img/adding_exporting/inspector_graph.png
@@ -263,7 +263,7 @@ the chart as an SVG or PNG file, or the data as a comma-separated variable (CSV)
     :align: center
     :alt: the inspector tab showing the chart view
 
-You can spend some time moving around the map and viewing the output of the **Inspector** tool - be sure to pay attention to the
+|br| You can spend some time moving around the map and viewing the output of the **Inspector** tool - be sure to pay attention to the
 reflectances in different bands for different surfaces. What surfaces have the highest reflectance values? In what bands?
 
 exporting data
@@ -292,7 +292,7 @@ If you click on the **Tasks** tab, you should see the following:
     :align: center
     :alt: the gee tasks menu
 
-Here, you can see the different **Tasks** created by the script - in this case, we have one **Task** that has not yet been submitted,
+|br| Here, you can see the different **Tasks** created by the script - in this case, we have one **Task** that has not yet been submitted,
 to export the image to Google Drive.
 
 .. note::
@@ -306,7 +306,7 @@ When you click **RUN**, you will see the following dialogue:
     :align: center
     :alt: the map after zooming in
 
-This allows you to enter a filename for your export, choose which folder to export the file to, and so on. When you've entered the
+|br| This allows you to enter a filename for your export, choose which folder to export the file to, and so on. When you've entered the
 necessary information and are happy, you can click **RUN** again.
 
 In general, running the task might take some time, depending on the size of the image. You can click the
@@ -316,7 +316,3 @@ That's all for this tutorial - by now, you should be able to add an image to the
 pixel and feature values in the **Map** window, and **Export** an image from GEE to your Google Drive.
 
 In the next tutorial, we'll see how you can build on this to examine the surface reflectance values of various surface types.
-
-
-
-

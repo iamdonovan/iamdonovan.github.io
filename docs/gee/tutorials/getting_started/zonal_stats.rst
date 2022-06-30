@@ -41,7 +41,7 @@ way that we can for **Image** data:
     :align: center
     :alt: the vector data after being added to the map
 
-If we want to display vector data using different colors, we have to use ``ee.FeatureCollection.reduceToImage()``
+|br| If we want to display vector data using different colors, we have to use ``ee.FeatureCollection.reduceToImage()``
 (`documentation <https://developers.google.com/earth-engine/apidocs/ee-featurecollection-reducetoimage>`__):
 
 .. code-block:: javascript
@@ -272,7 +272,7 @@ landcover class. Each of these has two **key**\ s, one for the landcover code va
     :align: center
     :alt: the output of ee.Image.reduceRegion()
 
-This is somewhat unwieldy - we want to combine these into a single **Dictionary** with **key**/**value** pairs corresponding to
+|br| This is somewhat unwieldy - we want to combine these into a single **Dictionary** with **key**/**value** pairs corresponding to
 each landcover class.
 
 To do this, we first pull the landcover classes out of the **Dictionary** using ``ee.Dictionary.get()`` 
@@ -327,8 +327,6 @@ we can see that the new **Feature** has all of the properties of the original, p
     :width: 400
     :align: center
     :alt: the updated feature properties
-
-.. (`documentation <>`__)
 
 summarizing over a featurecollection
 -------------------------------------
@@ -401,7 +399,7 @@ Using ``print()``, we can see that this has updated each **Feature** with the ne
     :align: center
     :alt: the updated featurecollection properties
 
-Finally, we export the new **FeatureCollection** to Drive using ``Export.table.toDrive()``:
+|br| Finally, we export the new **FeatureCollection** to Drive using ``Export.table.toDrive()``:
 
 .. code-block:: 
 
