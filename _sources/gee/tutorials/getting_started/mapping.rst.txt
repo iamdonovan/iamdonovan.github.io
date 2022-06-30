@@ -282,8 +282,8 @@ If you're interested in some additional practice, here are some suggestions:
 - alternatively, use the `Sentinel-1 GRD <https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S1_GRD>`__ product to digitize the outlines. Sentinel-1 is a C-band synthetic aperture radar (SAR) sensor, which means it has the ability to "see" through clouds and even at night. These images will be more difficult to interpret than the optical images we've used so far, but it can provide a very powerful alternative (or complement) to the datasets we've been using.
 - using GEEDiT, digitize the lava flow area over time, then create a chart showing the area change.
 
-references
------------
+references and notes
+---------------------
 
 .. [1] Lea, J. M (2018). *Earth Surf. Dynam.*, 6, 551–561 . doi: `10.5194/esurf-6-551-2018 <https://doi.org/10.5194/esurf-6-551-2018>`__
 

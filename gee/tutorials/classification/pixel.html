@@ -53,13 +53,15 @@
 <li class="toctree-l5 current"><a class="current reference internal" href="#">pixel-based classification</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#adding-training-points">adding training points</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#adding-classes">adding classes</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#splitting-the-training-dataset">splitting the training dataset</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#using-require-to-load-another-script">using require to load another script</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#getting-training-data">getting training data</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#splitting-the-training-data">splitting the training data</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#training-a-classifier">training a classifier</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#accuracy-assessment">accuracy assessment</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#classifying-the-image">classifying the image</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#examining-the-results">examining the results</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#accuracy-assessment">accuracy assessment</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#spectral-signatures">spectral signatures</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#references">references</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#references-and-notes">references and notes</a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="obia.html">object-based classification</a></li>
@@ -109,27 +111,36 @@
              
   <section id="pixel-based-classification">
 <h1>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this headline"></a></h1>
-<p>Lorem ipsum, etc.</p>
-<p>In this tutorial, …</p>
+<p>In this tutorial, we’ll look at doing a pixel-based classification of a Landsat 8 image acquired on 24 June, 2020,
+covering a portion of the Amazon Rainforest south of Santarém, Brazil.</p>
+<p>By the end of this tutorial, you should be able to use Earth Engine to:</p>
+<ul class="simple">
+<li><p>select points to train a <strong>Classifier</strong></p></li>
+<li><p>train and apply a <strong>Classifier</strong> to a satellite image</p></li>
+<li><p>evaluate the accuracy of a classification</p></li>
+<li><p>create a chart that shows the area by class</p></li>
+<li><p>plot spectral signatures of training classes</p></li>
+</ul>
 <section id="adding-training-points">
 <h2>adding training points<a class="headerlink" href="#adding-training-points" title="Permalink to this headline"></a></h2>
 <p>To run a supervised classification, we need to provide <strong>labeled training</strong> data - that is, a number of points where
-we have identified what <strong>class</strong> the points belongs to.</p>
+we have identified what <strong>class</strong> the points belong to.</p>
 <p>The classification algorithm then takes these points, and the associated input data such as reflectance in different bands,
 and determines the “rules” for how to classify points based on the input data.</p>
 <p>When you open the script, you should see there are a number of <strong>Geometry Imports</strong>:</p>
-<p><strong>script open</strong></p>
-<p>Specifically, there are five <strong>FeatureCollection</strong> imports representing landcover classes (<code class="docutils literal notranslate"><span class="pre">water</span></code>, <code class="docutils literal notranslate"><span class="pre">forest</span></code>, <code class="docutils literal notranslate"><span class="pre">grassland</span></code>, <code class="docutils literal notranslate"><span class="pre">builtup</span></code>,
-and <code class="docutils literal notranslate"><span class="pre">bare</span></code>), each with 40 points. To add more points to each of these, you can use the <strong>Geometry Editing</strong> tools:</p>
-<p><strong>geometry imports</strong></p>
-<p>Click on the layer that you want to add points to - for example, <code class="docutils literal notranslate"><span class="pre">water</span></code>:</p>
-<p><strong>water highlighted</strong></p>
-<p>Then, click on the map to add the point:</p>
-<p><strong>point added</strong></p>
-<p>If you want to move or delete a point, click on the <strong>Stop drawing</strong> button (the hand), then select the point you
+<a class="reference internal image-reference" href="../../../_images/script_open.png"><img alt="the script open in the earth engine window, with the geometry imports highlighted" class="align-center" src="../../../_images/script_open.png" style="width: 600px;" /></a>
+<p><br /> Specifically, there are five <strong>FeatureCollection</strong> imports representing landcover classes (<code class="docutils literal notranslate"><span class="pre">water</span></code>, <code class="docutils literal notranslate"><span class="pre">forest</span></code>,
+<code class="docutils literal notranslate"><span class="pre">grassland</span></code>, <code class="docutils literal notranslate"><span class="pre">builtup</span></code>, and <code class="docutils literal notranslate"><span class="pre">bare</span></code>), each with 40 points. To add more points to each of these, you can use
+the <strong>Geometry Editing</strong> tools:</p>
+<a class="reference internal image-reference" href="../../../_images/geometry_tools.png"><img alt="the geometry editing tools in the earth engine window" class="align-center" src="../../../_images/geometry_tools.png" style="width: 300px;" /></a>
+<p><br /> Click on the layer that you want to add points to - for example, <code class="docutils literal notranslate"><span class="pre">water</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/water_highlighted.png"><img alt="the geometry editing tools with the water layer selected" class="align-center" src="../../../_images/water_highlighted.png" style="width: 500px;" /></a>
+<p><br /> Then, click on the map to add the point:</p>
+<a class="reference internal image-reference" href="../../../_images/water_added.png"><img alt="the earth engine map with a new point added to the water layer" class="align-center" src="../../../_images/water_added.png" style="width: 600px;" /></a>
+<p><br /> If you want to move or delete a point, click on the <strong>Stop drawing</strong> button (the hand), then select the point you
 want to edit:</p>
-<p><strong>point selected</strong></p>
-<p>Then, either click and drag to move the <strong>Point</strong>, or click on <strong>Delete</strong> to delete the <strong>Point</strong>.</p>
+<a class="reference internal image-reference" href="../../../_images/point_selected.png"><img alt="the geometry editing tools with a specific point in the water layer highlighted" class="align-center" src="../../../_images/point_selected.png" style="width: 500px;" /></a>
+<p><br /> Then, either click on the <strong>Point</strong> and drag to move it, or click on <strong>Delete</strong> to delete the <strong>Point</strong>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For the purposes of this tutorial, 40 points for each class is sufficient to give you an idea for how the process works.
@@ -142,21 +153,23 @@ points.</p>
 <p>You might also want to add additional landcover classes to the classification by adding a new <strong>FeatureCollection</strong> as follows.
 First, mouse back over the <strong>Geometry Imports</strong>. At the bottom of the <strong>Geometry Imports</strong> menu, click on “<strong>new layer</strong>”
 to add a new layer, then click on the gear icon to open the configuration panel:</p>
-<a class="reference internal image-reference" href="gee/tutorials/classification/img/spectral/configuration_panel.png"><img alt="the configuration panel for the geometry imports" class="align-center" src="gee/tutorials/classification/img/spectral/configuration_panel.png" style="width: 600px;" /></a>
-<p>As a reminder, when adding geometry features from the map, you can choose to import them as a <strong>Geometry</strong>, a <strong>Feature</strong>,
+<a class="reference internal image-reference" href="../../../_images/configuration_panel.png"><img alt="the configuration panel for the geometry imports" class="align-center" src="../../../_images/configuration_panel.png" style="width: 300px;" /></a>
+<p><br /> As a reminder, when adding geometry features from the map, you can choose to import them as a <strong>Geometry</strong>, a <strong>Feature</strong>,
 or a <strong>FeatureCollection</strong>:</p>
 <ul class="simple">
 <li><p><strong>Geometry</strong> means only vector data (no attributes/properties)</p></li>
-<li><p><strong>Feature</strong> means you can have a geometry and attributes/properties, it will be treated as a single feature by GEE. So, if you have multiple points in a <strong>Feature</strong>, it will be imported as a <strong>MultiPoint Feature</strong></p></li>
-<li><p><strong>FeatureCollection</strong> means that each geometric object is treated as a <strong>Feature</strong> – so, multiple points are treated as individual points.</p></li>
+<li><p><strong>Feature</strong> means you can have a geometry and attributes/properties, it will be treated as a single feature by GEE.
+So, if you have multiple points in a <strong>Feature</strong>, it will be imported as a <strong>MultiPoint Feature</strong></p></li>
+<li><p><strong>FeatureCollection</strong> means that each geometric object is treated as a <strong>Feature</strong> – so, multiple points are
+treated as individual points.</p></li>
 </ul>
 <p>Make sure that you add the new class as a <strong>FeatureCollection</strong>, and give it an appropriate name. Next, click the <strong>+property</strong> button to add a new property:</p>
-<a class="reference internal image-reference" href="gee/tutorials/classification/img/spectral/new_property.png"><img alt="the configure geometry import panel with a new property" class="align-center" src="gee/tutorials/classification/img/spectral/new_property.png" style="width: 400px;" /></a>
-<p>Call this property <code class="docutils literal notranslate"><span class="pre">landcover</span></code> (left box), and give it a value of <code class="docutils literal notranslate"><span class="pre">5</span></code> (right box), since landcover values 0-4 currently
+<a class="reference internal image-reference" href="../../../_images/new_property.png"><img alt="the configure geometry import panel with a new property" class="align-center" src="../../../_images/new_property.png" style="width: 400px;" /></a>
+<p><br /> Call this property <code class="docutils literal notranslate"><span class="pre">landcover</span></code> (left box), and give it a value of <code class="docutils literal notranslate"><span class="pre">5</span></code> (right box), since landcover values 0-4 currently
 correspond to the 5 classes that have already been imported.</p>
 <p>Change the color to something more appropriate, then click <strong>OK</strong>. You should now see the import at the top of the script.</p>
 <p>You can now add points to the new <strong>FeatureCollection</strong> by following the digitizing instructions from above.</p>
-<p>Finally, you need to make sure to add your new class to the <strong>FeatureCollection</strong> of training points in the script at line 11:</p>
+<p>Finally, you need to make sure to add your new class to the <strong>FeatureCollection</strong> of training points in the script at line 10:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">trainingPoints</span> <span class="o">=</span> <span class="nx">water</span>
   <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">forest</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">grassland</span><span class="p">)</span>
@@ -164,17 +177,72 @@ correspond to the 5 classes that have already been imported.</p>
   <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">bare</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>To do this, delete the semicolon at the end of line 11, and add <code class="docutils literal notranslate"><span class="pre">.merge(yourNewClass);</span></code> on line 12 (remembering, of course, to replace
-<code class="docutils literal notranslate"><span class="pre">yourNewClass</span></code> with the actual name of the <strong>FeatureCollection</strong>).</p>
+<p>To do this, delete the semicolon at the end of line 14, and add <code class="docutils literal notranslate"><span class="pre">.merge(yourNewClass);</span></code> on line 15 (remembering, of course, to replace
+<code class="docutils literal notranslate"><span class="pre">yourNewClass</span></code> with the actual name of the new <strong>FeatureCollection</strong>).</p>
+<p>You should also add the name of your class to the list of class names defined at line 20:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">classes</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">List</span><span class="p">([</span><span class="s1">&#39;water&#39;</span><span class="p">,</span> <span class="s1">&#39;forest&#39;</span><span class="p">,</span> <span class="s1">&#39;grassland&#39;</span><span class="p">,</span> <span class="s1">&#39;built-up&#39;</span><span class="p">,</span> <span class="s1">&#39;bare soil&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
 </section>
-<section id="splitting-the-training-dataset">
-<h2>splitting the training dataset<a class="headerlink" href="#splitting-the-training-dataset" title="Permalink to this headline"></a></h2>
-<p>Once we have training points, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code>
-(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-sampleregions">documentation</a>) to get the <strong>Image</strong> values at those
-points, which is what we’ll use to train the <strong>Classifier</strong>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SR_B1&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B7&#39;</span><span class="p">];</span>
+<section id="using-require-to-load-another-script">
+<h2>using require to load another script<a class="headerlink" href="#using-require-to-load-another-script" title="Permalink to this headline"></a></h2>
+<p>The very first line of this script (after the initial comment) is this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">accuracy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;users/robertmcnabb/modules:accuracy&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In Earth Engine, <code class="docutils literal notranslate"><span class="pre">require()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/require">documentation</a>) retrieves
+the script/file provided to it and imports it as a module. In our script, we can then use any of the <em>exported</em>
+functions or attributes in <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:accuracy</span></code> by calling them in the script.</p>
+<p>As an example, one of the functions in <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:accuracy</span></code> is <code class="docutils literal notranslate"><span class="pre">unbiasedArea()</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm">Estimates the unbiased area estimate of each class in a classification, using the</span>
+<span class="cm">error matrix and classified area totals.</span>
 
-<span class="kd">var</span> <span class="nx">training</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">sampleRegions</span><span class="p">({</span>
+<span class="cm">For more information, see e.g. Eqn. 2 of Olofsson et al. (2013)</span>
+<span class="cm">(http://dx.doi.org/10.1016/j.rse.2012.10.031).</span>
+
+<span class="cm">Inputs:</span>
+<span class="cm">  - errMat: an error matrix in the form of an Array (e.g., ee.ConfusionMatrix.array())</span>
+<span class="cm">  - mapArea: a List of the mapped (classified) area corresponding to the classes in errMat.</span>
+
+<span class="cm">Returns:</span>
+<span class="cm">  - areaEstim: the classified area values, corrected using the error matrix.</span>
+<span class="cm">*/</span>
+</pre></div>
+</div>
+<p>Later in the script, we will use this function as <code class="docutils literal notranslate"><span class="pre">accuracy.unbiasedArea()</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the (unbiased) area of each class:</span>
+<span class="kd">var</span> <span class="nx">unbiasedArea</span> <span class="o">=</span> <span class="nx">accuracy</span><span class="p">.</span><span class="nx">unbiasedArea</span><span class="p">(</span><span class="nx">cm</span><span class="p">.</span><span class="nx">array</span><span class="p">(),</span> <span class="nx">areas</span><span class="p">).</span><span class="nx">toList</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">accuracy</span></code> module includes a number of functions that implement equations from Oloffsson et al. (2013)<a class="footnote-reference brackets" href="#olofsson" id="id1">1</a>, to
+provide a convenient way to estimate the area uncertainty of our classification using the classification
+error (confusion) matrix.</p>
+<p>We will make more use of <code class="docutils literal notranslate"><span class="pre">require()</span></code> in future tutorials; if you’re interested in seeing how to set this up to use it
+in your own scripts,
+<a class="reference external" href="https://medium.com/google-earth/making-it-easier-to-reuse-code-with-earth-engine-script-modules-2e93f49abb13">this blog post</a>
+is a great place to start.</p>
+</section>
+<section id="getting-training-data">
+<h2>getting training data<a class="headerlink" href="#getting-training-data" title="Permalink to this headline"></a></h2>
+<p>Now that we have training classes and points, we have to decide what image properties to use as inputs for “training”
+the classifier. In the script as written, we use Landsat OLI bands 1-7 (Visible/NIR/SWIR), as shown in this line:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SR_B1&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B7&#39;</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>In principle, we can use anything that we want here. For example, if we wanted to use the normalized difference
+vegetation index (NDVI) values in addition to the surface reflectances, we could add that band to the image and include
+‘NDVI’ in the list of <code class="docutils literal notranslate"><span class="pre">bands</span></code> above:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SR_B1&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B7&#39;</span><span class="p">,</span> <span class="s1">&#39;NDVI&#39;</span><span class="p">];</span>
+<span class="nx">img</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;NDVI&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>In the next lesson (<a class="reference internal" href="obia.html"><span class="doc">object-based classification</span></a>), we’ll see how we can include a number of image textural properties in our classification;
+for now, we’ll stick to the surface reflectance in OLI bands 1-7.</p>
+<p>To create the training dataset, we use the merged training class points (<code class="docutils literal notranslate"><span class="pre">trainingPoints</span></code>), along with <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-sampleregions">documentation</a>), to get the <strong>Image</strong> values at those
+points:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">training</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">sampleRegions</span><span class="p">({</span>
   <span class="nx">collection</span><span class="o">:</span> <span class="nx">trainingPoints</span><span class="p">,</span>
   <span class="nx">properties</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;landcover&#39;</span><span class="p">],</span>
   <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span>
@@ -185,13 +253,20 @@ points, which is what we’ll use to train the <strong>Classifier</strong>:</p>
 <strong>FeatureCollection</strong>. To make sure that we include the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> value for each point, we add this to the
 <code class="docutils literal notranslate"><span class="pre">properties</span></code> parameter when we call <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code> - otherwise, this information wouldn’t be included
 in the training dataset.</p>
+</section>
+<section id="splitting-the-training-data">
+<h2>splitting the training data<a class="headerlink" href="#splitting-the-training-data" title="Permalink to this headline"></a></h2>
 <p>The next step in training a <strong>Classifier</strong> is to <em>split</em> the training dataset into two parts: one, the <em>training</em> split,
 is what we’ll use to actually train the <strong>Classifier</strong>. The second part, the <em>testing</em> split, is what we’ll use to
-check how good a job the <strong>Classifier</strong> has actually done. The goal here is to make sure that the</p>
+check how good a job the <strong>Classifier</strong> has actually done.</p>
+<p>The goal here is to test the performance of the classifier with “unseen” data (the <em>testing</em> split). This way, we’re
+evaluating the performance of the <strong>Classifier</strong> on “new” data, rather than checking its performance on data that it
+used to “learn” how to classify the data - in the same way that exams normally have different questions than what
+you’ve used to study for the exam.</p>
 <p>To split our dataset, we first use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.randomColumn()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-randomcolumn">documentation</a>). This will
 add a column, <code class="docutils literal notranslate"><span class="pre">'random'</span></code>, to the <strong>FeatureCollection</strong>, and fill the column with uniformly-distributed random
-numbers that fall in the range [0, 1).</p>
+numbers that fall in the range [0, 1) (that is, values greater than or equal to 0, but less than 1).</p>
 <p>We then use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.filter()</span></code> to select the <strong>Feature</strong>s where the random value is less than 0.7,
 which form our <em>training</em> data, and the <strong>Feature</strong>s where the random value is greater than or equal to 0.7,
 which form our <em>testing</em> data:</p>
@@ -207,15 +282,15 @@ which form our <em>testing</em> data:</p>
 <p>Once we’ve split the input data into <em>training</em> and <em>testing</em> partitions, we can “train” our <strong>Classifier</strong>.</p>
 <p>GEE has a number of <strong>Classifier</strong> algorithms implemented:</p>
 <ul class="simple">
-<li><p>Maximum Entropy (<code class="docutils literal notranslate"><span class="pre">amnhMaxent</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent">documentation</a>)<a class="footnote-reference brackets" href="#id9" id="id1">1</a><a class="footnote-reference brackets" href="#id10" id="id2">2</a></p></li>
-<li><p>Support Vector Machine (<code class="docutils literal notranslate"><span class="pre">libsvm</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm">documentation</a>)<a class="footnote-reference brackets" href="#id11" id="id3">3</a></p></li>
-<li><p>Minimum Distane (<code class="docutils literal notranslate"><span class="pre">minimumDistance</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance">documentation</a>)<a class="footnote-reference brackets" href="#id12" id="id4">4</a></p></li>
-<li><p>CART (<code class="docutils literal notranslate"><span class="pre">smileCart</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart">documentation</a>)<a class="footnote-reference brackets" href="#id13" id="id5">5</a></p></li>
-<li><p>Gradient Tree Boost (<code class="docutils literal notranslate"><span class="pre">smileGradientTreeBoost</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost">documentation</a>)<a class="footnote-reference brackets" href="#id14" id="id6">6</a></p></li>
-<li><p>Naive Bayes (<code class="docutils literal notranslate"><span class="pre">smileNaiveBayes</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes">documentation</a>)<a class="footnote-reference brackets" href="#id15" id="id7">7</a></p></li>
-<li><p>Random Forest (<code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest">documentation</a>)<a class="footnote-reference brackets" href="#id16" id="id8">8</a></p></li>
+<li><p>Maximum Entropy (<code class="docutils literal notranslate"><span class="pre">amnhMaxent</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent">documentation</a>)<a class="footnote-reference brackets" href="#maxent1" id="id2">2</a><a class="footnote-reference brackets" href="#maxent2" id="id3">3</a></p></li>
+<li><p>Support Vector Machine (<code class="docutils literal notranslate"><span class="pre">libsvm</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm">documentation</a>)<a class="footnote-reference brackets" href="#svm" id="id4">4</a></p></li>
+<li><p>Minimum Distance (<code class="docutils literal notranslate"><span class="pre">minimumDistance</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance">documentation</a>)<a class="footnote-reference brackets" href="#mindist" id="id5">5</a></p></li>
+<li><p>CART (<code class="docutils literal notranslate"><span class="pre">smileCart</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart">documentation</a>)<a class="footnote-reference brackets" href="#cart" id="id6">6</a></p></li>
+<li><p>Gradient Tree Boost (<code class="docutils literal notranslate"><span class="pre">smileGradientTreeBoost</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost">documentation</a>)<a class="footnote-reference brackets" href="#grad" id="id7">7</a></p></li>
+<li><p>Naive Bayes (<code class="docutils literal notranslate"><span class="pre">smileNaiveBayes</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes">documentation</a>)<a class="footnote-reference brackets" href="#bayes" id="id8">8</a></p></li>
+<li><p>Random Forest (<code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest">documentation</a>)<a class="footnote-reference brackets" href="#randforest" id="id9">9</a></p></li>
 </ul>
-<p>In this example, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Classifier.smileRandomForest()</span></code> to do a Random Forest classification.</p>
+<p>In this tutorial, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Classifier.smileRandomForest()</span></code> to do a Random Forest classification:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">classifier</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Classifier</span><span class="p">.</span><span class="nx">smileRandomForest</span><span class="p">(</span><span class="mf">100</span><span class="p">).</span><span class="nx">train</span><span class="p">({</span>
   <span class="nx">features</span><span class="o">:</span> <span class="nx">trainingPartition</span><span class="p">,</span>
   <span class="nx">classProperty</span><span class="o">:</span> <span class="s1">&#39;landcover&#39;</span><span class="p">,</span>
@@ -232,12 +307,27 @@ the classifier. The inputs to <code class="docutils literal notranslate"><span c
 <li><p><code class="docutils literal notranslate"><span class="pre">inputProperties</span></code>, a list of the properties from <code class="docutils literal notranslate"><span class="pre">features</span></code> to use to train the <strong>Classifier</strong></p></li>
 </ul>
 <p>So, this will train the <strong>Classifier</strong> using the <code class="docutils literal notranslate"><span class="pre">trainingPartition</span></code> <strong>FeatureCollection</strong>,
-based on the <code class="docutils literal notranslate"><span class="pre">'landcover'</span></code> property, using the image bands listed in <code class="docutils literal notranslate"><span class="pre">bands</span></code>.</p>
+based on the <code class="docutils literal notranslate"><span class="pre">'landcover'</span></code> property, using the image bands listed in the <code class="docutils literal notranslate"><span class="pre">bands</span></code> variable defined at line 17 of
+the script.</p>
+</section>
+<section id="classifying-the-image">
+<h2>classifying the image<a class="headerlink" href="#classifying-the-image" title="Permalink to this headline"></a></h2>
+<p>Once we have trained the <strong>Classifier</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.classify()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-classify">documentation</a>) to classify the
+image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">classified</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This creates a new <strong>Image</strong> with a single band, <code class="docutils literal notranslate"><span class="pre">classification</span></code>, where the pixel values are the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> values
+of each class from our training <strong>FeatureCollection</strong>.</p>
+<p>Have a look at the classified image in the <strong>Map</strong> window - are there areas where you can see some misclassification?
+Does it overall match with your expectations? In the next few sections, we’ll take a look at some ways that we can
+evaluate how well the <strong>Classifier</strong> has done in classifying each pixel of the image.</p>
 </section>
 <section id="accuracy-assessment">
 <h2>accuracy assessment<a class="headerlink" href="#accuracy-assessment" title="Permalink to this headline"></a></h2>
-<p>Once we’ve trained the classifier, we can use the <em>testing</em> dataset to evaluate how accurate it is. First, we
-have to use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.classify()</span></code>
+<p>Once we’ve trained the <strong>Classifier</strong> and applied it to the image, we can use the <em>testing</em> dataset to evaluate how
+well the <strong>Classifier</strong> has performed. First, though, we have to use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.classify()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-classify">documentation</a>) to classify
 the testing data:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="nx">testingPartition</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
@@ -260,11 +350,18 @@ correctly or incorrectly classified as each object:</p>
 </pre></div>
 </div>
 <p>will print the <strong>ConfusionMatrix</strong> object, along with the <em>overall accuracy</em>, <em>kappa</em> score, <em>producer’s</em> accuracy,
-and <em>consumer’s</em> accuracy to the <strong>Console</strong>:</p>
+and <em>consumer’s</em> accuracy to the <strong>Console</strong>. As a reminder:</p>
 <ul class="simple">
-<li><p>the <em>overall</em> accuracy is the number of correctly classified <strong>Feature</strong>s, divided by the total number of <strong>Feature</strong>s</p></li>
-<li><p>the <em>producer’s</em> accuracy is the probability that a particular class is correctly classified, and it’s the number of correctly classified <strong>Feature</strong>s divided by the total number of <strong>Feature</strong>s in each row of the <strong>ConfusionMatrix</strong>.</p></li>
-<li><p>the <em>consumer’s</em> accuracy is the probability that the map classification is correct, and it’s the number of correctly classified <strong>Feature</strong>s divided by the total number of <strong>Feature</strong>s in each column of the <strong>ConfusionMatrix</strong>.</p></li>
+<li><p>the <em>overall</em> accuracy is the number of correctly classified <strong>Feature</strong>s, divided by the total number of <strong>Feature</strong>s.
+It tells us the percentage of training data that the classifier has correctly identified.</p></li>
+<li><p>the <em>producer’s</em> accuracy is the probability that a particular class is correctly classified, and it is calculated
+as the number of correctly classified <strong>Feature</strong>s divided by the total number of <strong>Feature</strong>s in each row of
+the <strong>ConfusionMatrix</strong>. This is also the complement of the <em>omission</em> error, the error introduced when pixels are
+incorrectly omitted from the correct class in the classification.</p></li>
+<li><p>the <em>consumer’s</em> accuracy is the probability that the map classification is correct, and it’s the number of correctly
+classified <strong>Feature</strong>s divided by the total number of <strong>Feature</strong>s in each column of the <strong>ConfusionMatrix</strong>. This
+is also the complement of the <em>commission</em> error, the error introduced when pixels are included in the incorrect
+class in the classification.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -273,14 +370,14 @@ appears to be incorrect - that is, based on the example code provided, <code cla
 uses the values in each <em>row</em> of the sample <strong>Array</strong>, while <code class="docutils literal notranslate"><span class="pre">ee.ConfusionMatrix.consumersAccuracy()</span></code> uses the
 values in each <em>column</em>.</p>
 </div>
-<p>The <em>kappa</em> score, or statistic, is calculated as follows:</p>
+<p>The <em>kappa</em> score, or statistic<a class="footnote-reference brackets" href="#kappa" id="id10">10</a>, is calculated as follows:</p>
 <div class="math notranslate nohighlight">
 \[\kappa = \frac{p_o - p_e}{1 - p_e}\]</div>
 <p>where <span class="math notranslate nohighlight">\(p_o\)</span> is the observed accuracy of the classifier, and <span class="math notranslate nohighlight">\(p_e\)</span> is the hypothetical probability of chance agreement.
 The <em>kappa</em> score thus gives a measure of how much better the classifier performs than would be expected by random chance.</p>
 <p>When you run the script, you should see the following in the <strong>console</strong> panels (remember that your results may differ slightly):</p>
-<a class="reference internal image-reference" href="../../../_images/error_matrix.png"><img alt="the error matrix and accuracy values for the 100-tree random forest classification" class="align-center" src="../../../_images/error_matrix.png" style="width: 400px;" /></a>
-<p>To help you understand this, I’ve added row/column labels to this table below:</p>
+<a class="reference internal image-reference" href="../../../_images/confusion_matrix.png"><img alt="the error matrix and accuracy values for the 100-tree random forest classification" class="align-center" src="../../../_images/confusion_matrix.png" style="width: 400px;" /></a>
+<p><br /> To help make this a bit clearer, I’ve added row/column labels to this table below:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
@@ -347,7 +444,8 @@ bare soil.</p>
 <p>Four bare soil <strong>Feature</strong>s were mis-classified as built-up areas, and the remaining 8 were correctly
 classified as bare soil.</p>
 <p>From this example, we can also see that the overall accuracy is decently high (88.3%), with a reasonably high
-kappa statistic (0.853).</p>
+kappa statistic (0.853). This, however, is not the complete picture of the accuracy of the <strong>Classifier</strong> (or the
+classified image).</p>
 <p>The <em>producer’s</em> accuracy is similarly high for each class except for bare soil, where 4 of the 12 test <strong>Feature</strong>s
 were misclassified.</p>
 <table class="docutils align-default">
@@ -385,58 +483,335 @@ were misclassified.</p>
 </tr>
 </tbody>
 </table>
-<p>While these are encouraging results, it’s worth keeping in mind that</p>
-</section>
-<section id="classifying-the-image">
-<h2>classifying the image<a class="headerlink" href="#classifying-the-image" title="Permalink to this headline"></a></h2>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">classified</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
-</pre></div>
-</div>
-</section>
-<section id="examining-the-results">
-<h2>examining the results<a class="headerlink" href="#examining-the-results" title="Permalink to this headline"></a></h2>
-<section id="spectral-signatures">
-<h3>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this headline"></a></h3>
-</section>
+<p>While these are encouraging results, it’s worth keeping in mind that we’re working with only a few (<span class="math notranslate nohighlight">\(n \leq\)</span> 15)
+samples for each class. With small sample sizes like this, our results are less likely to be an accurate reflection of
+the accuracy of the classified image.<a class="footnote-reference brackets" href="#congalton" id="id11">11</a></p>
 <section id="landcover-area-by-class">
 <h3>landcover area by class<a class="headerlink" href="#landcover-area-by-class" title="Permalink to this headline"></a></h3>
+<p>To get the total area for each class in the classified image, we start by using
+<code class="docutils literal notranslate"><span class="pre">ee.Image.pixelArea()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-pixelarea">documentation</a>)
+to get an image where the value of each pixel is the pixel area in square meters:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">reduced</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">pixelArea</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>next, we add the classified image as a band to this image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">classified</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>before finally using <code class="docutils literal notranslate"><span class="pre">ee.Image.reduceRegion()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-reduceregion">documentation</a>)
+to get the total area for each class:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">reduceRegion</span><span class="p">({</span>
+    <span class="nx">reducer</span><span class="o">:</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">sum</span><span class="p">().</span><span class="nx">group</span><span class="p">({</span>
+      <span class="nx">groupField</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+      <span class="nx">groupName</span><span class="o">:</span> <span class="s1">&#39;classification&#39;</span>
+    <span class="p">}),</span>
+    <span class="nx">geometry</span><span class="o">:</span> <span class="nx">classified</span><span class="p">.</span><span class="nx">geometry</span><span class="p">(),</span>
+    <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e13</span><span class="p">,</span>
+    <span class="nx">bestEffort</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>The <strong>Reducer</strong> that we’re using is <code class="docutils literal notranslate"><span class="pre">ee.Reducer.sum()</span></code>, and we use
+<code class="docutils literal notranslate"><span class="pre">ee.Reducer.group()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-reducer-group">documentation</a>) to
+apply the <strong>Reducer</strong> to each class.</p>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">groupField</span></code> is 1, because that’s the band number of the <code class="docutils literal notranslate"><span class="pre">classification</span></code> band in our <strong>Image</strong>;
+<code class="docutils literal notranslate"><span class="pre">groupName</span></code> is the <strong>Dictionary</strong> key in the output object that contains the group value.</p>
+<p>The output is a <strong>Dictionary</strong> with a single key, <code class="docutils literal notranslate"><span class="pre">groups</span></code>, which is a <strong>List</strong> of <strong>Dictionary</strong> objects for each
+class. Each of those <strong>Dictionary</strong> objects has two keys, <code class="docutils literal notranslate"><span class="pre">classification</span></code> and <code class="docutils literal notranslate"><span class="pre">sum</span></code>, corresponding to the class
+number and area, respectively.</p>
+<p>This is kind of confusing/unwieldy, so we’ll extract the area values to a single <strong>List</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">areas</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">List</span><span class="p">(</span><span class="nx">reduced</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;groups&#39;</span><span class="p">)).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">List</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Dictionary</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">));</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Finally, we want to see the classified areas in square kilometers, rather than square meters, so we divide each value
+by 10<sup>6</sup>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">areas</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nb">Array</span><span class="p">(</span><span class="nx">areas</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="mf">1e6</span><span class="p">).</span><span class="nx">toList</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>To do this, we cast <code class="docutils literal notranslate"><span class="pre">areas</span></code> as an <strong>Array</strong> object so that we can use <code class="docutils literal notranslate"><span class="pre">ee.Array.divide()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-array-divide">documentation</a>), before using
+<code class="docutils literal notranslate"><span class="pre">ee.Array.toList()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-array-tolist">documentation</a>) to convert the values back
+to a <strong>List</strong>.</p>
+<p>Next, so that we know which landcover class belongs to each area, we can use <code class="docutils literal notranslate"><span class="pre">ee.Dictionary.fromLists()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-dictionary-fromlists">documentation</a>) to create a
+<strong>Dictionary</strong> where the landcover class names are the keys, and the classified areas are the values:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">areaDict</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Dictionary</span><span class="p">.</span><span class="nx">fromLists</span><span class="p">(</span><span class="nx">classes</span><span class="p">,</span> <span class="nx">areas</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The end result is this (note that when we <code class="docutils literal notranslate"><span class="pre">print()</span></code> the <strong>Dictionary</strong>, the keys are ordered alphabetically):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>class</p></th>
+<th class="head"><p>area (km<sup>2</sup>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>616.73</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>31922.39</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>grassland</strong></p></td>
+<td><p>2795.47</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>built-up</strong></p></td>
+<td><p>99.37</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>bare soil</strong></p></td>
+<td><p>1091.41</p></td>
+</tr>
+</tbody>
+</table>
 </section>
+<section id="unbiased-area-estimates-and-area-uncertainty">
+<h3>unbiased area estimates and area uncertainty<a class="headerlink" href="#unbiased-area-estimates-and-area-uncertainty" title="Permalink to this headline"></a></h3>
+<p>The next part of the script is where we make use of the <code class="docutils literal notranslate"><span class="pre">require()</span></code> statement discussed earlier. Perhaps just as
+important as the area of each landcover class is the <em>uncertainty</em> of that classified area. Because of the errors of
+omission and commission (the complements of the producer’s and consumer’s accuracy discussed above), the area counts
+in the table above are <em>biased</em> - that is, they are skewed because they exclude (or include) areas that should be
+included (excluded) in the estimated area for each class.</p>
+<p>Based on the work presented by Olofsson et al. 2013<a class="footnote-reference brackets" href="#olofsson" id="id12">1</a>, we can use the error matrix that we produced as part
+of the <strong>Classifier</strong> training process to produce an <em>unbiased</em> estimate of the landcover area for each class, as well
+as the 95% confidence interval (CI) around that estimate.<a class="footnote-reference brackets" href="#ci" id="id13">12</a></p>
+<p>I won’t go through the equations or the code in detail here, but the functions <code class="docutils literal notranslate"><span class="pre">unbiasedArea()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">standardError()</span></code> included in <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:accuracy</span></code> calculate the unbiased area estimate
+and standard error for each class, given the error matrix and total areas classified for each landcover class:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the (unbiased) area of each class:</span>
+<span class="kd">var</span> <span class="nx">unbiasedArea</span> <span class="o">=</span> <span class="nx">accuracy</span><span class="p">.</span><span class="nx">unbiasedArea</span><span class="p">(</span><span class="nx">cm</span><span class="p">.</span><span class="nx">array</span><span class="p">(),</span> <span class="nx">areas</span><span class="p">).</span><span class="nx">toList</span><span class="p">();</span>
+
+<span class="c1">// get the standard error of each area estimate:</span>
+<span class="kd">var</span> <span class="nx">standardError</span> <span class="o">=</span> <span class="nx">accuracy</span><span class="p">.</span><span class="nx">standardError</span><span class="p">(</span><span class="nx">cm</span><span class="p">.</span><span class="nx">array</span><span class="p">(),</span> <span class="nx">areas</span><span class="p">).</span><span class="nx">toList</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Here, the output of each function is an <strong>Array</strong> object; as we did above for the classified area counts, we
+use <code class="docutils literal notranslate"><span class="pre">ee.Array.toList()</span></code> to convert the object to a <strong>List</strong>.</p>
+<p>To help compare the two area estimates, we can also use the <code class="docutils literal notranslate"><span class="pre">errorDict()</span></code> function from <code class="docutils literal notranslate"><span class="pre">accuracy</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// dictionary of the area estimates (± 95% CI)</span>
+<span class="kd">var</span> <span class="nx">errorDict</span> <span class="o">=</span> <span class="nx">accuracy</span><span class="p">.</span><span class="nx">errorDict</span><span class="p">(</span><span class="nx">classes</span><span class="p">,</span> <span class="nx">unbiasedArea</span><span class="p">,</span> <span class="nx">standardError</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When we print this <strong>Dictionary</strong> to the <strong>Console</strong>, we see the following (here combined in a single table for ease
+of comparison)<a class="footnote-reference brackets" href="#error" id="id14">13</a>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 36%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>class</p></th>
+<th class="head"><p>classified area (km<sup>2</sup>)</p></th>
+<th class="head"><p>estimated area ± 95% CI (km<sup>2</sup>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>616.73</p></td>
+<td><p>616.73 ± 0.00</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>31922.39</p></td>
+<td><p>31922.39 ± 0.00</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>grassland</strong></p></td>
+<td><p>2795.47</p></td>
+<td><p>2515.93 ± 559.09</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>built-up</strong></p></td>
+<td><p>99.37</p></td>
+<td><p>443.30 ± 311.38</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>bare soil</strong></p></td>
+<td><p>1091.41</p></td>
+<td><p>1027.03 ± 639.96</p></td>
+</tr>
+</tbody>
+</table>
+<p>In this table, we can see a number of things. First, because of the “perfect” accuracy of the water and forest classes,
+we have a standard error of zero km<sup>2</sup> for these classes, and the classified area and estimated area are the
+same for both classes.</p>
+<p>Because the grassland class had high producer’s and consumer’s accuracy (and therefore low errors of omission/commission),
+we see that the estimated areas are close, and overlap within the 95% confidence interval.</p>
+<p>For the built-up class, we see that the estimated area is far higher than the classified area, and in fact does not
+fall within the 95% confidence interval. This reflects the large errors of omission and commission for this class, as
+shown by the error matrix above.</p>
+<p>The estimated area of the bare soil class largely agrees with the classified area, though with a much higher
+confidence interval - again, reflecting the low producer’s and consumer’s accuracy for this class.</p>
+<p>Finally, to provide a visual comparison of the two different area estimates in the table above, the script
+produces a bar chart by first combining the <code class="docutils literal notranslate"><span class="pre">area</span></code> and <code class="docutils literal notranslate"><span class="pre">unbiasedArea</span></code> <strong>List</strong> objects
+into a single array using <code class="docutils literal notranslate"><span class="pre">ee.Array.cat()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-array-cat">documentation</a>), then using <code class="docutils literal notranslate"><span class="pre">ui.Chart.array.values()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ui-chart-array-values">documentation</a>) to create the chart:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// make an array with the original and estimated classified areas</span>
+<span class="kd">var</span> <span class="nx">combArea</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nb">Array</span><span class="p">.</span><span class="nx">cat</span><span class="p">([</span><span class="nx">areas</span><span class="p">,</span> <span class="nx">unbiasedArea</span><span class="p">],</span> <span class="mf">1</span><span class="p">);</span>
+
+<span class="c1">// plot a chart of area by class</span>
+<span class="kd">var</span> <span class="nx">area_chart</span> <span class="o">=</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">array</span><span class="p">.</span><span class="nx">values</span><span class="p">({</span>
+  <span class="nx">array</span><span class="o">:</span> <span class="nx">combArea</span><span class="p">,</span>
+  <span class="nx">axis</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+  <span class="nx">xLabels</span><span class="o">:</span> <span class="nx">classes</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">setSeriesNames</span><span class="p">([</span><span class="s1">&#39;classified&#39;</span><span class="p">,</span> <span class="s1">&#39;estimated&#39;</span><span class="p">])</span>
+<span class="p">.</span><span class="nx">setChartType</span><span class="p">(</span><span class="s1">&#39;ColumnChart&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;area by landcover type&#39;</span><span class="p">,</span>
+    <span class="nx">hAxis</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;landcover type&#39;</span><span class="p">,</span>
+      <span class="nx">titleTextStyle</span><span class="o">:</span> <span class="p">{</span><span class="nx">italic</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">bold</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="nx">vAxis</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;area (sq. km)&#39;</span><span class="p">,</span>
+      <span class="nx">titleTextStyle</span><span class="o">:</span> <span class="p">{</span><span class="nx">italic</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">bold</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span>
+      <span class="nx">viewWindow</span><span class="o">:</span> <span class="p">{</span><span class="nx">min</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">4e4</span><span class="p">}</span>
+    <span class="p">},</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>With the following printed to the <strong>Console</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/area_chart.png"><img alt="a bar chart comparing the area by class estimated from the classified image and after adjusting using the error matrix" class="align-center" src="../../../_images/area_chart.png" style="width: 600px;" /></a>
+</section>
+</section>
+<section id="spectral-signatures">
+<h2>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this headline"></a></h2>
+<p>When we have two classes where we have significant mis-classification between the two classes, such as bare soil and
+built-up areas, we might think about whether it makes sense to have them as separate classes. We can also try adding
+carefully-chosen training samples that help increase the spectral differences between the two classes.</p>
+<p>Lines 133-164 of the script define a function, <code class="docutils literal notranslate"><span class="pre">spectralPlot()</span></code>, that plots the average spectral signature of each of
+our classes, given a list of reflectance values and a plot title.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have added an additional class, you’ll need to update this <strong>Dictionary</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">series</span><span class="o">:</span> <span class="p">{</span>
+    <span class="mf">0</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;0134d6&#39;</span><span class="p">},</span>
+    <span class="mf">1</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;059e2a&#39;</span><span class="p">},</span>
+    <span class="mf">2</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;50ff00&#39;</span><span class="p">},</span>
+    <span class="mf">3</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;adadad&#39;</span><span class="p">},</span>
+    <span class="mf">4</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;e0c990&#39;</span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>to include a line for the new class. For example, if your class marker color is ‘000000’ (black), you should update
+it to look like this:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">series</span><span class="o">:</span> <span class="p">{</span>
+    <span class="mf">0</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;0134d6&#39;</span><span class="p">},</span>
+    <span class="mf">1</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;059e2a&#39;</span><span class="p">},</span>
+    <span class="mf">2</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;50ff00&#39;</span><span class="p">},</span>
+    <span class="mf">3</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;adadad&#39;</span><span class="p">},</span>
+    <span class="mf">4</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;e0c990&#39;</span><span class="p">},</span>
+    <span class="mf">5</span><span class="o">:</span> <span class="p">{</span><span class="nx">lineWidth</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;000000&#39;</span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Lines 167-185 sample the surface reflectance values at each of the training points, gets the median value in each band
+for each class, and plots the median spectral signature for each class:</p>
+<a class="reference internal image-reference" href="../../../_images/spectral_training.png"><img alt="spectral signature plots for each class based on the training data" class="align-center" src="../../../_images/spectral_training.png" style="width: 600px;" /></a>
+<p><br /> Using this plot, we can see that the bare soil and built-up classes have similar spectral signatures. There are
+some differences, though - for example, the bare soil reflectance is mostly flat between the NIR and SWIR1 bands, while
+there is a slightly larger increase for the built-up class. We could include a normalized difference of the
+NIR and SWIR1 bands in our classification, to see if that reduces some of the mis-classification.</p>
+<p>The final part of the script uses <code class="docutils literal notranslate"><span class="pre">ee.Image.stratifiedSample()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-stratifiedsample">documentation</a>) to extract a random
+sample of points from each class:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">sample</span> <span class="o">=</span> <span class="nx">reflimg</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B.&#39;</span><span class="p">]).</span><span class="nx">stratifiedSample</span><span class="p">({</span>
+  <span class="nx">numPoints</span><span class="o">:</span> <span class="mf">300</span><span class="p">,</span>
+  <span class="nx">classBand</span><span class="o">:</span> <span class="s1">&#39;classification&#39;</span><span class="p">,</span>
+  <span class="nx">region</span><span class="o">:</span> <span class="nx">reflimg</span><span class="p">.</span><span class="nx">geometry</span><span class="p">(),</span>
+  <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
+  <span class="nx">projection</span><span class="o">:</span> <span class="nx">reflimg</span><span class="p">.</span><span class="nx">projection</span><span class="p">()</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>This selects a sample of 300 points (<code class="docutils literal notranslate"><span class="pre">numPoints</span></code>) from each class contained in the <code class="docutils literal notranslate"><span class="pre">classification</span></code> band (<code class="docutils literal notranslate"><span class="pre">classBand</span></code>),
+using the <code class="docutils literal notranslate"><span class="pre">region</span></code>, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, and <code class="docutils literal notranslate"><span class="pre">projection</span></code> as defined above. With this set of points, we take the median
+for each band for each class, and plot the results again:</p>
+<a class="reference internal image-reference" href="../../../_images/spectral_sample.png"><img alt="spectral signature plots for each class based on a random sample of classified pixels" class="align-center" src="../../../_images/spectral_sample.png" style="width: 600px;" /></a>
+<p>While the general pattern of these two signature plots are similar, there are some noticeable differences. For the
+training samples, we see that at longer wavelengths, the built-up and bare soil classes are very similar; in the
+random sample, they are more separated. This suggests that we might want to add more varied training samples for both
+classes, to help increase some of this separation.</p>
 </section>
 <section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>In this tutorial, we’ve seen how we can use GEE to classify a satellite image. We’ve also seen how we can assess the
+accuracy of that classification, produce estimates of the area of each landcover class, and examine the spectral
+signatures of our training data to look at ways to improve the classification.</p>
+<p>If you are looking for more practice with pixel-based image classification, or interested in experimenting with ways to
+improve the classification here, try the following suggestions:</p>
 <ul class="simple">
 <li><p>how does changing the number of ‘trees’ in the random forest classifier impact the estimated accuracy of the classification?</p></li>
-<li><p>try a different classifier</p></li>
-<li><p>additional bands? NDVI, NDWI, etc.</p></li>
-<li><p>clouds</p></li>
+<li><p>do different classifiers (e.g., maximum entropy) make a difference in the classification? Note that for some classifiers,
+like SVM, there may be additional processing steps such as normalization required before you can run the classifier.</p></li>
+<li><p>how does adding additional bands such as the NDVI affect the classification?</p></li>
+<li><p>there are some clouds (and cloud shadow) in the image, which cause mis-classification. Can you think of some ways that
+you could address this?</p></li>
 </ul>
 </section>
-<section id="references">
-<h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<section id="references-and-notes">
+<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this headline"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>This particular implementation is the American Museum of Natural History (AMNH) maximum-entropy classifier; for more information about the software, see <a class="reference external" href="https://biodiversityinformatics.amnh.org/open_source/maxent/">https://biodiversityinformatics.amnh.org/open_source/maxent/</a></p>
+<dt class="label" id="olofsson"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id12">2</a>)</span></dt>
+<dd><p>Olofsson, P., et al. (2013). <em>Rem. Sens. Env.</em> 129, 122–131.
+doi: <a class="reference external" href="https://doi.org/10.1016/j.rse.2012.10.031">10.1016/j.rse.2012.10.031</a></p>
 </dd>
-<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>e.g., De Martino, A. and D. De Martino (2018). <em>Heliyon</em>, 4(<strong>4</strong>), e00596. doi: <a class="reference external" href="https://doi.org/10.1016/j.heliyon.2018.e00596">10.1016/j.heliyon.2018.e00596</a></p>
+<dt class="label" id="maxent1"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>This particular implementation is the American Museum of Natural History (AMNH) maximum-entropy classifier;
+for more information about the software, see <a class="reference external" href="https://biodiversityinformatics.amnh.org/open_source/maxent/">https://biodiversityinformatics.amnh.org/open_source/maxent/</a></p>
 </dd>
-<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>e.g., Mountrakis, G., et al. (2011). <em>ISPRS J. Photogramm. Rem. Sens.</em> 66, 247–259. doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2010.11.001">10.1016/j.isprsjprs.2010.11.001</a></p>
+<dt class="label" id="maxent2"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>e.g., De Martino, A. and D. De Martino (2018). <em>Heliyon</em>, 4(<strong>4</strong>), e00596.
+doi: <a class="reference external" href="https://doi.org/10.1016/j.heliyon.2018.e00596">10.1016/j.heliyon.2018.e00596</a></p>
 </dd>
-<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
-<dd><p>e.g., Wacker, A. G. and D. A. Landgrebe (1972). <em>LARS Technical Reports</em>. Paper 25. <a class="reference external" href="http://docs.lib.purdue.edu/larstech/25">http://docs.lib.purdue.edu/larstech/25</a></p>
+<dt class="label" id="svm"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>e.g., Mountrakis, G., et al. (2011). <em>ISPRS J. Photogramm. Rem. Sens.</em> 66, 247–259.
+doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2010.11.001">10.1016/j.isprsjprs.2010.11.001</a></p>
 </dd>
-<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
-<dd><p>e.g.,</p>
+<dt class="label" id="mindist"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>e.g., Wacker, A. G. and D. A. Landgrebe (1972). <em>LARS Technical Reports</em>. Paper 25.
+[<a class="reference external" href="http://docs.lib.purdue.edu/larstech/25">PDF</a>]</p>
 </dd>
-<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
-<dd><p>e.g.,</p>
+<dt class="label" id="cart"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>e.g., Loh, W.-Y. (2011). <em>WIREs Data Mining Knowl. Discov.</em> 1(<strong>1</strong>), 14-23.
+doi: <a class="reference external" href="https://doi.org/10.1002/widm.8">10.1002/widm.8</a></p>
 </dd>
-<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
-<dd><p>e.g.,</p>
+<dt class="label" id="grad"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>e.g., Friedman, J. H. (2001). <em>Ann. Statist.</em> 29(<strong>5</strong>), 1189-1232.
+doi: <a class="reference external" href="https://doi.org/10.1214/aos/1013203451">10.1214/aos/1013203451</a></p>
 </dd>
-<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
-<dd><p>e.g.,</p>
+<dt class="label" id="bayes"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>e.g., Hand, D. J. and K. Yu (2001). <em>Int. Statistical Rev.</em> 69(<strong>3</strong>), 385-398.
+doi: <a class="reference external" href="https://doi.org/10.2307/1403452">10.2307/1403452</a></p>
+</dd>
+<dt class="label" id="randforest"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
+<dd><p>e.g., Belgiu, M. and L. Drăguţ (2016). <em>ISPRS J. Photogramm. Rem. Sens.</em> 114, 24-31.
+doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2016.01.011">10.1016/j.isprsjprs.2016.01.011</a></p>
+</dd>
+<dt class="label" id="kappa"><span class="brackets"><a class="fn-backref" href="#id10">10</a></span></dt>
+<dd><p>sometimes also referred to as <em>Cohen’s kappa</em></p>
+</dd>
+<dt class="label" id="congalton"><span class="brackets"><a class="fn-backref" href="#id11">11</a></span></dt>
+<dd><p>e.g., Congalton, R. G. (1988). <em>Photogrammetric Eng. Rem. Sens.</em> 58(<strong>5</strong>), 593-600.
+[<a class="reference external" href="https://www.asprs.org/wp-content/uploads/pers/1988journal/may/1988_may_593-600.pdf">PDF</a>]</p>
+</dd>
+<dt class="label" id="ci"><span class="brackets"><a class="fn-backref" href="#id13">12</a></span></dt>
+<dd><p>the 95% confidence interval is obtained using twice the standard error.</p>
+</dd>
+<dt class="label" id="error"><span class="brackets"><a class="fn-backref" href="#id14">13</a></span></dt>
+<dd><p>Note that in this example, because the classification has worked “perfectly” for two classes, water and forest,
+the standard error for each class is 0. This is not real, as you can tell by looking at the cloud shadows that have
+been classified as “water”. Rather than using the testing split, we could instead select a number of random points
+from each landcover class in the classified image, and compare the computer-classified values with human-classified
+values. This is more difficult to do within GEE, but it would provide a more robust estimate of the accuracy of
+the classification.</p>
 </dd>
 </dl>
 </section>
