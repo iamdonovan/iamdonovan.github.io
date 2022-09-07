@@ -15,13 +15,13 @@ Lorem ipsum, etc.
 +---------+----------------------+--------------------------------------------------------+
 | week    | lecture theme        | practical theme                                        |
 +---------+----------------------+--------------------------------------------------------+
-| 5       | :ref:`egm101 week5`  |  introduction to calculations and charts in excel      |
+| 5       | :ref:`egm101 week5`  |  :doc:`practicals/week5`                               |
 +---------+----------------------+--------------------------------------------------------+
-| 6       | :ref:`egm101 week6`  |  summarizing and graphing data in spss                 |
+| 6       | :ref:`egm101 week6`  |  :doc:`practicals/week6`                               |
 +---------+----------------------+--------------------------------------------------------+
-| 7       | :ref:`egm101 week7`  |  correlation and regression                            |
+| 7       | :ref:`egm101 week7`  |  :doc:`practicals/week7`                               |
 +---------+----------------------+--------------------------------------------------------+
-| 8       | :ref:`egm101 week8`  |  statistical tests in spss and excel                   |
+| 8       | :ref:`egm101 week8`  |  :doc:`practicals/week8`                               |
 +---------+----------------------+--------------------------------------------------------+
 
 
