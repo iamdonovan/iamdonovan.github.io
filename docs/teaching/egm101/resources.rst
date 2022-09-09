@@ -10,8 +10,9 @@ textbooks
 In preparing the materials for this module, I have used the following textbooks - they are not required reading,
 but if you have access through a library or the means to pick up a (used) copy, they can help fill in some of the details.
 
-- Illowsky, B. and S. Dean (2018). *Introductory Statistics*. OpenStax. ISBN 9781947172050 [`Website <https://openstax.org/details/books/introductory-statistics>`__]
-- Caswell, F. () *Success in Statistics (3* |rd| *ed.)*. John Murray Ltd. ISBN 0719572029 [`Google Books <https://www.google.co.uk/books/edition/Success_in_Statistics/npSLHAAACAAJ?hl=en>`__]
+- Illowsky, B. and S. Dean (2018). *Introductory Statistics*. OpenStax. ISBN 978194717205-0 [`Website <https://openstax.org/details/books/introductory-statistics>`__]
+- Caswell, F. (1995). *Success in Statistics (3* |rd| *ed.)*. John Murray Ltd. ISBN 978071957202-9 [`Google Books <https://www.google.co.uk/books/edition/Success_in_Statistics/npSLHAAACAAJ?hl=en>`__]
+- Weiss, N. A. (2015). *Elementary Statistics (9* |th| *ed.)*. Pearson. ISBN 978032198939-0  [`Google Books <https://www.google.co.uk/books/edition/Elementary_Statistics/UbzAoAEACAAJ?hl=en>`__]
 - Bergstrom, C. T. and J. D. West (2020). *Calling Bullsh\*t - The Art of Scepticism in a Data-Driven World*. Penguin. ISBN 978014198705-7. [`Website <https://www.callingbullshit.org/>`__]
 - Huff, D. (1954). *How to lie with statistics*. Penguin. ISBN 978014013629-6. [`Google Books <https://www.google.co.uk/books/edition/How_to_Lie_with_Statistics/5oSU5PepogEC?hl=en>`__]
 
@@ -49,19 +50,19 @@ week 6: correlation and regression
 **Part 1: Variables**
 
 
-**Part 2: (Linear) Regression**
+**Part 2: Correlation**
 
 
-**Part 3: Correlation**
+**Part 3: (Linear) Regression**
 
 
-**Part 4: Coefficient of Determination**
+**Part 4: The Coefficient of Determination**
 
 
-**Part 5: Interpolation and Extrapolation**
+**Part 5: Outliers**
 
 
-**Part 6: Outliers**
+**Part 6: Interpolation and Extrapolation**
 
 
 
@@ -71,13 +72,13 @@ week 7: probability
 **Part 1: Introduction to Probability**
 
 
-**Part 2: Sampling**
+**Part 2: More Probability**
 
 
-**Part 3: Probability Distributions**
+**Part 3: Discrete Probability Distributions**
 
 
-**Part 4: The Normal Distribution**
+**Part 4: Continuous Probability Distributions**
 
 
 **Part 5: The Central Limit Theorem**
@@ -93,13 +94,13 @@ week 8: statistical significance
 **Part 1: Hypothesis Testing**
 
 
-**Part 2: Student's t-test**
+**Part 2: Parametric tests**
 
 
-**Part 3: Mann-Whitney U-test**
+**Part 3: Non-parametric tests**
 
 
-**Part 4: Wilcoxin signed rank test**
+**Part 4: The Chi-square Distribution**
 
 
 **Part 5: ANOVA**
