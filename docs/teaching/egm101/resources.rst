@@ -97,13 +97,13 @@ week 8: statistical significance
 **Part 2: Parametric tests**
 
 
-**Part 3: Non-parametric tests**
+**Part 3: ANOVA**
 
 
-**Part 4: The Chi-square Distribution**
+**Part 4: Non-parametric tests**
 
 
-**Part 5: ANOVA**
+**Part 5: The Chi-square Distribution**
 
 
 **Part 6: Trends**
