@@ -10,9 +10,9 @@ help you to develop your confidence in using and presenting numerical results.
 
 By the end of this practical, you should:
 
-    - be able to enter, transpose, and format data in a spreadsheet
+    - be able to import and format data in a spreadsheet
     - perform calculations with both manually-entered and built-in functions
-    - create graphs using a spreadsheet
+    - create and format different types of graphs
     - interpret both graphs and numeric values
 
 If you have not already, you should download the
@@ -44,7 +44,7 @@ file to your OneDrive folder.
 
 spreadsheet basics
 --------------------
-If you haven't already, open **Excel** using either the **start menu** (**Start** > **Excel**) or the Desktop or
+If you haven't already, open **Excel** using either the **Start Menu** (**Start** > **Excel**) or the Desktop or
 Taskbar icons (if they exist).
 
 When it opens, you should see the following (note that the layout and theme may differ):
@@ -70,7 +70,13 @@ For this week's practical, we will be working with meteorological observations f
 `Armagh Observatory <https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years>`__,
 provided by the `Met Office <https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data>`__.
 
-*something about variables*
+Recall that a *variable* is any sort of characteristic of the members of a population - in essence, it's the thing that
+we're meaasuring and analyzing. In this practical, we're primarily going to be working with three different temperature
+variables:
+
+- ``Tmax``, the monthly maximum temperature recorded at the Armagh Observatory;
+- ``Tmean``, the monthly mean temperature recorded at the Armagh Observatory; and
+- ``Tmin``, the monthly minimum temperature recorded at the Armagh Observatory.
 
 The meteorological data provided by the Met Office date back to 1853, though the temperature records provided "only"
 go back to 1865. Before we get started, though, we need to **Import** the data into Excel.
@@ -995,10 +1001,24 @@ questions
 next steps
 -------------
 
-- add Rain to the analysis above, but instead of calculating the annual mean, calculate the annual total (sum).
+- Add Rain to the analysis above, but instead of calculating the annual mean, calculate the annual total (sum).
 
     - what month(s) tend to be the rainiest in Armagh?
     - looking at the annual plot, has the total rainfall been consistent over time? can you pick out years where
+      the rainfall has been much heavier (or lower) than others? How does this compare with the temperature?
+
+- Instead of looking at the annually-averaged values of temperature, we can instead look at the difference between each
+  annually-averaged value and the long-term average - something called an
+  `anomaly <https://www.ncei.noaa.gov/access/monitoring/dyk/anomalies-vs-temperature>`__. To do this, you subtract
+  the long-term average value from each value, then plot the result. Can you create a graph that looks like the one
+  below?
+
+- Looking at the graph below, what do you notice about the temperature anomaly over time?
+
+.. image:: img/week5/anomaly_plot.png
+    :width: 600
+    :align: center
+    :alt: a plot of annual mean temperature anomalies, relative to 1951-1980
 
 notes
 --------
