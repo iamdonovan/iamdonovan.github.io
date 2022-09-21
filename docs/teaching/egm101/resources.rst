@@ -11,9 +11,9 @@ In preparing the materials for this module, I have used the following textbooks 
 but if you have access through a library or the means to pick up a (used) copy, they can help fill in some of the details.
 
 - Illowsky, B. and S. Dean (2018). *Introductory Statistics*. OpenStax. ISBN 978194717205-0 [`Website <https://openstax.org/details/books/introductory-statistics>`__]
-- Caswell, F. (1995). *Success in Statistics (3* |rd| *ed.)*. John Murray Ltd. ISBN 978071957202-9
+- Caswell, F. (1995). *Success in Statistics* (3 |rd| ed.). John Murray Ltd. ISBN 978071957202-9
   [`Google Books <https://www.google.co.uk/books/edition/Success_in_Statistics/npSLHAAACAAJ?hl=en>`__]
-- Weiss, N. A. (2015). *Elementary Statistics (9* |th| *ed.)*. Pearson. ISBN 978032198939-0 |br|
+- Weiss, N. A. (2015). *Elementary Statistics* (9 |th| ed.). Pearson. ISBN 978032198939-0 |br|
   [`Google Books <https://www.google.co.uk/books/edition/Elementary_Statistics/UbzAoAEACAAJ?hl=en>`__]
 - Bergstrom, C. T. and J. D. West (2020). *Calling Bullsh\*t - The Art of Scepticism in a Data-Driven World*. Penguin. ISBN 978014198705-7. [`Website <https://www.callingbullshit.org/>`__]
 - Huff, D. (1954). *How to lie with statistics*. Penguin. ISBN 978014013629-6. [`Google Books <https://www.google.co.uk/books/edition/How_to_Lie_with_Statistics/5oSU5PepogEC?hl=en>`__]
