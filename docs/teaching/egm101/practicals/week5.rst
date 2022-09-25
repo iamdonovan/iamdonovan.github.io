@@ -1,9 +1,6 @@
 computation, summary statistics, and graphing in excel
 ========================================================
 
-getting started
-----------------
-
 The purpose of this practical is to introduce you to Microsoft Excel and complement the theoretical material presented
 in the lectures, discussions, and reading material. The experience gained in analyzing and presenting data should also
 help you to develop your confidence in using and presenting numerical results.
@@ -14,6 +11,9 @@ By the end of this practical, you should:
     - perform calculations with both manually-entered and built-in functions
     - create and format different types of graphs
     - interpret both graphs and numeric values
+
+getting started
+----------------
 
 If you have not already, you should download the
 `Week 5 Data <https://www.metoffice.gov.uk/pub/data/weather/uk/climate/stationdata/armaghdata.txt>`__
@@ -1008,7 +1008,7 @@ next steps
       the rainfall has been much heavier (or lower) than others? How does this compare with the temperature?
 
 - Instead of looking at the annually-averaged values of temperature, we can instead look at the difference between each
-  annually-averaged value and the long-term average - something called an
+  annually-averaged value and a long-term average - something called an
   `anomaly <https://www.ncei.noaa.gov/access/monitoring/dyk/anomalies-vs-temperature>`__. To do this, you subtract
   the long-term average value from each value, then plot the result. Can you create a graph that looks like the one
   below?
