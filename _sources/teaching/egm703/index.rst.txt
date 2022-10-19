@@ -32,6 +32,6 @@ Material from current and past iterations of EGM703 can be found by following th
 +---------+-----------------------+-------------------------+
 | 4       | :ref:`egm703 week4`   | :doc:`practicals/week4` |
 +---------+-----------------------+-------------------------+
-| 5       | :ref:`egm703 week5`   |                         |
+| 5       | :ref:`egm703 week5`   | :doc:`practicals/week5` |
 +---------+-----------------------+-------------------------+
 

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAR image interpretation and flood mapping &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="additional resources" href="../resources.html" />
+    <link rel="prev" title="InSAR Processing" href="week4.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#unis-spring-2017">unis (spring 2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#esa-cryosphere-training-course-june-2018">esa cryosphere training course (june 2018)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#ulster-2020-present">ulster (2020-present)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">EGM703: advanced active and passive remote sensing</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="week1.html">urban heat islands</a></li>
+<li class="toctree-l5"><a class="reference internal" href="week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="week3.html">SAR image processing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="week4.html">InSAR Processing</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">SAR image interpretation and flood mapping</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#getting-started">getting started</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#the-dual-polarimetry-rgb-image">the dual polarimetry rgb image</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#examining-differences-between-vv-vh-images">examining differences between VV, VH images</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#mapping-flood-extent-using-sar">mapping flood extent using SAR</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gee/index.html">google earth engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
+          <li><a href="../index.html">EGM703: advanced active and passive remote sensing</a> &raquo;</li>
+          <li><a href="index.html">practicals</a> &raquo;</li>
+      <li>SAR image interpretation and flood mapping</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/teaching/egm703/practicals/week5.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sar-image-interpretation-and-flood-mapping">
+<h1>SAR image interpretation and flood mapping<a class="headerlink" href="#sar-image-interpretation-and-flood-mapping" title="Permalink to this headline"></a></h1>
+<p>For this week’s practical, we’re going to gain some first-hand experience interpreting SAR images with the help of
+near-contemporaneous Landsat images, as well as additional basemap layers. In particular, you should be able to:</p>
+<ul class="simple">
+<li><p>use Sentinel-1 RGB composites to interpret different surface types</p></li>
+<li><p>identify different surface types using both VV and VH-polarized images</p></li>
+<li><p>map surface water and flood extent using multiple techniques</p></li>
+<li><p>change the layer display in QGIS to aid in interpreting difference images</p></li>
+</ul>
+<p>The study area for this is central Michigan, USA, near the head of Saginaw Bay on Lake Huron:</p>
+<a class="reference internal image-reference" href="../../../_images/study_area.png"><img alt="the study area in Michigan, shown using the OpenStreetMap base layer." class="align-center" src="../../../_images/study_area.png" style="width: 600px;" /></a>
+<p><br /> In May 2020, heavy rains over the span of a few days caused intense flooding in the region - something that SAR
+in particular is well-suited for observing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following instructions were written using QGIS 3.26.3, which is also what the example images show. The
+instructions should be transferrable to other flavors of QGIS, and even ArcGIS Pro, though there may be some
+differences in naming/appearance.</p>
+</div>
+<p>If you don’t have access to the module page on Blackboard, you can still follow along with this practical
+by downloading the images from <a class="reference external" href="https://earthexplorer.usgs.gov">Earth Explorer</a>. The two Landsat images used for
+this practical are:</p>
+<ul class="simple">
+<li><p>LC08_L2SP_021030_20200402_20200822_02_T1</p></li>
+<li><p>LC08_L2SP_021030_20200402_20200822_02_T1</p></li>
+</ul>
+<p>And the two Sentinel-1 scenes are:</p>
+<ul class="simple">
+<li><p>S1B_IW_SLC__1SDV_20200527T233215_20200527T233243_021774_02953A_4467</p></li>
+<li><p>S1B_IW_SLC__1SDV_20200515T233214_20200515T233242_021599_02900D_1C91</p></li>
+</ul>
+<p>The Sentinel-1 data used in this tutorial are
+<a class="reference external" href="https://hyp3-docs.asf.alaska.edu/guides/rtc_product_guide/">radiometrically terrain corrected</a>
+(RTC) products, downloaded from the Alaska Satellite Facility’s Hybrid Pluggable Processing Pipeline
+(<a class="reference external" href="https://hyp3-docs.asf.alaska.edu/">HyP3</a>). In case it was not already clear from the lectures, if you are
+interested in obtaining analysis-ready SAR images yourself, I highly recommend that you look into using this
+(totally free!) service.</p>
+<p>To submit HyP3 orders, you can use <a class="reference external" href="https://hyp3-docs.asf.alaska.edu/using/vertex/">Vertex</a>, ASF’s online data
+search portal. There is also a <a class="reference external" href="https://hyp3-docs.asf.alaska.edu/using/sdk/">python</a> wrapper around the
+HyP3 application programming interface (API), which means you can write pytho scripts to search for, order, and
+download your images.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The images provided on Blackboard have been cropped to make them more manageable - the full granules
+downloaded from Earth Explorer and ASF, respectively, are between 600MB and 1 GB in size.</p>
+</div>
+<section id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<section id="recommended-add-a-base-layer-in-qgis">
+<h3>recommended: add a base layer in QGIS<a class="headerlink" href="#recommended-add-a-base-layer-in-qgis" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using ArcGIS Pro, you can change the Basemap from the <strong>Map</strong> tab – by default, the <code class="docutils literal notranslate"><span class="pre">Topographic</span></code>
+basemap is loaded.</p>
+</div>
+<p>If you are using QGIS, you can add a base map as an XYZ Tile using the following directions. You may already have the
+OpenStreetMap and Mapzen Global Terrain layers available, but there are many other basemap layers available - see
+<a class="reference external" href="https://gis.stackexchange.com/a/217670/187">this post</a> on the GIS StackExchange for additional URLs – the procedure
+will be the same.</p>
+<p>For this example, we’ll add the <a class="reference external" href="https://tile.opentopomap.org/">Open Topomap</a>. Start by opening the
+<strong>Data Source Manager</strong> and clicking on <strong>XYZ</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/xyz_data.png"><img alt="the XYZ data manager dialog in QGIS" class="align-center" src="../../../_images/xyz_data.png" style="width: 500px;" /></a>
+<p><br /> Click on <strong>New</strong> to open the <strong>XYZ Connection</strong> dialog:</p>
+<a class="reference internal image-reference" href="../../../_images/blank_xyz.png"><img alt="a blank XYZ Connection dialog in QGIS" class="align-center" src="../../../_images/blank_xyz.png" style="width: 400px;" /></a>
+<p><br /> Under “Name”, put <code class="docutils literal notranslate"><span class="pre">OpenTopoMap</span></code>, and add the following to the URL field:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">tile</span><span class="o">.</span><span class="n">opentopomap</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="p">{</span><span class="n">z</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">x</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">y</span><span class="p">}</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>You can leave the other settings as-is - the dialog should look like this:</p>
+<a class="reference internal image-reference" href="../../../_images/opentopo_connection.png"><img alt="an XYZ data connection set up for Open Topomap" class="align-center" src="../../../_images/opentopo_connection.png" style="width: 400px;" /></a>
+<p><br /> You can now add Open Topomap to QGIS as a separate layer by clicking <strong>Add</strong> from the <strong>XYZ Data Manager</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/opentopo_datamanager.png"><img alt="the XYZ Data Manager window with the new OpenTopoMap connection selected" class="align-center" src="../../../_images/opentopo_datamanager.png" style="width: 500px;" /></a>
+<p><br /> which should load the following layer into the map:</p>
+<a class="reference internal image-reference" href="../../../_images/opentopo.png"><img alt="the QGIS map window with the OpenTopoMap layer added" class="align-center" src="../../../_images/opentopo.png" style="width: 600px;" /></a>
+<p><br /> And that’s it! Feel free to use this background, or any of the other ones available out there, to aid you in
+your interpretation.</p>
+</section>
+<section id="loading-the-surface-reflectance-images">
+<h3>loading the surface reflectance images<a class="headerlink" href="#loading-the-surface-reflectance-images" title="Permalink to this headline"></a></h3>
+<p>To begin, load the 02 April Landsat image into the map. If you followed the optional instructions above, remember that
+you can zoom to the image by right-clicking on the layer and selecting <strong>Zoom to Layer(s)</strong>.</p>
+<a class="reference internal image-reference" href="../../../_images/change_crs.png"><img alt="the QGIS map window, with the project CRS button outlined in red" class="align-center" src="../../../_images/change_crs.png" style="width: 600px;" /></a>
+<p><br /> Be sure to check that the project CRS is set to WGS84 UTM Zone 16N (<code class="docutils literal notranslate"><span class="pre">EPSG:32616</span></code>; red outline above). If it is
+set to a different CRS, you can change it by clicking on the CRS button, and selecting the correct CRS from the
+following dialog:</p>
+<a class="reference internal image-reference" href="../../../_images/crs_dialog.png"><img alt="the QGIS select CRS dialog" class="align-center" src="../../../_images/crs_dialog.png" style="width: 400px;" /></a>
+<p><br /> Next, click on the <strong>Add Group</strong> button (red outline below) to add a group, and rename it (right-click on the group
+name, select <strong>Rename Group</strong>) <code class="docutils literal notranslate"><span class="pre">Before</span></code>. Add the 02 April Landsat scene to this group, then add a new group and rename
+it <code class="docutils literal notranslate"><span class="pre">After</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/new_groups.png"><img alt="the QGIS map window, with the April image and 2 groups added to the Layers menu" class="align-center" src="../../../_images/new_groups.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Check that your <code class="docutils literal notranslate"><span class="pre">After</span></code> group is not placed inside of your <code class="docutils literal notranslate"><span class="pre">Before</span></code> group - if it is, you can click + drag
+the <code class="docutils literal notranslate"><span class="pre">After</span></code> group layer entry so that it’s outside of the <code class="docutils literal notranslate"><span class="pre">Before</span></code> group.</p>
+</div>
+<p>Have a look at the Landsat image - it looks a little strange, because it is loaded as a 123 false color composite
+(that is, the Red channel corresponds to OLI band 1, the Green channel corresponds to OLI band 2, and the
+Blue channel corresponds to OLI band 3).</p>
+<p>We want to view this as a 654 color composite. Open the <strong>Layer Properties</strong> (right-click, <strong>Properties</strong>), then
+click on the <strong>Symbology</strong> tab. We want to view this as a <code class="docutils literal notranslate"><span class="pre">Multiband</span> <span class="pre">color</span></code> image, with <code class="docutils literal notranslate"><span class="pre">Band</span> <span class="pre">6</span></code> as the Red channel,
+<code class="docutils literal notranslate"><span class="pre">Band</span> <span class="pre">5</span></code> as the Green channel, and <code class="docutils literal notranslate"><span class="pre">Band</span> <span class="pre">4</span></code> as the Blue channel. Change the band combination to the new setting, t
+hen click <strong>OK</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/band_combination.png"><img alt="the symbology dialog, with the correct band combination (654) chosen" class="align-center" src="../../../_images/band_combination.png" style="width: 600px;" /></a>
+<p><br /> You should see the following image loaded in the <strong>Map</strong> window:</p>
+<a class="reference internal image-reference" href="../../../_images/landsat654.png"><img alt="the map window showing the 02 April 2020 Landsat image as a 654 false color composite." class="align-center" src="../../../_images/landsat654.png" style="width: 600px;" /></a>
+<p><br /> Now, add the 20 May Landsat image to the <strong>Map</strong>, place it inside the <code class="docutils literal notranslate"><span class="pre">After</span></code> group, and make sure that it
+is displayed as a 654 color composite.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once you have changed the symbology for one image, you can copy + paste these settings to another image.
+Right-click on the image that you want to copy the settings from, and select <strong>Styles</strong> &gt; <strong>Copy Style</strong>.</p>
+<p>Then, right-click on the image that you want to copy the settings to, and select <strong>Styles</strong> &gt; <strong>Paste Style</strong>.</p>
+</div>
+<div class="admonition-question admonition">
+<p class="admonition-title">question</p>
+<p>Have a look at the two Landsat images.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>What do you notice about the differences in color?</p></li>
+<li><p>What explanation can you think of for why the images would be so different?</p></li>
+</ul>
+</div></blockquote>
+<p>As a hint: think about what color difference jumps out the most between the two images. What OLI band is currently
+displayed in that color channel? Using your understanding of reflectance and the time of year that these two images
+were acquired, what might cause such a large change in reflectance in this band?</p>
+</div>
+</section>
+</section>
+<section id="the-dual-polarimetry-rgb-image">
+<h2>the dual polarimetry rgb image<a class="headerlink" href="#the-dual-polarimetry-rgb-image" title="Permalink to this headline"></a></h2>
+<p>In the 654 false color composite, water appears blue/black, vegetation appears green, and built-up areas appear in
+shades of pink and purple. Using the basemap, have a look at the city of Midland, Michigan, approximately in the center
+of the image:</p>
+<a class="reference internal image-reference" href="../../../_images/midland_landsat.png"><img alt="the city of Midland, MI, shown in a Landsat 654 false color composite." class="align-center" src="../../../_images/midland_landsat.png" style="width: 600px;" /></a>
+<p><br /> In the Landsat composite zoomed in on Midland, you can see that the northern, residential part of the city is
+mostly green, while the more built-up central part of the city is somewhere between purple and gray. In the southern
+part of this image, you can see more industrial areas, which have the same sort of color as the central part of the
+city.</p>
+<p>With a <a class="reference external" href="https://sentinels.copernicus.eu/web/sentinel/user-guides/sentinel-1-sar/product-overview/polarimetry">dual polarimetric</a>
+radar like Sentinel-1, we can create RGB composites, which help with interpreting the backscatter that we see. Load the
+RGB image for the first Sentinel-1 scene into QGIS:</p>
+<a class="reference internal image-reference" href="../../../_images/midland_rgb.png"><img alt="the city of Midland, MI, shown in a Sentinel-1 RGB composite" class="align-center" src="../../../_images/midland_rgb.png" style="width: 600px;" /></a>
+<p><br /> This image is created as part of the HyP3 processing chain, and it can help us interpret what we’re seeing in the
+image. From <a class="reference external" href="https://github.com/ASFHyP3/hyp3-lib/blob/develop/docs/rgb_decomposition.md">the documentation</a>, we can
+interpret the band composition of this image as follows:</p>
+<ul class="simple">
+<li><p>Red band: surface scattering with some volume scattering</p></li>
+<li><p>Green band: volume scattering</p></li>
+<li><p>Blue band: surface scattering with very low volume scattering</p></li>
+</ul>
+<p>As with the Landsat image, dark colors in all 3 bands indicate surfaces with very low returns, such as calm water or
+dry sand. Bright green colors indicate that most of the signal returned from the pixel is due to volume scattering,
+which can be due to surfaces like leafy vegetation. Red colors indicate that surface scattering is more prevalent, which
+may be due to surfaces like bare soil.</p>
+<p>Yellow indicates high values in both the red and green channels, which implies very “bright” surfaces - often, these
+are large metal structures such as buildings.</p>
+<div class="admonition-question admonition">
+<p class="admonition-title">question</p>
+<p>Have a look at the two images of Midland (Sentinel-1 RGB and Landsat false color). How do the colors in the
+Sentinel-1 composite match up with your interpretation of the Landsat image (or, alternatively, the base layers)?</p>
+<p>Next, zoom out to view the entire layer (right-click, <strong>Zoom to Layer(s)</strong>). Using the numbers in the image below,
+along with the basemap and the Landsat image, see if you can identify what surfaces are present in these areas,
+and why they appear this way in the RGB image.</p>
+<a class="reference internal image-reference" href="../../../_images/before_rgb.png"><img alt="a Sentinel-1 RGB image of central Michigan, on 15 May 2020." class="align-center" src="../../../_images/before_rgb.png" style="width: 600px;" /></a>
+<p><br /> To help clarify, here are descriptions of the features indicated by each number in the image above:</p>
+<ol class="arabic simple">
+<li><p>The large blue/black feature in the northeast corner of the image</p></li>
+<li><p>The large green feature west of Midland</p></li>
+<li><p>The very bright yellow feature just south of Midland</p></li>
+<li><p>The large, mostly dark feature just southeast of feature 3.</p></li>
+</ol>
+</div>
+<section id="comparing-differences-between-rgb-composites">
+<h3>comparing differences between rgb composites<a class="headerlink" href="#comparing-differences-between-rgb-composites" title="Permalink to this headline"></a></h3>
+<p>Now, load the RGB composite from the second image (27 May):</p>
+<a class="reference internal image-reference" href="../../../_images/after_rgb.png"><img alt="a Sentinel-1 RGB image of central Michigan, on 27 May 2020." class="align-center" src="../../../_images/after_rgb.png" style="width: 600px;" /></a>
+<p><br /> In this image, you should notice that the vast majority of the agricultural land in the image changed from
+primarily red colors in the 15 May image, to primarily blue colors in the 27 May image. What happened?</p>
+<p>As noted above, between 17-20 May 2020,
+<a class="reference external" href="https://www.weather.gov/dtx/HistoricFlooding-May-17-20-2020">a record amount of rainfall</a>
+fell on the region, with some areas seeing more than 10 cm of rain during that time.</p>
+<p>The big change that we see in the second RGB image, then, is due to the change in soil moisture between the two
+images. In the second image, the soil in the fields is saturated, which has (a) caused a pronounced decrease in the
+backscatter recorded by the sensor, and (b) created a “smoother” (in terms of the radar signal) surface, with surface
+scattering predominating over volume scattering.</p>
+<p>We will come back to this image later, but for now, we will move on to look at the individual bands (the VV and
+VH files).</p>
+</section>
+</section>
+<section id="examining-differences-between-vv-vh-images">
+<h2>examining differences between VV, VH images<a class="headerlink" href="#examining-differences-between-vv-vh-images" title="Permalink to this headline"></a></h2>
+<p>Start by adding the VV band from the 15 May image to the <strong>Map</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/before_vv.png"><img alt="a Sentinel-1 VV-polarized image of central Michigan on 15 May 2020." class="align-center" src="../../../_images/before_vv.png" style="width: 600px;" /></a>
+<p><br /> When you first load this band into QGIS, it appears very dark due to the stretch that’s applied. Open the
+<strong>Layer Properties</strong> (right-click, <strong>Properties</strong>), then click on the <strong>Histogram</strong> tab. Click on <strong>Compute Histogram</strong>
+to view the histogram for the layer:</p>
+<a class="reference internal image-reference" href="../../../_images/before_vv_histogram.png"><img alt="the histogram tab of the QGIS layer properties dialog." class="align-center" src="../../../_images/before_vv_histogram.png" style="width: 500px;" /></a>
+<p><br /> In the above screenshot, you can see that the minimum display value for the image is 0.03, and the maximum is 5.29.
+But, the histogram shows us that most of the pixel values fall between 0 and 0.6 or so. To change how the image is
+displayed, you can set the <strong>Min</strong> and <strong>Max</strong> values via the <strong>Histogram</strong> tab, or the <strong>Symbology</strong> tab - either way,
+change it so that the pixel values are stretched between 0 and 0.6, then click <strong>OK</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/before_vv_scaled.png"><img alt="a Sentinel-1 VV-polarized image of central Michigan on 15 May 2020, scaled to better fit the image." class="align-center" src="../../../_images/before_vv_scaled.png" style="width: 600px;" /></a>
+<p><br /> That looks better. In this band, the vertical co-polarization band, remember that the signal that is sent and
+the signal that is received by the sensor is vertically polarized (hence, VV). In the other band, the VH band,
+the signal sent by the sensor is vertically polarized, but the signal received is horizontally polarized. As covered
+in lecture and the suggested readings, this “cross-polarization” can tell us a lot about the surface being observed.</p>
+<p>Next, add the VH band from the 15 May image to the <strong>Map</strong>. Just like with the VV band, you should look at the histogram
+to determine an appropriate min/max range to scale the image to:</p>
+<a class="reference internal image-reference" href="../../../_images/before_vh.png"><img alt="a Sentinel-1 VH-polarized image of central Michigan on 15 May 2020, scaled to better fit the image." class="align-center" src="../../../_images/before_vh.png" style="width: 600px;" /></a>
+<p><br /> In general, the VV image has a larger range (in the example above, scaled from 0 to 0.6) than the VH image
+(scaled from 0 to 0.3), indicating that more energy is recorded by the sensor in the VV band.</p>
+<div class="admonition-question admonition">
+<p class="admonition-title">question</p>
+<p>Have a look at the two images, and pay attention to the areas that you examined in the RGB images before. What
+(if any) differences do you notice between the VV and VH bands? Using your interpretation of the surface types,
+and your understanding of SAR images, can you explain some of these differences?</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>No, seriously. Before scrolling further, look at the question box above and try to think about what you can see
+in the two images.</p>
+<p>See if you can come up with some explanations for why there are differences in the VV and VH bands, based on
+your interpretation of the Landsat and Sentinel-1 RGB images, then scroll down to see if your
+explanations/understanding match the given explanations.</p>
+</div>
+<section id="wind-patterns-1">
+<h3>wind patterns (#1)<a class="headerlink" href="#wind-patterns-1" title="Permalink to this headline"></a></h3>
+<p>According to data from the National Oceanic and Atmospheric Administration (NOAA)’s
+<a class="reference external" href="https://www.ndbc.noaa.gov/station_page.php?station=sblm4">Saginaw Bay Light #1 station</a>, (43°48’36” N, 83°43’12” W),
+the measured wind speeds at 23:30 UTC on 15 May 2020 was 13.8 m s<sup>-1</sup>, with gusts to 16.4 m s<sup>-1</sup>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that the granule or file name contains information about the acquisition date/time for the image:</p>
+<blockquote>
+<div><p>S1B_IW_<strong>2020515T233214</strong>_DVP_RTC30_G_saunem_91B8</p>
+</div></blockquote>
+<p>The timestamp has the format YYYYMMDD<strong>T</strong>hhmmss, where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">YYYY</span></code> is the 4-digit year (2020)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MM</span></code> is the 2-digit month (05)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DD</span></code> is the 2-digit day of the month (15)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hh</span></code> is the 2-digit UTC hour (23)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mm</span></code> is the 2-digit UTC minute (32)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ss</span></code> is the 2-digit UTC second (14)</p></li>
+</ul>
+<p>Putting this all together, we see that the image was acquired beginning at 23:32:14 UTC on 15 May, 2020.</p>
+</div>
+<p>In the VH image, Saginaw Bay (the large body of water under label 1 in the image earlier) appears very dark, with
+<span class="math notranslate nohighlight">\(\sigma^0\)</span> amplitude values below 0.03 or so.</p>
+<p>In the VV image, the Bay appears brighter, though still fairly dark, with typical <span class="math notranslate nohighlight">\(\sigma^0\)</span> amplitude values
+around 0.2 or so.</p>
+<p>Wind increases the roughness of the water surface, which increases the backscatter measured by the sensor. The
+difference between the VV and VH bands is due to even less of the signal being returned with a changed polarization.</p>
+</section>
+<section id="forests-vs-agricultural-land-2">
+<h3>forests vs agricultural land (#2)<a class="headerlink" href="#forests-vs-agricultural-land-2" title="Permalink to this headline"></a></h3>
+<p>The brightest parts of the cross-polarized (VH) image are going to be areas where we have more volume scattering,
+as volume scatterers tend to reflect more cross-polarized signals than other kinds of scatterers.</p>
+<p>The forests indicated by label 2 above stand out starkly in the VH image for this reason. Because of the
+“double-bounce” reflection off of tree trunks, the forests are still fairly bright in the VV band, though the
+difference between the forest and the agricultural fields is less pronounced.</p>
+<p>All of the agricultural fields, which show up as mostly red in the RGB composite, are darker in the VH band
+compared to the VV band. Because of the time of year (spring), fields are still mostly bare soil, which tends to
+act as a rough surface scatterer, rather than a volume scatterer.</p>
+</section>
+<section id="urban-and-industrial-areas-3">
+<h3>urban and industrial areas (#3)<a class="headerlink" href="#urban-and-industrial-areas-3" title="Permalink to this headline"></a></h3>
+<p>Urban or industrial areas, like the large factory complex indicated by label 3 in the image above, tend to be
+made up of lots of corner reflectors such as buildings. This means that buildings show up brightly in both the
+VV and VH bands.</p>
+</section>
+<section id="wetland-areas-4">
+<h3>wetland areas (#4)<a class="headerlink" href="#wetland-areas-4" title="Permalink to this headline"></a></h3>
+<p>The Shiawassee National Wildlife Refuge, indicated by label 4 in the image above, is an area where the Shiawassee River
+widens into a large network of wetlands, before joining the Tittabawassee River to form the Saginaw River.</p>
+<p>Areas of standing water such as the river itself or the surrounding wetlands appear dark in both the VV and VH bands,
+though the river itself is darker in the VV band.</p>
+<p>There are forests and other vegetation in the refuge that are predominantly volume scatterers, indicated by relatively
+high backsatter in both the VV and VH bands.</p>
+</section>
+</section>
+<section id="mapping-flood-extent-using-sar">
+<h2>mapping flood extent using SAR<a class="headerlink" href="#mapping-flood-extent-using-sar" title="Permalink to this headline"></a></h2>
+<p>Now that you’ve spent some time looking at the different images available and working on interpreting what you can see
+in the SAR images, we can use the before and after SAR images to map the extent of the flooding that remained on
+27 May.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When comparing the before/after Landsat images with the before/after Sentinel-1 images, and especially if you
+attempt to map the flood extent using the Landsat images, you will likely notice that there is more water present
+in the Landsat image of 20 May than the Sentinel-1 image of 27 May.</p>
+<p>This has nothing to do with the way that SAR “detects” surface water - it is entirely to do with the fact that
+the flooding in the area peaked sometime around 22 May, and by 27 May much of the flood water had receded.</p>
+<p>This only illustrates that timing is everything, and that when interpreting events from satellite images,
+you need to keep in mind that these images are <em>snapshots</em> of a particular point in time.</p>
+</div>
+<p>If you have not already done so, load the “After” VV and VH bands into the <strong>Map</strong>, and adjust the contrast as you
+did for the “Before” bands:</p>
+<a class="reference internal image-reference" href="../../../_images/after_vv.png"><img alt="a Sentinel-1 VV-polarized image of central Michigan on 27 May 2020, scaled to better fit the image." class="align-center" src="../../../_images/after_vv.png" style="width: 600px;" /></a>
+<p><br /> Comparing the before and after VV bands, you should see that the area around the Shiawassee National Wildlife
+Refuge (label 4 in the image earlier) is quite a bit darker in the after image - indicating that there may still be
+quite a bit of flood water remaining.</p>
+<p>There are a few other areas where you can see large changes in backscatter - have a look around to see what other areas
+you notice, before moving on to the next section.</p>
+<section id="creating-a-water-mask">
+<h3>creating a water mask<a class="headerlink" href="#creating-a-water-mask" title="Permalink to this headline"></a></h3>
+<p>To map water in the image, we will first convert the <span class="math notranslate nohighlight">\(\sigma^0\)</span> amplitude image to a decibel (dB) scale, to
+help emphasize the differences in values.</p>
+<p>The equation that we will use is:</p>
+<div class="math notranslate nohighlight">
+\[\sigma_{\rm dB}^0 = 10 * {\rm log}_{10} ( {\sigma_{A}^0}^2 )\]</div>
+<p>That is, we need to square the amplitude (yielding <span class="math notranslate nohighlight">\(\sigma^0\)</span> in units of <em>power</em>), take the base-10 logarithm
+of the power, and multiply that result by 10.</p>
+<p>In the <strong>Raster Calculator</strong>, the equation looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10</span> <span class="o">*</span>  <span class="n">log10</span> <span class="p">(</span> <span class="s2">&quot;S1B_IW_20200527T233215_DVP_RTC30_G_saunem_5FC5_VV@1&quot;</span> <span class="o">^</span> <span class="mi">2</span> <span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/db_rastercalc.png"><img alt="the Raster Calculator window, showing the conversion from amplitude to dB values." class="align-center" src="../../../_images/db_rastercalc.png" style="width: 400px;" /></a>
+<p><br /> Enter the formula as shown above, make sure to save the output as <code class="docutils literal notranslate"><span class="pre">S1B_IW_20200527T233215_VV_dB.tif</span></code>, and click
+<strong>OK</strong>. You should see the new band added to the <strong>Map</strong>. Now, open the <strong>Histogram</strong> for this layer:</p>
+<a class="reference internal image-reference" href="../../../_images/db_histogram.png"><img alt="the histogram for the Sentinel-1 VV-polarized image after the conversion from amplitude to dB values." class="align-center" src="../../../_images/db_histogram.png" style="width: 500px;" /></a>
+<p><br /> You should see that there are roughly two peaks: the largest is at around -8 dB, with a secondary peak around
+-12 dB; the smallest peak, at around -22 dB, is what we’re interested in here.</p>
+<p>Change the display properties so that the minimum value displayed is -18 dB (corresponding to the approximate bottom
+of the “trough” separating the two peaks), and the maximum value displayed is 0 dB, then click <strong>OK</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/after_vv_db_stretch.png"><img alt="a Sentinel-1 VV-polarized image of central Michigan on 27 May 2020, with dB values stretched between -18 and 0." class="align-center" src="../../../_images/after_vv_db_stretch.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition-question admonition">
+<p class="admonition-title">question</p>
+<p>Zoom in on some of the water bodies, such as the retaining ponds south of Midland, or the Shiawassee National
+Wildlife Refuge, and compare the stretched dB image with what you see in the 20 May Landsat image.</p>
+<p>Do the black areas (areas where the dB value &lt; -18) match up with the areas of water that you can see in the
+Landsat image? Feel free to try different values by changing the “minimum” value in the <strong>Symbology</strong> tab.</p>
+<p>Remember also that you can use the <strong>Identify Features</strong> tool to see pixel values in locations that you click.</p>
+</div>
+<p>Now that we’ve had a look at the stretched image and examined some different values, open up the <strong>Raster Calculator</strong>,
+then enter the following formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;S1B_IW_20200527T233215_VV_dB@1&quot;</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">18</span>
+</pre></div>
+</div>
+<p>Save the <strong>Output layer</strong> to a file called <code class="docutils literal notranslate"><span class="pre">tmp.tif</span></code>, then press <strong>OK</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/mask_rastercalc.png"><img alt="the raster calculator dialog for creating a binary water mask" class="align-center" src="../../../_images/mask_rastercalc.png" style="width: 400px;" /></a>
+<p><br /> This will create a new raster, <code class="docutils literal notranslate"><span class="pre">tmp.tif</span></code>, with a “1” in every pixel where <code class="docutils literal notranslate"><span class="pre">S1B_IW_20200527T233215_VV_dB</span></code>
+is less than -18, and a “0” in every pixel where <code class="docutils literal notranslate"><span class="pre">S1B_IW_20200527T233215_VV_dB</span></code> is greater than or equal to -18.</p>
+<p>In other words, we have a “1” where the pixel value is under the chosen threshold, and a “0” where the pixel value
+is greater than the chosen threshold.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The threshold choice of -18 dB here is based on the image data. When you are working with other images, the “best”
+threshold value will not be the same, because it depends in part on the conditions at the time the image was
+acquired!</p>
+<p>This means that you will need to examine each image to determine the threshold value to use.
+<strong>You cannot just assume that this value will be applicable in all cases!</strong></p>
+</div>
+<p>The reason why we have saved this to a temporary file (<code class="docutils literal notranslate"><span class="pre">tmp.tif</span></code>) is so that we can use <strong>Translate</strong> to set the
+NoData value to 0 for the layer. If we do this, then the output of the <strong>Polygonize</strong> step will be only polygons where
+the VV dB value is less than -18 (i.e., where the temporary file is equal to 1).</p>
+<p>Open <strong>Translate</strong> (<strong>Raster</strong> &gt; <strong>Conversion</strong> &gt; <strong>Translate (Convert Format)</strong>). Select <code class="docutils literal notranslate"><span class="pre">tmp.tif</span></code> as the
+<strong>Input layer</strong>, and be sure to enter <code class="docutils literal notranslate"><span class="pre">0</span></code> under <strong>Assign a specified nodata value to output bands</strong>.</p>
+<a class="reference internal image-reference" href="../../../_images/translate.png"><img alt="the gdal_translate dialog in QGIS" class="align-center" src="../../../_images/translate.png" style="width: 400px;" /></a>
+<p><br /> Save the file as <code class="docutils literal notranslate"><span class="pre">S1B_IW_20200527T233215_VV_watermask.tif</span></code>, then click <strong>Run</strong>. You should see something like this
+(note that I have adjusted the symbology to show pixel values of 1 as blue, rather than white):</p>
+<a class="reference internal image-reference" href="../../../_images/vv_watermask_raster.png"><img alt="the raster watermask layer added to the QGIS Map" class="align-center" src="../../../_images/vv_watermask_raster.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You could also set the NoData value directly, using the <code class="docutils literal notranslate"><span class="pre">gdal_edit.py</span></code> command-line tool:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdal_edit</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">a_nodata</span> <span class="mi">0</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>To do this, you can open an <strong>Anaconda Prompt</strong> window from an environment where you have installed the gdal
+package (e.g., your <code class="docutils literal notranslate"><span class="pre">EGM703</span></code> environment created during Week 2).</p>
+<p>Then, navigate to the folder where you have saved your files, and run the above command, substituting
+<code class="docutils literal notranslate"><span class="pre">tmp.tif</span></code> for <code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code> in the command.</p>
+</div>
+<p>The final step in creating the water mask is using <strong>Polygonize</strong> (<strong>Raster</strong> &gt; <strong>Conversion</strong> &gt;
+<strong>Polygonize (Raster to Vector)</strong>). In the dialog that opens, select <code class="docutils literal notranslate"><span class="pre">S1B_IW_20200527T233215_VV_watermask</span></code> as
+the <strong>Input layer</strong>, and save the file to <code class="docutils literal notranslate"><span class="pre">S1B_IW_20200527T233215_VV_watermask.gpkg</span></code> (or <code class="docutils literal notranslate"><span class="pre">.shp</span></code> if you prefer):</p>
+<a class="reference internal image-reference" href="../../../_images/polygonize.png"><img alt="the polygonize dialog in QGIS" class="align-center" src="../../../_images/polygonize.png" style="width: 400px;" /></a>
+<p><br /> Click <strong>Run</strong>, and the new vector layer should load into the <strong>Map</strong> when it finishes processing:</p>
+<a class="reference internal image-reference" href="../../../_images/vv_watermask_vector.png"><img alt="the vector watermask layer added to the QGIS Map" class="align-center" src="../../../_images/vv_watermask_vector.png" style="width: 600px;" /></a>
+<p><br /> Now, repeat these steps for the “After” VH image:</p>
+<ul class="simple">
+<li><p>convert from <span class="math notranslate nohighlight">\(\sigma^0\)</span> amplitude to dB</p></li>
+<li><p>view the <strong>Histogram</strong>, select appropriate min/max values, and apply the contrast stretch</p></li>
+<li><p>use the <strong>Raster Calculator</strong> to select dark pixels below a threshold value and create a water mask</p></li>
+<li><p>use <strong>Translate</strong> to apply the NoData value to the water mask</p></li>
+<li><p>use <strong>Polygonize</strong> to create a vector layer of the mapped water extents.</p></li>
+</ul>
+<div class="admonition-question admonition">
+<p class="admonition-title">question</p>
+<p>Of the two bands (VV, VH), which band maps the most water? Why do you think this might be?</p>
+</div>
+</section>
+<section id="using-the-difference-between-bands">
+<h3>using the difference between bands<a class="headerlink" href="#using-the-difference-between-bands" title="Permalink to this headline"></a></h3>
+<p>In addition to using the individual bands to map water, we can also map differences between bands using the
+<strong>Raster Calculator</strong>.</p>
+<p>Before looking at the differences, though, make sure to convert the “Before” VV and VH bands to dB - this will help
+accentuate larger differences between the images, and make it easier to spot actual changes (as opposed to noise).</p>
+<p>Once you have converted the “Before” VV image, open the <strong>Raster Calculator</strong> again. The formula to use is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;S1B_IW_20200527T233215_VV_dB@1&quot;</span> <span class="o">-</span> <span class="s2">&quot;S1B_IW_20200515T233214_VV_dB@1&quot;</span>
+</pre></div>
+</div>
+<p>Save the output as <code class="docutils literal notranslate"><span class="pre">difference_VV.tif</span></code>, and press <strong>OK</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/difference2.png"><img alt="the difference between the before and after VV images, with the default symbology applied" class="align-center" src="../../../_images/difference2.png" style="width: 600px;" /></a>
+<p><br /> When the layer finishes calculating and loads into the <strong>Map</strong>, open the <strong>Properties</strong> for the new layer, and
+click on the <strong>Symbology</strong> tab. We want to display this raster using a <em>diverging</em> colormap - that is, a colormap
+where the two extremes diverge from a shared color in the middle.</p>
+<p>QGIS has a number of built-in colormaps like this; I tend to use the <code class="docutils literal notranslate"><span class="pre">RdYlBu</span></code> map, though this is far from the only
+option. Set the Min/Max values to -10 and 10, respectively, and leave <strong>Interpolation</strong> as <code class="docutils literal notranslate"><span class="pre">Linear</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/difference_symbology.png"><img alt="the symbology tab, showing the color stretch for the difference layer" class="align-center" src="../../../_images/difference_symbology.png" style="width: 400px;" /></a>
+<p><br /> When you click <strong>OK</strong>, you should see the colors of the image change:</p>
+<a class="reference internal image-reference" href="../../../_images/difference_color.png"><img alt="the difference between the before and after VV images, with the pseudocolor symbology applied" class="align-center" src="../../../_images/difference_color.png" style="width: 600px;" /></a>
+<p><br /> Note that most of the image is yellow or blue, indicating little change or a decrease in backscatter, respectively.
+One noticeable exception is in the upper middle of the image, where a few bright red features can be seen. Zoom in
+on this area:</p>
+<a class="reference internal image-reference" href="../../../_images/edenville_difference.png"><img alt="a difference between the before and after VV images, showing the change in backscatter at the site of the Edenville Dam failure" class="align-center" src="../../../_images/edenville_difference.png" style="width: 600px;" /></a>
+<p><br /> This is the former <a class="reference external" href="https://en.wikipedia.org/wiki/Edenville_Dam">Edenville Dam</a>, which burst on 19 May 2020 as
+a result of the heavy flooding of the Tittabawassee and Tobacco Rivers.</p>
+<p>After the dam failed, the floodwater overtopped the <a class="reference external" href="https://en.wikipedia.org/wiki/Sanford_Lake">Sanford Dam</a>
+further downstream, causing extensive flooding along the Tittabawassee Rivers that can be seen in the 20 May Landsat
+image.</p>
+<p>The red features in the difference image, then, are a result of an <em>increase</em> in backscatter between the two SAR
+images. When the dam failed and the reservoirs drained, the surface that we see is the former bottom of the lake,
+primarily mud. If you look at the VV or VH bands, in fact, you should see that the former lake bottom has very similar
+backscatter values as many of the waterlogged fields that we can see in the area.</p>
+<div class="admonition-question admonition">
+<p class="admonition-title">question</p>
+<p>Arrange the layers so that the water mask is on top of the difference image. Do you see any consistent pattern
+between the areas that you mapped as water based on the backscatter threshold and the difference map? Why do you
+think this is?</p>
+</div>
+</section>
+<section id="using-the-log-difference">
+<h3>using the log difference<a class="headerlink" href="#using-the-log-difference" title="Permalink to this headline"></a></h3>
+<p>When looking at the difference image, you might notice that the image appears “noisy”, with a speckled pattern to the
+differences.</p>
+<p>In addition to looking at the difference in dB, we can also look at the “log difference”, or the difference of the
+logarithm of the amplitude. Using the log difference can actually help cut down some of this noise, and help emphasize
+areas where we see large changes in backscatter.</p>
+<p>Open the <strong>Raster Calculator</strong>, and enter the following formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log10</span><span class="p">(</span><span class="s2">&quot;S1B_IW_20200527T233215_DVP_RTC30_G_saunem_5FC5_VV@1&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">log10</span><span class="p">(</span><span class="s2">&quot;S1B_IW_20200515T233214_DVP_RTC30_G_saunem_91B8_VV@1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Make sure that you are using the original amplitude bands, not the dB bands! Save the output as <code class="docutils literal notranslate"><span class="pre">logdifference_VV.tif</span></code>,
+then press <strong>OK</strong>.</p>
+<p>Like we did with the difference image, change the <strong>Render type</strong> to <code class="docutils literal notranslate"><span class="pre">Singleband</span> <span class="pre">pseudocolor</span></code>, and set the Min/Max
+values to -0.3 and 0.3, respectively.</p>
+<p>Next, change the <strong>Interpolation</strong> to Discrete, and use the same color ramp as before (<code class="docutils literal notranslate"><span class="pre">RdYlBu</span></code> - in these examples,
+I have also ticked <strong>Invert color ramp</strong> so that blue is at the low end, and red is at the high end of the scale).</p>
+<p>Finally, in the <strong>Value</strong> column, enter the values shown below:</p>
+<a class="reference internal image-reference" href="../../../_images/logdiff_discrete.png"><img alt="the symbology tab, showing a discrete raster symbology" class="align-center" src="../../../_images/logdiff_discrete.png" style="width: 400px;" /></a>
+<p><br /> Instead of the linear interpolation that we used for the difference, this map will only use 5 colors, depending
+on which interval the pixel value falls into. This is another way that we can reduce the visual noise in the image:</p>
+<a class="reference internal image-reference" href="../../../_images/logdiff.png"><img alt="the log-difference of the two VV images, showing areas with large positive/negative changes in backscatter" class="align-center" src="../../../_images/logdiff.png" style="width: 600px;" /></a>
+<p><br /></p>
+</section>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>In this practical, we’ve seen how we can interpret SAR images with the help of more familiar Landsat images and other
+data, and seen different ways that we can look at changes in SAR images, including:</p>
+<ul class="simple">
+<li><p>Comparing RGB decompositions</p></li>
+<li><p>Comparing co-polarized or cross-polarized images</p></li>
+<li><p>Using both difference and log-difference images</p></li>
+</ul>
+<p>Have a look at the areas that we’ve examined - the drained reservoirs near Edenville and Sanford, the
+waterlogged agricultural lands spread around the region, the flooded wetlands in the Shiawassee National Wildlife
+Refuge, and the industrial sites near Midland. Of all of the different methods that we’ve looked at, which
+method(s) do you find the most helpful for viewing differences or interpreting the images?</p>
+<p>If you are interested in additional practice, here are some suggestions:</p>
+<ul class="simple">
+<li><p>Create a water mask from the “Before” VV band, then difference the two vector layers to calculate the estimated change
+in water area (i.e., the flood extent)</p></li>
+<li><p>Similar to how we used the dB images to map water extent, use the NDWI to create a water mask from the “Before” and
+“After” Landsat images, difference the resulting vector layers, and compare the results to the difference between the
+SAR water masks.</p></li>
+<li><p>Extra credit: using a DEM and the estimated flood extents, calculate the flood depth and volume.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="week4.html" class="btn btn-neutral float-left" title="InSAR Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../resources.html" class="btn btn-neutral float-right" title="additional resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

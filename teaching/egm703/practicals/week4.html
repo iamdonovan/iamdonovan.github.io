@@ -19,7 +19,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="additional resources" href="../resources.html" />
+    <link rel="next" title="SAR image interpretation and flood mapping" href="week5.html" />
     <link rel="prev" title="SAR image processing" href="week3.html" /> 
 </head>
 
@@ -67,6 +67,7 @@
 <li class="toctree-l6"><a class="reference internal" href="#references">references</a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="week5.html">SAR image interpretation and flood mapping</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
@@ -111,7 +112,9 @@
              
   <section id="insar-processing">
 <h1>InSAR Processing<a class="headerlink" href="#insar-processing" title="Permalink to this headline"></a></h1>
-<p>For this week’s practical, we’ll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look complex) image, through to a terrain-corrected interferogram that you can use to estimate surface displacement. In particular, by the end of this practical, you will be able to use SNAP to:</p>
+<p>For this week’s practical, we’ll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look
+complex) image, through to a terrain-corrected interferogram that you can use to estimate surface displacement. In
+particular, by the end of this practical, you will be able to use SNAP to:</p>
 <ul class="simple">
 <li><p>co-register and stack a pair of SAR images</p></li>
 <li><p>form an interferogram from a stacked pair of images</p></li>
@@ -119,64 +122,107 @@
 <li><p>subtract topographic phase from an interferogram</p></li>
 <li><p>use filtering to improve the phase coherence between two images</p></li>
 </ul>
-<p>The images we’ll be using are a pair of Sentinel-1A interferometric wide swath (IW) scenes, acquired 4 July and 16 July 2019, before and after the 6 July 2019 <span class="math notranslate nohighlight">\(M_{\rm w}\)</span> 7.1 <a class="reference external" href="https://earthquake.usgs.gov/storymap/index-ridgecrest.html">earthquake</a> near Ridgecrest, CA, USA:</p>
+<p>The images we’ll be using are a pair of Sentinel-1A interferometric wide swath (IW) scenes, acquired 4 July and 16
+July 2019, before and after the 6 July 2019 <span class="math notranslate nohighlight">\(M_{\rm w}\)</span> 7.1
+<a class="reference external" href="https://earthquake.usgs.gov/storymap/index-ridgecrest.html">earthquake</a> near Ridgecrest, CA, USA:</p>
 <a class="reference internal image-reference" href="../../../_images/usgs_shakemap.png"><img alt="Intensity map for 6 July 2019 Mw 7.1 earthquake" class="align-center" src="../../../_images/usgs_shakemap.png" style="width: 400px;" /></a>
-<p>For more information about this sequence of earthquakes, you can check out the <a class="reference external" href="https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511/executive">USGS Earthquake Hazards Program</a> page about the event.</p>
-<p>Before opening SNAP, download the zipped image file from the link on Blackboard. Because of the image size, this might take some time. Alternatively, you can go to <a class="reference external" href="https://scihub.copernicus.eu/">Copernicus Open Access Hub</a> to search for and download your own image. The granules being used in this example are:</p>
+<p><br /> For more information about this sequence of earthquakes, you can check out the
+<a class="reference external" href="https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511/executive">USGS Earthquake Hazards Program</a> page
+about the event.</p>
+<p>Before opening SNAP, download the zipped image file from the link on Blackboard. Because of the image size, this might
+take some time. Alternatively, you can go to the Alaska Satellite Facility’s <a class="reference external" href="https://search.asf.alaska.edu/">Data Search</a>,
+or <a class="reference external" href="https://scihub.copernicus.eu/">Copernicus Open Access Hub</a>, to search for and download your own images. The
+granules being used in this example are:</p>
 <p><a class="reference external" href="https://scihub.copernicus.eu/dhus/odata/v1/Products('eb911c15-5271-4ed4-8482-77b069008d59')/$value">S1A_IW_SLC__1SDV_20190704T135158_20190704T135225_027968_032877_1C4D</a> (Open Access Hub login required)
 <a class="reference external" href="https://scihub.copernicus.eu/dhus/odata/v1/Products('a03650c6-1208-4bd5-9f44-280e2d4697c2')/$value">S1A_IW_SLC__1SDV_20190716T135159_20190716T135226_028143_032DC3_512B</a>,</p>
-<p>but you are welcome to download and use an image pair of your choosing. If you do so, make sure to choose an interferometric wide swath (IW) scene, and download the single-look complex (SLC) format.</p>
+<p>but you are welcome to download and use an image pair of your choosing. If you do so, make sure to choose an
+interferometric wide swath (IW) scene, and download the single-look complex (SLC) format.</p>
 <section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The following instructions were written using SNAP 8.0.7, which is what the example images show. If you have a different version of SNAP, there may be some slight differences.</p>
+<p>The following instructions were written using SNAP 8.0.7, which is what the example images show. If you have a
+different version of SNAP, there may be some slight differences.</p>
 </div>
-<p>To open the images, use the folder icon in the upper left-hand corner, or the drop-down menu (<strong>File</strong> &gt; <strong>Open Product</strong>). Navigate to the <strong>zipped</strong> folders, select them, and click <strong>OK</strong>.</p>
-<p>To start with, we’ll look at the VV Intensity image for sub-swath 2 (<strong>Intensity_IW2_VV</strong>) for the first image. To load the image, double-click it. It will take a minute to load, but you should eventually see something like this:</p>
+<p>To open the images, use the folder icon in the upper left-hand corner, or the drop-down menu (<strong>File</strong> &gt;
+<strong>Open Product</strong>). Navigate to the <strong>zipped</strong> folders, select them, and click <strong>OK</strong>.</p>
+<p>To start with, we’ll look at the VV Intensity image for sub-swath 2 (<strong>Intensity_IW2_VV</strong>) for the first image. To load
+the image, double-click it. It will take a minute to load, but you should eventually see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/initial_intensity_image.png"><img alt="VV intensity for sub-swath IW2 of the 4 July scene" class="align-center" src="../../../_images/initial_intensity_image.png" style="width: 600px;" /></a>
+<p><br /></p>
 </section>
 <section id="co-registering-the-images">
 <h2>co-registering the images<a class="headerlink" href="#co-registering-the-images" title="Permalink to this headline"></a></h2>
-<p>To ensure that our SAR images are properly aligned, we have to co-register them. Normally, we select one image to be the “<a class="reference external" href="https://comet.nerc.ac.uk/about-comet/insar-terminology/">primary</a>” image, with the remaining “secondary” images aligned to this primary image.</p>
-<p>For Sentinel-1 images, we use the <strong>S-1 TOPS Coregistration</strong> tool (<strong>Radar</strong> &gt; <strong>Coregistration</strong> &gt; <strong>S1 TOPS Coregistration</strong> &gt; <strong>S-1 TOPS Coregistraton</strong>). The first tab of the window should look like this:</p>
+<p>To ensure that our SAR images are properly aligned, we have to co-register them. Normally, we select one image to be
+the “<a class="reference external" href="https://comet.nerc.ac.uk/about-comet/insar-terminology/">primary</a>” image, with the remaining “secondary”
+images aligned to this primary image.</p>
+<p>For Sentinel-1 images, we use the <strong>S-1 TOPS Coregistration</strong> tool (<strong>Radar</strong> &gt; <strong>Coregistration</strong> &gt;
+<strong>S1 TOPS Coregistration</strong> &gt; <strong>S-1 TOPS Coregistraton</strong>). The first tab of the window should look like this:</p>
 <a class="reference internal image-reference" href="../../../_images/coregistration.png"><img alt="the co-registration dialogue window" class="align-center" src="../../../_images/coregistration.png" style="width: 400px;" /></a>
-<p>As you can see, there are a number of tabs here:</p>
+<p><br /> As you can see, there are a number of tabs here:</p>
 <ul class="simple">
-<li><p>Under <strong>Read</strong>, make sure you have selected the earlier image (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...</span></code>) - this will be the primary image.</p></li>
-<li><p>Under <strong>Read(2)</strong>, be sure to select the second image (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190716T135159...</span></code>) - this will be the secondary image.</p></li>
+<li><p>Under <strong>Read</strong>, make sure you have selected the earlier image (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...</span></code>) - this will
+be the primary image.</p></li>
+<li><p>Under <strong>Read(2)</strong>, be sure to select the second image (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190716T135159...</span></code>) - this will be the
+secondary image.</p></li>
 <li><p>Under the <strong>TOPSAR-Split</strong> tabs, select Subswath <code class="docutils literal notranslate"><span class="pre">IW2</span></code>, and select <code class="docutils literal notranslate"><span class="pre">VV</span></code> polarization.</p></li>
 </ul>
-<p>Remember that InSAR requires that we have precise knowledge of the satellite’s location at acquisition. The orbit information distributed with the S-1 Product we have downloaded is the <strong>predicted</strong> orbit information, but this is not quite as accurate as we would like. As part of the process of co-registration, we can download and apply more accurate orbit information. This is done automatically using either the Precise Orbit Ephemerides (POE) files, or the Restituted orbit files (if the precise orbit files are not yet available). For these images, we should be able to use the <strong>Precise</strong> orbit files, but if not, don’t worry - SNAP should download the Restituted orbit files automatically. For more information about the precise orbit information, see this page: <a class="reference external" href="https://sentinel.esa.int/web/sentinel/technical-guides/sentinel-1-sar/pod/products-requirements">Copernicus Precise Orbit Determination</a>.</p>
+<p>Remember that InSAR requires that we have precise knowledge of the satellite’s location at acquisition. The orbit
+information distributed with the S-1 Product we have downloaded is the <strong>predicted</strong> orbit information, but this is
+not quite as accurate as we would like. As part of the process of co-registration, we can download and apply more
+accurate orbit information. This is done automatically using either the Precise Orbit Ephemerides (POE) files, or the
+Restituted orbit files (if the precise orbit files are not yet available).</p>
+<p>For these images, we should be able to use the <strong>Precise</strong> orbit files, but if not, don’t worry - SNAP should download
+the Restituted orbit files automatically. For more information about the precise orbit information, see this page:
+<a class="reference external" href="https://sentinel.esa.int/web/sentinel/technical-guides/sentinel-1-sar/pod/products-requirements">Copernicus Precise Orbit Determination</a>.</p>
 <ul class="simple">
-<li><p>One of Under the <strong>Apply-Orbit-File</strong> tabs, select <code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">Precise</span> <span class="pre">(Auto</span> <span class="pre">Download)</span></code>.</p></li>
-<li><p>Under the <strong>Back-Geocoding</strong> tab, select the DEM to use - for this tutorial, we’ll stick with the default SRTM 3Sec DEM, but for some areas, <strong>especially at high latitudes</strong>, the SRTM DEM will not work (because it only covers between 54ºS and 60ºN). Leave the resampling methods as <code class="docutils literal notranslate"><span class="pre">BILINEAR_INTERPOLATION</span></code>, and uncheck <strong>Mask out areas with no elevation</strong>.</p></li>
-<li><p>Under the <strong>Write</strong> tab, be sure to save the output to the folder you want - leave the filename (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158..._Orb_Stack</span></code>) and file type (<code class="docutils literal notranslate"><span class="pre">BEAM-DIMAP</span></code>) as-is.</p></li>
+<li><p>Under the <strong>Apply-Orbit-File</strong> tabs, select <code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">Precise</span> <span class="pre">(Auto</span> <span class="pre">Download)</span></code>.</p></li>
+<li><p>Under the <strong>Back-Geocoding</strong> tab, select the DEM to use - for this tutorial, we’ll stick with the default SRTM 3Sec
+DEM, but for some areas, <strong>especially at high latitudes</strong>, the SRTM DEM will not work (because it only covers between
+54ºS and 60ºN). Leave the resampling methods as <code class="docutils literal notranslate"><span class="pre">BILINEAR_INTERPOLATION</span></code>, and uncheck <strong>Mask out areas with no elevation</strong>.</p></li>
+<li><p>Under the <strong>Write</strong> tab, be sure to save the output to the folder you want - leave the filename
+(<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158..._Orb_Stack</span></code>) and file type (<code class="docutils literal notranslate"><span class="pre">BEAM-DIMAP</span></code>) as-is.</p></li>
 </ul>
-<p>Once this step has completed, you should see a new product in the <strong>Product Explorer</strong> - it should have the suffix <code class="docutils literal notranslate"><span class="pre">Orb_Stack</span></code>, indicating that the precise orbit information has been applied (<code class="docutils literal notranslate"><span class="pre">Orb</span></code>), and that the images have been co-registered into a single stack (<code class="docutils literal notranslate"><span class="pre">Stack</span></code>).</p>
+<p>Once this step has completed, you should see a new product in the <strong>Product Explorer</strong> - it should have the suffix
+<code class="docutils literal notranslate"><span class="pre">Orb_Stack</span></code>, indicating that the precise orbit information has been applied (<code class="docutils literal notranslate"><span class="pre">Orb</span></code>), and that the images have been
+co-registered into a single stack (<code class="docutils literal notranslate"><span class="pre">Stack</span></code>).</p>
 </section>
 <section id="interferogram-formation">
 <h2>interferogram formation<a class="headerlink" href="#interferogram-formation" title="Permalink to this headline"></a></h2>
-<p>Now that we have the images stacked, we can generate an interferogram by multiplying the primary image with the complex conjugate of the secondary image. Under <strong>Radar</strong>, select <strong>Interferometric</strong> &gt; <strong>Products</strong> &gt; <strong>Interferogram Formation</strong>:</p>
+<p>Now that we have the images stacked, we can generate an interferogram by multiplying the primary image with the complex
+conjugate of the secondary image. Under <strong>Radar</strong>, select <strong>Interferometric</strong> &gt; <strong>Products</strong> &gt;
+<strong>Interferogram Formation</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/interferogram1.png"><img alt="the interferogram dialogue window" class="align-center" src="../../../_images/interferogram1.png" style="width: 400px;" /></a>
-<p>Under <strong>I/O Parameters</strong>, select the stacked product as the <strong>Source product</strong> - the output will save to a file with <code class="docutils literal notranslate"><span class="pre">ifg</span></code> appended to the name. Under <strong>Processing Parameters</strong>, you can see that the flat-Earth phase is removed during this step:</p>
+<p><br /> Under <strong>I/O Parameters</strong>, select the stacked product as the <strong>Source product</strong> - the output will save to a file
+with <code class="docutils literal notranslate"><span class="pre">ifg</span></code> appended to the name. Under <strong>Processing Parameters</strong>, you can see that the flat-Earth phase is removed
+during this step:</p>
 <a class="reference internal image-reference" href="../../../_images/interferogram2.png"><img alt="the interferogram dialogue window" class="align-center" src="../../../_images/interferogram2.png" style="width: 400px;" /></a>
-<p>Remember that this is the phase in the interferometric signal that would be present even with no topography (i.e., a “flat Earth”). Make sure that this is selected, then press <strong>OK</strong>.</p>
-<p>Once the process has finished, load the <strong>Phase_ifg_IW2_VV_04Jul2019_16Jul2019</strong> band - it should look something like this:</p>
+<p><br /> Remember that this is the phase in the interferometric signal that would be present even with no topography
+(i.e., a “flat Earth”). Make sure that this is selected, then press <strong>OK</strong>.</p>
+<p>Once the process has finished, load the <strong>Phase_ifg_IW2_VV_04Jul2019_16Jul2019</strong> band - it should look something
+like this:</p>
 <a class="reference internal image-reference" href="../../../_images/initial_interferogram.png"><img alt="the initial interferogram created" class="align-center" src="../../../_images/initial_interferogram.png" style="width: 600px;" /></a>
-<p>Note that we can still see the demarcation lines - we’ll remove these in the next step. You should be able to see a nice fringe pattern as a result of the earthquake, though it does have some noise, as well as the topographic signal. In the remaining steps, we’ll visualize and remove these different signals, so that we’re left with the interference pattern caused by the earthquake itself.</p>
+<p><br /> Note that we can still see the demarcation lines - we’ll remove these in the next step. You should be able to see
+a nice fringe pattern as a result of the earthquake, though it does have some noise, as well as the topographic signal.
+In the remaining steps, we’ll visualize and remove these different signals, so that we’re left with the interference
+pattern caused by the earthquake itself.</p>
 </section>
 <section id="debursting">
 <h2>debursting<a class="headerlink" href="#debursting" title="Permalink to this headline"></a></h2>
-<p>Just like we did in Week 3, under <strong>Radar</strong>, select <strong>Sentinel-1 TOPS</strong> &gt; <strong>S-1 TOPS Deburst</strong>, and select the interferogram image (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg</span></code>).</p>
-<p>When the process has finished running, you should be able to see that the shape has changed somewhat, because the overlapping areas have been merged. The demarcation lines are also gone, and we have a single image:</p>
+<p>Just like we did in Week 3, under <strong>Radar</strong>, select <strong>Sentinel-1 TOPS</strong> &gt; <strong>S-1 TOPS Deburst</strong>, and select the
+interferogram image (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg</span></code>).</p>
+<p>When the process has finished running, you should be able to see that the shape has changed somewhat, because the
+overlapping areas have been merged. The demarcation lines are also gone, and we have a single image:</p>
 <a class="reference internal image-reference" href="../../../_images/deburst_interferogram.png"><img alt="the deburst interferogram" class="align-center" src="../../../_images/deburst_interferogram.png" style="width: 600px;" /></a>
-<p>Note that this interferogram has multiple signals: the deformation, the topographic phase, and (a small amount of) noise.</p>
+<p><br /> Note that this interferogram has multiple signals: the deformation, the topographic phase, and
+(a small amount of) noise.</p>
 </section>
 <section id="coherence">
 <h2>coherence<a class="headerlink" href="#coherence" title="Permalink to this headline"></a></h2>
-<p>Open up the coherence band (<strong>coh_IW2_VV_04Jul2019_16Jul2019</strong>). You should be able to see bright values (closer to 1) that indicate high levels of coherence, and dark values (closer to 0) that indicate low values of coherence.</p>
+<p>Open up the coherence band (<strong>coh_IW2_VV_04Jul2019_16Jul2019</strong>). You should be able to see bright values (closer to 1)
+that indicate high levels of coherence, and dark values (closer to 0) that indicate low values of coherence.</p>
 <a class="reference internal image-reference" href="../../../_images/coherence.png"><img alt="the coherence image" class="align-center" src="../../../_images/coherence.png" style="width: 600px;" /></a>
+<p><br /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Compare the coherence with the interferogram - how do they appear to line up?</p>
@@ -184,62 +230,99 @@
 </section>
 <section id="topographic-phase-removal">
 <h2>topographic phase removal<a class="headerlink" href="#topographic-phase-removal" title="Permalink to this headline"></a></h2>
-<p>Select <strong>Radar</strong> &gt; <strong>Interferometric</strong> &gt; <strong>Products</strong> &gt; <strong>Topographic Phase Removal</strong>. Under <strong>I/O Parameters</strong>, make sure to select the deburst interferogram (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg_deb</span></code>):</p>
+<p>Select <strong>Radar</strong> &gt; <strong>Interferometric</strong> &gt; <strong>Products</strong> &gt; <strong>Topographic Phase Removal</strong>. Under <strong>I/O Parameters</strong>, make
+sure to select the deburst interferogram (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg_deb</span></code>):</p>
 <a class="reference internal image-reference" href="../../../_images/topo_phase_removal.png"><img alt="the topographic phase removal dialogue 1" class="align-center" src="../../../_images/topo_phase_removal.png" style="width: 400px;" /></a>
-<p>Under <strong>Processing Parameters</strong>, select <strong>Output topographic phase band</strong> if you want to be able to visualize the topographic phase. Remember that this is the phase difference that we would expect to see based solely on the ground elevation - this is what is subtracted from our interferogram to give us the final phase deformation image.</p>
+<p><br /> Under <strong>Processing Parameters</strong>, select <strong>Output topographic phase band</strong> if you want to be able to visualize the
+topographic phase. Remember that this is the phase difference that we would expect to see based solely on the ground
+elevation - this is what is subtracted from our interferogram to give us the final phase deformation image.</p>
 <a class="reference internal image-reference" href="../../../_images/topo_phase_removal2.png"><img alt="the topographic phase removal dialogue 2" class="align-center" src="../../../_images/topo_phase_removal2.png" style="width: 400px;" /></a>
+<p><br /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Note that this will ultimately only be as accurate as the DEM that we’re using - if you have time (and disk space!), feel free to try a few different DEMs to see how the topographic phase changes.</p>
 </div>
-<p>When the process finishes, you can have a look at the terrain-corrected interferogram. This image is (mostly) free of topographic influence, though there are a few places where we can still see some evidence of the topography:</p>
+<p>When the process finishes, you can have a look at the terrain-corrected interferogram. This image is (mostly) free of
+topographic influence, though there are a few places where we can still see some evidence of the topography:</p>
 <a class="reference internal image-reference" href="../../../_images/terrain_corrected_ifg.png"><img alt="the topographic phase" class="align-center" src="../../../_images/terrain_corrected_ifg.png" style="width: 600px;" /></a>
-<p>If you selected <strong>Output topographic phase band</strong>, you can also have a look at the topographic phase:</p>
+<p><br /> If you selected <strong>Output topographic phase band</strong>, you can also have a look at the topographic phase:</p>
 <a class="reference internal image-reference" href="../../../_images/topo_phase.png"><img alt="the topographic phase" class="align-center" src="../../../_images/topo_phase.png" style="width: 600px;" /></a>
+<p><br /></p>
 </section>
 <section id="multi-looking">
 <h2>multi-looking<a class="headerlink" href="#multi-looking" title="Permalink to this headline"></a></h2>
-<p>Now that we’ve corrected the topographic phase, we can also work on cleaning up the noise in the phase. We’ll do this in two parts: first, we’ll <em>multilook</em> the image, or average over the azimuth (and range) direction. This helps to cut down on some of the random noise, though we do lose some spatial resolution in the process. Select <strong>Radar</strong> &gt; <strong>SAR Utilities</strong> &gt; <strong>Multilooking</strong>. Under <strong>I/O Parameters</strong>, make sure to select the terrain-corrected interferogram (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg_deb_dinsar</span></code>):</p>
+<p>Now that we’ve corrected the topographic phase, we can also work on cleaning up the noise in the phase. We’ll do this
+in two parts: first, we’ll <em>multilook</em> the image, or average over the azimuth (and range) direction. This helps to cut
+down on some of the random noise, though we do lose some spatial resolution in the process. Select <strong>Radar</strong> &gt;
+<strong>SAR Utilities</strong> &gt; <strong>Multilooking</strong>. Under <strong>I/O Parameters</strong>, make sure to select the terrain-corrected interferogram
+(<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg_deb_dinsar</span></code>):</p>
 <a class="reference internal image-reference" href="../../../_images/multilooking1.png"><img alt="the multi-looking dialogue" class="align-center" src="../../../_images/multilooking1.png" style="width: 400px;" /></a>
-<p>Under <strong>Processing Parameters</strong>, select <code class="docutils literal notranslate"><span class="pre">i_ifg_VV_04Jul2019_16Jul2019</span></code>, <code class="docutils literal notranslate"><span class="pre">q_ifg_VV_04Jul2019_16Jul2019</span></code>, and <code class="docutils literal notranslate"><span class="pre">coh_IW2_VV_04Jul2019_16Jul2019</span></code> - the <code class="docutils literal notranslate"><span class="pre">Intensity</span></code> and <code class="docutils literal notranslate"><span class="pre">Phase</span></code> bands are automatically calculated from the real (<code class="docutils literal notranslate"><span class="pre">i</span></code>) and complex (<code class="docutils literal notranslate"><span class="pre">q</span></code>) bands. Under <strong>Number of Range Looks</strong>, enter <code class="docutils literal notranslate"><span class="pre">6</span></code>, and under <strong>Number of Azimuth Looks</strong>, enter <code class="docutils literal notranslate"><span class="pre">2</span></code> - this will give us an approximately 28 m pixel size in the final interferogram:</p>
+<p><br /> Under <strong>Processing Parameters</strong>, select <code class="docutils literal notranslate"><span class="pre">i_ifg_VV_04Jul2019_16Jul2019</span></code>, <code class="docutils literal notranslate"><span class="pre">q_ifg_VV_04Jul2019_16Jul2019</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">coh_IW2_VV_04Jul2019_16Jul2019</span></code> - the <code class="docutils literal notranslate"><span class="pre">Intensity</span></code> and <code class="docutils literal notranslate"><span class="pre">Phase</span></code> bands are automatically calculated from the real
+(<code class="docutils literal notranslate"><span class="pre">i</span></code>) and complex (<code class="docutils literal notranslate"><span class="pre">q</span></code>) bands. Under <strong>Number of Range Looks</strong>, enter <code class="docutils literal notranslate"><span class="pre">6</span></code>, and under <strong>Number of Azimuth Looks</strong>,
+enter <code class="docutils literal notranslate"><span class="pre">2</span></code> - this will give us an approximately 28 m pixel size in the final interferogram:</p>
 <a class="reference internal image-reference" href="../../../_images/multilooking2.png"><img alt="the multi-looking dialogue 2" class="align-center" src="../../../_images/multilooking2.png" style="width: 400px;" /></a>
+<p><br /></p>
 </section>
 <section id="filtering">
 <h2>filtering<a class="headerlink" href="#filtering" title="Permalink to this headline"></a></h2>
-<p>The next step we’ll need to do is filtering the interferometric phase. If you zoom in on the phase image, you should see that, while the fringe pattern is pretty clear, there’s still a degree of noise in the left. Under <strong>Radar</strong>, select <strong>Interferometric</strong> &gt; <strong>Filtering</strong> &gt; <strong>Goldstein Phase Filtering</strong>. This is an adaptive filter that takes into account both the local phase noise and fringe rate<a class="footnote-reference brackets" href="#id2" id="id1">1</a>.</p>
+<p>The next step we’ll need to do is filtering the interferometric phase. If you zoom in on the phase image, you should
+see that, while the fringe pattern is pretty clear, there’s still a degree of noise in the left. Under <strong>Radar</strong>,
+select <strong>Interferometric</strong> &gt; <strong>Filtering</strong> &gt; <strong>Goldstein Phase Filtering</strong>. This is an adaptive filter that takes into
+account both the local phase noise and fringe rate<a class="footnote-reference brackets" href="#id2" id="id1">1</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/phase_filtering.png"><img alt="the phase filtering dialogue" class="align-center" src="../../../_images/phase_filtering.png" style="width: 400px;" /></a>
-<p>Under <strong>I/O Parameters</strong>, make sure the multilooked image is selected (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg_deb_dinsar_ML</span></code>). For now, leave the parameters under <strong>Processing Parameters</strong> as-is. When the process has finished, you should see that we have a much cleaner-looking interferogram:</p>
+<p><br /> Under <strong>I/O Parameters</strong>, make sure the multilooked image is selected
+(<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg_deb_dinsar_ML</span></code>). For now, leave the parameters under
+<strong>Processing Parameters</strong> as-is. When the process has finished, you should see that we have a much cleaner-looking
+interferogram:</p>
 <a class="reference internal image-reference" href="../../../_images/filtered_multilook.png"><img alt="the filtered, multi-looked interferogram" class="align-center" src="../../../_images/filtered_multilook.png" style="width: 600px;" /></a>
+<p><br /></p>
 </section>
 <section id="geocoding-and-exporting-interferogram">
 <h2>geocoding and exporting interferogram<a class="headerlink" href="#geocoding-and-exporting-interferogram" title="Permalink to this headline"></a></h2>
-<p>The last step is to geocode the interferogram and export the result. Select <strong>Radar</strong> &gt; <strong>Geometric</strong> &gt; <strong>Terrain Correction</strong>. Under <strong>I/O Parameters</strong>, select the <code class="docutils literal notranslate"><span class="pre">Phase_ifg_VV_04Jul2019_16Jul2019</span></code> and <code class="docutils literal notranslate"><span class="pre">coh_IW2_VV_04Jul2019_16Jul2019</span></code> bands. Make sure that you use the same DEM as you used for the topographic phase removal - in this case, I used the SRTM 3Sec DEM. Set the pixel spacing to 30 m, and only output the selected source bands.</p>
+<p>The last step is to geocode the interferogram and export the result. Select <strong>Radar</strong> &gt; <strong>Geometric</strong> &gt;
+<strong>Terrain Correction</strong>. Under <strong>I/O Parameters</strong>, select the <code class="docutils literal notranslate"><span class="pre">Phase_ifg_VV_04Jul2019_16Jul2019</span></code> and
+<code class="docutils literal notranslate"><span class="pre">coh_IW2_VV_04Jul2019_16Jul2019</span></code> bands. Make sure that you use the same DEM as you used for the topographic
+phase removal - in this case, I used the SRTM 3Sec DEM. Set the pixel spacing to 30 m, and only output the
+selected source bands.</p>
 <a class="reference internal image-reference" href="../../../_images/terrain_correction.png"><img alt="the terrain correction dialogue" class="align-center" src="../../../_images/terrain_correction.png" style="width: 400px;" /></a>
-<p>When the process finishes, you should see something like this:</p>
+<p><br /> When the process finishes, you should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/geocoded_ifg.png"><img alt="the terrain-corrected, geocoded interferogram" class="align-center" src="../../../_images/geocoded_ifg.png" style="width: 600px;" /></a>
+<p><br /></p>
 </section>
 <section id="exporting-the-image-s">
 <h2>exporting the image(s)<a class="headerlink" href="#exporting-the-image-s" title="Permalink to this headline"></a></h2>
-<p>Under <strong>File</strong> &gt; <strong>Export</strong>, select <strong>GeoTIFF/BigTIFF</strong>. From the <strong>Export Product</strong> window, select <strong>Subset</strong>, then <strong>Band Subset</strong>. Select only the phase image, then <strong>OK</strong>:</p>
+<p>Under <strong>File</strong> &gt; <strong>Export</strong>, select <strong>GeoTIFF/BigTIFF</strong>. From the <strong>Export Product</strong> window, select <strong>Subset</strong>,
+then <strong>Band Subset</strong>. Select only the phase image, then <strong>OK</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/export3.png"><img alt="the export dialogue" class="align-center" src="../../../_images/export3.png" style="width: 400px;" /></a>
-<p>Use the filename <code class="docutils literal notranslate"><span class="pre">Phase_ifg_VV_04Jul2019_16Jul2019.tif</span></code>, then press <strong>Export Product</strong>. Repeat this for the coherence image - you can export the image as a multiband image, but this may make it easier for you to keep the phase and coherence bands straight.</p>
-<p>Once you have exported the image, you can load it into a GIS software (for example, QGIS), and have a look (here, I’ve used the Google Maps basemap as a background):</p>
+<p><br /> Use the filename <code class="docutils literal notranslate"><span class="pre">Phase_ifg_VV_04Jul2019_16Jul2019.tif</span></code>, then press <strong>Export Product</strong>. Repeat this for the
+coherence image - you can export the image as a multiband image, but this may make it easier for you to keep the phase
+and coherence bands straight.</p>
+<p>Once you have exported the image, you can load it into a GIS software (for example, QGIS), and have a look (here, I’ve
+used the Google Maps basemap as a background):</p>
 <a class="reference internal image-reference" href="../../../_images/exported_ifg.png"><img alt="the exported image, loaded in QGIS" class="align-center" src="../../../_images/exported_ifg.png" style="width: 600px;" /></a>
+<p><br /></p>
 </section>
 <section id="questions">
 <h2>questions<a class="headerlink" href="#questions" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
-<li><p>One thing that we can often tell from an interferogram like this is the orientation of the fault that ruptured - the interference pattern normally looks reflected over the fault, sort of like the wings of the butterfly. Using an angle measuring tool, can you estimate what the orientation of this fault is?</p></li>
+<li><p>One thing that we can often tell from an interferogram like this is the orientation of the fault that ruptured -
+the interference pattern normally looks reflected over the fault, sort of like the wings of the butterfly. Using an
+angle measuring tool, can you estimate what the orientation of this fault is?</p></li>
 <li><p>Similarly to the previous question - about how long was the length of the rupture?</p></li>
-<li><p>Compare the interferogram with the coherence image. Do you notice any areas with low coherence values near the middle of the interference pattern? Why might this be?</p></li>
-<li><p>In the NE part of image, we can see what appear to be mountains/canyons in the interference pattern - can you think of an explanation for what might cause this?</p></li>
+<li><p>Compare the interferogram with the coherence image. Do you notice any areas with low coherence values near the
+middle of the interference pattern? Why might this be?</p></li>
+<li><p>In the NE part of image, we can see what appear to be mountains/canyons in the interference pattern - can you think
+of an explanation for what might cause this?</p></li>
 </ol>
 </section>
 <section id="references">
 <h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Goldstein, R. M. and C. L. Werner (1998). Radar interferogram filtering for geophysical applications. <em>Geophys. Res. Lett.</em> 25(<strong>21</strong>), pp. 4035-4038. doi: <a class="reference external" href="https://doi.org/10.1029/1998GL900033">10.1029/1998GL900033</a></p>
+<dd><p>Goldstein, R. M. and C. L. Werner (1998). Radar interferogram filtering for geophysical applications.
+<em>Geophys. Res. Lett.</em> 25(<strong>21</strong>), pp. 4035-4038.
+doi: <a class="reference external" href="https://doi.org/10.1029/1998GL900033">10.1029/1998GL900033</a></p>
 </dd>
 </dl>
 </section>
@@ -250,7 +333,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="week3.html" class="btn btn-neutral float-left" title="SAR image processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../resources.html" class="btn btn-neutral float-right" title="additional resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="week5.html" class="btn btn-neutral float-right" title="SAR image interpretation and flood mapping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
