@@ -8,7 +8,7 @@ be able to use SNAP to:
 - Calibrate the image to more easily compare to images acquired with different incidence angles or brightness levels
 - Apply speckle filtering to reduce the speckle in an image
 - Apply geometric terrain correction to correct for SAR image distortion
-- Convert the &sigma;<sup>0</sup> values to decibels (dB) 
+- Convert the :math:`\sigma^0` values to decibels (dB)
 
 The image we'll be using is a Sentinel-1B interferometric wide swath (IW) scene, acquired 24 September 2021 showing the
 Lena River Delta, Russia (seen here in 27 July 2000 Landsat-7 ETM+ image):
