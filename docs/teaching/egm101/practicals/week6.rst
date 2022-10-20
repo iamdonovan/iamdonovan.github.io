@@ -623,30 +623,138 @@ so feel free to continue exploring once you've reached the end of the practical.
 histogram
 ............
 
-As a first example, we'll create a histogram of rainfall values using all of the available data.
+As a first example, we'll create a histogram of rainfall values using all of the available data. To begin, open the
+**Chart Builder** (**Graphs** > **Chart Builder**):
 
+.. image:: img/week6/chart_builder.png
+    :width: 500
+    :align: center
+    :alt: the chart builder dialog
 
-.. admonition:: Questions
+|br| The **Chart Builder** is one of the ways that SPSS provides to put together charts of your data (we'll cover
+another one in the next section). In the **Gallery** tab in the bottom panel, choose **Histogram** from the list.
+Next, in the top panel, select ``Monthly total precipitation`` from the list of **Variables** and drag it to place it
+in the **X-Axis**:
 
-    - ...
+.. image:: img/week6/chart_builder2.png
+    :width: 500
+    :align: center
+    :alt: the chart builder dialog, with a histogram of monthly precipitation added
 
+|br| If you like, you can also change other properties/parameters such as the axis labels or chart title under the
+**Element Properties** tab on the right side of the window. You can also change the colors of the bars or other display
+properties under the **Chart Appearance** tab.
+
+The last thing we'll do is be sure to check the box for **Display normal curve**:
+
+.. image:: img/week6/chart_builder3.png
+    :width: 500
+    :align: center
+    :alt: the chart builder dialog, with a histogram of monthly precipitation added and a normal curve added
+
+|br| One thing to keep in mind is that this is not actually the final chart - this is just a "dummy" display. When you
+click **OK**, SPSS will take a minute before displaying the chart in the **Statistics Viewer** window:
+
+.. image:: img/week6/final_histogram.png
+    :width: 600
+    :align: center
+    :alt: the chart builder dialog, with a histogram of monthly precipitation added
+
+|br| As a final step, you can edit the entry name in the contents panel and change the section title in the
+viewer panel.
+
+.. admonition:: Question
+
+    Describe the distribution of rainfall - does it follow a normal distribution, or is it skewed? Is the "tail" on
+    one side of the curve larger than the tail on the other side? What other properties do you notice?
 
 bar graph
 ............
 
-rain, categorized using monthly values
+The second, and final, chart we will produce is a chart showing the mean rainfall by month, similar to the chart
+we made :ref:`in Excel <excel bar>` for monthly mean temperature.
 
+.. warning::
+
+    Before proceeding, make sure that you have turned off any file splits!
+
+
+This time, instead the **Chart Builder**, open the legacy dialog for bar charts (**Graphs** > **Legacy Dialogs** >
+**Bar**). This will open the following dialog:
+
+.. image:: img/week6/legacy_bar.png
+    :width: 200
+    :align: center
+    :alt: the legacy bar chart dialog
+
+|br| Make sure that **Simple** is selected and that the selection under **Data in Chart Are** is
+**Summaries for groups of cases** before clicking **Define**:
+
+.. image:: img/week6/bar1.png
+    :width: 300
+    :align: center
+    :alt: the legacy dialog for creating a simple bar chart
+
+|br| Under **Bars Represent**, select **Other statistic**. Highlight ``Monthly total precipitation``, then click the
+arrow button next to **Variable**:
+
+.. image:: img/week6/bar2.png
+    :width: 300
+    :align: center
+    :alt: the legacy dialog for creating a simple bar chart
+
+|br| If you click on **Change Statistic**, you can select a number of different statistics to plot:
+
+.. image:: img/week6/bar_statistic.png
+    :width: 300
+    :align: center
+    :alt: the statistic dialog for the legacy bar chart
+
+|br| We want to plot the **Mean of values**, so leave this as-is for now.
+
+.. hint::
+
+    Later on, you might want to create a chart showing the median values for comparison...
+
+Click **Cancel** or **Continue** to return to the previous window. We want to calculate monthly averages, so click
+on the ``Month recorded`` variable, then click the arrow button next to **Category Axis**:
+
+.. image:: img/week6/bar3.png
+    :width: 300
+    :align: center
+    :alt: the
+
+|br| Finally, click on **Options** so that we can display error bars. Click the box for **Display error bars**, and
+select **Standard deviation**. Set the multiplier to 1 standard deviation, rather than the default 2:
+
+.. image:: img/week6/error_bars.png
+    :width: 200
+    :align: center
+    :alt: the error bar options dialog
+
+|br| Click **Continue** to return to the previous window, then click **OK** to create the bar chart. After a moment
+(or few), you should see the bar chart added to the **Statistics Viewer** window:
+
+.. image:: img/week6/bar_final.png
+    :width: 600
+    :align: center
+    :alt: the statistics viewer window, showing the bar chart added
+
+|br| As a final step, change the title of the section to "Average Monthly Precipitation". That's all for this lab -
+remember to save both your ``.spv`` and ``.sav`` files to OneDrive, as you will be using them again in next week's
+practical, as well as for the assessment for this part of the module!
 
 .. admonition:: Questions
 
-    - ...
-
-
+    Which month has the highest precipitation in Armagh? What about the lowest? Are there any clear differences in the
+    dispersion (as measured by the standard deviation) of the monthly values?
 
 next steps
 -------------
 
+If you are interested in additional practice, here are some suggestions:
+
 - Use **Select Cases** to select cases from 1991 - 2020, and create a table showing the descriptive statistics of the
   temperature variables and precipitation. Do you notice any differences between this period and the period 1951-1980?
--
-
+- Using **Split File** and the **Chart Builder**, create histograms of the precipitation for each season, and describe
+  the distributions that you see. What season(s) stand out as the "most"/"least" normal for rainfall?
