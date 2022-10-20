@@ -440,34 +440,115 @@ Have a look at the tables in the **Viewer** window, and see if you can answer th
 recoding values
 ................
 
-*something about meteorological seasons*
+`Meteorological seasons <https://www.metoffice.gov.uk/weather/learn-about/weather/seasons/>`__ are defined by splitting
+the year into four periods of three months each, which helps with comparing seasonal and monthly statistics between
+years. The seasons are defined as follows:
 
 - Spring: March, April, May
 - Summer: June, July, August
 - Autumn: September, October, November
 - Winter: December, January, February
 
-To assign each month a season, we use **Recode into different variables** (**Transform** >
-**Recode into different variables**). When you select this, you should see the following dialog:
+We can use SPSS to assign a season to each of our data values, based on the month that it was recorded. To do this,
+we use a tool called **Recode into different variables** (**Transform** > **Recode into different variables**).
+When you select this, you should see the following dialog:
 
-**recode_blank**
+.. image:: img/week6/recode_blank.png
+    :width: 400
+    :align: center
+    :alt: the "recode into different variables" dialog
 
-The variable that we want to recode is ``Month``, so add that to **Input Variable -> Output Variable**. The
+|br| The variable that we want to recode is ``Month``, so add that to **Input Variable -> Output Variable**. The
 **Output Variable** that we want to create by recoding is ``Season``, so add that to the **Name** of the
 **Output Variable**, and fill in a **Label** as well:
 
-**recode**
+.. image:: img/week6/recode_blank.png
+    :width: 400
+    :align: center
+    :alt: the "recode into different variables" dialog, with "month" selected and a new variable, "season" added
 
-Now, we have to tell SPSS *how* to recode the variable. That is, what values of ``Month`` determine each value of
-``Season``?
+|br| Now, we have to tell SPSS *how* to recode the variable. That is, what values of ``Month`` determine each value of
+``Season``? Click on **Old and New Values** to bring up the following dialog:
 
+.. image:: img/week6/old_and_new_blank.png
+    :width: 400
+    :align: center
+    :alt: the "recode into different variables: old and new values" dialog
 
+|br| Here is where we tell SPSS how to recode the values of ``Month`` into the new ``Season`` variable. Because each
+season is defined by a *range* of month values, select **Range** under **Old Value**, and enter the values 3 and 5 into
+the two boxes. Under **New Value**, enter a value of 1:
 
+.. image:: img/week6/old_and_new.png
+    :width: 400
+    :align: center
+    :alt: the "recode into different variables: old and new values" dialog, with values entered for Spring
 
+|br| This means that anywhere the value of ``Month`` is equal to 3, 4, or 5 (corresponding to March, April, and May),
+the ``Season`` variable will have a value of 1 (corresponding to Spring). Click **Add** to add this value to the
+**Old --> New** table, then proceed to enter the following values:
 
-Finally, you can undo a *split* by opening the **Split File** dialog again (**Data** > **Split File**), and selecting
+- Summer: **Old**: 6 through 8, **New**: 2
+- Autumn: **Old**: 9 through 11, **New**: 3
+- Winter: **Old**: All other values, **New**: 4
+
+Here, we use **All other values** to recode winter. The table should look like this:
+
+.. image:: img/week6/old_and_new_all.png
+    :width: 400
+    :align: center
+    :alt: the "recode into different variables: old and new values" dialog, with values entered for all seasons
+
+|br| Click **Continue** to go back to the **Recode into Different Variables** dialog, which should look like this:
+
+.. image:: img/week6/recode_final.png
+    :width: 400
+    :align: center
+    :alt: the "recode into different variables" dialog, with all values entered
+
+|br| Click **OK** to perform the recoding. You should now see a new variable, ``Spring``, in the **Data Editor**.
+Just like we did with the months, you can add **Labels** to the new variable so that when you compute descriptive
+statistics or perform other calculations, the names will make more sense:
+
+.. image:: img/week6/recode_label.png
+    :width: 600
+    :align: center
+    :alt: the data editor window with a new variable, season, and labels entered
+
+|br| Enter labels for the variable now, in the same way that you did earlier for ``Month``.
+
+Now, we can look at descriptive statistics for the seasons. First, we need to *split* the data based on this new
+variable - either click on the **Split File** button, or choose **Split File** from the **Data** menu (**Data** >
+**Split File**). Choose **Compare groups** and **Groups Based on** ``Season``:
+
+.. image:: img/week6/split_season.png
+    :width: 300
+    :align: center
+    :alt: the split file dialog, with "compare groups" selected, and "groups based on" meteorological season.
+
+|br| Click **OK**. Next, open the **Descriptive Statistics** dialog again (**Analyze** > **Descriptive Statistics** >
+**Descriptives**). For this step, we only want to see the descriptive statistics for precipitation, so make sure
+that the only variable selected is ``Rain``:
+
+.. image:: img/week6/descriptives_precip.png
+    :width: 300
+    :align: center
+    :alt: the Descriptives dialog, with "monthly total precipitation" selected.
+
+|br| Double-check that the same statistics are still selected by clicking on **Options**. Once you have checked this,
+click **OK** to return to the **Descriptives** dialog, and click **OK** again to calculate descriptive statistics.
+
+You should see this table in the **Statistics Viewer** window:
+
+.. image:: img/week6/seasonal_descriptives.png
+    :width: 600
+    :align: center
+    :alt: the statistics viewer window, with a table containing descriptives statistics for rainfall in each season.
+
+|br| Rename the table to "Seasonal Rain" as above, and be sure to save both the ``.spv`` file and the ``.sav`` file.
+
+As a final step, undo the *split* by opening the **Split File** dialog again (**Data** > **Split File**), and selecting
 **Analyze all cases, do not create groups**. Do this now, before moving on to the next section.
-
 
 selecting cases
 .................
@@ -475,16 +556,79 @@ selecting cases
 The final way that we'll look at to select subsets of our data is by *selecting cases* (or groups of cases). In this
 case, we're interested in the record from 1951 - 1980.
 
+Open the **Select Cases** dialog by clicking on the **Select Cases** button (outlined in red below), or from the
+**Data** menu (**Data** > **Select Cases**):
 
+.. image:: img/week6/select1.png
+    :width: 300
+    :align: center
+    :alt: the select cases dialog.
+
+|br| In the **Select Cases** dialog, we want to select cases where ``Year`` is between 1951 and 1980 - that is,
+we want to select cases if a particular condition is satisfied. So, click on **If condition is satisfied**, then
+click the **If** button to define the condition. This will open the **Select Cases: If** dialog, where you can enter
+the following formula:
+::
+
+    (Year >= 1951) & (Year <= 1980)
+
+
+.. image:: img/week6/select_conditional.png
+    :width: 500
+    :align: center
+    :alt: the "select cases: if" dialog, with a formula entered to select years between 1951 and 1980.
+
+|br| This formula tells SPSS to select all cases where ``Year`` is both greater than (or equal to) 1951, *and* (``&``)
+where ``Year`` is less than (or equal to) 1980. When you have entered the formula, click **Continue** to return
+to the **Select Cases** dialog:
+
+.. image:: img/week6/select2.png
+    :width: 300
+    :align: center
+    :alt: the select cases dialog, with the selection based on the conditional entered in the previous step.
+
+|br| Click **OK**. You should now see that there is a new variable in the table, ``filter_$``:
+
+.. image:: img/week6/filtered.png
+    :width: 600
+    :align: center
+    :alt: the data editor window, with a new "filter" variable added
+
+|br| This variable has a value of 1 where the case is included in the selection, and 0 where it is not. If you scroll
+through the table, you should see that cases where ``Year`` is between 1951 and 1980 have a 1, and a 0 where this is
+not true.
+
+Now, we can summarize the temperature and precipitation for those years, using descriptive statistics. Once again,
+open the **Descriptive Statistics** dialog and select the three temperature variables (``Tmax``, ``Tmean``,
+and ``Tmin``), plus the precipitation variable (``Rain``). When the tool finishes running, you should see the
+following table output in the **Statistics Viewer** window:
+
+.. image:: img/week6/filtered_descriptives.png
+    :width: 600
+    :align: center
+    :alt: the statistics viewer, with descriptive statistics for 1951 - 1980 shown.
+
+|br| Don't forget to change the title of this section to make it clear that these are values for 1951-1980.
+
+Finally, to undo the filtering, open **Select Cases** again, and click the button for **All cases**. Do this before
+continuing to the next section.
 
 displaying data
 ------------------
 
+In the final part of this practical, we'll look at how we can use SPSS to display data in graphical form. There are
+many more options available than examples covered here, and a wide variety of tutorials/walkthroughs available online,
+so feel free to continue exploring once you've reached the end of the practical.
+
 histogram
 ............
 
-histogram of all rainfall?
-add normal curve
+As a first example, we'll create a histogram of
+
+
+.. admonition:: Questions
+
+    - ...
 
 
 bar graph
@@ -493,25 +637,16 @@ bar graph
 rain, categorized using monthly values
 
 
-line plot
-.................
+.. admonition:: Questions
+
+    - ...
 
 
-
-
-questions
------------
-
-- Which of the temperature variables has the largest variance/standard deviation? Why do you think this might be the case?
-- What is the highest recorded monthly rainfall in Armagh? What about the lowest?
-- Which months have the largest variation in temperature? Why do you think this might be the case?
-- In what month was the highest recorded monthly rainfall recorded in Armagh? What about the lowest?
 
 next steps
 -------------
 
-
-
-notes
---------
+- Use **Select Cases** to select cases from 1991 - 2020, and create a table showing the descriptive statistics of the
+  temperature variables and precipitation. Do you notice any differences between this period and the period 1951-1980?
+-
 
