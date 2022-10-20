@@ -21,6 +21,7 @@ ulster (2020-present)
    :glob:
    :maxdepth: 2
 
+   egm101/index
    egm310/index
    egm702/index
    egm703/index

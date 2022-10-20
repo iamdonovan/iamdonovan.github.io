@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>computation, summary statistics, and graphing in excel &mdash; iamdonovan  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="summarizing and graphing data in spss" href="week6.html" />
+    <link rel="prev" title="setup and installation" href="setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#unis-spring-2017">unis (spring 2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#esa-cryosphere-training-course-june-2018">esa cryosphere training course (june 2018)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#ulster-2020-present">ulster (2020-present)</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">EGM101: skills toolbox</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="setup.html">setup and installation</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">computation, summary statistics, and graphing in excel</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#getting-started">getting started</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#spreadsheet-basics">spreadsheet basics</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#importing-data">importing data</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#calculating-values-using-formulas">calculating values using formulas</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#monthly-averages">monthly averages</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#annual-averages">annual averages</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#creating-charts">creating charts</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#questions">questions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#notes">notes</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l5"><a class="reference internal" href="week7.html">correlation and regression</a></li>
+<li class="toctree-l5"><a class="reference internal" href="week8.html">statistical tests using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gee/index.html">google earth engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">iamdonovan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
+          <li><a href="../index.html">EGM101: skills toolbox</a> &raquo;</li>
+          <li><a href="index.html">practicals</a> &raquo;</li>
+      <li>computation, summary statistics, and graphing in excel</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/teaching/egm101/practicals/week5.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="computation-summary-statistics-and-graphing-in-excel">
+<h1>computation, summary statistics, and graphing in excel<a class="headerlink" href="#computation-summary-statistics-and-graphing-in-excel" title="Permalink to this headline"></a></h1>
+<p>The purpose of this practical is to introduce you to Microsoft Excel and complement the theoretical material presented
+in the lectures, discussions, and reading material. The experience gained in analyzing and presenting data should also
+help you to develop your confidence in using and presenting numerical results.</p>
+<p>By the end of this practical, you should:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>be able to import and format data in a spreadsheet</p></li>
+<li><p>perform calculations with both manually-entered and built-in functions</p></li>
+<li><p>create and format different types of graphs</p></li>
+<li><p>interpret both graphs and numeric values</p></li>
+</ul>
+</div></blockquote>
+<section id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<p>If you have not already, you should download the
+<a class="reference external" href="https://www.metoffice.gov.uk/pub/data/weather/uk/climate/stationdata/armaghdata.txt">Week 5 Data</a>
+file to your OneDrive folder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I <strong>strongly</strong> recommend that you create a dedicated folder for your EGM101 material on your OneDrive. I also
+recommend that you organize it in a way that will help you find things easily.</p>
+<p>The folder structure outlined below is only a recommendation (you should use something that works best for you),
+but an organized folder structure with clearly-labeled, understandable file names (for example,
+<code class="docutils literal notranslate"><span class="pre">EGM101_Week5_Data.xlsx</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">(1).xlsx</span></code>) should help make life just a bit easier.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>OneDrive
+└─ EGM101
+    ├─ Practicals
+        ├─ Week 5
+        ├─ Week 6
+        ├─ Week 7
+        └─ Week 8
+    ├─ Reading
+    └─ Assignment
+        ├─ Data
+        └─ Report
+</pre></div>
+</div>
+</div>
+</section>
+<section id="spreadsheet-basics">
+<h2>spreadsheet basics<a class="headerlink" href="#spreadsheet-basics" title="Permalink to this headline"></a></h2>
+<p>If you haven’t already, open <strong>Excel</strong> using either the <strong>Start Menu</strong> (<strong>Start</strong> &gt; <strong>Excel</strong>) or the Desktop or
+Taskbar icons (if they exist).</p>
+<p>When it opens, you should see the following (note that the layout and theme may differ):</p>
+<a class="reference internal image-reference" href="../../../_images/blank_workbook.png"><img alt="A blank Excel workbook, showing the Home panel on the ribbon in the upper part of the window." class="align-center" src="../../../_images/blank_workbook.png" style="width: 600px;" /></a>
+<p><br /> A spreadsheet is a table of different <em>cells</em>, organized into <em>rows</em> and <em>columns</em>. In Excel, the columns are
+labelled alphabetically (A, B, C, … Z, AA, AB, etc.), and the rows are labeled numerically (1, 2, 3, … etc.). Cells
+are identified using their column and row - in the example above, the green outline is in cell A1, or the first column
+and first row.</p>
+<p>At the bottom of the window, you can also see a tab labeled “Sheet1”, indicating that this is the first <em>sheet</em> (table)
+in the spreadsheet. Excel spreadsheets can contain multiple sheets - to add additional sheets, use the “+” symbol next
+to the sheet tabs. You can also switch between sheets using the tabs.</p>
+</section>
+<section id="importing-data">
+<h2>importing data<a class="headerlink" href="#importing-data" title="Permalink to this headline"></a></h2>
+<p>For this week’s practical, we will be working with meteorological observations from the
+<a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh Observatory</a>,
+provided by the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">Met Office</a>.</p>
+<p>Recall that a <em>variable</em> is any sort of characteristic of the members of a population - in essence, it’s the thing that
+we’re meaasuring and analyzing. In this practical, we’re primarily going to be working with three different temperature
+variables:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Tmax</span></code>, the monthly maximum temperature recorded at the Armagh Observatory;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tmean</span></code>, the monthly mean temperature recorded at the Armagh Observatory; and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tmin</span></code>, the monthly minimum temperature recorded at the Armagh Observatory.</p></li>
+</ul>
+<p>The meteorological data provided by the Met Office date back to 1853, though the temperature records provided “only”
+go back to 1865. Before we get started, though, we need to <strong>Import</strong> the data into Excel.</p>
+<p>To do this, you can press <code class="docutils literal notranslate"><span class="pre">Ctrl</span></code> and <code class="docutils literal notranslate"><span class="pre">O</span></code> at the same time (<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">O</span></code>), or by selecting <strong>Open</strong> from the
+<strong>File</strong> tab in the upper-left corner of the window.</p>
+<p><strong>Browse</strong> to where you have saved <code class="docutils literal notranslate"><span class="pre">armaghdata.txt</span></code>, and select the file. You may need to change from viewing
+<code class="docutils literal notranslate"><span class="pre">Excel</span> <span class="pre">files</span></code> to <code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">files</span></code> in order to see it in the panel.</p>
+<p>When you open the file, you should see the following window:</p>
+<a class="reference internal image-reference" href="../../../_images/import1.png"><img alt="The first step of the Text Import Wizard." class="align-center" src="../../../_images/import1.png" style="width: 400px;" /></a>
+<p><br /> These data are <em>Fixed Width</em>, meaning that columns are separated by a fixed number of spaces. You can also see
+that the file has a number of extra rows at the beginning - we don’t actually want to import these, so change
+<code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">import</span> <span class="pre">at</span> <span class="pre">row:</span></code> to row 6. Once you’ve done this, click <strong>Next</strong> to bring up Step 2 of 3:</p>
+<a class="reference internal image-reference" href="../../../_images/import2a.png"><img alt="The second step of the Text Import Wizard." class="align-center" src="../../../_images/import2a.png" style="width: 400px;" /></a>
+<p><br /> Here, we want to make sure that the column breaks (the vertical lines) are spaced where we have different columns.
+But, we can also use this to separate out non-numeric characters from each cell, which will mean we don’t have to go
+through the spreadsheet and do this by hand later on.</p>
+<p>If you scroll to the bottom of the window, you should see something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/import2b.png"><img alt="The second step of the Text Import Wizard, scrolled to the end of the file." class="align-center" src="../../../_images/import2b.png" style="width: 400px;" /></a>
+<p><br /> You can add separators around these characters by clicking on them:</p>
+<a class="reference internal image-reference" href="../../../_images/import2c.png"><img alt="The second step of the Text Import Wizard, scrolled to the end of the file with an additional separator added." class="align-center" src="../../../_images/import2c.png" style="width: 400px;" /></a>
+<p><br /> Make sure that you add separators after each numeric entry - the final view should look something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/import2d.png"><img alt="The second step of the Text Import Wizard, scrolled to the end of the file with all additional separators added." class="align-center" src="../../../_images/import2d.png" style="width: 400px;" /></a>
+<p><br /> Click <strong>Next</strong> to bring up the following window:</p>
+<a class="reference internal image-reference" href="../../../_images/import3a.png"><img alt="The third and final step of the Text Import Wizard." class="align-center" src="../../../_images/import3a.png" style="width: 400px;" /></a>
+<p><br /> Here, we can tell Excel which columns to import, and which columns to skip. First, select the column by clicking on
+the <em>header</em> (first cell) for each column.</p>
+<p>We want to make sure that Excel doesn’t import any of the columns which won’t have data - for each of these columns,
+you’ll want to select <strong>Do not import column (skip)</strong>. When you select this, the column header should change from
+“General” to “Skip Column” - do this for each of the small columns that you created, plus the final column. It should
+look something like the following:</p>
+<a class="reference internal image-reference" href="../../../_images/import3b.png"><img alt="The third and final step of the Text Import Wizard, with non-numeric columns set to skip import." class="align-center" src="../../../_images/import3b.png" style="width: 400px;" /></a>
+<p><br /> Now click <strong>Finish</strong>. You should see something like the following:</p>
+<a class="reference internal image-reference" href="../../../_images/imported1.png"><img alt="The Excel workbook with the data imported." class="align-center" src="../../../_images/imported1.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you see other columns, it likely means that you had additional column breaks in step 2 of the <strong>Import</strong>
+dialogue above, or you did not tell Excel to skip importing some columns in step 3 above.</p>
+<p><strong>Don’t panic.</strong> You can delete a column following the same procedure as outlined for rows below - just
+be sure to highlight the column that you want to remove, rather than the row.</p>
+</div>
+<p>Now that we’ve imported the data, we need to save the spreadsheet as an <strong>Excel Workbook</strong>. To do this, click on the
+<strong>File</strong> tab, and select <strong>Save As</strong>.</p>
+<p>Re-name the file as <code class="docutils literal notranslate"><span class="pre">EGM101_Week5_Practical</span></code>, make sure to change the file type from “Text (Tab delimited)
+(*.txt)” to “Excel Workbook (*.xlsx)”, and save it to your EGM101 folder <strong>on your OneDrive</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/saveas.png"><img alt="The &quot;Save As&quot; window in Microsoft Excel." class="align-center" src="../../../_images/saveas.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be sure to double-check that you are saving this to your OneDrive folder, <strong>not</strong> the local disk. If you
+save the file to the local disk, it will not be backed up, and you won’t be able to access it unless you are
+sitting at this exact same computer.</p>
+</div>
+<p>Once you’ve saved the file, you should see that the warning has gone away.</p>
+<section id="formatting-text">
+<h3>formatting text<a class="headerlink" href="#formatting-text" title="Permalink to this headline"></a></h3>
+<p>Now that we’ve successfully imported the data, we want to edit the sheet to make it easier to read. We can start with
+the column headers - let’s rename these to be something that’s a bit easier to understand:</p>
+<a class="reference internal image-reference" href="../../../_images/new_headers.png"><img alt="The imported data, with the column headers renamed as described in the text below." class="align-center" src="../../../_images/new_headers.png" style="width: 600px;" /></a>
+<p><br /> Here, I’ve changed <code class="docutils literal notranslate"><span class="pre">yyyy</span></code> to <code class="docutils literal notranslate"><span class="pre">Year</span></code>, <code class="docutils literal notranslate"><span class="pre">mm</span></code> to <code class="docutils literal notranslate"><span class="pre">Month</span></code>, and <code class="docutils literal notranslate"><span class="pre">af</span></code> to <code class="docutils literal notranslate"><span class="pre">Air</span> <span class="pre">Frost</span></code>.</p>
+<p>Like in Word or other programs, we can also change the font to highlight text - go ahead and make the first row of
+text <strong>Bold</strong> by highlighting the cells and changing the text to bold (either using <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">B</span></code> on the keyboard,
+or by clicking on the “B” under the font name on the <strong>Home</strong> tab).</p>
+<p>Change the second row of text (the units) to italics in the same way: first highlight the cells, then press
+<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">I</span></code> on the keyboard, or click on the “I” under the font name on the <strong>Home</strong> tab:</p>
+<a class="reference internal image-reference" href="../../../_images/fancy_headers.png"><img alt="The worksheet with column headers formatted in bold and units in italics." class="align-center" src="../../../_images/fancy_headers.png" style="width: 600px;" /></a>
+<p><br /></p>
+</section>
+<section id="freezing-the-view">
+<h3>freezing the view<a class="headerlink" href="#freezing-the-view" title="Permalink to this headline"></a></h3>
+<p>The next thing we can do to make the spreadsheet easier to work with is <em>freeze</em> the top row(s) of the spreadsheet
+so that as we scroll down the sheet, the top two rows are always in view. To do this, click on cell A3. Then, under the
+<strong>View</strong> tab, click on <strong>Freeze Panes</strong> and select <strong>Freeze Panes</strong> (the first option). This will <em>freeze</em> the first
+two rows:</p>
+<a class="reference internal image-reference" href="../../../_images/frozen.png"><img alt="The workbook, with the first two rows of the current sheet &quot;frozen&quot;." class="align-center" src="../../../_images/frozen.png" style="width: 600px;" /></a>
+<p><br /> You should see that a line appears between the second and third rows. Now, when you scroll, the column headers will
+always be visible - this way, you don’t have to scroll back up to see what data each column represents:</p>
+<a class="reference internal image-reference" href="../../../_images/frozen_scroll.png"><img alt="The workbook, scrolled to the bottom to show that the headers remain visible at the top of the window." class="align-center" src="../../../_images/frozen_scroll.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Freeze Panes</strong> will set the “freeze line” <em>above</em> and to the <em>left</em> of the highlighted cell. So, if you also want
+to freeze the first column, you can click on cell B3 instead. This will freeze the first two rows, as well as the
+first column.</p>
+</div>
+</section>
+<section id="adding-removing-columns-and-rows">
+<h3>adding/removing columns and rows<a class="headerlink" href="#adding-removing-columns-and-rows" title="Permalink to this headline"></a></h3>
+<p>The next thing that we’ll cover is adding and removing columns and rows to the spreadsheet. You should notice that,
+while the total monthly rain (<code class="docutils literal notranslate"><span class="pre">Rain</span></code>, column F) has data starting in January 1853, the other rows (minimum/maximum
+Temperature, days of Air Frost, and average hours of Sun) don’t start until April 1865 (row 150).</p>
+<p>Because we are primarily interested in the temperature records here, we can remove rows where we have no data. To do
+this, first scroll back to the top of the spreadsheet. To delete an entire row, we first have to highlight the row
+in the table. To do this, click the row number in row 3 (left-most part of the window):</p>
+<a class="reference internal image-reference" href="../../../_images/highlight_row.png"><img alt="The workbook showing the third row highlighted." class="align-center" src="../../../_images/highlight_row.png" style="width: 600px;" /></a>
+<p><br /> You should see that all of row 3 is now highlighted. To delete an individual row, you can right-click on the row
+number and select <strong>Delete</strong>. Rather than doing this individually, though, we can select multiple rows using the
+<code class="docutils literal notranslate"><span class="pre">Shift</span></code> key. With row 3 highlighted, scroll down in the table until you see row 149. Hold down the <code class="docutils literal notranslate"><span class="pre">Shift</span></code> key and
+click on the row number for row 149. You should see that rows 3 - 149 are now highlighted:</p>
+<a class="reference internal image-reference" href="../../../_images/highlight_rows.png"><img alt="The workbook showing rows 3-149 highlighted." class="align-center" src="../../../_images/highlight_rows.png" style="width: 600px;" /></a>
+<p><br /> Right-click on the row numbers along the left-most part of the window, and select <strong>Delete</strong>. You should see that
+the table shifts upwards:</p>
+<a class="reference internal image-reference" href="../../../_images/deleted.png"><img alt="The workbook, showing that blank rows 3-149 have been deleted." class="align-center" src="../../../_images/deleted.png" style="width: 600px;" /></a>
+<p><br /> Click on any cell to remove the highlighting. The next thing we’ll do is add a column to the table, to represent
+the monthly mean temperature. We’ll add this column in between the maximum and minimum columns of the table. First,
+click on the column name for column D to highlight the column:</p>
+<a class="reference internal image-reference" href="../../../_images/highlight_column.png"><img alt="The workbook showing column D highlighted." class="align-center" src="../../../_images/highlight_column.png" style="width: 600px;" /></a>
+<p><br /> Next, right-click on the column name and select <strong>Insert</strong> - this will add a new column between column C and the
+(old) column D (now column E):</p>
+<a class="reference internal image-reference" href="../../../_images/new_column.png"><img alt="The workbook, showing a blank column inserted at column D." class="align-center" src="../../../_images/new_column.png" style="width: 600px;" /></a>
+<p><br /> In the first row of this column, add a name (<strong>Tmean</strong>), and in the second row, add the units (<em>degC</em>) - you
+should see that the formatting you added earlier is still there in the new column:</p>
+<a class="reference internal image-reference" href="../../../_images/new_column2.png"><img alt="The workbook, showing a blank column D with the header filled in." class="align-center" src="../../../_images/new_column2.png" style="width: 600px;" /></a>
+<p><br /></p>
+</section>
+</section>
+<section id="calculating-values-using-formulas">
+<h2>calculating values using formulas<a class="headerlink" href="#calculating-values-using-formulas" title="Permalink to this headline"></a></h2>
+<p>One of the biggest advantages to using programs like Excel is that we can use the computer to do calculations for us,
+rather than needing to do everything by hand. There are a number of different ways we can have Excel calculate new
+values for us - as a first example, we’ll see how we can use it to calculate the monthly mean air temperature according
+to the following formula:</p>
+<div class="math notranslate nohighlight">
+\[T_{\rm mean} = \frac{T_{\rm max} + T_{\rm min}}{2}\]</div>
+<p>that is, the monthly mean temperature is the <em>arithmetic mean</em> of the monthly maximum and minimum temperature.</p>
+<section id="simple-formulas-and-referencing-cells">
+<h3>simple formulas and referencing cells<a class="headerlink" href="#simple-formulas-and-referencing-cells" title="Permalink to this headline"></a></h3>
+<p>To start, click on cell D3, representing the mean monthly temperature for April 1865. We could type in the value of this
+cell using the actual data values for the maximum and minimum temperatures:</p>
+<div class="math notranslate nohighlight">
+\[T_{\rm mean} = \frac{14.8 + 5.5}{2} = 10.15\]</div>
+<p>However, there are a number of drawbacks to this. For one, we would have to manually enter each value, which (a) is
+time-consuming, (b) makes it significantly more difficult to change the values later on, (c) dramatically increases
+the chances of making an error (which would require us to change the values later on).</p>
+<p>Instead, we can use <strong>cell references</strong> to input the formula. Click on cell D3, and type in the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="p">(</span><span class="n">C3</span> <span class="o">+</span> <span class="n">E3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Press <code class="docutils literal notranslate"><span class="pre">Enter</span></code> - you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/formula.png"><img alt="The workbook, showing the formula above inserted into cell D3. The cell shows a value of 10.15, though the formula bar shows the formula." class="align-center" src="../../../_images/formula.png" style="width: 600px;" /></a>
+<p><br /> There are a few things to note here:</p>
+<ol class="arabic simple">
+<li><p>The formula begins with “=” - this is <strong>always</strong> the case in excel, whether entering a simple formula or using a built-in function.</p></li>
+<li><p>To refer to a cell, we use the column label (e.g., C), followed by the row label (e.g., 3).</p></li>
+<li><p>In the spreadsheet, we see the output of the formula (10.15), but in the formula bar, we see the formula entered.</p></li>
+<li><p>It’s usually a good idea to use brackets in your formula, to ensure the correct order of operations (and to make the formula more readable).</p></li>
+</ol>
+<p>Rather than re-typing this formula in each row of column D, we can either copy + paste the formula, or by using the
+<strong>fill handle</strong>. To use the <strong>fill handle</strong>, make sure that you have highlighted cell D3 in the sheet. Next, hover
+your cursor over the lower right-hand corner of the green outline - when your cursor changes to a “+” symbol, left-click
+the mouse, then drag the cursor toward the bottom of the screen. You should see the green outline extend. Keep going
+until you’ve highlighted all the way to the bottom of the table (row 1891).</p>
+<p>When you release the mouse button, you should see that each row of column D is now filled with a value:</p>
+<a class="reference internal image-reference" href="../../../_images/filled_formula.png"><img alt="The workbook, that all values of column D have been filled with the formula above." class="align-center" src="../../../_images/filled_formula.png" style="width: 600px;" /></a>
+<p><br /> To check, click on cell D1891 - you should see the following in the formula bar:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="p">(</span><span class="n">C1891</span> <span class="o">+</span> <span class="n">E1891</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>We’ll see more examples of filling cells in this way later on. For now, scroll back up to the top of the table.</p>
+</section>
+<section id="built-in-functions">
+<h3>built-in functions<a class="headerlink" href="#built-in-functions" title="Permalink to this headline"></a></h3>
+<p>Our next task will be to calculate descriptive statistics such as the mean, median, standard deviation, range, and
+interquartile range for each of our temperature <em>variables</em> (<code class="docutils literal notranslate"><span class="pre">Tmax</span></code>, <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>, and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>).</p>
+<p>To start, create a small table to the right of where we have our data:</p>
+<a class="reference internal image-reference" href="../../../_images/average_table.png"><img alt="The workbook, with a space for showing descriptive statistics of the three temperature variables." class="align-center" src="../../../_images/average_table.png" style="width: 600px;" /></a>
+<p><br /> It doesn’t need to be in the exact same location as shown above, but you should include columns for <code class="docutils literal notranslate"><span class="pre">Tmax</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Tmean</span></code>, and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>, as well as rows for the mean, median, population and sample standard deviations, range, and
+inter-quartile range, as shown above.</p>
+<p>In the upper left cell of this table (K5 in the example above), insert the following formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">AVERAGE</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This uses the built-in <a class="reference external" href="https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6">AVERAGE</a>
+function to calculate the <em>arithmetic mean</em> of the cells used as input. Here, we’re telling Excel to use the values in
+all of the cells starting from C3 and ending at C1891. Note that the <code class="docutils literal notranslate"><span class="pre">:</span></code> in between C3 and C1891 is what Excel uses
+to denote a <em>range</em> of cells - this way, we don’t have to explicitly type in C3, C4, C5, and so on.</p>
+<p>When you press enter, you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/average_table.png"><img alt="The workbook, with a formula entered in cell K3 to compute the average maximum temperature." class="align-center" src="../../../_images/average_table.png" style="width: 600px;" /></a>
+<p><br /> As before, you should see that the cell displays the calculated value, while the formula bar displays the formula
+entered.</p>
+<p>Rather than typing the formula again to calculate the mean of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>, we can instead use <strong>flash fill</strong>
+like we did to fill out the <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> column. To do this, click on the lower right corner of the green outline in cell
+K3, then drag the cursor over to cell M3:</p>
+<a class="reference internal image-reference" href="../../../_images/horizontal_fill.png"><img alt="The mean values of each temperature variable, filled using flash fill." class="align-center" src="../../../_images/horizontal_fill.png" style="width: 600px;" /></a>
+<p><br /> Next, we need to fill out the rest of the table. First, use the
+<a class="reference external" href="https://support.microsoft.com/en-us/office/median-function-d0916313-4753-414c-8537-ce85bdd967d2">MEDIAN</a>
+function to calculate the median value of <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> by inserting the following formula into cell K6:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">MEDIAN</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, use <strong>flash fill</strong> to copy this formula to <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>, as you did above for the arithmetic mean.</p>
+<p>For the <em>standard deviation</em>, Excel has two functions: <a class="reference external" href="https://support.microsoft.com/en-us/office/stdev-p-function-6e917c05-31a0-496f-ade7-4f4e7462f285">STDEV.P</a>
+and <a class="reference external" href="https://support.microsoft.com/en-us/office/stdev-s-function-7d69cf97-0c1f-4acf-be27-f3e83904cc23">STDEV.S</a>,
+for the <em>population</em> and <em>sample</em> standard deviation, respectively. In cell K8, enter the following formula
+to calculate the <em>population</em> standard deviation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">STDEV</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And in cell K9, enter the following to calculate the <em>sample</em> standard deviation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">STDEV</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Again, use <strong>flash fill</strong> to fill out each row as you go along.</p>
+<p>Excel doesn’t have dedicated functions for the <em>range</em> and <em>inter-quartile range</em>, but we can still calculate them
+using functions that Excel does have. Remember that the <em>range</em> is just the difference between the maxmimum and
+minimum values of a variable:</p>
+<div class="math notranslate nohighlight">
+\[{\rm RANGE} = {\rm MAX} - {\rm MIN}\]</div>
+<p>We use the same equation here, using the <a class="reference external" href="https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098">MAX</a>
+and <a class="reference external" href="https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a70f-96f202dcc152">MIN</a> functions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">MAX</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span> <span class="o">-</span> <span class="n">MIN</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Again, use <strong>flash fill</strong> to fill out this row.</p>
+<p>Finally, remember that the <em>inter-quartile range</em> is the difference between the third quartile, <span class="math notranslate nohighlight">\(Q_3\)</span>, and the
+first quartile, <span class="math notranslate nohighlight">\(Q_1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[{\rm IQR} = Q_3 - Q_1\]</div>
+<p>Excel has two functions to calculate quartiles: <a class="reference external" href="https://support.microsoft.com/en-us/office/quartile-inc-function-1bbacc80-5075-42f1-aed6-47d735c4819d">QUARTILE.INC</a>,
+for calculating the quartile <em>inclusive</em> of the endpoints, and
+<a class="reference external" href="https://support.microsoft.com/en-us/office/quartile-exc-function-5a355b7a-840b-4a01-b0f1-f538c2864cad">QUARTILE.EXC</a>,
+for calculating the quartile <em>exclusive</em> of the endpoints. We’ll use <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC</span></code> here.</p>
+<p>Enter the following formula into cell K12:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">QUARTILE</span><span class="o">.</span><span class="n">INC</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">QUARTILE</span><span class="o">.</span><span class="n">INC</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC</span></code> takes two <em>arguments</em>: the first is the range of values to calculate the quartile over,
+and the second is which quartile to calculate. So, <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC(C3:C1891,</span> <span class="pre">3)</span></code> calculates <span class="math notranslate nohighlight">\(Q_3\)</span> of the values
+in cells C3 through C1891, while <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC(C3:C1891,</span> <span class="pre">1)</span></code> calculates <span class="math notranslate nohighlight">\(Q_1\)</span>.</p>
+<p>Once again, use <strong>flash fill</strong> to fill out the table. It should look something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/filled_table.png"><img alt="The workbook, with the descriptive statistics for each temperature variable filled in." class="align-center" src="../../../_images/filled_table.png" style="width: 600px;" /></a>
+<p><br /></p>
+</section>
+<section id="formatting-cells">
+<h3>formatting cells<a class="headerlink" href="#formatting-cells" title="Permalink to this headline"></a></h3>
+<p>The final step we’ll do in this part of the practical is <em>format</em> the cells, so that they show an appropriate number of
+<em>significant figures</em>. In the example above, you can see that the <em>mean</em> value is shown with 5 decimal places, despite
+the fact that the original data only has a single decimal place.</p>
+<p>Highlight all of the cells in this part of the table (columns K - M, rows 5 - 12), right-click, and select
+<strong>Format Cells</strong> to bring up the following window:</p>
+<a class="reference internal image-reference" href="../../../_images/format_cells.png"><img alt="the Format Cells dialogue window" class="align-center" src="../../../_images/format_cells.png" style="width: 400px;" /></a>
+<p><br /> Make sure that the <strong>Number</strong> category is selected, then change the number of decimal places to 2. Click <strong>OK</strong> to
+close the window. You should see that the cells in the table are now formatted to only show the first two decimal
+places:</p>
+<a class="reference internal image-reference" href="../../../_images/formatted_table.png"><img alt="the workbook, with the descriptive statistics formatted to only show two decimal places" class="align-center" src="../../../_images/formatted_table.png" style="width: 600px;" /></a>
+<p><br /> Here, you should notice something about the <em>standard deviations</em>: to two decimal places, the <em>population</em> and
+<em>sample</em> standard deviations are the same. Remember that the difference between the <em>population</em> and <em>sample</em> standard
+deviation is that the denominator of the population standard deviation is <span class="math notranslate nohighlight">\(n\)</span>, while for the sample standard
+deviation it is <span class="math notranslate nohighlight">\(n-1\)</span>.</p>
+<p>For low values of <span class="math notranslate nohighlight">\(n\)</span>, this can make a big difference; as <span class="math notranslate nohighlight">\(n\)</span> gets very large, though, the difference is
+far less important. Here, where <span class="math notranslate nohighlight">\(n\approx 2000\)</span>, the difference only shows up in the third decimal place.</p>
+</section>
+</section>
+<section id="monthly-averages">
+<h2>monthly averages<a class="headerlink" href="#monthly-averages" title="Permalink to this headline"></a></h2>
+<section id="conditional-formulas-and-references">
+<h3>conditional formulas and references<a class="headerlink" href="#conditional-formulas-and-references" title="Permalink to this headline"></a></h3>
+<p>Next up, we will use referencing to perform slightly more complicated calculations - specifically, we will
+calculate monthly- and annually-averaged values of our temperature variables, starting with monthly averages. For this
+part of the practical, we’re going to calculate the <em>mean</em>, <em>standard deviation</em>, <em>median</em>, and <em>inter-quartile range</em>
+for each of our temperature variables.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your sheet is named something other than <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code>, you should change this now to avoid pain and confusion
+later.</p>
+<p>To do this, right-click on the tab in the bottom left corner of the workbook, then select <strong>Rename</strong>. Type
+in the name <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code>, then press <strong>Enter</strong>.</p>
+</div>
+<p>To start, we will add a <strong>sheet</strong> to the workbook. At the bottom left of the window, click on the <code class="docutils literal notranslate"><span class="pre">+</span></code> icon next to
+the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> tab. This will add a new sheet to the workbook:</p>
+<a class="reference internal image-reference" href="../../../_images/new_sheet.png"><img alt="the workbook, with a new sheet added" class="align-center" src="../../../_images/new_sheet.png" style="width: 600px;" /></a>
+<p><br /> Rather than the helpfully non-descriptive name <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code>, let’s name this sheet <code class="docutils literal notranslate"><span class="pre">monthly</span></code> to indicate that this
+is the monthly data. To do this, right-click on the <code class="docutils literal notranslate"><span class="pre">Sheet1</span></code> tab, and select <strong>Rename</strong>. Type in the new name and
+press <strong>Enter</strong>.</p>
+<p>Next, we can start adding row and column headers to this table. In the example below, I’ve grouped each <strong>parameter</strong>
+into a set of three columns, with spaces in between to help make it more readable. Once you’ve set up the column
+headers as shown below, type the names of months in cells B3 - B14, then enter a “1” in cell A3, and a “2” in cell A4:</p>
+<a class="reference internal image-reference" href="../../../_images/monthly_fill.png"><img alt="the workbook, with the monthly table set up and cells A3 and A4 highlighted." class="align-center" src="../../../_images/monthly_fill.png" style="width: 600px;" /></a>
+<p><br /> Rather than typing in each number individually, we can again use <strong>flash fill</strong> to automatically fill cells
+based on some pattern.</p>
+<p>Highlight cells A3 and A4, then click on the green square in the lower right corner of the highlighted outline. While
+holding down the mouse button, drag the outline so that it includes all of cells A3-A14. Excel will recognize the
+pattern from the first two cells (1, 2, …) and fill the remaining cells by continuing the pattern:</p>
+<a class="reference internal image-reference" href="../../../_images/monthly_filled.png"><img alt="the monthly table, with values 1-12 filled in column A" class="align-center" src="../../../_images/monthly_filled.png" style="width: 600px;" /></a>
+<p><br /> Now, we’re ready to start inputting formulas into the table. In cell C3, enter the following formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= AVERAGEIF(armaghdata!$B$3:$B$1891, $A3, armaghdata!C$3:C$1891)
+</pre></div>
+</div>
+<p>This formula uses the <a class="reference external" href="https://support.microsoft.com/en-us/office/averageif-function-faec8e2e-0dec-4308-af69-f5576d8ac642">AVERAGEIF</a>
+function to average cells in some range, based on some criteria. Here, we’re telling the function to average all of
+the values in cells C3:C1891 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet, but <em>only</em> where the value in cells B3:B1891
+of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet is equal to the value in cell A3 - in other words, we’re only taking the average of the
+temperatures from rows where <strong>Month</strong> is equal to 1.</p>
+<p>The first thing to notice with this formula is that we can reference other sheets by using the label of the sheet
+(<code class="docutils literal notranslate"><span class="pre">armaghdata</span></code>), followed by <code class="docutils literal notranslate"><span class="pre">!</span></code>, and the cell(s) that we want to reference in the other sheet.</p>
+<p>The second thing to notice is the use of the <code class="docutils literal notranslate"><span class="pre">$</span></code> in the formula above. Earlier, when we used this formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="p">(</span><span class="n">C3</span> <span class="o">+</span> <span class="n">E3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>And used <strong>flash fill</strong> to copy the formula to the other rows in column D, the row number changed - that is, the
+formula in row 1891 was:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="p">(</span><span class="n">C1891</span> <span class="o">+</span> <span class="n">E1891</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>This is because Excel treats C3 (or E3, or C1891) as a <em>relative</em> reference. When we typed this formula into cell D3,
+Excel interpreted C3 as “the cell in the same row, one column to the left”, and E3 as “the cell in the same row,
+one column to the right.” When you copy + paste a formula with relative references into another cell, the references
+change.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">$</span></code> tells Excel not to do this - it should instead keep the column or row constant, depending on where the <code class="docutils literal notranslate"><span class="pre">$</span></code>
+is. With only one <code class="docutils literal notranslate"><span class="pre">$</span></code>, we say this is a <em>mixed</em> reference - if it’s before the column (<code class="docutils literal notranslate"><span class="pre">$A3</span></code>), then Excel will
+hold the column constant, but adjust the row. If it’s before the row (<code class="docutils literal notranslate"><span class="pre">C$3:C$1891</span></code>), Excel will hold the row constant,
+and adjust the column.</p>
+<p>If we have two <code class="docutils literal notranslate"><span class="pre">$</span></code> in the reference (e.g., <code class="docutils literal notranslate"><span class="pre">$B$3</span></code>), Excel won’t adjust the column or row - this is an <em>absolute</em>
+reference. To see this in practice, use <strong>flash fill</strong> to copy the formula to the other rows of column C (C3:C14) - you
+should see that the second reference changes from A3 in row 3, to A4 in row 4, and so on:</p>
+<a class="reference internal image-reference" href="../../../_images/good_formula.png"><img alt="the monthly table, with the monthly average for Tmax filled" class="align-center" src="../../../_images/good_formula.png" style="width: 600px;" /></a>
+<p><br /> The other references don’t change, though, because the rows are held fixed. Now, with the entire column selected,
+use <strong>flash fill</strong> to fill out the other two columns in this part of the table. You should see that the column in the
+third reference changes from column C to column E, depending on which column of this sheet we’re looking at.</p>
+<p>We have now calculated the monthly averages for each of our temperature variables. The last thing to do before moving
+on is to change the formatting so that only 2 decimal places are displayed. You can do this following the same
+procedure that we used earlier (right-click, <strong>Format Cells</strong>).</p>
+</section>
+<section id="more-conditional-formulas">
+<h3>more conditional formulas<a class="headerlink" href="#more-conditional-formulas" title="Permalink to this headline"></a></h3>
+<section id="standard-deviation">
+<h4>standard deviation<a class="headerlink" href="#standard-deviation" title="Permalink to this headline"></a></h4>
+<p>Next, we want to calculate the standard deviation of temperatures for each month. Unfortunately, there is no
+<code class="docutils literal notranslate"><span class="pre">STDEV.IF</span></code> function like there is for <code class="docutils literal notranslate"><span class="pre">AVERAGE</span></code>. Instead, we have to use
+<a class="reference external" href="https://support.microsoft.com/en-us/office/if-function-nested-formulas-and-avoiding-pitfalls-0b22ff44-f149-44ba-aeb5-4ef99da241c8">IF</a>
+along with <code class="docutils literal notranslate"><span class="pre">STDEV.S</span></code>. In cell G3, enter the following formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= STDEV.S(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891))
+</pre></div>
+</div>
+<p>Here, we have <em>nested</em> the <code class="docutils literal notranslate"><span class="pre">IF</span></code> function inside of the <code class="docutils literal notranslate"><span class="pre">STDEV.S</span></code> function, meaning that <code class="docutils literal notranslate"><span class="pre">STDEV.S</span></code> will perform
+a calculation on whatever the <em>output</em> of the <code class="docutils literal notranslate"><span class="pre">IF</span></code> function is. Just like we saw with <code class="docutils literal notranslate"><span class="pre">AVERAGEIF</span></code>, <code class="docutils literal notranslate"><span class="pre">IF</span></code> will
+return whatever value is in cells C3 to C1891 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet, as long as the value in column B of the
+same row is equal to the value in A3 of this sheet.</p>
+<p>Because we have fixed the column, but not the row, when you use <strong>flash fill</strong> to fill in the rest of the cells in
+the standard deviation part of the table, the formula should adjust based on the row, just as it did for <code class="docutils literal notranslate"><span class="pre">AVERAGEIF</span></code>.</p>
+<p>Go ahead and do this now, then be sure to format the cells to show only the first two decimal places.</p>
+</section>
+<section id="median">
+<h4>median<a class="headerlink" href="#median" title="Permalink to this headline"></a></h4>
+<p>To calculate the monthly median values, we will use the <code class="docutils literal notranslate"><span class="pre">MEDIAN</span></code> function nested with the <code class="docutils literal notranslate"><span class="pre">IF</span></code> function, exactly
+as we did for the standard deviation. Enter the following formula into cell K3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= MEDIAN(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891))
+</pre></div>
+</div>
+<p>Once you have entered the formula into cell K3, use <strong>flash fill</strong> to fill the remaining values in this part of the
+table, then format the cells to show only the first two decimal places.</p>
+</section>
+<section id="inter-quartile-range">
+<h4>inter-quartile range<a class="headerlink" href="#inter-quartile-range" title="Permalink to this headline"></a></h4>
+<p>To calculate the monthly interquartile range values, we will use the <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC</span></code> function nested with the <code class="docutils literal notranslate"><span class="pre">IF</span></code>
+function. This formula is slightly more complicated, if only because it requires two nested functions. Enter the
+following formula into cell O3 (remembering that you can copy and paste):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= QUARTILE.INC(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891), 3) - QUARTILE.INC(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891), 1)
+</pre></div>
+</div>
+<p>Once you have entered the formula into cell O3, use <strong>flash fill</strong> to fill the remaining values in this part of the
+table, then format the cells to show only the first two decimal places.</p>
+<p>Once you have finished filling in the various formulas and formatting the cells, your <code class="docutils literal notranslate"><span class="pre">monthly</span></code> sheet should look
+something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/monthly_finished.png"><img alt="the finished monthly descriptive statistics table" class="align-center" src="../../../_images/monthly_finished.png" style="width: 600px;" /></a>
+<p><br /></p>
+</section>
+</section>
+</section>
+<section id="annual-averages">
+<h2>annual averages<a class="headerlink" href="#annual-averages" title="Permalink to this headline"></a></h2>
+<p>Next, we’ll calculate annual averages for our temperature variables. The procedure for calculating annual values works
+much the same as for the monthly data. First, we create a new sheet, then add data and formulas to the new sheet.</p>
+<p>To start, add a new sheet by clicking the “+” next to the <code class="docutils literal notranslate"><span class="pre">monthly</span></code> tab, then re-name the new sheet <code class="docutils literal notranslate"><span class="pre">yearly</span></code>.</p>
+<p>Next, add the column headers to the new sheet. For this practical, we’re only going to calculate annual means and
+medians, though you can use the same procedure we used in the previous section to calculate standard deviations,
+interquartile ranges, and so on.</p>
+<p>First, though, we have to input the years that we want to average over into the table. In cell A3, type “1866”, and
+in cell A4, type “1867”, then use <strong>flash fill</strong> to fill the remaining years up until 2021.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For now, we’re only going to include years where we have 12 months of data - because the 1865 data doesn’t start
+until April, and the 2022 data ends in August, we’ll exclude those years for this part of the analysis.</p>
+</div>
+<p>In cell B3, now, enter the following formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= AVERAGEIF(armaghdata!$A$3:$A$1891, $A3, armaghdata!C$3:C$1891)
+</pre></div>
+</div>
+<p>You’ll note that this is almost the exact same formula as we used for the monthly averages, with the change that
+we’re averaging based on the <em>year</em> (column A in the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet) instead of the <em>month</em> (column B).</p>
+<p>Once you have entered the formula, use <strong>flash fill</strong> to fill the remaining cells in this part of the table (columns
+B to D, rows 3 to 158). Next, be sure to format the cells to only show the first two decimal places, as before.</p>
+<p>We can now do the same thing for the median values - in cell F3, enter the following formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= MEDIAN(IF(armaghdata!$A$3:$A$1891 = $A3, armaghdata!C$3:C$1891))
+</pre></div>
+</div>
+<p>Next, use <strong>flash fill</strong> to fill the remaining part of this table (columns F to H, rows 3 to 158), then format the cells
+to only show the first two decimal places. Your table should look something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/annual_finished.png"><img alt="a workbook showing the annually-averaged (arithmetic mean and median) temperature variables" class="align-center" src="../../../_images/annual_finished.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If it’s been a while since you’ve saved your workbook, you should do so now (<strong>File</strong> &gt; <strong>Save</strong>, or <code class="docutils literal notranslate"><span class="pre">CTRL</span> <span class="pre">+</span> <span class="pre">S</span></code>
+on the keyboard.</p>
+</div>
+</section>
+<section id="creating-charts">
+<h2>creating charts<a class="headerlink" href="#creating-charts" title="Permalink to this headline"></a></h2>
+<p>In addition to performing calclulations, we can also create charts and figures using Excel. In this part of the
+practical, we will see how we can create histograms, bar charts, and line charts.</p>
+<section id="histograms">
+<h3>histograms<a class="headerlink" href="#histograms" title="Permalink to this headline"></a></h3>
+<p>We will start by looking at the distribution of monthly-averaged values in the form of a histogram. On the
+<code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet, highlight column D by clicking on the column label. To add a chart, click on the <strong>Insert</strong>
+tab:</p>
+<a class="reference internal image-reference" href="../../../_images/histogram_highlight.png"><img alt="the original data sheet, with column D highlighted" class="align-center" src="../../../_images/histogram_highlight.png" style="width: 600px;" /></a>
+<p><br /> In the <strong>Charts</strong> section (red box), click on <strong>Insert statistic chart</strong> (white box), and select <strong>Histogram</strong>
+from the menu that pops up. You should see that you have a histogram added to the table:</p>
+<a class="reference internal image-reference" href="../../../_images/histogram_insert.png"><img alt="a histogram of the monthly mean temperature values" class="align-center" src="../../../_images/histogram_insert.png" style="width: 600px;" /></a>
+<p><br /> First, we want to re-size the chart to make it a bit bigger - to do this, click on the chart, then click and drag
+on any of the corners to expand it:</p>
+<a class="reference internal image-reference" href="../../../_images/histogram_resize.png"><img alt="the histogram of monthly mean temperature values re-sized to fill more of the workbook window" class="align-center" src="../../../_images/histogram_resize.png" style="width: 600px;" /></a>
+<p><br /> Before we are finished with our histogram, there are a few things that we need to do. First, remember that a
+chart should have a title or a caption that explains the chart. Click on “Chart Title”, and change the title from
+“Chart Title” to “Distribution of monthly mean temperatures, 1865-2022”.</p>
+<p>Next, we need to add labels for the axes. When you click on the chart, you should notice icons appear along the right
+edge. Click on the “+” button to open a menu for adding chart elements:</p>
+<a class="reference internal image-reference" href="../../../_images/histogram_elements.png"><img alt="the elements menu of the histogram chart" class="align-center" src="../../../_images/histogram_elements.png" style="width: 600px;" /></a>
+<p><br /> To add axis labels, click the checkbox next to <strong>Axis titles</strong> - you should see two labels appear along the vertical
+and horizontal axes. Change these to be “Frequency” or “Count” on the vertical axis, and “Temperature (°C)” on the
+horizontal axis:</p>
+<a class="reference internal image-reference" href="../../../_images/histogram_labelled.png"><img alt="the histogram, with the horizontal and vertical axes labelled" class="align-center" src="../../../_images/histogram_labelled.png" style="width: 600px;" /></a>
+<p><br /> Finally, we can increase the font size on the labels, to make them easier to read. To do this, highlight the text
+and increase the font size using the small window that pops up. Alternatively, you can select the text box, then change
+the font size using the <strong>Home</strong> menu. Increase the axis label font size to 14, the chart title font size to 20, and
+the vertical axis tick labels to size 12:</p>
+<a class="reference internal image-reference" href="../../../_images/histogram_finished.png"><img alt="the finished histogram, with font sizes increased for readability" class="align-center" src="../../../_images/histogram_finished.png" style="width: 600px;" /></a>
+<p><br /> If you like, you can also change the color and style of the bars. If not, go ahead and move on to the next section.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more flexibility with histograms, you can use the <code class="docutils literal notranslate"><span class="pre">FREQUENCY</span></code> function to create a table of frequencies,
+then display the frequencies as a bar chart. We will not cover this here, but if you are interested in going a bit
+further, there are some excellent tutorials online such as
+<a class="reference external" href="https://exceljet.net/formula/histogram-with-frequency">this one</a> or
+<a class="reference external" href="https://www.youtube.com/watch?v=1sLJxwxR8jc">this one</a></p>
+</div>
+</section>
+<section id="bar-charts">
+<span id="excel-bar"></span><h3>bar charts<a class="headerlink" href="#bar-charts" title="Permalink to this headline"></a></h3>
+<p>The steps for creating a bar chart are more or less the same as for creating a histogram, at least at the start. First,
+we’ll select the data that we want to plot. In the <code class="docutils literal notranslate"><span class="pre">monthly</span></code> data tab, highlight cells D3 to D14 by clicking on cell
+D3, and dragging the mouse cursor down to cell D14:</p>
+<a class="reference internal image-reference" href="../../../_images/bar_highlight.png"><img alt="the workbook showing a selection of data, with the &quot;insert column or bar chart&quot; button highlighted" class="align-center" src="../../../_images/bar_highlight.png" style="width: 600px;" /></a>
+<p><br /> Under the <strong>Insert</strong> tab, in the <strong>Charts</strong> section (red box), click on <strong>Insert Column or Bar Chart</strong> (white box),
+and select <strong>Clustered Column</strong>. You should see the following inserted into the table:</p>
+<a class="reference internal image-reference" href="../../../_images/bar_insert.png"><img alt="the workbook showing a bar graph inserted into the middle of the window" class="align-center" src="../../../_images/bar_insert.png" style="width: 600px;" /></a>
+<p><br /> Go ahead and move the chart so that it’s not covering data, and re-size it like you did with the histogram. The
+first thing we’ll need to do is change the horizontal axis labels to use the month names, instead of numbers. To do
+this, first click on the <strong>Chart filters</strong> button along the right-hand side of the chart:</p>
+<a class="reference internal image-reference" href="../../../_images/bar_elements.png"><img alt="the bar chart, showing the &quot;chart filters&quot; button menu" class="align-center" src="../../../_images/bar_elements.png" style="width: 600px;" /></a>
+<p><br /> At the bottom of this menu, click <strong>Select Data…</strong> to bring up the following window:</p>
+<a class="reference internal image-reference" href="../../../_images/bar_select.png"><img alt="the select data source dialogue window" class="align-center" src="../../../_images/bar_select.png" style="width: 400px;" /></a>
+<p><br /> We’ll keep the data as-is, but click on <strong>Edit</strong> under <strong>Horizontal (Category) Axis Labels</strong>. Now, select cells B3
+to B14 to use the month names as axis labels:</p>
+<a class="reference internal image-reference" href="../../../_images/bar_label_select.png"><img alt="the workbook showing the &quot;select axis labels&quot; window, with the month names highlighted" class="align-center" src="../../../_images/bar_label_select.png" style="width: 600px;" /></a>
+<p><br /> You should see that the labels in the chart have changed to “January, February, …” from “1, 2, …”. Click <strong>OK</strong>
+in both of the windows that have been opened to return to the Workbook. The next thing we want to add are <em>error bars</em>,
+to show the variation of temperatures within each month. To do this, click on the <strong>Chart Elements</strong> button again, and
+select <strong>Error bars</strong>.</p>
+<p>This turns on the error bars, but we’re interested in showing the <em>standard deviation</em> of the monthly observations,
+rather than the default. From the <strong>Chart Elements</strong> menu, click on the arrow next to <strong>Error bars</strong>, and select
+<strong>More options…</strong>. This should bring up the <strong>Format Error Bars</strong> panel on the right-hand side of the screen:</p>
+<a class="reference internal image-reference" href="../../../_images/error_bars.png"><img alt="the workbook showing the &quot;format error bars&quot; panel and the &quot;custom error bars&quot; window" class="align-center" src="../../../_images/error_bars.png" style="width: 600px;" /></a>
+<p><br /> Click on <strong>Error bar options</strong> (red box). At the bottom of this panel, under <strong>Error Amount</strong>, click the button next
+to <strong>Custom</strong>, then click on <strong>Specify Value</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/error_bars_format.png"><img alt="the workbook showing the &quot;format error bars&quot; panel" class="align-center" src="../../../_images/error_bars_format.png" style="width: 600px;" /></a>
+<p><br /> Here, you can select the data ranges to use, or use a set value (currently set to ±1). Under <strong>Positive Error Value</strong>,
+select cells H3 to H14 (representing the monthly standard deviation of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>). Do the same for the
+<strong>Negative Error Value</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/error_bars_custom.png"><img alt="the workbook showing the &quot;format error bars&quot; panel and the &quot;custom error bars&quot; window" class="align-center" src="../../../_images/error_bars_custom.png" style="width: 600px;" /></a>
+<p><br /> You can also change the formatting of the error bars to make them thicker and more visisble
+(<strong>Width</strong> under <strong>Fill &amp; Line</strong> (red box)):</p>
+<a class="reference internal image-reference" href="../../../_images/thick_bars.png"><img alt="the workbook with the bar chart, with the error bars set to a width of 2 pts" class="align-center" src="../../../_images/thick_bars.png" style="width: 600px;" /></a>
+<p><br /> Next, we’ll see how we can format the tick labels on the axis. Click on the vertical tick labels:</p>
+<a class="reference internal image-reference" href="../../../_images/format_axis.png"><img alt="the workbook with the vertical axis selected and the &quot;format axis&quot; panel" class="align-center" src="../../../_images/format_axis.png" style="width: 600px;" /></a>
+<p><br /> Under the <strong>Format Axis</strong> panel on the right-hand side of the window, click on <strong>Axis Options</strong> (red box),
+followed by <strong>Number</strong>, then change the number of decimal places to “0”.</p>
+<p>Note that under  <strong>Axis Options</strong>, you can also change the axis bounds, as well as the spacing between the ticks.
+For now, the default values are fine.</p>
+<p>To finish up the chart, change the chart title to “Average monthly temperature, 1865-2022”, add axis labels, and
+increase the font sizes like we did for the histogram:</p>
+<a class="reference internal image-reference" href="../../../_images/bar_finished.png"><img alt="the workbook showing the finished bar graph of monthly-averaged mean temperatures" class="align-center" src="../../../_images/bar_finished.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you could plot the monthly-averaged temperatures as a line chart:</p>
+<a class="reference internal image-reference" href="../../../_images/linegraph.png"><img alt="the monthly-averaged temperatures, plotted as a line graph" class="align-center" src="../../../_images/linegraph.png" style="width: 600px;" /></a>
+</div>
+</section>
+<section id="line-charts">
+<h3>line charts<a class="headerlink" href="#line-charts" title="Permalink to this headline"></a></h3>
+<p>For the final example of creating a chart using Excel, we’ll create a line chart using the median annual temperature.
+Click on the <code class="docutils literal notranslate"><span class="pre">yearly</span></code> tab, then select all of the data in columns F through H and rows 2 through 158:</p>
+<a class="reference internal image-reference" href="../../../_images/line_select.png"><img alt="the workbook, with the annual median temperature variables highlighted" class="align-center" src="../../../_images/line_select.png" style="width: 600px;" /></a>
+<p><br /> Under the <strong>Insert</strong> tab, in the <strong>Charts</strong> section (red box above), click on <strong>Insert Line or Area Chart</strong> (white
+box above), and select <strong>Line</strong>. This will insert a line chart into the workbook:</p>
+<a class="reference internal image-reference" href="../../../_images/line_insert.png"><img alt="the workbook, with a line graph showing the annual median values of the three temperature variables" class="align-center" src="../../../_images/line_insert.png" style="width: 600px;" /></a>
+<p><br /> As before, you can move and re-size the chart object. At the moment, the x-axis data is just the row number,
+starting counting from 1. We would like to plot the median temperature as a function of year, so we need to add the
+correct labels to the chart.</p>
+<p>As you did for the bar chart, click on the <strong>Chart Filters</strong> button along the right side of the chart, then click
+on <strong>Select Data</strong> to bring up the <strong>Select Data Source</strong> dialogue. Under <strong>Horizontal (Category) Axis Labels</strong>, click
+on <strong>Edit</strong> to select the cells containing the axis labels, then select cells A3 to A158 (alternatively, type the
+range into the formula bar in the <strong>Axis Labels</strong> window):</p>
+<a class="reference internal image-reference" href="../../../_images/line_add_labels.png"><img alt="the workbook, with the &quot;Axis Labels&quot; dialogue window open" class="align-center" src="../../../_images/line_add_labels.png" style="width: 600px;" /></a>
+<p><br /> Click <strong>OK</strong> - you should see that the labels have changed from <code class="docutils literal notranslate"><span class="pre">1,</span> <span class="pre">7,</span> <span class="pre">...,</span> <span class="pre">151</span></code> to <code class="docutils literal notranslate"><span class="pre">1866,</span> <span class="pre">1869,</span> <span class="pre">...,</span> <span class="pre">2019</span></code>.
+This is quite crowded, and we can change the labels so that only every 10th value is shown. To do this, click on the
+horizontal axis labels to highlight them. On the <strong>Format Axis</strong> panel, click on <strong>Axis Options</strong> (red box below).</p>
+<p>Under <strong>Tick Marks</strong>, change the <strong>Interval between marks</strong> to be 10, and the <strong>Major type</strong> to be <code class="docutils literal notranslate"><span class="pre">Cross</span></code> - this
+places a tick on the horizontal axis every 10 data points, which can help with reading the graph. Under <strong>Labels</strong>,
+select <strong>Specify interval unit</strong>, and type <code class="docutils literal notranslate"><span class="pre">10</span></code> in the box - you should see that the labels change from
+<code class="docutils literal notranslate"><span class="pre">1866,</span> <span class="pre">1869,</span> <span class="pre">...,</span> <span class="pre">2019</span></code> to <code class="docutils literal notranslate"><span class="pre">1866,</span> <span class="pre">1876,</span> <span class="pre">...,</span> <span class="pre">2016</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/line_change_intervals.png"><img alt="the workbook, with the &quot;Format Axis&quot; panel showing on the right-hand side of the window" class="align-center" src="../../../_images/line_change_intervals.png" style="width: 600px;" /></a>
+<p><br /> To finish up the graph, add a chart title and axis titles, and remove the decimal points from the vertical axis
+labels. Finally, increase the font size of each of the chart elements. Your final chart should look something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/line_finished.png"><img alt="the workbook, with a line graph showing the median annual temperature for each year between 1866 and 2021." class="align-center" src="../../../_images/line_finished.png" style="width: 600px;" /></a>
+<p><br /> At this point, you have finished the exercises in the practical. Have a look at the questions below, and see
+how many of them you can answer. Keep in mind that some of these questions will most likely be part of the assessment
+for this part of the module - it would be a good idea to write down your thoughts/answers now so that you have an
+easier time answering the questions on the assessment.</p>
+<p>If you would like extra practice with Excel, have a look at the “next steps” section below for some suggestions on
+additional exercises you could try.</p>
+</section>
+</section>
+<section id="questions">
+<h2>questions<a class="headerlink" href="#questions" title="Permalink to this headline"></a></h2>
+<ul>
+<li><p>what kind of frequency distribution does <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> have? Why would you expect this to be the case?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>is there a single, or multiple, modal values of <code class="docutils literal notranslate"><span class="pre">Tmax</span></code>? What are they?</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>annual Tmax, Tmean, Tmin: describe the distribution(s)</p></li>
+<li><p>what month has the highest average temperature? what about highest ever recorded?</p></li>
+<li><p>temperature: largest spread? least spread?</p></li>
+<li><p>when does Armagh see the highest rainfall? what month has the highest variation?</p></li>
+<li><p>compare median/mean for each month - what does this tell you?</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<ul>
+<li><p>Add Rain to the analysis above, but instead of calculating the annual mean, calculate the annual total (sum).</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>what month(s) tend to be the rainiest in Armagh?</p></li>
+<li><p>looking at the annual plot, has the total rainfall been consistent over time? can you pick out years where
+the rainfall has been much heavier (or lower) than others? How does this compare with the temperature?</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Instead of looking at the annually-averaged values of temperature, we can instead look at the difference between each
+annually-averaged value and a long-term average - something called an
+<a class="reference external" href="https://www.ncei.noaa.gov/access/monitoring/dyk/anomalies-vs-temperature">anomaly</a>. To do this, you subtract
+the long-term average value from each value, then plot the result. Can you create a graph that looks like the one
+below?</p></li>
+<li><p>Looking at the graph below, what do you notice about the temperature anomaly over time?</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../../_images/anomaly_plot.png"><img alt="a plot of annual mean temperature anomalies, relative to 1951-1980" class="align-center" src="../../../_images/anomaly_plot.png" style="width: 600px;" /></a>
+</section>
+<section id="notes">
+<h2>notes<a class="headerlink" href="#notes" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup.html" class="btn btn-neutral float-left" title="setup and installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="week6.html" class="btn btn-neutral float-right" title="summarizing and graphing data in spss" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
