@@ -623,7 +623,7 @@ so feel free to continue exploring once you've reached the end of the practical.
 histogram
 ............
 
-As a first example, we'll create a histogram of
+As a first example, we'll create a histogram of rainfall values using all of the available data.
 
 
 .. admonition:: Questions
