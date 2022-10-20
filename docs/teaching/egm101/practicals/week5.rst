@@ -806,6 +806,8 @@ the vertical axis tick labels to size 12:
     `this one <https://exceljet.net/formula/histogram-with-frequency>`__ or
     `this one <https://www.youtube.com/watch?v=1sLJxwxR8jc>`__
 
+.. _excel bar:
+
 bar charts
 ............
 
