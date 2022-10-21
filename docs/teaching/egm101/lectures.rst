@@ -19,11 +19,11 @@ week 5 video playlist
 
 week 5 transcripts
 ^^^^^^^^^^^^^^^^^^
-:download:`Week 5 Transcripts <../../files/EGM310_Week9_Transcripts.zip>`
+:download:`Week 5 Transcripts <../../files/EGM101_Week5_Transcripts.zip>`
 
 week 5 slides
 ^^^^^^^^^^^^^
-:download:`Week 5 Slides <../../files/EGM310_Week9.zip>`
+:download:`Week 5 Slides <../../files/EGM101_Week5.zip>`
 
 .. _egm101 week6:
 
