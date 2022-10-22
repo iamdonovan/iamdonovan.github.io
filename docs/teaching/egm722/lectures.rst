@@ -17,14 +17,16 @@ week 1 video playlist
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXuFVTqY8RWL0_F5YQfIZDbF&index=1
     :alt: EGM722 Week 1 lecture playlist
 
-..
-    week 1 transcripts
-    ^^^^^^^^^^^^^^^^^^
-    :download:`Week 1 Transcripts <../../files/EGM722_Week1_Transcripts.zip>`
+|br|
 
 week 1 slides
 ^^^^^^^^^^^^^
 :download:`Week 1 Slides <../../files/EGM722_Week1.zip>`
+
+..
+    week 1 transcripts
+    ^^^^^^^^^^^^^^^^^^
+    :download:`Week 1 Transcripts <../../files/EGM722_Week1_Transcripts.zip>`
 
 
 .. _egm722 week2:
@@ -41,12 +43,14 @@ week 2 video playlist
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXuRn6REPfRN-s3NmvgXyKHr&index=1
     :alt: EGM722 Week 2 lecture playlist
 
-..
-    week 2 transcripts
-    ^^^^^^^^^^^^^^^^^^
-    :download:`Week 2 Transcripts <../../files/EGM722_Week2_Transcripts.zip>`
+|br|
 
 week 2 slides
 ^^^^^^^^^^^^^
 :download:`Week 2 Slides <../../files/EGM722_Week2.zip>`
+
+..
+    week 2 transcripts
+    ^^^^^^^^^^^^^^^^^^
+    :download:`Week 2 Transcripts <../../files/EGM722_Week2_Transcripts.zip>`
 

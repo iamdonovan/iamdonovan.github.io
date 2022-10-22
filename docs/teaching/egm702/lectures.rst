@@ -17,6 +17,8 @@ video playlist
     :target: https://www.youtube.com/watch?v=WneDAoe9q0g&list=PLswTWqhRygXvaFSLGwoyJbTu-vCOq2Eob&index=1
     :alt: a slide explaining where photogrammetry is applied
 
+|br|
+
 ..
     transcripts
     ^^^^^^^^^^^
@@ -40,14 +42,16 @@ video playlist
     :target: https://www.youtube.com/watch?v=OZuF_LbYwp0&list=PLswTWqhRygXshYE_3WxLb1SiAuuodhjTA&index=1
     :alt: a slide explaining the difference between accuracy and precision
 
-..
-    transcripts
-    ^^^^^^^^^^^
-    :download:`Week 2 Transcripts <../../files/EGM702_Week2_Transcripts.zip>`
+|br|
 
 slides
 ^^^^^^
 :download:`Week 2 Slides <../../files/EGM702_Week2.zip>`
+
+..
+    transcripts
+    ^^^^^^^^^^^
+    :download:`Week 2 Transcripts <../../files/EGM702_Week2_Transcripts.zip>`
 
 .. _egm702 week3:
 
@@ -63,14 +67,16 @@ video playlist
     :target: https://www.youtube.com/watch?v=vw6YbfAhL6I&list=PLswTWqhRygXt_6LtK6iL6K-PeXsPddYQA&index=1
     :alt: a slide explaining how digital images are stored
 
-..
-    transcripts
-    ^^^^^^^^^^^
-    :download:`Week 3 Transcripts <../../files/EGM702_Week3_Transcripts.zip>`
+|br|
 
 slides
 ^^^^^^
 :download:`Week 3 Slides <../../files/EGM702_Week3.zip>`
+
+..
+    transcripts
+    ^^^^^^^^^^^
+    :download:`Week 3 Transcripts <../../files/EGM702_Week3_Transcripts.zip>`
 
 .. _egm702 week4:
 
@@ -86,14 +92,16 @@ video playlist
     :target: https://www.youtube.com/watch?v=5ENdo-PtxkI&list=PLswTWqhRygXuiCG5-fs0C4jS9Z8uyNVd-&index=1
     :alt: a slide explaining how with multiple images over time, we can map change
 
-..
-    transcripts
-    ^^^^^^^^^^^
-    :download:`Week 4 Transcripts <../../files/EGM702_Week4_Transcripts.zip>`
+|br|
 
 slides
 ^^^^^^
 :download:`Week 4 Slides <../../files/EGM702_Week4.zip>`
+
+..
+    transcripts
+    ^^^^^^^^^^^
+    :download:`Week 4 Transcripts <../../files/EGM702_Week4_Transcripts.zip>`
 
 .. _egm702 week5:
 
@@ -109,12 +117,15 @@ video playlist
     :target: https://www.youtube.com/watch?v=r3O4laOHhO0&list=PLswTWqhRygXs3oc4rxPKNGvjnYxrDRtrP&index=1
     :alt: a slide explaining unsupervised classification, including different algorithms
 
+|br|
+
+slides
+^^^^^^
+:download:`Week 5 Slides <../../files/EGM702_Week5.zip>`
+
 ..
     transcripts
     ^^^^^^^^^^^
     :download:`Week 5 Transcripts <../../files/EGM702_Week5_Transcripts.zip>`
 
-slides
-^^^^^^
-:download:`Week 5 Slides <../../files/EGM702_Week5.zip>`
 
