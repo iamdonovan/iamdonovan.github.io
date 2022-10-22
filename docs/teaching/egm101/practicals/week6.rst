@@ -352,7 +352,8 @@ In the **Viewer** window, you should see that SPSS has added a table with the re
 statistics. You can also see that there are different values of ``N`` - remember that this is because the temperature
 record doesn't start until April 1865, but the rainfall record begins in January 1853.
 
-.. admonition:: Questions
+.. admonition:: Question
+    :class: question
 
     - Which of the temperature variables has the largest variance/standard deviation? Why do you think this might be the case?
     - What is the highest recorded monthly rainfall in Armagh? What about the lowest?
@@ -427,7 +428,8 @@ remove the "Month recorded = " from each entry.
 
 Have a look at the tables in the **Viewer** window, and see if you can answer the questions below before moving on.
 
-.. admonition:: Questions
+.. admonition:: Question
+    :class: question
 
     - Which months have the largest variation in temperature? Why do you think this might be the case?
     - In what month was the highest recorded monthly rainfall recorded in Armagh? What about the lowest?
@@ -664,6 +666,7 @@ click **OK**, SPSS will take a minute before displaying the chart in the **Stati
 viewer panel.
 
 .. admonition:: Question
+    :class: question
 
     Describe the distribution of rainfall - does it follow a normal distribution, or is it skewed? Is the "tail" on
     one side of the curve larger than the tail on the other side? What other properties do you notice?
@@ -744,7 +747,8 @@ select **Standard deviation**. Set the multiplier to 1 standard deviation, rathe
 remember to save both your ``.spv`` and ``.sav`` files to OneDrive, as you will be using them again in next week's
 practical, as well as for the assessment for this part of the module!
 
-.. admonition:: Questions
+.. admonition:: Question
+    :class: question
 
     Which month has the highest precipitation in Armagh? What about the lowest? Are there any clear differences in the
     dispersion (as measured by the standard deviation) of the monthly values?
