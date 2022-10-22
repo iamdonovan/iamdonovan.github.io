@@ -17,6 +17,8 @@ week 9 video playlist
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXvmHSU_1rJsQYi35awp3RJl&index=1
     :alt: week 9 lecture playlist
 
+|br|
+
 week 9 transcripts
 ^^^^^^^^^^^^^^^^^^
 :download:`Week 9 Transcripts <../../files/EGM310_Week9_Transcripts.zip>`
@@ -38,6 +40,8 @@ week 10 video playlist
     :align: center
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXvntQDUIAogMR0o_zUa8vw6&index=1
     :alt: week 10 lecture playlist
+
+|br|
 
 week 10 transcripts
 ^^^^^^^^^^^^^^^^^^^
@@ -61,6 +65,8 @@ week 11 video playlist
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXu9CPo6dyC92VzAzxYgVmLm&index=1
     :alt: week 11 lecture playlist
 
+|br|
+
 week 11 transcripts
 ^^^^^^^^^^^^^^^^^^^
 :download:`Week 11 Transcripts <../../files/EGM310_Week11_Transcripts.zip>`
@@ -82,6 +88,8 @@ week 12 video playlist
     :align: center
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXt3AKKbQnR9JaVFT8bSeGXT&index=1
     :alt: week 12 lecture playlist
+
+|br|
 
 week 12 transcripts
 ^^^^^^^^^^^^^^^^^^^

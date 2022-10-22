@@ -11,11 +11,13 @@ introduction to quantitative skills
 week 5 video playlist
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm310/week9.png
+.. image:: ../../img/egm101/egm101_week5.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXvmHSU_1rJsQYi35awp3RJl&index=1
     :alt: week 5 lecture playlist
+
+|br|
 
 week 5 transcripts
 ^^^^^^^^^^^^^^^^^^
@@ -33,11 +35,13 @@ correlation and regression
 week 6 video playlist
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm310/week10.png
+.. image:: ../../img/egm101/egm101_week6.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXvntQDUIAogMR0o_zUa8vw6&index=1
     :alt: week 6 lecture playlist
+
+|br|
 
 week 6 transcripts
 ^^^^^^^^^^^^^^^^^^^
@@ -55,11 +59,13 @@ probability
 week 7 video playlist
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm310/week11.png
+.. image:: ../../img/egm101/egm101_week7.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXu9CPo6dyC92VzAzxYgVmLm&index=1
     :alt: week 11 lecture playlist
+
+|br|
 
 week 7 transcripts
 ^^^^^^^^^^^^^^^^^^^
@@ -71,17 +77,19 @@ week 7 slides
 
 .. _egm101 week8:
 
-statistical significance
----------------------------------------------------
+hypothesis testing
+------------------------
 
 week 8 video playlist
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm310/week12.png
+.. image:: ../../img/egm101/egm101_week8.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/playlist?list=PLswTWqhRygXt3AKKbQnR9JaVFT8bSeGXT&index=1
     :alt: week 8 lecture playlist
+
+|br|
 
 week 8 transcripts
 ^^^^^^^^^^^^^^^^^^^
