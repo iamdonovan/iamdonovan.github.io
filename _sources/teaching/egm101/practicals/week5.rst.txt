@@ -242,6 +242,12 @@ always be visible - this way, you don't have to scroll back up to see what data 
     to freeze the first column, you can click on cell B3 instead. This will freeze the first two rows, as well as the
     first column.
 
+.. admonition:: Question
+    :class: question
+
+    Look at the values in each column of the table. What type of data do each of these variables represent?
+
+
 adding/removing columns and rows
 ..................................
 
@@ -518,6 +524,14 @@ deviation it is :math:`n-1`.
 For low values of :math:`n`, this can make a big difference; as :math:`n` gets very large, though, the difference is
 far less important. Here, where :math:`n\approx 2000`, the difference only shows up in the third decimal place.
 
+.. admonition:: Question
+    :class: question
+
+    - Which temperature variable (``Tmax``, ``Tmean``, or ``Tmin``) has the largest range? What does this tell you about
+      extreme values?
+    - Look at the standard deviation values for each temperature variable. Which variable has more variation?
+
+
 monthly averages
 -------------------
 
@@ -680,6 +694,13 @@ something like this:
 
 |br|
 
+.. admonition:: Question
+    :class: question
+
+    Compare the mean and median temperature values for each month. What does this tell you about the distribution
+    of temperature values?
+
+
 annual averages
 ----------------
 
@@ -796,7 +817,16 @@ the vertical axis tick labels to size 12:
     :align: center
     :alt: the finished histogram, with font sizes increased for readability
 
-|br| If you like, you can also change the color and style of the bars. If not, go ahead and move on to the next section.
+|br|
+
+.. admonition:: Question
+    :class: question
+
+    - What kind of frequency distribution does ``Tmax`` have? Why would you expect this to be the case?
+    - What is/are the modal value(s) of ``Tmax``?
+
+
+If you like, you can also change the color and style of the bars. If not, go ahead and move on to the next section.
 
 .. note::
 
@@ -804,7 +834,7 @@ the vertical axis tick labels to size 12:
     then display the frequencies as a bar chart. We will not cover this here, but if you are interested in going a bit
     further, there are some excellent tutorials online such as
     `this one <https://exceljet.net/formula/histogram-with-frequency>`__ or
-    `this one <https://www.youtube.com/watch?v=1sLJxwxR8jc>`__
+    `this one <https://www.youtube.com/watch?v=1sLJxwxR8jc>`__.
 
 .. _excel bar:
 
@@ -914,6 +944,13 @@ increase the font sizes like we did for the histogram:
 
 |br|
 
+.. admonition:: Question
+    :class: question
+
+    - What month has the highest average temperature? What about the lowest?
+    - What month(s) have the largest spread in temperatures? What might this tell you about the weather in those months?
+
+
 .. note::
 
     Alternatively, you could plot the monthly-averaged temperatures as a line chart:
@@ -979,26 +1016,13 @@ labels. Finally, increase the font size of each of the chart elements. Your fina
     :align: center
     :alt: the workbook, with a line graph showing the median annual temperature for each year between 1866 and 2021.
 
-|br| At this point, you have finished the exercises in the practical. Have a look at the questions below, and see
-how many of them you can answer. Keep in mind that some of these questions will most likely be part of the assessment
-for this part of the module - it would be a good idea to write down your thoughts/answers now so that you have an
-easier time answering the questions on the assessment.
+|br| At this point, you have finished the exercises in the practical. Have a look back at the questions in the text,
+and see how many of them you can answer. Keep in mind that some of these questions will most likely be part of the
+assessment for this part of the module - it would be a good idea to write down your thoughts/answers now so that you
+have an easier time answering the questions on the assessment.
 
 If you would like extra practice with Excel, have a look at the "next steps" section below for some suggestions on
 additional exercises you could try.
-
-questions
------------
-
-- what kind of frequency distribution does ``Tmax`` have? Why would you expect this to be the case?
-
-    - is there a single, or multiple, modal values of ``Tmax``? What are they?
-
-- annual Tmax, Tmean, Tmin: describe the distribution(s)
-- what month has the highest average temperature? what about highest ever recorded?
-- temperature: largest spread? least spread?
-- when does Armagh see the highest rainfall? what month has the highest variation?
-- compare median/mean for each month - what does this tell you?
 
 next steps
 -------------
