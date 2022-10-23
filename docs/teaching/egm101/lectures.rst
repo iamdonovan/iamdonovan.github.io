@@ -14,7 +14,7 @@ week 5 video playlist
 .. image:: ../../img/egm101/egm101_week5.png
     :width: 600
     :align: center
-    :target: https://www.youtube.com/playlist?list=PLswTWqhRygXvmHSU_1rJsQYi35awp3RJl&index=1
+    :target: https://www.youtube.com/playlist?list=PLswTWqhRygXvFP6dTtIMnKorsCmp1SN6H
     :alt: week 5 lecture playlist
 
 |br|
