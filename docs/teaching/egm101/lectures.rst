@@ -38,7 +38,7 @@ week 6 video playlist
 .. image:: ../../img/egm101/egm101_week6.png
     :width: 600
     :align: center
-    :target: https://www.youtube.com/playlist?list=PLswTWqhRygXvntQDUIAogMR0o_zUa8vw6&index=1
+    :target: https://www.youtube.com/playlist?list=PLswTWqhRygXtNo47cYb9foXFE5oeUVtmm
     :alt: week 6 lecture playlist
 
 |br|
