@@ -45,11 +45,11 @@ week 6 video playlist
 
 week 6 transcripts
 ^^^^^^^^^^^^^^^^^^^
-:download:`Week 6 Transcripts <../../files/EGM310_Week10_Transcripts.zip>`
+:download:`Week 6 Transcripts <../../files/EGM101_Week6_Transcripts.zip>`
 
 week 6 slides
 ^^^^^^^^^^^^^^
-:download:`Week 6 Slides <../../files/EGM310_Week10.zip>`
+:download:`Week 6 Slides <../../files/EGM101_Week6.zip>`
 
 .. _egm101 week7:
 
