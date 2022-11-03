@@ -367,6 +367,8 @@ might be interested in descriptive statistics for specific months or subsets of 
 to *group* the data before calculating the descriptive statistics by *splitting* the data, or by selecting specific
 cases. We'll look at both options below.
 
+.. _egm101 split:
+
 splitting data
 ................
 
@@ -755,11 +757,11 @@ practical, as well as for the assessment for this part of the module!
 
 .. warning::
 
-    Make sure that you upload the **.sav** and **.spv** files to OneDrive **BEFORE** leaving the computer lab.
+    If you are working on a lab computer, make sure that you upload the **.sav** and **.spv** files to OneDrive
+    **BEFORE** leaving the computer lab.
 
     If you do not, you will lose your work, and you will need to re-complete the steps of this practical to be able to
     answer the questions on the assessment!
-
 
 next steps
 -------------
