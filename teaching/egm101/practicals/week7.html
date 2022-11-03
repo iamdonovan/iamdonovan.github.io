@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>correlation and regression &mdash; iamdonovan  documentation</title>
+  <title>correlation and regression in spss &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -52,7 +53,15 @@
 <li class="toctree-l5"><a class="reference internal" href="setup.html">setup and installation</a></li>
 <li class="toctree-l5"><a class="reference internal" href="week5.html">computation, summary statistics, and graphing in excel</a></li>
 <li class="toctree-l5"><a class="reference internal" href="week6.html">summarizing and graphing data in spss</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">correlation and regression</a></li>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">correlation and regression in spss</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#getting-started">getting started</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#creating-a-date-variable">creating a date variable</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#scatter-plots-in-spss">scatter plots in spss</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#calculating-correlation-in-spss">calculating correlation in spss</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#regression-in-spss">regression in spss</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
+</ul>
+</li>
 <li class="toctree-l5"><a class="reference internal" href="week8.html">statistical tests using spss</a></li>
 </ul>
 </li>
@@ -89,7 +98,7 @@
           <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
           <li><a href="../index.html">EGM101: skills toolbox</a> &raquo;</li>
           <li><a href="index.html">practicals</a> &raquo;</li>
-      <li>correlation and regression</li>
+      <li>correlation and regression in spss</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/teaching/egm101/practicals/week7.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -99,8 +108,219 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="correlation-and-regression">
-<h1>correlation and regression<a class="headerlink" href="#correlation-and-regression" title="Permalink to this headline"></a></h1>
+  <section id="correlation-and-regression-in-spss">
+<h1>correlation and regression in spss<a class="headerlink" href="#correlation-and-regression-in-spss" title="Permalink to this headline"></a></h1>
+<p>The purpose of this practical is to continue introducing you to SPSS, and complement the theoretical material presented
+in the lectures, discussions, and reading material. The experience gained in analyzing and presenting data should also
+help you continue to develop your confidence in using, presenting, and discussing numerical results.</p>
+<p>In this practical, we will take a step beyond the basics of importing data into SPSS, calculating descriptive
+statistics, and creating plots. We will see how we can compare different subsets of our data, calculate trends using
+linear regression, and how we can analyze those results.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The material covered in this practical assumes that you have worked through the lecture material and reading from
+Week 6, where we introduce topics like correlation and regression.</p>
+<p>If you have not worked through this material yet, you might have a difficult time answering some of the questions.</p>
+</div>
+<section id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you have not yet completed all the steps from the Week 6 practical, you should stop here and make sure that you
+finish them.</p>
+</div>
+<p>To get started, open SPSS using either the <strong>Start</strong> menu (<strong>Start</strong> &gt; <strong>IBM SPSS Statistics</strong> &gt;
+<strong>IBM SPSS Statistics</strong>), double-click the desktop icon (if it exists), or click on the taskbar icon (if it exists).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are working on the lab computer, you will need to download the <strong>.sav</strong> and <strong>.spv</strong> files that you
+worked with last week so that you can start from where you left off.</p>
+</div>
+<p>When SPSS launches, you should see the normal welcome screen:</p>
+<a class="reference internal image-reference" href="../../../_images/spss_welcome.png"><img alt="the SPSS Welcome screen" class="align-center" src="../../../_images/spss_welcome.png" style="width: 600px;" /></a>
+<p><br /> To open your previous files, you may need to click on the <strong>Recent Files</strong> tab. Then, click on
+<strong>Open another file</strong>, followed by <strong>Open</strong>.</p>
+<a class="reference internal image-reference" href="../../../_images/open_other.png"><img alt="the SPSS welcome screen, with the &quot;recent files&quot; tab active and &quot;open another file&quot; selected" class="align-center" src="../../../_images/open_other.png" style="width: 500px;" /></a>
+<p><br /> Browse to where you have saved your <strong>.sav</strong> file, and open it:</p>
+<a class="reference internal image-reference" href="../../../_images/opened.png"><img alt="the ArmaghData.sav file re-opened in SPSS." class="align-center" src="../../../_images/opened.png" style="width: 600px;" /></a>
+<p><br /> You can also open the <strong>.spv</strong> file from the <strong>File</strong> menu (<strong>File</strong> &gt; <strong>Open</strong> &gt; <strong>Output</strong>), then browsing to
+where you have saved it:</p>
+<a class="reference internal image-reference" href="../../../_images/opened_viewer.png"><img alt="the ArmaghData.spv file re-opened in SPSS." class="align-center" src="../../../_images/opened_viewer.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If at any point you accidentally close the <strong>Viewer</strong> window, this is one way that you can re-open it.</p>
+</div>
+</section>
+<section id="creating-a-date-variable">
+<h2>creating a date variable<a class="headerlink" href="#creating-a-date-variable" title="Permalink to this headline"></a></h2>
+<p>Most software programs that you will encounter have a special way of handling dates, to make it possible to compute
+the amount of time that has passed between different dates and times, or to do other calculations involving dates and
+time.</p>
+<p><a class="reference external" href="https://www.ibm.com/docs/en/spss-statistics/28.0.0?topic=wizard-dates-times-in-spss-statistics">SPSS is no exception</a>,
+so if we want to be able to make plots of variables over time, we will need to convert our <code class="docutils literal notranslate"><span class="pre">Year</span></code>/<code class="docutils literal notranslate"><span class="pre">Month</span></code> variables
+into a <strong>Date</strong> variable.</p>
+<p>From the <strong>Transform</strong> menu, select <strong>Date and Time Wizard</strong>. This will open the following dialog:</p>
+<a class="reference internal image-reference" href="../../../_images/date_time_wizard.png"><img alt="the date and time wizard dialog" class="align-center" src="../../../_images/date_time_wizard.png" style="width: 400px;" /></a>
+<p><br /> Select <strong>Create a date/time variable from variables holding parts of dates or times</strong>, then click <strong>Next</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/date_time_wizard1.png"><img alt="the first step of the date and time wizard dialog" class="align-center" src="../../../_images/date_time_wizard1.png" style="width: 400px;" /></a>
+<p><br /> In this step, we tell SPSS what variables correspond to what parts of the <strong>Date</strong> variable we want to calculate.
+Note that we don’t have to fill all of these out - because we only have <strong>Month</strong> and <strong>Year</strong> variables, those are
+what we need to set. So, highlight <code class="docutils literal notranslate"><span class="pre">Year</span></code> in the <strong>Variables</strong> box, then click the arrow button next to <strong>Year</strong>. Do
+the same for <code class="docutils literal notranslate"><span class="pre">Month</span></code>, so that the dialog looks like this:</p>
+<a class="reference internal image-reference" href="../../../_images/date_time_wizard2.png"><img alt="the first step of the date and time wizard dialog, with &quot;year&quot; and &quot;month&quot; variables set." class="align-center" src="../../../_images/date_time_wizard2.png" style="width: 400px;" /></a>
+<p><br /> Now, click <strong>Next</strong>. This is where we set the name and label of the new variable (<code class="docutils literal notranslate"><span class="pre">Date</span></code> and
+“Date measurement was recorded”), and select the <strong>Output Format</strong> - how we want the date to be displayed.</p>
+<p>Select the <strong>yyyy/mm/dd</strong> format - when we create the new variable, the first value should look like <strong>1853/01/01/</strong>,
+for 01 January 1853. Click <strong>Finish</strong> to create the new variable:</p>
+<a class="reference internal image-reference" href="../../../_images/date_time_wizard3.png"><img alt="the final step of the date and time wizard dialog, with the variable name, format, and label selected." class="align-center" src="../../../_images/date_time_wizard3.png" style="width: 400px;" /></a>
+<p><br /> If you like, you can re-arrange the variable order in the <strong>Variable View</strong> tab of the <strong>Data Editor</strong>
+window so that the <code class="docutils literal notranslate"><span class="pre">Date</span></code> variable is at the top. If not, move on to the next section.</p>
+</section>
+<section id="scatter-plots-in-spss">
+<h2>scatter plots in spss<a class="headerlink" href="#scatter-plots-in-spss" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For this section, make sure that you have <strong>Split</strong> the file based on meteorological season. If you aren’t sure
+how to do this, you can refer to <a class="reference internal" href="week6.html#egm101-split"><span class="std std-ref">last week’s</span></a> practical for a refresher.</p>
+</div>
+<p>We can create a scatter plot in SPSS in the same way that we created histograms and bar charts last week. The
+instructions below will show this using the <strong>Chart Builder</strong>, but you can also use
+the <strong>Legacy Dialogs</strong> (<strong>Graphs</strong> &gt; <strong>Legacy Dialogs</strong> &gt; <strong>Scatter/Dot</strong>).</p>
+<p>To start, open the <strong>Chart Builder</strong> (<strong>Graphs</strong> &gt; <strong>Chart Builder</strong>). Under <strong>Gallery</strong> in the lower left corner,
+select <strong>Scatter/Dot</strong>, then select <strong>Scatter Plot</strong> by double-clicking on the icon (red outline):</p>
+<a class="reference internal image-reference" href="../../../_images/chart_builder_scatter.png"><img alt="the &quot;chart builder&quot; dialog, with &quot;scatter plot&quot; highlighted in a red outline." class="align-center" src="../../../_images/chart_builder_scatter.png" style="width: 600px;" /></a>
+<p><br /> In this part of the practical, we’re going to look at the relationship between the number of hours of sun in a
+given month (the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable) and the monthly mean temperature (<code class="docutils literal notranslate"><span class="pre">Tmean</span></code>), using <code class="docutils literal notranslate"><span class="pre">Sun</span></code> as the <em>explanatory</em>
+variable, and <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> as the <em>response</em> variable.</p>
+<p>To do this, click and drag the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable to the <strong>X-Axis?</strong> box, and the <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> variable to the <strong>Y-Axis?</strong>
+box:</p>
+<a class="reference internal image-reference" href="../../../_images/chart_builder_scatter1.png"><img alt="the &quot;chart builder&quot; dialog, with the two variables added to the chart." class="align-center" src="../../../_images/chart_builder_scatter1.png" style="width: 600px;" /></a>
+<p><br /> Click <strong>OK</strong>, and you should see four scatter plots created in the <strong>Viewer</strong> window.</p>
+<a class="reference internal image-reference" href="../../../_images/scatter_plots.png"><img alt="the &quot;data viewer&quot; window, with the four scatter plots added." class="align-center" src="../../../_images/scatter_plots.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you do not see four scatter plots, check that you have split the data based on <code class="docutils literal notranslate"><span class="pre">Season</span></code>, then repeat the
+previous steps.</p>
+</div>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Describe the four different relationships that you see.</p>
+<ul class="simple">
+<li><p>Of the four, which season seems to have the strongest relationship between hours of sun and mean temperature?</p></li>
+<li><p>Are there any seasons where you see a <em>negative</em> relationship between hours of sun and mean temperature?</p></li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Remember to <strong>Save</strong> your outputs and data before moving on!</p>
+</div>
+</section>
+<section id="calculating-correlation-in-spss">
+<h2>calculating correlation in spss<a class="headerlink" href="#calculating-correlation-in-spss" title="Permalink to this headline"></a></h2>
+<p>Remember that scatter plots can give us a visual representation of the relationship between two variables, and we
+can even estimate the direction and strength of the (linear) relationship based on the scatter of the points.</p>
+<p>But that’s not the only method we have - we can also calculate the correlation between variables. First, open the
+<strong>Bivariate Correlations</strong> dialog (“bivariate” meaning “two variables”) from the <strong>Analyze</strong> menu (<strong>Analyze</strong> &gt;
+<strong>Correlate</strong> &gt; <strong>Bivariate</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/correlations.png"><img alt="the &quot;bivariate correlations&quot; dialog" class="align-center" src="../../../_images/correlations.png" style="width: 400px;" /></a>
+<p><br /> As you can see, SPSS has three methods for estimating correlation available in this dialog, two of which we have
+covered in the lectures:</p>
+<ul class="simple">
+<li><p>Pearson’s correlation coefficient</p></li>
+<li><p><a class="reference external" href="https://www.statisticshowto.com/kendalls-tau/">Kendall’s tau-b rank correlation</a></p></li>
+<li><p>Spearman’s rank correlation</p></li>
+</ul>
+<p>Kendall’s tau-b rank correlation is a method for estimating correlation when you have many tied ranks in your data -
+we’re not going to explore it in detail here, but you can read more about it through the link above.</p>
+<p>In the dialog, add <code class="docutils literal notranslate"><span class="pre">Sun</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> to the list of <strong>Variables</strong> and select both <strong>Pearson</strong> and <strong>Spearman</strong>
+correlation coefficients.</p>
+<p>At the bottom of the window, de-select <strong>Flag significant correlations</strong> - we’ll discuss “significant” correlations
+more in next week’s lecture and practicals.</p>
+<p>Because we only have two variables, select <strong>Show only the lower triangle</strong>, and de-select <strong>Show diagonal</strong> - this way,
+we will see the correlations for each variable in a single column:</p>
+<a class="reference internal image-reference" href="../../../_images/correlations1.png"><img alt="the &quot;bivariate correlations&quot; dialog, with the variables added and selections as listed above." class="align-center" src="../../../_images/correlations1.png" style="width: 400px;" /></a>
+<p><br /> Click <strong>OK</strong>, and you should see two tables added to the <strong>Viewer</strong> window:</p>
+<a class="reference internal image-reference" href="../../../_images/correlations_tables.png"><img alt="the viewer window, with two tables showing the correlation between hours of sun and mean temperature." class="align-center" src="../../../_images/correlations_tables.png" style="width: 600px;" /></a>
+<p><br /> The first table, “Correlations”, shows the Pearson’s correlation coefficient between the variables. The second,
+“Nonparametric Correlations”, shows the Spearman’s rank correlation coefficient (or “Spearman’s rho”).</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Compare the correlation values for each season.</p>
+<ul class="simple">
+<li><p>What differences between the two correlation measures do you notice? Remember that Pearson’s correlation assesses
+the linear relationship only, while Spearman’s assesses the monotonic relationship, so large (&gt; 0.3 or so)
+differences may mean that the relationship is not entirely linear.</p></li>
+<li><p>Do any of seasons have a negative correlation between hours of sun and mean temperature? If so, can you think of
+a reason why that might happen?</p></li>
+</ul>
+</div>
+</section>
+<section id="regression-in-spss">
+<h2>regression in spss<a class="headerlink" href="#regression-in-spss" title="Permalink to this headline"></a></h2>
+<p>Now that we’ve calculated the correlation between these two variables, we’ll see how we can use SPSS to do linear
+regression.</p>
+<p>To begin, open the <strong>Curve Estimation</strong> dialog (<strong>Analyze</strong> &gt; <strong>Regression</strong> &gt; <strong>Curve Estimation</strong>):</p>
+<a class="reference internal image-reference" href="../../../_images/curve_estimate.png"><img alt="the &quot;curve estimation&quot; dialog." class="align-center" src="../../../_images/curve_estimate.png" style="width: 500px;" /></a>
+<p><br /> As you can see in this dialog, SPSS allows you to use a wide range of models to estimate the relationships between
+two variables, including quite a few that we’ve mentioned in the lectures. For now, we’ll stick to the <strong>Linear</strong> model,
+but in the future you may work with data that exhibit some other form of relationship.</p>
+<p>Add the <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> variable to the <strong>Dependent(s)</strong> field, and then add the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable to the <strong>Independent</strong>
+field:</p>
+<a class="reference internal image-reference" href="../../../_images/curve_estimate2.png"><img alt="the &quot;curve estimation&quot; dialog, with the sun and tmean variables added" class="align-center" src="../../../_images/curve_estimate2.png" style="width: 500px;" /></a>
+<p><br /> This will find the “best-fit” line using monthly hours of sun as the explanatory (<em>independent</em>) variable, and
+the monthly mean temperature as the response (<em>dependent</em>) variable. Make sure that <strong>Plot models</strong> is checked, then
+click <strong>OK</strong> to run the regression. You should see a number of tables and graphs added to the <strong>Viewer</strong> window:</p>
+<a class="reference internal image-reference" href="../../../_images/regressions.png"><img alt="the &quot;data viewer&quot; window, with the regression output added." class="align-center" src="../../../_images/regressions.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Of the seasons, which slope is the largest? How do the correlation coefficients that we calculated earlier compare
+to the slopes of the regression line?</p>
+</div>
+<section id="reading-the-model-summary">
+<h3>reading the model summary<a class="headerlink" href="#reading-the-model-summary" title="Permalink to this headline"></a></h3>
+<p>Now look at the <strong>Model Summary and Parameter Estimates</strong> table:</p>
+<a class="reference internal image-reference" href="../../../_images/regression_table.png"><img alt="the &quot;model summary and parameter estimates&quot; table." class="align-center" src="../../../_images/regression_table.png" style="width: 500px;" /></a>
+<p><br /> This table has the following columns in the <strong>Model Summary</strong> section:</p>
+<ul class="simple">
+<li><p><strong>Equation</strong>, which tells you the type of model used in the regression</p></li>
+<li><p><strong>R Square</strong>, the coefficient of determination (<span class="math notranslate nohighlight">\(R^2\)</span>)</p></li>
+<li><p><strong>F</strong>, the <em>F</em>-statistic (more on this next week)</p></li>
+<li><p><strong>df1</strong> and <strong>df2</strong>, the number of degrees of freedom for the <em>F</em>-distribution (more on this next week)</p></li>
+<li><p><strong>Sig.</strong> the results of the significance test for the regression (more on this next week)</p></li>
+</ul>
+<p>In the <strong>Parameter Estimates</strong> section, we have:</p>
+<ul class="simple">
+<li><p><strong>Constant</strong>, the estimate of the intercept of the linear model (<span class="math notranslate nohighlight">\(\beta\)</span> in the lecture notes)</p></li>
+<li><p><strong>b1</strong>, the estimate of the slope of the linear model (<span class="math notranslate nohighlight">\(\alpha\)</span> in the lecture notes)</p></li>
+</ul>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>In your own words, what does the <span class="math notranslate nohighlight">\(R^2\)</span> value for Spring tell us about the linear relationship between hours
+of sun and monthly mean temperature for Spring months?</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you are working on a lab computer, make sure that you upload the <strong>.sav</strong> and <strong>.spv</strong> files to OneDrive
+<strong>BEFORE</strong> leaving the computer lab.</p>
+<p>If you do not, you will lose your work, and you will need to re-complete the steps of this practical to be able to
+answer the questions on the assessment!</p>
+</div>
+</section>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>Instead of splitting the data based on <code class="docutils literal notranslate"><span class="pre">Season</span></code>, split based on <code class="docutils literal notranslate"><span class="pre">Month</span></code> and re-run the scatter plot and correlation
+steps outlined above. Then, try to answer the following questions:</p>
+<ul class="simple">
+<li><p>What month(s) has/have the strongest correlation between hours of sun and mean temperature? Why do you think this
+might be the case?</p></li>
+<li><p>Do all of the months in a season show the same relationship? What effect does this have on the overall relationship
+for each season?</p></li>
+</ul>
+</section>
 </section>
 
 
