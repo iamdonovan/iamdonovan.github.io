@@ -753,6 +753,14 @@ practical, as well as for the assessment for this part of the module!
     Which month has the highest precipitation in Armagh? What about the lowest? Are there any clear differences in the
     dispersion (as measured by the standard deviation) of the monthly values?
 
+.. warning::
+
+    Make sure that you upload the **.sav** and **.spv** files to OneDrive **BEFORE** leaving the computer lab.
+
+    If you do not, you will lose your work, and you will need to re-complete the steps of this practical to be able to
+    answer the questions on the assessment!
+
+
 next steps
 -------------
 
