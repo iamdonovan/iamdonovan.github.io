@@ -62,18 +62,18 @@ week 7 video playlist
 .. image:: ../../img/egm101/egm101_week7.png
     :width: 600
     :align: center
-    :target: https://www.youtube.com/playlist?list=PLswTWqhRygXu9CPo6dyC92VzAzxYgVmLm&index=1
+    :target: https://www.youtube.com/playlist?list=PLswTWqhRygXuj469Y7aww1GXI4gyx0Hpa
     :alt: week 11 lecture playlist
 
 |br|
 
 week 7 transcripts
 ^^^^^^^^^^^^^^^^^^^
-:download:`Week 7 Transcripts <../../files/EGM310_Week11_Transcripts.zip>`
+:download:`Week 7 Transcripts <../../files/EGM101_Week7_Transcripts.zip>`
 
 week 7 slides
 ^^^^^^^^^^^^^^
-:download:`Week 7 Slides <../../files/EGM310_Week11.zip>`
+:download:`Week 7 Slides <../../files/EGM101_Week7.zip>`
 
 .. _egm101 week8:
 
