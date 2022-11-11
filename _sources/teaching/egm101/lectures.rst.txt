@@ -86,16 +86,16 @@ week 8 video playlist
 .. image:: ../../img/egm101/egm101_week8.png
     :width: 600
     :align: center
-    :target: https://www.youtube.com/playlist?list=PLswTWqhRygXt3AKKbQnR9JaVFT8bSeGXT&index=1
+    :target: https://www.youtube.com/playlist?list=PLswTWqhRygXuOQlLLcL83BtG05tvNUU7G
     :alt: week 8 lecture playlist
 
 |br|
 
 week 8 transcripts
 ^^^^^^^^^^^^^^^^^^^
-:download:`Week 8 Transcripts <../../files/EGM310_Week12_Transcripts.zip>`
+:download:`Week 8 Transcripts <../../files/EGM101_Week8_Transcripts.zip>`
 
 week 8 slides
 ^^^^^^^^^^^^^^
-:download:`Week 8 Slides <../../files/EGM310_Week12.zip>`
+:download:`Week 8 Slides <../../files/EGM101_Week8.zip>`
 
