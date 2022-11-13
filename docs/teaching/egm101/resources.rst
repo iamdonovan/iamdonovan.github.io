@@ -141,9 +141,15 @@ week 7: probability
 - Illowsky and Dean, Chapters 3.2 – 3.4
 - Caswell, Chapter 8
 - Weiss, Chapters 5.1–5.3
+
+**Part 3: Even More Probability**
+
+- Illowsky and Dean, Chapters 3.2 – 3.4
+- Caswell, Chapter 8
+- Weiss, Chapters 5.1–5.3
 - Independent and dependent events [`Khan Academy <https://www.youtube.com/watch?v=uzkc-qNVoOk>`__]
 
-**Part 3: Discrete Probability Distributions**
+**Part 4: Discrete Probability Distributions**
 
 - Illowsky and Dean, Chapter 4
 - Caswell, Chapter 13
@@ -152,7 +158,7 @@ week 7: probability
 - Pascal’s Triangle [`Numberphile <https://www.youtube.com/watch?v=0iMtlus-afo>`__]
 - 14 Super Bowl Coin Tosses [`Numberphile <https://www.youtube.com/watch?v=bFfSfzjhfC8>`__]
 
-**Part 4: Continuous Probability Distributions**
+**Part 5: Continuous Probability Distributions**
 
 - Illowsky and Dean, Chapters 5, 6
 - Caswell, Chapters 8.9, 13.5–13.9
@@ -162,7 +168,7 @@ week 7: probability
 - Empirical Rule [`Jim Frost <https://statisticsbyjim.com/probability/empirical-rule/>`__]
 - Continuous probability distribution [`Khan Academy <https://www.youtube.com/watch?v=j8XLYFzTJzE>`__]
 
-**Part 5: The Central Limit Theorem**
+**Part 6: The Central Limit Theorem**
 
 - Illowsky and Dean, Chapter 7
 - Caswell, Chapter 14.1–14.2
@@ -173,17 +179,20 @@ week 7: probability
 - Sampling distribution of the sample mean [`Khan Academy <https://www.youtube.com/watch?v=FXZ2O1Lv-KE>`__]
 - `onlinestatbook.com <https://onlinestatbook.com/stat_sim/sampling_dist/index.html>`__ sampling distribution simulator
 
-**Part 6: Bayes' Theorem**
-
-- Bergstrom and West, “The Susceptibility of Science” (Chapter 9)
-- Bayes’ Theorem: What’s the big deal? [`Scientific American <https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/>`__]
-- Bayes theorem, the geometry of changing beliefs [`3Blue1Brown <https://www.youtube.com/watch?v=HZGCoVF3YvM>`__]
-- P Values and the Prosecutor’s fallacy [`UW iSchool <https://www.youtube.com/watch?v=eesUdFlYMh8>`__]
 
 week 8: statistical significance
 ---------------------------------------------
 
-**Part 1: Hypothesis Testing**
+**Part 1: Bayes' Theorem**
+
+- Bergstrom and West, “The Susceptibility of Science” (Chapter 9)
+- Bayes’ Theorem: What’s the big deal? [`Scientific American <https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/>`__]
+- Bayesian Inference [`Seeing Theory <https://seeing-theory.brown.edu/bayesian-inference/index.html>`__]
+- Bayes theorem, the geometry of changing beliefs [`3Blue1Brown <https://www.youtube.com/watch?v=HZGCoVF3YvM>`__]
+- P Values and the Prosecutor’s fallacy [`UW iSchool <https://www.youtube.com/watch?v=eesUdFlYMh8>`__]
+
+
+**Part 2: Hypothesis Testing**
 
 - Illowsky and Dean, Chapter 9
 - Caswell, Chapter 15
@@ -194,29 +203,33 @@ week 8: statistical significance
 - The method that can “prove” almost anything [`TED-Ed <https://www.youtube.com/watch?v=i60wwZDA1CI>`__]
 - Hack your way to scientific glory [`FiveThirtyEight <https://projects.fivethirtyeight.com/p-hacking/>`__]
 
-**Part 2: Parametric tests**
+**Part 3: Parametric tests**
 
 - Illowsky and Dean, Chapters 9, 10
 - Caswell, Chapter 15
 - Weiss, Chapters 9, 10
+- What are degrees of freedom in statistics? [`Minitab Blog <https://blog.minitab.com/en/statistics-and-quality-data-analysis/what-are-degrees-of-freedom-in-statistics>`__]
+- Nonparametric tests vs Parametric tests [`Jim Frost <https://statisticsbyjim.com/hypothesis-testing/nonparametric-parametric-tests/>`__]
 - One-tailed and two-tailed tests [`Khan Academy <https://www.youtube.com/watch?v=mvye6X_0upA>`__]
 - Z-statistics vs T-statistics [`Khan Academy <https://www.youtube.com/watch?v=5ABpqVSx33I>`__]
-- Nonparametric tests vs Parametric tests [`Jim Frost <https://statisticsbyjim.com/hypothesis-testing/nonparametric-parametric-tests/>`__]
-- What are degrees of freedom in statistics? [`Minitab Blog <https://blog.minitab.com/en/statistics-and-quality-data-analysis/what-are-degrees-of-freedom-in-statistics>`__]
 
-**Part 3: ANOVA**
+**Part 4: ANOVA**
 
 - Illowsky and Dean, Chapter 13
 - Weiss, Chapter 13
-- Calculating total sum of squares [`Khan Academy <https://www.youtube.com/watch?v=EFdlFoHI_0I>`__]
-- Calculating *SS* :sub:`error` and *SS* :sub:`treatment` [`Khan Academy <https://www.youtube.com/watch?v=j9ZPMlVHJVs>`__]
 - How F-tests work in ANOVA [`Jim Frost <https://statisticsbyjim.com/anova/f-tests-anova/>`__]
 - Using Post Hoc Tests with ANOVA [`Jim Frost <https://statisticsbyjim.com/anova/post-hoc-tests-anova/>`__]
+- Calculating total sum of squares [`Khan Academy <https://www.youtube.com/watch?v=EFdlFoHI_0I>`__]
+- Calculating *SS* :sub:`error` and *SS* :sub:`treatment` [`Khan Academy <https://www.youtube.com/watch?v=j9ZPMlVHJVs>`__]
 
-**Part 4: Non-parametric tests**
+**Part 5: Non-parametric tests**
 
+- Weiss, Chapters 9.6, 10.4, 10.6
+- Parametric vs Non-parametric tests, and when to use them [`A. Kline <https://towardsdatascience.com/parametric-vs-non-parametric-tests-and-where-to-use-them-85130b3877dc>`__]
+- Parametric and Nonparametric Tests [`DATAtab <https://www.youtube.com/watch?v=ftnOBcXtBEQ>`__]
+- Parametric vs. Non Parametric Tests [`Prof. Essa <https://www.youtube.com/watch?v=biXY84hDX5M>`__]
 
-**Part 5: The Chi-square Distribution**
+**Part 6: The Chi-square Distribution**
 
 - Illowsky and Dean, Chapter 11
 - Caswell, Chapter 15.5
@@ -224,8 +237,6 @@ week 8: statistical significance
 - Chi-square Test of Independence [`Jim Frost <https://statisticsbyjim.com/hypothesis-testing/chi-square-test-independence-example/>`__]
 - Chi-square distribution introduction [`Khan Academy <https://www.youtube.com/watch?v=dXB3cUGnaxQ>`__]
 - Pearson’s chi-square test [`Khan Academy <https://www.youtube.com/watch?v=2QeDRsxSF9M>`__]
-
-**Part 6: Trends**
 
 
 .. |rd| replace:: :superscript:`rd`\
