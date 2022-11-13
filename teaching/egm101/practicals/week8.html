@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>statistical tests using spss &mdash; iamdonovan  documentation</title>
+  <title>hypothesis testing using spss &mdash; iamdonovan  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -53,8 +54,15 @@
 <li class="toctree-l5"><a class="reference internal" href="week5.html">computation, summary statistics, and graphing in excel</a></li>
 <li class="toctree-l5"><a class="reference internal" href="week6.html">summarizing and graphing data in spss</a></li>
 <li class="toctree-l5"><a class="reference internal" href="week7.html">correlation and regression in spss</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">statistical tests using spss</a><ul>
+<li class="toctree-l5 current"><a class="current reference internal" href="#">hypothesis testing using spss</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#getting-started">getting started</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#splitting-the-data">splitting the data</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#aggregating-data">aggregating data</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#plotting-histograms">plotting histograms</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#one-way-anova">one-way anova</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#independent-samples-t-test">independent samples <em>t</em>-test</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#mann-whitney-u-test">mann-whitney u-test</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
 </ul>
 </li>
 </ul>
@@ -92,7 +100,7 @@
           <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
           <li><a href="../index.html">EGM101: skills toolbox</a> &raquo;</li>
           <li><a href="index.html">practicals</a> &raquo;</li>
-      <li>statistical tests using spss</li>
+      <li>hypothesis testing using spss</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/teaching/egm101/practicals/week8.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -102,8 +110,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="statistical-tests-using-spss">
-<h1>statistical tests using spss<a class="headerlink" href="#statistical-tests-using-spss" title="Permalink to this headline"></a></h1>
+  <section id="hypothesis-testing-using-spss">
+<h1>hypothesis testing using spss<a class="headerlink" href="#hypothesis-testing-using-spss" title="Permalink to this headline"></a></h1>
 <p>The purpose of this practical is to continue introducing you to SPSS, and complement the theoretical material presented
 in the lectures, discussions, and reading material. The experience gained in analyzing and presenting data should also
 help you continue to develop your confidence in using, presenting, and discussing numerical results.</p>
@@ -116,6 +124,345 @@ and alternative hypotheses, and in selecting appropriate statistical tests.</p>
 <p>If you have not yet completed all the steps from the Week 7 practical, you should stop here and make sure that you
 finish them before moving forward.</p>
 </div>
+</section>
+<section id="splitting-the-data">
+<h2>splitting the data<a class="headerlink" href="#splitting-the-data" title="Permalink to this headline"></a></h2>
+<p>Our goal in today’s practical is going to be looking at the differences in monthly mean temperature between three
+different time periods: 1871-1920, 1921-1970, and 1971-2020. To do this, we will first need to use
+<strong>Recode into different variables</strong>, like we did in <a class="reference internal" href="week6.html#egm101-recode"><span class="std std-ref">week 6</span></a> to group our data into meteorological
+seasons.</p>
+<p>To begin, open the <strong>Recode into different variables</strong> dialog (<strong>Transform</strong> &gt; <strong>Recode into different variables</strong>).</p>
+<a class="reference internal image-reference" href="../../../_images/recode1.png"><img alt="the &quot;recode into different variables&quot; dialog" class="align-center" src="../../../_images/recode1.png" style="width: 400px;" /></a>
+<p><br /> We want to recode the <code class="docutils literal notranslate"><span class="pre">Year</span></code> variable into a new variable, <code class="docutils literal notranslate"><span class="pre">Period</span></code>, which corresponds to one of the time
+periods that we’re looking at. To do this, select the <code class="docutils literal notranslate"><span class="pre">Year</span></code> variable from the list of variables, type “Period” into
+the <strong>Name</strong> field, and add a <strong>Label</strong>. Then, click <strong>Change</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/recode2.png"><img alt="the &quot;recode into different variables&quot; dialog, with the &quot;year&quot; variable set to recode into &quot;period&quot;" class="align-center" src="../../../_images/recode2.png" style="width: 400px;" /></a>
+<p><br /> Next, click on <strong>Old and New Values</strong> to tell SPSS how to recode the <code class="docutils literal notranslate"><span class="pre">Year</span></code> variable into the <code class="docutils literal notranslate"><span class="pre">Period</span></code>
+variable:</p>
+<a class="reference internal image-reference" href="../../../_images/old_new1.png"><img alt="the &quot;recode into different variables: old and new values&quot; dialog" class="align-center" src="../../../_images/old_new1.png" style="width: 400px;" /></a>
+<p><br /> Give the period 1871-1920 a value of 1, 1921-1970 a value of 2, 1971-2020 a value of 3, and all other values a
+value of zero:</p>
+<a class="reference internal image-reference" href="../../../_images/old_new2.png"><img alt="the &quot;recode into different variables: old and new values&quot; dialog, with the recode values set" class="align-center" src="../../../_images/old_new2.png" style="width: 400px;" /></a>
+<p><br /> Click <strong>OK</strong>. You should see the new variable created in the <strong>Data Editor</strong> window. Under the <strong>Variable View</strong>
+tab, add labels for each value of period, like you did previously for the <code class="docutils literal notranslate"><span class="pre">Month</span></code> and <code class="docutils literal notranslate"><span class="pre">Season</span></code> variables. You should
+also change the <strong>Width</strong> and <strong>Decimals</strong> for the <code class="docutils literal notranslate"><span class="pre">Period</span></code> variable to be 2 and 0, respectively, and make sure that
+the <strong>Measure</strong> is set to <strong>Nominal</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/period_variable.png"><img alt="the &quot;variable view&quot; tab, with the new period variable" class="align-center" src="../../../_images/period_variable.png" style="width: 600px;" /></a>
+<p><br /> Once you have done this, move on to the next section.</p>
+</section>
+<section id="aggregating-data">
+<h2>aggregating data<a class="headerlink" href="#aggregating-data" title="Permalink to this headline"></a></h2>
+<p>Before we proceed, we have to deal with one other issue: our temperature variables have something called
+“serial correlation” - that is, they are not completely independent. The reason for this is that the temperature
+fluctuates throughout the year, according to a pattern: we generally have cooler temperatures in the winter,
+temperatures increase through the spring into the summer, and then temperatures decreases through the autumn into
+the winter:</p>
+<p><strong>seasonal temperature</strong></p>
+<p>To help mitigate this, we will <strong>Aggregate</strong> the data - that is, average values together (or take their sum) based on
+some grouping variable. Because we are interested in looking at changes over a number of years, we’ll look at the
+annual average.</p>
+<p>To proceed, select <strong>Aggregate</strong> from the <strong>Data</strong> menu:</p>
+<a class="reference internal image-reference" href="../../../_images/aggregate1.png"><img alt="the &quot;aggregate data&quot; dialog" class="align-center" src="../../../_images/aggregate1.png" style="width: 400px;" /></a>
+<p><br /> The variable that we want to use for grouping goes in the <strong>Break Variable(s)</strong> field - because we want to aggregate
+using the <code class="docutils literal notranslate"><span class="pre">Year</span></code> variable, it should go here. The <strong>Aggregated Variables</strong> are all of the variables that we want to
+calculate annual averages for. In this practical, we will only look at the monthly mean temperature, but you can add
+each of the meteorological variables here, except for <code class="docutils literal notranslate"><span class="pre">AirFrost</span></code>, in case you are interested in additional practice
+later on:</p>
+<a class="reference internal image-reference" href="../../../_images/aggregate2.png"><img alt="the &quot;aggregate data&quot; dialog, set to aggregate variables based on the year recorded" class="align-center" src="../../../_images/aggregate2.png" style="width: 400px;" /></a>
+<p><br /> Leave the other choices as they are, then click <strong>OK</strong>. You should see that your new variables are added to the
+<strong>Variable View</strong> in the <strong>Data Editor</strong> window. Remember to add <strong>Labels</strong> for the new variables, too, to help you
+distinguish these annually-averaged variables from the originals.</p>
+<p>As a final step, open the <strong>Select Cases</strong> (<strong>Data</strong> &gt; <strong>Select Cases</strong>) dialog, and choose
+<strong>If condition is satisfied</strong>, then click <strong>If</strong> to tell SPSS what condition to use to select cases.</p>
+<p>For the remaining steps of the practical, we want to select only cases where <code class="docutils literal notranslate"><span class="pre">Period</span></code> is greater than zero.
+We also want to select cases from a single month, to ensure that we only have one value per year. To do this,
+enter the following formula into the condition field:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Period</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">Month</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/select_cases.png"><img alt="the &quot;select cases&quot; dialog with the formula above used to select cases" class="align-center" src="../../../_images/select_cases.png" style="width: 500px;" /></a>
+<p><br /> This way, we only consider cases from the three time periods we are interested in studying: 1871-1920, 1921-1970,
+and 1971-2020; by selecting only a single month, June, we also ensure that we are dealing with a single value per year.</p>
+<p>Click <strong>Continue</strong>, then click <strong>OK</strong> in the <strong>Select Cases</strong> dialog to apply the selection.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you skip this step, your analysis and results will end up looking very different from the steps in the practical.</p>
+</div>
+</section>
+<section id="plotting-histograms">
+<h2>plotting histograms<a class="headerlink" href="#plotting-histograms" title="Permalink to this headline"></a></h2>
+<p>Before we proceed to the hypothesis tests, let’s have a look at the histograms of monthly mean temperature, divided
+into our three periods.</p>
+<p>Open the <strong>Chart Builder</strong> dialog, and set up a histogram plot using <code class="docutils literal notranslate"><span class="pre">Tmean_mean</span></code> - if you’re not sure of the steps,
+have a look back at where we did this <a class="reference internal" href="week6.html#egm101-histogram"><span class="std std-ref">in week 6</span></a>. Make sure to check the
+<strong>Display normal curve</strong> option for the chart.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This should be the <em>mean</em> of the <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> variable that you calculated in the <strong>Aggregate</strong> step, <strong>NOT</strong> the
+<code class="docutils literal notranslate"><span class="pre">Tmean</span></code> variable itself!</p>
+</div>
+<p>Once you have set up the histogram, click on the <strong>Groups/Point ID</strong> tab, then select <strong>Rows panel variable</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/rows_panel.png"><img alt="the chart builder dialog with the &quot;rows panel variable&quot; activated but not populated" class="align-center" src="../../../_images/rows_panel.png" style="width: 600px;" /></a>
+<p><br /> You should notice that in the example plot window, a <strong>Panel?</strong> button appears. Add the <code class="docutils literal notranslate"><span class="pre">Period</span></code> variable to
+this button, in the same way that you added <code class="docutils literal notranslate"><span class="pre">Tmean_mean</span></code> to the <strong>X-Axis?</strong> button. You should see that the example
+histogram changes to show three panels:</p>
+<a class="reference internal image-reference" href="../../../_images/three_panel.png"><img alt="the chart builder dialog showing three panels, one for each period" class="align-center" src="../../../_images/three_panel.png" style="width: 600px;" /></a>
+<p><br /> Click <strong>OK</strong>. You should see a three-panel histogram appear in the <strong>Statistics Viewer</strong> window:</p>
+<a class="reference internal image-reference" href="../../../_images/three_panel_histogram.png"><img alt="the chart displaying the histogram for each time period" class="align-center" src="../../../_images/three_panel_histogram.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Look at the three histograms. What do you notice about the distribution of the three periods (1871-1920, 1921-1970,
+and 1971-2020)? Pay attention to the position of the peak of the normal curve (the <em>mean</em> value), but also the
+width of the peak (the <em>standard deviation</em>), as well as whether the data appear to be skewed in a particular
+direction.</p>
+<p>What can you say about the different time periods?</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Remember to save both the <strong>.sav</strong> and <strong>.spv</strong> files before continuing!</p>
+</div>
+</section>
+<section id="one-way-anova">
+<h2>one-way anova<a class="headerlink" href="#one-way-anova" title="Permalink to this headline"></a></h2>
+<p>From the plot of the histograms for each time period, it looks like the mean temperature is different in each time
+period - not only that, but it is increasing. One-way ANOVA is a technique that can help us determine whether there
+are <em>significant</em> differences in the means of three or more categories or groups of variables.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Why are we using One-way ANOVA to determine whether there are differences between three groups of data, rather
+than conducting multiple tests of two variables?</p>
+</div>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Formulate the null and alternative hypotheses for this test.</p>
+</div>
+<p>To perform a One-way ANOVA test in SPSS, select <strong>One-Way ANOVA</strong> from the <strong>Analyze</strong> menu (<strong>Analyze</strong> &gt;
+<strong>Compare Means</strong> &gt; <strong>One-Way ANOVA</strong>):</p>
+<a class="reference internal image-reference" href="../../../_images/oneway_anova1.png"><img alt="the one-way anova dialog" class="align-center" src="../../../_images/oneway_anova1.png" style="width: 500px;" /></a>
+<p><br /> We want to look at the differences in annual mean temperature between the different time periods - so,
+<code class="docutils literal notranslate"><span class="pre">Tmean_mean</span></code> should go in the <strong>Dependent List</strong>, and <code class="docutils literal notranslate"><span class="pre">Period</span></code> should go in the <strong>Factor</strong> field:</p>
+<a class="reference internal image-reference" href="../../../_images/oneway_anova2.png"><img alt="the one-way anova dialog, with the dependent and factor variables selected" class="align-center" src="../../../_images/oneway_anova2.png" style="width: 500px;" /></a>
+<p><br /> Click <strong>OK</strong>. You should see the following table added to the <strong>Statistics Viewer</strong> window:</p>
+<a class="reference internal image-reference" href="../../../_images/anova_output.png"><img alt="the one-way anova table in the viewer window" class="align-center" src="../../../_images/anova_output.png" style="width: 600px;" /></a>
+<p><br /> This table tells us the results of the One-way ANOVA test. The first column tells us the <strong>Sum of Squares</strong>
+between groups (<span class="math notranslate nohighlight">\(SS_{\rm treatment}\)</span>) and within groups (<span class="math notranslate nohighlight">\(SS_{\rm error}\)</span>), as well as the total sum of
+squares (<span class="math notranslate nohighlight">\(SS_{\rm total}\)</span>).</p>
+<p>The second column tells us the number of degrees of freedom (<strong>df</strong>), and the third column tells us the <strong>Mean Square</strong>
+values between (<span class="math notranslate nohighlight">\(MS_{\rm treatment}\)</span>) and within (<span class="math notranslate nohighlight">\(MS_{\rm error}\)</span>) groups, calculated by dividing each
+<strong>Sum of Squares</strong> by the corresponding degrees of freedom.</p>
+<p>Finally, we can see the <em>F</em>-statistic (<strong>F</strong>) and the corresponding <em>p</em>-value (<strong>Sig.</strong>), based on the <em>F</em>-distribution
+calculated using the degrees of freedom in the table.</p>
+<p>Using our default significance level of <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>, there appears to be a <em>significant</em> difference between
+at least one pair of groups - that is, they do not all appear to have the same population mean.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>What is the <em>formal</em> way to state the outcome of the test, in terms of the null hypothesis?</p>
+</div>
+<p>Remember that ANOVA only tells us whether there is a difference between at least one pair of groups - it doesn’t tell
+us what the difference is, or even which groups. For that, we need to do additional tests, called <em>post hoc</em> tests.</p>
+</section>
+<section id="independent-samples-t-test">
+<h2>independent samples <em>t</em>-test<a class="headerlink" href="#independent-samples-t-test" title="Permalink to this headline"></a></h2>
+<p>To start looking further into this, we will use the independent samples <em>t</em>-test to see whether there is a difference
+between the earliest time period (1871-1920), and the latest time period (1971-2020).</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Why are we using the independent samples <em>t</em>-test to compare the difference in mean temperature between these
+two time periods, rather than some other test?</p>
+</div>
+<section id="checking-the-equal-variances-assumption">
+<h3>checking the equal variances assumption<a class="headerlink" href="#checking-the-equal-variances-assumption" title="Permalink to this headline"></a></h3>
+<p>Remember that one of the things we should check is whether or not our samples have “similar enough” variances - if they
+do, then we can use the pooled variance form of the independent <em>t</em>-test, rather than “Welch’s <em>t</em>-test”. SPSS will …</p>
+<p>To check this ourselves, though, we can use the <strong>Descriptive Statistics</strong>. Before we do that, though, make sure to
+<strong>Split</strong> the data by period, so that there is a row in the output table for each time period.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>No, seriously, make sure that you <strong>Split</strong> the data on the <code class="docutils literal notranslate"><span class="pre">Period</span></code> variable before continuing.</p>
+</div>
+<p>Open the <strong>Descriptives</strong> dialog (<strong>Analyze</strong> &gt; <strong>Descriptive Statistics</strong> &gt; <strong>Descriptives</strong>), then select <em>only</em> the
+<code class="docutils literal notranslate"><span class="pre">Tmean_mean</span></code> variable:</p>
+<a class="reference internal image-reference" href="../../../_images/annual_descriptives.png"><img alt="the descriptives dialog, with one variable (Tmax_mean) selected." class="align-center" src="../../../_images/annual_descriptives.png" style="width: 400px;" /></a>
+<p><br /> Next, click on <strong>Options</strong> to select which descriptive statistics to calculate:</p>
+<a class="reference internal image-reference" href="../../../_images/descriptives_options1.png"><img alt="the descriptives options dialog, with mean, std. dev., variance, kurtosis, and skewness selected." class="align-center" src="../../../_images/descriptives_options1.png" style="width: 200px;" /></a>
+<p><br /> At a minimum, we want to calculate the <strong>Variance</strong>, but calculating the <strong>Kurtosis</strong> and <strong>Skewness</strong> will also
+help us figure out whether our data are at least approximately normal or not. Make sure to select <em>at least these three</em>
+statistics before clicking <strong>Continue</strong> followed by <strong>OK</strong> to calculate the statistics.</p>
+<p>You should see the following table added to the <strong>Statistics Viewer</strong> window:</p>
+<a class="reference internal image-reference" href="../../../_images/descriptives_output1.png"><img alt="the descriptives table for the Tmean_mean variable" class="align-center" src="../../../_images/descriptives_output1.png" style="width: 600px;" /></a>
+<p><br /> Look at the <strong>Variance</strong> column for the three periods - from this, you should see that the variances are indeed
+“similar enough” - that is, if we take the ratio of any two of these, the ratio will be between 2 and 0.5.</p>
+</section>
+<section id="checking-the-normality-assumption">
+<h3>checking the normality assumption<a class="headerlink" href="#checking-the-normality-assumption" title="Permalink to this headline"></a></h3>
+<p>The next thing to check is the assumption of <em>normality</em> - that is, that the data are approximately normally
+distributed.</p>
+<div class="admonition-question admonition">
+<p class="admonition-title">Question</p>
+<p>Look at the <strong>Descriptives</strong> table that you just created - what values of <strong>Kurtosis</strong> and <strong>Skewness</strong> do you see?
+What do these values tell you about how normal each distribution is?</p>
+</div>
+<p>In addition to measures like kurtosis and skewness, we can also use SPSS to create Q-Q plots, which will plot the
+distribution of quantiles of our data against the theoretical quantiles that we would expect from a normal distribution
+with the same mean and standard deviation.</p>
+<p>To create these plots in SPSS, open the <strong>Q-Q Plots</strong> dialog (<strong>Analyze</strong> &gt; <strong>Descriptive Statistics</strong> &gt; <strong>Q-Q Plots</strong>).
+In the dialog that opens, add the <code class="docutils literal notranslate"><span class="pre">Tmean_mean</span></code> variable to the <strong>Variables</strong> field, and leave the other options as-is:</p>
+<a class="reference internal image-reference" href="../../../_images/qq_dialog.png"><img alt="the q-q plots dialog, with the Tmean_mean variable selected" class="align-center" src="../../../_images/qq_dialog.png" style="width: 400px;" /></a>
+<p><br /> You should see a series of plots added to the <strong>Statistics Viewer</strong> window, two for each period:</p>
+<a class="reference internal image-reference" href="../../../_images/qq_plot_output.png"><img alt="the q-q plots added to the statistics viewer window" class="align-center" src="../../../_images/qq_plot_output.png" style="width: 600px;" /></a>
+<p><br /> In addition to plotting the Q-Q plot, SPSS also plots the <em>de-trended</em> Q-Q plot, which shows the difference
+between the points in the Q-Q plot from the black line:</p>
+<a class="reference internal image-reference" href="../../../_images/qq_plot.png"><img alt="a q-q plot showing the comparison of the 1971-2020 annual mean temperature to a normal distribution" src="../../../_images/qq_plot.png" style="width: 49%;" /></a>
+<a class="reference internal image-reference" href="../../../_images/detrended.png"><img alt="a detrended q-q plot, showing the deviation of the 1971-2020 annual mean temperature from a normal distribution" src="../../../_images/detrended.png" style="width: 49%;" /></a>
+<p>From both of these, we can see that the 1971-2020 deviates from the normal distribution by quite a bit. More importantly,
+though, we see a <em>systematic</em> deviation: there is a clear pattern in the plot on the left, indicating that we do not
+have random differences.</p>
+<p>In Week 6, we discussed what this means in the context of linear regression, but it means
+something similar here - when we see systematic differences in the de-trended Q-Q plot, it indicates that the data are
+not normally distributed.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Have a look at the plots for the other time periods - what do you notice? Are there any time periods that appear to
+have random differences?</p>
+</div>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Even though we have determined that (at least one) of the time periods isn’t particularly normally distributed,
+why can we still justify using Student’s <em>t</em>-test to compare the difference in sample means?</p>
+</div>
+</section>
+<section id="the-t-test">
+<h3>the <em>t</em>-test<a class="headerlink" href="#the-t-test" title="Permalink to this headline"></a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Before proceeding, make sure that you turn off the <strong>Split</strong> for the file by choosing
+<strong>Analyze all cases, do not create groups</strong> in the <strong>Split File</strong> dialog.</p>
+</div>
+<p>To perform the independent samples <em>t</em>-test, open the <strong>Independent-Samples T Test</strong> dialog (<strong>Analyze</strong> &gt;
+<strong>Compare Means</strong> &gt; <strong>Independent-Samples T Test</strong>). Add <code class="docutils literal notranslate"><span class="pre">Tmean_mean</span></code> as the <strong>Test Variable</strong>, and <code class="docutils literal notranslate"><span class="pre">Period</span></code> as
+the <strong>Grouping Variable</strong>, and uncheck <strong>Estimate effect sizes</strong>.</p>
+<a class="reference internal image-reference" href="../../../_images/independent1.png"><img alt="the independent samples t-test dialog" class="align-center" src="../../../_images/independent1.png" style="width: 400px;" /></a>
+<p><br /> Next, click on <strong>Define Groups</strong> to choose which two groups to test, and enter 1 and 3 to test the data from
+1871-1920 against the data from 1971-2020:</p>
+<a class="reference internal image-reference" href="../../../_images/define_groups.png"><img alt="the define groups dialog, with values 1 and 3 selected to define the time period groups to use" class="align-center" src="../../../_images/define_groups.png" style="width: 200px;" /></a>
+<p><br /> Click <strong>Continue</strong> - you should see the entry in the <strong>Grouping Variable</strong> change:</p>
+<a class="reference internal image-reference" href="../../../_images/independent2.png"><img alt="the independent samples t-test dialog" class="align-center" src="../../../_images/independent2.png" style="width: 400px;" /></a>
+<p><br /> Click <strong>OK</strong> to run the test. You should see two tables added to the <strong>Statistics Viewer</strong> window: one provides
+the same information that we saw with the <strong>Descriptive Statistics</strong> step: the mean, standard deviation, and standard
+error of the mean:</p>
+<a class="reference internal image-reference" href="../../../_images/independent_output.png"><img alt="the independent samples t-test output, showing the results of the test" class="align-center" src="../../../_images/independent_output.png" style="width: 600px;" /></a>
+<p><br /> The second table provides information about the test, with one row where with the test is performed assuming
+that the variances of the two populations are equal, and the second where the test is performed without this
+assumption.</p>
+<p>The first two columns, <strong>F</strong> and <strong>Sig.</strong>, are the results of a statistical test for equality of variance
+(<a class="reference external" href="https://www.statisticshowto.com/levene-test/">Levene’s Test for equality of variances</a>), providing the
+<em>F</em>-statistic and <em>p</em>-value for the test. From this, we can see that there is not sufficient evidence to conclude that
+the variances between the groups are different - since we checked this assumption already, it shouldn’t be too
+surprising.</p>
+<p>The remaining columns give us the results of the test:</p>
+<ul class="simple">
+<li><p><strong>t</strong> is the value of the <em>t</em>-statistic for both versions of the test;</p></li>
+<li><p><strong>df</strong> is the number of degrees of freedom;</p></li>
+<li><p><strong>One-sided p</strong> and <strong>Two-sided p</strong> give the <em>p</em>-value for the one-sided and two-sided versions of the test, respectively;</p></li>
+<li><p><strong>Mean Difference</strong> gives the estimate of the difference between the mean values of the two groups;</p></li>
+<li><p><strong>Std. Error Difference</strong> gives the estimate of the standard error of the difference between the mean values;</p></li>
+<li><p><strong>Lower</strong> and <strong>Higher</strong> give the lower and upper bounds of the 95% confidence interval of the estimate of the difference.</p></li>
+</ul>
+<p>From this table, we can see that at the <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> level of significance, there is a significant difference
+between the mean values of the annually averaged values of the monthly mean temperature between 1871-1920 and 1971-2020.</p>
+<p>The estimate of the difference, at least in the table shown above, is -0.631°C, meaning that 1971-2020 was 0.631°C
+warmer than 1871-1920 (the difference is calculated by subtracting the estimate of the second group from the estimate
+of the first group).</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Formulate the null and alternative hypotheses for this test, and formally state the result of the test.</p>
+</div>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Using the estimates of the difference of the means and the standard error of the difference, write the 95%
+confidence interval as <span class="math notranslate nohighlight">\(\Delta_\mu\pm\sigma\)</span>, where <span class="math notranslate nohighlight">\(\Delta_\mu\)</span> is the estimate of the difference
+between the means, and <span class="math notranslate nohighlight">\(\sigma\)</span> is the multiple of the standard error of the difference used for the 95%
+confidence interval.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Remember to save both the <strong>.sav</strong> and <strong>.spv</strong> files before continuing!</p>
+</div>
+</section>
+</section>
+<section id="mann-whitney-u-test">
+<h2>mann-whitney u-test<a class="headerlink" href="#mann-whitney-u-test" title="Permalink to this headline"></a></h2>
+<p>The final test we will look at in this practical is the Mann-Whitney <em>U</em>-test, a non-parametric statistical test.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Why are we using the Mann-Whitney <em>U</em>-test, instead of one of the other non-parametric tests introduced in the
+lectures?</p>
+</div>
+<p>As we covered in this week’s lectures, unlike the independent samples <em>t</em>-test, the Mann-Whitney <em>U</em>-test and other
+non-parametric tests do not require that our data follow a particular distribution. For this example, we will compare
+the result of the Mann-Whitney <em>U</em>-test to the independent samples <em>t</em>-test, to see if there are any differences.</p>
+<p>Before running the test, we want to select <strong>only</strong> two groups of our <code class="docutils literal notranslate"><span class="pre">Period</span></code> variable. Open <strong>Select Cases</strong>, then
+click on <strong>If</strong> to change the selection criteria we use. In the computation field, add the following expression:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Month</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">Period</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">Period</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/select_early_late.png"><img alt="the &quot;select cases&quot; expression dialog" class="align-center" src="../../../_images/select_early_late.png" style="width: 400px;" /></a>
+<p><br /> The <code class="docutils literal notranslate"><span class="pre">|</span></code> (<strong>OR</strong>) symbol tells SPSS to select cases where <em>either</em> <code class="docutils literal notranslate"><span class="pre">Period</span></code> equals 1 <strong>or</strong> <code class="docutils literal notranslate"><span class="pre">Period</span></code> equals 3.
+Click <strong>Continue</strong>, followed by <strong>OK</strong>. In the <strong>Data Editor</strong> window, you should see only cases where <code class="docutils literal notranslate"><span class="pre">Month</span></code> equals
+6, and <code class="docutils literal notranslate"><span class="pre">Period</span></code> equals either 1 or 3.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you skip this step, the test will still run, but your outputs will look different because the test will perform
+multiple comparisons.</p>
+</div>
+<p>First, open the <strong>Nonparametric Tests: Two or More Independent Samples</strong> dialog (<strong>Analyze</strong> &gt; <strong>Nonparametric Tests</strong>
+&gt; <strong>Independent Samples</strong>):</p>
+<a class="reference internal image-reference" href="../../../_images/nonparametric1.png"><img alt="the nonparametric tests: two or more independent samples dialog" class="align-center" src="../../../_images/nonparametric1.png" style="width: 500px;" /></a>
+<p><br /> We’re going to run a custom analysis, so select <strong>Customize analysis</strong>, and then click on the <strong>Fields</strong> tab:</p>
+<a class="reference internal image-reference" href="../../../_images/nonparametric2.png"><img alt="the fields tab of the nonparametric tests: two or more independent samples dialog" class="align-center" src="../../../_images/nonparametric2.png" style="width: 500px;" /></a>
+<p><br /> Just like with the independent samples <em>t</em>-test, add the <code class="docutils literal notranslate"><span class="pre">Tmean_mean</span></code> variable to the <strong>Test Fields</strong> field,
+and select the <code class="docutils literal notranslate"><span class="pre">Period</span></code> variable for the <strong>Groups</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/nonparametric3.png"><img alt="the fields tab of the nonparametric tests: two or more independent samples dialog, with the variables added" class="align-center" src="../../../_images/nonparametric3.png" style="width: 500px;" /></a>
+<p><br /> Click on the <strong>Settings</strong> tab, select the <strong>Mann-Whitney U (2 samples)</strong>, and de-select
+<strong>Median test (k samples)</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/nonparametric4.png"><img alt="the settings tab, with the mann-whitney u-test selected" class="align-center" src="../../../_images/nonparametric4.png" style="width: 500px;" /></a>
+<p><br /> Click <strong>Run</strong> to run the test. You will see quite a bit more output from this test:</p>
+<a class="reference internal image-reference" href="../../../_images/nonparametric_output.png"><img alt="the output of the nonparametric tests shown in the statistics viewer window" class="align-center" src="../../../_images/nonparametric_output.png" style="width: 600px;" /></a>
+<p><br /> The results of the test are shown in this table:</p>
+<a class="reference internal image-reference" href="../../../_images/nonparametric_table.png"><img alt="the summary of the independent samples test" class="align-center" src="../../../_images/nonparametric_table.png" style="width: 300px;" /></a>
+<p><br /> This table tells us the number of samples, the values of the <em>U</em> and <em>W</em> test statistics, the
+<strong>standardized test statistic</strong> (i.e., the z-score of the test statistic using the normal assumption), and the <em>p</em>-value
+for the two-sided test.</p>
+<p>From this table, we can see that the <em>p</em>-value of the standardized test statistic is &lt; 0.001, indicating that at the
+<span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> significance level, there is enough evidence to reject the null hypothesis.</p>
+<p>The “<a class="reference external" href="https://en.wikipedia.org/wiki/Population_pyramid">population pyramid</a>” shows the histograms of the monthly
+mean temperature for the two time periods, with the temperature value plotted on the vertical axis, and the
+frequency plotted along the horizontal axes:</p>
+<a class="reference internal image-reference" href="../../../_images/histogram_comparison.png"><img alt="the &quot;population pyramid&quot; showing the frequency distribution of monthly mean temperature for the two time periods" class="align-center" src="../../../_images/histogram_comparison.png" style="width: 400px;" /></a>
+<p><br /> On the plot, we can also see the mean rank for the two distributions: the 1871-1920 period has a mean rank of
+36.14, while the 1971-2020 period has a mean rank of 64.86. This indicates, as we can also see from the histogram,
+that most of the smaller values are contained in the 1871-1920 period, and the larger values are contained in the
+1971-2020 period. In other words, the median value of the second time period is larger than the first.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Formulate the null and alternative hypotheses for this test, and formally state the result of the test.</p>
+</div>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
+<p>This is the end of the Quantitative Skills portion of EGM101. Once you have completed each of the practicals, you
+should be ready to complete the assessment questions posted on Blackboard.</p>
+<p>If you are looking for additional practice, try the following suggestions:</p>
+<ul class="simple">
+<li><p>Instead of looking at the differences between 1871-1920 and 1971-2020, look at the differences between 1921-1970 and
+1971-2020. How do the results of this independent samples <em>t</em>-test compare to the results for 1871-1920 and 1971-2020?</p></li>
+<li><p>Change the <strong>Select Cases</strong> condition from <code class="docutils literal notranslate"><span class="pre">(Month</span> <span class="pre">=</span> <span class="pre">6)</span> <span class="pre">&amp;</span> <span class="pre">((Period</span> <span class="pre">=</span> <span class="pre">1)</span> <span class="pre">|</span> <span class="pre">(Period</span> <span class="pre">=</span> <span class="pre">3))</span></code> back to
+<code class="docutils literal notranslate"><span class="pre">(Month</span> <span class="pre">=</span> <span class="pre">6)</span> <span class="pre">&amp;</span> <span class="pre">(Period</span> <span class="pre">&gt;</span> <span class="pre">0)</span></code>. Next, run the non-parametric <strong>Independent Samples</strong> test, but instead of the
+<strong>Mann-Whitney U</strong> test, select the <strong>Median test (k samples)</strong> option. How do the results of these tests compare to
+the Mann-Whitney <em>U</em>-test and the independent samples <em>t</em>-tests that you have run? Are you able to make the same
+conclusions about the differences between the groups?</p></li>
+</ul>
 </section>
 </section>
 

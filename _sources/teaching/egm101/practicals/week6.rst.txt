@@ -441,6 +441,8 @@ Have a look at the tables in the **Viewer** window, and see if you can answer th
     To answer the above questions, it might also be easier to re-calculate the statistics using a single variable.
 
 
+.. _egm101 recode:
+
 recoding values
 ................
 
@@ -623,6 +625,8 @@ displaying data
 In the final part of this practical, we'll look at how we can use SPSS to display data in graphical form. There are
 many more options available than examples covered here, and a wide variety of tutorials/walkthroughs available online,
 so feel free to continue exploring once you've reached the end of the practical.
+
+.. _egm101 histogram:
 
 histogram
 ............
