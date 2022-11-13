@@ -16,6 +16,7 @@ linear regression, and how we can analyze those results.
 
     If you have not worked through this material yet, you might have a difficult time answering some of the questions.
 
+.. _egm101 spss open:
 
 getting started
 ------------------

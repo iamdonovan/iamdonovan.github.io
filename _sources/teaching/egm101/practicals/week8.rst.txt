@@ -16,6 +16,13 @@ getting started
     If you have not yet completed all the steps from the Week 7 practical, you should stop here and make sure that you
     finish them before moving forward.
 
+To get started, open SPSS and re-open the ``ArmaghData.sav`` and ``ArmaghData.spv`` files that you have been working
+with over the past two weeks. If you are not sure how to do this, have a look at the instructions
+:ref:`from last week <egm101 spss open>` as a refresher.
+
+Remember that if you are working on the lab computers, you will need to download the files that you uploaded to
+OneDrive at the end of last week's practical.
+
 
 splitting the data
 -------------------
@@ -553,6 +560,14 @@ that most of the smaller values are contained in the 1871-1920 period, and the l
     :class: question
 
     Formulate the null and alternative hypotheses for this test, and formally state the result of the test.
+
+.. warning::
+
+    If you are working on a lab computer, make sure that you upload the **.sav** and **.spv** files to OneDrive
+    **BEFORE** leaving the computer lab.
+
+    If you do not, you will lose your work, and you will need to re-complete the steps of this practical to be able to
+    answer the questions on the assessment!
 
 next steps
 -----------
