@@ -86,9 +86,12 @@ fluctuates throughout the year, according to a pattern: we generally have cooler
 temperatures increase through the spring into the summer, and then temperatures decreases through the autumn into
 the winter:
 
-**seasonal temperature**
+.. image:: img/week8/MonthlyMax.png
+    :width: 500
+    :align: center
+    :alt: the seasonal pattern of monthly maximum temperature
 
-To help mitigate this, we will **Aggregate** the data - that is, average values together (or take their sum) based on
+|br| To help mitigate this, we will **Aggregate** the data - that is, average values together (or take their sum) based on
 some grouping variable. Because we are interested in looking at changes over a number of years, we'll look at the
 annual average.
 
