@@ -4,7 +4,8 @@ dem processing using micmac
 **Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the**
 `google drive link <https://drive.google.com/uc?id=1rwu32Wms_jvrmzkMRckD8kwcgl98qn4k&export=download>`__,
 **then extract the zip file. You should have the following files/folders available:**
-::
+
+.. code-block:: text
 
     ├─ AR5840034159994.tif
     ├─ AR5840034159995.tif
@@ -104,7 +105,8 @@ we use the ``SaisieAppuisInitQT`` command. We'll start with the first image, **A
 the following (or copy & paste) at the command prompt (note the lack of space in
 **MeasuresIm-AR5840034159994.tif.xml**). You may also have to re-type the quotation marks, as the command prompt may
 not recognize them:
-::
+
+.. code-block:: text
 
     mm3d SaisieAppuisInitQT "AR5840034159994.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
 
