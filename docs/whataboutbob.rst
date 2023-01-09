@@ -45,13 +45,21 @@ publications
 If you are unable to access any of these via the doi links below (or if the links are somehow broken), please contact
 me and I will send you a copy.\ [1]_
 
+.. _pubs2023:
+
+2023
+^^^^
+Rounce, D. R., R. Hock, F. Maussion, R. Hugonnet, W. Kochtitzky, M. Huss, E. Berthier, D. Brinkerhoff, L. Compagno,
+L. Copland, D. Farinotti, B. Menounos, and **R. McNabb** (2023). Global glacier change in the 21st century: Every increase
+in temperature matters. *Science* 379(**6627**), 78--83. doi: `10.1126/science.abo1324 <https://doi.org/10.1126/science.abo1324>`__
+
 .. _pubs2022:
 
 2022
 ^^^^
 Davies, B., J. Bendle, J. Carrivick, **R. McNabb**, C. McNeil, M. Pelto, S. Campbell, T. Holt, J. Ely, and B. Markle
 (2022). Topographic controls on ice flow and recession for Juneau Icefield (Alaska/British Columbia).
-*Earth Surface Processes and Landforms*. doi: `10.1001/esp.5383 <https://doi.org/10.1002/esp.5383>`__
+*Earth Surface Processes and Landforms* 47(**9**), 2357--2390. doi: `10.1001/esp.5383 <https://doi.org/10.1002/esp.5383>`__
 
 
 .. _pubs2021:
