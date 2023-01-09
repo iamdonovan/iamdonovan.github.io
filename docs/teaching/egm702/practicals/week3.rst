@@ -7,34 +7,44 @@ introduction to google earth engine
 
 .. role:: green
 
-In this practical, you'll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if you have no prior experience with programming, you will be able to complete this practical. All of the programming steps have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.
+In this practical, you'll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if
+you have no prior experience with programming, you will be able to complete this practical. All of the programming steps
+have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.
 
-GEE is "a cloud-based platform for planetary-scale geospatial analysis" (Gorelick et al., 2017\ [1]_). With it, users have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification, and computational power above what an average desktop user has access to.
+GEE is "a cloud-based platform for planetary-scale geospatial analysis" (Gorelick et al., 2017\ [1]_). With it, users
+have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification,
+and computational power above what an average desktop user has access to.
 
 getting started
 ---------------
 
-To begin, point your browser to https://code.earthengine.google.com. If you are not already logged in, log in using your GEE account. You should see something like this:
+To begin, point your browser to https://code.earthengine.google.com. If you are not already logged in, log in using
+your GEE account. You should see something like this:
 
 .. image:: ../../../img/egm702/week3/annotated_window.png
     :width: 600
     :align: center
     :alt: the GEE console with annotations
 
-
-Now, to import the intro script, follow `this link <https://code.earthengine.google.com/eb944bc713d31986b7d4b6bfce06fe76?noload=true>`__. It should open the following:
+|br| Now, to import the intro script, follow
+`this link <https://code.earthengine.google.com/eb944bc713d31986b7d4b6bfce06fe76?noload=true>`__. It should open the
+following:
 
 .. image:: ../../../img/egm702/week3/loaded_script.png
     :width: 600
     :align: center
     :alt: the gee window after loading the script
 
-Click the red NEW button in the Script manager, and select **Repository**. Call the repository ``egm702``, and then click **Create**. Next, in the code editor, type your name after "Practical 3" – this will enable you to save the script to your new repository. Call it ``practical3``, and click **OK** to save the script to the new repository.
+Click the red NEW button in the Script manager, and select **Repository**. Call the repository ``egm702``, and then
+click **Create**. Next, in the code editor, type your name after "Practical 3" – this will enable you to save the
+script to your new repository. Call it ``practical3``, and click **OK** to save the script to the new repository.
 
 .. image:: ../../../img/egm702/week3/save_script.png
     :width: 300
     :align: center
     :alt: the save script dialogue
+
+|br|
 
 running the script
 ------------------
@@ -46,9 +56,10 @@ Once you have saved the script, you should see the following in the code editor:
     :align: center
     :alt: the gee window after loading and saving the script
 
-At the very top of the script, you should see two **imports**: ``boundary``, a rectangle roughly corresponding to our study area, and
-``gifBoundary``, a rectangle roughly corresponding to the area impacted by the 1980 eruptions of Mt St Helens.
-You should also notice that the script begins with a large block of comments (beginning and ending with ``/*`` and ``*/``):
+|br| At the very top of the script, you should see two **imports**: ``boundary``, a rectangle roughly corresponding to
+our study area, and ``gifBoundary``, a rectangle roughly corresponding to the area impacted by the 1980 eruptions of
+Mt St Helens. You should also notice that the script begins with a large block of comments (beginning and ending with
+``/*`` and ``*/``):
 
 .. code-block:: javascript
 
@@ -66,14 +77,14 @@ You should also notice that the script begins with a large block of comments (be
     -----------------------------------------------------------------------------------------------------
     */
 
-In Javascript (the programming language used in the code editor interface), comments (that is, statements that the computer
-won't process) are denoted by ``//`` (two forward slashes) if they are a single line comment. Multi-line, or block, comments, start
-with ``/*`` and end with ``*/`` – anything in between these symbols will not be interpreted by the computer when the script is run.
-In the GEE code editor, comments are coloured :green:`green`.
+In Javascript (the programming language used in the code editor interface), comments (that is, statements that the
+computer won't process) are denoted by ``//`` (two forward slashes) if they are a single line comment. Multi-line, or
+block, comments, start with ``/*`` and end with ``*/`` – anything in between these symbols will not be interpreted by
+the computer when the script is run. In the GEE code editor, comments are coloured :green:`green`.
 
-If you scroll down through the script, you should see a number of function definitions. Don't worry too much about these right
-now – they're there to help make the code a bit easier to read/understand, and help to avoid re-writing the same lines of code
-over and over again.
+If you scroll down through the script, you should see a number of function definitions. Don't worry too much about these
+right now – they're there to help make the code a bit easier to read/understand, and help to avoid re-writing the same
+lines of code over and over again.
 
 step 1. finding the best image in a given year
 ----------------------------------------------
@@ -93,16 +104,16 @@ The first lines to pay attention to look like this, beginning at line 83:
       .filter(ee.Filter.eq('WRS_PATH', 46))
       .filter(ee.Filter.eq('WRS_ROW', 28));
 
-These lines of code will take the entire Landsat 8 Collection 2 Surface Reflectance archive, remove any images with >20% cloud
-cover, and return only those images whose WRS-2 Path/Row matches our current study area around Mt St Helens. It will then store a list
-of these images in a variable called ``lc08`` that we can use later on in the script.
+These lines of code will take the entire Landsat 8 Collection 2 Surface Reflectance archive, remove any images with
+>20% cloud cover, and return only those images whose WRS-2 Path/Row matches our current study area around Mt St Helens.
+It will then store a list of these images in a variable called ``lc08`` that we can use later on in the script.
 
 For more information on the WRS-2, see this link: https://landsat.gsfc.nasa.gov/about/worldwide-reference-system.
 
 For more information about Landsat Collection 2 images, see this link: https://www.usgs.gov/landsat-missions/landsat-collection-2
 
-The next set of lines will do the same thing, but this time using the Landsat 8 Collection 2 Top of Atmosphere (TOA) reflectance
-archive:
+The next set of lines will do the same thing, but this time using the Landsat 8 Collection 2 Top of Atmosphere (TOA)
+reflectance archive:
 
 .. code-block:: javascript
 
@@ -113,10 +124,12 @@ archive:
       .filter(ee.Filter.eq('WRS_PATH', 46))
       .filter(ee.Filter.eq('WRS_ROW', 28));
 
-For a refresher on the difference between Surface Reflectance and TOA reflectance, see here: https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance
+For a refresher on the difference between Surface Reflectance and TOA reflectance, see here:
+https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance
 
-The following set of lines will return the image from the surface reflectance collection that has the lowest cloud cover, selecting only images
-from 2020. It will also make sure to only select the coastal/visible/NIR/SWIR Landsat band layers (Bands 1-7).
+The following set of lines will return the image from the surface reflectance collection that has the lowest cloud cover,
+selecting only images from 2020. It will also make sure to only select the coastal/visible/NIR/SWIR Landsat band layers
+(Bands 1-7).
 
 .. code-block:: javascript
 
@@ -128,8 +141,8 @@ from 2020. It will also make sure to only select the coastal/visible/NIR/SWIR La
       .sort('CLOUD_COVER') // sort based on cloud cover (lowest - highest)
       .first()); // return the first image in the list - i.e., the lowest cloud cover
 
-Now, we want to make sure that these images are the same image, just different processing levels (surface reflectance vs. TOA
-reflectance). To check this, we can print the image names to the **Console**:
+Now, we want to make sure that these images are the same image, just different processing levels (surface reflectance
+vs. TOA reflectance). To check this, we can print the image names to the **Console**:
 
 .. code-block:: javascript
 
@@ -137,8 +150,8 @@ reflectance). To check this, we can print the image names to the **Console**:
     print('2020 SR Image Date: ', ee.Date(sr_image.get('SENSING_TIME')), sr_image);
     print('2020 TOA Image Date: ', ee.Date(toa_image.get('DATE_ACQUIRED')), toa_image);
 
-The sensor carried by Landsat 8 is the Operational Land Imager/Thermal InfraRed Sensor (OLI/TIRS). The table below shows the
-wavelength ranges for the different bands of the sensor(s), their resolutions, and their names:
+The sensor carried by Landsat 8 is the Operational Land Imager/Thermal InfraRed Sensor (OLI/TIRS). The table below shows
+the wavelength ranges for the different bands of the sensor(s), their resolutions, and their names:
 
 +------------+----------+---------------------+-------------------------+--------------------+
 | **sensor** | **band** | **wavelength (µm)** | **name**                | **resolution (m)** |
@@ -166,7 +179,8 @@ wavelength ranges for the different bands of the sensor(s), their resolutions, a
 |            | 11       | 11.5 -- 12.51       | thermal infrared 2      | 100                |
 +------------+----------+---------------------+-------------------------+--------------------+
 
-For information about the band designations for the other Landsat sensors, see this page from the USGS: https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites
+For information about the band designations for the other Landsat sensors, see this page from the USGS:
+https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites
 
 The final part of this first section is where we add the images to the map:
 
@@ -183,37 +197,40 @@ The final part of this first section is where we add the images to the map:
     // center the image on Mt St Helens with a zoom level of 12
     Map.setCenter(-122.1886, 46.1998, 12);
 
-We want them to be true-colour composites, so we display them with bands 4,3,2. and we'll apply a gamma adjustment to help brighten the image slightly.
-At this point, you can run the script, either by pressing **CTRL + Enter**, or by clicking **Run** at the top of the code editor panel. Once
-the script finishes running, you should see this:
+We want them to be true-colour composites, so we display them with bands 4,3,2. and we'll apply a gamma adjustment to
+help brighten the image slightly. At this point, you can run the script, either by pressing **CTRL + Enter**, or by
+clicking **Run** at the top of the code editor panel. Once the script finishes running, you should see this:
 
 .. image:: ../../../img/egm702/week3/loaded_image.png
     :width: 600
     :align: center
     :alt: the script after having added the image from step 1.
 
-When you mouse over the **Layers** button in the upper right of the **Map** panel, you should see the two layer names (TOA Image
-and SR Image). If you click on the gear icon, you can open the visualization parameters for each image and adjust them. You can
-also adjust the transparency slider for the different layers displayed here, and by checking/unchecking the box next to the layer
-name, you can make either image visible/invisible.
+|br| When you mouse over the **Layers** button in the upper right of the **Map** panel, you should see the two layer
+names (TOA Image and SR Image). If you click on the gear icon, you can open the visualization parameters for each image
+and adjust them. You can also adjust the transparency slider for the different layers displayed here, and by
+checking/unchecking the box next to the layer name, you can make either image visible/invisible.
 
 .. image:: ../../../img/egm702/week3/layer_parameters.png
     :width: 400
     :align: center
     :alt: the layer visualization settings
 
-In the **Console** panel, you should see the following:
+|br| In the **Console** panel, you should see the following:
 
 .. image:: ../../../img/egm702/week3/console1.png
     :width: 400
     :align: center
     :alt: the output to the console after running Step 1.
 
-This shows that the 2 images are the same image, just different processing levels. Now, in the **Map** panel, turn off the SR Image
-to see the TOA Image underneath. 
+|br| This shows that the 2 images are the same image, just different processing levels. Now, in the **Map** panel, turn
+off the SR Image to see the TOA Image underneath.
 
-- What differences do you notice? 
-- Why do you think these layers look so different (or do they)? 
+.. admonition:: Question
+    :class: question
+
+    - What differences do you notice?
+    - Why do you think these layers look so different (or do they)?
 
 Try adjusting the colours for the TOA or the SR Image – you can start with a 98% stretch by clicking the **Custom** button in the
 visualization parameters panel. Try different band combinations, too. For example, change the display bands to bands 7, 6, and
@@ -238,13 +255,13 @@ Once you've looked around the area, move on to the next step.
 
 step 2. add a dem, print statistics
 -----------------------------------
-Now that we've seen a little of how we can search, add, and display Landsat images, let's take a look at some of the different DEMs
-available within GEE. We'll start by adding the NASADEM, ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM. For more
-information on the different DEMs that GEE has available, check the data catalog here: 
+Now that we've seen a little of how we can search, add, and display Landsat images, let's take a look at some of the
+different DEMs available within GEE. We'll start by adding the NASADEM, ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM.
+For more information on the different DEMs that GEE has available, check the data catalog here:
 https://developers.google.com/earth-engine/datasets/tags/elevation. 
 
-Uncomment the next block of lines (delete the ``/*`` at line 143 and the ``*/`` at line 163) to add these DEMs to the code editor.
-You should see the following from lines 129--144:
+Uncomment the next block of lines (delete the ``/*`` at line 143 and the ``*/`` at line 163) to add these DEMs to the
+code editor. You should see the following from lines 129--144:
 
 .. code-block:: javascript
 
@@ -265,9 +282,9 @@ You should see the following from lines 129--144:
       .clip(boundary)
       .select('elevation');
 
-Note that the NASADEM and the SRTM both have a layer called ``'elevation'``, while the AW3D30 has a layer called ``'AVE_DSM'`` –
-when working with other datasets, it's a good idea to check what the layer names are in the data catalog. To visualize the different layers, we can
-produce a hillshade using the ``ee.Terrain.hillshade()`` function:
+Note that the NASADEM and the SRTM both have a layer called ``'elevation'``, while the AW3D30 has a layer called
+``'AVE_DSM'`` – when working with other datasets, it's a good idea to check what the layer names are in the data catalog.
+To visualize the different layers, we can produce a hillshade using the ``ee.Terrain.hillshade()`` function:
 
 .. code-block:: javascript
 
@@ -276,19 +293,19 @@ produce a hillshade using the ``ee.Terrain.hillshade()`` function:
     Map.addLayer(ee.Terrain.hillshade(alos_dsm, 315), {}, 'ALOS DSM Hillshade');
     Map.addLayer(ee.Terrain.hillshade(srtm, 315), {}, 'SRTM Hillshade');
 
-The second argument to the function sets the azimuth to use when calculating the hillshade – here, I've set them all to be 315
-degrees. If you run the code now, you should see this:
+The second argument to the function sets the azimuth to use when calculating the hillshade – here, I've set them all to
+be 315 degrees. If you run the code now, you should see this:
 
 .. image:: ../../../img/egm702/week3/hillshade.png
     :width: 600
     :align: center
     :alt: the hillshade of the SRTM loaded in the map panel
 
-The top layer will be the last one added to the Map; in this case, it's the SRTM hillshade. You can toggle between the different
-layers to see the differences – what do you notice about the different DEMs? Do they look the same, or are there significant
-differences? Some questions you might want to ponder:
+The top layer will be the last one added to the Map; in this case, it's the SRTM hillshade. You can toggle between the
+different layers to see the differences – what do you notice about the different DEMs? Do they look the same, or are
+there significant differences? Some questions you might want to ponder:
 
-- Which DEM do you think was produced from the highest-resolution sensor?
+- Which DEM do you think was produced from the highest-resolution sensor? Why?
 - What surface(s) are represented by the different DEMs? Are they DTMs or DSMs?
 
 Next, uncomment the following lines (remove the ``/*`` from line 164 and the ``*/`` from line 174):
