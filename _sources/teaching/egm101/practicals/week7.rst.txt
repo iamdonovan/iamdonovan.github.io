@@ -237,7 +237,7 @@ we will see the correlations for each variable in a single column:
     - What differences between the two correlation measures do you notice? Remember that Pearson's correlation assesses
       the linear relationship only, while Spearman's assesses the monotonic relationship, so large (> 0.3 or so)
       differences may mean that the relationship is not entirely linear.
-    - Do any of seasons have a negative correlation between hours of sun and mean temperature? If so, can you think of
+    - Do any seasons have a negative correlation between hours of sun and mean temperature? If so, can you think of
       a reason why that might happen?
 
 regression in spss

@@ -60,6 +60,7 @@
 <li class="toctree-l6"><a class="reference internal" href="#accuracy-estimation">accuracy estimation</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#filling-nodata-values">filling nodata values</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#estimating-elevation-and-volume-changes">estimating elevation and volume changes</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#calculating-volume-change-uncertainty">calculating volume change uncertainty</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
 </ul>
 </li>
@@ -111,9 +112,10 @@
              
   <section id="dem-differencing">
 <h1>dem differencing<a class="headerlink" href="#dem-differencing" title="Permalink to this headline"></a></h1>
-<p><strong>Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the</strong> <a class="reference external" href="https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&amp;export=download">google drive link</a><strong>, then extract the zip file. You should
-have the following files/folders available:</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>├─ 1979_shapes.*
+<p><strong>Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the</strong>
+<a class="reference external" href="https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&amp;export=download">google drive link</a>,
+<strong>then extract the zip file. You should have the following files/folders available:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├─ 1979_shapes.*
 ├─ 1984_shapes.*
 ├─ ALPSMLC30_N046W123_DSM.tif
 ├─ MtStHelens_Aug1984_10m_Z.tif
@@ -122,7 +124,11 @@ have the following files/folders available:</strong></p>
 └─ LT05_L1TP_046028_19840804_20161004_01_T1.tif
 </pre></div>
 </div>
-<p>You should also still have the NAIP images we used in Week 1. In this practical, we’re going to work on analysing the provided digital elevation models (DEMs) – their accuracy, and the spatial autocorrelation between the two air photo DEMs (<strong>MtStHelens_Aug1984_10m_Z.tif</strong> and <strong>MtStHelens_Jul1979_10m_Z.tif</strong>). We will also do some different calculations, including estimating the volume/mass of the mountain that collapsed, estimating changes in lake volume, and estimating the average height of trees that were knocked over by the blast.</p>
+<p>You should also still have the NAIP images we used in Week 1. In this practical, we’re going to work on analysing the
+provided digital elevation models (DEMs) – their accuracy, and the spatial autocorrelation between the two air photo
+DEMs (<strong>MtStHelens_Aug1984_10m_Z.tif</strong> and <strong>MtStHelens_Jul1979_10m_Z.tif</strong>). We will also do some different
+calculations, including estimating the volume/mass of the mountain that collapsed, estimating changes in lake volume,
+and estimating the average height of trees that were knocked over by the blast.</p>
 <p>If you aren’t familiar with the 1980 eruptions of Mt St Helens, here are some links that show some of the details:</p>
 <ul class="simple">
 <li><p>1980 Eruption of Mt St Helens [<a class="reference external" href="https://www.arcgis.com/apps/Cascade/index.html?appid=f5c8638734254e20bd1d4a6db68aec05">ArcGIS Online</a>]</p></li>
@@ -131,7 +137,8 @@ have the following files/folders available:</strong></p>
 </ul>
 <section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
-<p>Open up ArcGIS Pro, and create a new project in your Week 2 folder. You may need to add a folder connection to your Week 2 folder – if so, do that now.</p>
+<p>Open up ArcGIS Pro, and create a new project in your Week 2 folder. You may need to add a folder connection to your
+Week 2 folder – if so, do that now.</p>
 <p>Import the provided data into the map, re-arranging the drawing order as follows:</p>
 <ul class="simple">
 <li><p>1979_shapes</p></li>
@@ -142,203 +149,235 @@ have the following files/folders available:</strong></p>
 <li><p>LM02_L1TP_049028_19790719_20180419_01_T2.tif</p></li>
 <li><p>LT05_L1TP_046028_19840804_20161004_01_T1.tif</p></li>
 </ul>
-<p>Change the Map coordinate system from WGS84 geographic coordinates to WGS84 UTM Zone 10N. You are hopefully already familiar with Landsat data from previous modules (the <strong>LM02</strong> file is a Landsat 2 MSS scene, and the <strong>LT05</strong> file is a Landsat 5 TM scene), but if not you can have a look at the <a class="reference external" href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-satellite-missions">USGS Landsat missions</a> page.</p>
-<p>Change the display of both images to be a false-colour infrared composite. For the MSS scene, this means setting the <strong>Red channel</strong> to be <strong>Band_3</strong> (MSS Band 6), the <strong>Green channel</strong> to be <strong>Band_2</strong> (MSS Band 5), and the <strong>Blue channel</strong> to be <strong>Band_1</strong> (MSS Band 4).</p>
+<p>Change the Map coordinate system from WGS84 geographic coordinates to WGS84 UTM Zone 10N. You are hopefully already
+familiar with Landsat data from previous modules (the <strong>LM02</strong> file is a Landsat 2 MSS scene, and the <strong>LT05</strong> file is
+a Landsat 5 TM scene), but if not you can have a look at the
+<a class="reference external" href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-satellite-missions">USGS Landsat missions</a> page.</p>
+<p>Change the display of both images to be a false-color infrared composite. For the MSS scene, this means setting the
+<strong>Red channel</strong> to be <strong>Band_3</strong> (MSS Band 6), the <strong>Green channel</strong> to be <strong>Band_2</strong> (MSS Band 5), and the
+<strong>Blue channel</strong> to be <strong>Band_1</strong> (MSS Band 4).</p>
 <p>For the TM scene, this means setting Red, Green, Blue to be <strong>Band_4</strong>, <strong>Band_3</strong>, and <strong>Band_2</strong>, respectively.</p>
-<p>Next, we’re going to add hillshades of our DEMs to the map. You may notice that it’s not easy to interpret the DEM when it’s displayed in the default way – for one thing, the upper part of the volcano is washed out, while some of the lower-lying areas are quite dark. By adding a hillshade, we can make it easier to see a large range of elevations.</p>
+<p>Next, we’re going to add hillshades of our DEMs to the map. You may notice that it’s not easy to interpret the DEM when
+it’s displayed in the default way – for one thing, the upper part of the volcano is washed out, while some of the
+lower-lying areas are quite dark. By adding a hillshade, we can make it easier to see a large range of elevations.</p>
 <p>From the <strong>Analysis</strong> tab, click on <strong>Tools</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/toolbar.png"><img alt="the tools button highlighted" class="align-center" src="../../../_images/toolbar.png" style="width: 760px;" /></a>
-<p>In the search bar that pops up, type “hillshade” and press <strong>Enter</strong>. Select the <strong>Hillshade</strong> tool from the <strong>Spatial Analyst</strong> toolbox:</p>
+<p><br /> In the search bar that pops up, type “hillshade” and press <strong>Enter</strong>. Select the <strong>Hillshade</strong> tool from the
+<strong>Spatial Analyst</strong> toolbox:</p>
 <a class="reference internal image-reference" href="../../../_images/hillshade_dialogue.png"><img alt="the arcgis pro hillshade dialogue" class="align-center" src="../../../_images/hillshade_dialogue.png" style="width: 200px;" /></a>
-<p>Select the 1979 DEM as the <strong>Input raster</strong>, and save the output as <code class="docutils literal notranslate"><span class="pre">MtStHelens_Jul1979_10m_HS.tif</span></code>. Leave the other
-parameters as the default values, then click <strong>Run</strong> at the bottom of the panel. Next, change the symbology of
-<code class="docutils literal notranslate"><span class="pre">MtStHelens_Jul1979_10M_Z.tif</span></code> to use a different colour scheme. The example below is using <strong>Elevation #4</strong>. Finally,
+<p><br /> Select the 1979 DEM as the <strong>Input raster</strong>, and save the output as <code class="docutils literal notranslate"><span class="pre">MtStHelens_Jul1979_10m_HS.tif</span></code>. Leave the
+other parameters as the default values, then click <strong>Run</strong> at the bottom of the panel. Next, change the symbology of
+<code class="docutils literal notranslate"><span class="pre">MtStHelens_Jul1979_10M_Z.tif</span></code> to use a different color scheme. The example below is using <strong>Elevation #4</strong>. Finally,
 change the <strong>Transparency</strong> of the DEM layer to be about 60% transparent:</p>
 <a class="reference internal image-reference" href="../../../_images/transparency.png"><img alt="adjusting the layer transparency" class="align-center" src="../../../_images/transparency.png" style="width: 760px;" /></a>
-<p>Finally, right-click on the <strong>Map</strong> layer in the Contents panel, create a <strong>New Group Layer</strong> and call it <code class="docutils literal notranslate"><span class="pre">1979</span> <span class="pre">Elevation</span></code>, then add the
-DEM and the Hillshade to this layer (click + drag on the Contents panel). Your map should now look something like this:</p>
+<p><br /> Finally, right-click on the <strong>Map</strong> layer in the Contents panel, create a <strong>New Group Layer</strong> and call it
+<code class="docutils literal notranslate"><span class="pre">1979</span> <span class="pre">Elevation</span></code>, then add the DEM and the Hillshade to this layer (click + drag on the Contents panel). Your map
+should now look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/shaded_relief.png"><img alt="the grouped shaded relief images" class="align-center" src="../../../_images/shaded_relief.png" style="width: 600px;" /></a>
-<p>Repeat these steps for the remaining two DEMs – you can call the <code class="docutils literal notranslate"><span class="pre">ALPSMLC30...</span></code> layer 2008 Elevation. You should now see all 3
-of the DEMs as shaded relief. You may also notice that the colour scheme for each of the DEMs is slightly different. To make sure
-that the same colours correspond to the same elevations in each map, you can import the settings from one DEM to the other
-ones under the <strong>Symbology</strong> tab. Press the button in the upper right corner of the tab, then select <strong>Import from layer</strong>:</p>
+<p><br /> Repeat these steps for the remaining two DEMs – you can call the <code class="docutils literal notranslate"><span class="pre">ALPSMLC30...</span></code> layer 2008 Elevation. You should
+now see all 3 of the DEMs as shaded relief. You may also notice that the color scheme for each of the DEMs is slightly
+different. To make sure that the same colors correspond to the same elevations in each map, you can import the settings
+from one DEM to the other ones under the <strong>Symbology</strong> tab. Press the button in the upper right corner of the tab,
+then select <strong>Import from layer</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/symbology.png"><img alt="the symbology dialogue" class="align-center" src="../../../_images/symbology.png" style="width: 200px;" /></a>
-<p>Under <strong>Input</strong> layer, select the DEM you want to apply the colour scheme to, then select the DEM whose colour scheme you want
-to apply (in this case, the 1979 DEM). You can do this for both the 1984 and 2008 DEMs – you should now see that the DEMs all
-have the same colour scheme:</p>
+<p><br /> Under <strong>Input</strong> layer, select the DEM you want to apply the color scheme to, then select the DEM whose color
+scheme you want to apply (in this case, the 1979 DEM). You can do this for both the 1984 and 2008 DEMs – you should now
+see that the DEMs all have the same color scheme:</p>
 <a class="reference internal image-reference" href="../../../_images/common_color_scheme.png"><img alt="the dem layers with a common color scheme" class="align-center" src="../../../_images/common_color_scheme.png" style="width: 600px;" /></a>
-<p>Take a few moments to examine the differences between them – you can even use the <strong>Swipe</strong> tool under the <strong>Appearance</strong> tab to
-swipe back and forth between different DEMs – make sure that the DEM you want to swipe away is highlighted in the <strong>Contents
-panel</strong>. You should be able to clearly see the enormous differences that took place between the 1979 acquisition and the 1984
-acquisition. In the remainder of the practical, we will work on quantifying these differences. If you haven’t already, this is a good
-place to save your map.</p>
+<p><br /> Take a few moments to examine the differences between them – you can even use the <strong>Swipe</strong> tool under the
+<strong>Appearance</strong> tab to swipe back and forth between different DEMs – make sure that the DEM you want to swipe away is
+highlighted in the <strong>Contents panel</strong>. You should be able to clearly see the enormous differences that took place
+between the 1979 acquisition and the 1984 acquisition. In the remainder of the practical, we will work on quantifying
+these differences. If you haven’t already, this is a good place to save your map.</p>
 </section>
 <section id="id1">
 <h2>dem differencing<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
-<p>The next step is to actually difference the two DEMs (in this case, the 1979 and the 1984 DEMs). From the <strong>Geoprocessing</strong> tab,
-enter “raster calculator” in the search bar and press <strong>Enter</strong>. Open the <strong>Raster Calculator</strong> tool from the <strong>Spatial Analyst</strong> toolbox. To
-subtract the 1979 DEM from the 1984 DEM, enter the following expression into the field:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;1984 Elevation\MtStHelens_Aug1984_10m_Z.tif&quot;</span> <span class="o">-</span> <span class="s2">&quot;1979 Elevation\MtStHelens_Jul1979_10m_Z.tif&quot;</span>
+<p>The next step is to actually difference the two DEMs (in this case, the 1979 and the 1984 DEMs). From the
+<strong>Geoprocessing</strong> tab, enter “raster calculator” in the search bar and press <strong>Enter</strong>. Open the <strong>Raster Calculator</strong>
+tool from the <strong>Spatial Analyst</strong> toolbox. To subtract the 1979 DEM from the 1984 DEM, enter the following expression
+into the field:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;1984 Elevation\MtStHelens_Aug1984_10m_Z.tif&quot; - &quot;1979 Elevation\MtStHelens_Jul1979_10m_Z.tif&quot;
 </pre></div>
 </div>
 <p>Save the difference raster as <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>, and press <strong>Run</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/difference_rastercalc.png"><img alt="the raster calculator window for DEM differencing" class="align-center" src="../../../_images/difference_rastercalc.png" style="width: 400px;" /></a>
-<p>Next, we’ll change the display so that it shows the differences using a more appropriate colour scale. In the <strong>Symbology</strong> tab,
-select a different colour scheme – preferably one that is divergent, so that we can more easily differentiate the areas between
-positive/negative elevation change, as well as the areas where there’s not much change.</p>
-<p>For this example, I’ve chosen <strong>Red-Yellow-Blue</strong> (continuous), but feel free to pick a different one. Set the <strong>Stretch</strong> type to <strong>Minimum/Maximum</strong>.
-You should notice that while the extreme colours correspond to the correct changes, the colour scale is not centred, which makes it
-more difficult to interpret areas of no/little change. Under the <strong>Statistics</strong> tab, select <strong>Custom</strong> from the first drop-down menu. You can now
-change the Min/Max values – I’ve set these to -100/+100, meaning that the colour scale will saturate at -100 and +100 metres of
-change. You may also need to change the label so that this is reflected on the contents pane (and so that you don’t forget later).
-The map should look something like this (note that I’ve turned off the two shapefiles, so that you can see the lake changes):</p>
+<p><br /> Next, we’ll change the display so that it shows the differences using a more appropriate color scale. In the
+<strong>Symbology</strong> tab, select a different color scheme – preferably one that is divergent, so that we can more easily
+differentiate the areas between positive/negative elevation change, as well as the areas where there’s not much change.</p>
+<p>For this example, I’ve chosen <strong>Red-Yellow-Blue</strong> (continuous), but feel free to pick a different one. Set the
+<strong>Stretch</strong> type to <strong>Minimum/Maximum</strong>. You should notice that while the extreme colors correspond to the correct
+changes, the color scale is not centred, which makes it more difficult to interpret areas of no/little change.</p>
+<p>Under the <strong>Statistics</strong> tab, select <strong>Custom</strong> from the first drop-down menu. You can now change the Min/Max values –
+I’ve set these to -100/+100, meaning that the color scale will saturate at -100 and +100 meters of change. You may also
+need to change the label so that this is reflected on the contents pane (and so that you don’t forget later). The map
+should look something like this (note that I’ve turned off the two shapefiles, so that you can see the lake changes):</p>
 <a class="reference internal image-reference" href="../../../_images/difference1.png"><img alt="the map showing the difference between the two DEMs" class="align-center" src="../../../_images/difference1.png" style="width: 600px;" /></a>
-<p>You should now clearly see where the mountainside has collapsed, as well the landslide and lahar/pyroclastic material deposits to the North
-of the volcano, and the two lakes that have dramatically increased their levels (Coldwater Lake and Spirit Lake, from West to
-East).</p>
+<p><br /> You should now clearly see where the mountainside has collapsed, as well the landslide and lahar/pyroclastic
+material deposits to the North of the volcano, and the two lakes that have dramatically increased their levels
+(Coldwater Lake and Spirit Lake, from West to East).</p>
 </section>
 <section id="accuracy-estimation">
 <h2>accuracy estimation<a class="headerlink" href="#accuracy-estimation" title="Permalink to this headline"></a></h2>
-<p>The next step is to estimate how accurate our DEM difference is, as this will tell us something about how well we can estimate
-both the elevation and volume changes that we’re interested in. When we expect to see changes in elevation of different
-surfaces within the DEM, such as elevation drop due to glacier melt or the collapse of a mountainside, we first need to mask out
-the areas of change, so that we are only estimating the differences over stable terrain (or at least, as well as we can approximate
-it). You should notice that there are several different examples of elevation differences present here. The most obvious have to
-do with the eruption and its aftermath – the collapse of the North flank of the mountain, the deposits of pyroclastic and landslide material,
-the change in lake levels, and trees that were knocked down due to the force of the initial blast:</p>
+<p>The next step is to estimate how accurate our DEM difference is, as this will tell us something about how well we can
+estimate both the elevation and volume changes that we’re interested in. When we expect to see changes in elevation of
+different surfaces within the DEM, such as elevation drop due to glacier melt or the collapse of a mountainside, we
+first need to mask out the areas of change, so that we are only estimating the differences over stable terrain (or at
+least, as well as we can approximate it).</p>
+<p>You should notice that there are several different examples of elevation differences present here. The most obvious
+have to do with the eruption and its aftermath – the collapse of the North flank of the mountain, the deposits of
+pyroclastic and landslide material, the change in lake levels, and trees that were knocked down due to the force of the
+initial blast:</p>
 <a class="reference internal image-reference" href="../../../_images/labelled_difference.png"><img alt="the DEM differences labelled to attribute the difference causes of change" class="align-center" src="../../../_images/labelled_difference.png" style="width: 400px;" /></a>
-<p>So, in order to estimate the accuracy of our elevation differences, we’re going to compare the differences over stable terrain. As
-you can see in the image above, determining what is stable is not especially easy – there are a number of different ways that the
-elevation has changed in between the two acquisition dates. We’ll worry about this in a minute, but first we’ll create a grid of
-points to sample elevation differences. We’ll use the <strong>Create Fishnet</strong> tool in the <strong>Data Management</strong> toolbox to do this.</p>
+<p><br /> So, in order to estimate the accuracy of our elevation differences, we’re going to compare the differences over
+stable terrain. As you can see in the image above, determining what is stable is not especially easy – there are a
+number of different ways that the elevation has changed in between the two acquisition dates.</p>
+<p>We’ll worry about this in a minute, but first we’ll create a grid of points to sample elevation differences. We’ll use
+the <strong>Create Fishnet</strong> tool in the <strong>Data Management</strong> toolbox to do this.</p>
 <a class="reference internal image-reference" href="../../../_images/fishnet.png"><img alt="the create fishnet tool" class="align-center" src="../../../_images/fishnet.png" style="width: 200px;" /></a>
-<p>Save the points to a file called <code class="docutils literal notranslate"><span class="pre">sample_points.shp</span></code>. Set the output extent to be the same as
-<code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>, and set the cell size to be 50 metres in both width and height. Make sure that <strong>Create
-Label Points</strong> is checked, and that the <strong>Geometry Type</strong> is set to <strong>Polygon</strong>, then click <strong>Run</strong>. This will create a regular grid of cells with
-50 metres spacing, and a corresponding file that has the cell centroids. When the tool finishes running, you should now see both
-<code class="docutils literal notranslate"><span class="pre">sample_points</span></code> and <code class="docutils literal notranslate"><span class="pre">sample_points_label</span></code> in the <strong>Contents</strong> panel.</p>
+<p><br /> Save the points to a file called <code class="docutils literal notranslate"><span class="pre">sample_points.shp</span></code>. Set the output extent to be the same as
+<code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>, and set the cell size to be 50 meters in both width and height. Make sure that
+<strong>Create Label Points</strong> is checked, and that the <strong>Geometry Type</strong> is set to <strong>Polygon</strong>, then click <strong>Run</strong>. This will
+create a regular grid of cells with 50 meters spacing, and a corresponding file that has the cell centroids.</p>
+<p>When the tool finishes running, you should now see both <code class="docutils literal notranslate"><span class="pre">sample_points</span></code> and <code class="docutils literal notranslate"><span class="pre">sample_points_label</span></code> in the
+<strong>Contents</strong> panel.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Depending on your computer’s resources, this might be extremely slow. Rather than 50 m spacing, you can change this to 100 or even 200 m, and it will still work.</p>
+<p>Depending on your computer’s resources, this might be extremely slow. Rather than 50 m spacing, you can change this
+to 100 or even 200 m, and it will still work.</p>
 </div>
-<p>Now, we’re going to extract the dZ values at our sample points, using the <strong>Extract Values to Points</strong> tool in the <strong>Spatial Analyst</strong> toolbox:</p>
+<p>Now, we’re going to extract the dZ values at our sample points, using the <strong>Extract Values to Points</strong> tool in the
+<strong>Spatial Analyst</strong> toolbox:</p>
 <a class="reference internal image-reference" href="../../../_images/values_to_points.png"><img alt="the extract values to points tool" class="align-center" src="../../../_images/values_to_points.png" style="width: 200px;" /></a>
-<p>Use <code class="docutils literal notranslate"><span class="pre">sample_point_labels</span></code> as the <strong>Input point features</strong>, and set the <strong>Input raster</strong> to be
+<p><br /> Use <code class="docutils literal notranslate"><span class="pre">sample_point_labels</span></code> as the <strong>Input point features</strong>, and set the <strong>Input raster</strong> to be
 <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>. Save the output as <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979.shp</span></code>, and check <strong>Interpolate values at the point
-locations</strong>. Click <strong>Run</strong>. When the tool has finished running, open the <strong>Attribute Table</strong> for <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979.shp</span></code>. It should look
-something like this:</p>
+locations</strong>. Click <strong>Run</strong>. When the tool has finished running, open the <strong>Attribute Table</strong> for <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979.shp</span></code>.
+It should look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/dz_attribute_table.png"><img alt="the attribute table for the point elevation differences" class="align-center" src="../../../_images/dz_attribute_table.png" style="width: 600px;" /></a>
-<p>The next thing we want to do is remove all of the points that correspond to <code class="docutils literal notranslate"><span class="pre">NoData</span></code> values in the raster (<code class="docutils literal notranslate"><span class="pre">-9999</span></code> in this case). You
-can do this using <strong>Select by Attributes</strong>, then selecting all of the features where <code class="docutils literal notranslate"><span class="pre">RASTERVALU</span></code> equals <code class="docutils literal notranslate"><span class="pre">-9999</span></code>. When you have the points selected, click <strong>Delete</strong>.</p>
+<p><br /> The next thing we want to do is remove all of the points that correspond to <code class="docutils literal notranslate"><span class="pre">NoData</span></code> values in the raster
+(<code class="docutils literal notranslate"><span class="pre">-9999</span></code> in this case). You can do this using <strong>Select by Attributes</strong>, then selecting all of the features where
+<code class="docutils literal notranslate"><span class="pre">RASTERVALU</span></code> equals <code class="docutils literal notranslate"><span class="pre">-9999</span></code>. When you have the points selected, click <strong>Delete</strong>.</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979</span></code> highlighted in the <strong>Contents</strong> pane, click <strong>Save</strong> under the <strong>Edit</strong> tab to save the edits:</p>
 <a class="reference internal image-reference" href="../../../_images/save_highlighted.png"><img alt="the edit tab with the save button highlighted" class="align-center" src="../../../_images/save_highlighted.png" style="width: 760px;" /></a>
-<p>You should now have a sampling of points of elevation differences. You can visualize this from the <strong>Attribute Table</strong> – right-click
-on the <strong>RASTERVALU</strong> column, then select <strong>Statistics</strong>. A histogram of the values will display in the same panel:</p>
+<p><br /> You should now have a sampling of points of elevation differences. You can visualize this from the
+<strong>Attribute Table</strong> – right-click on the <strong>RASTERVALU</strong> column, then select <strong>Statistics</strong>. A histogram of the values
+will display in the same panel:</p>
 <a class="reference internal image-reference" href="../../../_images/histogram.png"><img alt="the arcgis window with a histogram summary of the elevation differences displayed" class="align-center" src="../../../_images/histogram.png" style="width: 600px;" /></a>
-<p>You can increase the number of bins to display (up to 64), as well as display the mean, median, and standard deviation values on
-the graph. Our next step is to select points that are only on stable terrain – again, this means points whose elevations we do not
-expect to have changed between the two DEM dates: we expect that the elevation difference for these points should be zero.
-To assess this, we can use the two Landsat images provided, which were acquired within a few weeks of the air photos that
-produced the DEMs. The 1979 MSS scene (<code class="docutils literal notranslate"><span class="pre">LM02_L1TP_049028_19790719_20180419_01_T2.tif</span></code>) was acquired on 19
-July, while the 1984 TM scene (<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20161004_01_T1.tif</span></code>) was acquired on 4 August.
-We’ll start by looking near the Southeast flank of the volcano:</p>
+<p><br /> You can increase the number of bins to display (up to 64), as well as display the mean, median, and standard
+deviation values on the graph. Our next step is to select points that are only on stable terrain – again, this means
+points whose elevations we do not expect to have changed between the two DEM dates: we expect that the elevation
+difference for these points should be zero.</p>
+<p>To assess this, we can use the two Landsat images provided, which were acquired within a few weeks of the air photos
+that produced the DEMs. The 1979 MSS scene (<code class="docutils literal notranslate"><span class="pre">LM02_L1TP_049028_19790719_20180419_01_T2.tif</span></code>) was acquired on 19 July,
+while the 1984 TM scene (<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20161004_01_T1.tif</span></code>) was acquired on 4 August. We’ll start by
+looking near the Southeast flank of the volcano:</p>
 <a class="reference internal image-reference" href="../../../_images/southeast_comparison.png"><img alt="the swipe tool showing the comparison between the 1979 and 1984 Landsat scenes on the SE flank of the volcano" class="align-center" src="../../../_images/southeast_comparison.png" style="width: 600px;" /></a>
-<p>Using the <strong>Swipe</strong> tool to swipe between the two Landsat scenes, you should notice that things look very similar here – the same
-patches of trees appear in both time periods, and this area was relatively untouched by the 1980 eruption, so we should expect
-this area to represent mostly stable ground. Use the <strong>Select</strong> tool to select the dZ points that you can see in this area. In the panel
-that contains the histogram, click on <strong>Filter: Selection</strong> to change the chart to only show your selected points:</p>
+<p><br /> Using the <strong>Swipe</strong> tool to swipe between the two Landsat scenes, you should notice that things look very similar
+here – the same patches of trees appear in both time periods, and this area was relatively untouched by the 1980
+eruption, so we should expect this area to represent mostly stable ground.</p>
+<p>Use the <strong>Select</strong> tool to select the dZ points that you can see in this area. In the panel that contains the histogram,
+click on <strong>Filter: Selection</strong> to change the chart to only show your selected points:</p>
 <a class="reference internal image-reference" href="../../../_images/filter_selection.png"><img alt="the histogram panel with the filter: selection button highlighted" class="align-center" src="../../../_images/filter_selection.png" style="width: 600px;" /></a>
-<p>The chart should now change:</p>
+<p><br /> The chart should now change:</p>
 <a class="reference internal image-reference" href="../../../_images/filtered_histogram.png"><img alt="the filtered histogram" class="align-center" src="../../../_images/filtered_histogram.png" style="width: 600px;" /></a>
-<p>From this, we can see that the mean elevation difference from our sample is fairly low, although this doesn’t necessarily tell us
-much about the accuracy of the dataset. To assess this, we can calculate the root mean square (RMS) difference:</p>
+<p><br /> From this, we can see that the mean elevation difference from our sample is fairly low, although this doesn’t
+necessarily tell us much about the accuracy of the dataset. To assess this, we can calculate the root mean square
+(RMS) difference:</p>
 <div class="math notranslate nohighlight">
 \[{\rm RMSD} = \sqrt{\frac{\sum_{i=1}^{N}(x_i - \hat{x}_i)^2}{N}} \label{rmsd}\tag{1}\]</div>
-<p>or the normalized median absolute deviation (NMAD):</p>
+<p><br /> or the normalized median absolute deviation (NMAD):</p>
 <div class="math notranslate nohighlight">
 \[{\rm NMAD} = 1.4826 * {\rm median}(|x_i - \tilde{x}|) \label{nmad}\tag{2}\]</div>
-<p>which will give us a more robust and accurate representation of the accuracy of our elevation differences. To do these calculations, we’ll
-use the python notebook (<code class="docutils literal notranslate"><span class="pre">Accuracy</span> <span class="pre">Analysis.ipynb</span></code>) included in the files downloaded from the google drive link above.</p>
-<p>First, export the table by right-clicking on dZ_1984_1979 in the contents panel, then selecting <strong>Data</strong> &gt; <strong>Export Table</strong>. Save the
-table as <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979.csv</span></code> in your <strong>Data</strong> folder.</p>
+<p><br /> which will give us a more robust and accurate representation of the accuracy of our elevation differences.
+To do these calculations, we’ll use the python notebook (<code class="docutils literal notranslate"><span class="pre">Accuracy</span> <span class="pre">Analysis.ipynb</span></code>) included in the files downloaded
+from the google drive link above.</p>
+<p>First, export the table by right-clicking on dZ_1984_1979 in the contents panel, then selecting <strong>Data</strong> &gt;
+<strong>Export Table</strong>. Save the table as <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979.csv</span></code> in your <strong>Data</strong> folder.</p>
 <p>To open the python notebook, open the <strong>Catalog</strong> tab and navigate to the folder where you have saved the notebook:</p>
 <a class="reference internal image-reference" href="../../../_images/catalog_highlight.png"><img alt="the arcgis catalog panel highlighted" class="align-center" src="../../../_images/catalog_highlight.png" style="width: 600px;" /></a>
-<p>Right-click on <code class="docutils literal notranslate"><span class="pre">Accuracy</span> <span class="pre">Analysis.ipynb</span></code>, then select <strong>Open Notebook</strong>. You should see something like this (your notebook
-may open in a different panel then what is shown):</p>
+<p><br /> Right-click on <code class="docutils literal notranslate"><span class="pre">Accuracy</span> <span class="pre">Analysis.ipynb</span></code>, then select <strong>Open Notebook</strong>. You should see something like this
+(your notebook may open in a different panel then what is shown):</p>
 <a class="reference internal image-reference" href="../../../_images/open_notebook.png"><img alt="the arcgis window with the notebook opened" class="align-center" src="../../../_images/open_notebook.png" style="width: 600px;" /></a>
-<p>You can now run through the instructions provided in the notebook to calculate the NMAD and RMSE values for your exported
-points. You can also run this on a selection of the points (for example, using the same selection you made above) by first
-creating a new layer from the selection (right-click, <strong>Selection</strong> &gt; <strong>Make Layer from Selected Features</strong>), then exporting the table
-from that layer to a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file. You’ll need to change the filename for the data in the notebook as well before running the
-calculations.</p>
+<p><br /> You can now run through the instructions provided in the notebook to calculate the NMAD and RMSE values for your
+exported points. You can also run this on a selection of the points (for example, using the same selection you made
+above) by first creating a new layer from the selection (right-click, <strong>Selection</strong> &gt;
+<strong>Make Layer from Selected Features</strong>), then exporting the table from that layer to a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file. You’ll need to
+change the filename for the data in the notebook as well before running the calculations.</p>
 </section>
 <section id="filling-nodata-values">
 <h2>filling nodata values<a class="headerlink" href="#filling-nodata-values" title="Permalink to this headline"></a></h2>
-<p>You may notice that there are a number of voids, or gaps, in the DEM difference. I have masked the clouds present in the 1984
-image, as well as a few other areas where there are blunders (large errors) in one or the other DEM. There are also smaller gaps
-where the photogrammetric software was unable to correlate the images and calculate an elevation. In order to calculate a
-volume change, we need to somehow fill, or interpolate, these data gaps. As discussed in the lectures this week, there are a
-number of ways to do this. We’re going to focus on using <strong>Kriging</strong> interpolation through the <strong>Geostatistical Wizard</strong>, which you can find under
-the <strong>Analysis</strong> tab:</p>
+<p>You may notice that there are a number of voids, or gaps, in the DEM difference. I have masked the clouds present in
+the 1984 image, as well as a few other areas where there are blunders (large errors) in one or the other DEM. There
+are also smaller gaps where the photogrammetric software was unable to correlate the images and calculate an elevation.</p>
+<p>In order to calculate a volume change, we need to somehow fill, or interpolate, these data gaps. As discussed in the
+lectures this week, there are a number of ways to do this. We’re going to focus on using <strong>Kriging</strong> interpolation
+through the <strong>Geostatistical Wizard</strong>, which you can find under the <strong>Analysis</strong> tab:</p>
 <a class="reference internal image-reference" href="../../../_images/wizard_toolbar.png"><img alt="the geostatistical wizard button in the analysis tab" class="align-center" src="../../../_images/wizard_toolbar.png" style="width: 760px;" /></a>
-<p>In the window that opens, you should see a number of different interpolation options:</p>
+<p><br /> In the window that opens, you should see a number of different interpolation options:</p>
 <a class="reference internal image-reference" href="../../../_images/wizard1.png"><img alt="the first step of the geostatistical wizard" class="align-center" src="../../../_images/wizard1.png" style="width: 600px;" /></a>
-<p>In this example, we’re going to use Kriging/CoKriging, but I encourage you to examine the other options. Select
-<strong>Kriging/CoKriging</strong>, and make sure that <strong>Source Dataset</strong> is <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979</span></code> and the <strong>Data Field</strong> selected is <code class="docutils literal notranslate"><span class="pre">RASTERVALU</span></code>, then
-click <strong>Next</strong>. Here, make sure to select <strong>Ordinary Kriging</strong> &gt; <strong>Prediction</strong>. Leave both the <strong>Transformation Type</strong> and <strong>Order of Trend
-Removal</strong> as <strong>None</strong>, then click <strong>Next</strong> again:</p>
+<p><br /> In this example, we’re going to use Kriging/CoKriging, but I encourage you to examine the other options. Select
+<strong>Kriging/CoKriging</strong>, and make sure that <strong>Source Dataset</strong> is <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979</span></code> and the <strong>Data Field</strong> selected is
+<code class="docutils literal notranslate"><span class="pre">RASTERVALU</span></code>, then click <strong>Next</strong>. Here, make sure to select <strong>Ordinary Kriging</strong> &gt; <strong>Prediction</strong>. Leave both the
+<strong>Transformation Type</strong> and <strong>Order of Trend Removal</strong> as <strong>None</strong>, then click <strong>Next</strong> again:</p>
 <a class="reference internal image-reference" href="../../../_images/wizard2.png"><img alt="the second step of the geostatistical wizard" class="align-center" src="../../../_images/wizard2.png" style="width: 600px;" /></a>
+<p><br /></p>
 <a class="reference internal image-reference" href="../../../_images/wizard3.png"><img alt="the third step of the geostatistical wizard" class="align-center" src="../../../_images/wizard3.png" style="width: 600px;" /></a>
+<p><br /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Your values/image may differ slightly from the picture above.</p>
 </div>
-<p>You should see that the semivariogram levels off after some distance – that is, there doesn’t appear to be any correlation in the
-differences between values after a certain separation. You can try a few different model types here to see how well they fit the
-data – you can also add multiple variogram models. You can also let the software choose the “best” model by clicking on <strong>Optimize
-model</strong> at the top of the window – this will find the best-fitting model to the data. After you’ve looked around at the different
-models and their parameters, and are happy that the modelled covariance fits the data well, click <strong>Next</strong>.</p>
+<p>You should see that the semivariogram levels off after some distance – that is, there doesn’t appear to be any
+correlation in the differences between values after a certain separation. You can try a few different model types here
+to see how well they fit the data – you can also add multiple variogram models.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to note what model you use!</p>
+</div>
+<p>You can also let the software choose the “best” model by clicking on <strong>Optimize model</strong> at the top of the window –
+this will find the best-fitting model to the data. After you’ve looked around at the different models and their
+parameters, and are happy that the modelled covariance fits the data well, click <strong>Next</strong>.</p>
 <p>In the next window, you can choose different parameters to determine how the search neighbourhood is determined. For now,
 you can leave these as-is, and click <strong>Next</strong>. In this window, you should see the cross-validation statistics for the interpolation:</p>
 <a class="reference internal image-reference" href="../../../_images/wizard4.png"><img alt="the fourth step of the geostatistical wizard" class="align-center" src="../../../_images/wizard4.png" style="width: 600px;" /></a>
-<p>To do the cross-validation, the software compares the value for each point in the dataset versus the value predicted for that
-point by leaving it out from the interpolation – it gives you an idea of how well the prediction fits the data. If your predicted
-values fall very far away from the one-to-one line, you should go back and try different parameters or a different covariance
-model, as it indicates that you haven’t captured the statistics of the dataset particularly well. If this step looks alright, click <strong>Finish</strong>
-to produce the interpolated map.</p>
-<p>Once the Kriging layer loads, you can export it to a raster by right-clicking on it in the <strong>Contents</strong> panel and selecting <strong>Export Layer</strong>
-&gt; <strong>To Rasters</strong>. Save the <strong>Prediction</strong> surface to <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_kriging_dZ.tif</span></code> with an <strong>Output cell size</strong> of <code class="docutils literal notranslate"><span class="pre">10</span></code>,
-then click <strong>Run</strong>:</p>
+<p><br /> To do the cross-validation, the software compares the value for each point in the dataset versus the value
+predicted for that point by leaving it out from the interpolation – it gives you an idea of how well the prediction
+fits the data. If your predicted values fall very far away from the one-to-one line, you should go back and try
+different parameters or a different covariance model, as it indicates that you haven’t captured the statistics of
+the dataset particularly well. If this step looks alright, click <strong>Finish</strong> to produce the interpolated map.</p>
+<p>Once the Kriging layer loads, you can export it to a raster by right-clicking on it in the <strong>Contents</strong> panel and
+selecting <strong>Export Layer</strong> &gt; <strong>To Rasters</strong>. Save the <strong>Prediction</strong> surface to <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_kriging_dZ.tif</span></code>
+with an <strong>Output cell size</strong> of <code class="docutils literal notranslate"><span class="pre">10</span></code>, then click <strong>Run</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/layer_to_raster.png"><img alt="the layer to raster tool" class="align-center" src="../../../_images/layer_to_raster.png" style="width: 300px;" /></a>
-<p>Next, open the <strong>Raster Calculator</strong> and enter the following expression, and save the output to
+<p><br /> Next, open the <strong>Raster Calculator</strong> and enter the following expression, and save the output to
 <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_filled_dZ.tif</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Con</span><span class="p">(</span><span class="n">IsNull</span><span class="p">(</span><span class="s2">&quot;MtStHelens_1984_1979_dZ.tif&quot;</span><span class="p">),</span> <span class="s2">&quot;MtStHelens_1984_1979_kriging_dZ.tif&quot;</span><span class="p">,</span> <span class="s2">&quot;MtStHelens_1984_1979_dZ.tif&quot;</span><span class="p">)</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Con(IsNull(&quot;MtStHelens_1984_1979_dZ.tif&quot;), &quot;MtStHelens_1984_1979_kriging_dZ.tif&quot;, &quot;MtStHelens_1984_1979_dZ.tif&quot;)
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/fill_rastercalc.png"><img alt="the raster calculator with the equation to fill nodata values" class="align-center" src="../../../_images/fill_rastercalc.png" style="width: 300px;" /></a>
-<p>This conditional statement will return a raster with values from the kriging raster wherever the original dZ raster has <code class="docutils literal notranslate"><span class="pre">NoData</span></code>
-values, and returns values from the original dZ raster wherever they are not <code class="docutils literal notranslate"><span class="pre">NoData</span></code> – in other words, this will fill the voids in
-the dZ raster using the kriging predicted values. Go ahead and examine the output using the <strong>Swipe</strong> tool to swipe between the
-two rasters (filled_dZ and dZ):</p>
+<p><br /> This conditional statement will return a raster with values from the kriging raster wherever the original dZ raster
+has <code class="docutils literal notranslate"><span class="pre">NoData</span></code> values, and returns values from the original dZ raster wherever they are not <code class="docutils literal notranslate"><span class="pre">NoData</span></code> – in other words,
+this will fill the voids in the dZ raster using the kriging predicted values.</p>
+<p>Go ahead and examine the output using the <strong>Swipe</strong> tool to swipe between the two rasters (filled_dZ and dZ):</p>
 <a class="reference internal image-reference" href="../../../_images/dz_with_holes.png"><img alt="the swipe tool showing the elevation difference with and without holes filled" class="align-center" src="../../../_images/dz_with_holes.png" style="width: 600px;" /></a>
-<p>You should see that the filled raster no longer has holes where the original dZ raster did. At this point, you can move on to
+<p><br /> You should see that the filled raster no longer has holes where the original dZ raster did. At this point, you can move on to
 estimating some volume changes.</p>
 </section>
 <section id="estimating-elevation-and-volume-changes">
 <h2>estimating elevation and volume changes<a class="headerlink" href="#estimating-elevation-and-volume-changes" title="Permalink to this headline"></a></h2>
-<p>For this step, we’ll start by calculating the lake volume changes. To do this, we’ll use the <strong>Zonal Statistics as Table</strong> tool from the
-<strong>Spatial Analyst</strong> toolbox. Open the tool, then set the <strong>Input feature zone data</strong> to <code class="docutils literal notranslate"><span class="pre">1984_shapes</span></code>, and the <strong>Zone field</strong> to <code class="docutils literal notranslate"><span class="pre">name</span></code>.
-The <strong>Input value raster</strong> should be the filled dZ raster, and save the table to <code class="docutils literal notranslate"><span class="pre">LakeChanges</span></code>. Leave the <strong>Statistics type</strong> as <strong>All</strong>:</p>
+<p>For this step, we’ll start by calculating the lake volume changes. To do this, we’ll use the
+<strong>Zonal Statistics as Table</strong> tool from the <strong>Spatial Analyst</strong> toolbox. Open the tool, then set the
+<strong>Input feature zone data</strong> to <code class="docutils literal notranslate"><span class="pre">1984_shapes</span></code>, and the <strong>Zone field</strong> to <code class="docutils literal notranslate"><span class="pre">name</span></code>. The <strong>Input value raster</strong> should
+be the filled dZ raster, and save the table to <code class="docutils literal notranslate"><span class="pre">LakeChanges</span></code>. Leave the <strong>Statistics type</strong> as <strong>All</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/statistics_as_table.png"><img alt="the zonal statistics as table tool" class="align-center" src="../../../_images/statistics_as_table.png" style="width: 300px;" /></a>
-<p>Click <strong>Run</strong>, then open the table:</p>
+<p><br /> Click <strong>Run</strong>, then open the table:</p>
 <a class="reference internal image-reference" href="../../../_images/lake_change_table.png"><img alt="the table showing the lake changes output" class="align-center" src="../../../_images/lake_change_table.png" style="width: 600px;" /></a>
-<p>Each column of this table contains the statistics extracted from each of the features in 1984_shapes. You can update the table to
-include the volume by pressing the Calculate button, then entering an expression to multiply the <code class="docutils literal notranslate"><span class="pre">SUM</span></code> column by the raster cell
-size squared – the resulting values should be the total volume change, in cubic meters, of each of the lakes. Make sure that your
-new field is of type <strong>Float</strong>, then press <strong>OK</strong>:</p>
+<p><br /> Each column of this table contains the statistics extracted from each of the features in 1984_shapes. You can
+update the table to include the volume by pressing the Calculate button, then entering an expression to multiply the
+<code class="docutils literal notranslate"><span class="pre">SUM</span></code> column by the raster cell size squared – the resulting values should be the total volume change, in cubic
+meters, of each of the lakes. Make sure that your new field is of type <strong>Float</strong>, then press <strong>OK</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/calculate_field.png"><img alt="the calculate field dialog" class="align-center" src="../../../_images/calculate_field.png" style="width: 300px;" /></a>
-<p>Note that for one of the lakes, this is actually the lake volume, as it did not exist prior to the eruption. This is only a partial
-volume for another lake, as it wasn’t fully captured in the 1984 DEM acquisition.</p>
+<p>Note that for one of the lakes, this is actually the lake volume, as it did not exist prior to the eruption. This is
+only a partial volume for another lake, as it wasn’t fully captured in the 1984 DEM acquisition.</p>
 <p>Now, you can repeat this exercise to estimate:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -348,23 +387,27 @@ volume for another lake, as it wasn’t fully captured in the 1984 DEM acquisiti
 </ol>
 </div></blockquote>
 <p>To do this, you’ll first need to digitize the outlines of these features, then use the <strong>Zonal Statistics as Table</strong>
-tool to find the statistics for each of these areas. You are welcome to try all three of these exercises if you like, but you should at
-least try one of them – this will form part of the investigation that you will present for Assessment Part 1, as well as part of the
-report you will submit for Assessment Part 2.</p>
-<p>To do the digitizing, I recommend using a combination of the elevation difference raster and the Landsat images to guide you.</p>
+tool to find the statistics for each of these areas. You are welcome to try all three of these exercises if you like,
+but you should at least try one of them – this will form part of the investigation that you will present for
+Assessment Part 1, as well as part of the report you will submit for Assessment Part 2.</p>
+<p>To do the digitizing, I recommend using a combination of the elevation difference raster and the Landsat images to
+guide you.</p>
+</section>
+<section id="calculating-volume-change-uncertainty">
+<h2>calculating volume change uncertainty<a class="headerlink" href="#calculating-volume-change-uncertainty" title="Permalink to this headline"></a></h2>
 </section>
 <section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline"></a></h2>
-<p>I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the ca. 2008 ALOS/PRISM DEM. You can
-check out the tutorial provided here: <a class="reference external" href="https://github.com/iamdonovan/dem-coregistration">https://github.com/iamdonovan/dem-coregistration</a> to learn more about how I’ve done
-this, and how you can co-register your own DEMs, either for your project, or for future work.</p>
-<p>If you click on the <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/dem-coregistration/master"><img alt="binder" src="https://mybinder.org/badge_logo.svg" /></a> link at the top of the <code class="docutils literal notranslate"><span class="pre">README</span></code>, you can also try out the tutorial online,
-without having to download and set it up yourself:</p>
+<p>I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the ca. 2008 ALOS/PRISM DEM. You
+can check out the tutorial provided here: <a class="reference external" href="https://github.com/iamdonovan/dem-coregistration">https://github.com/iamdonovan/dem-coregistration</a> to learn more about how I’ve
+done this, and how you can co-register your own DEMs, either for your project, or for future work.</p>
+<p>If you click on the <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/dem-coregistration/master"><img alt="binder" src="https://mybinder.org/badge_logo.svg" /></a> link at the top of the <code class="docutils literal notranslate"><span class="pre">README</span></code>, you can also try out the tutorial online, without
+having to download and set it up yourself:</p>
 <a class="reference internal image-reference" href="../../../_images/coregistration_tutorial.png"><img alt="the dem coregistration tutorial with the binder link highlighted." class="align-center" src="../../../_images/coregistration_tutorial.png" style="width: 600px;" /></a>
-<p>You can also, if you like, repeat many of these steps to see the changes that have taken place at Mt St Helens since 1984. The
-lava dome in the middle of the caldera has continued to grow, and a glacier has even grown since the 1980 eruption. Logging
-activity has also continued in the areas around the mountain, which we can see in the satellite images, as well as the derived
-DEMs.</p>
+<p><br /> You can also, if you like, repeat many of these steps to see the changes that have taken place at Mt St Helens
+since 1984. The lava dome in the middle of the caldera has continued to grow, and a glacier has even grown since the
+1980 eruption. Logging activity has also continued in the areas around the mountain, which we can see in the satellite
+images, as well as the derived DEMs.</p>
 </section>
 </section>
 
