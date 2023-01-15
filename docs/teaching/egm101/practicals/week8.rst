@@ -320,6 +320,7 @@ The next thing to check is the assumption of *normality* - that is, that the dat
 distributed.
 
 .. admonition:: Question
+    :class: question
 
     Look at the **Descriptives** table that you just created - what values of **Kurtosis** and **Skewness** do you see?
     What do these values tell you about how normal each distribution is?
