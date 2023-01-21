@@ -26,53 +26,69 @@ your GEE account. You should see something like this:
     :align: center
     :alt: the GEE console with annotations
 
-|br| Now, to import the intro script, follow
-`this link <https://code.earthengine.google.com/eb944bc713d31986b7d4b6bfce06fe76?noload=true>`__. It should open the
-following:
+|br| Click the red **NEW** button in the **Script manager**, and select **Repository**. Call the repository ``egm702``,
+and then click **Create**.
 
-.. image:: ../../../img/egm702/week3/loaded_script.png
-    :width: 600
-    :align: center
-    :alt: the gee window after loading the script
+To gain access to the EGM702 repository, click this link: https://code.earthengine.google.com/?accept_repo=users/robertmcnabb/egm702
 
-Click the red NEW button in the Script manager, and select **Repository**. Call the repository ``egm702``, and then
-click **Create**. Next, in the code editor, type your name after "Practical 3" – this will enable you to save the
-script to your new repository. Call it ``practical3``, and click **OK** to save the script to the new repository.
+This will give you access to all of the scripts in the repository for each remaining week of the module, including some
+additional examples of applications that might be useful for your project.
+
+You (and anyone with the link above) are automatically added to this repository as a *Reader*; that is, you have
+permission to see the script and to run it. If you want to make changes to each script and save them, you will
+need to save the script to your own account (as an *Owner*). To do this, you first need to make a change to the
+script in the **Editor** panel.
+
+The easiest way to do this would be to replace "YOUR NAME HERE!" on line 1 with your name. When you do this, you
+should see that the **Save** button activates. Click the **Save** button, then click **Yes** to make a copy of the
+script to your own repository.
+
+You should see the following dialogue:
 
 .. image:: ../../../img/egm702/week3/save_script.png
     :width: 300
     :align: center
     :alt: the save script dialogue
 
-|br|
+|br| Save the script to your ``egm702`` repository as ``week3/01_finding_images.js`` - you should see a ``week3`` folder
+appear under this repository in the **Script manager**.
 
-running the script
-------------------
+As you work through the other scripts this week, be sure to save them to your own repository in this way (remembering
+to update the script names appropriately). This way, you have a record of any changes that you make to the script.
 
-Once you have saved the script, you should see the following in the code editor:
+.. note::
+
+    Perhaps most importantly, it will mean that when you add training samples for the classification exercises in
+    Week 5, you don't have to re-do them each time you re-open your browser window.
+
+part 1 - finding and inspecting images
+----------------------------------------
+
+Once you have saved the script, you should see something like the following in the code editor:
 
 .. image:: ../../../img/egm702/week3/loaded_saved_script.png
     :width: 600
     :align: center
     :alt: the gee window after loading and saving the script
 
-|br| At the very top of the script, you should see two **imports**: ``boundary``, a rectangle roughly corresponding to
-our study area, and ``gifBoundary``, a rectangle roughly corresponding to the area impacted by the 1980 eruptions of
-Mt St Helens. You should also notice that the script begins with a large block of comments (beginning and ending with
+|br| You should also notice that the script begins with a large block of comments (beginning and ending with
 ``/*`` and ``*/``):
 
 .. code-block:: javascript
 
-    /* EGM702 Practical 3.
+    /* EGM702 Practical 3, Part 1: Finding Images \\ YOUR NAME HERE!
     -----------------------------------------------------------------------------------------------------
 
     Introduction
 
     This script is intended to give you some experience working with Google Earth Engine,
-    even if you have never done any computer programming before.
-    You'll notice that all of the lines of this script, except the first step and the
-    function definitions, are commented out - each line starts with a comment symbol, '//'.
-    To run a command, you'll need to remove the comment symbol from the beginning of the line.
+    even if you have never done any computer programming before. In this script, you will
+    learn:
+
+      1. The basic layout of the Earth Engine interface;
+      2. How to search for images and add them to the Map;
+      3. How to adjust visualization parameters using the Layers menu;
+      4. How to find pixel or feature values using the Inspector tool;
 
     -----------------------------------------------------------------------------------------------------
     */
@@ -82,35 +98,54 @@ computer won't process) are denoted by ``//`` (two forward slashes) if they are 
 block, comments, start with ``/*`` and end with ``*/`` – anything in between these symbols will not be interpreted by
 the computer when the script is run. In the GEE code editor, comments are coloured :green:`green`.
 
-If you scroll down through the script, you should see a number of function definitions. Don't worry too much about these
-right now – they're there to help make the code a bit easier to read/understand, and help to avoid re-writing the same
-lines of code over and over again.
-
-step 1. finding the best image in a given year
-----------------------------------------------
-
-The first lines to pay attention to look like this, beginning at line 83:
+The first line with actual code to pay attention to is on line 17:
 
 .. code-block:: javascript
 
-    // -----------------------------------------------------------------------------------------------------
-    // Step 1. Finding the best image in a given year.
+    var tools = require('users/robertmcnabb/egm702:libraries/tools.js');
+
+This line will *import* all of the functions and tools contained in the ``egm702/libraries/tools.js`` script, which
+we will use in most of the remaining exercises.
+
+.. note::
+
+    This setup, where we have different "modules" that we "import" to use in a script, is something that we will
+    cover in more depth in EGM722 with python programming.
+
+    If you are interested in developing your GEE skills further, you can have a look at this
+    `post <https://medium.com/google-earth/making-it-easier-to-reuse-code-with-earth-engine-script-modules-2e93f49abb13>`__
+    by a GEE developer, which shows how you can set up your own "module".
+
+The next set of lines will search through the entire Landsat 8 Collection 2 Surface Reflectance archive, remove any
+images with >20% cloud cover, and return only those images whose WRS-2 Path/Row matches our current study area around
+Mt St Helens. It will then store a list of these images in a variable called ``lc08`` that we can use later on in the
+script:
+
+.. code-block:: javascript
 
     // Load Landsat 8 images
     // returns all LC08 surface reflectance images with < 20% cloud cover
     // from WRS path/row 46/28.
-    var lc08 = ee.ImageCollection("LANDSAT/LC08/C02/T1_L2")
-      .filterMetadata('CLOUD_COVER', 'less_than', 20)
-      .filter(ee.Filter.eq('WRS_PATH', 46))
-      .filter(ee.Filter.eq('WRS_ROW', 28));
-
-These lines of code will take the entire Landsat 8 Collection 2 Surface Reflectance archive, remove any images with
->20% cloud cover, and return only those images whose WRS-2 Path/Row matches our current study area around Mt St Helens.
-It will then store a list of these images in a variable called ``lc08`` that we can use later on in the script.
+    var lc08 = ee.ImageCollection("LANDSAT/LC08/C02/T1_L2") // select Landsat 8 Collection 2 SR
+      .filterMetadata('CLOUD_COVER', 'less_than', 20) // select cloud cover < 20%
+      .filter(ee.Filter.eq('WRS_PATH', 46)) // select WRS Path 46
+      .filter(ee.Filter.eq('WRS_ROW', 28)); // select WRS Row 28
 
 For more information on the WRS-2, see this link: https://landsat.gsfc.nasa.gov/about/worldwide-reference-system.
 
 For more information about Landsat Collection 2 images, see this link: https://www.usgs.gov/landsat-missions/landsat-collection-2
+
+.. note::
+
+    The purpose of these practicals is to focus more on image analysis and interpretation, and less on the nuts and
+    bolts of programming in GEE.
+
+    If you are interested in learning more about the coding side of things, you are welcome
+    to check out some additional tutorials that I have written about working with GEE, which provide more information
+    about how the code works: :doc:`../../../gee/tutorials/index`.
+
+    You can also check out the amazing new textbook, "Cloud-Based Remote Sensing with Google Earth Engine", available
+    for free online at https://www.eefabook.org/.
 
 The next set of lines will do the same thing, but this time using the Landsat 8 Collection 2 Top of Atmosphere (TOA)
 reflectance archive:
@@ -119,10 +154,10 @@ reflectance archive:
 
     // returns all LC08 TOA reflectance images with < 20% cloud cover
     // from WRS path/row 46/28.
-    var lc08_toa = ee.ImageCollection("LANDSAT/LC08/C02/T1_TOA")
-      .filterMetadata('CLOUD_COVER', 'less_than', 20)
-      .filter(ee.Filter.eq('WRS_PATH', 46))
-      .filter(ee.Filter.eq('WRS_ROW', 28));
+    var lc08_toa = ee.ImageCollection("LANDSAT/LC08/C02/T1_TOA") // select Landsat 8 Collection 2 SR
+      .filterMetadata('CLOUD_COVER', 'less_than', 20) // select cloud cover < 20%
+      .filter(ee.Filter.eq('WRS_PATH', 46)) // select WRS Path 46
+      .filter(ee.Filter.eq('WRS_ROW', 28)); // select WRS Row 28
 
 For a refresher on the difference between Surface Reflectance and TOA reflectance, see here:
 https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance
@@ -134,10 +169,16 @@ selecting only images from 2020. It will also make sure to only select the coast
 .. code-block:: javascript
 
     // Find the least cloudy image from 2020, and clip it to the boundary.
-    var sr_image = ee.Image((lc08)
-      .filterBounds(boundary)
+    var sr_img = ee.Image((lc08)
       .filterDate('2020-01-01', '2020-12-31') // select all images in 2020
       .select(['SR_B[1-7]']) // select bands 1-7
+      .sort('CLOUD_COVER') // sort based on cloud cover (lowest - highest)
+      .first()); // return the first image in the list - i.e., the lowest cloud cover
+
+    // Do the same, but for the TOA collection
+    var toa_img = ee.Image((lc08_toa)
+      .filterDate('2020-01-01', '2020-12-31') // select all images in 2020
+      .select(['B[1-7]']) // select bands 1-7
       .sort('CLOUD_COVER') // sort based on cloud cover (lowest - highest)
       .first()); // return the first image in the list - i.e., the lowest cloud cover
 
@@ -147,40 +188,8 @@ vs. TOA reflectance). To check this, we can print the image names to the **Conso
 .. code-block:: javascript
 
     // print the image name/date
-    print('2020 SR Image Date: ', ee.Date(sr_image.get('SENSING_TIME')), sr_image);
-    print('2020 TOA Image Date: ', ee.Date(toa_image.get('DATE_ACQUIRED')), toa_image);
-
-The sensor carried by Landsat 8 is the Operational Land Imager/Thermal InfraRed Sensor (OLI/TIRS). The table below shows
-the wavelength ranges for the different bands of the sensor(s), their resolutions, and their names:
-
-+------------+----------+---------------------+-------------------------+--------------------+
-| **sensor** | **band** | **wavelength (µm)** | **name**                | **resolution (m)** |
-+------------+----------+---------------------+-------------------------+--------------------+
-| oli        | 1        | 0.43 -- 0.45        | coastal aerosol         | 30                 |      
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 2        | 0.45 -- 0.51        | blue                    | 30                 |
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 3        | 0.53 -- 0.59        | green                   | 30                 |
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 4        | 0.64 -- 0.67        | red                     | 30                 |
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 5        | 0.85 -- 0.88        | near infrared           | 30                 |
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 6        | 1.57 -- 1.65        | shortwave infrared 1    | 30                 |
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 7        | 2.11 -- 2.29        | shortwave infrared 2    | 30                 |
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 8        | 0.50 -- 0.68        | panchromatic            | 15                 |
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 9        | 1.36 -- 1.38        | cirrus                  | 30                 |
-+------------+----------+---------------------+-------------------------+--------------------+
-| tirs       | 10       | 10.6 -- 11.19       | thermal infrared 1      | 100                |
-+------------+----------+---------------------+-------------------------+--------------------+
-|            | 11       | 11.5 -- 12.51       | thermal infrared 2      | 100                |
-+------------+----------+---------------------+-------------------------+--------------------+
-
-For information about the band designations for the other Landsat sensors, see this page from the USGS:
-https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites
+    print('2020 SR Image Date: ', ee.Date(sr_img.get('SENSING_TIME')), sr_image);
+    print('2020 TOA Image Date: ', ee.Date(toa_img.get('DATE_ACQUIRED')), toa_image);
 
 The final part of this first section is where we add the images to the map:
 
@@ -191,14 +200,16 @@ The final part of this first section is where we add the images to the map:
       min: 0.005, max: 0.4, gamma: 1.5}, 'TOA Image');
 
     // add SR image after rescaling DN values
-    Map.addLayer(landsatRescale(sr_image), {bands: ['SR_B4', 'SR_B3', 'SR_B2'], 
+    Map.addLayer(tools.oliRescale(sr_img), {bands: ['SR_B4', 'SR_B3', 'SR_B2'],
       min: 0.005, max: 0.4, gamma: 1.5}, 'SR Image');
 
     // center the image on Mt St Helens with a zoom level of 12
     Map.setCenter(-122.1886, 46.1998, 12);
 
-We want them to be true-colour composites, so we display them with bands 4,3,2. and we'll apply a gamma adjustment to
-help brighten the image slightly. At this point, you can run the script, either by pressing **CTRL + Enter**, or by
+We want them to be true-colour composites, so we display them with bands 4,3,2. and we'll apply a *gamma adjustment* to
+help brighten the image slightly.
+
+At this point, you can *Run* the script, either by pressing **CTRL + Enter**, or by
 clicking **Run** at the top of the code editor panel. Once the script finishes running, you should see this:
 
 .. image:: ../../../img/egm702/week3/loaded_image.png
@@ -229,29 +240,70 @@ off the SR Image to see the TOA Image underneath.
 .. admonition:: Question
     :class: question
 
-    - What differences do you notice?
-    - Why do you think these layers look so different (or do they)?
+    Describe the difference in appearance that you notice between the two images. Which image appears more "blue"?
 
-Try adjusting the colours for the TOA or the SR Image – you can start with a 98% stretch by clicking the **Custom** button in the
-visualization parameters panel. Try different band combinations, too. For example, change the display bands to bands 7, 6, and
-5, and apply a 98% stretch to both images. Do you notice more, or less of a difference for this band combination? **Why do you
-think that might be?**
+Next, click on the **Inspector** tab, then click anywhere on the **Map** to get the pixel values for each image displayed
+on the map at that location:
 
-You can use the **Inspector** tab to look at different pixel or feature values for the layers in the map by clicking on the map. You
-can also try this with different years or time periods – just replace the dates in the filtering step (note the format of YYYY-MM-
-DD):
+.. image:: ../../../img/egm702/week3/inspector_list.png
+    :width: 600
+    :align: center
+    :alt: the gee window with the inspector tab active, showing a list of pixel values for a given location
 
-.. code-block:: javascript
+|br| By default, the **Inspector** tool displays the values in each band as a list, but you can toggle to view a bar
+chart by clicking chart icon outlined in red above:
 
-    // Find the least cloudy image from some year, and clip it to the boundary.
-    var sr_image = ee.Image((lc08)
-      .filterBounds(boundary)
-      .filterDate('YYYY-MM-DD', 'YYYY-MM-DD') // <- place your own dates here!
-      .select(['SR_B[1-7]'])
-      .sort('CLOUD_COVER')
-      .first());
+.. image:: ../../../img/egm702/week3/inspector_chart.png
+    :width: 600
+    :align: center
+    :alt: the gee window with the inspector tab active, showing a bar chart of pixel values for a given location
+
+|br| Click on a few different locations and note down the differences between the two images in each band (note
+that the TOA image will be displayed first, then the SR image).
+
+.. admonition:: Question
+    :class: question
+
+    - In what band(s) do you see the largest difference between the two image?
+    - Using what you have learned about atmospheric scattering, and the wavelengths of the different bands, explain any
+      difference(s) that you see between the TOA reflectance and the surface reflectance images.
+
+.. hint::
+
+    The sensor carried by Landsat 8 is the Operational Land Imager/Thermal InfraRed Sensor (OLI/TIRS). The table below
+    shows the wavelength ranges for the different bands of the sensor(s), their resolutions, and their names:
+
+    +------------+----------+---------------------+-------------------------+--------------------+
+    | **sensor** | **band** | **wavelength (µm)** | **name**                | **resolution (m)** |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    | oli        | 1        | 0.43 -- 0.45        | coastal aerosol         | 30                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 2        | 0.45 -- 0.51        | blue                    | 30                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 3        | 0.53 -- 0.59        | green                   | 30                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 4        | 0.64 -- 0.67        | red                     | 30                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 5        | 0.85 -- 0.88        | near infrared           | 30                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 6        | 1.57 -- 1.65        | shortwave infrared 1    | 30                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 7        | 2.11 -- 2.29        | shortwave infrared 2    | 30                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 8        | 0.50 -- 0.68        | panchromatic            | 15                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 9        | 1.36 -- 1.38        | cirrus                  | 30                 |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    | tirs       | 10       | 10.6 -- 11.19       | thermal infrared 1      | 100                |
+    +------------+----------+---------------------+-------------------------+--------------------+
+    |            | 11       | 11.5 -- 12.51       | thermal infrared 2      | 100                |
+    +------------+----------+---------------------+-------------------------+--------------------+
+
+    For information about the band designations for the other Landsat sensors, see this page from the USGS:
+    https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites
 
 Once you've looked around the area, move on to the next step.
+
 
 step 2. add a dem, print statistics
 -----------------------------------
@@ -428,150 +480,21 @@ to describe the variation in the data? **Why or why not?**
 
 Again, post any thoughts/questions you have to the discussion board.
 
-step 4. search all of the images, make an animated gif
-------------------------------------------------------
-In the last part of the practical, we'll gather all of the cloud-free Landsat images over Mt St Helens, and make an animated gif
-showing the changes over time. Because we're using all of the different Landsat sensors (MSS, TM, ETM+, and OLI), we'll use a
-near-infrared false colour composite (near-infrared/red/green) for consistency.
 
-.. note::
-    As of 1 February 2022, Collection 2 MSS scenes are not available in GEE, so the following combines the Collection 1 MSS scenes
-    with the Collection 2 TM, ETM+, and OLI scenes.
 
-To be able to run the code in this section, uncomment the whole section (remove the ``/*`` from line 211 and the ``*/`` from line 301).
-We'll walk through what each block does in turn before running the code.
+step 3. pan-sharpening
+-----------------------
 
-The first lines in this section set the visualization parameters for the MSS scenes and the other sensors:
 
-.. code-block:: javascript
 
-    // set visualization parameters for the MSS scenes
-    var mssVisParams = {
-      bands: ['B6', 'B5', 'B4'], // select bands 6, 5, and 4
-      min: 10, // set the minimum display value for each band
-      max: 120, // set the maximum display value for each band
-      gamma: 1.5 // set the gamma adjustment to help brighten the images
-    };
+step 4. pca
+-------------
 
-    // set visualization parameters for all of the other sensors
-    var srVisParams = {
-      bands: ['SR_B4', 'SR_B3', 'SR_B2'], // select bands 4, 3, and 2
-      min: 7000, // set the minimum display value for each band
-      max: 20000, // set the maximum display value for each band
-      gamma: 1.25 // set the gamma adjustment to help brighten the images
-    };
 
-When we create the animated gif at the end of the script, this will tell the computer how to display each frame of the output gif. The
-next lines will select all cloud-free MSS scenes that have an acceptable geometric accuracy for our purposes (<25 m error) :
+next steps
+------------
 
-.. code-block:: javascript
 
-    var mss = ee.ImageCollection("LANDSAT/LM01/C01/T1")
-      .merge(ee.ImageCollection("LANDSAT/LM01/C01/T2"))
-      .merge(ee.ImageCollection("LANDSAT/LM02/C01/T1"))
-      .merge(ee.ImageCollection("LANDSAT/LM02/C01/T2"))
-      .merge(ee.ImageCollection("LANDSAT/LM03/C01/T1"))
-      .merge(ee.ImageCollection("LANDSAT/LM03/C01/T2"))
-      .filterMetadata('CLOUD_COVER', 'equals', 0) // select only cloud-free images
-      .filter(ee.Filter.or(
-        ee.Filter.eq('DATA_TYPE', 'L1TP'),
-        ee.Filter.eq('DATA_TYPE', 'L1GT'))) // only use L1TP and L1GT images
-      .filterMetadata('GEOMETRIC_RMSE_MODEL', 'less_than', 25) // remove any large distortions
-      .filterMetadata('WRS_ROW', 'equals', 28) // select only WRS row 28 images
-      .filterBounds(boundary).select(['B[4-6]']); // select bands 4, 5, and 6.
-
-The next block of lines will repeat this for Landsat 5 TM and Landsat 7 ETM+ scenes:
-
-.. code-block:: javascript
-
-    // get Landsat TM5 scenes
-    var lt05 = mosaicByDate(ee.ImageCollection("LANDSAT/LT05/C02/T1_L2")
-      .filterMetadata('CLOUD_COVER', 'equals', 0) // select only cloud-free images
-      .filter(ee.Filter.eq('WRS_PATH', 46)) // select only WRS path 46 images
-      .filter(ee.Filter.eq('WRS_ROW', 28)) // select only WRS row 28 images
-      .filterBounds(boundary) // make sure to only select images within our boundary
-      .select(['SR_B[2-4]']), // select bands 4, 3, 2
-    'LT05');
-
-    // get Landsat 7 ETM+ scenes
-    var le07 = mosaicByDate(ee.ImageCollection("LANDSAT/LE07/C02/T1_L2")
-      .filterMetadata('CLOUD_COVER', 'equals', 0) // select only cloud-free images
-      .filter(ee.Filter.eq('WRS_PATH', 46)) // select only WRS path 46 images
-      .filter(ee.Filter.eq('WRS_ROW', 28)) // select only WRS row 28 images
-      .filterBounds(boundary) // make sure to only select images within our boundary
-      .select(['SR_B[2-4]']), // select bands 4, 3, 2
-    'LE07'); 
-
-After that, we select only the cloud-free Landsat 8 images:
-
-.. code-block:: javascript
-
-    lc08.filterMetadata('CLOUD_COVER', 'equals', 0);
-
-Once we have lists for each of these sensors, we'll merge the results and sort them:
-
-.. code-block:: javascript
-
-    // sort the MSS scenes by acquisition time.
-    var mssSorted = mss.sort('system:time_start');
-
-    // merge and sort the other Landsat scenes.
-    var landsatSorted = lt05
-      .merge(le07)
-      .merge(mosaicByDate(lc08.select(['SR_B3', 'SR_B4', 'SR_B5'], 
-                                      ['SR_B2', 'SR_B3', 'SR_B4']), // rename bands to match older sensors
-                          'LC08'))
-      .sort('system:time_start');
-
-After we have the images sorted, we can create the visualization images and merge the two collections into one:
-
-.. code-block:: javascript
-
-    // make RGB images to display for each of the MSS scenes
-    var mssVis = mssSorted.map(function(img){
-      return img.visualize(mssVisParams).clip(boundary);
-    });
-
-    // make RGB images to display for each of the other sensors
-    var landsatVis = landsatSorted.map(function(img){
-      return img.visualize(srVisParams).clip(gifBoundary);
-    });
-
-    // now, merge the MSS and other sensors.
-    var visAll = mssVis.merge(landsatVis);
-
-Finally, we'll set the parameters for the animated gif and create a link to trigger processing for the gif. This will make a gif that is
-scaled so that the longest dimension is 425 pixels. The images will be cropped to the gifBoundary polygon defined at the top of
-the script, and displayed using a pseudo-Mercator projection (EPSG:3857), which is the same one used by Google Maps.
-
-.. code-block:: javascript
-
-    var gifParams = {
-      'region': gifBoundary,
-      'dimensions': 425,
-      'crs': 'EPSG:3857',
-      'framesPerSecond': 3
-    };
-
-    // print a URL to start processing the gif.
-    print(visAll.getVideoThumbURL(gifParams));
-
-At this time, you can run the script one final time. In the **Console**, you should see a link at the bottom:
-
-.. image:: ../../../img/egm702/week3/console_link.png
-    :width: 400
-    :align: center
-    :alt: the link to the animated gif, printed to the console
-
-Click this link to create the gif. Once it finishes processing and loads the gif, you can download the gif by right-clicking the image
-and clicking **Save**. 
-
-Watch the gif – what changes do you see? You should notice a number of different things happen, including the
-initial 1980 eruption, subsequent eruptions, seasonal snow cover, and even the `SLC failure <https://www.usgs.gov/landsat-missions/landsat-7>`__
-of the Landsat 7 ETM+ sensor. 
-
-By the end of the gif, you should see that a great deal of vegetation has started to recover. 
-In next week's practical, we'll work on additional analyses using GEE, including change analysis and plotting time series of values.
 
 references
 ----------
