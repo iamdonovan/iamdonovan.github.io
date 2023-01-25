@@ -1,37 +1,78 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <title>introduction to google earth engine &mdash; iamdonovan  documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="change detection in earth engine" href="week4.html" />
     <link rel="prev" title="dem differencing" href="week2.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../../../index.html" class="icon icon-home"> iamdonovan
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -39,7 +80,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
@@ -56,11 +108,11 @@
 <li class="toctree-l5"><a class="reference internal" href="week2.html">dem differencing</a></li>
 <li class="toctree-l5 current"><a class="current reference internal" href="#">introduction to google earth engine</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#getting-started">getting started</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#running-the-script">running the script</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#step-1-finding-the-best-image-in-a-given-year">step 1. finding the best image in a given year</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#step-2-add-a-dem-print-statistics">step 2. add a dem, print statistics</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#step-3-band-maths-and-charts">step 3. band maths and charts</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#step-4-search-all-of-the-images-make-an-animated-gif">step 4. search all of the images, make an animated gif</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#part-1-finding-and-inspecting-images">part 1 - finding and inspecting images</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#part-2-band-maths-and-charts">part 2 - band maths and charts</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#part-3-pan-sharpening">part 3 - pan-sharpening</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#part-4-pca">part 4 - pca</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#references">references</a></li>
 </ul>
 </li>
@@ -82,142 +134,298 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">iamdonovan</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
+    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
           <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
+        
           <li><a href="../index.html">EGM702: photogrammetry and advanced image analysis</a> &raquo;</li>
+        
           <li><a href="index.html">practicals</a> &raquo;</li>
+        
       <li>introduction to google earth engine</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+          
             <a href="../../../_sources/teaching/egm702/practicals/week3.rst.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
-  <section id="introduction-to-google-earth-engine">
-<h1>introduction to google earth engine<a class="headerlink" href="#introduction-to-google-earth-engine" title="Permalink to this headline"></a></h1>
-<style> .green {color:green} </style><p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if you have no prior experience with programming, you will be able to complete this practical. All of the programming steps have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.</p>
-<p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id3" id="id1">1</a>). With it, users have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification, and computational power above what an average desktop user has access to.</p>
-<section id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
-<p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using your GEE account. You should see something like this:</p>
+            
+  <div class="section" id="introduction-to-google-earth-engine">
+<h1>introduction to google earth engine<a class="headerlink" href="#introduction-to-google-earth-engine" title="Permalink to this heading">¶</a></h1>
+<style> .green {color:green} </style><p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if
+you have no prior experience with programming, you will be able to complete this practical. All of the programming steps
+have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.</p>
+<p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id3" id="id1">1</a>). With it, users
+have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification,
+and computational power above what an average desktop user has access to.</p>
+<div class="section" id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
+<p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using
+your GEE account. You should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/annotated_window1.png"><img alt="the GEE console with annotations" class="align-center" src="../../../_images/annotated_window1.png" style="width: 600px;" /></a>
-<p>Now, to import the intro script, follow <a class="reference external" href="https://code.earthengine.google.com/eb944bc713d31986b7d4b6bfce06fe76?noload=true">this link</a>. It should open the following:</p>
-<a class="reference internal image-reference" href="../../../_images/loaded_script.png"><img alt="the gee window after loading the script" class="align-center" src="../../../_images/loaded_script.png" style="width: 600px;" /></a>
-<p>Click the red NEW button in the Script manager, and select <strong>Repository</strong>. Call the repository <code class="docutils literal notranslate"><span class="pre">egm702</span></code>, and then click <strong>Create</strong>. Next, in the code editor, type your name after “Practical 3” – this will enable you to save the script to your new repository. Call it <code class="docutils literal notranslate"><span class="pre">practical3</span></code>, and click <strong>OK</strong> to save the script to the new repository.</p>
+<p><br /> Click the red <strong>NEW</strong> button in the <strong>Script manager</strong>, and select <strong>Repository</strong>. Call the repository <code class="docutils literal notranslate"><span class="pre">egm702</span></code>,
+and then click <strong>Create</strong>.</p>
+<p>To gain access to the EGM702 repository, click this link: <a class="reference external" href="https://code.earthengine.google.com/?accept_repo=users/robertmcnabb/egm702">https://code.earthengine.google.com/?accept_repo=users/robertmcnabb/egm702</a></p>
+<p>This will give you access to all of the scripts in the repository for each remaining week of the module, including some
+additional examples of applications that might be useful for your project.</p>
+<p>The practical exercises each week are divided into a number of different scripts, labeled in order. For week 3, the
+scripts are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">01_finding_images.js</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">02_band_maths.js</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">03_pan_sharpening.js</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">04_pca.js</span></code></p></li>
+</ul>
+<p>To get started, open the first script (<code class="docutils literal notranslate"><span class="pre">01_finding_images.js</span></code>) by clicking on it in the <strong>Script editor</strong>;
+alternatively, click on this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek3%2F01_finding_images.js">direct link</a>.</p>
+<p>You (and anyone with the link above) are automatically added to this repository as a <em>Reader</em>; that is, you have
+permission to see all of the scripts in the repository, and to run them. If you want to make changes to each script
+and save them, you will need to save the script to your own account (as an <em>Owner</em>).</p>
+<p>To do this, you first need to make a change to the script in the <strong>Editor</strong> panel. The easiest way to do this would be
+to replace “YOUR NAME HERE!” on line 1 with your name.</p>
+<p>When you do this, you should see that the <strong>Save</strong> button activates. Click the <strong>Save</strong> button, then click <strong>Yes</strong> to
+make a copy of the script to your own repository.</p>
+<p>You should see the following dialogue:</p>
 <a class="reference internal image-reference" href="../../../_images/save_script.png"><img alt="the save script dialogue" class="align-center" src="../../../_images/save_script.png" style="width: 300px;" /></a>
-</section>
-<section id="running-the-script">
-<h2>running the script<a class="headerlink" href="#running-the-script" title="Permalink to this headline"></a></h2>
-<p>Once you have saved the script, you should see the following in the code editor:</p>
+<p><br /> Save the script to your <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository as <code class="docutils literal notranslate"><span class="pre">week3/01_finding_images.js</span></code> - you should see a <code class="docutils literal notranslate"><span class="pre">week3</span></code> folder
+appear under this repository in the <strong>Script manager</strong>.</p>
+<p>As you work through the other scripts this week, be sure to save them to your own repository in this way (remembering
+to update the script names appropriately). This way, you have a record of any changes that you make to the script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Perhaps most importantly, it will mean that when you add training samples for the classification exercises in
+Week 5, you don’t have to re-do them each time you re-open your browser window.</p>
+</div>
+</div>
+<div class="section" id="part-1-finding-and-inspecting-images">
+<h2>part 1 - finding and inspecting images<a class="headerlink" href="#part-1-finding-and-inspecting-images" title="Permalink to this heading">¶</a></h2>
+<p>Once you have saved the script, you should see something like the following in the code editor:</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_saved_script.png"><img alt="the gee window after loading and saving the script" class="align-center" src="../../../_images/loaded_saved_script.png" style="width: 600px;" /></a>
-<p>At the very top of the script, you should see two <strong>imports</strong>: <code class="docutils literal notranslate"><span class="pre">boundary</span></code>, a rectangle roughly corresponding to our study area, and
-<code class="docutils literal notranslate"><span class="pre">gifBoundary</span></code>, a rectangle roughly corresponding to the area impacted by the 1980 eruptions of Mt St Helens.
-You should also notice that the script begins with a large block of comments (beginning and ending with <code class="docutils literal notranslate"><span class="pre">/*</span></code> and <code class="docutils literal notranslate"><span class="pre">*/</span></code>):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/* EGM702 Practical 3.</span>
+<p><br /> You should also notice that the script begins with a large block of comments (beginning and ending with
+<code class="docutils literal notranslate"><span class="pre">/*</span></code> and <code class="docutils literal notranslate"><span class="pre">*/</span></code>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/* EGM702 Practical 3, Part 1: Finding Images \\ YOUR NAME HERE!</span>
 <span class="cm">-----------------------------------------------------------------------------------------------------</span>
 
 <span class="cm">Introduction</span>
 
 <span class="cm">This script is intended to give you some experience working with Google Earth Engine,</span>
-<span class="cm">even if you have never done any computer programming before.</span>
-<span class="cm">You&#39;ll notice that all of the lines of this script, except the first step and the</span>
-<span class="cm">function definitions, are commented out - each line starts with a comment symbol, &#39;//&#39;.</span>
-<span class="cm">To run a command, you&#39;ll need to remove the comment symbol from the beginning of the line.</span>
+<span class="cm">even if you have never done any computer programming before. In this script, you will</span>
+<span class="cm">learn:</span>
+
+<span class="cm">  1. The basic layout of the Earth Engine interface;</span>
+<span class="cm">  2. How to search for images and add them to the Map;</span>
+<span class="cm">  3. How to adjust visualization parameters using the Layers menu;</span>
+<span class="cm">  4. How to find pixel or feature values using the Inspector tool;</span>
 
 <span class="cm">-----------------------------------------------------------------------------------------------------</span>
 <span class="cm">*/</span>
 </pre></div>
 </div>
-<p>In Javascript (the programming language used in the code editor interface), comments (that is, statements that the computer
-won’t process) are denoted by <code class="docutils literal notranslate"><span class="pre">//</span></code> (two forward slashes) if they are a single line comment. Multi-line, or block, comments, start
-with <code class="docutils literal notranslate"><span class="pre">/*</span></code> and end with <code class="docutils literal notranslate"><span class="pre">*/</span></code> – anything in between these symbols will not be interpreted by the computer when the script is run.
-In the GEE code editor, comments are coloured <span class="green">green</span>.</p>
-<p>If you scroll down through the script, you should see a number of function definitions. Don’t worry too much about these right
-now – they’re there to help make the code a bit easier to read/understand, and help to avoid re-writing the same lines of code
-over and over again.</p>
-</section>
-<section id="step-1-finding-the-best-image-in-a-given-year">
-<h2>step 1. finding the best image in a given year<a class="headerlink" href="#step-1-finding-the-best-image-in-a-given-year" title="Permalink to this headline"></a></h2>
-<p>The first lines to pay attention to look like this, beginning at line 83:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// -----------------------------------------------------------------------------------------------------</span>
-<span class="c1">// Step 1. Finding the best image in a given year.</span>
-
-<span class="c1">// Load Landsat 8 images</span>
+<p>In Javascript (the programming language used in the code editor interface), comments (that is, statements that the
+computer won’t process) are denoted by <code class="docutils literal notranslate"><span class="pre">//</span></code> (two forward slashes) if they are a single line comment. Multi-line, or
+block, comments, start with <code class="docutils literal notranslate"><span class="pre">/*</span></code> and end with <code class="docutils literal notranslate"><span class="pre">*/</span></code> – anything in between these symbols will not be interpreted by
+the computer when the script is run. In the GEE code editor, comments are coloured <span class="green">green</span>.</p>
+<p>The first line with actual code to pay attention to is on line 17:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">tools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;users/robertmcnabb/egm702:libraries/tools.js&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This line will <em>import</em> all of the functions and tools contained in the <code class="docutils literal notranslate"><span class="pre">egm702/libraries/tools.js</span></code> script, which
+we will use in most of the remaining exercises.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This setup, where we have different “modules” that we “import” to use in a script, is something that we will
+cover in more depth in EGM722 with python programming.</p>
+<p>If you are interested in developing your GEE skills further, you can have a look at this
+<a class="reference external" href="https://medium.com/google-earth/making-it-easier-to-reuse-code-with-earth-engine-script-modules-2e93f49abb13">post</a>
+by a GEE developer, which shows how you can set up your own “module”.</p>
+</div>
+<p>The next set of lines does the following:</p>
+<ul class="simple">
+<li><p>searches through the entire Landsat 8 Collection 2 Surface Reflectance archive,</p></li>
+<li><p>removes any images with &gt;20% cloud cover,</p></li>
+<li><p>and returns only those images whose WRS-2 Path/Row matches our current study area around Mt St Helens.</p></li>
+</ul>
+<p>It will then store a list of these images in a variable called <code class="docutils literal notranslate"><span class="pre">lc08</span></code> that we can use later on in the script:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Load Landsat 8 images</span>
 <span class="c1">// returns all LC08 surface reflectance images with &lt; 20% cloud cover</span>
 <span class="c1">// from WRS path/row 46/28.</span>
-<span class="kd">var</span> <span class="nx">lc08</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LC08/C02/T1_L2&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;less_than&#39;</span><span class="p">,</span> <span class="mf">20</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span> <span class="mf">46</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">));</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">lc08</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LC08/C02/T1_L2&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// select Landsat 8 Collection 2 SR</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;less_than&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">20</span><span class="p">)</span><span class="w"> </span><span class="c1">// select cloud cover &lt; 20%</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">46</span><span class="p">))</span><span class="w"> </span><span class="c1">// select WRS Path 46</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">28</span><span class="p">));</span><span class="w"> </span><span class="c1">// select WRS Row 28</span>
 </pre></div>
 </div>
-<p>These lines of code will take the entire Landsat 8 Collection 2 Surface Reflectance archive, remove any images with &gt;20% cloud
-cover, and return only those images whose WRS-2 Path/Row matches our current study area around Mt St Helens. It will then store a list
-of these images in a variable called <code class="docutils literal notranslate"><span class="pre">lc08</span></code> that we can use later on in the script.</p>
 <p>For more information on the WRS-2, see this link: <a class="reference external" href="https://landsat.gsfc.nasa.gov/about/worldwide-reference-system">https://landsat.gsfc.nasa.gov/about/worldwide-reference-system</a>.</p>
 <p>For more information about Landsat Collection 2 images, see this link: <a class="reference external" href="https://www.usgs.gov/landsat-missions/landsat-collection-2">https://www.usgs.gov/landsat-missions/landsat-collection-2</a></p>
-<p>The next set of lines will do the same thing, but this time using the Landsat 8 Collection 2 Top of Atmosphere (TOA) reflectance
-archive:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that the purpose of these practicals is to focus more on image analysis and interpretation, and less on
+the nuts and bolts of programming in GEE.</p>
+<p>However, if you are interested in learning more about the coding side of things, you are welcome
+to check out the amazing new textbook, “Cloud-Based Remote Sensing with Google Earth Engine”, available
+for free online at <a class="reference external" href="https://www.eefabook.org/">https://www.eefabook.org/</a>.</p>
+</div>
+<p>The next set of lines will do the same thing as the first set, but this time using the Landsat 8 Collection 2 Top of
+Atmosphere (TOA) reflectance archive, rather than the Surface Reflectance products:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// returns all LC08 TOA reflectance images with &lt; 20% cloud cover</span>
 <span class="c1">// from WRS path/row 46/28.</span>
-<span class="kd">var</span> <span class="nx">lc08_toa</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LC08/C02/T1_TOA&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;less_than&#39;</span><span class="p">,</span> <span class="mf">20</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span> <span class="mf">46</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">));</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">lc08_toa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LC08/C02/T1_TOA&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// select Landsat 8 Collection 2 SR</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;less_than&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">20</span><span class="p">)</span><span class="w"> </span><span class="c1">// select cloud cover &lt; 20%</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">46</span><span class="p">))</span><span class="w"> </span><span class="c1">// select WRS Path 46</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">28</span><span class="p">));</span><span class="w"> </span><span class="c1">// select WRS Row 28</span>
 </pre></div>
 </div>
-<p>For a refresher on the difference between Surface Reflectance and TOA reflectance, see here: <a class="reference external" href="https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance">https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance</a></p>
-<p>The following set of lines will return the image from the surface reflectance collection that has the lowest cloud cover, selecting only images
-from 2020. It will also make sure to only select the coastal/visible/NIR/SWIR Landsat band layers (Bands 1-7).</p>
+<p>For a refresher on the difference between Surface Reflectance and TOA reflectance, see here:
+<a class="reference external" href="https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance">https://www.usgs.gov/landsat-missions/landsat-collection-2-surface-reflectance</a></p>
+<p>The following set of lines will return the image from the surface reflectance collection that has the lowest cloud cover,
+selecting only images from 2020. It will also make sure to only select the coastal/visible/NIR/SWIR Landsat band layers
+(Bands 1-7).</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Find the least cloudy image from 2020, and clip it to the boundary.</span>
-<span class="kd">var</span> <span class="nx">sr_image</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">((</span><span class="nx">lc08</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filterDate</span><span class="p">(</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-12-31&#39;</span><span class="p">)</span> <span class="c1">// select all images in 2020</span>
-  <span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B[1-7]&#39;</span><span class="p">])</span> <span class="c1">// select bands 1-7</span>
-  <span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">)</span> <span class="c1">// sort based on cloud cover (lowest - highest)</span>
-  <span class="p">.</span><span class="nx">first</span><span class="p">());</span> <span class="c1">// return the first image in the list - i.e., the lowest cloud cover</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">sr_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">((</span><span class="nx">lc08</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">filterDate</span><span class="p">(</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2020-12-31&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// select all images in 2020</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B[1-7]&#39;</span><span class="p">])</span><span class="w"> </span><span class="c1">// select bands 1-7</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// sort based on cloud cover (lowest - highest)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">first</span><span class="p">());</span><span class="w"> </span><span class="c1">// return the first image in the list - i.e., the lowest cloud cover</span>
+
+<span class="c1">// Do the same, but for the TOA collection</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">toa_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">((</span><span class="nx">lc08_toa</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">filterDate</span><span class="p">(</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2020-12-31&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// select all images in 2020</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;B[1-7]&#39;</span><span class="p">])</span><span class="w"> </span><span class="c1">// select bands 1-7</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// sort based on cloud cover (lowest - highest)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">first</span><span class="p">());</span><span class="w"> </span><span class="c1">// return the first image in the list - i.e., the lowest cloud cover</span>
 </pre></div>
 </div>
-<p>Now, we want to make sure that these images are the same image, just different processing levels (surface reflectance vs. TOA
-reflectance). To check this, we can print the image names to the <strong>Console</strong>:</p>
+<p>Now, we want to make sure that these images are the same image, just different processing levels (surface reflectance
+vs. TOA reflectance). To check this, we can print the image names to the <strong>Console</strong>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// print the image name/date</span>
-<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;2020 SR Image Date: &#39;</span><span class="p">,</span> <span class="nx">ee</span><span class="p">.</span><span class="nb">Date</span><span class="p">(</span><span class="nx">sr_image</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;SENSING_TIME&#39;</span><span class="p">)),</span> <span class="nx">sr_image</span><span class="p">);</span>
-<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;2020 TOA Image Date: &#39;</span><span class="p">,</span> <span class="nx">ee</span><span class="p">.</span><span class="nb">Date</span><span class="p">(</span><span class="nx">toa_image</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;DATE_ACQUIRED&#39;</span><span class="p">)),</span> <span class="nx">toa_image</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;2020 SR Image Date: &#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nb">Date</span><span class="p">(</span><span class="nx">sr_img</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;SENSING_TIME&#39;</span><span class="p">)),</span><span class="w"> </span><span class="nx">sr_image</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;2020 TOA Image Date: &#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nb">Date</span><span class="p">(</span><span class="nx">toa_img</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;DATE_ACQUIRED&#39;</span><span class="p">)),</span><span class="w"> </span><span class="nx">toa_image</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The sensor carried by Landsat 8 is the Operational Land Imager/Thermal InfraRed Sensor (OLI/TIRS). The table below shows the
-wavelength ranges for the different bands of the sensor(s), their resolutions, and their names:</p>
+<p>The final part of this first section is where we add the images to the map:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the best images from each collection to the Map as a true-color composite</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">toa_image</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B2&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.005</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="nx">gamma</span><span class="o">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;TOA Image&#39;</span><span class="p">);</span>
+
+<span class="c1">// add SR image after rescaling DN values</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">tools</span><span class="p">.</span><span class="nx">oliRescale</span><span class="p">(</span><span class="nx">sr_img</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.005</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="nx">gamma</span><span class="o">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;SR Image&#39;</span><span class="p">);</span>
+
+<span class="c1">// center the image on Mt St Helens with a zoom level of 12</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">setCenter</span><span class="p">(</span><span class="o">-</span><span class="mf">122.1886</span><span class="p">,</span><span class="w"> </span><span class="mf">46.1998</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We want them to be true-colour composites, so we display them with OLI bands 4,3,2. and we apply a <em>gamma adjustment</em>
+to help brighten the image slightly.</p>
+<p>At this point, you can <em>run</em> the script, either by pressing <strong>CTRL + Enter</strong>, or by
+clicking <strong>Run</strong> at the top of the code editor panel. Once the script finishes running, you should see this:</p>
+<a class="reference internal image-reference" href="../../../_images/loaded_image.png"><img alt="the script after having added the image from step 1." class="align-center" src="../../../_images/loaded_image.png" style="width: 600px;" /></a>
+<p><br /> When you mouse over the <strong>Layers</strong> button in the upper right of the <strong>Map</strong> panel, you should see the two layer
+names (TOA Image and SR Image). If you click on the gear icon, you can open the visualization parameters for each image
+and adjust them. You can also adjust the transparency slider for the different layers displayed here, and by
+checking/unchecking the box next to the layer name, you can make either image visible/invisible.</p>
+<a class="reference internal image-reference" href="../../../_images/layer_parameters1.png"><img alt="the layer visualization settings" class="align-center" src="../../../_images/layer_parameters1.png" style="width: 400px;" /></a>
+<p><br /> In the <strong>Console</strong> panel, you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/console1.png"><img alt="the output to the console after running Step 1." class="align-center" src="../../../_images/console1.png" style="width: 400px;" /></a>
+<p><br /> This shows that the 2 images are the same image, just different processing levels (<strong>T1_SR</strong> vs <strong>T1_TOA</strong>).
+Now, in the <strong>Map</strong> panel, turn off the SR Image to see the TOA Image underneath.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Describe the difference in appearance that you notice between the two images. Which image appears more “blue”?</p>
+</div>
+<p>Next, click on the <strong>Inspector</strong> tab, then click anywhere on the <strong>Map</strong> to get the pixel values for each image displayed
+on the map at that location:</p>
+<a class="reference internal image-reference" href="../../../_images/inspector_list.png"><img alt="the gee window with the inspector tab active, showing a list of pixel values for a given location" class="align-center" src="../../../_images/inspector_list.png" style="width: 600px;" /></a>
+<p><br /> By default, the <strong>Inspector</strong> tool displays the values in each band as a list, but you can toggle to view a bar
+chart by clicking the chart icon (red outline above):</p>
+<a class="reference internal image-reference" href="../../../_images/inspector_chart.png"><img alt="the gee window with the inspector tab active, showing a bar chart of pixel values for a given location" class="align-center" src="../../../_images/inspector_chart.png" style="width: 600px;" /></a>
+<p><br /> Click on a few different locations and note down the differences between the two images in each band (note
+that the TOA image will be displayed first, then the SR image).</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<ul class="simple">
+<li><p>In what band(s) do you see the largest difference between the two image?</p></li>
+<li><p>Using what you have learned about atmospheric scattering, and the wavelengths of the different bands, explain any
+difference(s) that you see between the TOA reflectance and the surface reflectance images.</p></li>
+</ul>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The sensor carried by Landsat 8 (and now Landsat 9) is the Operational Land Imager/Thermal InfraRed Sensor
+(OLI/TIRS). The table below shows the wavelength ranges for the different bands of the sensor(s), their resolutions,
+and their names:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 11%" />
-<col style="width: 24%" />
-<col style="width: 28%" />
-<col style="width: 23%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>sensor</strong></p></td>
-<td><p><strong>band</strong></p></td>
-<td><p><strong>wavelength (µm)</strong></p></td>
-<td><p><strong>name</strong></p></td>
-<td><p><strong>resolution (m)</strong></p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>sensor</p></th>
+<th class="head"><p>band</p></th>
+<th class="head"><p>wavelength (µm)</p></th>
+<th class="head"><p>name</p></th>
+<th class="head"><p>resolution (m)</p></th>
 </tr>
+</thead>
+<tbody>
 <tr class="row-even"><td><p>oli</p></td>
 <td><p>1</p></td>
 <td><p>0.43 – 0.45</p></td>
@@ -274,357 +482,437 @@ wavelength ranges for the different bands of the sensor(s), their resolutions, a
 </tr>
 <tr class="row-odd"><td><p>tirs</p></td>
 <td><p>10</p></td>
-<td><p>10.6 – 11.19</p></td>
+<td><p>10.60 – 11.19</p></td>
 <td><p>thermal infrared 1</p></td>
 <td><p>100</p></td>
 </tr>
 <tr class="row-even"><td></td>
 <td><p>11</p></td>
-<td><p>11.5 – 12.51</p></td>
+<td><p>11.50 – 12.51</p></td>
 <td><p>thermal infrared 2</p></td>
 <td><p>100</p></td>
 </tr>
 </tbody>
 </table>
-<p>For information about the band designations for the other Landsat sensors, see this page from the USGS: <a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites</a></p>
-<p>The final part of this first section is where we add the images to the map:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the best images from each collection to the Map as a true-color composite</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">toa_image</span><span class="p">,</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span> <span class="s1">&#39;B3&#39;</span><span class="p">,</span> <span class="s1">&#39;B2&#39;</span><span class="p">],</span>
-  <span class="nx">min</span><span class="o">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span> <span class="s1">&#39;TOA Image&#39;</span><span class="p">);</span>
-
-<span class="c1">// add SR image after rescaling DN values</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">landsatRescale</span><span class="p">(</span><span class="nx">sr_image</span><span class="p">),</span> <span class="p">{</span><span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span>
-  <span class="nx">min</span><span class="o">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="nx">max</span><span class="o">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">},</span> <span class="s1">&#39;SR Image&#39;</span><span class="p">);</span>
-
-<span class="c1">// center the image on Mt St Helens with a zoom level of 12</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">setCenter</span><span class="p">(</span><span class="o">-</span><span class="mf">122.1886</span><span class="p">,</span> <span class="mf">46.1998</span><span class="p">,</span> <span class="mf">12</span><span class="p">);</span>
-</pre></div>
+<p>For information about the band designations for the other Landsat sensors, see this page from the USGS:
+<a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites</a></p>
 </div>
-<p>We want them to be true-colour composites, so we display them with bands 4,3,2. and we’ll apply a gamma adjustment to help brighten the image slightly.
-At this point, you can run the script, either by pressing <strong>CTRL + Enter</strong>, or by clicking <strong>Run</strong> at the top of the code editor panel. Once
-the script finishes running, you should see this:</p>
-<a class="reference internal image-reference" href="../../../_images/loaded_image.png"><img alt="the script after having added the image from step 1." class="align-center" src="../../../_images/loaded_image.png" style="width: 600px;" /></a>
-<p>When you mouse over the <strong>Layers</strong> button in the upper right of the <strong>Map</strong> panel, you should see the two layer names (TOA Image
-and SR Image). If you click on the gear icon, you can open the visualization parameters for each image and adjust them. You can
-also adjust the transparency slider for the different layers displayed here, and by checking/unchecking the box next to the layer
-name, you can make either image visible/invisible.</p>
-<a class="reference internal image-reference" href="../../../_images/layer_parameters1.png"><img alt="the layer visualization settings" class="align-center" src="../../../_images/layer_parameters1.png" style="width: 400px;" /></a>
-<p>In the <strong>Console</strong> panel, you should see the following:</p>
-<a class="reference internal image-reference" href="../../../_images/console1.png"><img alt="the output to the console after running Step 1." class="align-center" src="../../../_images/console1.png" style="width: 400px;" /></a>
-<p>This shows that the 2 images are the same image, just different processing levels. Now, in the <strong>Map</strong> panel, turn off the SR Image
-to see the TOA Image underneath.</p>
-<ul class="simple">
-<li><p>What differences do you notice?</p></li>
-<li><p>Why do you think these layers look so different (or do they)?</p></li>
-</ul>
-<p>Try adjusting the colours for the TOA or the SR Image – you can start with a 98% stretch by clicking the <strong>Custom</strong> button in the
-visualization parameters panel. Try different band combinations, too. For example, change the display bands to bands 7, 6, and
-5, and apply a 98% stretch to both images. Do you notice more, or less of a difference for this band combination? <strong>Why do you
-think that might be?</strong></p>
-<p>You can use the <strong>Inspector</strong> tab to look at different pixel or feature values for the layers in the map by clicking on the map. You
-can also try this with different years or time periods – just replace the dates in the filtering step (note the format of YYYY-MM-
-DD):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Find the least cloudy image from some year, and clip it to the boundary.</span>
-<span class="kd">var</span> <span class="nx">sr_image</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">((</span><span class="nx">lc08</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filterDate</span><span class="p">(</span><span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="p">,</span> <span class="s1">&#39;YYYY-MM-DD&#39;</span><span class="p">)</span> <span class="c1">// &lt;- place your own dates here!</span>
-  <span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B[1-7]&#39;</span><span class="p">])</span>
-  <span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">first</span><span class="p">());</span>
-</pre></div>
+<p>Once you’ve looked around the area, move on to the next script.</p>
 </div>
-<p>Once you’ve looked around the area, move on to the next step.</p>
-</section>
-<section id="step-2-add-a-dem-print-statistics">
-<h2>step 2. add a dem, print statistics<a class="headerlink" href="#step-2-add-a-dem-print-statistics" title="Permalink to this headline"></a></h2>
-<p>Now that we’ve seen a little of how we can search, add, and display Landsat images, let’s take a look at some of the different DEMs
-available within GEE. We’ll start by adding the NASADEM, ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM. For more
-information on the different DEMs that GEE has available, check the data catalog here:
-<a class="reference external" href="https://developers.google.com/earth-engine/datasets/tags/elevation">https://developers.google.com/earth-engine/datasets/tags/elevation</a>.</p>
-<p>Uncomment the next block of lines (delete the <code class="docutils literal notranslate"><span class="pre">/*</span></code> at line 143 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> at line 163) to add these DEMs to the code editor.
-You should see the following from lines 129–144:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// step 2. add a DEM, print statistics</span>
-
-<span class="c1">// add the AW3D30 (ALOS World DEM 30 m)</span>
-<span class="kd">var</span> <span class="nx">alos_dsm</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;JAXA/ALOS/AW3D30/V2_2&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;AVE_DSM&#39;</span><span class="p">);</span>
+<div class="section" id="part-2-band-maths-and-charts">
+<h2>part 2 - band maths and charts<a class="headerlink" href="#part-2-band-maths-and-charts" title="Permalink to this heading">¶</a></h2>
+<p>Now that we’ve seen a little of how we can search, add, display, and examine images, let’s take a look at some of the
+different DEMs available within GEE.</p>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">02_band_maths.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek3%2F02_band_maths.js">direct link</a>.</p>
+<p>We’ll start by adding the NASADEM, ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the AW3D30 (ALOS World DEM 30 m)</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">alos_dsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;JAXA/ALOS/AW3D30/V2_2&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span><span class="w"> </span><span class="c1">// clip to the area around mt st helens</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;AVE_DSM&#39;</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1">// select the AVE_DSM band, rename it to elevation</span>
 
 <span class="c1">// add the NASADEM</span>
-<span class="kd">var</span> <span class="nx">nasadem</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;NASA/NASADEM_HGT/001&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">nasadem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;NASA/NASADEM_HGT/001&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span><span class="w"> </span><span class="c1">// clip to the area around mt st helens</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1">// select the elevation band</span>
 
 <span class="c1">// add the SRTM</span>
-<span class="kd">var</span> <span class="nx">srtm</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;USGS/SRTMGL1_003&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">srtm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;USGS/SRTMGL1_003&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span><span class="w"> </span><span class="c1">// clip to the area around mt st helens</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// select the elevation band</span>
 </pre></div>
 </div>
-<p>Note that the NASADEM and the SRTM both have a layer called <code class="docutils literal notranslate"><span class="pre">'elevation'</span></code>, while the AW3D30 has a layer called <code class="docutils literal notranslate"><span class="pre">'AVE_DSM'</span></code> –
-when working with other datasets, it’s a good idea to check what the layer names are in the data catalog. To visualize the different layers, we can
-produce a hillshade using the <code class="docutils literal notranslate"><span class="pre">ee.Terrain.hillshade()</span></code> function:</p>
+<p>Note that the NASADEM and the SRTM both have a layer called <code class="docutils literal notranslate"><span class="pre">'elevation'</span></code>, while the AW3D30 has a layer called
+<code class="docutils literal notranslate"><span class="pre">'AVE_DSM'</span></code> – when working with other datasets, it’s a good idea to check what the layer names are in the
+<a class="reference external" href="https://developers.google.com/earth-engine/datasets">data catalog</a>.</p>
+<p>For more information on the different DEMs that GEE has available, check the data catalog for “elevation”:
+<a class="reference external" href="https://developers.google.com/earth-engine/datasets/tags/elevation">https://developers.google.com/earth-engine/datasets/tags/elevation</a>.</p>
+<p>To visualize the different layers on the <strong>Map</strong>, we can produce a hillshade using <code class="docutils literal notranslate"><span class="pre">ee.Terrain.hillshade()</span></code>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add each DEM to the map as a hillshade with azimuth of 315 degrees</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Terrain</span><span class="p">.</span><span class="nx">hillshade</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">,</span> <span class="mf">315</span><span class="p">),</span> <span class="p">{},</span> <span class="s1">&#39;NASADEM Hillshade&#39;</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Terrain</span><span class="p">.</span><span class="nx">hillshade</span><span class="p">(</span><span class="nx">alos_dsm</span><span class="p">,</span> <span class="mf">315</span><span class="p">),</span> <span class="p">{},</span> <span class="s1">&#39;ALOS DSM Hillshade&#39;</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Terrain</span><span class="p">.</span><span class="nx">hillshade</span><span class="p">(</span><span class="nx">srtm</span><span class="p">,</span> <span class="mf">315</span><span class="p">),</span> <span class="p">{},</span> <span class="s1">&#39;SRTM Hillshade&#39;</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Terrain</span><span class="p">.</span><span class="nx">hillshade</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">,</span><span class="w"> </span><span class="mf">315</span><span class="p">),</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="s1">&#39;NASADEM Hillshade&#39;</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Terrain</span><span class="p">.</span><span class="nx">hillshade</span><span class="p">(</span><span class="nx">alos_dsm</span><span class="p">,</span><span class="w"> </span><span class="mf">315</span><span class="p">),</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="s1">&#39;ALOS DSM Hillshade&#39;</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Terrain</span><span class="p">.</span><span class="nx">hillshade</span><span class="p">(</span><span class="nx">srtm</span><span class="p">,</span><span class="w"> </span><span class="mf">315</span><span class="p">),</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="s1">&#39;SRTM Hillshade&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The second argument to the function sets the azimuth to use when calculating the hillshade – here, I’ve set them all to be 315
-degrees. If you run the code now, you should see this:</p>
+<p>If you check the <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-terrain-hillshade">documentation</a> for
+<code class="docutils literal notranslate"><span class="pre">ee.Terrain.hillshade()</span></code>, you can see that this function takes 3 <em>arguments</em> (inputs):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>argument</p></th>
+<th class="head"><p>type</p></th>
+<th class="head"><p>details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">input</span></code></p></td>
+<td><p>image</p></td>
+<td><p>an elevation image, in meters</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">azimuth</span></code> (<strong>optional</strong>)</p></td>
+<td><p>float, default: 270</p></td>
+<td><p>the illumination azimuth in degrees from north</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">elevation</span></code> (<strong>optional</strong>)</p></td>
+<td><p>float, default: 45</p></td>
+<td><p>the illumination elevation in degrees</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If you are curious about how to use a particular “built-in” function or <em>object</em> (such as <code class="docutils literal notranslate"><span class="pre">ee.Image</span></code> or
+<code class="docutils literal notranslate"><span class="pre">ee.ImageCollection</span></code>), it’s always a good idea to check the documentation.</p>
+</div>
+<p>The second argument (input) to the function sets the azimuth to use when calculating the hillshade – here, I’ve set
+them all to be 315 degrees (measured from north). I have left the default sun elevation angle to be 45 degrees,
+as measured from the horizon.</p>
+<p>When you run the script, you should see the following added to the map (after you turn off the <code class="docutils literal notranslate"><span class="pre">elevation</span> <span class="pre">difference</span></code>
+layer):</p>
 <a class="reference internal image-reference" href="../../../_images/hillshade.png"><img alt="the hillshade of the SRTM loaded in the map panel" class="align-center" src="../../../_images/hillshade.png" style="width: 600px;" /></a>
-<p>The top layer will be the last one added to the Map; in this case, it’s the SRTM hillshade. You can toggle between the different
-layers to see the differences – what do you notice about the different DEMs? Do they look the same, or are there significant
-differences? Some questions you might want to ponder:</p>
+<p><br /> The top layer will be the last one added to the Map; in this case, it’s the SRTM hillshade. Remember that if you’re
+not sure which layer you’re seeing, you can always check the <strong>Layers</strong> menu.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Toggle between the different layers to see the differences – what do you notice about the different DEMs? Do they
+look the same, or are there significant differences? In particular, think about the following questions:</p>
 <ul class="simple">
-<li><p>Which DEM do you think was produced from the highest-resolution sensor?</p></li>
-<li><p>What surface(s) are represented by the different DEMs? Are they DTMs or DSMs?</p></li>
+<li><p>Which DEM do you think was produced from the highest-resolution sensor? Why?</p></li>
+<li><p>What surface(s) are represented by the different DEMs? Are they DTMs or DSMs? How can you tell?</p></li>
 </ul>
-<p>Next, uncomment the following lines (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 164 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 174):</p>
+</div>
+<p>The next block of code uses <code class="docutils literal notranslate"><span class="pre">tools.imgStats</span></code> to calculate various descriptive statistics for the DEMs: the
+maximum/minimum, mean, median, and standard deviation.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// calculate statistics</span>
-<span class="kd">var</span> <span class="nx">alos_stats</span> <span class="o">=</span> <span class="nx">imgStats</span><span class="p">(</span><span class="nx">alos_dsm</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;AVE_DSM&#39;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">nasa_stats</span> <span class="o">=</span> <span class="nx">imgStats</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">srtm_stats</span> <span class="o">=</span> <span class="nx">imgStats</span><span class="p">(</span><span class="nx">srtm</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">alos_stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">imgStats</span><span class="p">(</span><span class="nx">alos_dsm</span><span class="p">,</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">nasa_stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">imgStats</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">,</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">srtm_stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">imgStats</span><span class="p">(</span><span class="nx">srtm</span><span class="p">,</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
+
+<span class="c1">// print the statistics to the console</span>
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;ALOS Stats:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">alos_stats</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;NASADEM Stats:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">nasa_stats</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;SRTM Stats:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">srtm_stats</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>This will call the <code class="docutils literal notranslate"><span class="pre">imgStats</span></code> function defined at the top of the script, and calculate the median, mean, standard deviation, and minimum and
-maximum elevation values in each of the different DEMs. Uncomment the next lines:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// print the statistics to the console</span>
-<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;ALOS Stats:&#39;</span><span class="p">,</span> <span class="nx">alos_stats</span><span class="p">);</span>
-<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;NASADEM Stats:&#39;</span><span class="p">,</span> <span class="nx">nasa_stats</span><span class="p">);</span>
-<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;SRTM Stats:&#39;</span><span class="p">,</span> <span class="nx">srtm_stats</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>This will print the stats to the <strong>Console</strong>. When you run the script now, you should see this in the <strong>Console</strong>:</p>
+<p>The second part of this prints the statistics to the <strong>Console</strong>. When you run the script, you should see this in
+the <strong>Console</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/console2.png"><img alt="the console panel after running step 2 of the script." class="align-center" src="../../../_images/console2.png" style="width: 400px;" /></a>
-<p>You can click the arrow next to each <strong>Object</strong> to expand it and see the results:</p>
+<p><br /> To see the stats for each DEM, click the arrow next to each <strong>Object</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/printed_stats.png"><img alt="the stats printed to the console panel" class="align-center" src="../../../_images/printed_stats.png" style="width: 400px;" /></a>
-<p>Expand the stats for each of the DEMs by clicking on the arrows. What do you notice about them – are there differences? Why do you think this might be?</p>
-<p>Finally, uncomment the last block of code in this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 176 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 184) to export the SRTM image:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Export</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">toDrive</span><span class="p">({</span><span class="nx">image</span><span class="o">:</span> <span class="nx">srtm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;elevation&#39;</span><span class="p">),</span>
-  <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;MtStHelens_SRTM&#39;</span><span class="p">,</span>
-  <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
-  <span class="nx">region</span><span class="o">:</span> <span class="nx">boundary</span><span class="p">,</span>
-  <span class="nx">crs</span><span class="o">:</span> <span class="s1">&#39;epsg:32610&#39;</span><span class="p">,</span>
-  <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e12</span>
-<span class="p">});</span>
-</pre></div>
+<p><br /></p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Expand the stats for each of the DEMs by clicking on the arrows. What do you notice about them – which statistics
+show the largest differences? Why do you think this might be?</p>
 </div>
-<p>This will create a task to the SRTM elevation at 30 m resolution to a raster called <strong>MtStHelens_SRTM.tif</strong>, using a CRS with
-[EPSG](<a class="reference external" href="https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset">https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset</a>) code 32610 (corresponding to WGS84 UTM Zone 10N).
-You should notice that the <strong>Tasks</strong> tab is highlighted:</p>
-<a class="reference internal image-reference" href="../../../_images/tasks.png"><img alt="the console showing the tasks tab highlighted" class="align-center" src="../../../_images/tasks.png" style="width: 400px;" /></a>
-<p>When you click on it, you should see this:</p>
-<a class="reference internal image-reference" href="../../../_images/new_task.png"><img alt="the tasks tab" class="align-center" src="../../../_images/new_task.png" style="width: 400px;" /></a>
-<p>Click <strong>RUN</strong> to export the file to your Google Drive. In the window that opens up, you can choose a different folder, resolution, or
-place to export it. In general, running the task might take some time, depending on the size of the image. You can click the
-‘Refresh’ button to check the status to see if it’s finished running.</p>
-</section>
-<section id="step-3-band-maths-and-charts">
-<h2>step 3. band maths and charts<a class="headerlink" href="#step-3-band-maths-and-charts" title="Permalink to this headline"></a></h2>
-<p>In addition to displaying images and calculating statistics, we can also perform different calculations with images, such as
-differencing them or calculating ratios. The first line in this section will subtract the NASADEM from the SRTM, and cast the
-output as a floating point (decimal) value:</p>
+<p>In addition to displaying images and calculating statistics, we can also perform different calculations with images,
+such as differencing them or calculating ratios. The first line in this section will subtract the NASADEM from the SRTM,
+using <code class="docutils literal notranslate"><span class="pre">ee.Image.subtract()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-subtract">documentation</a>):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// subtract the NASADEM from the SRTM, and cast the output as a floating point (decimal)</span>
-<span class="kd">var</span> <span class="nx">nasa_srtm</span> <span class="o">=</span> <span class="nx">srtm</span><span class="p">.</span><span class="kr">float</span><span class="p">().</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">nasa_srtm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">srtm</span><span class="p">.</span><span class="kr">float</span><span class="p">().</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">nasadem</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>To visualize this, we can create a chart of the differences directly within GEE. There are a number of different options; for a DEM
-difference, a histogram seems like the appropriate choice:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">hist</span> <span class="o">=</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">histogram</span><span class="p">({</span><span class="nx">image</span><span class="o">:</span> <span class="nx">nasa_srtm</span><span class="p">,</span>
-  <span class="nx">region</span><span class="o">:</span> <span class="nx">boundary</span><span class="p">,</span>
-  <span class="nx">scale</span><span class="o">:</span> <span class="mf">30</span><span class="p">,</span>
-  <span class="nx">maxBuckets</span><span class="o">:</span> <span class="mf">256</span><span class="p">,</span>
-  <span class="nx">maxPixels</span><span class="o">:</span> <span class="mf">1e9</span><span class="p">})</span>
-  <span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Difference between SRTM and NASADEM elevation&#39;</span><span class="p">,</span>
-    <span class="nx">hAxis</span><span class="o">:</span> <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;elevation difference (m)&#39;</span><span class="p">,</span> <span class="nx">titleTextStyle</span><span class="o">:</span> <span class="p">{</span><span class="nx">italic</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">bold</span><span class="o">:</span> <span class="kc">true</span><span class="p">}},</span>
-    <span class="nx">vAxis</span><span class="o">:</span> <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;number of pixels&#39;</span><span class="p">,</span> <span class="nx">titleTextStyle</span><span class="o">:</span> <span class="p">{</span><span class="nx">italic</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">bold</span><span class="o">:</span> <span class="kc">true</span><span class="p">}}</span>
-  <span class="p">});</span>
-</pre></div>
-</div>
-<p>This will calculate a histogram of the elevation differences with up to 256 bins. Finally, we can print the chart to the <strong>Console</strong>,
-calculate statistics of the differences between the DEMs, and run the <code class="docutils literal notranslate"><span class="pre">nmad()</span></code> function defined earlier. Uncomment the last few
-lines in this section (remove the <code class="docutils literal notranslate"><span class="pre">//</span></code> from the beginning of lines 205–207), then run the code:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">print</span><span class="p">(</span><span class="nx">hist</span><span class="p">);</span>
-<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;dH statistics: &#39;</span><span class="p">,</span> <span class="nx">imgStats</span><span class="p">(</span><span class="nx">nasa_srtm</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;elevation&#39;</span><span class="p">));</span>
-<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;NMAD: &#39;</span><span class="p">,</span> <span class="nx">nmad</span><span class="p">(</span><span class="nx">nasa_srtm</span><span class="p">,</span> <span class="nx">boundary</span><span class="p">,</span> <span class="s1">&#39;elevation&#39;</span><span class="p">));</span>
-</pre></div>
-</div>
-<p>You should see the following in the <strong>Console</strong>:</p>
-<a class="reference internal image-reference" href="../../../_images/histogram1.png"><img alt="the histogram showing the differences between the NASADEM and the SRTM DEM." class="align-center" src="../../../_images/histogram1.png" style="width: 600px;" /></a>
-<p>If you click the symbol in the upper right corner of the histogram, it will open in a new browser window. On this page, you can
-also download a csv file with the values in the plot, or a Scalable Vector Graphics (SVG) or PNG version of the chart.</p>
-<p>Look at the statistics of the DEM differences – what do you notice about the differences? Based on the shape of the histogram that you see,
-the lecture from Week 2, and Höhle and Höhle (2009)<a class="footnote-reference brackets" href="#id4" id="id2">2</a>, is the standard deviation an appropriate metric
-to describe the variation in the data? <strong>Why or why not?</strong></p>
-<p>Again, post any thoughts/questions you have to the discussion board.</p>
-</section>
-<section id="step-4-search-all-of-the-images-make-an-animated-gif">
-<h2>step 4. search all of the images, make an animated gif<a class="headerlink" href="#step-4-search-all-of-the-images-make-an-animated-gif" title="Permalink to this headline"></a></h2>
-<p>In the last part of the practical, we’ll gather all of the cloud-free Landsat images over Mt St Helens, and make an animated gif
-showing the changes over time. Because we’re using all of the different Landsat sensors (MSS, TM, ETM+, and OLI), we’ll use a
-near-infrared false colour composite (near-infrared/red/green) for consistency.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>As of 1 February 2022, Collection 2 MSS scenes are not available in GEE, so the following combines the Collection 1 MSS scenes
-with the Collection 2 TM, ETM+, and OLI scenes.</p>
+<p>As you might imagine, there are corresponding methods for other arithmetic operations, such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>addition: <code class="docutils literal notranslate"><span class="pre">ee.Image.add()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-add">documentation</a>)</p></li>
+<li><p>multiplication: <code class="docutils literal notranslate"><span class="pre">ee.Image.multiply()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-multiply">documentation</a>)</p></li>
+<li><p>division: <code class="docutils literal notranslate"><span class="pre">ee.Image.divide()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-divide">documentation</a>)</p></li>
+</ul>
+</div></blockquote>
+<p>In addition to the basic arithmetic operations, we will use a number of other examples in the coming weeks.</p>
 </div>
-<p>To be able to run the code in this section, uncomment the whole section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 211 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 301).
-We’ll walk through what each block does in turn before running the code.</p>
-<p>The first lines in this section set the visualization parameters for the MSS scenes and the other sensors:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// set visualization parameters for the MSS scenes</span>
-<span class="kd">var</span> <span class="nx">mssVisParams</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;B6&#39;</span><span class="p">,</span> <span class="s1">&#39;B5&#39;</span><span class="p">,</span> <span class="s1">&#39;B4&#39;</span><span class="p">],</span> <span class="c1">// select bands 6, 5, and 4</span>
-  <span class="nx">min</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span> <span class="c1">// set the minimum display value for each band</span>
-  <span class="nx">max</span><span class="o">:</span> <span class="mf">120</span><span class="p">,</span> <span class="c1">// set the maximum display value for each band</span>
-  <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.5</span> <span class="c1">// set the gamma adjustment to help brighten the images</span>
-<span class="p">};</span>
-
-<span class="c1">// set visualization parameters for all of the other sensors</span>
-<span class="kd">var</span> <span class="nx">srVisParams</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">bands</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span> <span class="c1">// select bands 4, 3, and 2</span>
-  <span class="nx">min</span><span class="o">:</span> <span class="mf">7000</span><span class="p">,</span> <span class="c1">// set the minimum display value for each band</span>
-  <span class="nx">max</span><span class="o">:</span> <span class="mf">20000</span><span class="p">,</span> <span class="c1">// set the maximum display value for each band</span>
-  <span class="nx">gamma</span><span class="o">:</span> <span class="mf">1.25</span> <span class="c1">// set the gamma adjustment to help brighten the images</span>
-<span class="p">};</span>
+<p>Just like with the Landsat images we used in part 1, and the hillshades we saw above, we can add this difference to the
+<strong>Map</strong>. To help visualize this, I have used a colormap from <a class="reference external" href="https://colorbrewer2.org">colorbrewer2.org</a>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the difference to the map, using a colormap from colorbrewer2.org</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;d7191c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fdae61&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ffffbf&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;abd9e9&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2c7bb6&#39;</span><span class="p">];</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">difference</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:-</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="nx">palette</span><span class="o">:</span><span class="nx">colormap</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;elevation difference&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>When we create the animated gif at the end of the script, this will tell the computer how to display each frame of the output gif. The
-next lines will select all cloud-free MSS scenes that have an acceptable geometric accuracy for our purposes (&lt;25 m error) :</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">mss</span> <span class="o">=</span> <span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM01/C01/T1&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM01/C01/T2&quot;</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM02/C01/T1&quot;</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM02/C01/T2&quot;</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM03/C01/T1&quot;</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM03/C01/T2&quot;</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c1">// select only cloud-free images</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">or</span><span class="p">(</span>
-    <span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;DATA_TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;L1TP&#39;</span><span class="p">),</span>
-    <span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;DATA_TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;L1GT&#39;</span><span class="p">)))</span> <span class="c1">// only use L1TP and L1GT images</span>
-  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;GEOMETRIC_RMSE_MODEL&#39;</span><span class="p">,</span> <span class="s1">&#39;less_than&#39;</span><span class="p">,</span> <span class="mf">25</span><span class="p">)</span> <span class="c1">// remove any large distortions</span>
-  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">)</span> <span class="c1">// select only WRS row 28 images</span>
-  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">boundary</span><span class="p">).</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;B[4-6]&#39;</span><span class="p">]);</span> <span class="c1">// select bands 4, 5, and 6.</span>
+<p>This will display the pixel values on the same sort of Red/Yellow/Blue color scale that we used in Week 2 using the
+<code class="docutils literal notranslate"><span class="pre">palette</span></code> defined as a list of HTML color codes, while also setting the scale to saturate at -10 m difference and
++10 m difference (<code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code>, respectively).</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Pan and scroll around the <strong>Map</strong> while looking at this difference layer.</p>
+<ul class="simple">
+<li><p>What area(s) do you notice the largest differences between the NASADEM and the SRTM?</p></li>
+<li><p>Are there any systematic differences (i.e., patterns)?</p></li>
+<li><p>Does it look like the two DEMs have been co-registered? Why or why not?</p></li>
+</ul>
+</div>
+<p>In addition to the difference map, we can also display a histogram of the differences using the following code:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">hist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ui</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">histogram</span><span class="p">({</span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="nx">nasa_srtm</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">maxBuckets</span><span class="o">:</span><span class="w"> </span><span class="mf">256</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">maxPixels</span><span class="o">:</span><span class="w"> </span><span class="mf">1e9</span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Difference between SRTM and NASADEM elevation&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">hAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;elevation difference (m)&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
+<span class="w">    </span><span class="nx">vAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number of pixels&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}}</span>
+<span class="w">  </span><span class="p">});</span>
 </pre></div>
 </div>
-<p>The next block of lines will repeat this for Landsat 5 TM and Landsat 7 ETM+ scenes:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get Landsat TM5 scenes</span>
-<span class="kd">var</span> <span class="nx">lt05</span> <span class="o">=</span> <span class="nx">mosaicByDate</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c1">// select only cloud-free images</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span> <span class="mf">46</span><span class="p">))</span> <span class="c1">// select only WRS path 46 images</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">))</span> <span class="c1">// select only WRS row 28 images</span>
-  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span> <span class="c1">// make sure to only select images within our boundary</span>
-  <span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B[2-4]&#39;</span><span class="p">]),</span> <span class="c1">// select bands 4, 3, 2</span>
-<span class="s1">&#39;LT05&#39;</span><span class="p">);</span>
-
-<span class="c1">// get Landsat 7 ETM+ scenes</span>
-<span class="kd">var</span> <span class="nx">le07</span> <span class="o">=</span> <span class="nx">mosaicByDate</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LE07/C02/T1_L2&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c1">// select only cloud-free images</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span> <span class="mf">46</span><span class="p">))</span> <span class="c1">// select only WRS path 46 images</span>
-  <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span> <span class="mf">28</span><span class="p">))</span> <span class="c1">// select only WRS row 28 images</span>
-  <span class="p">.</span><span class="nx">filterBounds</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span> <span class="c1">// make sure to only select images within our boundary</span>
-  <span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B[2-4]&#39;</span><span class="p">]),</span> <span class="c1">// select bands 4, 3, 2</span>
-<span class="s1">&#39;LE07&#39;</span><span class="p">);</span>
+<p>We then display the chart by printing it to the <strong>Console</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/histogram1.png"><img alt="the histogram showing the differences between the NASADEM and the SRTM DEM." class="align-center" src="../../../_images/histogram1.png" style="width: 600px;" /></a>
+<p><br /> If you click the symbol in the upper right corner of the histogram, it will open in a new browser window. On this
+page, you can also download a csv file with the values in the plot, or a Scalable Vector Graphics (SVG) or PNG version
+of the chart.</p>
+<p>The final two things printed to the console are the descriptive statistics of the DEM differences, and the normalized
+median absolute deviation (NMAD) between the two DEMs. Be sure to look at these before answering the following question.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Based on:</p>
+<ul class="simple">
+<li><p>the shape of the histogram that you see;</p></li>
+<li><p>the lecture from Week 2;</p></li>
+<li><p>Höhle and Höhle (2009)<a class="footnote-reference brackets" href="#id4" id="id2">2</a>;</p></li>
+</ul>
+<p>is the standard deviation an appropriate metric to describe the variation in the data? <strong>Why or why not?</strong></p>
+</div>
+</div>
+<div class="section" id="part-3-pan-sharpening">
+<h2>part 3 - pan-sharpening<a class="headerlink" href="#part-3-pan-sharpening" title="Permalink to this heading">¶</a></h2>
+<p>For the third part of this week’s practical, we’ll look at one method of <em>pan-sharpening</em> - that is, using a
+band or an image with a higher resolution to “sharpen”, or increase the resolution of, another image.</p>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">03_pan_sharpen.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek3%2F03_pan_sharpening.js">direct link</a>.</p>
+<p>The first bit of code that we haven’t seen before are at line 24:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// we&#39;ll use surface reflectance bands 4, 3, and 2</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">bands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B2&#39;</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>After that, we select only the cloud-free Landsat 8 images:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">lc08</span><span class="p">.</span><span class="nx">filterMetadata</span><span class="p">(</span><span class="s1">&#39;CLOUD_COVER&#39;</span><span class="p">,</span> <span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+<p>With this, we’re creating a <strong>List</strong> of bands (enclosed in square brackets, <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>) that we first use with
+<code class="docutils literal notranslate"><span class="pre">ee.Image.select()</span></code> to create a new image composed of OLI bands 4, 3, and 2, before using <code class="docutils literal notranslate"><span class="pre">ee.Image.rgbToHsv()</span></code> to
+transform this image from red, green, blue (RGB) to hue, saturation, value (HSV) color space:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// use image.rgbToHsv to transfom the SR true-color image from RGB to HSV color space</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">img_hsv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sr_img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">rgbToHsv</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>Once we have lists for each of these sensors, we’ll merge the results and sort them:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// sort the MSS scenes by acquisition time.</span>
-<span class="kd">var</span> <span class="nx">mssSorted</span> <span class="o">=</span> <span class="nx">mss</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;system:time_start&#39;</span><span class="p">);</span>
-
-<span class="c1">// merge and sort the other Landsat scenes.</span>
-<span class="kd">var</span> <span class="nx">landsatSorted</span> <span class="o">=</span> <span class="nx">lt05</span>
-  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">le07</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">mosaicByDate</span><span class="p">(</span><span class="nx">lc08</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B5&#39;</span><span class="p">],</span>
-                                  <span class="p">[</span><span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span> <span class="s1">&#39;SR_B4&#39;</span><span class="p">]),</span> <span class="c1">// rename bands to match older sensors</span>
-                      <span class="s1">&#39;LC08&#39;</span><span class="p">))</span>
-  <span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;system:time_start&#39;</span><span class="p">);</span>
+<p>The next few lines are where we actually perform the pan-sharpening via IHS (or, in this case, HSV) fusion:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a pan-sharpened image</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">pan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">cat</span><span class="p">([</span>
+<span class="w">  </span><span class="nx">img_hsv</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;hue&#39;</span><span class="p">),</span><span class="w"> </span><span class="c1">// get the hue band from the hsv image</span>
+<span class="w">  </span><span class="nx">img_hsv</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;saturation&#39;</span><span class="p">),</span><span class="w"> </span><span class="c1">// get the saturation band from the hsv image</span>
+<span class="w">  </span><span class="nx">toa_img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B8&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// replace &quot;value&quot; with oli panchromatic band</span>
+<span class="p">]).</span><span class="nx">hsvToRgb</span><span class="p">();</span><span class="w"> </span><span class="c1">// transform the HSV image back to RGB color space</span>
 </pre></div>
 </div>
-<p>After we have the images sorted, we can create the visualization images and merge the two collections into one:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// make RGB images to display for each of the MSS scenes</span>
-<span class="kd">var</span> <span class="nx">mssVis</span> <span class="o">=</span> <span class="nx">mssSorted</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">img</span><span class="p">){</span>
-  <span class="k">return</span> <span class="nx">img</span><span class="p">.</span><span class="nx">visualize</span><span class="p">(</span><span class="nx">mssVisParams</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
+<p>In this, we combine the original hue and saturation bands, with 30 m spatial resolution, with the 15 m panchromatic
+band (B8) from the TOA image. Then, we transform the image back to RGB space using <code class="docutils literal notranslate"><span class="pre">ee.Image.hsvToRgb()</span></code>.</p>
+<p>Run the script now. When you hover over the <strong>Layers</strong> menu, you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/pan_layers.png"><img alt="the layers added to the map after running the pan-sharpening script" class="align-center" src="../../../_images/pan_layers.png" style="width: 300px;" /></a>
+<p>At the moment, only two images are visible: the pan-sharpened image, and the original SR image.</p>
+<p>As you pan around the map, looking at the pan-sharpened image, you should notice that it appears somewhat sharper
+than the original SR image - roads and paths in the forest appear more clearly, and you may notice quite a bit more
+texture in many areas.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Toggle the pan-sharpened image on and off to view the differences between these two images. What do you notice about
+the color of the pan-sharpened image, compared to the SR image?</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Because the wavelengths of the panchromatic band do not fully overlap with the wavelengths of bands 4, 3, and 2,
+and the panchromatic band has not been atmospherically corrected, the values in the red, green, and blue channels
+of the pan-sharpened image no longer correspond to surface reflectance values.</p>
+<p>Remember that you can use these images to aid in visual interpretation, but you should not assume that you can use
+pan-sharpened images for other kinds of analysis.</p>
+</div>
+<p>Now, take a look at the final block of code in the script:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// export a visualization image to google drive</span>
+<span class="nx">Export</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">toDrive</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="nx">pan</span><span class="p">.</span><span class="nx">visualize</span><span class="p">({</span><span class="nx">min</span><span class="o">:</span><span class="mf">0.005</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="nx">gamma</span><span class="o">:</span><span class="mf">1.5</span><span class="p">}),</span>
+<span class="w">  </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;LC08_046028_20200823_pan&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">15</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="nx">pan</span><span class="p">.</span><span class="nx">geometry</span><span class="p">(),</span>
+<span class="w">  </span><span class="nx">crs</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;epsg:32610&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// use wgs84 utm zone 10N</span>
+<span class="w">  </span><span class="nx">maxPixels</span><span class="o">:</span><span class="w"> </span><span class="mf">1e13</span>
 <span class="p">});</span>
-
-<span class="c1">// make RGB images to display for each of the other sensors</span>
-<span class="kd">var</span> <span class="nx">landsatVis</span> <span class="o">=</span> <span class="nx">landsatSorted</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">img</span><span class="p">){</span>
-  <span class="k">return</span> <span class="nx">img</span><span class="p">.</span><span class="nx">visualize</span><span class="p">(</span><span class="nx">srVisParams</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">gifBoundary</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This block of code creates a task to export the pan-sharpened image to a raster called <strong>LC08_046028_20200823_pan.tif</strong>,
+using a CRS with [EPSG](<a class="reference external" href="https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset">https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset</a>) code 32610 (corresponding to
+WGS84 UTM Zone 10N). You should notice that the <strong>Tasks</strong> tab is highlighted:</p>
+<a class="reference internal image-reference" href="../../../_images/tasks.png"><img alt="the console showing the tasks tab highlighted" class="align-center" src="../../../_images/tasks.png" style="width: 400px;" /></a>
+<p><br /> When you click on it, you should see this:</p>
+<a class="reference internal image-reference" href="../../../_images/new_task.png"><img alt="the tasks tab" class="align-center" src="../../../_images/new_task.png" style="width: 400px;" /></a>
+<p><br /> Click <strong>RUN</strong> to export the file to your Google Drive. In the window that opens up, you can choose a different
+folder, resolution, CRS, or place to export it. In general, running the task might take some time, depending on the
+size of the image. You can click the ‘Refresh’ button to check the status to see if it’s finished running.</p>
+<p>Once the task has finished, you can download the file from your Google Drive, and use it in a GIS program such as
+QGIS:</p>
+<a class="reference internal image-reference" href="../../../_images/pan_qgis.png"><img alt="the exported display image loaded into qgis" class="align-center" src="../../../_images/pan_qgis.png" style="width: 600px;" /></a>
+<p>This could make an excellent base image for a study area map that you might use in your presentation and/or report.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the example above, I have exported the <em>visualization</em> image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="nx">pan</span><span class="p">.</span><span class="nx">visualize</span><span class="p">({</span><span class="nx">min</span><span class="o">:</span><span class="mf">0.005</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="mf">0.4</span><span class="p">,</span><span class="w"> </span><span class="nx">gamma</span><span class="o">:</span><span class="mf">1.5</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>this means that the output raster will be a 3 band, 8-bit image, with pixel values corresponding to the parameter
+values supplied to <code class="docutils literal notranslate"><span class="pre">ee.Image.visualize()</span></code>.</p>
+<p>If you would rather export the pan-sharpened image with the original values, simply remove
+<code class="docutils literal notranslate"><span class="pre">.visualize({min:0.005,</span> <span class="pre">max:0.4,</span> <span class="pre">gamma:1.5})</span></code> from the script and re-run it.</p>
+</div>
+</div>
+<div class="section" id="part-4-pca">
+<h2>part 4 - pca<a class="headerlink" href="#part-4-pca" title="Permalink to this heading">¶</a></h2>
+<p>In the final part of this week’s practical, we’ll have a look at principal component analysis (PCA), and see how the
+different bands of the PCA image compare to the original image bands. As we discussed in the lecture, PCA can help
+maximize the difference between bands by transforming the image in a way that minimizes the correlation between bands
+of the image.</p>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">04_pca.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek3%2F04_pca.js">direct link</a>.</p>
+<p>You’ll notice that this script appears very short - that’s because the majority of the steps of calculating the PCA
+are hidden away in <code class="docutils literal notranslate"><span class="pre">libraries/tools.js</span></code>, where I’ve used and adapted the code provided in
+<a class="reference external" href="https://developers.google.com/earth-engine/guides/arrays_eigen_analysis">this example</a>.</p>
+<p>We won’t cover the details of this transformation here, but if you are interested in learning some more,
+<a class="reference external" href="https://towardsdatascience.com/a-step-by-step-introduction-to-pca-c0d78e26a0dd">this post</a> has a good, short
+introduction.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you click <strong>Run</strong>, it may take a minute for anything to “happen” - be patient.</p>
+</div>
+<p>When the script finishes running, you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/pca_loaded.png"><img alt="the decorrelation stretch image displayed on the map" class="align-center" src="../../../_images/pca_loaded.png" style="width: 600px;" /></a>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Before zooming in, have a look at the decorrelation stretch as a whole. What features jump out at you?</p>
+</div>
+<p>The decorrelation stretch displays the first three principal components (<code class="docutils literal notranslate"><span class="pre">pc1</span></code>, <code class="docutils literal notranslate"><span class="pre">pc2</span></code>, and <code class="docutils literal notranslate"><span class="pre">pc3</span></code>) in the red,
+green, and blue channels of the image; this means that we can interpret the image on the screen as follows:</p>
+<ul class="simple">
+<li><p>red/pink: high values in <code class="docutils literal notranslate"><span class="pre">pc1</span></code>, lower values in <code class="docutils literal notranslate"><span class="pre">pc2</span></code> and <code class="docutils literal notranslate"><span class="pre">pc3</span></code>;</p></li>
+<li><p>green: low values in <code class="docutils literal notranslate"><span class="pre">pc1</span></code> and <code class="docutils literal notranslate"><span class="pre">pc3</span></code>, higher values in <code class="docutils literal notranslate"><span class="pre">pc2</span></code>;</p></li>
+<li><p>purple: similarly high values in <code class="docutils literal notranslate"><span class="pre">pc1</span></code> and <code class="docutils literal notranslate"><span class="pre">pc3</span></code>, low values in <code class="docutils literal notranslate"><span class="pre">pc2</span></code>;</p></li>
+<li><p>blue: high values in <code class="docutils literal notranslate"><span class="pre">pc3</span></code>, low values in <code class="docutils literal notranslate"><span class="pre">pc1</span></code> and <code class="docutils literal notranslate"><span class="pre">pc3</span></code>;</p></li>
+<li><p>black: low values in all three bands;</p></li>
+</ul>
+<p>and so on.</p>
+<div class="question admonition">
+<p class="admonition-title">Question</p>
+<p>Using the list of color examples above, see if you can identify what surface type corresponds to each example.
+Remember that there might be several different surface types that correspond to each color, so feel free to use
+both the SR image and the background satellite image to help you.</p>
+</div>
+<p>One of the applications of PCA, especially in data science more generally, is for “dimension reduction.” In effect,
+most of the “information” about the image is contained in the first principal component, and the amount of information
+decreases for each PC band. We can see this by looking at <code class="docutils literal notranslate"><span class="pre">pc7</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/sensor_noise.png"><img alt="the 7th principal component displayed on the map" class="align-center" src="../../../_images/sensor_noise.png" style="width: 600px;" /></a>
+<p>In this image, we can actually see residual sensor noise - the stripes are due to variations in the response of the
+detector arrays in the OLI sensor. In the original image, these variations are very minor (we typically can only see
+them over very dark pixels such as water), but due to the PCA transformation, the noise is enhanced in the final PC
+band.</p>
+<p>Now, look at <code class="docutils literal notranslate"><span class="pre">pc1</span></code> by deactivating the other layers in the <strong>Layer Menu</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/pc1.png"><img alt="the 1st principal component displayed on the map" class="align-center" src="../../../_images/pc1.png" style="width: 600px;" /></a>
+<p>You should notice how the Columbia River stands out as a bright, white ribbon cutting through the middle of the image,
+as do a number of other lakes and reservoirs. You should also notice that the eastern (right) part of the image is
+quite a bit brigter than the western (left) part.</p>
+<p>One of the applications of PCA and decorrelation stretching that we discussed in this week’s
+lecture was for mineral mapping, since PCA helps accentuate the differences in reflectance of difference surfaces
+across all bands of the image. Zooming in on Mt St Helens, you should notice a difference between the North and South
+flanks of the volcano. If you flip back to the decorrelation stretch, you can see that there is quite a bit of
+variation in color on the slopes of the volcano itself, owing to the variation in minerals and rock types that make
+up the volcano.</p>
+<p>You should also notice that the short, scrub vegetation that has begun to grow since the 1980 eruption looks quite dark
+in <code class="docutils literal notranslate"><span class="pre">pc1</span></code>, while the older forests that weren’t damaged as part of the eruption (or subsequently logged) appear
+brighter. In addition to mineral mapping, this shows that we can use PCA to help highlight differences in vegetation
+type.</p>
+<p>As a final step, if you want to export the PCA image in order to use it for further analysis in QGIS or ArcGIS,
+copy and paste the following code snippet to the bottom of the script, then re-run the script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Export</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">toDrive</span><span class="p">({</span>
+  <span class="n">image</span><span class="p">:</span> <span class="n">pcImage</span><span class="p">,</span>
+  <span class="n">description</span><span class="p">:</span> <span class="s1">&#39;LC08_046028_20200823_pca&#39;</span><span class="p">,</span>
+  <span class="n">scale</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+  <span class="n">region</span><span class="p">:</span> <span class="n">pcImage</span><span class="o">.</span><span class="n">geometry</span><span class="p">(),</span>
+  <span class="n">crs</span><span class="p">:</span> <span class="s1">&#39;epsg:32610&#39;</span><span class="p">,</span> <span class="o">//</span> <span class="n">use</span> <span class="n">wgs84</span> <span class="n">utm</span> <span class="n">zone</span> <span class="mi">10</span><span class="n">N</span>
+  <span class="n">maxPixels</span><span class="p">:</span> <span class="mf">1e13</span>
 <span class="p">});</span>
-
-<span class="c1">// now, merge the MSS and other sensors.</span>
-<span class="kd">var</span> <span class="nx">visAll</span> <span class="o">=</span> <span class="nx">mssVis</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">landsatVis</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Finally, we’ll set the parameters for the animated gif and create a link to trigger processing for the gif. This will make a gif that is
-scaled so that the longest dimension is 425 pixels. The images will be cropped to the gifBoundary polygon defined at the top of
-the script, and displayed using a pseudo-Mercator projection (EPSG:3857), which is the same one used by Google Maps.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">gifParams</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;region&#39;</span><span class="o">:</span> <span class="nx">gifBoundary</span><span class="p">,</span>
-  <span class="s1">&#39;dimensions&#39;</span><span class="o">:</span> <span class="mf">425</span><span class="p">,</span>
-  <span class="s1">&#39;crs&#39;</span><span class="o">:</span> <span class="s1">&#39;EPSG:3857&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;framesPerSecond&#39;</span><span class="o">:</span> <span class="mf">3</span>
-<span class="p">};</span>
-
-<span class="c1">// print a URL to start processing the gif.</span>
-<span class="nx">print</span><span class="p">(</span><span class="nx">visAll</span><span class="p">.</span><span class="nx">getVideoThumbURL</span><span class="p">(</span><span class="nx">gifParams</span><span class="p">));</span>
-</pre></div>
 </div>
-<p>At this time, you can run the script one final time. In the <strong>Console</strong>, you should see a link at the bottom:</p>
-<a class="reference internal image-reference" href="../../../_images/console_link.png"><img alt="the link to the animated gif, printed to the console" class="align-center" src="../../../_images/console_link.png" style="width: 400px;" /></a>
-<p>Click this link to create the gif. Once it finishes processing and loads the gif, you can download the gif by right-clicking the image
-and clicking <strong>Save</strong>.</p>
-<p>Watch the gif – what changes do you see? You should notice a number of different things happen, including the
-initial 1980 eruption, subsequent eruptions, seasonal snow cover, and even the <a class="reference external" href="https://www.usgs.gov/landsat-missions/landsat-7">SLC failure</a>
-of the Landsat 7 ETM+ sensor.</p>
-<p>By the end of the gif, you should see that a great deal of vegetation has started to recover.
-In next week’s practical, we’ll work on additional analyses using GEE, including change analysis and plotting time series of values.</p>
-</section>
-<section id="references">
-<h2>references<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<div class="section" id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+<p>Make sure that as you work through the practical, you understand and can answer the questions being asked. If you’re
+not sure, ask on the discussion board on blackboard.</p>
+<p>If you’re looking for additional exercises, you can try the following suggestions (in no particular order):</p>
+<ul class="simple">
+<li><p>Using the decorrelation stretch from part 4, and
+<a class="reference external" href="https://www.dnr.wa.gov/publications/lm_hcp_west_oldgrowth_guide_enviro_hires.pdf">figure 3</a> (page 3) from this
+pamphlet, can you identify which color(s) of the decorrelation stretch correspond to which tree species?</p></li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2>references<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore (2017). Google Earth Engine: Planetary-scale geospatial analysis for everyone. <em>Rem. Sens. Env.</em> 202, 18-27. doi: <a class="reference external" href="https://doi.org/10.1016/j.rse.2017.06.031">10.1016/j.rse.2017.06.031</a></p>
+<dd><p>Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore (2017). Google Earth Engine:
+Planetary-scale geospatial analysis for everyone. <em>Rem. Sens. Env.</em> 202, 18-27.
+doi: <a class="reference external" href="https://doi.org/10.1016/j.rse.2017.06.031">10.1016/j.rse.2017.06.031</a></p>
 </dd>
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Höhle, J. &amp; Höhle, M. (2009). Accuracy assessment of digital elevation models by means of robust statistical methods. <em>ISPRS J. Photogramm. Rem. Sens.</em> 64, 398–406. doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2009.02.003">10.1016/j.isprsjprs.2009.02.003</a></p>
+<dd><p>Höhle, J. &amp; Höhle, M. (2009). Accuracy assessment of digital elevation models by means of robust statistical
+methods. <em>ISPRS J. Photogramm. Rem. Sens.</em> 64, 398–406.
+doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2009.02.003">10.1016/j.isprsjprs.2009.02.003</a></p>
 </dd>
 </dl>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="week2.html" class="btn btn-neutral float-left" title="dem differencing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="week4.html" class="btn btn-neutral float-right" title="change detection in earth engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="week2.html" class="btn btn-neutral float-left" title="dem differencing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
-  </div>
+    <p>
+        &#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
