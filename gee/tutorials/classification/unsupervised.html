@@ -1,14 +1,34 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>unsupervised classification &mdash; iamdonovan  documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
@@ -18,32 +38,6 @@
   <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="pixel-based classification" href="pixel.html" />
@@ -84,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -137,7 +130,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -172,13 +164,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../index.html">google earth engine</a> &raquo;</li>
         
@@ -191,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../../_sources/gee/tutorials/classification/unsupervised.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -205,7 +195,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="unsupervised-classification">
+  <section id="unsupervised-classification">
 <h1>unsupervised classification<a class="headerlink" href="#unsupervised-classification" title="Permalink to this heading">¶</a></h1>
 <p>For this tutorial, we’re going to use a 15 February 2022 Landsat 9 image covering <a class="reference external" href="https://en.wikipedia.org/wiki/Harrat_Khaybar">Harrat Khaybar</a>,
 a volcanic field in Saudi Arabia:</p>
@@ -222,7 +212,7 @@ identify what each of these classes represent.</p>
 <li><p>how to select a stratified sample of pixels from an <strong>Image</strong></p></li>
 <li><p>how to plot the spectral characteristics of classes to see their differences</p></li>
 </ul>
-<div class="section" id="selecting-sample-points">
+<section id="selecting-sample-points">
 <h2>selecting sample points<a class="headerlink" href="#selecting-sample-points" title="Permalink to this heading">¶</a></h2>
 <p>The <strong>Image</strong> that we’re using is 7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels - that’s a lot. To help improve
 performance of the clustering algorithm, and prevent <code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">Memory</span></code> errors when we run the script, we want to take a
@@ -237,13 +227,13 @@ random sample of pixels.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">ee.Image.sample</span></code> takes a number of arguments - here, we’re specifying the <code class="docutils literal notranslate"><span class="pre">region</span></code> (<code class="docutils literal notranslate"><span class="pre">img.geometry()</span></code>),
 the <code class="docutils literal notranslate"><span class="pre">scale</span></code> of the <strong>Image</strong> in meters, and <code class="docutils literal notranslate"><span class="pre">numPixels</span></code>, the number of pixels to sample.</p>
-</div>
-<div class="section" id="training-a-clusterer">
+</section>
+<section id="training-a-clusterer">
 <h2>training a clusterer<a class="headerlink" href="#training-a-clusterer" title="Permalink to this heading">¶</a></h2>
 <p>Next, we use these sample points to train a <strong>Clusterer</strong> using <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaKMeans()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekakmeans">documentation</a>). This will train
 the unsupervised classifier (also called a <strong>Clusterer</strong>, because it uses the properties of the pixels to group, or <em>cluster</em>,
-them together) using WEKA <em>k</em>-means<a class="footnote-reference brackets" href="#id4" id="id1">1</a><a class="footnote-reference brackets" href="#id5" id="id2">2</a>:</p>
+them together) using WEKA <em>k</em>-means<a class="footnote-reference brackets" href="#id4" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a><a class="footnote-reference brackets" href="#id5" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">clusterer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Clusterer</span><span class="p">.</span><span class="nx">wekaKMeans</span><span class="p">({</span><span class="nx">nClusters</span><span class="o">:</span><span class="w"> </span><span class="mf">16</span><span class="p">}).</span><span class="nx">train</span><span class="p">(</span><span class="nx">training</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -254,8 +244,8 @@ different numbers of clusters to see the effects on the end results. You can als
 such as <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaXMeans()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekaxmeans">documentation</a>)
 or <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaCascadeKMeans()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekacascadekmeans">documentation</a>),
 which are designed to optimize the number of clusters based on the input data.</p>
-</div>
-<div class="section" id="applying-the-classification">
+</section>
+<section id="applying-the-classification">
 <h2>applying the classification<a class="headerlink" href="#applying-the-classification" title="Permalink to this heading">¶</a></h2>
 <p>Once we’ve trained the <strong>Clusterer</strong>, we can then apply it to the <strong>Image</strong> using <code class="docutils literal notranslate"><span class="pre">ee.Image.cluster()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-cluster">documentation</a>):</p>
@@ -263,8 +253,8 @@ which are designed to optimize the number of clusters based on the input data.</
 </pre></div>
 </div>
 <p>This will assign a cluster, or class, value to each pixel based on its spectral properties.</p>
-</div>
-<div class="section" id="viewing-the-clusters">
+</section>
+<section id="viewing-the-clusters">
 <h2>viewing the clusters<a class="headerlink" href="#viewing-the-clusters" title="Permalink to this heading">¶</a></h2>
 <p>To view the clusters on the <strong>Map</strong>, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.randomVisualizer()</span></code>
 (<cite>documentation &lt;https://developers.google.com/earth-engine/apidocs/ee-image-randomvisualizer&gt;__</cite>)
@@ -276,8 +266,8 @@ to provide a random palette to display the image (like we did for the <a class="
 <a class="reference internal image-reference" href="../../../_images/clustered_results.png"><img alt="the clustered image added to the map window" class="align-center" src="../../../_images/clustered_results.png" style="width: 600px;" /></a>
 <p><br /> Remember that the class values in the image (0–15) don’t yet correspond to any physical meaning - in order to finish the
 classification, we would need identify what physical surfaces or objects the class values represent.</p>
-</div>
-<div class="section" id="stratified-sampling">
+</section>
+<section id="stratified-sampling">
 <h2>stratified sampling<a class="headerlink" href="#stratified-sampling" title="Permalink to this heading">¶</a></h2>
 <p>To view the spectral properties of the clusters, we can create a scatter plot that plots the reflectance
 in one band versus the reflectance in a different band, colored by cluster.</p>
@@ -313,8 +303,8 @@ we’re using the following:</p>
 just like we are for using <code class="docutils literal notranslate"><span class="pre">print()</span></code>, we are limited to 5000 elements / 16 classes ~= 300 elements / class. To show more
 elements per class, we would need to reduce the number of classes.</p>
 </div>
-</div>
-<div class="section" id="creating-a-scatter-plot">
+</section>
+<section id="creating-a-scatter-plot">
 <h2>creating a scatter plot<a class="headerlink" href="#creating-a-scatter-plot" title="Permalink to this heading">¶</a></h2>
 <p>To create the scatter plot, we’ll use <code class="docutils literal notranslate"><span class="pre">ui.Chart.feature.groups()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ui-chart-feature-groups">documentation</a>).</p>
@@ -362,8 +352,8 @@ place – <strong>function</strong>s are a way to clean up our script and easily
 <a class="reference internal image-reference" href="../../../_images/nir_swir2_scatter.png"><img alt="the SWIR2 vs. NIR scatter plot for each cluster" class="align-center" src="../../../_images/nir_swir2_scatter.png" style="width: 600px;" /></a>
 <p><br /> The plot above shows the SWIR2 (<code class="docutils literal notranslate"><span class="pre">SR_B7</span></code>) values vs. NIR (<code class="docutils literal notranslate"><span class="pre">SR_B5</span></code>) values for each cluster. Note that there is some
 overlap between the clusters, because the clustering has been done in seven dimensions, rather than just two.</p>
-</div>
-<div class="section" id="plotting-spectral-signatures">
+</section>
+<section id="plotting-spectral-signatures">
 <h2>plotting spectral signatures<a class="headerlink" href="#plotting-spectral-signatures" title="Permalink to this heading">¶</a></h2>
 <p>The final plot we’ll have a look at will plot the median values in each band for each cluster; in effect, it shows
 us the spectral signature of each cluster.</p>
@@ -444,8 +434,8 @@ each line (<code class="docutils literal notranslate"><span class="pre">series</
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <p>At this point, you’ve seen how to select a random sample from an <strong>Image</strong>, and train and apply a
 <strong>Clusterer</strong> to that <strong>Image</strong>. You’ve also seen a few examples of how to plot the spectral values of
@@ -455,53 +445,56 @@ the clusters, to aid in investigating what physical surface(s) each cluster belo
 <li><p>How does increasing (or decreasing) the number of sample points used to train the <strong>Clusterer</strong> affect the results?</p></li>
 <li><p>How does increasing (or decreasing) the number of clusters affect the outcome of using <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaKMeans()</span></code>?</p></li>
 <li><p>Instead of specifying the number of clusters, try using <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaXMeans()</span></code> or <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaCascadeKMeans()</span></code> to choose an optimal number of classes for the image.</p></li>
-<li><p>Another option for changing, or improving, the performance of the <strong>Clusterer</strong> is by providing a random <em>seed</em><a class="footnote-reference brackets" href="#id6" id="id3">3</a> – does this have any impact on the results you see?</p></li>
+<li><p>Another option for changing, or improving, the performance of the <strong>Clusterer</strong> is by providing a random <em>seed</em><a class="footnote-reference brackets" href="#id6" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> – does this have any impact on the results you see?</p></li>
 </ul>
-</div>
-<div class="section" id="references-and-notes">
+</section>
+<section id="references-and-notes">
 <h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this heading">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Frank, E., M. A. Hall., and I. H. Witten (2016). The WEKA Workbench. Online Appendix for “Data Mining: Practical Machine Learning Tools and Techniques”, Morgan Kaufmann, Fourth Edition, 2016. [<a class="reference external" href="https://www.cs.waikato.ac.nz/ml/weka/Witten_et_al_2016_appendix.pdf">pdf</a>]</p>
-</dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>For a (brief) overview of <em>k</em>-means clustering, the wikipedia page is a good place to start: <a class="reference external" href="https://en.wikipedia.org/wiki/K-means_clustering">https://en.wikipedia.org/wiki/K-means_clustering</a></p>
-</dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>Arthur, D. and S. Vassilvitskii (2007). in: <em>Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms, SODA ’07</em>. pp. 1027–1035. doi: <cite>10.5555/1283383.1283494 &lt;https://doi.org/10.5555/1283383.1283494&gt;__</cite></p>
-</dd>
-</dl>
-</div>
-</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Frank, E., M. A. Hall., and I. H. Witten (2016). The WEKA Workbench. Online Appendix for “Data Mining: Practical Machine Learning Tools and Techniques”, Morgan Kaufmann, Fourth Edition, 2016. [<a class="reference external" href="https://www.cs.waikato.ac.nz/ml/weka/Witten_et_al_2016_appendix.pdf">pdf</a>]</p>
+</aside>
+<aside class="footnote brackets" id="id5" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>For a (brief) overview of <em>k</em>-means clustering, the wikipedia page is a good place to start: <a class="reference external" href="https://en.wikipedia.org/wiki/K-means_clustering">https://en.wikipedia.org/wiki/K-means_clustering</a></p>
+</aside>
+<aside class="footnote brackets" id="id6" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>Arthur, D. and S. Vassilvitskii (2007). in: <em>Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms, SODA ’07</em>. pp. 1027–1035. doi: <cite>10.5555/1283383.1283494 &lt;https://doi.org/10.5555/1283383.1283494&gt;__</cite></p>
+</aside>
+</aside>
+</section>
+</section>
 
 
            </div>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="pixel.html" class="btn btn-neutral float-right" title="pixel-based classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="image classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="pixel.html" class="btn btn-neutral float-right" title="pixel-based classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="image classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
@@ -509,6 +502,7 @@ the clusters, to aid in investigating what physical surface(s) each cluster belo
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

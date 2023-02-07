@@ -1,14 +1,34 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>object-based classification &mdash; iamdonovan  documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
@@ -18,32 +38,6 @@
   <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="change detection" href="../change_detection/index.html" />
@@ -84,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -134,7 +127,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -169,13 +161,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../index.html">google earth engine</a> &raquo;</li>
         
@@ -188,7 +178,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../../_sources/gee/tutorials/classification/obia.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -202,9 +192,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="object-based-classification">
+  <section id="object-based-classification">
 <h1>object-based classification<a class="headerlink" href="#object-based-classification" title="Permalink to this heading">¶</a></h1>
-<div class="section" id="image-segmentation">
+<section id="image-segmentation">
 <h2>image segmentation<a class="headerlink" href="#image-segmentation" title="Permalink to this heading">¶</a></h2>
 <p>The last few sections of the practical will take us through an example of object-based classification, to illustrate some of the differences
 between object-based image analysis (OBIA) and pixel-based classification.</p>
@@ -227,7 +217,7 @@ between object-based image analysis (OBIA) and pixel-based classification.</p>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>will use an algorithm called simple non-iterative clustering (SNIC; Achanta and Susstrunk, 2017<a class="footnote-reference brackets" href="#id4" id="id1">3</a>) to segment our image,
+<p>will use an algorithm called simple non-iterative clustering (SNIC; Achanta and Susstrunk, 2017<a class="footnote-reference brackets" href="#id4" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>) to segment our image,
 creating the objects that we’ll use for the classification. This section starts by setting two parameters,
 <code class="docutils literal notranslate"><span class="pre">seedSize</span></code> and <code class="docutils literal notranslate"><span class="pre">clusterScale</span></code>. I’ve added these here, rather than using the values directly in the
 code below, so that it’s easier to change the values if we want to experiment later on.</p>
@@ -276,20 +266,20 @@ and “not lake”, while the original boundaries do a decent job of picking the
 too coarsely, we may end up losing detail that we’re interested in.</p>
 <p>Once you’ve had a look around, go ahead and re-comment the coarse segmentation section (add a <code class="docutils literal notranslate"><span class="pre">/*</span></code> to line 243 and a <code class="docutils literal notranslate"><span class="pre">*/</span></code> to line 277), then
 move on to the next section.</p>
-</div>
-<div class="section" id="image-texture">
+</section>
+<section id="image-texture">
 <h2>image texture<a class="headerlink" href="#image-texture" title="Permalink to this heading">¶</a></h2>
 <p>One of the things that we can do with OBIA that is more difficult to incorporate into pixel-based analysis is use image properties such
 as texture or contrast, or even the shape of our segments, to aid our classification.</p>
 <p>Here, we’ll have a look at including texture into our classification using metrics extracted using the Gray Level Co-occurrence
-Matrix (GLCM; Haralick et al., 1973<a class="footnote-reference brackets" href="#id5" id="id2">4</a>). The GLCM contains information about how frequently combinations of pixel values appear
+Matrix (GLCM; Haralick et al., 1973<a class="footnote-reference brackets" href="#id5" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>). The GLCM contains information about how frequently combinations of pixel values appear
 in a specified relationship in the image. We can use this, and the statistical metrics that we can extract from the GLCM,
 to analyze the texture of the image.</p>
 <p>Here, we’ll look at three examples: the Angular Second Moment (ASM), the local contrast, and the entropy. The Angular Second Moment measures how many
 repeated pairs of values we see within each small window. The local contrast tells us how much variation we see in the small area, and the
 entropy measures the randomness of the values in each small window.</p>
 <p>Uncomment the lines in this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 280 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 301), then run the script.</p>
-<p>Before we compute the GLCM, we make a grayscale image from the NIR, Red, and Green bands, following Tassi and Vizzari (2020)<a class="footnote-reference brackets" href="#id6" id="id3">5</a>:</p>
+<p>Before we compute the GLCM, we make a grayscale image from the NIR, Red, and Green bands, following Tassi and Vizzari (2020)<a class="footnote-reference brackets" href="#id6" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a grayscale image to run texture on, following Tassi and Vizzari (2020)</span>
 <span class="c1">// paper: https://doi.org/10.3390/rs12223776</span>
 <span class="c1">// GEE script: https://code.earthengine.google.com/?accept_repo=users/mvizzari/Tassi_Vizzari_RS2020</span>
@@ -349,8 +339,8 @@ between, for example, the surfaces on north flank of the volcano and the clear-c
 grayscale image?</p>
 <p>Once you’ve spent some time thinking about these questions, move on to the next section, where we’ll add the texture bands to our image, and use this to classify
 the scene using OBIA.</p>
-</div>
-<div class="section" id="classification">
+</section>
+<section id="classification">
 <h2>classification<a class="headerlink" href="#classification" title="Permalink to this heading">¶</a></h2>
 <p>Now that we’ve segmented the image and had a look at the image texture, we’ll move on to actually classifying the image using OBIA.</p>
 <p>Uncomment the first part of this section section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 304 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 370), then run the script.
@@ -431,8 +421,8 @@ turn this on in the <strong>Layers</strong> menu):</p>
 classification line up with the image segments?</p>
 <p>Have a look at the numeric results, as well - where are the biggest differences between the pixel-based results and
 the object-based results? As you look around the map, do the classified results line up with what you expect to see?</p>
-</div>
-<div class="section" id="exporting-the-classification">
+</section>
+<section id="exporting-the-classification">
 <h2>exporting the classification<a class="headerlink" href="#exporting-the-classification" title="Permalink to this heading">¶</a></h2>
 <p>The code in this section will enable you to export the classified image to your Google Drive, and use them in, for example,
 ArcGIS, QGIS, or ERDAS Imagine. To do so, uncomment this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 401 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 409),
@@ -446,54 +436,57 @@ then re-run the script:</p>
 <span class="p">});</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
-</div>
-<div class="section" id="references-and-notes">
+</section>
+<section id="references-and-notes">
 <h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this heading">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
-<dd><p>Achanta, R. and S. Susstrunk (2017). In <em>Proc. IEEE Conf. Comp. Vis. Patt. Recog.</em>, pp. 4651–4660. doi: <a class="reference external" href="https://doi.org/10.1109/CVPR.2017.520">10.1109/CVPR.2017.520</a> [<a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Achanta_Superpixels_and_Polygons_CVPR_2017_paper.pdf">open-access pdf</a>]</p>
-</dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">4</a></span></dt>
-<dd><p>Haralick, R. M., K. Shanmugam and I. Dinstein (1973). <em>IEEE Trans. Systems, Man, Cybernetics</em>, SMC-3(<strong>6</strong>), pp. 610-621. doi: <a class="reference external" href="http://doi.org/10.1109/TSMC.1973.4309314">10.1109/TSMC.1973.4309314.</a></p>
-</dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">5</a></span></dt>
-<dd><p>Tassi, A. and M. Vizzari (2020). <em>Rem. Sens.</em> 12, 3776. doi: <a class="reference external" href="https://doi.org/10.3390/rs12223776">10.3390/rs12223776</a></p>
-</dd>
-</dl>
-</div>
-</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">3</a><span class="fn-bracket">]</span></span>
+<p>Achanta, R. and S. Susstrunk (2017). In <em>Proc. IEEE Conf. Comp. Vis. Patt. Recog.</em>, pp. 4651–4660. doi: <a class="reference external" href="https://doi.org/10.1109/CVPR.2017.520">10.1109/CVPR.2017.520</a> [<a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Achanta_Superpixels_and_Polygons_CVPR_2017_paper.pdf">open-access pdf</a>]</p>
+</aside>
+<aside class="footnote brackets" id="id5" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">4</a><span class="fn-bracket">]</span></span>
+<p>Haralick, R. M., K. Shanmugam and I. Dinstein (1973). <em>IEEE Trans. Systems, Man, Cybernetics</em>, SMC-3(<strong>6</strong>), pp. 610-621. doi: <a class="reference external" href="http://doi.org/10.1109/TSMC.1973.4309314">10.1109/TSMC.1973.4309314.</a></p>
+</aside>
+<aside class="footnote brackets" id="id6" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">5</a><span class="fn-bracket">]</span></span>
+<p>Tassi, A. and M. Vizzari (2020). <em>Rem. Sens.</em> 12, 3776. doi: <a class="reference external" href="https://doi.org/10.3390/rs12223776">10.3390/rs12223776</a></p>
+</aside>
+</aside>
+</section>
+</section>
 
 
            </div>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../change_detection/index.html" class="btn btn-neutral float-right" title="change detection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="pixel.html" class="btn btn-neutral float-left" title="pixel-based classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="../change_detection/index.html" class="btn btn-neutral float-right" title="change detection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pixel.html" class="btn btn-neutral float-left" title="pixel-based classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
@@ -501,6 +494,7 @@ then re-run the script:</p>
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

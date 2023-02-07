@@ -1,14 +1,34 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>spectral signatures &mdash; iamdonovan  documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
@@ -18,32 +38,6 @@
   <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="image collections and vectors" href="image_collections.html" />
@@ -84,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -137,7 +130,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -172,13 +164,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../index.html">google earth engine</a> &raquo;</li>
         
@@ -191,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../../_sources/gee/tutorials/getting_started/spectral.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -205,7 +195,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="spectral-signatures">
+  <section id="spectral-signatures">
 <h1>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this heading">¶</a></h1>
 <p>This tutorial is designed to have you use Google Earth Engine (GEE) to examine the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Spectral_signature">spectral signatures</a> of different surfaces.
@@ -218,7 +208,7 @@ After finishing this tutorial, you should be able to:</p>
 <li><p>export the data plotted in a chart to a CSV</p></li>
 <li><p>use spectral signatures to investigate differences in spectral signatures for different surface types</p></li>
 </ul>
-<div class="section" id="importing-geometries">
+<section id="importing-geometries">
 <h2>importing geometries<a class="headerlink" href="#importing-geometries" title="Permalink to this heading">¶</a></h2>
 <p>In the previous tutorial, we used the <strong>Inspector</strong> tab to look at band values for different points by
 clicking on the map:</p>
@@ -276,8 +266,8 @@ button:</p>
 <p class="admonition-title">Note</p>
 <p>There’s nothing inherently special about using 10 points here - this is only for illustrative purposes.</p>
 </div>
-</div>
-<div class="section" id="merging-features">
+</section>
+<section id="merging-features">
 <h2>merging features<a class="headerlink" href="#merging-features" title="Permalink to this heading">¶</a></h2>
 <p>The first part of this script (lines 1  – 14) are things we’ve seen in the previous tutorial:</p>
 <ul class="simple">
@@ -309,8 +299,8 @@ end of line 19, and add a new <code class="docutils literal notranslate"><span c
 </pre></div>
 </div>
 <p>Now, the <code class="docutils literal notranslate"><span class="pre">water</span></code> points will be included whenever we use the <code class="docutils literal notranslate"><span class="pre">samplePoints</span></code> object later on.</p>
-</div>
-<div class="section" id="extracting-image-values">
+</section>
+<section id="extracting-image-values">
 <h2>extracting image values<a class="headerlink" href="#extracting-image-values" title="Permalink to this heading">¶</a></h2>
 <p>Now that we have a <strong>FeatureCollection</strong> with all of the points, we can use it to select the surface reflectance
 values from our image at our sample points. First, we make sure to only use the surface reflectance bands (bands 1-7):</p>
@@ -338,8 +328,8 @@ standard deviation (<code class="docutils literal notranslate"><span class="pre"
 (<code class="docutils literal notranslate"><span class="pre">ee.Reducer.robustLinearRegression()</span></code>).</p>
 <p>For this tutorial, we want to be able to plot the mean reflectance for different surface types in different bands – so
 we’re using <code class="docutils literal notranslate"><span class="pre">ee.Reducer.mean()</span></code>. In other tutorials, we’ll make use of more complicated reducers.</p>
-</div>
-<div class="section" id="extracting-feature-values">
+</section>
+<section id="extracting-feature-values">
 <h2>extracting feature values<a class="headerlink" href="#extracting-feature-values" title="Permalink to this heading">¶</a></h2>
 <p>The output of our image reduction is a <strong>FeatureCollection</strong>, <code class="docutils literal notranslate"><span class="pre">ptRefl</span></code>. To look at what’s been added to our points,
 you can add <code class="docutils literal notranslate"><span class="pre">print(ptRefl);</span></code> to the script after line 32, and re-run the script. You should see this in the <strong>Console</strong>:</p>
@@ -404,8 +394,8 @@ You should see something like this (remember that your values will be different!
 <a class="reference internal image-reference" href="../../../_images/array.png"><img alt="the array printed to the console" class="align-center" src="../../../_images/array.png" style="width: 400px;" /></a>
 <p><br /> This is the data that we’ll use to create the our plot - each element of the list represents the reflectance values
 for our sample points in the given band (ordered based on <code class="docutils literal notranslate"><span class="pre">bandNames</span></code>).</p>
-</div>
-<div class="section" id="creating-a-chart">
+</section>
+<section id="creating-a-chart">
 <h2>creating a chart<a class="headerlink" href="#creating-a-chart" title="Permalink to this heading">¶</a></h2>
 <p>Before we’re ready to plot the results, we’ll create a <strong>List</strong> with the central wavelengths (in µm) of our bands
 (<a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">source</a>):</p>
@@ -499,8 +489,8 @@ would not be updated:</p>
 <a class="reference internal image-reference" href="../../../_images/final_chart.png"><img alt="the final chart produced in the tutorial" class="align-center" src="../../../_images/final_chart.png" style="width: 600px;" /></a>
 <p><br /> Finally, open the chart in a new window by clicking the button in the upper right corner of the chart. From here,
 you can save the chart as a SVG or PNG file, or export the data as a CSV.</p>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <p>At this point, you’ve seen how you can import geometries (or <strong>Feature</strong>s, or <strong>FeatureCollection</strong>s) to your script.
 You’ve also seen how to extract image values using those geometries, and how to plot those values in a chart.</p>
@@ -510,37 +500,37 @@ You’ve also seen how to extract image values using those geometries, and how t
 <li><p>Experiment with adding additional points to each <strong>Feature</strong> - how does this affect the surface reflectance plot?</p></li>
 <li><p>For an extra challenge, try to adapt this script to use a different image source, such as <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR">Sentinel-2</a>, <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S3_OLCI">Sentinel-3</a>, or <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD43A4">MODIS</a>. Comparing these datasets to the Landsat plot would give you a way to see how a sensor’s spectral resolution affects the spectral data you can extract for each surface – are there surfaces where this makes a significant difference in what you see with the spectral signature?</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="image_collections.html" class="btn btn-neutral float-right" title="image collections and vectors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="adding_exporting.html" class="btn btn-neutral float-left" title="adding and exporting images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="image_collections.html" class="btn btn-neutral float-right" title="image collections and vectors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="adding_exporting.html" class="btn btn-neutral float-left" title="adding and exporting images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
@@ -548,6 +538,7 @@ You’ve also seen how to extract image values using those geometries, and how t
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

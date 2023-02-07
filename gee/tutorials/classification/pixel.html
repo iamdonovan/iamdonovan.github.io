@@ -1,14 +1,35 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>pixel-based classification &mdash; iamdonovan  documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
@@ -18,33 +39,6 @@
   <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="object-based classification" href="obia.html" />
@@ -85,7 +79,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -140,7 +133,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -175,13 +167,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../index.html">google earth engine</a> &raquo;</li>
         
@@ -194,7 +184,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../../_sources/gee/tutorials/classification/pixel.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -208,7 +198,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="pixel-based-classification">
+  <section id="pixel-based-classification">
 <h1>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this heading">¶</a></h1>
 <p>In this tutorial, we’ll look at doing a pixel-based classification of a Landsat 8 image acquired on 24 June, 2020,
 covering a portion of the Amazon Rainforest south of Santarém, Brazil.</p>
@@ -222,7 +212,7 @@ to classify the image based on its characteristics, before classifying each pixe
 <li><p>create a chart that shows the area by class</p></li>
 <li><p>plot spectral signatures of training classes</p></li>
 </ul>
-<div class="section" id="adding-training-points">
+<section id="adding-training-points">
 <h2>adding training points<a class="headerlink" href="#adding-training-points" title="Permalink to this heading">¶</a></h2>
 <p>To run a supervised classification, we need to provide <strong>labeled training</strong> data - that is, a number of points where
 we have identified what <strong>class</strong> the points belong to.</p>
@@ -248,8 +238,8 @@ want to edit:</p>
 To get a robust classification result and accuracy assessment, however, you will most likely need to add significantly more training
 points.</p>
 </div>
-</div>
-<div class="section" id="adding-classes">
+</section>
+<section id="adding-classes">
 <h2>adding classes<a class="headerlink" href="#adding-classes" title="Permalink to this heading">¶</a></h2>
 <p>You might also want to add additional landcover classes to the classification by adding a new <strong>FeatureCollection</strong> as follows.
 First, mouse back over the <strong>Geometry Imports</strong>. At the bottom of the <strong>Geometry Imports</strong> menu, click on “<strong>new layer</strong>”
@@ -284,8 +274,8 @@ correspond to the 5 classes that have already been imported.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">classes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">List</span><span class="p">([</span><span class="s1">&#39;water&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;forest&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;grassland&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;built-up&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bare soil&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-require-to-load-another-script">
+</section>
+<section id="using-require-to-load-another-script">
 <h2>using require to load another script<a class="headerlink" href="#using-require-to-load-another-script" title="Permalink to this heading">¶</a></h2>
 <p>The very first line of this script (after the initial comment) is this:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">accuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;users/robertmcnabb/modules:accuracy&#39;</span><span class="p">);</span>
@@ -316,15 +306,15 @@ functions or attributes in <code class="docutils literal notranslate"><span clas
 <span class="kd">var</span><span class="w"> </span><span class="nx">unbiasedArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">accuracy</span><span class="p">.</span><span class="nx">unbiasedArea</span><span class="p">(</span><span class="nx">cm</span><span class="p">.</span><span class="nx">array</span><span class="p">(),</span><span class="w"> </span><span class="nx">areas</span><span class="p">).</span><span class="nx">toList</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">accuracy</span></code> module includes a number of functions that implement equations from Oloffsson et al. (2013)<a class="footnote-reference brackets" href="#olofsson" id="id1">1</a>, to
+<p>The <code class="docutils literal notranslate"><span class="pre">accuracy</span></code> module includes a number of functions that implement equations from Oloffsson et al. (2013)<a class="footnote-reference brackets" href="#olofsson" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, to
 provide a convenient way to estimate the area uncertainty of our classification using the classification
 error (confusion) matrix.</p>
 <p>We will make more use of <code class="docutils literal notranslate"><span class="pre">require()</span></code> in future tutorials; if you’re interested in seeing how to set this up to use it
 in your own scripts,
 <a class="reference external" href="https://medium.com/google-earth/making-it-easier-to-reuse-code-with-earth-engine-script-modules-2e93f49abb13">this blog post</a>
 is a great place to start.</p>
-</div>
-<div class="section" id="getting-training-data">
+</section>
+<section id="getting-training-data">
 <h2>getting training data<a class="headerlink" href="#getting-training-data" title="Permalink to this heading">¶</a></h2>
 <p>Now that we have training classes and points, we have to decide what image properties to use as inputs for “training”
 the classifier. In the script as written, we use Landsat OLI bands 1-7 (Visible/NIR/SWIR), as shown in this line:</p>
@@ -354,8 +344,8 @@ points:</p>
 <strong>FeatureCollection</strong>. To make sure that we include the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> value for each point, we add this to the
 <code class="docutils literal notranslate"><span class="pre">properties</span></code> parameter when we call <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code> - otherwise, this information wouldn’t be included
 in the training dataset.</p>
-</div>
-<div class="section" id="splitting-the-training-data">
+</section>
+<section id="splitting-the-training-data">
 <h2>splitting the training data<a class="headerlink" href="#splitting-the-training-data" title="Permalink to this heading">¶</a></h2>
 <p>The next step in training a <strong>Classifier</strong> is to <em>split</em> the training dataset into two parts: one, the <em>training</em> split,
 is what we’ll use to actually train the <strong>Classifier</strong>. The second part, the <em>testing</em> split, is what we’ll use to
@@ -377,19 +367,19 @@ which form our <em>testing</em> data:</p>
 <span class="kd">var</span><span class="w"> </span><span class="nx">testingPartition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">withRandom</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">split</span><span class="p">));</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="training-a-classifier">
+</section>
+<section id="training-a-classifier">
 <h2>training a classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this heading">¶</a></h2>
 <p>Once we’ve split the input data into <em>training</em> and <em>testing</em> partitions, we can “train” our <strong>Classifier</strong>.</p>
 <p>GEE has a number of <strong>Classifier</strong> algorithms implemented:</p>
 <ul class="simple">
-<li><p>Maximum Entropy (<code class="docutils literal notranslate"><span class="pre">amnhMaxent</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent">documentation</a>)<a class="footnote-reference brackets" href="#maxent1" id="id2">2</a><a class="footnote-reference brackets" href="#maxent2" id="id3">3</a></p></li>
-<li><p>Support Vector Machine (<code class="docutils literal notranslate"><span class="pre">libsvm</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm">documentation</a>)<a class="footnote-reference brackets" href="#svm" id="id4">4</a></p></li>
-<li><p>Minimum Distance (<code class="docutils literal notranslate"><span class="pre">minimumDistance</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance">documentation</a>)<a class="footnote-reference brackets" href="#mindist" id="id5">5</a></p></li>
-<li><p>CART (<code class="docutils literal notranslate"><span class="pre">smileCart</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart">documentation</a>)<a class="footnote-reference brackets" href="#cart" id="id6">6</a></p></li>
-<li><p>Gradient Tree Boost (<code class="docutils literal notranslate"><span class="pre">smileGradientTreeBoost</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost">documentation</a>)<a class="footnote-reference brackets" href="#grad" id="id7">7</a></p></li>
-<li><p>Naive Bayes (<code class="docutils literal notranslate"><span class="pre">smileNaiveBayes</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes">documentation</a>)<a class="footnote-reference brackets" href="#bayes" id="id8">8</a></p></li>
-<li><p>Random Forest (<code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest">documentation</a>)<a class="footnote-reference brackets" href="#randforest" id="id9">9</a></p></li>
+<li><p>Maximum Entropy (<code class="docutils literal notranslate"><span class="pre">amnhMaxent</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent">documentation</a>)<a class="footnote-reference brackets" href="#maxent1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a><a class="footnote-reference brackets" href="#maxent2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a></p></li>
+<li><p>Support Vector Machine (<code class="docutils literal notranslate"><span class="pre">libsvm</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm">documentation</a>)<a class="footnote-reference brackets" href="#svm" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></li>
+<li><p>Minimum Distance (<code class="docutils literal notranslate"><span class="pre">minimumDistance</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance">documentation</a>)<a class="footnote-reference brackets" href="#mindist" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></li>
+<li><p>CART (<code class="docutils literal notranslate"><span class="pre">smileCart</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart">documentation</a>)<a class="footnote-reference brackets" href="#cart" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a></p></li>
+<li><p>Gradient Tree Boost (<code class="docutils literal notranslate"><span class="pre">smileGradientTreeBoost</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost">documentation</a>)<a class="footnote-reference brackets" href="#grad" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a></p></li>
+<li><p>Naive Bayes (<code class="docutils literal notranslate"><span class="pre">smileNaiveBayes</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes">documentation</a>)<a class="footnote-reference brackets" href="#bayes" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a></p></li>
+<li><p>Random Forest (<code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest">documentation</a>)<a class="footnote-reference brackets" href="#randforest" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a></p></li>
 </ul>
 <p>In this tutorial, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Classifier.smileRandomForest()</span></code> to do a Random Forest classification:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">classifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Classifier</span><span class="p">.</span><span class="nx">smileRandomForest</span><span class="p">(</span><span class="mf">100</span><span class="p">).</span><span class="nx">train</span><span class="p">({</span>
@@ -410,8 +400,8 @@ the classifier. The inputs to <code class="docutils literal notranslate"><span c
 <p>So, this will train the <strong>Classifier</strong> using the <code class="docutils literal notranslate"><span class="pre">trainingPartition</span></code> <strong>FeatureCollection</strong>,
 based on the <code class="docutils literal notranslate"><span class="pre">'landcover'</span></code> property, using the image bands listed in the <code class="docutils literal notranslate"><span class="pre">bands</span></code> variable defined at line 17 of
 the script.</p>
-</div>
-<div class="section" id="classifying-the-image">
+</section>
+<section id="classifying-the-image">
 <h2>classifying the image<a class="headerlink" href="#classifying-the-image" title="Permalink to this heading">¶</a></h2>
 <p>Once we have trained the <strong>Classifier</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.classify()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-classify">documentation</a>) to classify the
@@ -424,8 +414,8 @@ of each class from our training <strong>FeatureCollection</strong>.</p>
 <p>Have a look at the classified image in the <strong>Map</strong> window - are there areas where you can see some misclassification?
 Does it overall match with your expectations? In the next few sections, we’ll take a look at some ways that we can
 evaluate how well the <strong>Classifier</strong> has done in classifying each pixel of the image.</p>
-</div>
-<div class="section" id="accuracy-assessment">
+</section>
+<section id="accuracy-assessment">
 <h2>accuracy assessment<a class="headerlink" href="#accuracy-assessment" title="Permalink to this heading">¶</a></h2>
 <p>Once we’ve trained the <strong>Classifier</strong> and applied it to the image, we can use the <em>testing</em> dataset to evaluate how
 well the <strong>Classifier</strong> has performed. First, though, we have to use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.classify()</span></code>
@@ -471,7 +461,7 @@ appears to be incorrect - that is, based on the example code provided, <code cla
 uses the values in each <em>row</em> of the sample <strong>Array</strong>, while <code class="docutils literal notranslate"><span class="pre">ee.ConfusionMatrix.consumersAccuracy()</span></code> uses the
 values in each <em>column</em>.</p>
 </div>
-<p>The <em>kappa</em> score, or statistic<a class="footnote-reference brackets" href="#kappa" id="id10">10</a>, is calculated as follows:</p>
+<p>The <em>kappa</em> score, or statistic<a class="footnote-reference brackets" href="#kappa" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a>, is calculated as follows:</p>
 <div class="math notranslate nohighlight">
 \[\kappa = \frac{p_o - p_e}{1 - p_e}\]</div>
 <p>where <span class="math notranslate nohighlight">\(p_o\)</span> is the observed accuracy of the classifier, and <span class="math notranslate nohighlight">\(p_e\)</span> is the hypothetical probability of chance agreement.
@@ -480,14 +470,6 @@ The <em>kappa</em> score thus gives a measure of how much better the classifier 
 <a class="reference internal image-reference" href="../../../_images/confusion_matrix.png"><img alt="the error matrix and accuracy values for the 100-tree random forest classification" class="align-center" src="../../../_images/confusion_matrix.png" style="width: 400px;" /></a>
 <p><br /> To help make this a bit clearer, I’ve added row/column labels to this table below:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 11%" />
-<col style="width: 12%" />
-<col style="width: 17%" />
-<col style="width: 18%" />
-<col style="width: 17%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"><p>water</p></th>
@@ -550,11 +532,6 @@ classified image).</p>
 <p>The <em>producer’s</em> accuracy is similarly high for each class except for bare soil, where 4 of the 12 test <strong>Feature</strong>s
 were misclassified.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 38%" />
-<col style="width: 38%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>class</p></th>
 <th class="head"><p>producer’s accuracy</p></th>
@@ -586,8 +563,8 @@ were misclassified.</p>
 </table>
 <p>While these are encouraging results, it’s worth keeping in mind that we’re working with only a few (<span class="math notranslate nohighlight">\(n \leq\)</span> 15)
 samples for each class. With small sample sizes like this, our results are less likely to be an accurate reflection of
-the accuracy of the classified image.<a class="footnote-reference brackets" href="#congalton" id="id11">11</a></p>
-<div class="section" id="landcover-area-by-class">
+the accuracy of the classified image.<a class="footnote-reference brackets" href="#congalton" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a></p>
+<section id="landcover-area-by-class">
 <h3>landcover area by class<a class="headerlink" href="#landcover-area-by-class" title="Permalink to this heading">¶</a></h3>
 <p>To get the total area for each class in the classified image, we start by using
 <code class="docutils literal notranslate"><span class="pre">ee.Image.pixelArea()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-pixelarea">documentation</a>)
@@ -645,10 +622,6 @@ to a <strong>List</strong>.</p>
 </div>
 <p>The end result is this (note that when we <code class="docutils literal notranslate"><span class="pre">print()</span></code> the <strong>Dictionary</strong>, the keys are ordered alphabetically):</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 42%" />
-<col style="width: 58%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>class</p></th>
 <th class="head"><p>area (km<sup>2</sup>)</p></th>
@@ -672,17 +645,17 @@ to a <strong>List</strong>.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="unbiased-area-estimates-and-area-uncertainty">
+</section>
+<section id="unbiased-area-estimates-and-area-uncertainty">
 <h3>unbiased area estimates and area uncertainty<a class="headerlink" href="#unbiased-area-estimates-and-area-uncertainty" title="Permalink to this heading">¶</a></h3>
 <p>The next part of the script is where we make use of the <code class="docutils literal notranslate"><span class="pre">require()</span></code> statement discussed earlier. Perhaps just as
 important as the area of each landcover class is the <em>uncertainty</em> of that classified area. Because of the errors of
 omission and commission (the complements of the producer’s and consumer’s accuracy discussed above), the area counts
 in the table above are <em>biased</em> - that is, they are skewed because they exclude (or include) areas that should be
 included (excluded) in the estimated area for each class.</p>
-<p>Based on the work presented by Olofsson et al. 2013<a class="footnote-reference brackets" href="#olofsson" id="id12">1</a>, we can use the error matrix that we produced as part
+<p>Based on the work presented by Olofsson et al. 2013<a class="footnote-reference brackets" href="#olofsson" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, we can use the error matrix that we produced as part
 of the <strong>Classifier</strong> training process to produce an <em>unbiased</em> estimate of the landcover area for each class, as well
-as the 95% confidence interval (CI) around that estimate.<a class="footnote-reference brackets" href="#ci" id="id13">12</a></p>
+as the 95% confidence interval (CI) around that estimate.<a class="footnote-reference brackets" href="#ci" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a></p>
 <p>I won’t go through the equations or the code in detail here, but the functions <code class="docutils literal notranslate"><span class="pre">unbiasedArea()</span></code> and
 <code class="docutils literal notranslate"><span class="pre">standardError()</span></code> included in <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:accuracy</span></code> calculate the unbiased area estimate
 and standard error for each class, given the error matrix and total areas classified for each landcover class:</p>
@@ -701,13 +674,8 @@ use <code class="docutils literal notranslate"><span class="pre">ee.Array.toList
 </pre></div>
 </div>
 <p>When we print this <strong>Dictionary</strong> to the <strong>Console</strong>, we see the following (here combined in a single table for ease
-of comparison)<a class="footnote-reference brackets" href="#error" id="id14">13</a>:</p>
+of comparison)<a class="footnote-reference brackets" href="#error" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></a>:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 36%" />
-<col style="width: 47%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>class</p></th>
 <th class="head"><p>classified area (km<sup>2</sup>)</p></th>
@@ -779,9 +747,9 @@ into a single array using <code class="docutils literal notranslate"><span class
 </div>
 <p>With the following printed to the <strong>Console</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/area_chart.png"><img alt="a bar chart comparing the area by class estimated from the classified image and after adjusting using the error matrix" class="align-center" src="../../../_images/area_chart.png" style="width: 600px;" /></a>
-</div>
-</div>
-<div class="section" id="spectral-signatures">
+</section>
+</section>
+<section id="spectral-signatures">
 <h2>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this heading">¶</a></h2>
 <p>When we have two classes where we have significant mis-classification between the two classes, such as bare soil and
 built-up areas, we might think about whether it makes sense to have them as separate classes. We can also try adding
@@ -840,8 +808,8 @@ for each band for each class, and plot the results again:</p>
 training samples, we see that at longer wavelengths, the built-up and bare soil classes are very similar; in the
 random sample, they are more separated. This suggests that we might want to add more varied training samples for both
 classes, to help increase some of this separation.</p>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <p>In this tutorial, we’ve seen how we can use GEE to classify a satellite image. We’ve also seen how we can assess the
 accuracy of that classification, produce estimates of the area of each landcover class, and examine the spectral
@@ -856,96 +824,110 @@ like SVM, there may be additional processing steps such as normalization require
 <li><p>there are some clouds (and cloud shadow) in the image, which cause mis-classification. Can you think of some ways that
 you could address this?</p></li>
 </ul>
-</div>
-<div class="section" id="references-and-notes">
+</section>
+<section id="references-and-notes">
 <h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this heading">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="olofsson"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id12">2</a>)</span></dt>
-<dd><p>Olofsson, P., et al. (2013). <em>Rem. Sens. Env.</em> 129, 122–131.
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="olofsson" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id12">2</a>)</span>
+<p>Olofsson, P., et al. (2013). <em>Rem. Sens. Env.</em> 129, 122–131.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.rse.2012.10.031">10.1016/j.rse.2012.10.031</a></p>
-</dd>
-<dt class="label" id="maxent1"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>This particular implementation is the American Museum of Natural History (AMNH) maximum-entropy classifier;
+</aside>
+<aside class="footnote brackets" id="maxent1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>This particular implementation is the American Museum of Natural History (AMNH) maximum-entropy classifier;
 for more information about the software, see <a class="reference external" href="https://biodiversityinformatics.amnh.org/open_source/maxent/">https://biodiversityinformatics.amnh.org/open_source/maxent/</a></p>
-</dd>
-<dt class="label" id="maxent2"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>e.g., De Martino, A. and D. De Martino (2018). <em>Heliyon</em>, 4(<strong>4</strong>), e00596.
+</aside>
+<aside class="footnote brackets" id="maxent2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>e.g., De Martino, A. and D. De Martino (2018). <em>Heliyon</em>, 4(<strong>4</strong>), e00596.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.heliyon.2018.e00596">10.1016/j.heliyon.2018.e00596</a></p>
-</dd>
-<dt class="label" id="svm"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
-<dd><p>e.g., Mountrakis, G., et al. (2011). <em>ISPRS J. Photogramm. Rem. Sens.</em> 66, 247–259.
+</aside>
+<aside class="footnote brackets" id="svm" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p>e.g., Mountrakis, G., et al. (2011). <em>ISPRS J. Photogramm. Rem. Sens.</em> 66, 247–259.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2010.11.001">10.1016/j.isprsjprs.2010.11.001</a></p>
-</dd>
-<dt class="label" id="mindist"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
-<dd><p>e.g., Wacker, A. G. and D. A. Landgrebe (1972). <em>LARS Technical Reports</em>. Paper 25.
+</aside>
+<aside class="footnote brackets" id="mindist" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p>e.g., Wacker, A. G. and D. A. Landgrebe (1972). <em>LARS Technical Reports</em>. Paper 25.
 [<a class="reference external" href="http://docs.lib.purdue.edu/larstech/25">PDF</a>]</p>
-</dd>
-<dt class="label" id="cart"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
-<dd><p>e.g., Loh, W.-Y. (2011). <em>WIREs Data Mining Knowl. Discov.</em> 1(<strong>1</strong>), 14-23.
+</aside>
+<aside class="footnote brackets" id="cart" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
+<p>e.g., Loh, W.-Y. (2011). <em>WIREs Data Mining Knowl. Discov.</em> 1(<strong>1</strong>), 14-23.
 doi: <a class="reference external" href="https://doi.org/10.1002/widm.8">10.1002/widm.8</a></p>
-</dd>
-<dt class="label" id="grad"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
-<dd><p>e.g., Friedman, J. H. (2001). <em>Ann. Statist.</em> 29(<strong>5</strong>), 1189-1232.
+</aside>
+<aside class="footnote brackets" id="grad" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
+<p>e.g., Friedman, J. H. (2001). <em>Ann. Statist.</em> 29(<strong>5</strong>), 1189-1232.
 doi: <a class="reference external" href="https://doi.org/10.1214/aos/1013203451">10.1214/aos/1013203451</a></p>
-</dd>
-<dt class="label" id="bayes"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
-<dd><p>e.g., Hand, D. J. and K. Yu (2001). <em>Int. Statistical Rev.</em> 69(<strong>3</strong>), 385-398.
+</aside>
+<aside class="footnote brackets" id="bayes" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">8</a><span class="fn-bracket">]</span></span>
+<p>e.g., Hand, D. J. and K. Yu (2001). <em>Int. Statistical Rev.</em> 69(<strong>3</strong>), 385-398.
 doi: <a class="reference external" href="https://doi.org/10.2307/1403452">10.2307/1403452</a></p>
-</dd>
-<dt class="label" id="randforest"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
-<dd><p>e.g., Belgiu, M. and L. Drăguţ (2016). <em>ISPRS J. Photogramm. Rem. Sens.</em> 114, 24-31.
+</aside>
+<aside class="footnote brackets" id="randforest" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">9</a><span class="fn-bracket">]</span></span>
+<p>e.g., Belgiu, M. and L. Drăguţ (2016). <em>ISPRS J. Photogramm. Rem. Sens.</em> 114, 24-31.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2016.01.011">10.1016/j.isprsjprs.2016.01.011</a></p>
-</dd>
-<dt class="label" id="kappa"><span class="brackets"><a class="fn-backref" href="#id10">10</a></span></dt>
-<dd><p>sometimes also referred to as <em>Cohen’s kappa</em></p>
-</dd>
-<dt class="label" id="congalton"><span class="brackets"><a class="fn-backref" href="#id11">11</a></span></dt>
-<dd><p>e.g., Congalton, R. G. (1988). <em>Photogrammetric Eng. Rem. Sens.</em> 58(<strong>5</strong>), 593-600.
+</aside>
+<aside class="footnote brackets" id="kappa" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">10</a><span class="fn-bracket">]</span></span>
+<p>sometimes also referred to as <em>Cohen’s kappa</em></p>
+</aside>
+<aside class="footnote brackets" id="congalton" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">11</a><span class="fn-bracket">]</span></span>
+<p>e.g., Congalton, R. G. (1988). <em>Photogrammetric Eng. Rem. Sens.</em> 58(<strong>5</strong>), 593-600.
 [<a class="reference external" href="https://www.asprs.org/wp-content/uploads/pers/1988journal/may/1988_may_593-600.pdf">PDF</a>]</p>
-</dd>
-<dt class="label" id="ci"><span class="brackets"><a class="fn-backref" href="#id13">12</a></span></dt>
-<dd><p>the 95% confidence interval is obtained using twice the standard error.</p>
-</dd>
-<dt class="label" id="error"><span class="brackets"><a class="fn-backref" href="#id14">13</a></span></dt>
-<dd><p>Note that in this example, because the classification has worked “perfectly” for two classes, water and forest,
+</aside>
+<aside class="footnote brackets" id="ci" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">12</a><span class="fn-bracket">]</span></span>
+<p>the 95% confidence interval is obtained using twice the standard error.</p>
+</aside>
+<aside class="footnote brackets" id="error" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">13</a><span class="fn-bracket">]</span></span>
+<p>Note that in this example, because the classification has worked “perfectly” for two classes, water and forest,
 the standard error for each class is 0. This is not real, as you can tell by looking at the cloud shadows that have
 been classified as “water”. Rather than using the testing split, we could instead select a number of random points
 from each landcover class in the classified image, and compare the computer-classified values with human-classified
 values. This is more difficult to do within GEE, but it would provide a more robust estimate of the accuracy of
 the classification.</p>
-</dd>
-</dl>
-</div>
-</div>
+</aside>
+</aside>
+</section>
+</section>
 
 
            </div>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="obia.html" class="btn btn-neutral float-right" title="object-based classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="unsupervised.html" class="btn btn-neutral float-left" title="unsupervised classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="obia.html" class="btn btn-neutral float-right" title="object-based classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="unsupervised.html" class="btn btn-neutral float-left" title="unsupervised classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
@@ -953,6 +935,7 @@ the classification.</p>
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,14 +1,35 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>dem differencing &mdash; iamdonovan  documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
@@ -18,33 +39,6 @@
   <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="introduction to google earth engine" href="week3.html" />
@@ -85,7 +79,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -112,7 +105,6 @@
 <li class="toctree-l6"><a class="reference internal" href="#accuracy-estimation">accuracy estimation</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#filling-nodata-values">filling nodata values</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#estimating-elevation-and-volume-changes">estimating elevation and volume changes</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#calculating-volume-change-uncertainty">calculating volume change uncertainty</a></li>
 <li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
 </ul>
 </li>
@@ -138,7 +130,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -173,13 +164,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
         
@@ -192,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../../_sources/teaching/egm702/practicals/week2.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -206,7 +195,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dem-differencing">
+  <section id="dem-differencing">
 <h1>dem differencing<a class="headerlink" href="#dem-differencing" title="Permalink to this heading">¶</a></h1>
 <p><strong>Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the</strong>
 <a class="reference external" href="https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&amp;export=download">google drive link</a>,
@@ -231,7 +220,7 @@ and estimating the average height of trees that were knocked over by the blast.<
 <li><p>World of Change: Devastation and Recovery at Mt St Helens [<a class="reference external" href="https://earthobservatory.nasa.gov/world-of-change/StHelens">NASA Earth Observatory</a>]</p></li>
 <li><p>Footage of the 1980 Mt St Helens Eruption [<a class="reference external" href="https://www.youtube.com/watch?v=AYla6q3is6w">YouTube</a>]</p></li>
 </ul>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
 <p>Open up ArcGIS Pro, and create a new project in your Week 2 folder. You may need to add a folder connection to your
 Week 2 folder – if so, do that now.</p>
@@ -285,8 +274,8 @@ see that the DEMs all have the same color scheme:</p>
 highlighted in the <strong>Contents panel</strong>. You should be able to clearly see the enormous differences that took place
 between the 1979 acquisition and the 1984 acquisition. In the remainder of the practical, we will work on quantifying
 these differences. If you haven’t already, this is a good place to save your map.</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h2>dem differencing<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <p>The next step is to actually difference the two DEMs (in this case, the 1979 and the 1984 DEMs). From the
 <strong>Geoprocessing</strong> tab, enter “raster calculator” in the search bar and press <strong>Enter</strong>. Open the <strong>Raster Calculator</strong>
@@ -311,8 +300,8 @@ should look something like this (note that I’ve turned off the two shapefiles,
 <p><br /> You should now clearly see where the mountainside has collapsed, as well the landslide and lahar/pyroclastic
 material deposits to the North of the volcano, and the two lakes that have dramatically increased their levels
 (Coldwater Lake and Spirit Lake, from West to East).</p>
-</div>
-<div class="section" id="accuracy-estimation">
+</section>
+<section id="accuracy-estimation">
 <h2>accuracy estimation<a class="headerlink" href="#accuracy-estimation" title="Permalink to this heading">¶</a></h2>
 <p>The next step is to estimate how accurate our DEM difference is, as this will tell us something about how well we can
 estimate both the elevation and volume changes that we’re interested in. When we expect to see changes in elevation of
@@ -396,10 +385,34 @@ from the google drive link above.</p>
 <p><br /> You can now run through the instructions provided in the notebook to calculate the NMAD and RMSE values for your
 exported points. You can also run this on a selection of the points (for example, using the same selection you made
 above) by first creating a new layer from the selection (right-click, <strong>Selection</strong> &gt;
-<strong>Make Layer from Selected Features</strong>), then exporting the table from that layer to a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file. You’ll need to
-change the filename for the data in the notebook as well before running the calculations.</p>
+<strong>Make Layer from Selected Features</strong>), then exporting the table from that layer to a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file.</p>
+<p>You’ll need to change the filename for the data in the notebook as well before running the calculations - be sure to
+read the text in the notebook carefully.</p>
+<div class="admonition note" id="egm702-alternate">
+<p class="admonition-title">Note</p>
+<p>If you encounter the following (extremely vague) error:</p>
+<a class="reference internal image-reference" href="../../../_images/notebook_error.png"><img alt="an error message that says &quot;failed to load notebook&quot;" class="align-center" src="../../../_images/notebook_error.png" style="width: 300px;" /></a>
+<p><br /> Don’t panic - You can still run the script to calculate the NMAD and RMSE as follows. First, you will need to
+open the <strong>Python Command Prompt</strong> from ArcGIS Pro (<strong>Start</strong> &gt; <strong>ArcGIS</strong> &gt; <strong>Python Command Prompt</strong>):</p>
+<a class="reference internal image-reference" href="../../../_images/python_cmd.png"><img alt="the ArcGIS folder in the Windows Start Menu" class="align-center" src="../../../_images/python_cmd.png" style="width: 300px;" /></a>
+<p><br /> When this command prompt opens, navigate to the folder where you have saved your practical data using the
+<code class="docutils literal notranslate"><span class="pre">cd</span></code> command (remember to <a class="reference external" href="https://getyarn.io/yarn-clip/876a8240-51da-4068-919d-d9111d405d3e">replace path-to-egm702-data</a>
+with the actual path!):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">egm702</span><span class="o">-</span><span class="n">data</span>
+</pre></div>
 </div>
-<div class="section" id="filling-nodata-values">
+<p>Now, enter the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
+</pre></div>
+</div>
+<p>This will open a browser window:</p>
+<a class="reference internal image-reference" href="../../../_images/jupyter.png"><img alt="the egm702 folder opened in jupyter" class="align-center" src="../../../_images/jupyter.png" style="width: 600px;" /></a>
+<p><br /> Click on <code class="docutils literal notranslate"><span class="pre">AccuracyAnalysis.ipynb</span></code>, which should open the notebook in a new tab/window:</p>
+<a class="reference internal image-reference" href="../../../_images/notebook_browser.png"><img alt="the jupyter notebook opened in a browser window" class="align-center" src="../../../_images/notebook_browser.png" style="width: 600px;" /></a>
+<p><br /> Be sure to read the instructions carefully to run the cells of the notebook.</p>
+</div>
+</section>
+<section id="filling-nodata-values">
 <h2>filling nodata values<a class="headerlink" href="#filling-nodata-values" title="Permalink to this heading">¶</a></h2>
 <p>You may notice that there are a number of voids, or gaps, in the DEM difference. I have masked the clouds present in
 the 1984 image, as well as a few other areas where there are blunders (large errors) in one or the other DEM. There
@@ -457,8 +470,8 @@ this will fill the voids in the dZ raster using the kriging predicted values.</p
 <a class="reference internal image-reference" href="../../../_images/dz_with_holes.png"><img alt="the swipe tool showing the elevation difference with and without holes filled" class="align-center" src="../../../_images/dz_with_holes.png" style="width: 600px;" /></a>
 <p><br /> You should see that the filled raster no longer has holes where the original dZ raster did. At this point, you can move on to
 estimating some volume changes.</p>
-</div>
-<div class="section" id="estimating-elevation-and-volume-changes">
+</section>
+<section id="estimating-elevation-and-volume-changes">
 <h2>estimating elevation and volume changes<a class="headerlink" href="#estimating-elevation-and-volume-changes" title="Permalink to this heading">¶</a></h2>
 <p>For this step, we’ll start by calculating the lake volume changes. To do this, we’ll use the
 <strong>Zonal Statistics as Table</strong> tool from the <strong>Spatial Analyst</strong> toolbox. Open the tool, then set the
@@ -488,11 +501,8 @@ but you should at least try one of them – this will form part of the investiga
 Assessment Part 1, as well as part of the report you will submit for Assessment Part 2.</p>
 <p>To do the digitizing, I recommend using a combination of the elevation difference raster and the Landsat images to
 guide you.</p>
-</div>
-<div class="section" id="calculating-volume-change-uncertainty">
-<h2>calculating volume change uncertainty<a class="headerlink" href="#calculating-volume-change-uncertainty" title="Permalink to this heading">¶</a></h2>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <p>I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the ca. 2008 ALOS/PRISM DEM. You
 can check out the tutorial provided here: <a class="reference external" href="https://github.com/iamdonovan/dem-coregistration">https://github.com/iamdonovan/dem-coregistration</a> to learn more about how I’ve
@@ -504,37 +514,37 @@ having to download and set it up yourself:</p>
 since 1984. The lava dome in the middle of the caldera has continued to grow, and a glacier has even grown since the
 1980 eruption. Logging activity has also continued in the areas around the mountain, which we can see in the satellite
 images, as well as the derived DEMs.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="week3.html" class="btn btn-neutral float-right" title="introduction to google earth engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="week1.html" class="btn btn-neutral float-left" title="dem processing using micmac" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="week3.html" class="btn btn-neutral float-right" title="introduction to google earth engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="week1.html" class="btn btn-neutral float-left" title="dem processing using micmac" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
@@ -542,6 +552,7 @@ images, as well as the derived DEMs.</p>
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

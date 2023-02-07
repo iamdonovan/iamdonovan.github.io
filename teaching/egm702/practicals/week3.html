@@ -1,14 +1,34 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>introduction to google earth engine &mdash; iamdonovan  documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
@@ -18,32 +38,6 @@
   <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="change detection in earth engine" href="week4.html" />
@@ -84,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -137,7 +130,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -172,13 +164,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
         
@@ -191,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../../_sources/teaching/egm702/practicals/week3.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -205,15 +195,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="introduction-to-google-earth-engine">
+  <section id="introduction-to-google-earth-engine">
 <h1>introduction to google earth engine<a class="headerlink" href="#introduction-to-google-earth-engine" title="Permalink to this heading">¶</a></h1>
 <style> .green {color:green} </style><p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if
 you have no prior experience with programming, you will be able to complete this practical. All of the programming steps
 have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.</p>
-<p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id3" id="id1">1</a>). With it, users
+<p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>). With it, users
 have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification,
 and computational power above what an average desktop user has access to.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
 <p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using
 your GEE account. You should see something like this:</p>
@@ -251,8 +241,8 @@ to update the script names appropriately). This way, you have a record of any ch
 <p>Perhaps most importantly, it will mean that when you add training samples for the classification exercises in
 Week 5, you don’t have to re-do them each time you re-open your browser window.</p>
 </div>
-</div>
-<div class="section" id="part-1-finding-and-inspecting-images">
+</section>
+<section id="part-1-finding-and-inspecting-images">
 <h2>part 1 - finding and inspecting images<a class="headerlink" href="#part-1-finding-and-inspecting-images" title="Permalink to this heading">¶</a></h2>
 <p>Once you have saved the script, you should see something like the following in the code editor:</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_saved_script.png"><img alt="the gee window after loading and saving the script" class="align-center" src="../../../_images/loaded_saved_script.png" style="width: 600px;" /></a>
@@ -410,13 +400,6 @@ difference(s) that you see between the TOA reflectance and the surface reflectan
 (OLI/TIRS). The table below shows the wavelength ranges for the different bands of the sensor(s), their resolutions,
 and their names:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>sensor</p></th>
 <th class="head"><p>band</p></th>
@@ -498,8 +481,8 @@ and their names:</p>
 <a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites</a></p>
 </div>
 <p>Once you’ve looked around the area, move on to the next script.</p>
-</div>
-<div class="section" id="part-2-band-maths-and-charts">
+</section>
+<section id="part-2-band-maths-and-charts">
 <h2>part 2 - band maths and charts<a class="headerlink" href="#part-2-band-maths-and-charts" title="Permalink to this heading">¶</a></h2>
 <p>Now that we’ve seen a little of how we can search, add, display, and examine images, let’s take a look at some of the
 different DEMs available within GEE.</p>
@@ -537,11 +520,6 @@ this <a class="reference external" href="https://code.earthengine.google.com/?sc
 <p>If you check the <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-terrain-hillshade">documentation</a> for
 <code class="docutils literal notranslate"><span class="pre">ee.Terrain.hillshade()</span></code>, you can see that this function takes 3 <em>arguments</em> (inputs):</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>argument</p></th>
 <th class="head"><p>type</p></th>
@@ -673,12 +651,12 @@ median absolute deviation (NMAD) between the two DEMs. Be sure to look at these 
 <ul class="simple">
 <li><p>the shape of the histogram that you see;</p></li>
 <li><p>the lecture from Week 2;</p></li>
-<li><p>Höhle and Höhle (2009)<a class="footnote-reference brackets" href="#id4" id="id2">2</a>;</p></li>
+<li><p>Höhle and Höhle (2009)<a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>;</p></li>
 </ul>
 <p>is the standard deviation an appropriate metric to describe the variation in the data? <strong>Why or why not?</strong></p>
 </div>
-</div>
-<div class="section" id="part-3-pan-sharpening">
+</section>
+<section id="part-3-pan-sharpening">
 <h2>part 3 - pan-sharpening<a class="headerlink" href="#part-3-pan-sharpening" title="Permalink to this heading">¶</a></h2>
 <p>For the third part of this week’s practical, we’ll look at one method of <em>pan-sharpening</em> - that is, using a
 band or an image with a higher resolution to “sharpen”, or increase the resolution of, another image.</p>
@@ -762,8 +740,8 @@ values supplied to <code class="docutils literal notranslate"><span class="pre">
 <p>If you would rather export the pan-sharpened image with the original values, simply remove
 <code class="docutils literal notranslate"><span class="pre">.visualize({min:0.005,</span> <span class="pre">max:0.4,</span> <span class="pre">gamma:1.5})</span></code> from the script and re-run it.</p>
 </div>
-</div>
-<div class="section" id="part-4-pca">
+</section>
+<section id="part-4-pca">
 <h2>part 4 - pca<a class="headerlink" href="#part-4-pca" title="Permalink to this heading">¶</a></h2>
 <p>In the final part of this week’s practical, we’ll have a look at principal component analysis (PCA), and see how the
 different bands of the PCA image compare to the original image bands. As we discussed in the lecture, PCA can help
@@ -838,8 +816,8 @@ copy and paste the following code snippet to the bottom of the script, then re-r
 <span class="p">});</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <p>Make sure that as you work through the practical, you understand and can answer the questions being asked. If you’re
 not sure, ask on the discussion board on blackboard.</p>
@@ -849,52 +827,54 @@ not sure, ask on the discussion board on blackboard.</p>
 <a class="reference external" href="https://www.dnr.wa.gov/publications/lm_hcp_west_oldgrowth_guide_enviro_hires.pdf">figure 3</a> (page 3) from this
 pamphlet, can you identify which color(s) of the decorrelation stretch correspond to which tree species?</p></li>
 </ul>
-</div>
-<div class="section" id="references">
+</section>
+<section id="references">
 <h2>references<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore (2017). Google Earth Engine:
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore (2017). Google Earth Engine:
 Planetary-scale geospatial analysis for everyone. <em>Rem. Sens. Env.</em> 202, 18-27.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.rse.2017.06.031">10.1016/j.rse.2017.06.031</a></p>
-</dd>
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Höhle, J. &amp; Höhle, M. (2009). Accuracy assessment of digital elevation models by means of robust statistical
+</aside>
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Höhle, J. &amp; Höhle, M. (2009). Accuracy assessment of digital elevation models by means of robust statistical
 methods. <em>ISPRS J. Photogramm. Rem. Sens.</em> 64, 398–406.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2009.02.003">10.1016/j.isprsjprs.2009.02.003</a></p>
-</dd>
-</dl>
-</div>
-</div>
+</aside>
+</aside>
+</section>
+</section>
 
 
            </div>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="week4.html" class="btn btn-neutral float-right" title="change detection in earth engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="week2.html" class="btn btn-neutral float-left" title="dem differencing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="week4.html" class="btn btn-neutral float-right" title="change detection in earth engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="week2.html" class="btn btn-neutral float-left" title="dem differencing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
@@ -902,6 +882,7 @@ doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.200
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

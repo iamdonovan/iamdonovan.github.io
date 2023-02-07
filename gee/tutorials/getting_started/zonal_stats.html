@@ -1,14 +1,34 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>zonal statistics &mdash; iamdonovan  documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
@@ -18,32 +38,6 @@
   <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="image classification" href="../classification/index.html" />
@@ -84,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -137,7 +130,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -172,13 +164,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
           <li><a href="../../index.html">google earth engine</a> &raquo;</li>
         
@@ -191,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../../_sources/gee/tutorials/getting_started/zonal_stats.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -205,7 +195,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="zonal-statistics">
+  <section id="zonal-statistics">
 <h1>zonal statistics<a class="headerlink" href="#zonal-statistics" title="Permalink to this heading">¶</a></h1>
 <p>In GIS, <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-zonal-statistics-works.htm">zonal statistics</a>
 is a process whereby you calculate statistics for the pixels of a raster in different groups, or zones, defined by properties in another dataset.</p>
@@ -219,7 +209,7 @@ dataset, to see how we can perform zonal statistics in GEE on both <strong>Featu
 <li><p>use <code class="docutils literal notranslate"><span class="pre">ui.Chart.image.byClass()</span></code> to summarize and display image data</p></li>
 <li><p>use “currying” to re-write a function with multiple arguments into multiple functions of a single argument</p></li>
 </ul>
-<div class="section" id="displaying-vector-data">
+<section id="displaying-vector-data">
 <h2>displaying vector data<a class="headerlink" href="#displaying-vector-data" title="Permalink to this heading">¶</a></h2>
 <p>When you open the script, you should see two <strong>imports</strong>: the GAUL level 1 <strong>FeatureCollection</strong>, and the CORINE Land Cover <strong>ImageCollection</strong>.
 The first line of the script selects all <strong>Feature</strong>s where <code class="docutils literal notranslate"><span class="pre">ADM0_NAME</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">Ireland</span></code>:</p>
@@ -252,8 +242,8 @@ to provide a random palette to display the image as:</p>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/random.png"><img alt="an image added to the map using a random visualizer" class="align-center" src="../../../_images/random.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="selecting-from-collections">
+</section>
+<section id="selecting-from-collections">
 <h2>selecting from collections<a class="headerlink" href="#selecting-from-collections" title="Permalink to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">corine</span></code> <strong>import</strong> is an <strong>ImageCollection</strong>, containing 5 separate images: 1990, 2000, 2006, 2012, and 2018.
 We want to use the 2018 dataset, which means that we need to select the 5th image from the <strong>ImageCollection</strong>:</p>
@@ -283,8 +273,8 @@ methods).</p>
 </div>
 <p>it already has a color palette:</p>
 <a class="reference internal image-reference" href="../../../_images/landcover.png"><img alt="the landcover image added to the map" class="align-center" src="../../../_images/landcover.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="chart-by-class">
+</section>
+<section id="chart-by-class">
 <h2>chart by class<a class="headerlink" href="#chart-by-class" title="Permalink to this heading">¶</a></h2>
 <p>To display a chart showing the percent area that each landcover class occupies in a single county, Donegal
 (recently voted <a class="reference external" href="https://www.reddit.com/r/ireland/comments/njess8/we_have_a_winner_congratulations_to_donegal_for/">the best county in Ireland</a>),
@@ -342,8 +332,8 @@ to display the chart:</p>
 <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_CORINE_V20_100m#bands">landcover class table</a>
 in the GEE Data Catalog.</p>
 </div>
-</div>
-<div class="section" id="summarizing-over-a-feature">
+</section>
+<section id="summarizing-over-a-feature">
 <h2>summarizing over a feature<a class="headerlink" href="#summarizing-over-a-feature" title="Permalink to this heading">¶</a></h2>
 <p>This is one way to summarize the information, but we might also want to add these properties to the <strong>Feature</strong>, so that
 we can export the data for later analysis.</p>
@@ -454,8 +444,8 @@ to <em>zip</em> the two <strong>List</strong>s together, then <code class="docut
 </div>
 <p>we can see that the new <strong>Feature</strong> has all of the properties of the original, plus the new properties:</p>
 <a class="reference internal image-reference" href="../../../_images/updated.png"><img alt="the updated feature properties" class="align-center" src="../../../_images/updated.png" style="width: 400px;" /></a>
-</div>
-<div class="section" id="summarizing-over-a-featurecollection">
+</section>
+<section id="summarizing-over-a-featurecollection">
 <h2>summarizing over a featurecollection<a class="headerlink" href="#summarizing-over-a-featurecollection" title="Permalink to this heading">¶</a></h2>
 <p>Now, we want to do this for all of the <strong>Feature</strong>s in our <strong>FeatureCollection</strong>. To do this,
 we can use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.map()</span></code> to apply a function to each <strong>Feature</strong> in the <strong>FeatureCollection</strong>,
@@ -532,8 +522,8 @@ image that we want to use:</p>
 <p>Once you have run the script, you can run the <strong>Task</strong> from the <strong>Tasks</strong> tab to start the process. You can then import your feature
 into your GIS software of choice:</p>
 <a class="reference internal image-reference" href="../../../_images/qgis1.png"><img alt="the exported GeoJSON file, opened in QGIS" class="align-center" src="../../../_images/qgis1.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
 <p>At this point, you’ve seen how to display vector data in GEE by first converting it into an image. You’ve also selected
 an <strong>Image</strong> from an <strong>ImageCollection</strong> using its index, created a <strong>Chart</strong> of grouped <strong>Image</strong> data, and seen how
@@ -544,37 +534,37 @@ currying can be used to create complicated functions that can be passed to <code
 <li><p>which county in Ireland has the most surface water (in Water bodies, code 512) by percent area? by total area?</p></li>
 <li><p>what are the most common agricultural landcover types in Ireland?</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../classification/index.html" class="btn btn-neutral float-right" title="image classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="band_maths.html" class="btn btn-neutral float-left" title="band maths" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="../classification/index.html" class="btn btn-neutral float-right" title="image classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="band_maths.html" class="btn btn-neutral float-left" title="band maths" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
@@ -582,6 +572,7 @@ currying can be used to create complicated functions that can be passed to <code
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {
