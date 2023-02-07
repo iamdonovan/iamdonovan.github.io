@@ -30,6 +30,9 @@ This will open the following window:
 
 Click **Browse**, then navigate to ``C:\`` and create a new folder, ``MicMac``. Click **Extract** to extract the files.
 
+adding micmac to the path
+...........................
+
 When this has finished, you need to add ``C:\MicMac\bin`` to your Windows path. In the **Search bar** at the bottom of the screen,
 type "environment" and select **Edit environment variables for your account**:
 
