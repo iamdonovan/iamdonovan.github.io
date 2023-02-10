@@ -556,8 +556,9 @@ We then display the chart by printing it to the **Console**:
 page, you can also download a csv file with the values in the plot, or a Scalable Vector Graphics (SVG) or PNG version
 of the chart.
 
-The final two things printed to the console are the descriptive statistics of the DEM differences, and the normalized
-median absolute deviation (NMAD) between the two DEMs. Be sure to look at these before answering the following question.
+The final two things printed to the **Console** are the descriptive statistics of the DEM differences
+(``dH statistics``), and the normalized median absolute deviation (NMAD) between the two DEMs. You may need to scroll
+down below the chart to see these, but be sure to look at these before answering the following question.
 
 .. admonition:: Question
     :class: question
