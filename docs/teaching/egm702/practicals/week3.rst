@@ -49,7 +49,6 @@ You (and anyone with the link above) are automatically added to this repository 
 permission to see all of the scripts in the repository, and to run them. If you want to make changes to each script
 and save them, you will need to save the script to your own account (as an *Owner*).
 
-
 To do this, you first need to make a change to the script in the **Editor** panel. The easiest way to do this would be
 to replace "YOUR NAME HERE!" on line 1 with your name.
 
@@ -814,8 +813,8 @@ If you're looking for additional exercises, you can try the following suggestion
   pamphlet, can you identify which color(s) of the decorrelation stretch correspond to which tree species?
 
 
-references
-----------
+notes and references
+----------------------
 
 .. [1] Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore (2017). Google Earth Engine:
     Planetary-scale geospatial analysis for everyone. *Rem. Sens. Env.* 202, 18-27.
