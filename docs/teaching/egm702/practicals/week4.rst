@@ -69,7 +69,13 @@ This image is from July 1984, approximately the same time as the air photos that
 :doc:`week 1 <week1>`. At this time, we can see that much of the vegetation on the north side of the volcano has been
 removed as a result of the eruption.
 
-Now, toggle the ``2011 SR`` layer on from the **Layers** menu.
+Now, toggle the ``2011 SR`` layer on from the **Layers** menu. You should see the following image:
+
+.. image:: ../../../img/egm702/week4/visual_2011.png
+    :width: 600
+    :align: center
+    :alt: a 2011 Landsat image showing the area around Mt St Helens
+
 
 
 part 2 - spectral indices and thresholding
@@ -154,9 +160,9 @@ Run the script – you should see this image (you may have to turn off the Lands
     :align: center
     :alt: the reclassified angle image
 
-In this image, red colors correspond to increases in both NIR and Red reflectance, white corresponds to increases in NIR and
-decreases in Red reflectance, purple corresponds to decreases in NIR and increases in Red reflectance, and blue corresponds to
-decreases in both NIR and Red reflectance. You can also consult the diagram shown below:
+|br| In this image, red colors correspond to increases in both NIR and Red reflectance, white corresponds to increases
+in NIR and decreases in Red reflectance, purple corresponds to decreases in NIR and increases in Red reflectance, and
+blue corresponds to decreases in both NIR and Red reflectance. You can also consult the diagram shown below:
 
 .. image:: ../../../img/egm702/week4/change_vector.png
     :width: 400
