@@ -1,200 +1,994 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>SAR image interpretation and flood mapping &mdash; iamdonovan  documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAR image interpretation and flood mapping &#8212; space cameras and glaciers</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="additional resources" href="../resources.html" />
-    <link rel="prev" title="InSAR Processing" href="week4.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="InSAR Processing" href="week4.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
 
-          
-            <a href="../../../index.html" class="icon icon-home"> iamdonovan
-          
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-          
-          </a>
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            
-            
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#unis-spring-2017">unis (spring 2017)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#esa-cryosphere-training-course-june-2018">esa cryosphere training course (june 2018)</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#ulster-2020-present">ulster (2020-present)</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html">EGM703: advanced active and passive remote sensing</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a><ul class="current">
-<li class="toctree-l5"><a class="reference internal" href="week1.html">urban heat islands</a></li>
-<li class="toctree-l5"><a class="reference internal" href="week2.html">hyperspectral image analysis</a></li>
-<li class="toctree-l5"><a class="reference internal" href="week3.html">SAR image processing</a></li>
-<li class="toctree-l5"><a class="reference internal" href="week4.html">InSAR Processing</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">SAR image interpretation and flood mapping</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#getting-started">getting started</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#the-dual-polarimetry-rgb-image">the dual polarimetry rgb image</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#examining-differences-between-vv-vh-images">examining differences between VV, VH images</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#mapping-flood-extent-using-sar">mapping flood extent using SAR</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../gee/index.html">google earth engine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">iamdonovan</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
-        
-          <li><a href="../index.html">EGM703: advanced active and passive remote sensing</a> &raquo;</li>
-        
-          <li><a href="index.html">practicals</a> &raquo;</li>
-        
-      <li>SAR image interpretation and flood mapping</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../../_sources/teaching/egm703/practicals/week5.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
+      
+      
+      <h1 class="site-logo" id="site-title">space cameras and glaciers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../whataboutbob.html">
+   about me
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../index.html">
+   teaching and related resources
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm101/index.html">
+     EGM101: skills toolbox
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm101/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week5.html">
+         computation, summary statistics, and graphing in excel
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week6.html">
+         summarizing and graphing data in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week7.html">
+         correlation and regression in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week8.html">
+         hypothesis testing using spss
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm310/index.html">
+     EGM310: introduction to gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm702/index.html">
+     EGM702: photogrammetry and advanced image analysis
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm702/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/setup.html">
+         software setup
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week1.html">
+         dem processing using micmac
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week2.html">
+         dem differencing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week3.html">
+         introduction to google earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week4.html">
+         change detection in earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week5.html">
+         classification in earth engine
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../index.html">
+     EGM703: advanced active and passive remote sensing
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="index.html">
+       practicals
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="week1.html">
+         urban heat islands
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week2.html">
+         hyperspectral image analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week3.html">
+         SAR image processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week4.html">
+         InSAR Processing
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         SAR image interpretation and flood mapping
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm722/index.html">
+     EGM722: programming for gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/jupyter.html">
+         configuring jupyter
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/pycharm.html">
+         pycharm
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm722/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/faq/index.html">
+       help! something went wrong!
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/faq/git.html">
+         git troubleshooting
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/faq/python.html">
+         python troubleshooting
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+      <label for="toctree-checkbox-12">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week1.html">
+         intro to python
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/debugging.html">
+         debugging exercise
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week2.html">
+         mapping with cartopy
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week3.html">
+         vector data using shapely and geopandas
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week4.html">
+         raster data using rasterio
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week5.html">
+         vector and raster operations using python
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/project/index.html">
+       programming project
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+      <label for="toctree-checkbox-13">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/project/github.html">
+         creating a new github repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/project/environment.html">
+         environment.yml
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm722/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../gee/index.html">
+   google earth engine
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../gee/tutorials/index.html">
+     gee tutorials
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">
+       getting started
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+      <label for="toctree-checkbox-16">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">
+         adding and exporting images
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">
+         spectral signatures
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">
+         image collections and vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">
+         manual mapping (digitizing)
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">
+         band maths
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">
+         zonal statistics
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/classification/index.html">
+       image classification
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+      <label for="toctree-checkbox-17">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">
+         unsupervised classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">
+         pixel-based classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/obia.html">
+         object-based classification
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">
+       change detection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+      <label for="toctree-checkbox-18">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">
+         multi-temporal color composites
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">
+         repeat classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">
+         change vector analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">
+         time series analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">
+       image enhancement
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+      <label for="toctree-checkbox-19">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">
+         image filtering
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">
+         pansharpening
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">
+         edge detection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">
+         spectral unmixing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">
+         principle component analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/advanced/index.html">
+       advanced topics
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+      <label for="toctree-checkbox-20">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">
+         creating an animation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../gee/exercises/index.html">
+     sample exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../research/index.html">
+   ongoing and past research projects
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../github.html">
+   github projects
+  </a>
+ </li>
+</ul>
 
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-  <section id="sar-image-interpretation-and-flood-mapping">
-<h1>SAR image interpretation and flood mapping<a class="headerlink" href="#sar-image-interpretation-and-flood-mapping" title="Permalink to this heading">¶</a></h1>
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/teaching/egm703/practicals/week5.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   getting started
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recommended-add-a-base-layer-in-qgis">
+     recommended: add a base layer in QGIS
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loading-the-surface-reflectance-images">
+     loading the surface reflectance images
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-dual-polarimetry-rgb-image">
+   the dual polarimetry rgb image
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comparing-differences-between-rgb-composites">
+     comparing differences between rgb composites
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examining-differences-between-vv-vh-images">
+   examining differences between VV, VH images
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wind-patterns-1">
+     wind patterns (#1)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forests-vs-agricultural-land-2">
+     forests vs agricultural land (#2)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#urban-and-industrial-areas-3">
+     urban and industrial areas (#3)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wetland-areas-4">
+     wetland areas (#4)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mapping-flood-extent-using-sar">
+   mapping flood extent using SAR
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-water-mask">
+     creating a water mask
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-the-difference-between-bands">
+     using the difference between bands
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-the-log-difference">
+     using the log difference
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   next steps
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>SAR image interpretation and flood mapping</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   getting started
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recommended-add-a-base-layer-in-qgis">
+     recommended: add a base layer in QGIS
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loading-the-surface-reflectance-images">
+     loading the surface reflectance images
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-dual-polarimetry-rgb-image">
+   the dual polarimetry rgb image
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comparing-differences-between-rgb-composites">
+     comparing differences between rgb composites
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examining-differences-between-vv-vh-images">
+   examining differences between VV, VH images
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wind-patterns-1">
+     wind patterns (#1)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forests-vs-agricultural-land-2">
+     forests vs agricultural land (#2)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#urban-and-industrial-areas-3">
+     urban and industrial areas (#3)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wetland-areas-4">
+     wetland areas (#4)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mapping-flood-extent-using-sar">
+   mapping flood extent using SAR
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-water-mask">
+     creating a water mask
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-the-difference-between-bands">
+     using the difference between bands
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-the-log-difference">
+     using the log difference
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   next steps
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="section" id="sar-image-interpretation-and-flood-mapping">
+<h1>SAR image interpretation and flood mapping<a class="headerlink" href="#sar-image-interpretation-and-flood-mapping" title="Permalink to this headline">#</a></h1>
 <p>For this week’s practical, we’re going to gain some first-hand experience interpreting SAR images with the help of
 near-contemporaneous Landsat images, as well as additional basemap layers. In particular, you should be able to:</p>
 <ul class="simple">
@@ -240,10 +1034,10 @@ download your images.</p>
 <p>The images provided on Blackboard have been cropped to make them more manageable - the full granules
 downloaded from Earth Explorer and ASF, respectively, are between 600MB and 1 GB in size.</p>
 </div>
-<section id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
-<section id="recommended-add-a-base-layer-in-qgis">
-<h3>recommended: add a base layer in QGIS<a class="headerlink" href="#recommended-add-a-base-layer-in-qgis" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<div class="section" id="recommended-add-a-base-layer-in-qgis">
+<h3>recommended: add a base layer in QGIS<a class="headerlink" href="#recommended-add-a-base-layer-in-qgis" title="Permalink to this headline">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you are using ArcGIS Pro, you can change the Basemap from the <strong>Map</strong> tab – by default, the <code class="docutils literal notranslate"><span class="pre">Topographic</span></code>
@@ -270,9 +1064,9 @@ will be the same.</p>
 <a class="reference internal image-reference" href="../../../_images/opentopo.png"><img alt="the QGIS map window with the OpenTopoMap layer added" class="align-center" src="../../../_images/opentopo.png" style="width: 600px;" /></a>
 <p><br /> And that’s it! Feel free to use this background, or any of the other ones available out there, to aid you in
 your interpretation.</p>
-</section>
-<section id="loading-the-surface-reflectance-images">
-<h3>loading the surface reflectance images<a class="headerlink" href="#loading-the-surface-reflectance-images" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="loading-the-surface-reflectance-images">
+<h3>loading the surface reflectance images<a class="headerlink" href="#loading-the-surface-reflectance-images" title="Permalink to this headline">#</a></h3>
 <p>To begin, load the 02 April Landsat image into the map. If you followed the optional instructions above, remember that
 you can zoom to the image by right-clicking on the layer and selecting <strong>Zoom to Layer(s)</strong>.</p>
 <a class="reference internal image-reference" href="../../../_images/change_crs.png"><img alt="the QGIS map window, with the project CRS button outlined in red" class="align-center" src="../../../_images/change_crs.png" style="width: 600px;" /></a>
@@ -321,10 +1115,10 @@ Right-click on the image that you want to copy the settings from, and select <st
 displayed in that color channel? Using your understanding of reflectance and the time of year that these two images
 were acquired, what might cause such a large change in reflectance in this band?</p>
 </div>
-</section>
-</section>
-<section id="the-dual-polarimetry-rgb-image">
-<h2>the dual polarimetry rgb image<a class="headerlink" href="#the-dual-polarimetry-rgb-image" title="Permalink to this heading">¶</a></h2>
+</div>
+</div>
+<div class="section" id="the-dual-polarimetry-rgb-image">
+<h2>the dual polarimetry rgb image<a class="headerlink" href="#the-dual-polarimetry-rgb-image" title="Permalink to this headline">#</a></h2>
 <p>In the 654 false color composite, water appears blue/black, vegetation appears green, and built-up areas appear in
 shades of pink and purple. Using the basemap, have a look at the city of Midland, Michigan, approximately in the center
 of the image:</p>
@@ -367,8 +1161,8 @@ and why they appear this way in the RGB image.</p>
 <li><p>The large, mostly dark feature just southeast of feature 3.</p></li>
 </ol>
 </div>
-<section id="comparing-differences-between-rgb-composites">
-<h3>comparing differences between rgb composites<a class="headerlink" href="#comparing-differences-between-rgb-composites" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="comparing-differences-between-rgb-composites">
+<h3>comparing differences between rgb composites<a class="headerlink" href="#comparing-differences-between-rgb-composites" title="Permalink to this headline">#</a></h3>
 <p>Now, load the RGB composite from the second image (27 May):</p>
 <a class="reference internal image-reference" href="../../../_images/after_rgb.png"><img alt="a Sentinel-1 RGB image of central Michigan, on 27 May 2020." class="align-center" src="../../../_images/after_rgb.png" style="width: 600px;" /></a>
 <p><br /> In this image, you should notice that the vast majority of the agricultural land in the image changed from
@@ -382,10 +1176,10 @@ backscatter recorded by the sensor, and (b) created a “smoother” (in terms o
 scattering predominating over volume scattering.</p>
 <p>We will come back to this image later, but for now, we will move on to look at the individual bands (the VV and
 VH files).</p>
-</section>
-</section>
-<section id="examining-differences-between-vv-vh-images">
-<h2>examining differences between VV, VH images<a class="headerlink" href="#examining-differences-between-vv-vh-images" title="Permalink to this heading">¶</a></h2>
+</div>
+</div>
+<div class="section" id="examining-differences-between-vv-vh-images">
+<h2>examining differences between VV, VH images<a class="headerlink" href="#examining-differences-between-vv-vh-images" title="Permalink to this headline">#</a></h2>
 <p>Start by adding the VV band from the 15 May image to the <strong>Map</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/before_vv.png"><img alt="a Sentinel-1 VV-polarized image of central Michigan on 15 May 2020." class="align-center" src="../../../_images/before_vv.png" style="width: 600px;" /></a>
 <p><br /> When you first load this band into QGIS, it appears very dark due to the stretch that’s applied. Open the
@@ -420,8 +1214,8 @@ in the two images.</p>
 your interpretation of the Landsat and Sentinel-1 RGB images, then scroll down to see if your
 explanations/understanding match the given explanations.</p>
 </div>
-<section id="wind-patterns-1">
-<h3>wind patterns (#1)<a class="headerlink" href="#wind-patterns-1" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="wind-patterns-1">
+<h3>wind patterns (#1)<a class="headerlink" href="#wind-patterns-1" title="Permalink to this headline">#</a></h3>
 <p>According to data from the National Oceanic and Atmospheric Administration (NOAA)’s
 <a class="reference external" href="https://www.ndbc.noaa.gov/station_page.php?station=sblm4">Saginaw Bay Light #1 station</a>, (43°48’36” N, 83°43’12” W),
 the measured wind speeds at 23:30 UTC on 15 May 2020 was 13.8 m s<sup>-1</sup>, with gusts to 16.4 m s<sup>-1</sup>.</p>
@@ -448,9 +1242,9 @@ the measured wind speeds at 23:30 UTC on 15 May 2020 was 13.8 m s<sup>-1</sup>, 
 around 0.2 or so.</p>
 <p>Wind increases the roughness of the water surface, which increases the backscatter measured by the sensor. The
 difference between the VV and VH bands is due to even less of the signal being returned with a changed polarization.</p>
-</section>
-<section id="forests-vs-agricultural-land-2">
-<h3>forests vs agricultural land (#2)<a class="headerlink" href="#forests-vs-agricultural-land-2" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="forests-vs-agricultural-land-2">
+<h3>forests vs agricultural land (#2)<a class="headerlink" href="#forests-vs-agricultural-land-2" title="Permalink to this headline">#</a></h3>
 <p>The brightest parts of the cross-polarized (VH) image are going to be areas where we have more volume scattering,
 as volume scatterers tend to reflect more cross-polarized signals than other kinds of scatterers.</p>
 <p>The forests indicated by label 2 above stand out starkly in the VH image for this reason. Because of the
@@ -459,25 +1253,25 @@ difference between the forest and the agricultural fields is less pronounced.</p
 <p>All of the agricultural fields, which show up as mostly red in the RGB composite, are darker in the VH band
 compared to the VV band. Because of the time of year (spring), fields are still mostly bare soil, which tends to
 act as a rough surface scatterer, rather than a volume scatterer.</p>
-</section>
-<section id="urban-and-industrial-areas-3">
-<h3>urban and industrial areas (#3)<a class="headerlink" href="#urban-and-industrial-areas-3" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="urban-and-industrial-areas-3">
+<h3>urban and industrial areas (#3)<a class="headerlink" href="#urban-and-industrial-areas-3" title="Permalink to this headline">#</a></h3>
 <p>Urban or industrial areas, like the large factory complex indicated by label 3 in the image above, tend to be
 made up of lots of corner reflectors such as buildings. This means that buildings show up brightly in both the
 VV and VH bands.</p>
-</section>
-<section id="wetland-areas-4">
-<h3>wetland areas (#4)<a class="headerlink" href="#wetland-areas-4" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="wetland-areas-4">
+<h3>wetland areas (#4)<a class="headerlink" href="#wetland-areas-4" title="Permalink to this headline">#</a></h3>
 <p>The Shiawassee National Wildlife Refuge, indicated by label 4 in the image above, is an area where the Shiawassee River
 widens into a large network of wetlands, before joining the Tittabawassee River to form the Saginaw River.</p>
 <p>Areas of standing water such as the river itself or the surrounding wetlands appear dark in both the VV and VH bands,
 though the river itself is darker in the VV band.</p>
 <p>There are forests and other vegetation in the refuge that are predominantly volume scatterers, indicated by relatively
 high backsatter in both the VV and VH bands.</p>
-</section>
-</section>
-<section id="mapping-flood-extent-using-sar">
-<h2>mapping flood extent using SAR<a class="headerlink" href="#mapping-flood-extent-using-sar" title="Permalink to this heading">¶</a></h2>
+</div>
+</div>
+<div class="section" id="mapping-flood-extent-using-sar">
+<h2>mapping flood extent using SAR<a class="headerlink" href="#mapping-flood-extent-using-sar" title="Permalink to this headline">#</a></h2>
 <p>Now that you’ve spent some time looking at the different images available and working on interpreting what you can see
 in the SAR images, we can use the before and after SAR images to map the extent of the flooding that remained on
 27 May.</p>
@@ -499,8 +1293,8 @@ Refuge (label 4 in the image earlier) is quite a bit darker in the after image -
 quite a bit of flood water remaining.</p>
 <p>There are a few other areas where you can see large changes in backscatter - have a look around to see what other areas
 you notice, before moving on to the next section.</p>
-<section id="creating-a-water-mask">
-<h3>creating a water mask<a class="headerlink" href="#creating-a-water-mask" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="creating-a-water-mask">
+<h3>creating a water mask<a class="headerlink" href="#creating-a-water-mask" title="Permalink to this headline">#</a></h3>
 <p>To map water in the image, we will first convert the <span class="math notranslate nohighlight">\(\sigma^0\)</span> amplitude image to a decibel (dB) scale, to
 help emphasize the differences in values.</p>
 <p>The equation that we will use is:</p>
@@ -588,9 +1382,9 @@ the <strong>Input layer</strong>, and save the file to <code class="docutils lit
 <p class="admonition-title">Question</p>
 <p>Of the two bands (VV, VH), which band maps the most water? Why do you think this might be?</p>
 </div>
-</section>
-<section id="using-the-difference-between-bands">
-<h3>using the difference between bands<a class="headerlink" href="#using-the-difference-between-bands" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="using-the-difference-between-bands">
+<h3>using the difference between bands<a class="headerlink" href="#using-the-difference-between-bands" title="Permalink to this headline">#</a></h3>
 <p>In addition to using the individual bands to map water, we can also map differences between bands using the
 <strong>Raster Calculator</strong>.</p>
 <p>Before looking at the differences, though, make sure to convert the “Before” VV and VH bands to dB - this will help
@@ -628,9 +1422,9 @@ backscatter values as many of the waterlogged fields that we can see in the area
 between the areas that you mapped as water based on the backscatter threshold and the difference map? Why do you
 think this is?</p>
 </div>
-</section>
-<section id="using-the-log-difference">
-<h3>using the log difference<a class="headerlink" href="#using-the-log-difference" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="using-the-log-difference">
+<h3>using the log difference<a class="headerlink" href="#using-the-log-difference" title="Permalink to this headline">#</a></h3>
 <p>When looking at the difference image, you might notice that the image appears “noisy”, with a speckled pattern to the
 differences.</p>
 <p>In addition to looking at the difference in dB, we can also look at the “log difference”, or the difference of the
@@ -652,10 +1446,10 @@ I have also ticked <strong>Invert color ramp</strong> so that blue is at the low
 on which interval the pixel value falls into. This is another way that we can reduce the visual noise in the image:</p>
 <a class="reference internal image-reference" href="../../../_images/logdiff.png"><img alt="the log-difference of the two VV images, showing areas with large positive/negative changes in backscatter" class="align-center" src="../../../_images/logdiff.png" style="width: 600px;" /></a>
 <p><br /></p>
-</section>
-</section>
-<section id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
 <p>In this practical, we’ve seen how we can interpret SAR images with the help of more familiar Landsat images and other
 data, and seen different ways that we can look at changes in SAR images, including:</p>
 <ul class="simple">
@@ -676,56 +1470,54 @@ in water area (i.e., the flood extent)</p></li>
 SAR water masks.</p></li>
 <li><p>Extra credit: using a DEM and the estimated flood extents, calculate the flood depth and volume.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
-           </div>
-           
-          </div>
-          <footer>
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="week4.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">InSAR Processing</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../resources.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">additional resources</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../resources.html" class="btn btn-neutral float-right" title="additional resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="week4.html" class="btn btn-neutral float-left" title="InSAR Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+    By Bob McNabb<br/>
+  
+      &copy; Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
     </div>
   
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
 
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  </body>
 </html>

@@ -1,205 +1,962 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>pixel-based classification &mdash; iamdonovan  documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pixel-based classification &#8212; space cameras and glaciers</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="object-based classification" href="obia.html" />
-    <link rel="prev" title="unsupervised classification" href="unsupervised.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="unsupervised classification" href="unsupervised.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
 
-          
-            <a href="../../../index.html" class="icon icon-home"> iamdonovan
-          
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-          
-          </a>
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            
-            
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../teaching/index.html">teaching and related resources</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">google earth engine</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">gee tutorials</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../index.html#getting-an-earth-engine-account">getting an earth engine account</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../index.html#script-repository">script repository</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../index.html#data-catalog">data catalog</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html#contents">contents</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../getting_started/index.html">getting started</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="index.html">image classification</a><ul class="current">
-<li class="toctree-l5"><a class="reference internal" href="unsupervised.html">unsupervised classification</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">pixel-based classification</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#adding-training-points">adding training points</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#adding-classes">adding classes</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#using-require-to-load-another-script">using require to load another script</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#getting-training-data">getting training data</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#splitting-the-training-data">splitting the training data</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#training-a-classifier">training a classifier</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#classifying-the-image">classifying the image</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#accuracy-assessment">accuracy assessment</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#spectral-signatures">spectral signatures</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#next-steps">next steps</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#references-and-notes">references and notes</a></li>
-</ul>
-</li>
-<li class="toctree-l5"><a class="reference internal" href="obia.html">object-based classification</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="../change_detection/index.html">change detection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../enhancement/index.html">image enhancement</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../advanced/index.html">advanced topics</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../index.html#references">references</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../exercises/index.html">sample exercises</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">iamdonovan</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">google earth engine</a> &raquo;</li>
-        
-          <li><a href="../index.html">gee tutorials</a> &raquo;</li>
-        
-          <li><a href="index.html">image classification</a> &raquo;</li>
-        
-      <li>pixel-based classification</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../../_sources/gee/tutorials/classification/pixel.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
+      
+      
+      <h1 class="site-logo" id="site-title">space cameras and glaciers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../whataboutbob.html">
+   about me
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../teaching/index.html">
+   teaching and related resources
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../teaching/egm101/index.html">
+     EGM101: skills toolbox
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm101/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../teaching/egm101/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm101/practicals/week5.html">
+         computation, summary statistics, and graphing in excel
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm101/practicals/week6.html">
+         summarizing and graphing data in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm101/practicals/week7.html">
+         correlation and regression in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm101/practicals/week8.html">
+         hypothesis testing using spss
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm101/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../teaching/egm310/index.html">
+     EGM310: introduction to gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm310/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm310/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../teaching/egm702/index.html">
+     EGM702: photogrammetry and advanced image analysis
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm702/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../teaching/egm702/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm702/practicals/setup.html">
+         software setup
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm702/practicals/week1.html">
+         dem processing using micmac
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm702/practicals/week2.html">
+         dem differencing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm702/practicals/week3.html">
+         introduction to google earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm702/practicals/week4.html">
+         change detection in earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm702/practicals/week5.html">
+         classification in earth engine
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm702/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../teaching/egm703/index.html">
+     EGM703: advanced active and passive remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm703/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../teaching/egm703/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm703/practicals/week1.html">
+         urban heat islands
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm703/practicals/week2.html">
+         hyperspectral image analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm703/practicals/week3.html">
+         SAR image processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm703/practicals/week4.html">
+         InSAR Processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm703/practicals/week5.html">
+         SAR image interpretation and flood mapping
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm703/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../teaching/egm722/index.html">
+     EGM722: programming for gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../teaching/egm722/setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/jupyter.html">
+         configuring jupyter
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/setup/pycharm.html">
+         pycharm
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm722/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../teaching/egm722/faq/index.html">
+       help! something went wrong!
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/faq/git.html">
+         git troubleshooting
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/faq/python.html">
+         python troubleshooting
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../teaching/egm722/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+      <label for="toctree-checkbox-12">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/practicals/week1.html">
+         intro to python
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/practicals/debugging.html">
+         debugging exercise
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/practicals/week2.html">
+         mapping with cartopy
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/practicals/week3.html">
+         vector data using shapely and geopandas
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/practicals/week4.html">
+         raster data using rasterio
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/practicals/week5.html">
+         vector and raster operations using python
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../teaching/egm722/project/index.html">
+       programming project
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+      <label for="toctree-checkbox-13">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/project/github.html">
+         creating a new github repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../teaching/egm722/project/environment.html">
+         environment.yml
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../teaching/egm722/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../index.html">
+   google earth engine
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../index.html">
+     gee tutorials
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../getting_started/index.html">
+       getting started
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+      <label for="toctree-checkbox-16">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../getting_started/adding_exporting.html">
+         adding and exporting images
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../getting_started/spectral.html">
+         spectral signatures
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../getting_started/image_collections.html">
+         image collections and vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../getting_started/mapping.html">
+         manual mapping (digitizing)
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../getting_started/band_maths.html">
+         band maths
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../getting_started/zonal_stats.html">
+         zonal statistics
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="index.html">
+       image classification
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+      <label for="toctree-checkbox-17">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="unsupervised.html">
+         unsupervised classification
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         pixel-based classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="obia.html">
+         object-based classification
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../change_detection/index.html">
+       change detection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+      <label for="toctree-checkbox-18">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../change_detection/multitemporal_composites.html">
+         multi-temporal color composites
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../change_detection/repeat_classification.html">
+         repeat classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../change_detection/cva.html">
+         change vector analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../change_detection/time_series.html">
+         time series analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../enhancement/index.html">
+       image enhancement
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+      <label for="toctree-checkbox-19">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../enhancement/filtering.html">
+         image filtering
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../enhancement/pansharpening.html">
+         pansharpening
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../enhancement/edge_detection.html">
+         edge detection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../enhancement/unmixing.html">
+         spectral unmixing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../enhancement/pca.html">
+         principle component analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../advanced/index.html">
+       advanced topics
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+      <label for="toctree-checkbox-20">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../advanced/animation.html">
+         creating an animation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../exercises/index.html">
+     sample exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../research/index.html">
+   ongoing and past research projects
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../github.html">
+   github projects
+  </a>
+ </li>
+</ul>
 
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-  <section id="pixel-based-classification">
-<h1>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this heading">¶</a></h1>
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/gee/tutorials/classification/pixel.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-training-points">
+   adding training points
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-classes">
+   adding classes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-require-to-load-another-script">
+   using require to load another script
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-training-data">
+   getting training data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#splitting-the-training-data">
+   splitting the training data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-a-classifier">
+   training a classifier
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classifying-the-image">
+   classifying the image
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#accuracy-assessment">
+   accuracy assessment
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#landcover-area-by-class">
+     landcover area by class
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unbiased-area-estimates-and-area-uncertainty">
+     unbiased area estimates and area uncertainty
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spectral-signatures">
+   spectral signatures
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   next steps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references-and-notes">
+   references and notes
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>pixel-based classification</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-training-points">
+   adding training points
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-classes">
+   adding classes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-require-to-load-another-script">
+   using require to load another script
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-training-data">
+   getting training data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#splitting-the-training-data">
+   splitting the training data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-a-classifier">
+   training a classifier
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classifying-the-image">
+   classifying the image
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#accuracy-assessment">
+   accuracy assessment
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#landcover-area-by-class">
+     landcover area by class
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unbiased-area-estimates-and-area-uncertainty">
+     unbiased area estimates and area uncertainty
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spectral-signatures">
+   spectral signatures
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   next steps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references-and-notes">
+   references and notes
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="section" id="pixel-based-classification">
+<h1>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this headline">#</a></h1>
 <p>In this tutorial, we’ll look at doing a pixel-based classification of a Landsat 8 image acquired on 24 June, 2020,
 covering a portion of the Amazon Rainforest south of Santarém, Brazil.</p>
 <p>Pixel-based classification is a <em>supervised</em> classification technique, where we first have to train the computer how
@@ -212,8 +969,8 @@ to classify the image based on its characteristics, before classifying each pixe
 <li><p>create a chart that shows the area by class</p></li>
 <li><p>plot spectral signatures of training classes</p></li>
 </ul>
-<section id="adding-training-points">
-<h2>adding training points<a class="headerlink" href="#adding-training-points" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="adding-training-points">
+<h2>adding training points<a class="headerlink" href="#adding-training-points" title="Permalink to this headline">#</a></h2>
 <p>To run a supervised classification, we need to provide <strong>labeled training</strong> data - that is, a number of points where
 we have identified what <strong>class</strong> the points belong to.</p>
 <p>The classification algorithm then takes these points, and the associated input data such as reflectance in different bands,
@@ -238,9 +995,9 @@ want to edit:</p>
 To get a robust classification result and accuracy assessment, however, you will most likely need to add significantly more training
 points.</p>
 </div>
-</section>
-<section id="adding-classes">
-<h2>adding classes<a class="headerlink" href="#adding-classes" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="adding-classes">
+<h2>adding classes<a class="headerlink" href="#adding-classes" title="Permalink to this headline">#</a></h2>
 <p>You might also want to add additional landcover classes to the classification by adding a new <strong>FeatureCollection</strong> as follows.
 First, mouse back over the <strong>Geometry Imports</strong>. At the bottom of the <strong>Geometry Imports</strong> menu, click on “<strong>new layer</strong>”
 to add a new layer, then click on the gear icon to open the configuration panel:</p>
@@ -274,9 +1031,9 @@ correspond to the 5 classes that have already been imported.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">classes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">List</span><span class="p">([</span><span class="s1">&#39;water&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;forest&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;grassland&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;built-up&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bare soil&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-</section>
-<section id="using-require-to-load-another-script">
-<h2>using require to load another script<a class="headerlink" href="#using-require-to-load-another-script" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="using-require-to-load-another-script">
+<h2>using require to load another script<a class="headerlink" href="#using-require-to-load-another-script" title="Permalink to this headline">#</a></h2>
 <p>The very first line of this script (after the initial comment) is this:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">accuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;users/robertmcnabb/modules:accuracy&#39;</span><span class="p">);</span>
 </pre></div>
@@ -306,16 +1063,16 @@ functions or attributes in <code class="docutils literal notranslate"><span clas
 <span class="kd">var</span><span class="w"> </span><span class="nx">unbiasedArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">accuracy</span><span class="p">.</span><span class="nx">unbiasedArea</span><span class="p">(</span><span class="nx">cm</span><span class="p">.</span><span class="nx">array</span><span class="p">(),</span><span class="w"> </span><span class="nx">areas</span><span class="p">).</span><span class="nx">toList</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">accuracy</span></code> module includes a number of functions that implement equations from Oloffsson et al. (2013)<a class="footnote-reference brackets" href="#olofsson" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, to
+<p>The <code class="docutils literal notranslate"><span class="pre">accuracy</span></code> module includes a number of functions that implement equations from Oloffsson et al. (2013)<a class="footnote-reference brackets" href="#olofsson" id="id1">1</a>, to
 provide a convenient way to estimate the area uncertainty of our classification using the classification
 error (confusion) matrix.</p>
 <p>We will make more use of <code class="docutils literal notranslate"><span class="pre">require()</span></code> in future tutorials; if you’re interested in seeing how to set this up to use it
 in your own scripts,
 <a class="reference external" href="https://medium.com/google-earth/making-it-easier-to-reuse-code-with-earth-engine-script-modules-2e93f49abb13">this blog post</a>
 is a great place to start.</p>
-</section>
-<section id="getting-training-data">
-<h2>getting training data<a class="headerlink" href="#getting-training-data" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="getting-training-data">
+<h2>getting training data<a class="headerlink" href="#getting-training-data" title="Permalink to this headline">#</a></h2>
 <p>Now that we have training classes and points, we have to decide what image properties to use as inputs for “training”
 the classifier. In the script as written, we use Landsat OLI bands 1-7 (Visible/NIR/SWIR), as shown in this line:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">bands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B7&#39;</span><span class="p">];</span>
@@ -344,9 +1101,9 @@ points:</p>
 <strong>FeatureCollection</strong>. To make sure that we include the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> value for each point, we add this to the
 <code class="docutils literal notranslate"><span class="pre">properties</span></code> parameter when we call <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code> - otherwise, this information wouldn’t be included
 in the training dataset.</p>
-</section>
-<section id="splitting-the-training-data">
-<h2>splitting the training data<a class="headerlink" href="#splitting-the-training-data" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="splitting-the-training-data">
+<h2>splitting the training data<a class="headerlink" href="#splitting-the-training-data" title="Permalink to this headline">#</a></h2>
 <p>The next step in training a <strong>Classifier</strong> is to <em>split</em> the training dataset into two parts: one, the <em>training</em> split,
 is what we’ll use to actually train the <strong>Classifier</strong>. The second part, the <em>testing</em> split, is what we’ll use to
 check how good a job the <strong>Classifier</strong> has actually done.</p>
@@ -367,19 +1124,19 @@ which form our <em>testing</em> data:</p>
 <span class="kd">var</span><span class="w"> </span><span class="nx">testingPartition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">withRandom</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">split</span><span class="p">));</span>
 </pre></div>
 </div>
-</section>
-<section id="training-a-classifier">
-<h2>training a classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="training-a-classifier">
+<h2>training a classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this headline">#</a></h2>
 <p>Once we’ve split the input data into <em>training</em> and <em>testing</em> partitions, we can “train” our <strong>Classifier</strong>.</p>
 <p>GEE has a number of <strong>Classifier</strong> algorithms implemented:</p>
 <ul class="simple">
-<li><p>Maximum Entropy (<code class="docutils literal notranslate"><span class="pre">amnhMaxent</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent">documentation</a>)<a class="footnote-reference brackets" href="#maxent1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a><a class="footnote-reference brackets" href="#maxent2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a></p></li>
-<li><p>Support Vector Machine (<code class="docutils literal notranslate"><span class="pre">libsvm</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm">documentation</a>)<a class="footnote-reference brackets" href="#svm" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></li>
-<li><p>Minimum Distance (<code class="docutils literal notranslate"><span class="pre">minimumDistance</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance">documentation</a>)<a class="footnote-reference brackets" href="#mindist" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></li>
-<li><p>CART (<code class="docutils literal notranslate"><span class="pre">smileCart</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart">documentation</a>)<a class="footnote-reference brackets" href="#cart" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a></p></li>
-<li><p>Gradient Tree Boost (<code class="docutils literal notranslate"><span class="pre">smileGradientTreeBoost</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost">documentation</a>)<a class="footnote-reference brackets" href="#grad" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a></p></li>
-<li><p>Naive Bayes (<code class="docutils literal notranslate"><span class="pre">smileNaiveBayes</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes">documentation</a>)<a class="footnote-reference brackets" href="#bayes" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a></p></li>
-<li><p>Random Forest (<code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest">documentation</a>)<a class="footnote-reference brackets" href="#randforest" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a></p></li>
+<li><p>Maximum Entropy (<code class="docutils literal notranslate"><span class="pre">amnhMaxent</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent">documentation</a>)<a class="footnote-reference brackets" href="#maxent1" id="id2">2</a><a class="footnote-reference brackets" href="#maxent2" id="id3">3</a></p></li>
+<li><p>Support Vector Machine (<code class="docutils literal notranslate"><span class="pre">libsvm</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm">documentation</a>)<a class="footnote-reference brackets" href="#svm" id="id4">4</a></p></li>
+<li><p>Minimum Distance (<code class="docutils literal notranslate"><span class="pre">minimumDistance</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance">documentation</a>)<a class="footnote-reference brackets" href="#mindist" id="id5">5</a></p></li>
+<li><p>CART (<code class="docutils literal notranslate"><span class="pre">smileCart</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart">documentation</a>)<a class="footnote-reference brackets" href="#cart" id="id6">6</a></p></li>
+<li><p>Gradient Tree Boost (<code class="docutils literal notranslate"><span class="pre">smileGradientTreeBoost</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost">documentation</a>)<a class="footnote-reference brackets" href="#grad" id="id7">7</a></p></li>
+<li><p>Naive Bayes (<code class="docutils literal notranslate"><span class="pre">smileNaiveBayes</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes">documentation</a>)<a class="footnote-reference brackets" href="#bayes" id="id8">8</a></p></li>
+<li><p>Random Forest (<code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest">documentation</a>)<a class="footnote-reference brackets" href="#randforest" id="id9">9</a></p></li>
 </ul>
 <p>In this tutorial, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Classifier.smileRandomForest()</span></code> to do a Random Forest classification:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">classifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Classifier</span><span class="p">.</span><span class="nx">smileRandomForest</span><span class="p">(</span><span class="mf">100</span><span class="p">).</span><span class="nx">train</span><span class="p">({</span>
@@ -400,9 +1157,9 @@ the classifier. The inputs to <code class="docutils literal notranslate"><span c
 <p>So, this will train the <strong>Classifier</strong> using the <code class="docutils literal notranslate"><span class="pre">trainingPartition</span></code> <strong>FeatureCollection</strong>,
 based on the <code class="docutils literal notranslate"><span class="pre">'landcover'</span></code> property, using the image bands listed in the <code class="docutils literal notranslate"><span class="pre">bands</span></code> variable defined at line 17 of
 the script.</p>
-</section>
-<section id="classifying-the-image">
-<h2>classifying the image<a class="headerlink" href="#classifying-the-image" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="classifying-the-image">
+<h2>classifying the image<a class="headerlink" href="#classifying-the-image" title="Permalink to this headline">#</a></h2>
 <p>Once we have trained the <strong>Classifier</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.classify()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-classify">documentation</a>) to classify the
 image:</p>
@@ -414,9 +1171,9 @@ of each class from our training <strong>FeatureCollection</strong>.</p>
 <p>Have a look at the classified image in the <strong>Map</strong> window - are there areas where you can see some misclassification?
 Does it overall match with your expectations? In the next few sections, we’ll take a look at some ways that we can
 evaluate how well the <strong>Classifier</strong> has done in classifying each pixel of the image.</p>
-</section>
-<section id="accuracy-assessment">
-<h2>accuracy assessment<a class="headerlink" href="#accuracy-assessment" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="accuracy-assessment">
+<h2>accuracy assessment<a class="headerlink" href="#accuracy-assessment" title="Permalink to this headline">#</a></h2>
 <p>Once we’ve trained the <strong>Classifier</strong> and applied it to the image, we can use the <em>testing</em> dataset to evaluate how
 well the <strong>Classifier</strong> has performed. First, though, we have to use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.classify()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-classify">documentation</a>) to classify
@@ -461,7 +1218,7 @@ appears to be incorrect - that is, based on the example code provided, <code cla
 uses the values in each <em>row</em> of the sample <strong>Array</strong>, while <code class="docutils literal notranslate"><span class="pre">ee.ConfusionMatrix.consumersAccuracy()</span></code> uses the
 values in each <em>column</em>.</p>
 </div>
-<p>The <em>kappa</em> score, or statistic<a class="footnote-reference brackets" href="#kappa" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a>, is calculated as follows:</p>
+<p>The <em>kappa</em> score, or statistic<a class="footnote-reference brackets" href="#kappa" id="id10">10</a>, is calculated as follows:</p>
 <div class="math notranslate nohighlight">
 \[\kappa = \frac{p_o - p_e}{1 - p_e}\]</div>
 <p>where <span class="math notranslate nohighlight">\(p_o\)</span> is the observed accuracy of the classifier, and <span class="math notranslate nohighlight">\(p_e\)</span> is the hypothetical probability of chance agreement.
@@ -469,7 +1226,15 @@ The <em>kappa</em> score thus gives a measure of how much better the classifier 
 <p>When you run the script, you should see the following in the <strong>console</strong> panels (remember that your results may differ slightly):</p>
 <a class="reference internal image-reference" href="../../../_images/confusion_matrix.png"><img alt="the error matrix and accuracy values for the 100-tree random forest classification" class="align-center" src="../../../_images/confusion_matrix.png" style="width: 400px;" /></a>
 <p><br /> To help make this a bit clearer, I’ve added row/column labels to this table below:</p>
-<table class="docutils align-default">
+<table class="table">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 18%" />
+<col style="width: 17%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
 <th class="head"><p>water</p></th>
@@ -531,7 +1296,12 @@ kappa statistic (0.853). This, however, is not the complete picture of the accur
 classified image).</p>
 <p>The <em>producer’s</em> accuracy is similarly high for each class except for bare soil, where 4 of the 12 test <strong>Feature</strong>s
 were misclassified.</p>
-<table class="docutils align-default">
+<table class="table">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>class</p></th>
 <th class="head"><p>producer’s accuracy</p></th>
@@ -563,9 +1333,9 @@ were misclassified.</p>
 </table>
 <p>While these are encouraging results, it’s worth keeping in mind that we’re working with only a few (<span class="math notranslate nohighlight">\(n \leq\)</span> 15)
 samples for each class. With small sample sizes like this, our results are less likely to be an accurate reflection of
-the accuracy of the classified image.<a class="footnote-reference brackets" href="#congalton" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a></p>
-<section id="landcover-area-by-class">
-<h3>landcover area by class<a class="headerlink" href="#landcover-area-by-class" title="Permalink to this heading">¶</a></h3>
+the accuracy of the classified image.<a class="footnote-reference brackets" href="#congalton" id="id11">11</a></p>
+<div class="section" id="landcover-area-by-class">
+<h3>landcover area by class<a class="headerlink" href="#landcover-area-by-class" title="Permalink to this headline">#</a></h3>
 <p>To get the total area for each class in the classified image, we start by using
 <code class="docutils literal notranslate"><span class="pre">ee.Image.pixelArea()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-pixelarea">documentation</a>)
 to get an image where the value of each pixel is the pixel area in square meters:</p>
@@ -621,7 +1391,11 @@ to a <strong>List</strong>.</p>
 </pre></div>
 </div>
 <p>The end result is this (note that when we <code class="docutils literal notranslate"><span class="pre">print()</span></code> the <strong>Dictionary</strong>, the keys are ordered alphabetically):</p>
-<table class="docutils align-default">
+<table class="table">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>class</p></th>
 <th class="head"><p>area (km<sup>2</sup>)</p></th>
@@ -645,17 +1419,17 @@ to a <strong>List</strong>.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="unbiased-area-estimates-and-area-uncertainty">
-<h3>unbiased area estimates and area uncertainty<a class="headerlink" href="#unbiased-area-estimates-and-area-uncertainty" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="unbiased-area-estimates-and-area-uncertainty">
+<h3>unbiased area estimates and area uncertainty<a class="headerlink" href="#unbiased-area-estimates-and-area-uncertainty" title="Permalink to this headline">#</a></h3>
 <p>The next part of the script is where we make use of the <code class="docutils literal notranslate"><span class="pre">require()</span></code> statement discussed earlier. Perhaps just as
 important as the area of each landcover class is the <em>uncertainty</em> of that classified area. Because of the errors of
 omission and commission (the complements of the producer’s and consumer’s accuracy discussed above), the area counts
 in the table above are <em>biased</em> - that is, they are skewed because they exclude (or include) areas that should be
 included (excluded) in the estimated area for each class.</p>
-<p>Based on the work presented by Olofsson et al. 2013<a class="footnote-reference brackets" href="#olofsson" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, we can use the error matrix that we produced as part
+<p>Based on the work presented by Olofsson et al. 2013<a class="footnote-reference brackets" href="#olofsson" id="id12">1</a>, we can use the error matrix that we produced as part
 of the <strong>Classifier</strong> training process to produce an <em>unbiased</em> estimate of the landcover area for each class, as well
-as the 95% confidence interval (CI) around that estimate.<a class="footnote-reference brackets" href="#ci" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a></p>
+as the 95% confidence interval (CI) around that estimate.<a class="footnote-reference brackets" href="#ci" id="id13">12</a></p>
 <p>I won’t go through the equations or the code in detail here, but the functions <code class="docutils literal notranslate"><span class="pre">unbiasedArea()</span></code> and
 <code class="docutils literal notranslate"><span class="pre">standardError()</span></code> included in <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:accuracy</span></code> calculate the unbiased area estimate
 and standard error for each class, given the error matrix and total areas classified for each landcover class:</p>
@@ -674,8 +1448,13 @@ use <code class="docutils literal notranslate"><span class="pre">ee.Array.toList
 </pre></div>
 </div>
 <p>When we print this <strong>Dictionary</strong> to the <strong>Console</strong>, we see the following (here combined in a single table for ease
-of comparison)<a class="footnote-reference brackets" href="#error" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></a>:</p>
-<table class="docutils align-default">
+of comparison)<a class="footnote-reference brackets" href="#error" id="id14">13</a>:</p>
+<table class="table">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 36%" />
+<col style="width: 47%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>class</p></th>
 <th class="head"><p>classified area (km<sup>2</sup>)</p></th>
@@ -747,10 +1526,10 @@ into a single array using <code class="docutils literal notranslate"><span class
 </div>
 <p>With the following printed to the <strong>Console</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/area_chart.png"><img alt="a bar chart comparing the area by class estimated from the classified image and after adjusting using the error matrix" class="align-center" src="../../../_images/area_chart.png" style="width: 600px;" /></a>
-</section>
-</section>
-<section id="spectral-signatures">
-<h2>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this heading">¶</a></h2>
+</div>
+</div>
+<div class="section" id="spectral-signatures">
+<h2>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this headline">#</a></h2>
 <p>When we have two classes where we have significant mis-classification between the two classes, such as bare soil and
 built-up areas, we might think about whether it makes sense to have them as separate classes. We can also try adding
 carefully-chosen training samples that help increase the spectral differences between the two classes.</p>
@@ -808,9 +1587,9 @@ for each band for each class, and plot the results again:</p>
 training samples, we see that at longer wavelengths, the built-up and bare soil classes are very similar; in the
 random sample, they are more separated. This suggests that we might want to add more varied training samples for both
 classes, to help increase some of this separation.</p>
-</section>
-<section id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
 <p>In this tutorial, we’ve seen how we can use GEE to classify a satellite image. We’ve also seen how we can assess the
 accuracy of that classification, produce estimates of the area of each landcover class, and examine the spectral
 signatures of our training data to look at ways to improve the classification.</p>
@@ -824,129 +1603,113 @@ like SVM, there may be additional processing steps such as normalization require
 <li><p>there are some clouds (and cloud shadow) in the image, which cause mis-classification. Can you think of some ways that
 you could address this?</p></li>
 </ul>
-</section>
-<section id="references-and-notes">
-<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this heading">¶</a></h2>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="olofsson" role="note">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id12">2</a>)</span>
-<p>Olofsson, P., et al. (2013). <em>Rem. Sens. Env.</em> 129, 122–131.
+</div>
+<div class="section" id="references-and-notes">
+<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this headline">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="olofsson"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id12">2</a>)</span></dt>
+<dd><p>Olofsson, P., et al. (2013). <em>Rem. Sens. Env.</em> 129, 122–131.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.rse.2012.10.031">10.1016/j.rse.2012.10.031</a></p>
-</aside>
-<aside class="footnote brackets" id="maxent1" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>This particular implementation is the American Museum of Natural History (AMNH) maximum-entropy classifier;
+</dd>
+<dt class="label" id="maxent1"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>This particular implementation is the American Museum of Natural History (AMNH) maximum-entropy classifier;
 for more information about the software, see <a class="reference external" href="https://biodiversityinformatics.amnh.org/open_source/maxent/">https://biodiversityinformatics.amnh.org/open_source/maxent/</a></p>
-</aside>
-<aside class="footnote brackets" id="maxent2" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
-<p>e.g., De Martino, A. and D. De Martino (2018). <em>Heliyon</em>, 4(<strong>4</strong>), e00596.
+</dd>
+<dt class="label" id="maxent2"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>e.g., De Martino, A. and D. De Martino (2018). <em>Heliyon</em>, 4(<strong>4</strong>), e00596.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.heliyon.2018.e00596">10.1016/j.heliyon.2018.e00596</a></p>
-</aside>
-<aside class="footnote brackets" id="svm" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
-<p>e.g., Mountrakis, G., et al. (2011). <em>ISPRS J. Photogramm. Rem. Sens.</em> 66, 247–259.
+</dd>
+<dt class="label" id="svm"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>e.g., Mountrakis, G., et al. (2011). <em>ISPRS J. Photogramm. Rem. Sens.</em> 66, 247–259.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2010.11.001">10.1016/j.isprsjprs.2010.11.001</a></p>
-</aside>
-<aside class="footnote brackets" id="mindist" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
-<p>e.g., Wacker, A. G. and D. A. Landgrebe (1972). <em>LARS Technical Reports</em>. Paper 25.
+</dd>
+<dt class="label" id="mindist"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>e.g., Wacker, A. G. and D. A. Landgrebe (1972). <em>LARS Technical Reports</em>. Paper 25.
 [<a class="reference external" href="http://docs.lib.purdue.edu/larstech/25">PDF</a>]</p>
-</aside>
-<aside class="footnote brackets" id="cart" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
-<p>e.g., Loh, W.-Y. (2011). <em>WIREs Data Mining Knowl. Discov.</em> 1(<strong>1</strong>), 14-23.
+</dd>
+<dt class="label" id="cart"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>e.g., Loh, W.-Y. (2011). <em>WIREs Data Mining Knowl. Discov.</em> 1(<strong>1</strong>), 14-23.
 doi: <a class="reference external" href="https://doi.org/10.1002/widm.8">10.1002/widm.8</a></p>
-</aside>
-<aside class="footnote brackets" id="grad" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
-<p>e.g., Friedman, J. H. (2001). <em>Ann. Statist.</em> 29(<strong>5</strong>), 1189-1232.
+</dd>
+<dt class="label" id="grad"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>e.g., Friedman, J. H. (2001). <em>Ann. Statist.</em> 29(<strong>5</strong>), 1189-1232.
 doi: <a class="reference external" href="https://doi.org/10.1214/aos/1013203451">10.1214/aos/1013203451</a></p>
-</aside>
-<aside class="footnote brackets" id="bayes" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">8</a><span class="fn-bracket">]</span></span>
-<p>e.g., Hand, D. J. and K. Yu (2001). <em>Int. Statistical Rev.</em> 69(<strong>3</strong>), 385-398.
+</dd>
+<dt class="label" id="bayes"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>e.g., Hand, D. J. and K. Yu (2001). <em>Int. Statistical Rev.</em> 69(<strong>3</strong>), 385-398.
 doi: <a class="reference external" href="https://doi.org/10.2307/1403452">10.2307/1403452</a></p>
-</aside>
-<aside class="footnote brackets" id="randforest" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">9</a><span class="fn-bracket">]</span></span>
-<p>e.g., Belgiu, M. and L. Drăguţ (2016). <em>ISPRS J. Photogramm. Rem. Sens.</em> 114, 24-31.
+</dd>
+<dt class="label" id="randforest"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
+<dd><p>e.g., Belgiu, M. and L. Drăguţ (2016). <em>ISPRS J. Photogramm. Rem. Sens.</em> 114, 24-31.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2016.01.011">10.1016/j.isprsjprs.2016.01.011</a></p>
-</aside>
-<aside class="footnote brackets" id="kappa" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">10</a><span class="fn-bracket">]</span></span>
-<p>sometimes also referred to as <em>Cohen’s kappa</em></p>
-</aside>
-<aside class="footnote brackets" id="congalton" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">11</a><span class="fn-bracket">]</span></span>
-<p>e.g., Congalton, R. G. (1988). <em>Photogrammetric Eng. Rem. Sens.</em> 58(<strong>5</strong>), 593-600.
+</dd>
+<dt class="label" id="kappa"><span class="brackets"><a class="fn-backref" href="#id10">10</a></span></dt>
+<dd><p>sometimes also referred to as <em>Cohen’s kappa</em></p>
+</dd>
+<dt class="label" id="congalton"><span class="brackets"><a class="fn-backref" href="#id11">11</a></span></dt>
+<dd><p>e.g., Congalton, R. G. (1988). <em>Photogrammetric Eng. Rem. Sens.</em> 58(<strong>5</strong>), 593-600.
 [<a class="reference external" href="https://www.asprs.org/wp-content/uploads/pers/1988journal/may/1988_may_593-600.pdf">PDF</a>]</p>
-</aside>
-<aside class="footnote brackets" id="ci" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">12</a><span class="fn-bracket">]</span></span>
-<p>the 95% confidence interval is obtained using twice the standard error.</p>
-</aside>
-<aside class="footnote brackets" id="error" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">13</a><span class="fn-bracket">]</span></span>
-<p>Note that in this example, because the classification has worked “perfectly” for two classes, water and forest,
+</dd>
+<dt class="label" id="ci"><span class="brackets"><a class="fn-backref" href="#id13">12</a></span></dt>
+<dd><p>the 95% confidence interval is obtained using twice the standard error.</p>
+</dd>
+<dt class="label" id="error"><span class="brackets"><a class="fn-backref" href="#id14">13</a></span></dt>
+<dd><p>Note that in this example, because the classification has worked “perfectly” for two classes, water and forest,
 the standard error for each class is 0. This is not real, as you can tell by looking at the cloud shadows that have
 been classified as “water”. Rather than using the testing split, we could instead select a number of random points
 from each landcover class in the classified image, and compare the computer-classified values with human-classified
 values. This is more difficult to do within GEE, but it would provide a more robust estimate of the accuracy of
 the classification.</p>
-</aside>
-</aside>
-</section>
-</section>
+</dd>
+</dl>
+</div>
+</div>
 
 
-           </div>
-           
-          </div>
-          <footer>
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="unsupervised.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">unsupervised classification</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="obia.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">object-based classification</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="obia.html" class="btn btn-neutral float-right" title="object-based classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="unsupervised.html" class="btn btn-neutral float-left" title="unsupervised classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+    By Bob McNabb<br/>
+  
+      &copy; Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
     </div>
   
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
 
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  </body>
 </html>

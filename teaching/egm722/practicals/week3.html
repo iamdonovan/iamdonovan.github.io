@@ -1,208 +1,1009 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>vector data using shapely and geopandas &mdash; iamdonovan  documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vector data using shapely and geopandas &#8212; space cameras and glaciers</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/_static/custom.css" type="text/css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="raster data using rasterio" href="week4.html" />
-    <link rel="prev" title="mapping with cartopy" href="week2.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="prev" title="mapping with cartopy" href="week2.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
 
-          
-            <a href="../../../index.html" class="icon icon-home"> iamdonovan
-          
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-          
-          </a>
+    
+    <div class="container-fluid" id="banner"></div>
 
-          
-            
-            
-          
+    
 
+    <div class="container-xl">
+      <div class="row">
           
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">teaching and related resources</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#unis-spring-2017">unis (spring 2017)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#esa-cryosphere-training-course-june-2018">esa cryosphere training course (june 2018)</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#ulster-2020-present">ulster (2020-present)</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html">EGM722: programming for gis and remote sensing</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../setup/index.html">setup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../lectures.html">lectures</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="index.html">practicals</a><ul class="current">
-<li class="toctree-l5"><a class="reference internal" href="week1.html">intro to python</a></li>
-<li class="toctree-l5"><a class="reference internal" href="debugging.html">debugging exercise</a></li>
-<li class="toctree-l5"><a class="reference internal" href="week2.html">mapping with cartopy</a></li>
-<li class="toctree-l5 current"><a class="current reference internal" href="#">vector data using shapely and geopandas</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="#getting-started">Getting Started</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#next-steps">Next steps</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#overview">Overview</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#objectives">Objectives</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#data-provided">Data provided</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#id1">1. Getting started</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#shapely-geometry-types">2. Shapely geometry types</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#geopandas-geodataframes">3. geopandas GeoDataFrames</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#spatial-data-operations-using-geopandas-and-shapely">4. Spatial data operations using geopandas and shapely</a></li>
-<li class="toctree-l6"><a class="reference internal" href="#exercise-and-next-steps">5. Exercise and next steps</a></li>
-</ul>
-</li>
-<li class="toctree-l5"><a class="reference internal" href="week4.html">raster data using rasterio</a></li>
-<li class="toctree-l5"><a class="reference internal" href="week5.html">vector and raster operations using python</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="../project/index.html">programming project</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../resources.html">additional resources</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../gee/index.html">google earth engine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">iamdonovan</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">teaching and related resources</a> &raquo;</li>
-        
-          <li><a href="../index.html">EGM722: programming for gis and remote sensing</a> &raquo;</li>
-        
-          <li><a href="index.html">practicals</a> &raquo;</li>
-        
-      <li>vector data using shapely and geopandas</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../../_sources/teaching/egm722/practicals/week3.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
+      
+      
+      <h1 class="site-logo" id="site-title">space cameras and glaciers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../whataboutbob.html">
+   about me
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../index.html">
+   teaching and related resources
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm101/index.html">
+     EGM101: skills toolbox
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm101/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week5.html">
+         computation, summary statistics, and graphing in excel
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week6.html">
+         summarizing and graphing data in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week7.html">
+         correlation and regression in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week8.html">
+         hypothesis testing using spss
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm310/index.html">
+     EGM310: introduction to gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm702/index.html">
+     EGM702: photogrammetry and advanced image analysis
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm702/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/setup.html">
+         software setup
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week1.html">
+         dem processing using micmac
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week2.html">
+         dem differencing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week3.html">
+         introduction to google earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week4.html">
+         change detection in earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week5.html">
+         classification in earth engine
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm703/index.html">
+     EGM703: advanced active and passive remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm703/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week1.html">
+         urban heat islands
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week2.html">
+         hyperspectral image analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week3.html">
+         SAR image processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week4.html">
+         InSAR Processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week5.html">
+         SAR image interpretation and flood mapping
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../index.html">
+     EGM722: programming for gis and remote sensing
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/jupyter.html">
+         configuring jupyter
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/pycharm.html">
+         pycharm
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../faq/index.html">
+       help! something went wrong!
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../faq/git.html">
+         git troubleshooting
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../faq/python.html">
+         python troubleshooting
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="index.html">
+       practicals
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+      <label for="toctree-checkbox-12">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="week1.html">
+         intro to python
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="debugging.html">
+         debugging exercise
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week2.html">
+         mapping with cartopy
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         vector data using shapely and geopandas
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week4.html">
+         raster data using rasterio
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week5.html">
+         vector and raster operations using python
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../project/index.html">
+       programming project
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+      <label for="toctree-checkbox-13">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../project/github.html">
+         creating a new github repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../project/environment.html">
+         environment.yml
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../gee/index.html">
+   google earth engine
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../gee/tutorials/index.html">
+     gee tutorials
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">
+       getting started
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+      <label for="toctree-checkbox-16">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">
+         adding and exporting images
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">
+         spectral signatures
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">
+         image collections and vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">
+         manual mapping (digitizing)
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">
+         band maths
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">
+         zonal statistics
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/classification/index.html">
+       image classification
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+      <label for="toctree-checkbox-17">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">
+         unsupervised classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">
+         pixel-based classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/obia.html">
+         object-based classification
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">
+       change detection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+      <label for="toctree-checkbox-18">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">
+         multi-temporal color composites
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">
+         repeat classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">
+         change vector analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">
+         time series analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">
+       image enhancement
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+      <label for="toctree-checkbox-19">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">
+         image filtering
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">
+         pansharpening
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">
+         edge detection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">
+         spectral unmixing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">
+         principle component analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/advanced/index.html">
+       advanced topics
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+      <label for="toctree-checkbox-20">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">
+         creating an animation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../gee/exercises/index.html">
+     sample exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../research/index.html">
+   ongoing and past research projects
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../github.html">
+   github projects
+  </a>
+ </li>
+</ul>
 
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-  <section id="vector-data-using-shapely-and-geopandas">
-<h1>vector data using shapely and geopandas<a class="headerlink" href="#vector-data-using-shapely-and-geopandas" title="Permalink to this heading">¶</a></h1>
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/teaching/egm722/practicals/week3.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   Next steps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objectives">
+   Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-provided">
+   Data provided
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   1. Getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#shapely-geometry-types">
+   2. Shapely geometry types
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#points">
+     2.1 Points
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#linestrings">
+     2.2. LineStrings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#polygons">
+     2.3. Polygons
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interactions-between-geometry-objects">
+     2.4 Interactions between geometry objects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geopandas-geodataframes">
+   3. geopandas GeoDataFrames
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coordinate-reference-systems-using-proj">
+     3.1 Coordinate reference systems using PROJ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summarizing-data-using-geopandas">
+     3.2 Summarizing data using geopandas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-data-operations-using-geopandas-and-shapely">
+   4. Spatial data operations using geopandas and shapely
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-and-next-steps">
+   5. Exercise and next steps
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#additional-exercise-questions">
+     Additional exercise questions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>vector data using shapely and geopandas</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-steps">
+   Next steps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objectives">
+   Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-provided">
+   Data provided
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   1. Getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#shapely-geometry-types">
+   2. Shapely geometry types
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#points">
+     2.1 Points
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#linestrings">
+     2.2. LineStrings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#polygons">
+     2.3. Polygons
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interactions-between-geometry-objects">
+     2.4 Interactions between geometry objects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geopandas-geodataframes">
+   3. geopandas GeoDataFrames
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coordinate-reference-systems-using-proj">
+     3.1 Coordinate reference systems using PROJ
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summarizing-data-using-geopandas">
+     3.2 Summarizing data using geopandas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-data-operations-using-geopandas-and-shapely">
+   4. Spatial data operations using geopandas and shapely
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-and-next-steps">
+   5. Exercise and next steps
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#additional-exercise-questions">
+     Additional exercise questions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="section" id="vector-data-using-shapely-and-geopandas">
+<h1>vector data using shapely and geopandas<a class="headerlink" href="#vector-data-using-shapely-and-geopandas" title="Permalink to this headline">#</a></h1>
 <p>In this practical, you’ll gain some more experience working with vector data in python. You will learn about the different vector
 data types available in the shapely package, and how we can use the geopandas package to perform different vector data
 operations and analyses.</p>
@@ -214,8 +1015,8 @@ you’ve learned in the Jupyter Notebook and the mapping exercise in Practical 2
 <p>In the main folder, you should also see an example script, <strong>week3_example.py</strong>. Be sure to try out the exercise, and see
 if you can’t figure out a solution on your own, before having a look at the (one of many possible) solution offered there.</p>
 </div>
-<section id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
 <p><a class="reference internal" href="week2.html"><span class="doc">Last week</span></a>, we saw how we can use <strong>GitHub Desktop</strong> to merge two branches (in this case, <code class="docutils literal notranslate"><span class="pre">week2</span></code> into <code class="docutils literal notranslate"><span class="pre">main</span></code>).
 This week, we’re going to see how to do this using the command line.</p>
 <p>To get started with this week’s practical, open Anaconda Navigator, then launch the <strong>Command Prompt</strong> - either from
@@ -314,9 +1115,9 @@ to existing files, you’ll also see deletions (lines that are deleted or change
 <p>You can confirm that the changes are now on your remote repository by heading over to GitHub:</p>
 <a class="reference internal image-reference" href="../../../_images/week3_remote.png"><img alt="the github repository, with the merged changes updated" class="align-center" src="../../../_images/week3_remote.png" style="width: 600px;" /></a>
 <p>At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the practical exercise.</p>
-</section>
-<section id="next-steps">
-<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
 <p>Once you have finished the notebook and the exercise, make sure to send me an e-mail with some
 ideas for your coding project. They do not have to be completely fleshed out, but you should try to have a general idea of what
 you would like to work on for the final project – ideally, this will be something related to your work, or a potential MSc thesis
@@ -326,10 +1127,10 @@ topic.</p>
 <p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to follow the instructions
 above to open the notebook and run it on your own computer!</p>
 </div>
-</section>
+</div>
 <hr class="docutils" />
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
 <p>Up to now, you have gained some experience working with basic features
 of python, and used cartopy and matplotlib to create a map. In each of
 these practicals, you have loaded different vector datasets using a
@@ -338,9 +1139,9 @@ working vector data in a bit more depth, including the different
 geometry types available using shapely, analyses like spatial joins and
 summarizing based on attributes, and how to reproject vector data from
 one coordinate reference system to another.</p>
-</section>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Gain experience working with different vector data types using
 shapely</p></li>
@@ -350,16 +1151,16 @@ reference system to another</p></li>
 <li><p>Learn how to perform different vector data operations using geopandas
 and shapely</p></li>
 </ul>
-</section>
-<section id="data-provided">
-<h2>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="data-provided">
+<h2>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline">#</a></h2>
 <p>In the data_files folder, you should have the following: - NI_roads.shp,
 a shapefile of roads in Northern Ireland - Counties.shp, a shapefile of
 county outlines for Northern Ireland - NI_Wards.shp, a shapefile of
 electoral wards for Northern Ireland</p>
-</section>
-<section id="id1">
-<h2>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="id1">
+<h2>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>In this practical, we’ll be working with vector data. As a quick
 refresher, the three main types of vector data that we will work with
 are:</p>
@@ -389,11 +1190,11 @@ In shapely, these are represented as <strong>MultiPoint</strong>,
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span>
 </pre></div>
 </div>
-</section>
-<section id="shapely-geometry-types">
-<h2>2. Shapely geometry types<a class="headerlink" href="#shapely-geometry-types" title="Permalink to this heading">¶</a></h2>
-<section id="points">
-<h3>2.1 Points<a class="headerlink" href="#points" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="shapely-geometry-types">
+<h2>2. Shapely geometry types<a class="headerlink" href="#shapely-geometry-types" title="Permalink to this headline">#</a></h2>
+<div class="section" id="points">
+<h3>2.1 Points<a class="headerlink" href="#points" title="Permalink to this headline">#</a></h3>
 <p>As we saw in Week 1, to create a Point, we pass x, y (and optionally, z)
 coordinates to the Point class constructor:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">)</span> <span class="c1"># creates a 2d point with coordinates -6.677, 55.150</span>
@@ -479,9 +1280,9 @@ around the point location.</p>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pt_buffer</span><span class="p">))</span>
 </pre></div>
 </div>
-</section>
-<section id="linestrings">
-<h3>2.2. LineStrings<a class="headerlink" href="#linestrings" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="linestrings">
+<h3>2.2. LineStrings<a class="headerlink" href="#linestrings" title="Permalink to this headline">#</a></h3>
 <p>Instead of using a single x, y coordinate pair, a <strong>LineString</strong> object
 takes either a list of <strong>Point</strong> objects, or a list of coordinate
 <strong>tuples</strong>:</p>
@@ -563,9 +1364,9 @@ of the <strong>LineString</strong> (<code class="docutils literal notranslate"><
 <span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
-</section>
-<section id="polygons">
-<h3>2.3. Polygons<a class="headerlink" href="#polygons" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="polygons">
+<h3>2.3. Polygons<a class="headerlink" href="#polygons" title="Permalink to this headline">#</a></h3>
 <p>The last basic geometry type we will look at in this practical are
 <strong>Polygon</strong> objects. Similar to <strong>LineString</strong> objects, we can create a
 <strong>Polygon</strong> object using a list of coordinate pairs, or a list of
@@ -627,9 +1428,9 @@ a rotated minimum bounding box (<code class="docutils literal notranslate"><span
 <p>There are a number of additional methods that we will cover more as we
 continue through the practicals - for now, this should be enough to give
 an idea for how these geometry objects work.</p>
-</section>
-<section id="interactions-between-geometry-objects">
-<h3>2.4 Interactions between geometry objects<a class="headerlink" href="#interactions-between-geometry-objects" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="interactions-between-geometry-objects">
+<h3>2.4 Interactions between geometry objects<a class="headerlink" href="#interactions-between-geometry-objects" title="Permalink to this headline">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">shapely</span></code> also provides a number of methods that we can use to check
 the spatial relationship between different objects. For example, the
 following code shows how we can use the <code class="docutils literal notranslate"><span class="pre">contains</span></code>
@@ -665,10 +1466,10 @@ use to determine the relationship between geometry objects, including
 from the <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html">shapely user
 manual</a> to see
 the rest.</p>
-</section>
-</section>
-<section id="geopandas-geodataframes">
-<h2>3. geopandas GeoDataFrames<a class="headerlink" href="#geopandas-geodataframes" title="Permalink to this heading">¶</a></h2>
+</div>
+</div>
+<div class="section" id="geopandas-geodataframes">
+<h2>3. geopandas GeoDataFrames<a class="headerlink" href="#geopandas-geodataframes" title="Permalink to this headline">#</a></h2>
 <p>We have used geopandas in the past two practicals to read provided
 shapefiles and work with the data they contain - in Practical 1, we
 translated a comma-separated variable (CSV) file into a shapefile, and
@@ -687,8 +1488,8 @@ and print the <strong>header</strong> (first 5 lines of the <strong>GeoDataFrame
 <p>So this dataset has three columns: <strong>SURVEY</strong>, <strong>Road_class</strong>, and
 <strong>geometry</strong>. Note that each of the geometries is a <strong>LineString</strong>
 object, which means…</p>
-<section id="coordinate-reference-systems-using-proj">
-<h3>3.1 Coordinate reference systems using PROJ<a class="headerlink" href="#coordinate-reference-systems-using-proj" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="coordinate-reference-systems-using-proj">
+<h3>3.1 Coordinate reference systems using PROJ<a class="headerlink" href="#coordinate-reference-systems-using-proj" title="Permalink to this headline">#</a></h3>
 <p>To start with, let’s see if we can figure out how many kilometers of
 motorway are represented in the dataset - i.e., the sum of the length of
 all of the <strong>LineString</strong> objects that have the attribute <em>MOTORWAY</em>.
@@ -755,9 +1556,9 @@ geographic coordinates (e.g., (-6.21243, 54.48706)), the points in each
 861315.722)). Now, when we access the <code class="docutils literal notranslate"><span class="pre">length</span></code> attributes of our
 <strong>LineString</strong> objects, the units will be in meters (the same units as
 our CRS).</p>
-</section>
-<section id="summarizing-data-using-geopandas">
-<h3>3.2 Summarizing data using geopandas<a class="headerlink" href="#summarizing-data-using-geopandas" title="Permalink to this heading">¶</a></h3>
+</div>
+<div class="section" id="summarizing-data-using-geopandas">
+<h3>3.2 Summarizing data using geopandas<a class="headerlink" href="#summarizing-data-using-geopandas" title="Permalink to this headline">#</a></h3>
 <p>So that’s the first part of our problem solved - our coordinates are in
 meters, and the lengths will be as well. The next step is to select all
 of the features that correspond to Motorways and sum the lengths. We saw
@@ -848,10 +1649,10 @@ we can also use arithmetic on it to divide by a conversion factor. The
 <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method is a very useful way to quickly summarize a
 <strong>DataFrame</strong> (or a <strong>GeoDataFrame</strong> - remember that this is a <strong>child</strong>
 class of <strong>DataFrame</strong>).</p>
-</section>
-</section>
-<section id="spatial-data-operations-using-geopandas-and-shapely">
-<h2>4. Spatial data operations using geopandas and shapely<a class="headerlink" href="#spatial-data-operations-using-geopandas-and-shapely" title="Permalink to this heading">¶</a></h2>
+</div>
+</div>
+<div class="section" id="spatial-data-operations-using-geopandas-and-shapely">
+<h2>4. Spatial data operations using geopandas and shapely<a class="headerlink" href="#spatial-data-operations-using-geopandas-and-shapely" title="Permalink to this headline">#</a></h2>
 <p>Oftentimes in GIS analysis, we want to summarize our data spatially, as
 well as thematically. In this section, we will be looking at two
 examples of this kind of analysis: first, using a <a class="reference external" href="https://gisgeography.com/spatial-join/">spatial
@@ -952,9 +1753,9 @@ Which county has the most Motorways? The most roads in total?</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code goes here!</span>
 </pre></div>
 </div>
-</section>
-<section id="exercise-and-next-steps">
-<h2>5. Exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">¶</a></h2>
+</div>
+<div class="section" id="exercise-and-next-steps">
+<h2>5. Exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline">#</a></h2>
 <p>Now that you’ve gained some experience working with <code class="docutils literal notranslate"><span class="pre">shapely</span></code> geometry
 objects and <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> <strong>GeoDataFrame</strong> objects, have a look at
 <strong>exercise_script.py</strong> in this folder. Using the topics covered in the
@@ -965,8 +1766,8 @@ population? What about the lowest? 3. Create a map like the one below to
 show population information by census area, with the county boundaries
 plotted overtop of the chloropleth map.</p>
 <img alt="../../../_images/sample_map.png" src="../../../_images/sample_map.png" />
-<section id="additional-exercise-questions">
-<h3>Additional exercise questions<a class="headerlink" href="#additional-exercise-questions" title="Permalink to this heading">¶</a></h3>
+<div class="section" id="additional-exercise-questions">
+<h3>Additional exercise questions<a class="headerlink" href="#additional-exercise-questions" title="Permalink to this headline">#</a></h3>
 <ol class="arabic simple">
 <li><p>Are there any Wards that are located in more than one county? If so,
 how many, and what is the total population of these Wards?</p></li>
@@ -975,57 +1776,55 @@ population?</p></li>
 <li><p>Repeat the exercise above using <strong>exercise_script.py</strong>, but this time
 use the population density (in number of residents per square km).</p></li>
 </ol>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
-           </div>
-           
-          </div>
-          <footer>
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="week2.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">mapping with cartopy</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="week4.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">raster data using rasterio</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="week4.html" class="btn btn-neutral float-right" title="raster data using rasterio" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="week2.html" class="btn btn-neutral float-left" title="mapping with cartopy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+    By Bob McNabb<br/>
+  
+      &copy; Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
     </div>
   
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
 
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  </body>
 </html>

@@ -314,8 +314,60 @@ To open the python notebook, open the **Catalog** tab and navigate to the folder
 |br| You can now run through the instructions provided in the notebook to calculate the NMAD and RMSE values for your
 exported points. You can also run this on a selection of the points (for example, using the same selection you made
 above) by first creating a new layer from the selection (right-click, **Selection** >
-**Make Layer from Selected Features**), then exporting the table from that layer to a ``.csv`` file. You'll need to
-change the filename for the data in the notebook as well before running the calculations.
+**Make Layer from Selected Features**), then exporting the table from that layer to a ``.csv`` file.
+
+You'll need to change the filename for the data in the notebook as well before running the calculations - be sure to
+read the text in the notebook carefully.
+
+.. _egm702 alternate:
+
+.. note::
+
+    If you encounter the following (extremely vague) error:
+
+    .. image:: ../../../img/egm702/week2/notebook_error.png
+        :width: 300
+        :align: center
+        :alt: an error message that says "failed to load notebook"
+
+    |br| Don't panic - You can still run the script to calculate the NMAD and RMSE as follows. First, you will need to
+    open the **Python Command Prompt** from ArcGIS Pro (**Start** > **ArcGIS** > **Python Command Prompt**):
+
+    .. image:: ../../../img/egm702/week2/python_cmd.png
+        :width: 300
+        :align: center
+        :alt: the ArcGIS folder in the Windows Start Menu
+
+    |br| When this command prompt opens, navigate to the folder where you have saved your practical data using the
+    ``cd`` command (remember to `replace path-to-egm702-data <https://getyarn.io/yarn-clip/876a8240-51da-4068-919d-d9111d405d3e>`__
+    with the actual path!):
+
+    .. code-block::
+
+        cd path-to-egm702-data
+
+    Now, enter the following command:
+
+    .. code-block::
+
+        jupyter notebook
+
+    This will open a browser window:
+
+    .. image:: ../../../img/egm702/week2/jupyter.png
+        :width: 600
+        :align: center
+        :alt: the egm702 folder opened in jupyter
+
+    |br| Click on ``AccuracyAnalysis.ipynb``, which should open the notebook in a new tab/window:
+
+    .. image:: ../../../img/egm702/week2/notebook_browser.png
+        :width: 600
+        :align: center
+        :alt: the jupyter notebook opened in a browser window
+
+    |br| Be sure to read the instructions carefully to run the cells of the notebook.
+
 
 filling nodata values
 ---------------------
@@ -470,10 +522,6 @@ Assessment Part 1, as well as part of the report you will submit for Assessment 
 
 To do the digitizing, I recommend using a combination of the elevation difference raster and the Landsat images to
 guide you.
-
-calculating volume change uncertainty
---------------------------------------
-
 
 
 next steps
