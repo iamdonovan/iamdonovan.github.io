@@ -616,7 +616,7 @@ Run the script now. When you hover over the **Layers** menu, you should see the 
     :align: center
     :alt: the layers added to the map after running the pan-sharpening script
 
-At the moment, only two images are visible: the pan-sharpened image, and the original SR image.
+|br| At the moment, only two images are visible: the pan-sharpened image, and the original SR image.
 
 As you pan around the map, looking at the pan-sharpened image, you should notice that it appears somewhat sharper
 than the original SR image - roads and paths in the forest appear more clearly, and you may notice quite a bit more
@@ -680,7 +680,7 @@ QGIS:
     :align: center
     :alt: the exported display image loaded into qgis
 
-This could make an excellent base image for a study area map that you might use in your presentation and/or report.
+|br| This could make an excellent base image for a study area map that you might use in your presentation and/or report.
 
 .. note::
 
@@ -726,6 +726,8 @@ When the script finishes running, you should see the following:
     :align: center
     :alt: the decorrelation stretch image displayed on the map
 
+|br|
+
 .. admonition:: Question
     :class: question
 
@@ -758,7 +760,7 @@ decreases for each PC band. We can see this by looking at ``pc7``:
     :align: center
     :alt: the 7th principal component displayed on the map
 
-In this image, we can actually see residual sensor noise - the stripes are due to variations in the response of the
+|br| In this image, we can actually see residual sensor noise - the stripes are due to variations in the response of the
 detector arrays in the OLI sensor. In the original image, these variations are very minor (we typically can only see
 them over very dark pixels such as water), but due to the PCA transformation, the noise is enhanced in the final PC
 band.
@@ -770,9 +772,9 @@ Now, look at ``pc1`` by deactivating the other layers in the **Layer Menu**:
     :align: center
     :alt: the 1st principal component displayed on the map
 
-You should notice how the Columbia River stands out as a bright, white ribbon cutting through the middle of the image,
-as do a number of other lakes and reservoirs. You should also notice that the eastern (right) part of the image is
-quite a bit brigter than the western (left) part.
+|br| You should notice how the Columbia River stands out as a bright, white ribbon cutting through the middle of the
+image, as do a number of other lakes and reservoirs. You should also notice that the eastern (right) part of the image
+is quite a bit brighter than the western (left) part.
 
 One of the applications of PCA and decorrelation stretching that we discussed in this week's
 lecture was for mineral mapping, since PCA helps accentuate the differences in reflectance of difference surfaces
