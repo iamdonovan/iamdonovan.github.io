@@ -17,8 +17,8 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'iamdonovan'
-copyright = '2022, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
+project = 'space cameras and glaciers'
+copyright = '2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
 author = 'Bob McNabb'
 
 
@@ -27,7 +27,7 @@ author = 'Bob McNabb'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinxcontrib.bibtex']
+extensions = ['sphinxcontrib.bibtex', 'sphinx_design']
 
 bibtex_bibfiles = ['refs.bib']
 
@@ -46,15 +46,18 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+# html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
+
+html_title = 'space cameras and glaciers'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['']
+html_static_path = ['_static']
 
 html_css_files = [
-    '_static/custom.css',
+    'custom.css',
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 ]
 
