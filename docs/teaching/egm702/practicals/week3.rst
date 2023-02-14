@@ -251,9 +251,10 @@ checking/unchecking the box next to the layer name, you can make either image vi
 |br| This shows that the 2 images are the same image, just different processing levels (**T1\_SR** vs **T1\_TOA**).
 Now, in the **Map** panel, turn off the SR Image to see the TOA Image underneath.
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     Describe the difference in appearance that you notice between the two images. Which image appears more "blue"?
 
 Next, click on the **Inspector** tab, then click anywhere on the **Map** to get the pixel values for each image displayed
@@ -275,9 +276,10 @@ chart by clicking the chart icon (red outline above):
 |br| Click on a few different locations and note down the differences between the two images in each band (note
 that the TOA image will be displayed first, then the SR image).
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     - In what band(s) do you see the largest difference between the two image?
     - Using what you have learned about atmospheric scattering, and the wavelengths of the different bands, explain any
       difference(s) that you see between the TOA reflectance and the surface reflectance images.
@@ -442,9 +444,10 @@ layer):
 |br| The top layer will be the last one added to the Map; in this case, it's the SRTM hillshade. Remember that if you're
 not sure which layer you're seeing, you can always check the **Layers** menu.
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     Toggle between the different layers to see the differences – what do you notice about the different DEMs? Do they
     look the same, or are there significant differences? In particular, think about the following questions:
 
@@ -483,9 +486,10 @@ the **Console**:
 
 |br|
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     Expand the stats for each of the DEMs by clicking on the arrows. What do you notice about them – which statistics
     show the largest differences? Why do you think this might be?
 
@@ -521,9 +525,10 @@ This will display the pixel values on the same sort of Red/Yellow/Blue color sca
 ``palette`` defined as a list of HTML color codes, while also setting the scale to saturate at -10 m difference and
 +10 m difference (``min`` and ``max``, respectively).
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     Pan and scroll around the **Map** while looking at this difference layer.
 
     - What area(s) do you notice the largest differences between the NASADEM and the SRTM?
@@ -559,9 +564,10 @@ of the chart.
 The final two things printed to the console are the descriptive statistics of the DEM differences, and the normalized
 median absolute deviation (NMAD) between the two DEMs. Be sure to look at these before answering the following question.
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     Based on:
 
     - the shape of the histogram that you see;
@@ -622,9 +628,10 @@ As you pan around the map, looking at the pan-sharpened image, you should notice
 than the original SR image - roads and paths in the forest appear more clearly, and you may notice quite a bit more
 texture in many areas.
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     Toggle the pan-sharpened image on and off to view the differences between these two images. What do you notice about
     the color of the pan-sharpened image, compared to the SR image?
 
@@ -728,9 +735,10 @@ When the script finishes running, you should see the following:
 
 |br|
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     Before zooming in, have a look at the decorrelation stretch as a whole. What features jump out at you?
 
 The decorrelation stretch displays the first three principal components (``pc1``, ``pc2``, and ``pc3``) in the red,
@@ -744,9 +752,10 @@ green, and blue channels of the image; this means that we can interpret the imag
 
 and so on.
 
-.. admonition:: Question
-    :class: question
+.. card::
 
+    :fas:`circle-question` Question
+    ^^^
     Using the list of color examples above, see if you can identify what surface type corresponds to each example.
     Remember that there might be several different surface types that correspond to each color, so feel free to use
     both the SR image and the background satellite image to help you.
