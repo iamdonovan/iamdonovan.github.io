@@ -252,8 +252,9 @@ checking/unchecking the box next to the layer name, you can make either image vi
 Now, in the **Map** panel, turn off the SR Image to see the TOA Image underneath.
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Describe the difference in appearance that you notice between the two images. Which image appears more "blue"?
 
@@ -277,8 +278,9 @@ chart by clicking the chart icon (red outline above):
 that the TOA image will be displayed first, then the SR image).
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     - In what band(s) do you see the largest difference between the two image?
     - Using what you have learned about atmospheric scattering, and the wavelengths of the different bands, explain any
@@ -445,8 +447,9 @@ layer):
 not sure which layer you're seeing, you can always check the **Layers** menu.
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Toggle between the different layers to see the differences – what do you notice about the different DEMs? Do they
     look the same, or are there significant differences? In particular, think about the following questions:
@@ -487,8 +490,9 @@ the **Console**:
 |br|
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Expand the stats for each of the DEMs by clicking on the arrows. What do you notice about them – which statistics
     show the largest differences? Why do you think this might be?
@@ -526,8 +530,9 @@ This will display the pixel values on the same sort of Red/Yellow/Blue color sca
 +10 m difference (``min`` and ``max``, respectively).
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Pan and scroll around the **Map** while looking at this difference layer.
 
@@ -565,8 +570,9 @@ The final two things printed to the console are the descriptive statistics of th
 median absolute deviation (NMAD) between the two DEMs. Be sure to look at these before answering the following question.
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Based on:
 
@@ -629,8 +635,9 @@ than the original SR image - roads and paths in the forest appear more clearly, 
 texture in many areas.
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Toggle the pan-sharpened image on and off to view the differences between these two images. What do you notice about
     the color of the pan-sharpened image, compared to the SR image?
@@ -736,8 +743,9 @@ When the script finishes running, you should see the following:
 |br|
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Before zooming in, have a look at the decorrelation stretch as a whole. What features jump out at you?
 
@@ -753,8 +761,9 @@ green, and blue channels of the image; this means that we can interpret the imag
 and so on.
 
 .. card::
+    :class-header: question
 
-    :fas:`circle-question` Question
+    :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Using the list of color examples above, see if you can identify what surface type corresponds to each example.
     Remember that there might be several different surface types that correspond to each color, so feel free to use
