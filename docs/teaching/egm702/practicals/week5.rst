@@ -774,8 +774,8 @@ insufficient samples for training.
 We have added a number of additional bands to the data in order to help classify the results. Can you think of any other spectral
 indices or band ratios, either from the lectures or your own reading, that it might make sense to try to include?
 
-references and notes
---------------------
+notes and references
+----------------------
 
 .. [1] McFeeters, S. K. (1996). *Int. J. Rem. Sens.*, 17(**7**), 1425–1432. doi: `10.1080/01431169608948714 <https://doi.org/10.1080/01431169608948714>`__
 

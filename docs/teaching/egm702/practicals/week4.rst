@@ -1,571 +1,435 @@
 change detection in earth engine
 =========================================
 
-In this practical, you’ll get an introduction to using Google Earth Engine (GEE) to do change detection and analysis. Just like last
-week, you should be able to do finish the practical even if you have no prior experience with programming. All of the
-programming steps have been provided for you in a script, and your task will be to run each step in turn and analyse and
-interpret the results.
+In this practical, we'll build on :doc:`week 3 <week3>`'s introduction to GEE and image analysis by seeing ways that
+we can use GEE for change detection and analysis. Just like last week, you should be able to do finish the practical
+even if you have no prior experience with programming. All of the programming steps have been provided for you in a
+collection of scripts, and your task will be to run each script and analyze/interpret the results.
 
 getting started
 ---------------
 
-To begin, point your browser to https://code.earthengine.google.com, and log in if you need to. 
+To begin, point your browser to https://code.earthengine.google.com, and log in if you need to. In the
+**Script manager** under **Reader**, find the ``egm702`` repository, and click on ``week4`` to expand the week 4
+folder.
 
-In addition to all of the publicly available datasets, Earth Engine allows you to upload your own datasets (called *assets*) 
-to work with in the Earth Engine code editor.
+Just like for week 3, the practical exercises are divided into a number of different scripts, labeled in order. For
+week 4, the scripts are:
 
-As part of this practical, we’ll upload the lake shapefiles we used in the Week 2 practical, 
-which you can download in zipped form from the Week 4 Practical folder on Blackboard, or by clicking the links below:
+- ``01_visual_analysis.js``
+- ``02_thresholding.js``
+- ``03_change_vector_analysis.js``
+- ``04_time_series.js``
 
-- :download:`1979 Lake shapefile <../../../files/1979_shapes.zip>`
-- :download:`1984 Lake shapefile <../../../files/1984_shapes.zip>`
+In the **Script manager**, open the script for part 1 by clicking on ``week4/01_visual_analysis.js``.
 
-importing assets
-----------------
+Remember that you have access to all of the scripts in the repository as a *Reader*, but in order to save any changes
+you'll need to save the script to your own repository. Again, the easiest way for you to do this is to replace
+"YOUR NAME HERE!" on line 1 with your name, then click **Save**.
 
-In the upper right panel, click on the **Assets** tab:
+Save the script to your ``egm702`` repository as ``week4/01_visual_analysis.js`` - just like last week, you should
+see a ``week4`` folder appear in the repository with a new script, ``01_visual_analysis.js``.
 
-.. image:: ../../../img/egm702/week4/assets_tab.png
-    :width: 300
-    :align: center
-    :alt: the assets tab
+As you work your way through the practical, remember to save each script in this way, so that any changes you make to
+the scripts are saved in your repository.
 
-Click on **New**, then **Table Upload** > **Shape files**:
+part 1 - visual analysis
+--------------------------
 
-.. image:: ../../../img/egm702/week4/upload_asset.png
-    :width: 300
-    :align: center
-    :alt: uploading a shapefile asset
+In the first part of this practical, we'll see how we can analyze change visually by comparing:
 
-Click **Select**, then navigate to the **1979_shapes.zip** file that you’ve downloaded. If you like, you can re-name the file that
-this asset will be saved as. Leave the other options as they are, and click **Upload**. 
+- false-color composite images from different dates
+- individual bands from different dates
+- multi-temporal false color composites
 
-Repeat this step for the **1984_shapes.zip** file. It may take a few minutes for the files to upload and be ingested 
-into Earth Engine – you should see a notification in the **Tasks** tab that the ingestion has started. 
-
-Once it is complete, you should see the files listed under your username in the **Assets**
-tab, along with checkmarks next to the ingest tasks in the **Tasks** tab:
-
-.. image:: ../../../img/egm702/week4/ingesting_shapefile.png
-    :width: 600
-    :align: center
-    :alt: the gee window with the shapefiles being ingested 
-
-You can click on the asset names to open up a summary of the layer, including a preview of the features contained in the
-shapefile:
-
-.. image:: ../../../img/egm702/week4/layer_summary.png
-    :width: 600
-    :align: center
-    :alt: the summary of the 1979 shapes layer
-
-Now, to import the intro script, follow `this link <https://code.earthengine.google.com/fbaf560296993ea3c35d7cff980fe417?noload=true>`__ 
-to find the script for this week’s practical. Once again, type your name after "Practical 4" on the first line, then click the 
-**Save** button in the code editor to your egm702 repository that you created last week. 
-
-Finally, we’ll need to import the assets that we uploaded, so that we can use them in the script. To do this, you can hover your cursor 
-over the asset name in the **Assets** tab, then click the arrow icon:
-
-.. image:: ../../../img/egm702/week4/asset_selection.png
-    :width: 300
-    :align: center
-    :alt: selecting an asset from the assets tab
-
-You can also click on the asset name to open the properties window, then click **Import**. Do this for the ``1979_shapes`` file first – you 
-should see a new line under the **Imports** at the top of the script:
-
-.. image:: ../../../img/egm702/week4/imported_asset.png
-    :width: 400
-    :align: center
-    :alt: the first shapefile added to the imports list
-
-Re-name the import by clicking on ``table``, and call it ``lakes1979``.
-
-Repeat this for the 1984 shapefile, calling it ``lakes1984``. Your imports should now look like this:
-
-.. image:: ../../../img/egm702/week4/imported_asset2.png
-    :width: 400
-    :align: center
-    :alt: the second shapefile added to the imports list
-
-Have a look over the function definitions – I’ll explain more about each of them as we go, but feel free to look through them and
-try to get a feeling for how they work.
-
-step 1. finding images
-----------------------
-
-In addition to searching an entire image collection and finding images based on properties (i.e., cloud cover), we can also load
-images directly using their ID:
+The two images we will use are a Landsat 5 Thematic Mapper (TM) image acquired 19 July 1984, and a Landsat 5 TM image
+acquired 30 July 2011:
 
 .. code-block:: javascript
 
-    // select images using their Landsat ID, clip to our study area boundary,
-    // and re-name the MSS bands to make it easier to work with both TM and MSS images.
-    var mss1979 = ee.Image("LANDSAT/LM02/C01/T2/LM02_049028_19790719").clip(boundary)
-      .select(['B4', 'B5', 'B6'], ['B2', 'B3', 'B4']); // rename B4 to B2, B5 to B3, B6 to B4
-    var mss1980 = ee.Image("LANDSAT/LM02/C01/T2/LM02_049028_19800905").clip(boundary)
-      .select(['B4', 'B5', 'B6'], ['B2', 'B3', 'B4']); // rename B4 to B2, B5 to B3, B6 to B4
+    // add a TM5 image from 19 July 1984
+    var tm1984 = ee.Image("LANDSAT/LT05/C02/T1_L2/LT05_046028_19840719");
+    tm1984 = tools.oliRescale(tm1984); // rescale to surface reflectance values
 
-In this case, we’re loading two Landsat 2 MSS scenes: ``LM02_049028_19790719`` and ``LM02_049028_19800905``.
+    // add a TM5 image from 30 July 2011
+    var tm2011 = ee.Image("LANDSAT/LT05/C02/T1_L2/LT05_046028_20110730");
+    tm2011 = tools.oliRescale(tm2011); // rescale to surface reflectance values
 
-Landsat scene IDs in GEE have the following form: ``LXXX_PPPRRR_YYYYMMDD``, where ``XXX`` denotes the sensor name (e.g., ``M02`` for
-Landsat 2 MSS) , ``PPP`` denotes the WRS path (``049``), ``RRR`` denotes the WRS row (``028``), and ``YYYYMMDD`` is the acquisition date 
-in year-month-day format.
+Run the script. You should see the following in the **Map**:
 
-In addition to loading the images by name, we’re clipping these to a boundary surrounding our area of interest
-(``.clip(boundary)``). You should also notice this: (``.select([‘B4’, ‘B5’, ‘B6’], [‘B2’, ‘B3’, ‘B4’])``). This
-will take MSS Band 4 (visible green) and re-name it to Band 2, MSS Band 5 (visible red) and re-name it to Band 3, and MSS Band
-6 (near infrared) and re-name it to Band 4. 
-
-By re-naming the MSS bands this way, we can make them consistent with Landsat TM and ETM+ scenes, which we will use to look at a time
-series of Normalized Difference Vegetation Index (NDVI) values later on in the practical.
-
-In this section, we are also loading a 1984 Landsat 5 TM scene and a 2020 Landsat 8 OLI scene, and adding each of these layers
-to the map:
-
-.. code-block:: javascript
-
-    Map.addLayer(mss1979, {bands: ['B4', 'B3', 'B2'], min: 0, max: 255}, '1979 MSS', false);
-    Map.addLayer(mss1980, {bands: ['B4', 'B3', 'B2'], min: 0, max: 255}, '1980 MSS', false);
-    Map.addLayer(tm1984, {bands: ['SR_B4', 'SR_B3', 'SR_B2'], min: 0.05, max: 0.45}, '1984 TM', false);
-    Map.addLayer(oli2020, {bands: ['SR_B5', 'SR_B4', 'SR_B3'], min: 0.05, max: 0.45}, '2020 OLI', false);
-
-Run the script – you should notice that the map has moved to center on the volcano, but no layers have loaded. This is because
-of the ``false`` argument at the end of the ``addLayer`` statement. Rather than adding lots of visible layers at one time, and slowing
-down the loading, we can choose to add layers to the map without showing them.
-
-You can toggle each of the layers to visible using the **Layers** menu in the map panel:
-
-.. image:: ../../../img/egm702/week4/layers_menu.png
-    :width: 600
+.. image:: ../../../img/egm702/week4/visual_1984.png
+    :width: 720
     :align: center
-    :alt: the layers menu highlighted in the map panel
+    :alt: a 1984 Landsat image showing the area around Mt St Helens
 
-Or, you can replace ``false`` with ``true`` for each layer and re-run the script – note that this will most likely increase the amount of
-time it takes to run the script.
+|br| This is a NIR/Red/Green false color composite (TM Bands 4, 3, 2), something that we have seen before. You should
+see that in this color composite, vegetation appears red, water appears black, and soil/bedrock is shades of brown.
 
-step 2. band maths
-------------------
-In the lectures from the past 2 weeks, we’ve discussed using band maths to help enhance images and help us identify different
-features. One of the techniques discussed was the Normalized Difference Water Index (NDWI\ [1]_), which can be
-used to identify water bodies in a satellite image.
+This image is from July 1984, approximately the same time as the air photos that you worked with in
+:doc:`week 1 <week1>`. At this time, we can see that much of the vegetation on the north side of the volcano has been
+removed as a result of the eruption.
 
-The NDWI (for water bodies; there is also an NDWI for water content in vegetation) is the normalized difference between 
-the near-infrared reflectance and the visible green reflectance. At the beginning of the script, I have defined a function
-to calculate this given a satellite image:
+Now, toggle the ``2011 SR`` layer on from the **Layers** menu. You should see the following image:
 
-.. code-block:: javascript
-
-    // calculate the normalized difference water index (McFeeters, 1996), which helps to identify
-    // water bodies in a satellite image.
-    function ndwi(img){
-      var nir = img.select('B4'); // return the NIR band for a landsat 1-7 scene.
-      var green = img.select('B2'); // return the visible green band for a landsat 1-7 scene.
-      
-      // calculate the NDWI (Green - NIR) / (Green + NIR), and re-name the layer NDWI
-      return green.subtract(nir).divide(green.add(nir)).rename('NDWI'); 
-    }
-
-Uncomment the code in Step 2 (remove the ``/*`` from line 181 and the ``*/`` from line 199). You
-should see the following block of code:
-
-.. code-block:: javascript
-
-    // calculate the NDWI for the 1979 and 1980 MSS scenes, using the function defined above.
-    var ndwi1979 = ndwi(mss1979);
-    var ndwi1980 = ndwi(mss1980);
-
-    // add each ndwi image to the map, using the ndwi visualization palette defined above.
-    Map.addLayer(ndwi1979, ndwiVis, '1979 NDWI', false);
-    Map.addLayer(ndwi1980, ndwiVis, '1980 NDWI', false);
-
-This will calculate the NDWI for each of the MSS scenes, and add the results to the Map panel. Run the script, and then toggle
-the 1979 NDWI image to be visible:
-
-.. image:: ../../../img/egm702/week4/1979_ndwi.png
-    :width: 600
+.. image:: ../../../img/egm702/week4/visual_2011.png
+    :width: 720
     :align: center
-    :alt: the 1979 ndwi image
+    :alt: a 2011 Landsat image showing the area around Mt St Helens
 
-You should see the lakes highlighted as a dark blue color, while the rest of the image is shades of green and lighter blue. Next,
-look at the 1980 image:
+|br| In this image, we can see a number of changes - on the south side of the peak, a large layer of snow is visible
+in 2011 that was not present in 1984. We can also see that areas north of the peak where trees and vegetation were
+removed or covered by landslide deposits have started to recover - areas that appear brown or tan colored in 1984 have
+turned various shades of red in the 2011 image.
 
-.. image:: ../../../img/egm702/week4/1980_ndwi.png
-    :width: 600
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question;1em;sd-color-light` Question
+    ^^^
+    South of the mountain, there are large areas that have shifted from bright red in the 1984 false color composite
+    to a darker red in the 2011 image. Using what you know about surface reflectance in the NIR, what might explain
+    this change?
+
+Once you have had a look at the false color composite images, have a look at the NIR (TM Band 4) images, by toggling on
+``1984 SR B4`` and ``2011 SR B4``. This should show somewhat similar patterns to the false color images. In the 1984
+image, the area impacted by the eruption north of the volcano is much darker in the NIR:
+
+.. image:: ../../../img/egm702/week4/1984_nir.png
+    :width: 720
     :align: center
-    :alt: the 1980 ndwi image
+    :alt: a 1984 Landsat TM B4 image showing the area around Mt St Helens
 
-From the look of it, there’s a lot more standing water on the surface in the 1980 image than in the 1979 image, including a large
-lake in the crater of the volcano. But is this really the case, or is there something else going on here? 
+|br| In comparison, the 2011 image is quite a bit brighter in some areas, especially on the north side of the peak
+in areas where significant deforestation happened as a result of the 1980 eruption, and on the mountain itself where
+we see a large amount of snow:
 
-- Based on the visual results here, do you think that assuming that the same NDWI value will always represent water in both images?
-- Based on the topics covered so far in the lectures and your reading, can you think of some ways that we could try to improve the results here? Remember that the MSS scenes are not surface reflectance, which means that there may still be atmospheric influence.
-
-step 3. thresholding images
----------------------------
-
-Uncomment the first group of lines here (remove the ``/*`` from line 201 and the ``*/`` from line 217), and run the script to plot histograms of the NDWI values for the two MSS images:
-
-.. code-block:: javascript
-
-    var hist1979 = histPlot(ndwi1979, boundary);
-    hist1979.setOptions({
-      title: '1979 NDWI Values ',
-      hAxis: {title: 'NDWI value', titleTextStyle: {italic: false, bold: true}},
-      vAxis: {title: 'number of pixels', titleTextStyle: {italic: false, bold: true}},
-    });
-    print(hist1979);
-
-    var hist1980 = histPlot(ndwi1980, boundary);
-    hist1980.setOptions({
-      title: '1980 NDWI Values ',
-      hAxis: {title: 'NDWI value', titleTextStyle: {italic: false, bold: true}},
-      vAxis: {title: 'number of pixels', titleTextStyle: {italic: false, bold: true}},
-    });
-    print(hist1980);
-
-This will produce the following two histograms:
-
-.. image:: ../../../img/egm702/week4/1979_histogram.png
-    :width: 49%
-    :alt: the histogram of ndwi values for the 1979 image
-
-.. image:: ../../../img/egm702/week4/1980_histogram.png
-    :width: 49%
-    :alt: the histogram of ndwi values for the 1980 image
-
-You should notice that the 1979 histogram (left) has a much lower peak value, around -0.4, while the 1980 histogram (right) has a peak around -0.05,
-and is also bimodal to an extent. The 1980 histogram also has a much wider spread of values, while the 1979 histogram has a much taller peak. 
-
-All of this suggests that if we were to use the same threshold values for both scenes, we would end up with significantly more mis-
-classification in the 1980 image - that is, we would incorrectly classify a lot of shadows as water.
-
-Uncomment the next set of lines (remove the ``/*`` from line 218 and the ``*/`` from line 228) and re-run the script:
-
-.. code-block:: javascript
-
-    // create a feature collection (vector) representation of areas classified as water
-    // using the ndwi and a threshold.
-    var watermask1979 = getWaterMask(mss1979, 0.15);
-    var watermask1980 = getWaterMask(mss1980, 0.45);
-
-    Map.addLayer(watermask1979, {color: '1000ff'}, '1979 water mask', true);
-    Map.addLayer(watermask1980, {color: '0099ff'}, '1980 water mask', false);
-    Map.addLayer(lakes1979, {color: '6699ff'}, '1979 Lakes', true);
-    Map.addLayer(lakes1984, {color: 'cc66ff'}, '1984 Lakes', false);
-
-Will create a feature collection (vector dataset) representation of the areas classified as water in the two MSS images. The function
-uses the threshold values (0.15 for the 1979 image, 0.45 for the 1980 image) to determine which pixels are classified as water,
-and which pixels are classified as "not water." All pixels with an NDWI value greater than or equal to the given threshold value are classified as water,
-while any pixel with an NDWI value below the given threshold are classified as "not water."
-
-Start by comparing the outlines in **lakes1979** with the **watermask1979** layer by toggling **lakes1979** to be visible.
-How do they compare? Are there any obvious areas of misclassification? Can we improve on the initial result here?
-
-.. image:: ../../../img/egm702/week4/water_layer.png
-    :width: 600
+.. image:: ../../../img/egm702/week4/2011_nir.png
+    :width: 720
     :align: center
-    :alt: the vector layer of water bodies
+    :alt: a 2011 Landsat TM B4 image showing the area around Mt St Helens
 
-Go ahead and try different thresholds by changing the value of 0.15 in this line:
+|br|
 
-.. code-block:: javascript
+.. note::
 
-    var watermask1979 = getWaterMask(mss1979, 0.15);
+    When visually inspecting images for changes, we normally want the images to be visualized in the same way - that
+    way, we know that the differences that we're seeing are differences in reflectance, and not in the visualization.
 
-Remember that you can use the **Inspector** tab to get pixel/layer values by clicking on the
-map. You can also use the histograms to help you determine suitable thresholds, and compare the results visually with the two
-images (you’ll have to toggle them to visible using the **Layers** panel), or even with the background map or satellite images
-(though remember that things have most likely changed a lot in the past 40 or so years).
+    To illustrate this, try changing the stretch on ``2011 SR B4`` so that it ranges from 0.05 to 1.30, rather than
+    0.65. You should notice that now, it appears that the 2011 image is darker than the 1984 image, indicating that
+    NIR reflectance has decreased.
 
-Try the same exercise with the 1980 image. Are there other threshold values that give better results, at least through
-visual comparison?
 
-When you are satisfied with the results, uncomment these lines of code (remove the ``/*`` from line 229 and the ``*/`` from line 236)
-to export your 1979 water mask to a shapefile:
+Visually comparing bands like this is one way that we can see the differences between color composites or individual
+bands. As discussed in this week's lectures, we can also use a multi-temporal false color composite to visualize changes
+between images using a single composite image.
 
-.. code-block:: javascript
-
-    // export the 1979 water mask to a shapefile
-    Export.table.toDrive({
-      collection: watermask1979,
-      description: 'waterMask1979',
-      fileFormat: 'SHP'
-    }); 
-
-This will create a task in the **Tasks** tab that will allow you to save the file to your Google Drive, where you will be able to
-download it to your computer and use it in your GIS software.
-
-When you have finished this section, you can re-comment it, or leave it uncommented as you move on to the other sections. Remember that
-if you leave it uncommented, it may increase the amount of time it takes to run the script.
-
-step 4. summary statistics with features
-----------------------------------------
-
-Looking at Spirit Lake in the 1980 and 1984 images, you should notice that the lake is covered by a large number of floating trees
-(you can see this in even more detail by turning on the high-resolution satellite image in the background and zooming in):
-
-.. image:: ../../../img/egm702/week4/spiritlake_1980.png
-    :width: 49%
-    :alt: spirit lake in the 1980 landsat image
-
-.. image:: ../../../img/egm702/week4/spiritlake_1984.png
-    :width: 49%
-    :alt: spirit lake in the 1984 landsat image
-
-These trees were knocked over in the 1980 eruption, and have been floating on the lake `ever since <https://earthobservatory.nasa.gov/images/149025/the-floating-logs-of-spirit-lake>`__.
-Looking at the 2020 Landsat 8 OLI image, or the link in the previous sentence, you should notice that the trees are not always
-in the same place – they move around over time. 
-
-One question that you might ask, then, is: is the area of the lake covered by trees constant in time, or has it changed? 
-This is a question that we can try to answer using some of the tools we have learned so far.
-
-To start, uncomment the following lines (remove the ``/*`` from line 240 and the ``*/`` from line 251):
+To illustrate this, we again use the NIR bands. First, we create a new image that has bands from both time periods:
 
 .. code-block:: javascript
 
-    // select only Spirit Lake, using the 1984 outline:
-    var spiritLake = lakes1984.filter(ee.Filter.inList('name', ['Spirit Lake']));
+    // multi-temporal composite of NIR bands
+    var multitemp_b4 = ee.Image.cat([
+      tm1984.select('SR_B4').rename('1984_B4'),
+      tm2011.select('SR_B4').rename('2011_B4')
+    ]);
 
-    // create a histogram chart of values in the NIR band for our 1984 image.
-    var histChart = histPlot(tm1984.select('SR_B4'), spiritLake);
-    histChart.setOptions({
-      title: 'NIR Histogram',
-      hAxis: {title: 'NIR value', titleTextStyle: {italic: false, bold: true}},
-      vAxis: {title: 'number of pixels', titleTextStyle: {italic: false, bold: true}},
-    });
-    print(histChart);
+Then, we add the image to the **Map**, with the red channel showing the 1984 reflectance, and the green and blue
+channels showing the 2011 reflectance:
 
-This will select only the Spirit Lake outline from our 1984 outlines that we uploaded at the beginning of the practical, then make
-a histogram of the NIR (Band 4) surface reflectance values from the pixels that fall within that outline:
+.. code-block:: javascript
 
-.. image:: ../../../img/egm702/week4/nir_histogram.png
-    :width: 600
+    // add the multi-temporal composite to the map
+    Map.addLayer(multitemp_b4, {bands: ['1984_B4', '2011_B4', '2011_B4'], min: 0.05, max: 0.65},
+      'Multi-temporal B4 composite', false);
+
+To see the image, toggle ``Multi-temporal B4 composite`` on in the **Layers** menu:
+
+.. image:: ../../../img/egm702/week4/multitemporal_fcc.png
+    :width: 720
     :align: center
-    :alt: a histogram of nir values on spirit lake from the 1984 landsat image
+    :alt: a multi-temporal false color composite image showing the changes in NIR reflectance between 1984 and 2011.
 
-From this, we can see a clear bimodal distribution (i.e., there are two peaks) in the NIR values. We can use this to choose a
-threshold to help us segment (divide) the image, much the same way that we chose thresholds for the NDWI values earlier in
-the practical. From the histogram above, you might guess that we could choose a threshold between 0.1 and 0.2, and it would
-separate the two classes quite effectively.
+|br| In the above image, areas where the reflectance is higher in the 1984 image are shaded red, and areas where the
+reflectance is higher in the 2011 image are shaded blue. Areas where the the images are the same are shades of gray,
+with the brightness determined by the reflectance.
 
-To choose our threshold, we will use something called `Otsu’s method <https://learnopencv.com/otsu-thresholding-with-opencv/>`__\ [2]_. 
-We will cover this a bit more next week, but in short: Otsu’s method helps us to choose the threshold between 'bright' and 'dark' pixels 
-that maximizes the variance (e.g., the difference) between the two classes.
+Here, we see mostly blue and darker gray to the north of the peak, consistent with the observations from the individual
+bands. We also see that areas south of the peak show a decrease in NIR reflectance between 1984 and 2011, while much
+of the mountain has largely similar reflectance between the two dates (aside from the snow, that is).
 
-Uncomment the following lines of code (remove the ``/*`` from line 252 and the ``*/`` from line 266):
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question;1em;sd-color-light` Question
+    ^^^
+    Have a look around the wider area - what other changes do you see in the multi-temporal color composite?
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question;1em;sd-color-light` Question
+    ^^^
+    Paste the following code at the end of the script to create a multi-temporal false color composite using the red
+    reflectance (TM band 3), then re-run the script.
+
+    What are some of the differences between the NIR and Red changes that you notice? Using what you know about
+    reflectance, and what you know about the changes at Mt St Helens between the two images, how can you
+    interpret/explain these difference?
+
+    .. code-block:: javascript
+
+        // multi-temporal composite of NIR bands
+        var multitemp_b3 = ee.Image.cat([
+          tm1984.select('SR_B3').rename('1984_B3'),
+          tm2011.select('SR_B3').rename('2011_B3')
+        ]);
+
+        // add the multi-temporal composite to the map
+        Map.addLayer(multitemp_b3, {bands: ['1984_B3', '2011_B3', '2011_B3'], min: 0.05, max: 0.65},
+          'Multi-temporal B3 composite', true);
+
+
+Visually inspecting images for differences can be an excellent way to notice changes - our eyes can be quite sensitive
+to subtle differences in appearance between images. However, it is not always the most effective/efficient way to
+quantify changes - for this, we'll look at other methods.
+
+part 2 - band maths and thresholding
+--------------------------------------------
+
+Open the script for this part of the practical by clicking on ``02_thresholding.js`` in the **Script manager**, or using
+this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F02_thresholding.js>`__.
+
+In this part of the practical, we'll see how we can quantify changes using arithmetic operations, comparing the changes
+observed using:
+
+- a simple difference
+- a band ratio
+- a normalized difference
+
+To determine areas where we likely see an increase in vegetation between 1984 and 2011. As in part 1, we'll use the
+near infrared (Band 4), though feel free to modify the script for other bands and applications.
+
+The first two examples calculated in the script are the difference and band ratio, using ``ee.Image.subtract()`` and
+``ee.Image.divide()``, respectively:
 
 .. code-block:: javascript
 
-    // create a histogram object to pass to our otsu function
-    var histogram = tm1984.select('SR_B4').reduceRegion({
-      reducer: ee.Reducer.histogram(255, 2)
-        .combine('mean', null, true)
-        .combine('variance', null, true),
-      geometry: spiritLake,
-      scale: 30,
-      bestEffort: true});
+    // band maths examples
+    var diff = tm2011.select('SR_B4').subtract(tm1984.select('SR_B4')).rename('difference');
+    var ratio = tm2011.select('SR_B4').divide(tm1984.select('SR_B4')).rename('ratio');
 
-    // get the otsu threshold for the NIR band
-    var waterThresh = otsu(histogram.get('SR_B4_histogram'));
+.. note::
 
-    print('Otsu threshold:', waterThresh);
+    Because we're only interested in a single band (NIR or ``SR_B4``), we're using ``ee.Image.select()`` to select
+    only that band from each image.
 
-Will create a histogram object (not a plot, but an array representing the frequency of each value) that we can pass to the ``otsu()``
-function defined at the top of the script. This will create a chart, showing the inter-class variance as a function of the chosen
-threshold value:
+Next, we calculate the normalized difference by first creating a composite image, like we did in part 1 of the practical
+to view the multi-temporal false color composite:
 
-.. image:: ../../../img/egm702/week4/variance_vs_threshold.png
-    :width: 600
+.. code-block:: javascript
+
+    // add the b4 bands from each year to a single image
+    var multitemp = ee.Image.cat([
+      tm1984.select('SR_B4').rename('1984_B4'),
+      tm2011.select('SR_B4').rename('2011_B4')
+    ]);
+
+then we use ``ee.Image.normalizedDifference()`` to calculate the normalized difference between 1984 and 2011:
+
+.. code-block:: javascript
+
+    // create a multi-temporal normalized difference
+    var normdiff = multitemp.normalizedDifference(['2011_B4', '1984_B4']).rename('normDiff');
+
+Just like with examples discussed in last week's lecture, such as NDVI\ [1]_ or NDWI\ [2]_, this has the effect of
+stretching the differences so that they vary between -1 and 1, which can help to enhance the changes that we see between
+the two dates.
+
+To see this, run the script, then toggle on the ``Difference`` layer:
+
+.. image:: ../../../img/egm702/week4/difference.png
+    :width: 720
     :align: center
-    :alt: plot of inter-class variance as a function of threshold value
+    :alt: the difference in NIR reflectance between 1984 and 2011
 
-From this plot, we can see that indeed, the peak of the interclass variance is between 0.1 and 0.2 – in fact, the value printed to
-the console should be 0.145 or so (the exact value may vary slightly). This is the threshold value we will use to differentiate
-between open water and trees in the lake, and plot the area of open water as a function of time, to see whether the value is
-changing over time, or whether it remains constant.
+|br| followed by the ``Normalized Difference`` layer:
 
-Uncomment the following lines of code (remove the ``/*`` from line 267 and the ``*/`` from line 309):
-
-.. code-block:: javascript
-
-    // get a collection of water masks for all landsat TM images, using our threshold value,
-    // and making sure to only take images where we can see the whole lake cloud-free.
-    var waterMasks = ee.ImageCollection("LANDSAT/LT05/C02/T1_L2")
-      .filter(ee.Filter.eq('WRS_PATH', 46)) // select only WRS Path 46
-      .filter(ee.Filter.eq('WRS_ROW', 28)) // select only WRS Row 28
-      .map(function(image){return ee.Image(image).clip(geometry)}) //clip to a rough window
-      .map(cloudPercentage) // find the cloudy pixels within our region of interest
-      .filter(ee.Filter.lt('cloud_cover_roi', 1)) // select only cloud-free images within our ROI
-      .map(function(image){
-        var area = ee.Image.pixelArea();
-        var mask = image.select('SR_B4')
-          .multiply(0.0000275).add(-0.2) // scale the image to our 
-          .lte(waterThresh).multiply(area).rename('waterMask');
-        return image.addBands(mask);
-      }) // mask pixels above the chosen threshold and multiply pixels by area
-      .map(function(image){
-        return ee.Image(image).clip(spiritLake).updateMask(image.select('waterMask'));
-      }) // clip the image so that only the lake pixels are left
-      .select('waterMask') // select the waterMask band
-      .map(getWaterArea); // sum the valid (i.e., water) pixels to get the area
-
-Will find all of the cloud-free Landsat 5 TM images over Spirit Lake (between 1984 and 2011) and calculate the area of pixels
-classified as water using the threshold we calculated above. Yes, this is a very long, complicated, scary-looking chain of
-commands - at the moment, you don't need to fully grasp what each individual step is doing (though you're welcome to have a go!) 
-
-Instead, stop for a moment and imagine how much work it would take to do this "by hand" – you would need to:
-
-- search through the entire Landsat catalog
-- select images that are (mostly) cloud-free over your study area
-- download potentially hundreds of images
-
-Then, for each image, you would have to:
-
-- clip the NIR band
-- calculate the number of pixels that fall below the threshold value
-- calculate the corresponding area of those pixels
-- add each area to a table, along with the image acquisition date.
-
-The downloading alone would probably take a few days (depending on your internet connection). Instead, you should get a result
-here within a minute or so, and it takes up no space on your hard drive.
-
-Once you've had a chance to reflect on this, the next set of commands will take the water area and date attributes from each image
-and plot them as a series of points:
-
-.. code-block:: javascript
-
-    // get the image dates from our image collection
-    var dates = waterMasks.toList(1000).map(function(item){
-        return ee.Image(item).get('system:time_start');
-      });
-
-    // get the water area from the images in our image collection
-    var waterArea = waterMasks.toList(1000).map(function(item){
-        return ee.Image(item).get('water_area');
-      });
-
-    // plot the number of water pixels as a function of time
-    var chart = ui.Chart.array.values({array: waterArea, axis: 0, xLabels: dates})
-      .setSeriesNames(['water area'])
-      .setOptions({
-        title: 'open-water area',
-        hAxis: {title: 'date', titleTextStyle: {italic: false, bold: true}},
-        vAxis: {title: 'area (sq km)', titleTextStyle: {italic: false, bold: true}},
-        curveType: 'function'
-    });
-    print(chart);
-
-When it finishes running, you should see the following chart:
-
-.. image:: ../../../img/egm702/week4/lake_area_plot.png
-    :width: 600
+.. image:: ../../../img/egm702/week4/normalized_difference.png
+    :width: 720
     :align: center
-    :alt: plot of estimated lake area over time
+    :alt: the normalized difference in NIR reflectance between 1984 and 2011
 
-This is an interesting result – for one thing, it does look like the open-water area has been increasing since 1985. But, there are
-some interesting features that we can see in the data as well – at quite a few points, there’s a clear minimum of ~0 km\ :sup:`2` of
-open water, which then comes back up to ~7 km\ :sup:`2`\ ; there are also a few points where the open water area increases quickly before dropping
-back down to ~7 km\ :sup:`2`\ .
+|br| Toggle back and forth between the two images - you should notice that while the colors don't change (remember that
+the sign is the same for both), the colors in the normalized difference image have been stretched to fill the color
+range compared to the difference image.
 
-This doesn’t seem particularly likely - the number of logs should be steadily decreasing as they sink or are removed from the lake - not fluctuating rapidly.
+.. card::
+    :class-header: question
+    :class-card: question
 
-To work on understanding what’s happening, you can uncomment the following lines of code (remove the ``/*`` from line 310 and the ``*/`` from line 324):
+    :far:`circle-question;1em;sd-color-light` Question
+    ^^^
+    Remember to look at the ratio image as well - how do the changes that you can see in this image compare to the
+    changes displayed in the difference and normalized difference images?
 
-.. code-block:: javascript
+In addition to adding the images to the **Map**, we have also printed statistics and histograms for these two images
+to the **Console**:
 
-    var this_mask = waterMasks.toList(1000).get(6); // get the chosen mask from the list of masks
-    var this_id = ee.String(ee.Image(this_mask).get('system:id')).getInfo(); // get the image ID
-
-    var this_image = ee.Image(this_id); // get the image cooresponding to the ID
-    print(this_image.get('DATE_ACQUIRED'), this_image); // print info about the chosen mask
-
-    // add the selected landsat image to the map
-    Map.addLayer(this_image.select('SR_B.').multiply(0.0000275).add(-0.2).clip(geometry),
-      {bands: ['SR_B4', 'SR_B3', 'SR_B2'], min: 0.05, max: 0.45},
-      'debug image', false); // change false to true to make this image visible
-
-This will list each of the images that were used to create the water masks, then get the Landsat ID of the first drop to zero (an image from 17 March,
-1991), which has an index in the list of water masks of 6. From the console, you can see the id of the 7\ :sup:`th` image (which has
-index 6, as arrays in Javascript start counting from 0):
-
-.. image:: ../../../img/egm702/week4/console_output.png
-    :width: 400
+.. image:: ../../../img/egm702/week4/hist_difference.png
+    :width: 720
     :align: center
-    :alt: the console output showing the 7th image
+    :alt: a histogram of the difference in NIR reflectance between 1984 and 2011
 
-I have included a line to add this image to the map. To find other images, you can examine their dates by hovering your cursor
-over the spikes on the plot above, then looking for those dates in the list of image IDs from the collection:
-
-.. image:: ../../../img/egm702/week4/console_output_expanded.png
-    :width: 400
+.. image:: ../../../img/egm702/week4/hist_normdiff.png
+    :width: 720
     :align: center
-    :alt: the console output showing the names of all of the images
+    :alt: a histogram of the normalized difference in NIR reflectance between 1984 and 2011
 
-Then change the index in this line to match the index from the list (e.g., to get the 10th mask, change the 6 to a 9):
+|br| Just like with the images themselves, you should notice that the histogram of the normalized difference image is
+spread out, or stretched, over a larger range - as a result, it has a much lower, broader peak than the difference
+image.
 
-.. code-block:: javascript
+.. card::
+    :class-header: question
+    :class-card: question
 
-    var this_mask = waterMasks.toList(1000).get(6); // get the chosen mask from the list of masks
+    :far:`circle-question;1em;sd-color-light` Question
+    ^^^
+    Click on ``Object`` (under "Difference"/"Normalized Difference") to show the descriptive statistics
+    calculated for the difference/normalized difference image.
 
-See if you can’t work out what’s going on here – if you get stuck, you can post your questions in the discussion forum. 
+    Which image has the larger standard deviation? What impact do you think this might have on determining what pixel
+    values represent "normal variation", and which values represent actual change?
 
-How would you go about fixing this issue? Don’t worry about the programming steps – at the moment, it’s more
-important here to get an idea for what the pattern in the data is actually representing, and how you would try to address that, rather
-than being able to work out the programming steps to actually solve the issue (that can come later).
+Remember that in order to distinguish between "change" and "no change", we have to pick a *threshold* value. Here,
+because we are interested in highlighting areas where vegetation has begun to recover, we'll pick a single threshold
+value, and select only pixels where the pixel value is greater than or equal to the chosen threshold value.
 
-Once you think you’ve managed to puzzle out what’s going on with the timeseries, move on to the next step.
-
-step 5. change vector analysis
-------------------------------
-
-For this part of the practical, we’re going to look at the post-eruption recovery using Landsat 5 TM images from 1984 and 2011.
-Uncomment the first part of this section (remove the ``/*`` from line 328 and the ``*/`` from line 336):
-
-.. code-block:: javascript
-
-    // select two surface reflectance images, one from 1984 and one from 2011.
-    var tm1984 = ee.Image("LANDSAT/LT05/C02/T1_L2/LT05_046028_19840719")
-      .select('SR_B.').multiply(0.0000275).add(-0.2).clip(boundary);
-    var tm2011 = ee.Image("LANDSAT/LT05/C02/T1_L2/LT05_046028_20110730")
-      .select('SR_B.').multiply(0.0000275).add(-0.2).clip(boundary);
-
-Run the script, and have a look at the two images – what do you notice? What changes stand out the most in between the two
-images? You might notice that the area North of the peak has regained some vegetation since the 1980 eruptions, or you may
-notice some areas of clear-cutting in the surrounding forests. 
-
-To investigate these changes, we’re going to use change vector analysis (CVA). While CVA can be used for any number of band 
-differences, we’re going to stick to the differences in NIR and Red reflectance between the two images.
-
-Once you’ve looked around the two images and observed some of the changes, uncomment the next block of code
-(remove the ``/*`` from line 337 and the ``*/`` from line 368), which will
-compute the difference between the two images and select the NIR and Red bands. It will also calculate the magnitudes and
-angles of the change vectors, and re-classify the angles so that the values in the image correspond to the quadrant the angle
-falls in.
+In the script, you should see the following lines of code:
 
 .. code-block:: javascript
 
-    // compute the difference between the two images, and select bands 4 and 3 (NIR and Red)
+    // mask the image based on a threshold
+    var mask = normdiff.gte(0.5) // select pixels greater than/equal to upper boundary
+      .clip(boundary); // clip to boundary to limit size
+    mask = mask.updateMask(mask.neq(0));
+
+This uses ``ee.Image.gte()`` to select all pixels in ``normdiff`` with a value greater than or equal to 0.5, then
+uses masks all pixels of the resulting image where this condition is not met.
+
+Later in the script, we convert this mask to a vector, then export the vector to a shapefile format that you can use
+in your GIS software of choice.
+
+To see what this mask looks like, toggle on the **Thresholded Change** layer in the **Map**:
+
+.. image:: ../../../img/egm702/week4/change_mask.png
+    :width: 720
+    :align: center
+    :alt: the change mask loaded in the map, showing not very much change
+
+|br| You should probably notice that this threshold hasn't managed to capture most of the changes that we can see
+between the two dates - the masked areas are limited to a small part of the mountain, some of the river valley north of
+the mountain, and small patches scattered around the rest of the image.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question;1em;sd-color-light` Question
+    ^^^
+    Hopefully, it's clear that I've deliberately set the threshold too high, which means that a lot of areas of genuine
+    change have been excluded from the mask.
+
+    Using the histogram of the normalized difference image, the descriptive statistics, and a bit of trial and error,
+    try to improve on this result. The goal is to include as much of the vegetation regrowth that you can see
+    north of the mountain as possible, while minimizing differences that are due to natural fluctuations in reflectance.
+
+.. note::
+
+    Once you have a change mask that you feel captures most of the vegetation regrowth north of the mountain, while
+    minimizing areas where not much change appears to have happened, be sure to click on the **Tasks** tab and run the
+    task to export the shapefile to your drive.
+
+part 3 - change vector analysis
+---------------------------------
+
+Open the script for this part of the practical by clicking on ``03_change_vector_analysis.js`` in the **Script manager**, or using
+this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F03_change_vector_analysis.js>`__.
+
+For this part of the practical, we'll use the same images that we used in the first part of the practical -- this time,
+using change vector analysis (CVA). While CVA can be used for any number of band differences, we’re going to stick to
+the differences in NIR and Red reflectance between the two images, similar to what we looked at with the
+multi-temporal false color composite.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question;1em;sd-color-light` **Question**
+    ^^^
+    What sort of applications might we have in mind if we are focusing on changes in NIR and red reflectance?
+
+The main part of this script is used to calculate the magnitudes and angles of the change vectors, starting with the
+difference between the 1984 and 2011 images:
+
+.. code-block:: javascript
+
+    // compute the difference between the two images,
+    // and select bands 4 and 3 (NIR and Red)
     var diff = tm2011.subtract(tm1984).select(['SR_B4', 'SR_B3']);
 
-    // compute the magnitude of the change vectors as the square root of the 
+.. note::
+
+    When we use ``ee.Image.subtract()``, the result subtracts each band of the second image from the same band of
+    the first image (assuming that they share band names). So, in this line of code:
+
+    .. code-block:: javascript
+
+        var diff = tm2011.subtract(tm1984)
+
+    We would get back an image with the difference of all of the bands that ``tm2011`` and ``tm1984`` share in common.
+    By selecting only ``SR_B4`` and ``SR_B3``, however, we end up with just the difference in those two bands.
+
+Next, we calculate the magnitudes of the change vectors:
+
+.. code-block:: javascript
+
+    // compute the magnitude of the change vectors as the square root of the
     // sum of the squared differences.
-    var magnitude = diff.pow(2).reduce(ee.Reducer.sum().unweighted()).sqrt().rename('magnitude');
+    var magnitude = diff.pow(2).reduce(ee.Reducer.sum().unweighted())
+      .sqrt().rename('magnitude');
+
+followed by the angle of each change vector (converted from radians to degrees):
+
+.. code-block:: javascript
 
     // compute the angle of the change vectors and convert to degrees
     var angle = diff.select('SR_B3').atan2(diff.select('SR_B4'))
       .multiply(180).divide(Math.PI).rename('angle');
+
+
+And finally, we re-classify the angles so that the values in the image correspond to the quadrant the angle
+falls in:
+
+.. code-block:: javascript
 
     // create a reclassified image of the angles, with the value set to the quadrant
     // each angle range corresponds to.
     var angleReclass = ee.Image(1)
               .where(angle.gt(0).and(angle.lte(90)), 1)
               .where(angle.gt(90).and(angle.lte(180)), 2)
-              .where(angle.gt(-90).and(angle.lte(0)), 4)
-              .where(angle.gt(-180).and(angle.lte(-90)), 3).clip(boundary);
+              .where(angle.gt(-180).and(angle.lte(-90)), 3)
+              .where(angle.gt(-90).and(angle.lte(0)), 4).clip(boundary);
 
+Here, angles between 0 and 90 degrees get a value of ``1``; between 90 and 180 degrees, a value of ``2``, between -180
+and -90 (or 180 and 270 degrees\ [3]_) a value of ``3``, and finally between -90 and 0 (or 270 and 360), a value of
+``4``.
 
-The next line will mask the reclassified image so that only large changes (magnitude greater than 200) are shown:
+Next, we mask the reclassified image so that only "large enough" changes (magnitude :math:`\geq` 0.06) are shown:
 
 .. code-block:: javascript
 
@@ -576,59 +440,75 @@ The final block of code will add the difference,magnitude, angle, and re-classif
 
 .. code-block:: javascript
 
-    Map.addLayer(diff, {bands: 'SR_B4', min: -0.25, max: 0.25, 
+    Map.addLayer(diff, {bands: 'SR_B4', min: -0.25, max: 0.25,
       palette: ['7b3294','c2a5cf','f7f7f7','a6dba0','008837']}, 'difference', false);
-    Map.addLayer(magnitude, {min: 0.02, max: 1.36, 
+    Map.addLayer(magnitude, {min: 0.02, max: 1.36,
       palette: ['f1eef6','d7b5d8','df65b0','dd1c77','980043']}, 'magnitude', false);
     Map.addLayer(angle, {min: -180, max: 180,
       palette: ['e66101','fdb863','f7f7f7','b2abd2','5e3c99']}, 'angle', false);
 
     Map.addLayer(angleReclass, {palette: ['ff0000','ffffff','0014ff','cc00ff']}, 'reclass angle');
 
-Run the script – you should see this image (you may have to turn off the Landsat scenes first):
+Run the script, then toggle the ``reclass angle`` layer on:
 
 .. image:: ../../../img/egm702/week4/angle_reclass.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the reclassified angle image
 
-In this image, red colors correspond to increases in both NIR and Red reflectance, white corresponds to increases in NIR and
-decreases in Red reflectance, purple corresponds to decreases in NIR and increases in Red reflectance, and blue corresponds to
-decreases in both NIR and Red reflectance. You can also consult the diagram shown below:
+|br| In this image, red colors correspond to increases in both NIR and Red reflectance, white corresponds to increases
+in NIR and decreases in Red reflectance, purple corresponds to decreases in NIR and increases in Red reflectance, and
+blue corresponds to decreases in both NIR and Red reflectance.
+
+You can also consult the diagram shown below:
 
 .. image:: ../../../img/egm702/week4/change_vector.png
     :width: 400
     :align: center
     :alt: a diagram showing how the colors of the reclassified image correspond to the change vector angles
 
-In a number of areas, the blue color represents forest growth. To understand why this is, we have to remember both what
-these changes represent – a decrease in both Red and NIR reflectance – and also what the forest is replacing: in many cases,
-grassy meadows or new-growth trees, both of which tend to have higher spectral reflectance than conifer forests:
+|br| In a number of areas, the blue color represents forest growth. To understand why this is, we have to remember both
+what these changes represent – a decrease in both Red and NIR reflectance – and also what the forest is replacing:
+in many cases, grassy meadows or new-growth trees, both of which tend to have higher spectral reflectance than
+conifer forests:
 
 .. image:: ../../../img/egm702/week4/spectral_plot_vis.png
     :width: 600
     :align: center
     :alt: a plot showing spectral reflectance for a variety of surface types
 
-See if you can work out what some of the other differences represent – remember that some changes might represent more
-than one kind of change. You can also try looking at the angle image and interpreting it more directly, or changing the
-reclassification to represent more angle ranges.
+|br|
 
-step 6. plotting time series
-----------------------------
+.. card::
+    :class-header: question
+    :class-card: question
 
-The final portion of this practical will cover how we can get time series of data from images and visually inspect the results. 
-To get started, uncomment this section (remove the ``/*`` from line 371 and the ``*/`` from line 431). The
-first part of this section declares a variable, ``ndvi_patches``, that is made up of individual polygons imported at the top of the
-script:
+    :far:`circle-question;1em;sd-color-light` **Question**
+    ^^^
+    Using the diagram above and the colors on the map, what other differences do you notice?
+
+    Remember that some differences (or changes) might represent more than one kind of surface change. All we can tell
+    by looking at the reclassified angle map is the broad direction of the change; we need to do a bit more to be able
+    to explain what we see in terms of the physical changes that have taken place.
+
+
+part 4 - time series
+----------------------
+
+Open the script for this part of the practical by clicking on ``04_time_series.js`` in the **Script manager**, or using
+this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F04_time_series.js>`__.
+
+The final portion of this practical will cover how we can get time series of data from images and visually inspect the
+results. We'll see how we can compare time series of NDVI values for different land cover polygons, and compare the
+results that we see with the polygon locations in images at the beginning and end of the time series.
 
 .. code-block:: javascript
 
-    var ndvi_patches = ee.FeatureCollection([fastRegrowth, slowRegrowth, 
+    var ndvi_patches = ee.FeatureCollection([fastRegrowth, slowRegrowth,
       forest, oldClearCut, newClearCut]);
 
-The next sections of code here deal with loading Landsat images and filtering based space and cloud cover, similar to what we
-have done in previous steps. After this section, these lines of code:
+The next sections of code here deal with loading Landsat images and filtering based space and cloud cover, similar to
+what we have done in previous steps. After this section, these lines of code:
 
 .. code-block:: javascript
 
@@ -636,7 +516,11 @@ have done in previous steps. After this section, these lines of code:
     var allNDVI = mss.map(mssNDVI).merge(tm.merge(oli).map(getNDVI))
       .select('NDVI').sort('system:time_start');
 
-merge the MSS, TM, ETM+, and OLI image collections, calculate the NDVI for each image, and sort by acquisition date. The next lines:
+merge the MSS, TM, ETM+, and OLI image collections, calculate the NDVI for each image, and sort by acquisition date.
+We also pull out the first image in the series (a Landsat 1 MSS image from 1972), and the last (latest) image in the
+time series, and add both of these to the **Map** for visualization.
+
+Finally, this block of code:
 
 .. code-block:: javascript
 
@@ -658,68 +542,155 @@ merge the MSS, TM, ETM+, and OLI image collections, calculate the NDVI for each 
       .setSeriesNames(['ndvi']);
     print(ndviChart);
 
-will plot the average values for each of the individual polygons in ``ndvi_patches``. You can see what this looks like below. Note
-that some of the apparent lack of seasonality before about 2000 is mostly a result of the lower temporal resolution – Landsat
-acquisitions were often limited during this time, and so some years will only have a few available images.
+creates a chart that will plot the average values for each of the individual polygons in ``ndvi_patches``. You can see
+what this looks like below. Note that some of the apparent lack of seasonality before about 2000 is mostly a result of
+the lower temporal resolution – Landsat acquisitions were often limited during this time, and so some years will only
+have a few available images.
 
 .. image:: ../../../img/egm702/week4/ndvi_timeseries.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a time series of ndvi values for different polygons
 
-If you open the chart (click on the icon in the upper right-hand corner), you can export the data as a CSV file for further analysis.
+|br|
 
-You can also add (or remove) polygons from the plot. To add your own polygon, you can use the digitizing tools located in the
-upper left-hand corner of the map panel:
+.. tip::
+
+    If you open the chart (click on the icon in the upper right-hand corner), you can also export the data as a CSV
+    file for further analysis.
+
+Next, let's try a different combination of polygons. To do this, we'll need to change the code at line 17:
+
+.. code-block:: javascript
+
+    var ndvi_patches = ee.FeatureCollection([fastRegrowth, slowRegrowth]);
+
+Instead of looking at the ``fastRegrowth`` and ``slowRegrowth`` features, let's look at the ``fastRegrowth`` and
+``oldClearCut`` polygons.
+
+.. note::
+
+    To visualize where the ``newClearCut`` polygon is, you can toggle it on from the **GeometryImports** menu.
+
+To change the polygons that we use for the plot, replace ``slowRegrowth`` with ``oldClearCut`` at line 17, then
+re-run the script:
+
+.. code-block:: javascript
+
+    var ndvi_patches = ee.FeatureCollection([fastRegrowth, oldClearCut]);
+
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question;1em;sd-color-light` **Question**
+    ^^^
+
+    - Compare the ``fastRegrowth`` NDVI towards the end of the time series with the ``oldClearCut`` NDVI near the
+      beginning of the time series. Do you think these represent similar land cover types? Why or why not?
+    - Now, compare the ``fastRegrowth`` location in the ``Last`` (latest) Landsat image, and the ``oldClearCut`` polygon
+      location in the ``First`` (oldest) Landsat image. Do you think these represent similar land cover types? Why or
+      why not?
+    - Using the polygon location and the ``Last`` (latest) Landsat image, what kind of land cover does the
+      ``oldClearCut`` polygon represent now? Why do you think this?
+
+
+To add your own polygons, or to edit the polygons that are already included in the script, you can use the digitizing
+tools located in the upper left-hand corner of the map panel:
 
 .. image:: ../../../img/egm702/week4/digitizing_tools.png
     :width: 600
     :align: center
     :alt: the digitizing tools panel highlighted
 
-Be sure to start the polygon as a new layer (click on **+ new layer** at the bottom of the **Geometry Imports** panel):
+|br| If you're adding your own polygon, be sure to start the polygon as a new layer (click on **+ new layer** at the
+bottom of the **Geometry Imports** panel):
 
 .. image:: ../../../img/egm702/week4/geometry_imports_panel.png
     :width: 600
     :align: center
     :alt: the geometry imports panel expanded
 
-Next, start digitizing a polygon – try to make sure that the polygon represents one type of area. Remember that you can use the
-Landsat images, as well as the background satellite images, to help you. From the **Geometry Imports** panel, click the gear icon
-next to your new layer to change the properties:
+|br| Next, start digitizing a polygon – try to make sure that the polygon represents one type of area. Remember that
+you can use the Landsat images, as well as the background satellite images, to help you. From the **Geometry Imports**
+panel, click the gear icon next to your new layer to change the properties:
 
 .. image:: ../../../img/egm702/week4/configure_import1.png
     :width: 300
     :align: center
     :alt: the configure geometry import panel
 
-Change the name to something other than ``geometry`` (or ``example``), then change it to **Import as** a ``Feature``, and click to add
-property to the feature. Call it ``label``, and add a value for the label.
+|br| Change the name to something other than ``geometry`` (or ``example``), then change it to **Import as** a
+``Feature``, and click to add property to the feature. Call it ``label``, and add a value for the label.
 
 .. image:: ../../../img/egm702/week4/configure_import2.png
     :width: 300
     :align: center
     :alt: the configure geometry import panel
 
-Click **OK**, then digitize your polygon (if you haven’t already). Note that each feature can only contain a single polygon – to add
-multiple polygons, you’ll need to create multiple features. You can then update ``ndvi_patches`` and re-run the script to update
-the chart:
+|br| Click **OK**, then digitize your polygon (if you haven’t already). Note that each feature can only contain a
+single polygon – to add multiple polygons, you’ll need to create multiple features. You can then update the
+``ndvi_patches`` variable (line 17) and re-run the script to update the chart:
 
 .. image:: ../../../img/egm702/week4/updated_ndvi_timeseries.png
     :width: 600
     :align: center
     :alt: the ndvi time series with the new polygon layer added
 
-Feel free to try different polygons, and examine the different time series plots – try using the CVA angle map to help you decide
-areas to look further into.
+|br| Feel free to try different polygons, and examine the different time series plots – try using the CVA angle map to
+help you decide areas to look further into.
 
 This is the end of this Practical – next week, we’ll look into using Earth Engine to do some more advanced classification
 techniques, and run an accuracy analysis on the results.
 
-references and notes
---------------------
+next steps
+------------
 
-.. [1] McFeeters, S. K. (1996). *Int. J. Rem. Sens.*, 17(**7**), 1425–1432. doi: `10.1080/01431169608948714 <https://doi.org/10.1080/01431169608948714>`__
+In the ``03_change_vector_analysis.js`` script, try changing the number of classes from 4 to 8 by copying and pasting
+the following code at the end of the script, then re-running the script:
 
-.. [2] Otsu, N. (1979). *IEEE Trans. Systems, Man, Cybernetics*, 9(**1**), 62–66. doi: `10.1109/TSMC.1979.4310076 <https://doi.org/10.1109/TSMC.1979.4310076>`__
+.. code-block:: javascript
+
+    // re-classify the angles into 8 classes
+    var angleReclass2 = ee.Image(1)
+              .where(angle.gt(0).and(angle.lte(45)), 1)
+              .where(angle.gt(45).and(angle.lte(90)), 2)
+              .where(angle.gt(90).and(angle.lte(135)), 3)
+              .where(angle.gt(135).and(angle.lte(180)), 4)
+              .where(angle.gt(-180).and(angle.lte(-135)), 5)
+              .where(angle.gt(-135).and(angle.lte(-90)), 6)
+              .where(angle.gt(-90).and(angle.lte(-45)), 7)
+              .where(angle.gt(-45).and(angle.lte(0)), 8).clip(boundary);
+
+    // threshold the reclass image by changes w/ magnitude greater than 0.06
+    angleReclass2 = angleReclass2.updateMask(magnitude.gte(0.06));
+
+    // use an 8 color palette to visualize this color map
+    Map.addLayer(angleReclass2, {palette: ['b35806', 'e08214', 'fdb863', 'fee0b6',
+      'd8daeb', 'b2abd2', '8073ac', '542788']}, 'reclass angle - 8 classes', true);
+
+How does this compare to the 4 class visualization? Consider the following questions:
+
+- Look at the areas of clear-cut forest to the NE of the mountain. Do you notice differences between different patches,
+  or within individual patches, that aren't apparent in the 4 class image?
+- Pay attention to the differences between angle class 3 (angles between 90 and 135 degrees) and angle class 4
+  (angles between 135 and 180 degrees). These correspond to increases in NIR reflectance, and decreases in red
+  reflectance; angle class 3 represents smaller decreases in red reflectance, while angle class 4 represents larger
+  decreases. Using the angle change map and the original false color composites, what kind of changes are you able
+  to discern here?
+
+
+notes and references
+----------------------
+
+.. [1] Rouse, J.W., *et al.* (1974). *Proceedings, 3rd Earth Resource Technology Satellite Symposium*, 1, 48-62.
+    https://ntrs.nasa.gov/citations/19740022614
+
+.. [2] McFeeters, S. K. (1996). *Int. J. Rem. Sens.*, 17(**7**), 1425–1432.
+    doi: `10.1080/01431169608948714 <https://doi.org/10.1080/01431169608948714>`__
+
+.. [3] The reason that we use -180 and -90 here, instead of 180 and 270 (or -90 and 0 instead of 270 and 360) is
+    because the output of ``ee.Image.atan2()`` returns values between :math:`-\pi` (-180 :math:`^\circ`) and
+    :math:`+\pi` (180 :math:`^\circ`).
 

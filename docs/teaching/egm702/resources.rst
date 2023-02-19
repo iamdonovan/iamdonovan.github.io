@@ -1,21 +1,29 @@
 additional resources
 ====================
 
-On this page, you will find links to additional resources/materials relevant to the material covered in EGM702 - Photogrammetry and Advanced Image Analysis
+On this page, you will find links to additional resources/materials relevant to the material covered in
+EGM702 - Photogrammetry and Advanced Image Analysis
 
 reading list
 ------------
 
-A suggested reading list is available as a `Zotero Group Library <https://www.zotero.org/groups/4390043/egm702/library>`_. Note that while the group is public, you will need to be added to the group as a member
-in order to view the associated PDFs.
+A suggested reading list is available as a `Zotero Group Library <https://www.zotero.org/groups/4390043/egm702/library>`_.
+Note that while the group is public, you will need to be added to the group as a member in order to view the
+associated PDFs.
 
-In preparing the materials for this module, I have used the following textbooks - they are not required reading, but if you have access through a library or the means to pick up a (used) copy, they can help fill in some of the details.
+In preparing the materials for this module, I have used the following textbooks - they are not required reading, but
+if you have access through a library or the means to pick up a (used) copy, they can help fill in some of the details.
 
-- Campbell, J. B. and R. H. Wynne (2011). *Introduction to Remote Sensing (5*\ |th| *ed.)*. Guilford Press. ISBN 978160918176-5 [`Google Books <https://books.google.co.uk/books/about/Introduction_to_Remote_Sensing_Fifth_Edi.html?id=NkLmDjSS8TsC&redir_esc=y>`__]
-- Carrivick, J. L., M. W. Smith, and D. J. Quincey (2016). *Structure from Motion in the Geosciences*. Wiley. ISBN 9781118895849 [`Google Books <https://www.google.co.uk/books/edition/_/o4qvDAAAQBAJ?hl=en>`__]
-- Jensen, J. R. (2016). *Introductory Digital Image Processing (4*\ |th| *ed.)*. Pearson. ISBN 9780134058160 [`Google Books <https://www.google.co.uk/books/edition/Introductory_Digital_Image_Processing/IWvDrQEACAAJ?hl=en>`__]
-- Lillesand, T. M., R. W. Kiefer, and J. W. Chipman (2015). *Remote Sensing and Image Interpretation (7*\ |th| *ed.)*. Wiley. ISBN 9781118343289 [`Google Books <https://www.google.co.uk/books/edition/Remote_Sensing_and_Image_Interpretation/AFHDCAAAQBAJ?hl=en&gbpv=0>`__]
-
+- Cardille, J. A., N. Clinton, M. A. Crowley, and D. Saah, eds. (2022). *Cloud-Based Remote Sensing with Google Earth Engine*.
+  [`eefabook.org <https://www.eefabook.org/>`__]
+- Campbell, J. B. and R. H. Wynne (2011). *Introduction to Remote Sensing (5*\ |th| *ed.)*. Guilford Press.
+  ISBN 978160918176-5 [`Google Books <https://books.google.co.uk/books/about/Introduction_to_Remote_Sensing_Fifth_Edi.html?id=NkLmDjSS8TsC&redir_esc=y>`__]
+- Carrivick, J. L., M. W. Smith, and D. J. Quincey (2016). *Structure from Motion in the Geosciences*. Wiley.
+  ISBN 9781118895849 [`Google Books <https://www.google.co.uk/books/edition/_/o4qvDAAAQBAJ?hl=en>`__]
+- Jensen, J. R. (2016). *Introductory Digital Image Processing (4*\ |th| *ed.)*. Pearson.
+  ISBN 9780134058160 [`Google Books <https://www.google.co.uk/books/edition/Introductory_Digital_Image_Processing/IWvDrQEACAAJ?hl=en>`__]
+- Lillesand, T. M., R. W. Kiefer, and J. W. Chipman (2015). *Remote Sensing and Image Interpretation (7*\ |th| *ed.)*.
+  Wiley. ISBN 9781118343289 [`Google Books <https://www.google.co.uk/books/edition/Remote_Sensing_and_Image_Interpretation/AFHDCAAAQBAJ?hl=en&gbpv=0>`__]
 
 week 1: photogrammetry
 ----------------------
