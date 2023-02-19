@@ -22,7 +22,7 @@ To begin, point your browser to https://code.earthengine.google.com. If you are 
 your GEE account. You should see something like this:
 
 .. image:: ../../../img/egm702/week3/annotated_window.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the GEE console with annotations
 
@@ -79,7 +79,7 @@ part 1 - finding and inspecting images
 Once you have saved the script, you should see something like the following in the code editor:
 
 .. image:: ../../../img/egm702/week3/loaded_saved_script.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the gee window after loading and saving the script
 
@@ -226,7 +226,7 @@ At this point, you can *run* the script, either by pressing **CTRL + Enter**, or
 clicking **Run** at the top of the code editor panel. Once the script finishes running, you should see this:
 
 .. image:: ../../../img/egm702/week3/loaded_image.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the script after having added the image from step 1.
 
@@ -252,6 +252,7 @@ Now, in the **Map** panel, turn off the SR Image to see the TOA Image underneath
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -261,7 +262,7 @@ Next, click on the **Inspector** tab, then click anywhere on the **Map** to get 
 on the map at that location:
 
 .. image:: ../../../img/egm702/week3/inspector_list.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the gee window with the inspector tab active, showing a list of pixel values for a given location
 
@@ -269,7 +270,7 @@ on the map at that location:
 chart by clicking the chart icon (red outline above):
 
 .. image:: ../../../img/egm702/week3/inspector_chart.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the gee window with the inspector tab active, showing a bar chart of pixel values for a given location
 
@@ -278,6 +279,7 @@ that the TOA image will be displayed first, then the SR image).
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -438,7 +440,7 @@ When you run the script, you should see the following added to the map (after yo
 layer):
 
 .. image:: ../../../img/egm702/week3/hillshade.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the hillshade of the SRTM loaded in the map panel
 
@@ -447,6 +449,7 @@ not sure which layer you're seeing, you can always check the **Layers** menu.
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -490,6 +493,7 @@ the **Console**:
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -530,6 +534,7 @@ This will display the pixel values on the same sort of Red/Yellow/Blue color sca
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -557,7 +562,7 @@ In addition to the difference map, we can also display a histogram of the differ
 We then display the chart by printing it to the **Console**:
 
 .. image:: ../../../img/egm702/week3/histogram.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the histogram showing the differences between the NASADEM and the SRTM DEM.
 
@@ -571,6 +576,7 @@ down below the chart to see these, but be sure to look at these before answering
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -636,6 +642,7 @@ texture in many areas.
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -690,7 +697,7 @@ Once the task has finished, you can download the file from your Google Drive, an
 QGIS:
 
 .. image:: ../../../img/egm702/week3/pan_qgis.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the exported display image loaded into qgis
 
@@ -736,7 +743,7 @@ introduction.
 When the script finishes running, you should see the following:
 
 .. image:: ../../../img/egm702/week3/pca_loaded.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the decorrelation stretch image displayed on the map
 
@@ -744,6 +751,7 @@ When the script finishes running, you should see the following:
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -762,6 +770,7 @@ and so on.
 
 .. card::
     :class-header: question
+    :class-card: question
 
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
@@ -774,7 +783,7 @@ most of the "information" about the image is contained in the first principal co
 decreases for each PC band. We can see this by looking at ``pc7``:
 
 .. image:: ../../../img/egm702/week3/sensor_noise.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the 7th principal component displayed on the map
 
@@ -786,7 +795,7 @@ band.
 Now, look at ``pc1`` by deactivating the other layers in the **Layer Menu**:
 
 .. image:: ../../../img/egm702/week3/pc1.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the 1st principal component displayed on the map
 
