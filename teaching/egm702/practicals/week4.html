@@ -35,6 +35,7 @@
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="classification in earth engine" href="week5.html" />
@@ -799,43 +800,33 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#importing-assets">
-   importing assets
+  <a class="reference internal nav-link" href="#part-1-visual-analysis">
+   part 1 - visual analysis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-1-finding-images">
-   step 1. finding images
+  <a class="reference internal nav-link" href="#part-2-band-maths-and-thresholding">
+   part 2 - band maths and thresholding
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-2-band-maths">
-   step 2. band maths
+  <a class="reference internal nav-link" href="#part-3-change-vector-analysis">
+   part 3 - change vector analysis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-3-thresholding-images">
-   step 3. thresholding images
+  <a class="reference internal nav-link" href="#part-4-time-series">
+   part 4 - time series
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-4-summary-statistics-with-features">
-   step 4. summary statistics with features
+  <a class="reference internal nav-link" href="#next-steps">
+   next steps
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-5-change-vector-analysis">
-   step 5. change vector analysis
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-6-plotting-time-series">
-   step 6. plotting time series
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references-and-notes">
-   references and notes
+  <a class="reference internal nav-link" href="#notes-and-references">
+   notes and references
   </a>
  </li>
 </ul>
@@ -863,43 +854,33 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#importing-assets">
-   importing assets
+  <a class="reference internal nav-link" href="#part-1-visual-analysis">
+   part 1 - visual analysis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-1-finding-images">
-   step 1. finding images
+  <a class="reference internal nav-link" href="#part-2-band-maths-and-thresholding">
+   part 2 - band maths and thresholding
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-2-band-maths">
-   step 2. band maths
+  <a class="reference internal nav-link" href="#part-3-change-vector-analysis">
+   part 3 - change vector analysis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-3-thresholding-images">
-   step 3. thresholding images
+  <a class="reference internal nav-link" href="#part-4-time-series">
+   part 4 - time series
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-4-summary-statistics-with-features">
-   step 4. summary statistics with features
+  <a class="reference internal nav-link" href="#next-steps">
+   next steps
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-5-change-vector-analysis">
-   step 5. change vector analysis
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#step-6-plotting-time-series">
-   step 6. plotting time series
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references-and-notes">
-   references and notes
+  <a class="reference internal nav-link" href="#notes-and-references">
+   notes and references
   </a>
  </li>
 </ul>
@@ -914,408 +895,327 @@ title="Print to PDF"
                 
   <div class="section" id="change-detection-in-earth-engine">
 <h1>change detection in earth engine<a class="headerlink" href="#change-detection-in-earth-engine" title="Permalink to this headline">#</a></h1>
-<p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) to do change detection and analysis. Just like last
-week, you should be able to do finish the practical even if you have no prior experience with programming. All of the
-programming steps have been provided for you in a script, and your task will be to run each step in turn and analyse and
-interpret the results.</p>
+<p>In this practical, we’ll build on <a class="reference internal" href="week3.html"><span class="doc">week 3</span></a>’s introduction to GEE and image analysis by seeing ways that
+we can use GEE for change detection and analysis. Just like last week, you should be able to do finish the practical
+even if you have no prior experience with programming. All of the programming steps have been provided for you in a
+collection of scripts, and your task will be to run each script and analyze/interpret the results.</p>
 <div class="section" id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
-<p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>, and log in if you need to.</p>
-<p>In addition to all of the publicly available datasets, Earth Engine allows you to upload your own datasets (called <em>assets</em>)
-to work with in the Earth Engine code editor.</p>
-<p>As part of this practical, we’ll upload the lake shapefiles we used in the Week 2 practical,
-which you can download in zipped form from the Week 4 Practical folder on Blackboard, or by clicking the links below:</p>
+<p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>, and log in if you need to. In the
+<strong>Script manager</strong> under <strong>Reader</strong>, find the <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository, and click on <code class="docutils literal notranslate"><span class="pre">week4</span></code> to expand the week 4
+folder.</p>
+<p>Just like for week 3, the practical exercises are divided into a number of different scripts, labeled in order. For
+week 4, the scripts are:</p>
 <ul class="simple">
-<li><p><a class="reference download internal" download="" href="../../../_downloads/c07613d8a44522bb33ef86e6076e0bc0/1979_shapes.zip"><code class="xref download docutils literal notranslate"><span class="pre">1979</span> <span class="pre">Lake</span> <span class="pre">shapefile</span></code></a></p></li>
-<li><p><a class="reference download internal" download="" href="../../../_downloads/6472ca163879f388dc5c20ad4cd31848/1984_shapes.zip"><code class="xref download docutils literal notranslate"><span class="pre">1984</span> <span class="pre">Lake</span> <span class="pre">shapefile</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">01_visual_analysis.js</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">02_thresholding.js</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">03_change_vector_analysis.js</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">04_time_series.js</span></code></p></li>
 </ul>
+<p>In the <strong>Script manager</strong>, open the script for part 1 by clicking on <code class="docutils literal notranslate"><span class="pre">week4/01_visual_analysis.js</span></code>.</p>
+<p>Remember that you have access to all of the scripts in the repository as a <em>Reader</em>, but in order to save any changes
+you’ll need to save the script to your own repository. Again, the easiest way for you to do this is to replace
+“YOUR NAME HERE!” on line 1 with your name, then click <strong>Save</strong>.</p>
+<p>Save the script to your <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository as <code class="docutils literal notranslate"><span class="pre">week4/01_visual_analysis.js</span></code> - just like last week, you should
+see a <code class="docutils literal notranslate"><span class="pre">week4</span></code> folder appear in the repository with a new script, <code class="docutils literal notranslate"><span class="pre">01_visual_analysis.js</span></code>.</p>
+<p>As you work your way through the practical, remember to save each script in this way, so that any changes you make to
+the scripts are saved in your repository.</p>
 </div>
-<div class="section" id="importing-assets">
-<h2>importing assets<a class="headerlink" href="#importing-assets" title="Permalink to this headline">#</a></h2>
-<p>In the upper right panel, click on the <strong>Assets</strong> tab:</p>
-<a class="reference internal image-reference" href="../../../_images/assets_tab.png"><img alt="the assets tab" class="align-center" src="../../../_images/assets_tab.png" style="width: 300px;" /></a>
-<p>Click on <strong>New</strong>, then <strong>Table Upload</strong> &gt; <strong>Shape files</strong>:</p>
-<a class="reference internal image-reference" href="../../../_images/upload_asset.png"><img alt="uploading a shapefile asset" class="align-center" src="../../../_images/upload_asset.png" style="width: 300px;" /></a>
-<p>Click <strong>Select</strong>, then navigate to the <strong>1979_shapes.zip</strong> file that you’ve downloaded. If you like, you can re-name the file that
-this asset will be saved as. Leave the other options as they are, and click <strong>Upload</strong>.</p>
-<p>Repeat this step for the <strong>1984_shapes.zip</strong> file. It may take a few minutes for the files to upload and be ingested
-into Earth Engine – you should see a notification in the <strong>Tasks</strong> tab that the ingestion has started.</p>
-<p>Once it is complete, you should see the files listed under your username in the <strong>Assets</strong>
-tab, along with checkmarks next to the ingest tasks in the <strong>Tasks</strong> tab:</p>
-<a class="reference internal image-reference" href="../../../_images/ingesting_shapefile.png"><img alt="the gee window with the shapefiles being ingested" class="align-center" src="../../../_images/ingesting_shapefile.png" style="width: 600px;" /></a>
-<p>You can click on the asset names to open up a summary of the layer, including a preview of the features contained in the
-shapefile:</p>
-<a class="reference internal image-reference" href="../../../_images/layer_summary.png"><img alt="the summary of the 1979 shapes layer" class="align-center" src="../../../_images/layer_summary.png" style="width: 600px;" /></a>
-<p>Now, to import the intro script, follow <a class="reference external" href="https://code.earthengine.google.com/fbaf560296993ea3c35d7cff980fe417?noload=true">this link</a>
-to find the script for this week’s practical. Once again, type your name after “Practical 4” on the first line, then click the
-<strong>Save</strong> button in the code editor to your egm702 repository that you created last week.</p>
-<p>Finally, we’ll need to import the assets that we uploaded, so that we can use them in the script. To do this, you can hover your cursor
-over the asset name in the <strong>Assets</strong> tab, then click the arrow icon:</p>
-<a class="reference internal image-reference" href="../../../_images/asset_selection.png"><img alt="selecting an asset from the assets tab" class="align-center" src="../../../_images/asset_selection.png" style="width: 300px;" /></a>
-<p>You can also click on the asset name to open the properties window, then click <strong>Import</strong>. Do this for the <code class="docutils literal notranslate"><span class="pre">1979_shapes</span></code> file first – you
-should see a new line under the <strong>Imports</strong> at the top of the script:</p>
-<a class="reference internal image-reference" href="../../../_images/imported_asset.png"><img alt="the first shapefile added to the imports list" class="align-center" src="../../../_images/imported_asset.png" style="width: 400px;" /></a>
-<p>Re-name the import by clicking on <code class="docutils literal notranslate"><span class="pre">table</span></code>, and call it <code class="docutils literal notranslate"><span class="pre">lakes1979</span></code>.</p>
-<p>Repeat this for the 1984 shapefile, calling it <code class="docutils literal notranslate"><span class="pre">lakes1984</span></code>. Your imports should now look like this:</p>
-<a class="reference internal image-reference" href="../../../_images/imported_asset2.png"><img alt="the second shapefile added to the imports list" class="align-center" src="../../../_images/imported_asset2.png" style="width: 400px;" /></a>
-<p>Have a look over the function definitions – I’ll explain more about each of them as we go, but feel free to look through them and
-try to get a feeling for how they work.</p>
-</div>
-<div class="section" id="step-1-finding-images">
-<h2>step 1. finding images<a class="headerlink" href="#step-1-finding-images" title="Permalink to this headline">#</a></h2>
-<p>In addition to searching an entire image collection and finding images based on properties (i.e., cloud cover), we can also load
-images directly using their ID:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select images using their Landsat ID, clip to our study area boundary,</span>
-<span class="c1">// and re-name the MSS bands to make it easier to work with both TM and MSS images.</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">mss1979</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM02/C01/T2/LM02_049028_19790719&quot;</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B5&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B6&#39;</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B4&#39;</span><span class="p">]);</span><span class="w"> </span><span class="c1">// rename B4 to B2, B5 to B3, B6 to B4</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">mss1980</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LM02/C01/T2/LM02_049028_19800905&quot;</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B5&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B6&#39;</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;B2&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B4&#39;</span><span class="p">]);</span><span class="w"> </span><span class="c1">// rename B4 to B2, B5 to B3, B6 to B4</span>
-</pre></div>
-</div>
-<p>In this case, we’re loading two Landsat 2 MSS scenes: <code class="docutils literal notranslate"><span class="pre">LM02_049028_19790719</span></code> and <code class="docutils literal notranslate"><span class="pre">LM02_049028_19800905</span></code>.</p>
-<p>Landsat scene IDs in GEE have the following form: <code class="docutils literal notranslate"><span class="pre">LXXX_PPPRRR_YYYYMMDD</span></code>, where <code class="docutils literal notranslate"><span class="pre">XXX</span></code> denotes the sensor name (e.g., <code class="docutils literal notranslate"><span class="pre">M02</span></code> for
-Landsat 2 MSS) , <code class="docutils literal notranslate"><span class="pre">PPP</span></code> denotes the WRS path (<code class="docutils literal notranslate"><span class="pre">049</span></code>), <code class="docutils literal notranslate"><span class="pre">RRR</span></code> denotes the WRS row (<code class="docutils literal notranslate"><span class="pre">028</span></code>), and <code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code> is the acquisition date
-in year-month-day format.</p>
-<p>In addition to loading the images by name, we’re clipping these to a boundary surrounding our area of interest
-(<code class="docutils literal notranslate"><span class="pre">.clip(boundary)</span></code>). You should also notice this: (<code class="docutils literal notranslate"><span class="pre">.select([‘B4’,</span> <span class="pre">‘B5’,</span> <span class="pre">‘B6’],</span> <span class="pre">[‘B2’,</span> <span class="pre">‘B3’,</span> <span class="pre">‘B4’])</span></code>). This
-will take MSS Band 4 (visible green) and re-name it to Band 2, MSS Band 5 (visible red) and re-name it to Band 3, and MSS Band
-6 (near infrared) and re-name it to Band 4.</p>
-<p>By re-naming the MSS bands this way, we can make them consistent with Landsat TM and ETM+ scenes, which we will use to look at a time
-series of Normalized Difference Vegetation Index (NDVI) values later on in the practical.</p>
-<p>In this section, we are also loading a 1984 Landsat 5 TM scene and a 2020 Landsat 8 OLI scene, and adding each of these layers
-to the map:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">mss1979</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B2&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">255</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1979 MSS&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">mss1980</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;B2&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">255</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1980 MSS&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.45</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1984 TM&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">oli2020</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.45</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;2020 OLI&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>Run the script – you should notice that the map has moved to center on the volcano, but no layers have loaded. This is because
-of the <code class="docutils literal notranslate"><span class="pre">false</span></code> argument at the end of the <code class="docutils literal notranslate"><span class="pre">addLayer</span></code> statement. Rather than adding lots of visible layers at one time, and slowing
-down the loading, we can choose to add layers to the map without showing them.</p>
-<p>You can toggle each of the layers to visible using the <strong>Layers</strong> menu in the map panel:</p>
-<a class="reference internal image-reference" href="../../../_images/layers_menu.png"><img alt="the layers menu highlighted in the map panel" class="align-center" src="../../../_images/layers_menu.png" style="width: 600px;" /></a>
-<p>Or, you can replace <code class="docutils literal notranslate"><span class="pre">false</span></code> with <code class="docutils literal notranslate"><span class="pre">true</span></code> for each layer and re-run the script – note that this will most likely increase the amount of
-time it takes to run the script.</p>
-</div>
-<div class="section" id="step-2-band-maths">
-<h2>step 2. band maths<a class="headerlink" href="#step-2-band-maths" title="Permalink to this headline">#</a></h2>
-<p>In the lectures from the past 2 weeks, we’ve discussed using band maths to help enhance images and help us identify different
-features. One of the techniques discussed was the Normalized Difference Water Index (NDWI<a class="footnote-reference brackets" href="#id3" id="id1">1</a>), which can be
-used to identify water bodies in a satellite image.</p>
-<p>The NDWI (for water bodies; there is also an NDWI for water content in vegetation) is the normalized difference between
-the near-infrared reflectance and the visible green reflectance. At the beginning of the script, I have defined a function
-to calculate this given a satellite image:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// calculate the normalized difference water index (McFeeters, 1996), which helps to identify</span>
-<span class="c1">// water bodies in a satellite image.</span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">ndwi</span><span class="p">(</span><span class="nx">img</span><span class="p">){</span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">nir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B4&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// return the NIR band for a landsat 1-7 scene.</span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;B2&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// return the visible green band for a landsat 1-7 scene.</span>
-
-<span class="w">  </span><span class="c1">// calculate the NDWI (Green - NIR) / (Green + NIR), and re-name the layer NDWI</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">green</span><span class="p">.</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">nir</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="nx">green</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">nir</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;NDWI&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Uncomment the code in Step 2 (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 181 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 199). You
-should see the following block of code:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// calculate the NDWI for the 1979 and 1980 MSS scenes, using the function defined above.</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">ndwi1979</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ndwi</span><span class="p">(</span><span class="nx">mss1979</span><span class="p">);</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">ndwi1980</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ndwi</span><span class="p">(</span><span class="nx">mss1980</span><span class="p">);</span>
-
-<span class="c1">// add each ndwi image to the map, using the ndwi visualization palette defined above.</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ndwi1979</span><span class="p">,</span><span class="w"> </span><span class="nx">ndwiVis</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1979 NDWI&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">ndwi1980</span><span class="p">,</span><span class="w"> </span><span class="nx">ndwiVis</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1980 NDWI&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>This will calculate the NDWI for each of the MSS scenes, and add the results to the Map panel. Run the script, and then toggle
-the 1979 NDWI image to be visible:</p>
-<a class="reference internal image-reference" href="../../../_images/1979_ndwi.png"><img alt="the 1979 ndwi image" class="align-center" src="../../../_images/1979_ndwi.png" style="width: 600px;" /></a>
-<p>You should see the lakes highlighted as a dark blue color, while the rest of the image is shades of green and lighter blue. Next,
-look at the 1980 image:</p>
-<a class="reference internal image-reference" href="../../../_images/1980_ndwi.png"><img alt="the 1980 ndwi image" class="align-center" src="../../../_images/1980_ndwi.png" style="width: 600px;" /></a>
-<p>From the look of it, there’s a lot more standing water on the surface in the 1980 image than in the 1979 image, including a large
-lake in the crater of the volcano. But is this really the case, or is there something else going on here?</p>
+<div class="section" id="part-1-visual-analysis">
+<h2>part 1 - visual analysis<a class="headerlink" href="#part-1-visual-analysis" title="Permalink to this headline">#</a></h2>
+<p>In the first part of this practical, we’ll see how we can analyze change visually by comparing:</p>
 <ul class="simple">
-<li><p>Based on the visual results here, do you think that assuming that the same NDWI value will always represent water in both images?</p></li>
-<li><p>Based on the topics covered so far in the lectures and your reading, can you think of some ways that we could try to improve the results here? Remember that the MSS scenes are not surface reflectance, which means that there may still be atmospheric influence.</p></li>
+<li><p>false-color composite images from different dates</p></li>
+<li><p>individual bands from different dates</p></li>
+<li><p>multi-temporal false color composites</p></li>
 </ul>
-</div>
-<div class="section" id="step-3-thresholding-images">
-<h2>step 3. thresholding images<a class="headerlink" href="#step-3-thresholding-images" title="Permalink to this headline">#</a></h2>
-<p>Uncomment the first group of lines here (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 201 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 217), and run the script to plot histograms of the NDWI values for the two MSS images:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">hist1979</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">histPlot</span><span class="p">(</span><span class="nx">ndwi1979</span><span class="p">,</span><span class="w"> </span><span class="nx">boundary</span><span class="p">);</span>
-<span class="nx">hist1979</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1979 NDWI Values &#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">hAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;NDWI value&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
-<span class="w">  </span><span class="nx">vAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number of pixels&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
-<span class="p">});</span>
-<span class="nx">print</span><span class="p">(</span><span class="nx">hist1979</span><span class="p">);</span>
+<p>The two images we will use are a Landsat 5 Thematic Mapper (TM) image acquired 19 July 1984, and a Landsat 5 TM image
+acquired 30 July 2011:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add a TM5 image from 19 July 1984</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">tm1984</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2/LT05_046028_19840719&quot;</span><span class="p">);</span>
+<span class="nx">tm1984</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">oliRescale</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">);</span><span class="w"> </span><span class="c1">// rescale to surface reflectance values</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">hist1980</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">histPlot</span><span class="p">(</span><span class="nx">ndwi1980</span><span class="p">,</span><span class="w"> </span><span class="nx">boundary</span><span class="p">);</span>
-<span class="nx">hist1980</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1980 NDWI Values &#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">hAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;NDWI value&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
-<span class="w">  </span><span class="nx">vAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number of pixels&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
-<span class="p">});</span>
-<span class="nx">print</span><span class="p">(</span><span class="nx">hist1980</span><span class="p">);</span>
+<span class="c1">// add a TM5 image from 30 July 2011</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">tm2011</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2/LT05_046028_20110730&quot;</span><span class="p">);</span>
+<span class="nx">tm2011</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">oliRescale</span><span class="p">(</span><span class="nx">tm2011</span><span class="p">);</span><span class="w"> </span><span class="c1">// rescale to surface reflectance values</span>
 </pre></div>
 </div>
-<p>This will produce the following two histograms:</p>
-<a class="reference internal image-reference" href="../../../_images/1979_histogram.png"><img alt="the histogram of ndwi values for the 1979 image" src="../../../_images/1979_histogram.png" style="width: 49%;" /></a>
-<a class="reference internal image-reference" href="../../../_images/1980_histogram.png"><img alt="the histogram of ndwi values for the 1980 image" src="../../../_images/1980_histogram.png" style="width: 49%;" /></a>
-<p>You should notice that the 1979 histogram (left) has a much lower peak value, around -0.4, while the 1980 histogram (right) has a peak around -0.05,
-and is also bimodal to an extent. The 1980 histogram also has a much wider spread of values, while the 1979 histogram has a much taller peak.</p>
-<p>All of this suggests that if we were to use the same threshold values for both scenes, we would end up with significantly more mis-
-classification in the 1980 image - that is, we would incorrectly classify a lot of shadows as water.</p>
-<p>Uncomment the next set of lines (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 218 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 228) and re-run the script:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a feature collection (vector) representation of areas classified as water</span>
-<span class="c1">// using the ndwi and a threshold.</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">watermask1979</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getWaterMask</span><span class="p">(</span><span class="nx">mss1979</span><span class="p">,</span><span class="w"> </span><span class="mf">0.15</span><span class="p">);</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">watermask1980</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getWaterMask</span><span class="p">(</span><span class="nx">mss1980</span><span class="p">,</span><span class="w"> </span><span class="mf">0.45</span><span class="p">);</span>
+<p>Run the script. You should see the following in the <strong>Map</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/visual_1984.png"><img alt="a 1984 Landsat image showing the area around Mt St Helens" class="align-center" src="../../../_images/visual_1984.png" style="width: 720px;" /></a>
+<p><br /> This is a NIR/Red/Green false color composite (TM Bands 4, 3, 2), something that we have seen before. You should
+see that in this color composite, vegetation appears red, water appears black, and soil/bedrock is shades of brown.</p>
+<p>This image is from July 1984, approximately the same time as the air photos that you worked with in
+<a class="reference internal" href="week1.html"><span class="doc">week 1</span></a>. At this time, we can see that much of the vegetation on the north side of the volcano has been
+removed as a result of the eruption.</p>
+<p>Now, toggle the <code class="docutils literal notranslate"><span class="pre">2011</span> <span class="pre">SR</span></code> layer on from the <strong>Layers</strong> menu. You should see the following image:</p>
+<a class="reference internal image-reference" href="../../../_images/visual_2011.png"><img alt="a 2011 Landsat image showing the area around Mt St Helens" class="align-center" src="../../../_images/visual_2011.png" style="width: 720px;" /></a>
+<p><br /> In this image, we can see a number of changes - on the south side of the peak, a large layer of snow is visible
+in 2011 that was not present in 1984. We can also see that areas north of the peak where trees and vegetation were
+removed or covered by landslide deposits have started to recover - areas that appear brown or tan colored in 1984 have
+turned various shades of red in the 2011 image.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">South of the mountain, there are large areas that have shifted from bright red in the 1984 false color composite
+to a darker red in the 2011 image. Using what you know about surface reflectance in the NIR, what might explain
+this change?</p>
+</div>
+</div>
+<p>Once you have had a look at the false color composite images, have a look at the NIR (TM Band 4) images, by toggling on
+<code class="docutils literal notranslate"><span class="pre">1984</span> <span class="pre">SR</span> <span class="pre">B4</span></code> and <code class="docutils literal notranslate"><span class="pre">2011</span> <span class="pre">SR</span> <span class="pre">B4</span></code>. This should show somewhat similar patterns to the false color images. In the 1984
+image, the area impacted by the eruption north of the volcano is much darker in the NIR:</p>
+<a class="reference internal image-reference" href="../../../_images/1984_nir.png"><img alt="a 1984 Landsat TM B4 image showing the area around Mt St Helens" class="align-center" src="../../../_images/1984_nir.png" style="width: 720px;" /></a>
+<p><br /> In comparison, the 2011 image is quite a bit brighter in some areas, especially on the north side of the peak
+in areas where significant deforestation happened as a result of the 1980 eruption, and on the mountain itself where
+we see a large amount of snow:</p>
+<a class="reference internal image-reference" href="../../../_images/2011_nir.png"><img alt="a 2011 Landsat TM B4 image showing the area around Mt St Helens" class="align-center" src="../../../_images/2011_nir.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When visually inspecting images for changes, we normally want the images to be visualized in the same way - that
+way, we know that the differences that we’re seeing are differences in reflectance, and not in the visualization.</p>
+<p>To illustrate this, try changing the stretch on <code class="docutils literal notranslate"><span class="pre">2011</span> <span class="pre">SR</span> <span class="pre">B4</span></code> so that it ranges from 0.05 to 1.30, rather than
+0.65. You should notice that now, it appears that the 2011 image is darker than the 1984 image, indicating that
+NIR reflectance has decreased.</p>
+</div>
+<p>Visually comparing bands like this is one way that we can see the differences between color composites or individual
+bands. As discussed in this week’s lectures, we can also use a multi-temporal false color composite to visualize changes
+between images using a single composite image.</p>
+<p>To illustrate this, we again use the NIR bands. First, we create a new image that has bands from both time periods:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// multi-temporal composite of NIR bands</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">multitemp_b4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">cat</span><span class="p">([</span>
+<span class="w">  </span><span class="nx">tm1984</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;1984_B4&#39;</span><span class="p">),</span>
+<span class="w">  </span><span class="nx">tm2011</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;2011_B4&#39;</span><span class="p">)</span>
+<span class="p">]);</span>
+</pre></div>
+</div>
+<p>Then, we add the image to the <strong>Map</strong>, with the red channel showing the 1984 reflectance, and the green and blue
+channels showing the 2011 reflectance:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the multi-temporal composite to the map</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">multitemp_b4</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;1984_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2011_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2011_B4&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.65</span><span class="p">},</span>
+<span class="w">  </span><span class="s1">&#39;Multi-temporal B4 composite&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To see the image, toggle <code class="docutils literal notranslate"><span class="pre">Multi-temporal</span> <span class="pre">B4</span> <span class="pre">composite</span></code> on in the <strong>Layers</strong> menu:</p>
+<a class="reference internal image-reference" href="../../../_images/multitemporal_fcc.png"><img alt="a multi-temporal false color composite image showing the changes in NIR reflectance between 1984 and 2011." class="align-center" src="../../../_images/multitemporal_fcc.png" style="width: 720px;" /></a>
+<p><br /> In the above image, areas where the reflectance is higher in the 1984 image are shaded red, and areas where the
+reflectance is higher in the 2011 image are shaded blue. Areas where the the images are the same are shades of gray,
+with the brightness determined by the reflectance.</p>
+<p>Here, we see mostly blue and darker gray to the north of the peak, consistent with the observations from the individual
+bands. We also see that areas south of the peak show a decrease in NIR reflectance between 1984 and 2011, while much
+of the mountain has largely similar reflectance between the two dates (aside from the snow, that is).</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Have a look around the wider area - what other changes do you see in the multi-temporal color composite?</p>
+</div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Paste the following code at the end of the script to create a multi-temporal false color composite using the red
+reflectance (TM band 3), then re-run the script.</p>
+<p class="sd-card-text">What are some of the differences between the NIR and Red changes that you notice? Using what you know about
+reflectance, and what you know about the changes at Mt St Helens between the two images, how can you
+interpret/explain these difference?</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// multi-temporal composite of NIR bands</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">multitemp_b3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">cat</span><span class="p">([</span>
+<span class="w">  </span><span class="nx">tm1984</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;1984_B3&#39;</span><span class="p">),</span>
+<span class="w">  </span><span class="nx">tm2011</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;2011_B3&#39;</span><span class="p">)</span>
+<span class="p">]);</span>
 
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">watermask1979</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1000ff&#39;</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1979 water mask&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">watermask1980</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0099ff&#39;</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1980 water mask&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">lakes1979</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;6699ff&#39;</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1979 Lakes&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">lakes1984</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cc66ff&#39;</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1984 Lakes&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="c1">// add the multi-temporal composite to the map</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">multitemp_b3</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;1984_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2011_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2011_B3&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.65</span><span class="p">},</span>
+<span class="w">  </span><span class="s1">&#39;Multi-temporal B3 composite&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Will create a feature collection (vector dataset) representation of the areas classified as water in the two MSS images. The function
-uses the threshold values (0.15 for the 1979 image, 0.45 for the 1980 image) to determine which pixels are classified as water,
-and which pixels are classified as “not water.” All pixels with an NDWI value greater than or equal to the given threshold value are classified as water,
-while any pixel with an NDWI value below the given threshold are classified as “not water.”</p>
-<p>Start by comparing the outlines in <strong>lakes1979</strong> with the <strong>watermask1979</strong> layer by toggling <strong>lakes1979</strong> to be visible.
-How do they compare? Are there any obvious areas of misclassification? Can we improve on the initial result here?</p>
-<a class="reference internal image-reference" href="../../../_images/water_layer.png"><img alt="the vector layer of water bodies" class="align-center" src="../../../_images/water_layer.png" style="width: 600px;" /></a>
-<p>Go ahead and try different thresholds by changing the value of 0.15 in this line:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">watermask1979</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getWaterMask</span><span class="p">(</span><span class="nx">mss1979</span><span class="p">,</span><span class="w"> </span><span class="mf">0.15</span><span class="p">);</span>
-</pre></div>
 </div>
-<p>Remember that you can use the <strong>Inspector</strong> tab to get pixel/layer values by clicking on the
-map. You can also use the histograms to help you determine suitable thresholds, and compare the results visually with the two
-images (you’ll have to toggle them to visible using the <strong>Layers</strong> panel), or even with the background map or satellite images
-(though remember that things have most likely changed a lot in the past 40 or so years).</p>
-<p>Try the same exercise with the 1980 image. Are there other threshold values that give better results, at least through
-visual comparison?</p>
-<p>When you are satisfied with the results, uncomment these lines of code (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 229 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 236)
-to export your 1979 water mask to a shapefile:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// export the 1979 water mask to a shapefile</span>
-<span class="nx">Export</span><span class="p">.</span><span class="nx">table</span><span class="p">.</span><span class="nx">toDrive</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">collection</span><span class="o">:</span><span class="w"> </span><span class="nx">watermask1979</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;waterMask1979&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">fileFormat</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;SHP&#39;</span>
-<span class="p">});</span>
-</pre></div>
 </div>
-<p>This will create a task in the <strong>Tasks</strong> tab that will allow you to save the file to your Google Drive, where you will be able to
-download it to your computer and use it in your GIS software.</p>
-<p>When you have finished this section, you can re-comment it, or leave it uncommented as you move on to the other sections. Remember that
-if you leave it uncommented, it may increase the amount of time it takes to run the script.</p>
+<p>Visually inspecting images for differences can be an excellent way to notice changes - our eyes can be quite sensitive
+to subtle differences in appearance between images. However, it is not always the most effective/efficient way to
+quantify changes - for this, we’ll look at other methods.</p>
 </div>
-<div class="section" id="step-4-summary-statistics-with-features">
-<h2>step 4. summary statistics with features<a class="headerlink" href="#step-4-summary-statistics-with-features" title="Permalink to this headline">#</a></h2>
-<p>Looking at Spirit Lake in the 1980 and 1984 images, you should notice that the lake is covered by a large number of floating trees
-(you can see this in even more detail by turning on the high-resolution satellite image in the background and zooming in):</p>
-<a class="reference internal image-reference" href="../../../_images/spiritlake_1980.png"><img alt="spirit lake in the 1980 landsat image" src="../../../_images/spiritlake_1980.png" style="width: 49%;" /></a>
-<a class="reference internal image-reference" href="../../../_images/spiritlake_1984.png"><img alt="spirit lake in the 1984 landsat image" src="../../../_images/spiritlake_1984.png" style="width: 49%;" /></a>
-<p>These trees were knocked over in the 1980 eruption, and have been floating on the lake <a class="reference external" href="https://earthobservatory.nasa.gov/images/149025/the-floating-logs-of-spirit-lake">ever since</a>.
-Looking at the 2020 Landsat 8 OLI image, or the link in the previous sentence, you should notice that the trees are not always
-in the same place – they move around over time.</p>
-<p>One question that you might ask, then, is: is the area of the lake covered by trees constant in time, or has it changed?
-This is a question that we can try to answer using some of the tools we have learned so far.</p>
-<p>To start, uncomment the following lines (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 240 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 251):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select only Spirit Lake, using the 1984 outline:</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">spiritLake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">lakes1984</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">inList</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;Spirit Lake&#39;</span><span class="p">]));</span>
-
-<span class="c1">// create a histogram chart of values in the NIR band for our 1984 image.</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">histChart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">histPlot</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">),</span><span class="w"> </span><span class="nx">spiritLake</span><span class="p">);</span>
-<span class="nx">histChart</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;NIR Histogram&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">hAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;NIR value&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
-<span class="w">  </span><span class="nx">vAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number of pixels&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
-<span class="p">});</span>
-<span class="nx">print</span><span class="p">(</span><span class="nx">histChart</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>This will select only the Spirit Lake outline from our 1984 outlines that we uploaded at the beginning of the practical, then make
-a histogram of the NIR (Band 4) surface reflectance values from the pixels that fall within that outline:</p>
-<a class="reference internal image-reference" href="../../../_images/nir_histogram.png"><img alt="a histogram of nir values on spirit lake from the 1984 landsat image" class="align-center" src="../../../_images/nir_histogram.png" style="width: 600px;" /></a>
-<p>From this, we can see a clear bimodal distribution (i.e., there are two peaks) in the NIR values. We can use this to choose a
-threshold to help us segment (divide) the image, much the same way that we chose thresholds for the NDWI values earlier in
-the practical. From the histogram above, you might guess that we could choose a threshold between 0.1 and 0.2, and it would
-separate the two classes quite effectively.</p>
-<p>To choose our threshold, we will use something called <a class="reference external" href="https://learnopencv.com/otsu-thresholding-with-opencv/">Otsu’s method</a><a class="footnote-reference brackets" href="#id4" id="id2">2</a>.
-We will cover this a bit more next week, but in short: Otsu’s method helps us to choose the threshold between ‘bright’ and ‘dark’ pixels
-that maximizes the variance (e.g., the difference) between the two classes.</p>
-<p>Uncomment the following lines of code (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 252 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 266):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a histogram object to pass to our otsu function</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">histogram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tm1984</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">).</span><span class="nx">reduceRegion</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">reducer</span><span class="o">:</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">histogram</span><span class="p">(</span><span class="mf">255</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="nx">combine</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
-<span class="w">    </span><span class="p">.</span><span class="nx">combine</span><span class="p">(</span><span class="s1">&#39;variance&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">),</span>
-<span class="w">  </span><span class="nx">geometry</span><span class="o">:</span><span class="w"> </span><span class="nx">spiritLake</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">bestEffort</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">});</span>
-
-<span class="c1">// get the otsu threshold for the NIR band</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">waterThresh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">otsu</span><span class="p">(</span><span class="nx">histogram</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;SR_B4_histogram&#39;</span><span class="p">));</span>
-
-<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;Otsu threshold:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">waterThresh</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>Will create a histogram object (not a plot, but an array representing the frequency of each value) that we can pass to the <code class="docutils literal notranslate"><span class="pre">otsu()</span></code>
-function defined at the top of the script. This will create a chart, showing the inter-class variance as a function of the chosen
-threshold value:</p>
-<a class="reference internal image-reference" href="../../../_images/variance_vs_threshold.png"><img alt="plot of inter-class variance as a function of threshold value" class="align-center" src="../../../_images/variance_vs_threshold.png" style="width: 600px;" /></a>
-<p>From this plot, we can see that indeed, the peak of the interclass variance is between 0.1 and 0.2 – in fact, the value printed to
-the console should be 0.145 or so (the exact value may vary slightly). This is the threshold value we will use to differentiate
-between open water and trees in the lake, and plot the area of open water as a function of time, to see whether the value is
-changing over time, or whether it remains constant.</p>
-<p>Uncomment the following lines of code (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 267 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 309):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get a collection of water masks for all landsat TM images, using our threshold value,</span>
-<span class="c1">// and making sure to only take images where we can see the whole lake cloud-free.</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">waterMasks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">ImageCollection</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_PATH&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">46</span><span class="p">))</span><span class="w"> </span><span class="c1">// select only WRS Path 46</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;WRS_ROW&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">28</span><span class="p">))</span><span class="w"> </span><span class="c1">// select only WRS Row 28</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">image</span><span class="p">){</span><span class="k">return</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="nx">image</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">geometry</span><span class="p">)})</span><span class="w"> </span><span class="c1">//clip to a rough window</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">cloudPercentage</span><span class="p">)</span><span class="w"> </span><span class="c1">// find the cloudy pixels within our region of interest</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">lt</span><span class="p">(</span><span class="s1">&#39;cloud_cover_roi&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">))</span><span class="w"> </span><span class="c1">// select only cloud-free images within our ROI</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">image</span><span class="p">){</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">pixelArea</span><span class="p">();</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">image</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">)</span>
-<span class="w">      </span><span class="p">.</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0000275</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">)</span><span class="w"> </span><span class="c1">// scale the image to our</span>
-<span class="w">      </span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="nx">waterThresh</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="nx">area</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;waterMask&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">image</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">mask</span><span class="p">);</span>
-<span class="w">  </span><span class="p">})</span><span class="w"> </span><span class="c1">// mask pixels above the chosen threshold and multiply pixels by area</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">image</span><span class="p">){</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="nx">image</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">spiritLake</span><span class="p">).</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">image</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;waterMask&#39;</span><span class="p">));</span>
-<span class="w">  </span><span class="p">})</span><span class="w"> </span><span class="c1">// clip the image so that only the lake pixels are left</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;waterMask&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// select the waterMask band</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">getWaterArea</span><span class="p">);</span><span class="w"> </span><span class="c1">// sum the valid (i.e., water) pixels to get the area</span>
-</pre></div>
-</div>
-<p>Will find all of the cloud-free Landsat 5 TM images over Spirit Lake (between 1984 and 2011) and calculate the area of pixels
-classified as water using the threshold we calculated above. Yes, this is a very long, complicated, scary-looking chain of
-commands - at the moment, you don’t need to fully grasp what each individual step is doing (though you’re welcome to have a go!)</p>
-<p>Instead, stop for a moment and imagine how much work it would take to do this “by hand” – you would need to:</p>
+<div class="section" id="part-2-band-maths-and-thresholding">
+<h2>part 2 - band maths and thresholding<a class="headerlink" href="#part-2-band-maths-and-thresholding" title="Permalink to this headline">#</a></h2>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">02_thresholding.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F02_thresholding.js">direct link</a>.</p>
+<p>In this part of the practical, we’ll see how we can quantify changes using arithmetic operations, comparing the changes
+observed using:</p>
 <ul class="simple">
-<li><p>search through the entire Landsat catalog</p></li>
-<li><p>select images that are (mostly) cloud-free over your study area</p></li>
-<li><p>download potentially hundreds of images</p></li>
+<li><p>a simple difference</p></li>
+<li><p>a band ratio</p></li>
+<li><p>a normalized difference</p></li>
 </ul>
-<p>Then, for each image, you would have to:</p>
-<ul class="simple">
-<li><p>clip the NIR band</p></li>
-<li><p>calculate the number of pixels that fall below the threshold value</p></li>
-<li><p>calculate the corresponding area of those pixels</p></li>
-<li><p>add each area to a table, along with the image acquisition date.</p></li>
-</ul>
-<p>The downloading alone would probably take a few days (depending on your internet connection). Instead, you should get a result
-here within a minute or so, and it takes up no space on your hard drive.</p>
-<p>Once you’ve had a chance to reflect on this, the next set of commands will take the water area and date attributes from each image
-and plot them as a series of points:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the image dates from our image collection</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">dates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">waterMasks</span><span class="p">.</span><span class="nx">toList</span><span class="p">(</span><span class="mf">1000</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="nx">item</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;system:time_start&#39;</span><span class="p">);</span>
-<span class="w">  </span><span class="p">});</span>
-
-<span class="c1">// get the water area from the images in our image collection</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">waterArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">waterMasks</span><span class="p">.</span><span class="nx">toList</span><span class="p">(</span><span class="mf">1000</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="nx">item</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;water_area&#39;</span><span class="p">);</span>
-<span class="w">  </span><span class="p">});</span>
-
-<span class="c1">// plot the number of water pixels as a function of time</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">chart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ui</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">array</span><span class="p">.</span><span class="nx">values</span><span class="p">({</span><span class="nx">array</span><span class="o">:</span><span class="w"> </span><span class="nx">waterArea</span><span class="p">,</span><span class="w"> </span><span class="nx">axis</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">xLabels</span><span class="o">:</span><span class="w"> </span><span class="nx">dates</span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">setSeriesNames</span><span class="p">([</span><span class="s1">&#39;water area&#39;</span><span class="p">])</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;open-water area&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">hAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
-<span class="w">    </span><span class="nx">vAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;area (sq km)&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">bold</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">}},</span>
-<span class="w">    </span><span class="nx">curveType</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;function&#39;</span>
-<span class="p">});</span>
-<span class="nx">print</span><span class="p">(</span><span class="nx">chart</span><span class="p">);</span>
+<p>To determine areas where we likely see an increase in vegetation between 1984 and 2011. As in part 1, we’ll use the
+near infrared (Band 4), though feel free to modify the script for other bands and applications.</p>
+<p>The first two examples calculated in the script are the difference and band ratio, using <code class="docutils literal notranslate"><span class="pre">ee.Image.subtract()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ee.Image.divide()</span></code>, respectively:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// band maths examples</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tm2011</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">).</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;difference&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">ratio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tm2011</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">)).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;ratio&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>When it finishes running, you should see the following chart:</p>
-<a class="reference internal image-reference" href="../../../_images/lake_area_plot.png"><img alt="plot of estimated lake area over time" class="align-center" src="../../../_images/lake_area_plot.png" style="width: 600px;" /></a>
-<p>This is an interesting result – for one thing, it does look like the open-water area has been increasing since 1985. But, there are
-some interesting features that we can see in the data as well – at quite a few points, there’s a clear minimum of ~0 km<sup>2</sup> of
-open water, which then comes back up to ~7 km<sup>2</sup>; there are also a few points where the open water area increases quickly before dropping
-back down to ~7 km<sup>2</sup>.</p>
-<p>This doesn’t seem particularly likely - the number of logs should be steadily decreasing as they sink or are removed from the lake - not fluctuating rapidly.</p>
-<p>To work on understanding what’s happening, you can uncomment the following lines of code (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 310 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 324):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">this_mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">waterMasks</span><span class="p">.</span><span class="nx">toList</span><span class="p">(</span><span class="mf">1000</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mf">6</span><span class="p">);</span><span class="w"> </span><span class="c1">// get the chosen mask from the list of masks</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">this_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nb">String</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="nx">this_mask</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;system:id&#39;</span><span class="p">)).</span><span class="nx">getInfo</span><span class="p">();</span><span class="w"> </span><span class="c1">// get the image ID</span>
-
-<span class="kd">var</span><span class="w"> </span><span class="nx">this_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="nx">this_id</span><span class="p">);</span><span class="w"> </span><span class="c1">// get the image cooresponding to the ID</span>
-<span class="nx">print</span><span class="p">(</span><span class="nx">this_image</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;DATE_ACQUIRED&#39;</span><span class="p">),</span><span class="w"> </span><span class="nx">this_image</span><span class="p">);</span><span class="w"> </span><span class="c1">// print info about the chosen mask</span>
-
-<span class="c1">// add the selected landsat image to the map</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">this_image</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0000275</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">geometry</span><span class="p">),</span>
-<span class="w">  </span><span class="p">{</span><span class="nx">bands</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B2&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.45</span><span class="p">},</span>
-<span class="w">  </span><span class="s1">&#39;debug image&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w"> </span><span class="c1">// change false to true to make this image visible</span>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because we’re only interested in a single band (NIR or <code class="docutils literal notranslate"><span class="pre">SR_B4</span></code>), we’re using <code class="docutils literal notranslate"><span class="pre">ee.Image.select()</span></code> to select
+only that band from each image.</p>
+</div>
+<p>Next, we calculate the normalized difference by first creating a composite image, like we did in part 1 of the practical
+to view the multi-temporal false color composite:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the b4 bands from each year to a single image</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">multitemp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">cat</span><span class="p">([</span>
+<span class="w">  </span><span class="nx">tm1984</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;1984_B4&#39;</span><span class="p">),</span>
+<span class="w">  </span><span class="nx">tm2011</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;2011_B4&#39;</span><span class="p">)</span>
+<span class="p">]);</span>
 </pre></div>
 </div>
-<p>This will list each of the images that were used to create the water masks, then get the Landsat ID of the first drop to zero (an image from 17 March,
-1991), which has an index in the list of water masks of 6. From the console, you can see the id of the 7<sup>th</sup> image (which has
-index 6, as arrays in Javascript start counting from 0):</p>
-<a class="reference internal image-reference" href="../../../_images/console_output.png"><img alt="the console output showing the 7th image" class="align-center" src="../../../_images/console_output.png" style="width: 400px;" /></a>
-<p>I have included a line to add this image to the map. To find other images, you can examine their dates by hovering your cursor
-over the spikes on the plot above, then looking for those dates in the list of image IDs from the collection:</p>
-<a class="reference internal image-reference" href="../../../_images/console_output_expanded.png"><img alt="the console output showing the names of all of the images" class="align-center" src="../../../_images/console_output_expanded.png" style="width: 400px;" /></a>
-<p>Then change the index in this line to match the index from the list (e.g., to get the 10th mask, change the 6 to a 9):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">this_mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">waterMasks</span><span class="p">.</span><span class="nx">toList</span><span class="p">(</span><span class="mf">1000</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mf">6</span><span class="p">);</span><span class="w"> </span><span class="c1">// get the chosen mask from the list of masks</span>
+<p>then we use <code class="docutils literal notranslate"><span class="pre">ee.Image.normalizedDifference()</span></code> to calculate the normalized difference between 1984 and 2011:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a multi-temporal normalized difference</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">normdiff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">multitemp</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;2011_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1984_B4&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;normDiff&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>See if you can’t work out what’s going on here – if you get stuck, you can post your questions in the discussion forum.</p>
-<p>How would you go about fixing this issue? Don’t worry about the programming steps – at the moment, it’s more
-important here to get an idea for what the pattern in the data is actually representing, and how you would try to address that, rather
-than being able to work out the programming steps to actually solve the issue (that can come later).</p>
-<p>Once you think you’ve managed to puzzle out what’s going on with the timeseries, move on to the next step.</p>
+<p>Just like with examples discussed in last week’s lecture, such as NDVI<a class="footnote-reference brackets" href="#id4" id="id1">1</a> or NDWI<a class="footnote-reference brackets" href="#id5" id="id2">2</a>, this has the effect of
+stretching the differences so that they vary between -1 and 1, which can help to enhance the changes that we see between
+the two dates.</p>
+<p>To see this, run the script, then toggle on the <code class="docutils literal notranslate"><span class="pre">Difference</span></code> layer:</p>
+<a class="reference internal image-reference" href="../../../_images/difference2.png"><img alt="the difference in NIR reflectance between 1984 and 2011" class="align-center" src="../../../_images/difference2.png" style="width: 720px;" /></a>
+<p><br /> followed by the <code class="docutils literal notranslate"><span class="pre">Normalized</span> <span class="pre">Difference</span></code> layer:</p>
+<a class="reference internal image-reference" href="../../../_images/normalized_difference.png"><img alt="the normalized difference in NIR reflectance between 1984 and 2011" class="align-center" src="../../../_images/normalized_difference.png" style="width: 720px;" /></a>
+<p><br /> Toggle back and forth between the two images - you should notice that while the colors don’t change (remember that
+the sign is the same for both), the colors in the normalized difference image have been stretched to fill the color
+range compared to the difference image.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> Question</p>
 </div>
-<div class="section" id="step-5-change-vector-analysis">
-<h2>step 5. change vector analysis<a class="headerlink" href="#step-5-change-vector-analysis" title="Permalink to this headline">#</a></h2>
-<p>For this part of the practical, we’re going to look at the post-eruption recovery using Landsat 5 TM images from 1984 and 2011.
-Uncomment the first part of this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 328 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 336):</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select two surface reflectance images, one from 1984 and one from 2011.</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">tm1984</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2/LT05_046028_19840719&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0000275</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">tm2011</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;LANDSAT/LT05/C02/T1_L2/LT05_046028_20110730&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">0.0000275</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Remember to look at the ratio image as well - how do the changes that you can see in this image compare to the
+changes displayed in the difference and normalized difference images?</p>
+</div>
+</div>
+<p>In addition to adding the images to the <strong>Map</strong>, we have also printed statistics and histograms for these two images
+to the <strong>Console</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/hist_difference.png"><img alt="a histogram of the difference in NIR reflectance between 1984 and 2011" class="align-center" src="../../../_images/hist_difference.png" style="width: 720px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/hist_normdiff.png"><img alt="a histogram of the normalized difference in NIR reflectance between 1984 and 2011" class="align-center" src="../../../_images/hist_normdiff.png" style="width: 720px;" /></a>
+<p><br /> Just like with the images themselves, you should notice that the histogram of the normalized difference image is
+spread out, or stretched, over a larger range - as a result, it has a much lower, broader peak than the difference
+image.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Click on <code class="docutils literal notranslate"><span class="pre">Object</span></code> (under “Difference”/”Normalized Difference”) to show the descriptive statistics
+calculated for the difference/normalized difference image.</p>
+<p class="sd-card-text">Which image has the larger standard deviation? What impact do you think this might have on determining what pixel
+values represent “normal variation”, and which values represent actual change?</p>
+</div>
+</div>
+<p>Remember that in order to distinguish between “change” and “no change”, we have to pick a <em>threshold</em> value. Here,
+because we are interested in highlighting areas where vegetation has begun to recover, we’ll pick a single threshold
+value, and select only pixels where the pixel value is greater than or equal to the chosen threshold value.</p>
+<p>In the script, you should see the following lines of code:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// mask the image based on a threshold</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">normdiff</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="w"> </span><span class="c1">// select pixels greater than/equal to upper boundary</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span><span class="w"> </span><span class="c1">// clip to boundary to limit size</span>
+<span class="nx">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mask</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">mask</span><span class="p">.</span><span class="nx">neq</span><span class="p">(</span><span class="mf">0</span><span class="p">));</span>
 </pre></div>
 </div>
-<p>Run the script, and have a look at the two images – what do you notice? What changes stand out the most in between the two
-images? You might notice that the area North of the peak has regained some vegetation since the 1980 eruptions, or you may
-notice some areas of clear-cutting in the surrounding forests.</p>
-<p>To investigate these changes, we’re going to use change vector analysis (CVA). While CVA can be used for any number of band
-differences, we’re going to stick to the differences in NIR and Red reflectance between the two images.</p>
-<p>Once you’ve looked around the two images and observed some of the changes, uncomment the next block of code
-(remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 337 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 368), which will
-compute the difference between the two images and select the NIR and Red bands. It will also calculate the magnitudes and
-angles of the change vectors, and re-classify the angles so that the values in the image correspond to the quadrant the angle
-falls in.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// compute the difference between the two images, and select bands 4 and 3 (NIR and Red)</span>
+<p>This uses <code class="docutils literal notranslate"><span class="pre">ee.Image.gte()</span></code> to select all pixels in <code class="docutils literal notranslate"><span class="pre">normdiff</span></code> with a value greater than or equal to 0.5, then
+uses masks all pixels of the resulting image where this condition is not met.</p>
+<p>Later in the script, we convert this mask to a vector, then export the vector to a shapefile format that you can use
+in your GIS software of choice.</p>
+<p>To see what this mask looks like, toggle on the <strong>Thresholded Change</strong> layer in the <strong>Map</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/change_mask.png"><img alt="the change mask loaded in the map, showing not very much change" class="align-center" src="../../../_images/change_mask.png" style="width: 720px;" /></a>
+<p><br /> You should probably notice that this threshold hasn’t managed to capture most of the changes that we can see
+between the two dates - the masked areas are limited to a small part of the mountain, some of the river valley north of
+the mountain, and small patches scattered around the rest of the image.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Hopefully, it’s clear that I’ve deliberately set the threshold too high, which means that a lot of areas of genuine
+change have been excluded from the mask.</p>
+<p class="sd-card-text">Using the histogram of the normalized difference image, the descriptive statistics, and a bit of trial and error,
+try to improve on this result. The goal is to include as much of the vegetation regrowth that you can see
+north of the mountain as possible, while minimizing differences that are due to natural fluctuations in reflectance.</p>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once you have a change mask that you feel captures most of the vegetation regrowth north of the mountain, while
+minimizing areas where not much change appears to have happened, be sure to click on the <strong>Tasks</strong> tab and run the
+task to export the shapefile to your drive.</p>
+</div>
+</div>
+<div class="section" id="part-3-change-vector-analysis">
+<h2>part 3 - change vector analysis<a class="headerlink" href="#part-3-change-vector-analysis" title="Permalink to this headline">#</a></h2>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">03_change_vector_analysis.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F03_change_vector_analysis.js">direct link</a>.</p>
+<p>For this part of the practical, we’ll use the same images that we used in the first part of the practical – this time,
+using change vector analysis (CVA). While CVA can be used for any number of band differences, we’re going to stick to
+the differences in NIR and Red reflectance between the two images, similar to what we looked at with the
+multi-temporal false color composite.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> <strong>Question</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What sort of applications might we have in mind if we are focusing on changes in NIR and red reflectance?</p>
+</div>
+</div>
+<p>The main part of this script is used to calculate the magnitudes and angles of the change vectors, starting with the
+difference between the 1984 and 2011 images:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// compute the difference between the two images,</span>
+<span class="c1">// and select bands 4 and 3 (NIR and Red)</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tm2011</span><span class="p">.</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">).</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">]);</span>
-
-<span class="c1">// compute the magnitude of the change vectors as the square root of the</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When we use <code class="docutils literal notranslate"><span class="pre">ee.Image.subtract()</span></code>, the result subtracts each band of the second image from the same band of
+the first image (assuming that they share band names). So, in this line of code:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tm2011</span><span class="p">.</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We would get back an image with the difference of all of the bands that <code class="docutils literal notranslate"><span class="pre">tm2011</span></code> and <code class="docutils literal notranslate"><span class="pre">tm1984</span></code> share in common.
+By selecting only <code class="docutils literal notranslate"><span class="pre">SR_B4</span></code> and <code class="docutils literal notranslate"><span class="pre">SR_B3</span></code>, however, we end up with just the difference in those two bands.</p>
+</div>
+<p>Next, we calculate the magnitudes of the change vectors:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// compute the magnitude of the change vectors as the square root of the</span>
 <span class="c1">// sum of the squared differences.</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">magnitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">diff</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mf">2</span><span class="p">).</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">sum</span><span class="p">().</span><span class="nx">unweighted</span><span class="p">()).</span><span class="nx">sqrt</span><span class="p">().</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;magnitude&#39;</span><span class="p">);</span>
-
-<span class="c1">// compute the angle of the change vectors and convert to degrees</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">magnitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">diff</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mf">2</span><span class="p">).</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">sum</span><span class="p">().</span><span class="nx">unweighted</span><span class="p">())</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">sqrt</span><span class="p">().</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;magnitude&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>followed by the angle of each change vector (converted from radians to degrees):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// compute the angle of the change vectors and convert to degrees</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">diff</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">).</span><span class="nx">atan2</span><span class="p">(</span><span class="nx">diff</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">))</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">multiply</span><span class="p">(</span><span class="mf">180</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;angle&#39;</span><span class="p">);</span>
-
-<span class="c1">// create a reclassified image of the angles, with the value set to the quadrant</span>
+</pre></div>
+</div>
+<p>And finally, we re-classify the angles so that the values in the image correspond to the quadrant the angle
+falls in:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a reclassified image of the angles, with the value set to the quadrant</span>
 <span class="c1">// each angle range corresponds to.</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">angleReclass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
 <span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">0</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">90</span><span class="p">)),</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span>
 <span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">90</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">180</span><span class="p">)),</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
-<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">90</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">0</span><span class="p">)),</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span>
-<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">180</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="o">-</span><span class="mf">90</span><span class="p">)),</span><span class="w"> </span><span class="mf">3</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">180</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="o">-</span><span class="mf">90</span><span class="p">)),</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">90</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">0</span><span class="p">)),</span><span class="w"> </span><span class="mf">4</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The next line will mask the reclassified image so that only large changes (magnitude greater than 200) are shown:</p>
+<p>Here, angles between 0 and 90 degrees get a value of <code class="docutils literal notranslate"><span class="pre">1</span></code>; between 90 and 180 degrees, a value of <code class="docutils literal notranslate"><span class="pre">2</span></code>, between -180
+and -90 (or 180 and 270 degrees<a class="footnote-reference brackets" href="#id6" id="id3">3</a>) a value of <code class="docutils literal notranslate"><span class="pre">3</span></code>, and finally between -90 and 0 (or 270 and 360), a value of
+<code class="docutils literal notranslate"><span class="pre">4</span></code>.</p>
+<p>Next, we mask the reclassified image so that only “large enough” changes (magnitude <span class="math notranslate nohighlight">\(\geq\)</span> 0.06) are shown:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// threshold the reclass image by changes w/ magnitude greater than 0.06</span>
 <span class="nx">angleReclass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">angleReclass</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">magnitude</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="mf">0.06</span><span class="p">));</span>
 </pre></div>
@@ -1331,38 +1231,53 @@ falls in.</p>
 <span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">angleReclass</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;ff0000&#39;</span><span class="p">,</span><span class="s1">&#39;ffffff&#39;</span><span class="p">,</span><span class="s1">&#39;0014ff&#39;</span><span class="p">,</span><span class="s1">&#39;cc00ff&#39;</span><span class="p">]},</span><span class="w"> </span><span class="s1">&#39;reclass angle&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Run the script – you should see this image (you may have to turn off the Landsat scenes first):</p>
-<a class="reference internal image-reference" href="../../../_images/angle_reclass.png"><img alt="the reclassified angle image" class="align-center" src="../../../_images/angle_reclass.png" style="width: 600px;" /></a>
-<p>In this image, red colors correspond to increases in both NIR and Red reflectance, white corresponds to increases in NIR and
-decreases in Red reflectance, purple corresponds to decreases in NIR and increases in Red reflectance, and blue corresponds to
-decreases in both NIR and Red reflectance. You can also consult the diagram shown below:</p>
+<p>Run the script, then toggle the <code class="docutils literal notranslate"><span class="pre">reclass</span> <span class="pre">angle</span></code> layer on:</p>
+<a class="reference internal image-reference" href="../../../_images/angle_reclass.png"><img alt="the reclassified angle image" class="align-center" src="../../../_images/angle_reclass.png" style="width: 720px;" /></a>
+<p><br /> In this image, red colors correspond to increases in both NIR and Red reflectance, white corresponds to increases
+in NIR and decreases in Red reflectance, purple corresponds to decreases in NIR and increases in Red reflectance, and
+blue corresponds to decreases in both NIR and Red reflectance.</p>
+<p>You can also consult the diagram shown below:</p>
 <a class="reference internal image-reference" href="../../../_images/change_vector.png"><img alt="a diagram showing how the colors of the reclassified image correspond to the change vector angles" class="align-center" src="../../../_images/change_vector.png" style="width: 400px;" /></a>
-<p>In a number of areas, the blue color represents forest growth. To understand why this is, we have to remember both what
-these changes represent – a decrease in both Red and NIR reflectance – and also what the forest is replacing: in many cases,
-grassy meadows or new-growth trees, both of which tend to have higher spectral reflectance than conifer forests:</p>
+<p><br /> In a number of areas, the blue color represents forest growth. To understand why this is, we have to remember both
+what these changes represent – a decrease in both Red and NIR reflectance – and also what the forest is replacing:
+in many cases, grassy meadows or new-growth trees, both of which tend to have higher spectral reflectance than
+conifer forests:</p>
 <a class="reference internal image-reference" href="../../../_images/spectral_plot_vis.png"><img alt="a plot showing spectral reflectance for a variety of surface types" class="align-center" src="../../../_images/spectral_plot_vis.png" style="width: 600px;" /></a>
-<p>See if you can work out what some of the other differences represent – remember that some changes might represent more
-than one kind of change. You can also try looking at the angle image and interpreting it more directly, or changing the
-reclassification to represent more angle ranges.</p>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> <strong>Question</strong></p>
 </div>
-<div class="section" id="step-6-plotting-time-series">
-<h2>step 6. plotting time series<a class="headerlink" href="#step-6-plotting-time-series" title="Permalink to this headline">#</a></h2>
-<p>The final portion of this practical will cover how we can get time series of data from images and visually inspect the results.
-To get started, uncomment this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 371 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 431). The
-first part of this section declares a variable, <code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code>, that is made up of individual polygons imported at the top of the
-script:</p>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Using the diagram above and the colors on the map, what other differences do you notice?</p>
+<p class="sd-card-text">Remember that some differences (or changes) might represent more than one kind of surface change. All we can tell
+by looking at the reclassified angle map is the broad direction of the change; we need to do a bit more to be able
+to explain what we see in terms of the physical changes that have taken place.</p>
+</div>
+</div>
+</div>
+<div class="section" id="part-4-time-series">
+<h2>part 4 - time series<a class="headerlink" href="#part-4-time-series" title="Permalink to this headline">#</a></h2>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">04_time_series.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F04_time_series.js">direct link</a>.</p>
+<p>The final portion of this practical will cover how we can get time series of data from images and visually inspect the
+results. We’ll see how we can compare time series of NDVI values for different land cover polygons, and compare the
+results that we see with the polygon locations in images at the beginning and end of the time series.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">ndvi_patches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">FeatureCollection</span><span class="p">([</span><span class="nx">fastRegrowth</span><span class="p">,</span><span class="w"> </span><span class="nx">slowRegrowth</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">forest</span><span class="p">,</span><span class="w"> </span><span class="nx">oldClearCut</span><span class="p">,</span><span class="w"> </span><span class="nx">newClearCut</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>The next sections of code here deal with loading Landsat images and filtering based space and cloud cover, similar to what we
-have done in previous steps. After this section, these lines of code:</p>
+<p>The next sections of code here deal with loading Landsat images and filtering based space and cloud cover, similar to
+what we have done in previous steps. After this section, these lines of code:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// combine tm, etm+, oli, and mss images, add an NDVI band, and sort by date.</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">allNDVI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mss</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">mssNDVI</span><span class="p">).</span><span class="nx">merge</span><span class="p">(</span><span class="nx">tm</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">oli</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">getNDVI</span><span class="p">))</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;NDVI&#39;</span><span class="p">).</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;system:time_start&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>merge the MSS, TM, ETM+, and OLI image collections, calculate the NDVI for each image, and sort by acquisition date. The next lines:</p>
+<p>merge the MSS, TM, ETM+, and OLI image collections, calculate the NDVI for each image, and sort by acquisition date.
+We also pull out the first image in the series (a Landsat 1 MSS image from 1972), and the last (latest) image in the
+time series, and add both of these to the <strong>Map</strong> for visualization.</p>
+<p>Finally, this block of code:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// plot a chart of the mean ndvi values, calculated using different polygons</span>
 <span class="c1">// representing different landcover areas</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">ndviChart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ui</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">image</span>
@@ -1382,40 +1297,119 @@ have done in previous steps. After this section, these lines of code:</p>
 <span class="nx">print</span><span class="p">(</span><span class="nx">ndviChart</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>will plot the average values for each of the individual polygons in <code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code>. You can see what this looks like below. Note
-that some of the apparent lack of seasonality before about 2000 is mostly a result of the lower temporal resolution – Landsat
-acquisitions were often limited during this time, and so some years will only have a few available images.</p>
-<a class="reference internal image-reference" href="../../../_images/ndvi_timeseries.png"><img alt="a time series of ndvi values for different polygons" class="align-center" src="../../../_images/ndvi_timeseries.png" style="width: 600px;" /></a>
-<p>If you open the chart (click on the icon in the upper right-hand corner), you can export the data as a CSV file for further analysis.</p>
-<p>You can also add (or remove) polygons from the plot. To add your own polygon, you can use the digitizing tools located in the
-upper left-hand corner of the map panel:</p>
+<p>creates a chart that will plot the average values for each of the individual polygons in <code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code>. You can see
+what this looks like below. Note that some of the apparent lack of seasonality before about 2000 is mostly a result of
+the lower temporal resolution – Landsat acquisitions were often limited during this time, and so some years will only
+have a few available images.</p>
+<a class="reference internal image-reference" href="../../../_images/ndvi_timeseries.png"><img alt="a time series of ndvi values for different polygons" class="align-center" src="../../../_images/ndvi_timeseries.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you open the chart (click on the icon in the upper right-hand corner), you can also export the data as a CSV
+file for further analysis.</p>
+</div>
+<p>Next, let’s try a different combination of polygons. To do this, we’ll need to change the code at line 17:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">ndvi_patches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">FeatureCollection</span><span class="p">([</span><span class="nx">fastRegrowth</span><span class="p">,</span><span class="w"> </span><span class="nx">slowRegrowth</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>Instead of looking at the <code class="docutils literal notranslate"><span class="pre">fastRegrowth</span></code> and <code class="docutils literal notranslate"><span class="pre">slowRegrowth</span></code> features, let’s look at the <code class="docutils literal notranslate"><span class="pre">fastRegrowth</span></code> and
+<code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> polygons.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To visualize where the <code class="docutils literal notranslate"><span class="pre">newClearCut</span></code> polygon is, you can toggle it on from the <strong>GeometryImports</strong> menu.</p>
+</div>
+<p>To change the polygons that we use for the plot, replace <code class="docutils literal notranslate"><span class="pre">slowRegrowth</span></code> with <code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> at line 17, then
+re-run the script:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">ndvi_patches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">FeatureCollection</span><span class="p">([</span><span class="nx">fastRegrowth</span><span class="p">,</span><span class="w"> </span><span class="nx">oldClearCut</span><span class="p">]);</span>
+</pre></div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> <strong>Question</strong></p>
+</div>
+<div class="sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text">Compare the <code class="docutils literal notranslate"><span class="pre">fastRegrowth</span></code> NDVI towards the end of the time series with the <code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> NDVI near the
+beginning of the time series. Do you think these represent similar land cover types? Why or why not?</p></li>
+<li><p class="sd-card-text">Now, compare the <code class="docutils literal notranslate"><span class="pre">fastRegrowth</span></code> location in the <code class="docutils literal notranslate"><span class="pre">Last</span></code> (latest) Landsat image, and the <code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> polygon
+location in the <code class="docutils literal notranslate"><span class="pre">First</span></code> (oldest) Landsat image. Do you think these represent similar land cover types? Why or
+why not?</p></li>
+<li><p class="sd-card-text">Using the polygon location and the <code class="docutils literal notranslate"><span class="pre">Last</span></code> (latest) Landsat image, what kind of land cover does the
+<code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> polygon represent now? Why do you think this?</p></li>
+</ul>
+</div>
+</div>
+<p>To add your own polygons, or to edit the polygons that are already included in the script, you can use the digitizing
+tools located in the upper left-hand corner of the map panel:</p>
 <a class="reference internal image-reference" href="../../../_images/digitizing_tools.png"><img alt="the digitizing tools panel highlighted" class="align-center" src="../../../_images/digitizing_tools.png" style="width: 600px;" /></a>
-<p>Be sure to start the polygon as a new layer (click on <strong>+ new layer</strong> at the bottom of the <strong>Geometry Imports</strong> panel):</p>
+<p><br /> If you’re adding your own polygon, be sure to start the polygon as a new layer (click on <strong>+ new layer</strong> at the
+bottom of the <strong>Geometry Imports</strong> panel):</p>
 <a class="reference internal image-reference" href="../../../_images/geometry_imports_panel.png"><img alt="the geometry imports panel expanded" class="align-center" src="../../../_images/geometry_imports_panel.png" style="width: 600px;" /></a>
-<p>Next, start digitizing a polygon – try to make sure that the polygon represents one type of area. Remember that you can use the
-Landsat images, as well as the background satellite images, to help you. From the <strong>Geometry Imports</strong> panel, click the gear icon
-next to your new layer to change the properties:</p>
+<p><br /> Next, start digitizing a polygon – try to make sure that the polygon represents one type of area. Remember that
+you can use the Landsat images, as well as the background satellite images, to help you. From the <strong>Geometry Imports</strong>
+panel, click the gear icon next to your new layer to change the properties:</p>
 <a class="reference internal image-reference" href="../../../_images/configure_import1.png"><img alt="the configure geometry import panel" class="align-center" src="../../../_images/configure_import1.png" style="width: 300px;" /></a>
-<p>Change the name to something other than <code class="docutils literal notranslate"><span class="pre">geometry</span></code> (or <code class="docutils literal notranslate"><span class="pre">example</span></code>), then change it to <strong>Import as</strong> a <code class="docutils literal notranslate"><span class="pre">Feature</span></code>, and click to add
-property to the feature. Call it <code class="docutils literal notranslate"><span class="pre">label</span></code>, and add a value for the label.</p>
+<p><br /> Change the name to something other than <code class="docutils literal notranslate"><span class="pre">geometry</span></code> (or <code class="docutils literal notranslate"><span class="pre">example</span></code>), then change it to <strong>Import as</strong> a
+<code class="docutils literal notranslate"><span class="pre">Feature</span></code>, and click to add property to the feature. Call it <code class="docutils literal notranslate"><span class="pre">label</span></code>, and add a value for the label.</p>
 <a class="reference internal image-reference" href="../../../_images/configure_import2.png"><img alt="the configure geometry import panel" class="align-center" src="../../../_images/configure_import2.png" style="width: 300px;" /></a>
-<p>Click <strong>OK</strong>, then digitize your polygon (if you haven’t already). Note that each feature can only contain a single polygon – to add
-multiple polygons, you’ll need to create multiple features. You can then update <code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code> and re-run the script to update
-the chart:</p>
+<p><br /> Click <strong>OK</strong>, then digitize your polygon (if you haven’t already). Note that each feature can only contain a
+single polygon – to add multiple polygons, you’ll need to create multiple features. You can then update the
+<code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code> variable (line 17) and re-run the script to update the chart:</p>
 <a class="reference internal image-reference" href="../../../_images/updated_ndvi_timeseries.png"><img alt="the ndvi time series with the new polygon layer added" class="align-center" src="../../../_images/updated_ndvi_timeseries.png" style="width: 600px;" /></a>
-<p>Feel free to try different polygons, and examine the different time series plots – try using the CVA angle map to help you decide
-areas to look further into.</p>
+<p><br /> Feel free to try different polygons, and examine the different time series plots – try using the CVA angle map to
+help you decide areas to look further into.</p>
 <p>This is the end of this Practical – next week, we’ll look into using Earth Engine to do some more advanced classification
 techniques, and run an accuracy analysis on the results.</p>
 </div>
-<div class="section" id="references-and-notes">
-<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this headline">#</a></h2>
+<div class="section" id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<p>In the <code class="docutils literal notranslate"><span class="pre">03_change_vector_analysis.js</span></code> script, try changing the number of classes from 4 to 8 by copying and pasting
+the following code at the end of the script, then re-running the script:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// re-classify the angles into 8 classes</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">angleReclass2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">0</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">45</span><span class="p">)),</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">45</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">90</span><span class="p">)),</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">90</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">135</span><span class="p">)),</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="mf">135</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">180</span><span class="p">)),</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">180</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="o">-</span><span class="mf">135</span><span class="p">)),</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">135</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="o">-</span><span class="mf">90</span><span class="p">)),</span><span class="w"> </span><span class="mf">6</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">90</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="o">-</span><span class="mf">45</span><span class="p">)),</span><span class="w"> </span><span class="mf">7</span><span class="p">)</span>
+<span class="w">          </span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="o">-</span><span class="mf">45</span><span class="p">).</span><span class="nx">and</span><span class="p">(</span><span class="nx">angle</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="mf">0</span><span class="p">)),</span><span class="w"> </span><span class="mf">8</span><span class="p">).</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">);</span>
+
+<span class="c1">// threshold the reclass image by changes w/ magnitude greater than 0.06</span>
+<span class="nx">angleReclass2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">angleReclass2</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">magnitude</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="mf">0.06</span><span class="p">));</span>
+
+<span class="c1">// use an 8 color palette to visualize this color map</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">angleReclass2</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;b35806&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;e08214&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fdb863&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fee0b6&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;d8daeb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;b2abd2&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;8073ac&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;542788&#39;</span><span class="p">]},</span><span class="w"> </span><span class="s1">&#39;reclass angle - 8 classes&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>How does this compare to the 4 class visualization? Consider the following questions:</p>
+<ul class="simple">
+<li><p>Look at the areas of clear-cut forest to the NE of the mountain. Do you notice differences between different patches,
+or within individual patches, that aren’t apparent in the 4 class image?</p></li>
+<li><p>Pay attention to the differences between angle class 3 (angles between 90 and 135 degrees) and angle class 4
+(angles between 135 and 180 degrees). These correspond to increases in NIR reflectance, and decreases in red
+reflectance; angle class 3 represents smaller decreases in red reflectance, while angle class 4 represents larger
+decreases. Using the angle change map and the original false color composites, what kind of changes are you able
+to discern here?</p></li>
+</ul>
+</div>
+<div class="section" id="notes-and-references">
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this headline">#</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>McFeeters, S. K. (1996). <em>Int. J. Rem. Sens.</em>, 17(<strong>7</strong>), 1425–1432. doi: <a class="reference external" href="https://doi.org/10.1080/01431169608948714">10.1080/01431169608948714</a></p>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Rouse, J.W., <em>et al.</em> (1974). <em>Proceedings, 3rd Earth Resource Technology Satellite Symposium</em>, 1, 48-62.
+<a class="reference external" href="https://ntrs.nasa.gov/citations/19740022614">https://ntrs.nasa.gov/citations/19740022614</a></p>
 </dd>
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Otsu, N. (1979). <em>IEEE Trans. Systems, Man, Cybernetics</em>, 9(<strong>1</strong>), 62–66. doi: <a class="reference external" href="https://doi.org/10.1109/TSMC.1979.4310076">10.1109/TSMC.1979.4310076</a></p>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>McFeeters, S. K. (1996). <em>Int. J. Rem. Sens.</em>, 17(<strong>7</strong>), 1425–1432.
+doi: <a class="reference external" href="https://doi.org/10.1080/01431169608948714">10.1080/01431169608948714</a></p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>The reason that we use -180 and -90 here, instead of 180 and 270 (or -90 and 0 instead of 270 and 360) is
+because the output of <code class="docutils literal notranslate"><span class="pre">ee.Image.atan2()</span></code> returns values between <span class="math notranslate nohighlight">\(-\pi\)</span> (-180 <span class="math notranslate nohighlight">\(^\circ\)</span>) and
+<span class="math notranslate nohighlight">\(+\pi\)</span> (180 <span class="math notranslate nohighlight">\(^\circ\)</span>).</p>
 </dd>
 </dl>
 </div>
