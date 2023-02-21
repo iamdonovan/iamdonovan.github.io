@@ -49,8 +49,8 @@ pixels, based on their properties.
     they’re only groups of pixels based on the image data. After running an unsupervised classification, then, the next
     task is to interpret and identify what each of these classes represent.
 
-The algorithm that we'll use to cluster the image is an implementation of *k*-means\ [1]_ clustering called WEKA
-*k*-means\ [2]_.
+The algorithm that we'll use to cluster the image is an implementation of *k*-means\ [#kmeans]_ clustering called WEKA
+*k*-means\ [#weka]_.
 
 The **Image** that we're working with in this practical is the same August 2020 OLI image that we've seen before. In one
 band, this image has: 7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels - that's a lot.
@@ -325,11 +325,333 @@ tool in ArcGIS). For now, we'll move on to look at other methods of classificati
 part 2 - pixel-based classification
 ----------------------------------------
 
+Open the script for this part of the practical by clicking on ``02_pixel.js`` in the **Script manager**, or using
+this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek5%2F02_pixel.js>`__.
 
+In this part of the practical, we're going to use a Random Forest\ [#randforest]_ classifier to classify the image. This is a
+*supervised* classification method, meaning that in order to train the classifier, we first have to provide labeled
+examples for the classifier to "learn" from.
+
+In the **GeometryImports** menu, you can toggle on each of the training point layers to view them on the **Map**:
+
+.. image:: ../../../img/egm702/week5/training_points.png
+    :width: 720
+    :align: center
+    :alt: the different training points for the classifier, shown on the map
+
+|br| At the beginning of the script, we combine these individual layers into a single **FeatureCollection** in order
+to use it for the classification:
+
+.. code-block:: javascript
+
+    // merge all of the different training points into a single featurecollection
+    var trainingPoints = water // landcover value 0
+      .merge(forest) // landcover value 1
+      .merge(thinVegetation) // landcover value 2
+      .merge(soil) // landcover value 3
+      .merge(snow); // landcover value 4
+
+Then, at line 56, we sample the pixel values from the input image for use in training the classifier:
+
+.. code-block:: javascript
+
+    // select training points from the training image
+    var training = img.sampleRegions({
+      collection: trainingPoints,
+      properties: ['landcover'],
+      scale: 30
+    });
+
+Next, we split the input data into two "training" and "testing" partitions using a 70-30 split (i.e., 70% of the data
+will be used for training, 30% for testing):
+
+.. code-block:: javascript
+
+    // split the training points into training, testing data
+    var split = 0.7;
+    var withRandom = training.randomColumn('random');
+    var trainingPartition = withRandom.filter(ee.Filter.lt('random', split));
+    var testingPartition = withRandom.filter(ee.Filter.gte('random', split));
+
+Once we've split the input data into *training* and *testing* partitions, we can "train" our **Classifier**. GEE has a
+number of **Classifier** algorithms implemented:
+
+- Maximum Entropy (``amnhMaxent``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent>`__)
+- Support Vector Machine (``libsvm``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm>`__)
+- Minimum Distance (``minimumDistance``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance>`__)
+- CART (``smileCart``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart>`__)
+- Gradient Tree Boost (``smileGradientTreeBoost``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost>`__)
+- Naive Bayes (``smileNaiveBayes``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes>`__)
+- Random Forest (``smileRandomForest``; `documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest>`__)
+
+We'll be using ``smileRandomForest`` with 10 "trees":
+
+.. code-block:: javascript
+
+    // initialize a random forest with 10 "trees"
+    var classifier = ee.Classifier.smileRandomForest(10);
+
+We use ``ee.Classifier.train()``, along with the training data that we gathered earlier, to train the **Classifier**:
+
+.. code-block:: javascript
+
+    // train the classifier using the training partition
+    classifier = classifier.train({
+      features: trainingPartition,
+      classProperty: 'landcover',
+      inputProperties: bands
+    });
+
+Once we've trained the **Classifier**, we can classify the testing data to see how well the classifier does in
+classifying data that it hasn't seen before:
+
+.. code-block:: javascript
+
+    // classify the testing data using our trained classifiers
+    var test = testingPartition.classify(classifier);
+
+Then, we calculate the error matrix for the testing data, which will compare the input label (``landcover``) to the
+classified value (``classification``):
+
+.. code-block:: javascript
+
+    // make the confusion matrix
+    var cm = test.errorMatrix('landcover', 'classification');
+
+We can then print the error matrix and accuracy measures such as the overall, producer's, and user's accuracy, along
+with the kappa statistic:
+
+.. code-block:: javascript
+
+    // print the confusion matrix, overall accuracy, kappa, producer's and user's accuracy
+    print('error matrix: ', cm,
+      'overall accuracy: ', cm.accuracy(),
+      'kappa: ', cm.kappa(),
+      "producer's accuracy:", cm.producersAccuracy().toList().flatten(),
+      "consumer's accuracy:", cm.consumersAccuracy().toList().flatten());
+
+As a reminder:
+
+- the *overall* accuracy is the number of correctly classified points, divided by the total number of points.
+  It tells us the percentage of training data that the **Classifier** has correctly identified.
+- the *producer's* accuracy is the probability that a particular class is correctly classified, and it is calculated
+  as the number of correctly classified points divided by the total number of points in each row of
+  the **ConfusionMatrix**. This is also the complement of the *omission* error, the error introduced when pixels are
+  incorrectly omitted from the correct class in the classification.
+- the *consumer's* accuracy is the probability that the map classification is correct, and it's the number of correctly
+  classified points divided by the total number of points in each column of the **ConfusionMatrix**. This
+  is also the complement of the *commission* error, the error introduced when pixels are included in the incorrect
+  class in the classification.
+- The *kappa* score, or statistic\ [#kappa]_, is calculated as follows:
+
+  .. math::
+
+      \kappa = \frac{p_o - p_e}{1 - p_e}
+
+  where :math:`p_o` is the observed accuracy of the classifier, and :math:`p_e` is the hypothetical probability of
+  chance agreement. The *kappa* score thus gives a measure of how much better the classifier performs than would be
+  expected by random chance.
+
+When you run the script, you should see the following in the **Console** panel after expanding the **List** element
+under "error matrix" (remember that your results may differ slightly):
+
+.. image:: ../../../img/egm702/week5/error_matrix.png
+    :width: 500
+    :align: center
+    :alt: the error matrix for the random forest classification
+
+|br| To help make this easier to read, I've added row/column labels to this table below:
+
++----------------------+-------+--------+-----------------+------+------+
+|                      | water | forest | thin vegetation | soil | snow |
++======================+=======+========+=================+======+======+
+| **water**            | 31    | 0      | 0               | 0    | 0    |
++----------------------+-------+--------+-----------------+------+------+
+| **forest**           | 0     | 29     | 2               | 0    | 0    |
++----------------------+-------+--------+-----------------+------+------+
+| **thin vegetation**  | 0     | 0      | 23              | 5    | 0    |
++----------------------+-------+--------+-----------------+------+------+
+| **soil**             | 0     | 1      | 3               | 17   | 0    |
++----------------------+-------+--------+-----------------+------+------+
+| **snow**             | 0     | 0      | 0               | 0    | 5    |
++----------------------+-------+--------+-----------------+------+------+
+
+Like with the unsupervised classification error matrix, the "rows" of this matrix correspond to the landcover class
+that we have identified, while the columns correspond to the classified values. In the example above, we see that 31 of
+our training samples were classified as landcover class 0 (``water``), and there were no water training samples that
+were classified as something else.
+
+We do see some misclassification for the other classes, though: two ``forest`` training points were misclassified as
+``thin vegetation``, five ``thinVegetation`` points were misclassified as ``soil``, and so on.
+
+In the **Console**, you can also see the overall accuracy (90.5%), kappa statistic (0.876), and the producer's and
+consumer's (user's) accuracy for each class:
+
+.. image:: ../../../img/egm702/week5/producer_consumer.png
+    :width: 500
+    :align: center
+    :alt: the producer's and consumer's accuracy in the console panel
+
+|br|
+
++---------------------+-------+--------+-----------------+-------+------+
+|                     | water | forest | thin vegetation | soil  | snow |
++=====================+=======+========+=================+=======+======+
+| producer's accuracy | 100%  | 93.5%  | 82.1%           | 80.9% | 100% |
++---------------------+-------+--------+-----------------+-------+------+
+| consumer's accuracy | 100%  | 96.7%  | 82.1%           | 77.3% | 100% |
++---------------------+-------+--------+-----------------+-------+------+
+
+While these are encouraging results, it's worth keeping in mind that we're working with only a few samples for each
+class. With small sample sizes like this, our results are less likely to be an accurate reflection of the accuracy of
+the classified image.\ [#congalton]_
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+    Which of these classes
+
+Once we have trained the **Classifier**, we use ``ee.Image.classify()`` to classify the image:
+
+.. code-block:: javascript
+
+    // classify the image
+    var classified = img.select(bands).classify(classifier);
+
+    var classPalette = ['013dd6', '059e2a', '2aff53', 'e3d4ae', 'fffbf4'];
+
+    // add the classified image to the map
+    Map.addLayer(classified, {min: 0, max: 4, palette: classPalette}, 'classified', true);
+
+This creates a new **Image** with a single band, ``classification``, where the pixel values are the ``landcover`` values
+of each class from our training **FeatureCollection**, then adds it to the **Map** with the same color scheme as the
+training point layers:
+
+.. image:: ../../../img/egm702/week5/classified_image.png
+    :width: 720
+    :align: center
+    :alt: the random forest classified image
+
+|br| Note that when you are zoomed out, the classification will look different due to the way that the image is
+re-sampled at lower resolutions (similar to how it works in ArcGIS).
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+    Zoom in on the peak. Are there areas where you can see clear misclassification?
+
+Once you've had a look at the classified image, have a look at the next object printed to the **Console**:
+
+.. code-block:: javascript
+
+    // print the classified area for each class
+    var classArea = tools.classifiedArea(classified, classes);
+    print('Classified Area: ', classArea);
+
+This table shows the total classified area for each class in the image:
+
++---------------------+---------------------+
+| class               | area (km\ :sup:`2`) |
++=====================+=====================+
+| **water**           | 40.63               |
++---------------------+---------------------+
+| **forest**          | 963.61              |
++---------------------+---------------------+
+| **thin vegetation** | 369.67              |
++---------------------+---------------------+
+| **bare soil**       | 106.03              |
++---------------------+---------------------+
+| **snow**            | 0.59                |
++---------------------+---------------------+
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+    Based on your comparison of the classified image and the original image, which of these areas (if any) do you
+    think are overestimates? Why?
+
+The problem with summing up the classified area and taking it at face value, is that we know that it is incorrect.
+Based on the error matrix shown above, the classifier is not perfect, which means that we can't assume that the
+area calculated by the classifier is correct, either.
+
+Perhaps just as important as the area of each landcover class is the *uncertainty* of that classified area. Because of
+the errors of omission and commission (the complements of the producer's and consumer's accuracy discussed above), the
+area counts in the table above are *biased* - that is, they are skewed because they exclude (or include) areas that
+should be included (excluded) in the estimated area for each class.
+
+Based on the work presented by Olofsson et al. 2013\ [#olofsson]_, we can use the error matrix that we produced as part
+of the **Classifier** training process to produce an *unbiased* estimate of the landcover area for each class, as well
+as the 95% confidence interval (CI) around that estimate.\ [#ci]_
+
+This has been implemented in the ``tools.errorDict()`` function:
+
+.. code-block:: javascript
+
+    // get the unbiased area for each class (after Olofsson)
+    var errorDict = tools.errorDict(cm, classes, classArea);
+    print('unbiased area (± 95% CI):', errorDict);
+
+The table below compares the classified area, and the estimated area\ [#error]_:
+
++---------------------+--------------------------------+----------------------------------------+
+| class               | classified area (km\ :sup:`2`) | estimated area ± 95% CI (km\ :sup:`2`) |
++=====================+================================+========================================+
+| **water**           | 40.63                          | 40.63 ± 0.00                           |
++---------------------+--------------------------------+----------------------------------------+
+| **forest**          | 963.61                         | 906.49 ± 85.29                         |
++---------------------+--------------------------------+----------------------------------------+
+| **thin vegetation** | 369.67                         | 380.97 ± 101.45                        |
++---------------------+--------------------------------+----------------------------------------+
+| **bare soil**       | 106.03                         | 151.85 ± 56.44                         |
++---------------------+--------------------------------+----------------------------------------+
+| **snow**            | 0.59                           | 0.59 ± 0.00                            |
++---------------------+--------------------------------+----------------------------------------+
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+    Compare the estimated areas and the classified areas in the table above with your "eyeballed" estimate of which
+    classes were over/underestimated in the classified image. How did you do?
+
+Finally, we also use ``tools.areaChart()`` to create a bar chart comparing the two estimates:
+
+.. code-block:: javascript
+
+    // plot a chart of area by class
+    var area_chart = tools.areaChart(combArea, classes);
+    // show the chart of area by class for the two estimates
+    print(area_chart);
+
+.. image:: ../../../img/egm702/week5/pixel_area.png
+    :width: 720
+    :align: center
+    :alt: a bar chart comparing the classified and estimated area for each class in the pixel-based classified image
+
+|br| One thing you may notice, especially when zooming in on the **Map**, is that the pixel-based classified image
+can appear *noisy* - that is, you may see a number of individual pixels that are classified differently to the pixels
+around it. As we have discussed in the lecture, this is because the pixel-based classification does not take any of the
+neighboring pixels into account.
+
+In the next part of the practical, we'll see how grouping pixels together based on their spectral properties changes
+the classification result.
 
 part 3 - object-based classification
 ----------------------------------------
 
+Open the script for this part of the practical by clicking on ``03_obia.js`` in the **Script manager**, or using
+this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek5%2F03_obia.js>`__.
 
 part 4 - accuracy analysis
 ----------------------------
@@ -355,6 +677,12 @@ unsupervised classification
 pixel-based classification
 .............................
 
+- Try varying the number of 'trees' used in the random forest classifier. How does this impact the estimated accuracy
+  of the classification?
+- Test how does adding additional bands such as the NDVI affects the classification, by removing the comment (``//``)
+  symbol from the beginning of lines 28-32. Try different combinations of the indices included - some additional bands
+  may help more than others.
+
 
 object-based classification
 .............................
@@ -364,9 +692,29 @@ object-based classification
 notes and references
 ----------------------
 
-.. [1] For a (brief) overview of *k*-means clustering, the wikipedia page is a good place to
+.. [#kmeans] For a (brief) overview of *k*-means clustering, the wikipedia page is a good place to
     start: https://en.wikipedia.org/wiki/K-means_clustering
 
-.. [2] Frank, E., M. A. Hall., and I. H. Witten (2016). The WEKA Workbench. Online Appendix for
+.. [#weka] Frank, E., M. A. Hall., and I. H. Witten (2016). The WEKA Workbench. Online Appendix for
     "Data Mining: Practical Machine Learning Tools and Techniques", Morgan Kaufmann, Fourth Edition, 2016.
     [`pdf <https://www.cs.waikato.ac.nz/ml/weka/Witten_et_al_2016_appendix.pdf>`__]
+
+.. [#randforest] e.g., Belgiu, M. and L. Drăguţ (2016). *ISPRS J. Photogramm. Rem. Sens.* 114, 24-31.
+    doi: `10.1016/j.isprsjprs.2016.01.011 <https://doi.org/10.1016/j.isprsjprs.2016.01.011>`__
+
+.. [#kappa] sometimes also referred to as *Cohen's kappa*
+
+.. [#congalton] e.g., Congalton, R. G. (1988). *Photogrammetric Eng. Rem. Sens.* 58(**5**), 593-600.
+    [`PDF <https://www.asprs.org/wp-content/uploads/pers/1988journal/may/1988_may_593-600.pdf>`__]
+
+.. [#olofsson] Olofsson, P., et al. (2013). *Rem. Sens. Env.* 129, 122–131.
+    doi: `10.1016/j.rse.2012.10.031 <https://doi.org/10.1016/j.rse.2012.10.031>`__
+
+.. [#ci] the 95% confidence interval is obtained using 1.96 times the standard error.
+
+.. [#error] Note that in this example, because the classification has worked "perfectly" for two classes, water and
+    snow, the standard error for each class is 0. This is not real, as you can tell by looking at the areas at the top
+    of the mountain that have been classified as "water", and the "snow" that has been classified at low elevations.
+    As we will see in part 4, rather than using the testing split, we could instead select a number of random points
+    from each landcover class in the classified image, and compare the computer-classified values with human-classified
+    values. This will give a better idea of both the estimated area, and the uncertainty.
