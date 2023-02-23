@@ -85,7 +85,7 @@ turned various shades of red in the 2011 image.
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` Question
+    :far:`circle-question` Question
     ^^^
     South of the mountain, there are large areas that have shifted from bright red in the 1984 false color composite
     to a darker red in the 2011 image. Using what you know about surface reflectance in the NIR, what might explain
@@ -163,7 +163,7 @@ of the mountain has largely similar reflectance between the two dates (aside fro
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` Question
+    :far:`circle-question` Question
     ^^^
     Have a look around the wider area - what other changes do you see in the multi-temporal color composite?
 
@@ -171,7 +171,7 @@ of the mountain has largely similar reflectance between the two dates (aside fro
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` Question
+    :far:`circle-question` Question
     ^^^
     Paste the following code at the end of the script to create a multi-temporal false color composite using the red
     reflectance (TM band 3), then re-run the script.
@@ -271,7 +271,7 @@ range compared to the difference image.
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` Question
+    :far:`circle-question` Question
     ^^^
     Remember to look at the ratio image as well - how do the changes that you can see in this image compare to the
     changes displayed in the difference and normalized difference images?
@@ -297,7 +297,7 @@ image.
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` Question
+    :far:`circle-question` Question
     ^^^
     Click on ``Object`` (under "Difference"/"Normalized Difference") to show the descriptive statistics
     calculated for the difference/normalized difference image.
@@ -339,7 +339,7 @@ the mountain, and small patches scattered around the rest of the image.
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` Question
+    :far:`circle-question` Question
     ^^^
     Hopefully, it's clear that I've deliberately set the threshold too high, which means that a lot of areas of genuine
     change have been excluded from the mask.
@@ -369,7 +369,7 @@ multi-temporal false color composite.
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` **Question**
+    :far:`circle-question` Question
     ^^^
     What sort of applications might we have in mind if we are focusing on changes in NIR and red reflectance?
 
@@ -483,7 +483,7 @@ conifer forests:
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` **Question**
+    :far:`circle-question` Question
     ^^^
     Using the diagram above and the colors on the map, what other differences do you notice?
 
@@ -584,7 +584,7 @@ re-run the script:
     :class-header: question
     :class-card: question
 
-    :far:`circle-question;1em;sd-color-light` **Question**
+    :far:`circle-question` Question
     ^^^
 
     - Compare the ``fastRegrowth`` NDVI towards the end of the time series with the ``oldClearCut`` NDVI near the
@@ -600,7 +600,7 @@ To add your own polygons, or to edit the polygons that are already included in t
 tools located in the upper left-hand corner of the map panel:
 
 .. image:: ../../../img/egm702/week4/digitizing_tools.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the digitizing tools panel highlighted
 
@@ -608,7 +608,7 @@ tools located in the upper left-hand corner of the map panel:
 bottom of the **Geometry Imports** panel):
 
 .. image:: ../../../img/egm702/week4/geometry_imports_panel.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the geometry imports panel expanded
 
@@ -634,7 +634,7 @@ single polygon – to add multiple polygons, you’ll need to create multiple fe
 ``ndvi_patches`` variable (line 17) and re-run the script to update the chart:
 
 .. image:: ../../../img/egm702/week4/updated_ndvi_timeseries.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the ndvi time series with the new polygon layer added
 
