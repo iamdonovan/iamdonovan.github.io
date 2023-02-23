@@ -953,9 +953,201 @@ the object-based results? As you look around the map, do the classified results 
 part 4 - accuracy analysis
 ----------------------------
 
-- random points (stratified sample?)
-- manually set classes
-- error matrix & accuracy analysis
+For the final part of this practical, we'll use one of the exported classified images to perform an additional
+accuracy analysis in ArcGIS.
+
+.. note::
+
+    The instructions below show the object-based classification, but the steps are the same for the pixel-based
+    classification. You are free to choose either image to work with.
+
+.. note::
+
+    It is also possible to do this in QGIS, though some of the steps are slightly different. One benefit is that the
+    `semi-automatic classification plugin <https://fromgistors.blogspot.com/p/semi-automatic-classification-plugin.html>`__
+    for QGIS will calculate the unbiased area estimate and uncertainty values as part of the accuracy analysis.
+
+To get started, either open a new project in ArcGIS Pro, or use your existing project from :doc:`week 2 <week2>`. Then,
+make sure to download the practical data from blackboard, or from `this link <https://google.com>`__.
+
+.. note::
+
+    Alternatively, you can download the Landsat scene used for the classification
+    (Landsat product ID: **LC08_L2SP_046028_20200823_20200905_02_T1**) from https://earthexplorer.usgs.gov. If you do
+    this, you will need to build a composite image using either GDAL or QGIS/ArcGIS.
+
+Once you have the data downloaded and unpacked, add the VRT (composite image) to the ArcGIS Map:
+
+.. image:: ../../../img/egm702/week5/aa_landsat.png
+    :width: 720
+    :align: center
+    :alt: the Landsat SR image added to the ArcGIS Map window
+
+|br| For this exmaple, I am using the same NIR/Red/Green composite that we used in GEE, but feel free to adjust/change
+this as needed. As you manually identify points, it may be easier to use different band combinations.
+
+Next, add the classified image to the map. Rather than using the default colors created by ArcGIS, you can change the
+symbology for this image to match the color scheme we used in GEE. First, open the **Symbology** tab for this layer
+(right-click > **Symbology**), then change the **Primary Symbology** to ``Unique Values``.
+
+Then, click on the color patch for value 0, which will open the **Color Editor** window:
+
+.. image:: ../../../img/egm702/week5/aa_color_editor.png
+    :width: 500
+    :align: center
+    :alt: the color editor window
+
+|br| Rather than trying to match RGB values using the color picker, we can use the hex code for each color directly.
+Under **HEX#** at the bottom, type/paste the hex code ``013dd6``, then click **OK**. You should see the color change
+to the same blue color used for water in the GEE classified image.
+
+Change the **Label** for this value from ``0`` to water, then click on the color patch for value 1. Copy the hex code
+for ``forest`` from this table:
+
++-----------------------+--------------+--------------+
+| **class name**        | **value**    | **hex code** |
++-----------------------+--------------+--------------+
+| **water**             | 0            | ``013dd6``   |
++-----------------------+--------------+--------------+
+| **forest**            | 1            | ``059e2a``   |
++-----------------------+--------------+--------------+
+| **thin vegetation**   | 2            | ``2aff53``   |
++-----------------------+--------------+--------------+
+| **soil**              | 3            | ``e3d4ae``   |
++-----------------------+--------------+--------------+
+| **snow**              | 4            | ``fffbf4``   |
++-----------------------+--------------+--------------+
+
+and change the label as you did for water, then continue in this way until you have changed the colors and labels for
+all of the values. The end result should look something like this:
+
+.. image:: ../../../img/egm702/week5/aa_classification.png
+    :width: 720
+    :align: center
+    :alt: the classified image, with an updated symbology to match the GEE symbology used earlier.
+
+|br| Now that we have the images added to the map, we can generate a number of random points to use for the accuracy
+analysis.
+
+From the **Geoprocessing** tab, open **Create Accuracy Assessment Points**
+(`documentation <https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/create-accuracy-assessment-points.htm>`_):
+
+.. image:: ../../../img/egm702/week5/aa_create_pts.png
+    :width: 720
+    :align: center
+    :alt: the ArcGIS pro window with "create accuracy assessment points" opened in the geoprocessing tab
+
+|br| Under **Input Raster or Feature Class Data**, choose ``OBIA_Classification.tif`` (or ``RandomForestClassification``
+if you are using the pixel-based classification). Under **Output Accuracy Assessment Points**, create a new layer in
+your project geodatabase (or a new shapefile) called ``AssessmentPoints``. Under **Target Field**, choose ``classified``,
+and choose a ``Stratified random`` **Sampling Strategy**.
+
+.. note::
+
+    With stratified random sampling, the **Create Accuracy Assessment Points** tool will create random points within
+    each class, with the number of points for each class determined by the proportion of the area taken up by that class.
+
+    The default value of **Number of Random Points** is 500, which is what I will use here. Using this with the
+    classified image ouptut from GEE, there were only 13 points classified as water, and only 10 points classified as
+    snow. This is not really enough to get an accurate picture of the classification performance of these classes.
+
+    For now, however, the default value will suffice.
+
+Click **OK**, and you should see the new layer added to the map. Right-click on the layer and select **Attribute Table**
+to show the attribute table for these points:
+
+.. image:: ../../../img/egm702/week5/aa_pts_table.png
+    :width: 720
+    :align: center
+    :alt: the ArcGIS pro window with the attribute table for the assessment points layer open
+
+|br| In this table, you should see there is a ``Classified`` field, and a ``GrndTruth`` field. The ``Classified``
+field contains the value from the classified image for each point, while the ``GrndTruth`` field is currently set to
+a value of -1 for all points, indicating that it has not been entered.
+
+Our job now is to manually enter the class value for each point. To get started, right-click on the first row of the
+table, then select **Zoom To** (you may want to zoom further in/out, depending on the scale of the map):
+
+.. image:: ../../../img/egm702/week5/aa_pts_zoom.png
+    :width: 720
+    :align: center
+    :alt: the map zoomed in on one of the accuracy points
+
+|br| The ``Classified`` value for this point is 1, corresponding to ``forest``. To my eye, this point does indeed look like
+it is located in a forest, so I have entered a 1 in the ``GrndTruth`` field for this row.
+
+.. warning::
+
+    Remember that this is only an example - your results will most likely be different!
+
+Move on to the next point, and the next point, and so on, until you have manually entered the values for each point.
+In addition to the Landsat image, you can also use the ESRI World Imagery to help interpret each point, though keep in
+mind that those images may be out of date compared to the Landsat image.
+
+.. warning::
+
+    **BE SURE TO SAVE YOUR CHANGES OFTEN!!**
+
+Once you have finished entering each point value, open the **Compute Confusion Matrix** tool from the **Geoprocessing**
+tab:
+
+.. image:: ../../../img/egm702/week5/aa_compute.png
+    :width: 720
+    :align: center
+    :alt: the "compute confusion matrix" tool open in the ArcGIS window
+
+|br| The **Input Accuracy Assessment Points** should be your ``AssessmentPoints`` layer. Save the
+**Output Confusion Matrix** to a file called ``OBIAErrorMatrix.dbf``, in the same folder as your classification maps.
+
+Click **Run**, and you should see a new layer under **Standalone Tables** in the layer menu. Right-click on this layer,
+then select **Open** to open and view the table:
+
+.. image:: ../../../img/egm702/week5/aa_error.png
+    :width: 720
+    :align: center
+    :alt: the output error matrix open in the ArcGIS window
+
+|br| The error matrix shown above contains a row for the producer's accuracy and a column for the user's (consumer's)
+accuracy, as well as the kappa statistic for the classification. I have re-created the error matrix here, with updated
+labels:
+
++----------------------+-------+--------+-----------------+------+------+
+|                      | water | forest | thin vegetation | soil | snow |
++======================+=======+========+=================+======+======+
+| **water**            | 13    | 0      | 0               | 0    | 0    |
++----------------------+-------+--------+-----------------+------+------+
+| **forest**           | 1     | 317    | 7               | 1    | 0    |
++----------------------+-------+--------+-----------------+------+------+
+| **thin vegetation**  | 0     | 8      | 108             | 8    | 0    |
++----------------------+-------+--------+-----------------+------+------+
+| **soil**             | 3     | 1      | 0               | 33   | 0    |
++----------------------+-------+--------+-----------------+------+------+
+| **snow**             | 0     | 0      | 0               | 1    | 9    |
++----------------------+-------+--------+-----------------+------+------+
+
+and the producer's and consumer's accuracy:
+
++---------------------+-------+--------+-----------------+-------+------+
+|                     | water | forest | thin vegetation | soil  | snow |
++=====================+=======+========+=================+=======+======+
+| producer's accuracy | 76.5% | 97.5%  | 93.9%           | 76.7% | 100% |
++---------------------+-------+--------+-----------------+-------+------+
+| consumer's accuracy | 100%  | 97.2%  | 87.1%           | 91.7% | 90%  |
++---------------------+-------+--------+-----------------+-------+------+
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+    Compare the error matrix and accuracy measures from your table to the output from GEE.
+
+    - What values have changed dramatically (if any)?
+    - What values have stayed largely the same?
+    - Do you think that your result gives a good representation of the accuracy of the classification for all classes?
+      Why or why not?
+
 
 next steps
 ------------
