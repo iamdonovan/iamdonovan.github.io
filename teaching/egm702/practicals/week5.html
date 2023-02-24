@@ -1290,19 +1290,19 @@ surface types?</p>
 </div>
 <p>The last part of this script displays the spectral properties of the clusters using two example scatter plots. First,
 we add the clustered <strong>Image</strong> to our original <strong>Image</strong>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">reflimg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reflimg</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">));</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">));</span>
 </pre></div>
 </div>
 <p>This way, we can select pixels from that <strong>Image</strong> based on what cluster they belong to.</p>
 <p>Because of the number of pixels in the <strong>Image</strong> (remember: 7601 * 7331 pixels = 55.7M pixels),
 we can’t just plot all of the pixel values at once. Instead, we again take a random sample of pixels,
 this time using <code class="docutils literal notranslate"><span class="pre">ee.Image.stratifiedSample()</span></code>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reflimg</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B.&#39;</span><span class="p">]).</span><span class="nx">stratifiedSample</span><span class="p">({</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B.&#39;</span><span class="p">]).</span><span class="nx">stratifiedSample</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">numPoints</span><span class="o">:</span><span class="w"> </span><span class="mf">300</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">classBand</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="nx">reflimg</span><span class="p">.</span><span class="nx">geometry</span><span class="p">(),</span>
+<span class="w">  </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">geometry</span><span class="p">(),</span>
 <span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">projection</span><span class="o">:</span><span class="w"> </span><span class="nx">reflimg</span><span class="p">.</span><span class="nx">projection</span><span class="p">()</span>
+<span class="w">  </span><span class="nx">projection</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">projection</span><span class="p">()</span>
 <span class="p">});</span>
 </pre></div>
 </div>
@@ -1720,7 +1720,7 @@ this <a class="reference external" href="https://code.earthengine.google.com/?sc
 <p>In this part of the practical, we’ll take a look at an example of object-based classification to help illustrate some
 of the differences between object-based image analysis (OBIA) and pixel-based classification.</p>
 <p>The first sections of this script should look similar to the pixel-based script. The first major difference comes at
-line 57:</p>
+line 62:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// set parameters for the size of the seeds and clusters for image segmentation</span>
 <span class="c1">// 4 appears to be the minimum value for seed size</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">seedSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span><span class="w"> </span><span class="c1">//corresponds to 4 * 30 = 120 m spacing;</span>
@@ -2180,10 +2180,23 @@ using the <code class="docutils literal notranslate"><span class="pre">area_unce
 as in the table shown above; i.e.:</p>
 <p><code class="docutils literal notranslate"><span class="pre">water</span></code>, <code class="docutils literal notranslate"><span class="pre">forest</span></code>, <code class="docutils literal notranslate"><span class="pre">thin</span> <span class="pre">vegetation</span></code>, <code class="docutils literal notranslate"><span class="pre">soil</span></code>, <code class="docutils literal notranslate"><span class="pre">snow</span></code></p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you have saved the error matrix to a filename other than <code class="docutils literal notranslate"><span class="pre">OBIAErrorMatrix.csv</span></code>, or you have saved it to a
+location other than the same folder where the <code class="docutils literal notranslate"><span class="pre">area_uncertainty.py</span></code> script is saved, you will need to change the
+filename at line 77:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">errmat</span> <span class="o">=</span> <span class="n">load_errmat</span><span class="p">(</span><span class="s1">&#39;OBIAErrorMatrix.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <p>Now, from the <strong>Start</strong> menu, find the <strong>ArcGIS</strong> folder, and click on <strong>Python Command Prompt</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/arcgis_python.png"><img alt="the ArcGIS python command prompt shown in the start menu" class="align-center" src="../../../_images/arcgis_python.png" style="width: 400px;" /></a>
-<p><br /> Navigate to the folder where <code class="docutils literal notranslate"><span class="pre">area_uncertainty.py</span></code> is kept, and run the script by typing
-<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">area_uncertainty.py</span></code> at the prompt. You should see the following output, or something very similar:</p>
+<p><br /> Navigate to the folder where <code class="docutils literal notranslate"><span class="pre">area_uncertainty.py</span></code> is kept using <code class="docutils literal notranslate"><span class="pre">cd</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">bob</span>\<span class="n">EGM702</span>\<span class="n">Practicals</span>\<span class="n">Week</span> <span class="mi">5</span>\
+</pre></div>
+</div>
+<p>Then, run the script by typing <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">area_uncertainty.py</span></code> at the prompt. You should see the following output, or
+something very similar:</p>
 <a class="reference internal image-reference" href="../../../_images/aa_python_prompt.png"><img alt="the output of a script showing the updated area and uncertainty estimates" class="align-center" src="../../../_images/aa_python_prompt.png" style="width: 720px;" /></a>
 <p><br /></p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
@@ -2235,7 +2248,7 @@ included - some additional bands may help more than others.</p></li>
 <li><p>Try varying the number of ‘trees’ used in the random forest classifier. How does this impact the estimated accuracy
 of the classification?</p></li>
 <li><p>Test how does adding additional bands such as the surface temperature or the NDVI affects the classification,
-by removing the comment (<code class="docutils literal notranslate"><span class="pre">//</span></code>) symbol from the beginning of lines 28-32. Try different combinations of the indices
+by removing the comment (<code class="docutils literal notranslate"><span class="pre">//</span></code>) symbol from the beginning of lines 29-34. Try different combinations of the indices
 included - some additional bands may help more than others.</p></li>
 <li><p>You can also try adding different texture measures by</p></li>
 </ul>
