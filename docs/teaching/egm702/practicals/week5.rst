@@ -273,7 +273,7 @@ we add the clustered **Image** to our original **Image**:
 
 .. code-block:: javascript
 
-    reflimg = reflimg.addBands(unsupervised.select('cluster'));
+    img = img.addBands(unsupervised.select('cluster'));
 
 This way, we can select pixels from that **Image** based on what cluster they belong to.
 
@@ -283,12 +283,12 @@ this time using ``ee.Image.stratifiedSample()``:
 
 .. code-block:: javascript
 
-    var sample = reflimg.select(['cluster', 'SR_B.']).stratifiedSample({
+    var sample = img.select(['cluster', 'SR_B.']).stratifiedSample({
       numPoints: 300,
       classBand: 'cluster',
-      region: reflimg.geometry(),
+      region: img.geometry(),
       scale: 30,
-      projection: reflimg.projection()
+      projection: img.projection()
     });
 
 This selects a random sample of (up to) 300 pixels from each cluster.
@@ -679,7 +679,7 @@ In this part of the practical, we'll take a look at an example of object-based c
 of the differences between object-based image analysis (OBIA) and pixel-based classification.
 
 The first sections of this script should look similar to the pixel-based script. The first major difference comes at
-line 57:
+line 62:
 
 .. code-block:: javascript
 
@@ -1183,6 +1183,16 @@ to include the actual areas output from GEE. For example, using the areas from a
 
     ``water``, ``forest``, ``thin vegetation``, ``soil``, ``snow``
 
+.. warning::
+
+    If you have saved the error matrix to a filename other than ``OBIAErrorMatrix.csv``, or you have saved it to a
+    location other than the same folder where the ``area_uncertainty.py`` script is saved, you will need to change the
+    filename at line 77:
+
+    .. code-block:: python3
+
+        errmat = load_errmat('OBIAErrorMatrix.csv')
+
 Now, from the **Start** menu, find the **ArcGIS** folder, and click on **Python Command Prompt**:
 
 .. image:: ../../../img/egm702/week5/arcgis_python.png
@@ -1190,8 +1200,14 @@ Now, from the **Start** menu, find the **ArcGIS** folder, and click on **Python 
     :align: center
     :alt: the ArcGIS python command prompt shown in the start menu
 
-|br| Navigate to the folder where ``area_uncertainty.py`` is kept, and run the script by typing
-``python area_uncertainty.py`` at the prompt. You should see the following output, or something very similar:
+|br| Navigate to the folder where ``area_uncertainty.py`` is kept using ``cd``:
+
+.. code-block::
+
+    cd C:\Users\bob\EGM702\Practicals\Week 5\
+
+Then, run the script by typing ``python area_uncertainty.py`` at the prompt. You should see the following output, or
+something very similar:
 
 .. image:: ../../../img/egm702/week5/aa_python_prompt.png
     :width: 720
@@ -1248,7 +1264,7 @@ object-based classification
 - Try varying the number of 'trees' used in the random forest classifier. How does this impact the estimated accuracy
   of the classification?
 - Test how does adding additional bands such as the surface temperature or the NDVI affects the classification,
-  by removing the comment (``//``) symbol from the beginning of lines 28-32. Try different combinations of the indices
+  by removing the comment (``//``) symbol from the beginning of lines 29-34. Try different combinations of the indices
   included - some additional bands may help more than others.
 - You can also try adding different texture measures by
 
