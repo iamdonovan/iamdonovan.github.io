@@ -26,9 +26,9 @@ Below, I will walk through the different sections of the file to help explain wh
 name
 -----
 
-The first line of the file tells **conda** what to call the new environment - in this example, the new environment will be
-called ``egm722``. In your ``environment.yml`` file, you should change this to a name that fits with your project - don't
-just re-use the ``egm722`` name!
+The first line of the file tells **conda** what to call the new environment - in this example, the new environment will
+be called ``egm722``. In your ``environment.yml`` file, you should change this to a name that fits with your
+project - don't just re-use the ``egm722`` name!
 
 
 channels
@@ -78,6 +78,12 @@ we could tell **conda** to create an environment with a python version greater t
 .. code-block:: yaml
 
     - python>3.5
+
+or, if we want to specify a range greater than 3.5, but less than 3.10, we would write this:
+
+.. code-block:: yaml
+
+    - python>3.5,<3.10
 
 For more explanation for how to specify versions, or version ranges, see
 `the conda documentation <https://docs.conda.io/projects/conda-build/en/latest/resources/package-spec.html#package-match-specifications>`__.

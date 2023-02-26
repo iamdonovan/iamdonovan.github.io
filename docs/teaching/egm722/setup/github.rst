@@ -6,8 +6,8 @@ The files for this module (practical workbooks, example scripts, and setup files
 in the upper right corner of the GitHub homepage (https://github.com):
 
 .. image:: ../../../img/egm722/setup/github.png
-    :width: 600
+    :width: 720
     :align: center
-    :alt: the github homepage
+    :alt: the github homepage with the "sign up" button outlined in a red box
 
-Make sure that you do this before you move on to the next step, :doc:`installing git<git>`.
+|br| Make sure that you do this before you move on to the next step, :doc:`installing git<git>`.

@@ -5,11 +5,11 @@ The easiest way to create a new GitHub repository is to point your browser to ht
 need to be logged in to do this, but you should see the following screen:
 
 .. image:: ../../../img/egm722/project/blank.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the new repository form on github
 
-Here, you can fill out the basic information about the repository: the **name**, a short **description**, and
+|br| Here, you can fill out the basic information about the repository: the **name**, a short **description**, and
 choose whether it should be **Public** or **Private**.
 
 .. note::
@@ -24,15 +24,14 @@ easier to add these now at the start, rather than forgetting later on.
 Once you've filled out the basic information:
 
 .. image:: ../../../img/egm722/project/filled_out.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the filled out new repository form
 
-
-click on **Create repository**, and your new repository will appear:
+|br| click on **Create repository**, and your new repository will appear:
 
 .. image:: ../../../img/egm722/project/new_repository.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the newly-created github repository
 
@@ -55,8 +54,9 @@ on your search engine of choice).
 -----------
 
 Remember that this file is used to tell **git** what files to ignore. The easiest way to create this is to either
-use the suggested template for **Python** when initializing the repository, or to visit a site like https://gitignore.io, which
-helps you add software-specific files to ignore (for example, those created by IDEs like PyCharm or VS Code).
+use the suggested template for **Python** when initializing the repository, or to visit a site like
+https://gitignore.io, which helps you add software-specific files to ignore (for example, those created by IDEs like
+PyCharm or VS Code).
 
 For more information about how to add files or folders to the .gitignore file, see this 
 `helpful guide <https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files>`__.
@@ -77,7 +77,8 @@ cloning the repository
 ------------------------
 
 Once you've set up the repository on GitHub, you can **clone** it to your computer:
-::
+
+.. code-block:: sh
 
     git clone https://github.com/<your_username>/<your_project>.git
 
