@@ -52,18 +52,18 @@ In the upper right-hand corner of the PyCharm window, you should see this:
     :align: center
     :alt: the run script and debugging tool buttons
 
-Click on **Add Configuration...** to open the **Run/Debug Configurations** window, then click the **+** icon in the
+|br| Click on **Add Configuration...** to open the **Run/Debug Configurations** window, then click the **+** icon in the
 upper left to add a new configuration:
 
 .. image:: ../../../img/egm722/debug/new_configuration.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: selecting a new python configuration
 
-select **Python**:
+|br| select **Python**:
 
 .. image:: ../../../img/egm722/debug/empty_configuration.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a new python configuration
 
@@ -74,7 +74,7 @@ your ``egm722`` environment, then click **OK** to finish the configuration.
 You should see that the buttons in the upper right of the window have changed:
 
 .. image:: ../../../img/egm722/debug/new_buttons.png
-    :width: 300
+    :width: 400
     :align: center
     :alt: the run script and debugging tool buttons with a configuration selected
 
@@ -85,11 +85,11 @@ Once you have the script configured, you can press the green **Run** button (the
 you should see that the **Run Panel** opens at the bottom of the window:
 
 .. image:: ../../../img/egm722/debug/run_error.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the pycharm window with the run panel opened
 
-This is where anything printed to the screen by your script will show, including all error messages. In fact, you
+|br| This is where anything printed to the screen by your script will show, including all error messages. In fact, you
 should see an error message already:
 
 .. code-block:: sh
@@ -142,20 +142,20 @@ such object had been defined.
 Let's open up the script and see if we can find where something went wrong:
 
 .. image:: ../../../img/egm722/debug/syntax_highlighting.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the pycharm window with the run panel opened
 
-One of the features of PyCharm and other IDEs is that they highlight *syntax*, which helps identify potential issues.
-Here, we can see that at the same spot where the script failed, ``random`` is underlined in red. If you hover over this
-with your mouse, you can see the following message:
+|br| One of the features of PyCharm and other IDEs is that they highlight *syntax*, which helps identify potential
+issues. Here, we can see that at the same spot where the script failed, ``random`` is underlined in red. If you hover
+over this with your mouse, you can see the following message:
 
 .. image:: ../../../img/egm722/debug/pycharm_error.png
     :width: 400
     :align: center
     :alt: an error message from pycharm
 
-This tells us essentially the same thing as the **NameError** - the object called ``random`` has been used before
+|br| This tells us essentially the same thing as the **NameError** - the object called ``random`` has been used before
 it was defined. The issue, in this case, is clear if we look at line 1:
 
 .. code-block:: python
@@ -163,7 +163,7 @@ it was defined. The issue, in this case, is clear if we look at line 1:
     # import random
 
 The last person who worked on this script commented out the **import** statement, meaning that we never actually
-imported the ``random`` module.
+imported the ``random`` module. Thanks a lot, bob.
 
 If you delete the ``#`` and the space following it:
 
@@ -184,7 +184,7 @@ Before we run the script again, notice that the name of the script in the tab ha
     :align: center
     :alt: the script tab showing that changes have been made, but not committed
 
-This indicates that we have changed the file, but not yet commited it using **git**. To do this, there are a number
+|br| This indicates that we have changed the file, but not yet commited it using **git**. To do this, there are a number
 of tools at our disposal; we'll focus on using **GitHub Desktop** for right now.
 
 With **GitHub Desktop** open, you should see the following:
@@ -194,7 +194,7 @@ With **GitHub Desktop** open, you should see the following:
     :align: center
     :alt: the changes shown in github desktop
 
-On the left, we see that there's 1 file that has changed (``Week1\debugging_exercise.py``), and in the main panel
+|br| On the left, we see that there's 1 file that has changed (``Week1\debugging_exercise.py``), and in the main panel
 we see what that change is: we've deleted the ``#`` from line 1.
 
 In the lower left, you can see a place to enter a new **commit** message, including a longer **description**. This is
@@ -217,7 +217,7 @@ the debugging tools
 Once you've committed this fix, run the script again. You should see that there's now an error in a different spot:
 
 .. image:: ../../../img/egm722/debug/new_error.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a new error appears! progress!
 
@@ -238,22 +238,22 @@ click on the left-hand side of the code panel, just to the right of the "16" at 
 You should see a red dot appear:
 
 .. image:: ../../../img/egm722/debug/breakpoint.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a breakpoint added to the script at line 16.
 
-This is a **breakpoint** - a spot for the interpreter to pause while we inspect what's going on in the script. Run the
-script again, but this time press the green **debugging** button (it looks like a small bug).
+|br| This is a **breakpoint** - a spot for the interpreter to pause while we inspect what's going on in the script. Run
+the script again, but this time press the green **debugging** button (it looks like a small bug).
 
 This time, instead of the **Run** panel, you should see that PyCharm has opened the **Debug Panel**. After entering
 your guess in the console, you should see the **Debugger** showing in the lower half of the window:
 
 .. image:: ../../../img/egm722/debug/debugger.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the debugger panel at the bottom of the pycharm window
 
-At the moment, the script has stopped running - it's waiting for us to tell it to do something. Have a look at this
+|br| At the moment, the script has stopped running - it's waiting for us to tell it to do something. Have a look at this
 part of the **Debugging Panel**:
 
 .. image:: ../../../img/egm722/debug/debug_buttons.png
@@ -261,16 +261,20 @@ part of the **Debugging Panel**:
     :align: center
     :alt: the debugging buttons
 
-From left to right, the buttons here are:
+|br| From left to right, the buttons here are:
 
 - **Show Execution Point** - this highlights where in the code you currently are
-- **Step Over** - this runs the current line without stepping into any method or function calls, moving right to the next line in the current script
-- **Step Into** - this will actually step into any method or function calls, allowing you to examine what's happening inside of those functions
-- **Step Into My Code** - this works the same as **Step Into**, but it won't step into methods/functions that have been imported
+- **Step Over** - this runs the current line without stepping into any method or function calls, moving right to the
+  next line in the current script
+- **Step Into** - this will actually step into any method or function calls, allowing you to examine what's happening
+  inside of those functions
+- **Step Into My Code** - this works the same as **Step Into**, but it won't step into methods/functions that have been
+  imported
 - **Force Step Into** (currently grayed out) - steps into the method/function even if it's skipped by **Step Into**
 - **Step Out** - steps out of the current method/function and back to where the method/function was called.
 - **Run to Cursor** - will run the program until it reaches where the cursor is currently placed
-- **Evaluate Expression** - you can use this to calculate values of expressions or code fragments, using the variables and methods that have currently been declared.
+- **Evaluate Expression** - you can use this to calculate values of expressions or code fragments, using the variables
+  and methods that have currently been declared.
 
 We won't get into using all of these during this exercise, but if you're interested in learning more about these tools
 and how to use them, check out the PyCharm online manual: https://www.jetbrains.com/help/pycharm/debugging-code.html.
@@ -278,26 +282,26 @@ and how to use them, check out the PyCharm online manual: https://www.jetbrains.
 Press the **Step Over** button, then switch back to the **Console** view. You should see a prompt to enter a new guess:
 
 .. image:: ../../../img/egm722/debug/debug_console.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the debug console with the new guess
 
-When you enter a new guess this time, you should see the **Error** message again, and the line where the **Error**
+|br| When you enter a new guess this time, you should see the **Error** message again, and the line where the **Error**
 occurred should be highlighted:
 
 .. image:: ../../../img/egm722/debug/error_highlight.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the location of the error highlighted in the script
 
-Now, switch back to the **Debugger**:
+|br| Now, switch back to the **Debugger**:
 
 .. image:: ../../../img/egm722/debug/debugger_types.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the debugger window showing the types of the available variables in the script
 
-Note that our list of variables down below, ``guess`` has a **type** of ``str``, while ``rand`` has a **type** of
+|br| Note that our list of variables down below, ``guess`` has a **type** of ``str``, while ``rand`` has a **type** of
 ``int``. This, combined with the **Error** message:
 
 .. code-block:: python
@@ -338,21 +342,21 @@ Run the debugger again, and pay attention to the value of the number you're mean
 response when you enter your guess:
 
 .. image:: ../../../img/egm722/debug/console_message.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the final changes tracked in github desktop
 
-In the window below, I've entered a guess of 10, and the response from the program
+|br| In the window below, I've entered a guess of 10, and the response from the program
 is ``'Too high. Guess again.'``. Now, this should mean that ``guess > rand``, but have a look at the values displayed
 in the **debugger**:
 
 .. image:: ../../../img/egm722/debug/debug_values.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the final changes tracked in github desktop
 
-Here, we see that ``guess`` has a value of 10, as expected, but ``rand`` has a value of 53. So, there are two problems
-here.
+|br| Here, we see that ``guess`` has a value of 10, as expected, but ``rand`` has a value of 53. So, there are two
+problems here.
 
 First, the instructions to the user were to guess a number between 1 and 20, and 53 is decidedly outside of that
 range. Looking at line 4:
@@ -392,19 +396,19 @@ Once you've identified and fixed the bugs, head back to **GitHub Desktop**. You 
 been tracked:
 
 .. image:: ../../../img/egm722/debug/final_changes.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the final changes tracked in github desktop
 
-This time, because we've made a number of changes, we'll write a longer commit description, at least for practice.
+|br| This time, because we've made a number of changes, we'll write a longer commit description, at least for practice.
 Add a brief commit message, such as "fix guessing game script", then add a longer description of the changes:
 
 .. image:: ../../../img/egm722/debug/commit_message.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: an example commit message and description in github desktop
 
-Finally, press the **Commit to debug** button to **commit** the changes.
+|br| Finally, press the **Commit to debug** button to **commit** the changes.
 
 next steps
 -----------
