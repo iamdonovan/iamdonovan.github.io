@@ -1,5 +1,5 @@
-teaching and related resources
-======================================
+teaching
+===========
 
 In the past, I have taught modules on glaciology, remote sensing, Geographical Information Systems (GIS), physical geography, and programming. At Ulster University, I teach remote sensing, physical geography, and programming modules for the BSc Hons Geography and Environmental Science degrees, as well as for the PgDip/MSc courses in GIS, and Remote Sensing and GIS. I also supervise PhD Researchers, MSc, and BSc research projects in a variety of subjects.
 

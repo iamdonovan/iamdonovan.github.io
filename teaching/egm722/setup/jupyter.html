@@ -93,7 +93,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../../index.html">
-   teaching and related resources
+   teaching
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -797,34 +797,42 @@ title="Print to PDF"
                 
   <div class="section" id="configuring-jupyter">
 <h1>configuring jupyter<a class="headerlink" href="#configuring-jupyter" title="Permalink to this headline">#</a></h1>
-<p>By default, <strong>jupyter notebook</strong> will open in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory (on Windows, this is most likely <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;</span></code>.
-If you have cloned the repository to a different location (e.g., <code class="docutils literal notranslate"><span class="pre">C:\egm722\</span></code>, or an external drive such as <code class="docutils literal notranslate"><span class="pre">D:\</span></code>),
-you may want to set notebook to open to that folder.</p>
-<p>To do this, open the <strong>Command Prompt</strong> from <strong>Anaconda Navigator</strong> (make sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is active).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step is <strong>optional</strong>, as in <em>most</em> cases you will be able to use <strong>jupyter</strong> with the default settings.</p>
+</div>
+<p>By default, <strong>jupyter notebook</strong> will open in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory (on Windows, this is most likely
+<code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;</span></code>. If you have cloned the repository to a different location (e.g., <code class="docutils literal notranslate"><span class="pre">C:\egm722\</span></code>,
+or an external drive such as <code class="docutils literal notranslate"><span class="pre">D:\</span></code>), you may want to set notebook to open to that folder.</p>
+<p>To do this, open the <strong>Command Prompt</strong> from <strong>Anaconda Navigator</strong> (make sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment
+is active).</p>
 <p>At the <strong>Command Prompt</strong>, enter the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span> <span class="o">--</span><span class="n">generate</span><span class="o">-</span><span class="n">config</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter notebook --generate-config
 </pre></div>
 </div>
-<p>This will create a new folder, <code class="docutils literal notranslate"><span class="pre">.jupyter</span></code>, in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory, along with a python script in that directory: <code class="docutils literal notranslate"><span class="pre">jupyter_notebook_config.py</span></code>.</p>
+<p>This will create a new folder, <code class="docutils literal notranslate"><span class="pre">.jupyter</span></code>, in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory, along with a python script in that directory:
+<code class="docutils literal notranslate"><span class="pre">jupyter_notebook_config.py</span></code>.</p>
 <p>Next, enter the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="o">--</span><span class="n">paths</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter --paths
 </pre></div>
 </div>
 <p>This will show you the path to the version of <strong>jupyter</strong> used by your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment:</p>
-<a class="reference internal image-reference" href="../../../_images/jupyter_config.png"><img alt="the output of jupyter --paths" class="align-center" src="../../../_images/jupyter_config.png" style="width: 600px;" /></a>
-<p>In the example above, it’s:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">e16006469</span>\<span class="n">Anaconda3</span>\<span class="n">envs</span>\<span class="n">egm722</span>\<span class="n">etc</span>\<span class="n">jupyter</span>
+<a class="reference internal image-reference" href="../../../_images/jupyter_config.png"><img alt="the output of jupyter --paths" class="align-center" src="../../../_images/jupyter_config.png" style="width: 720px;" /></a>
+<p><br /> In the example above, it’s:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C:\Users\e16006469\Anaconda3\envs\egm722\etc\jupyter
 </pre></div>
 </div>
-<p>Now, copy the script <code class="docutils literal notranslate"><span class="pre">jupyter_notebook_config.py</span></code> into that folder (you will probably have to create a new folder, <code class="docutils literal notranslate"><span class="pre">jupyter</span></code>, in
-<code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;\Anaconda3\envs\etc</span></code>).</p>
+<p>Now, copy the script <code class="docutils literal notranslate"><span class="pre">jupyter_notebook_config.py</span></code> into that folder (you will probably have to create a new folder,
+<code class="docutils literal notranslate"><span class="pre">jupyter</span></code>, in <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;\Anaconda3\envs\etc</span></code>).</p>
 <p>Open the newly-copied script in your IDE of choice, and search for <code class="docutils literal notranslate"><span class="pre">notebook_dir</span></code> - for me, it’s at line 385:</p>
 <a class="reference internal image-reference" href="../../../_images/initial.png"><img alt="the lines in jupyter_notebook_config.py to edit" class="align-center" src="../../../_images/initial.png" style="width: 600px;" /></a>
-<p>Uncomment this line (remove the # and the space from the start), and add the path to your repository here:</p>
+<p><br /> Uncomment this line (remove the # and the space from the start), and add the path to your repository here:</p>
 <a class="reference internal image-reference" href="../../../_images/updated1.png"><img alt="the lines in jupyter_notebook_config.py, edited to update the default directory" class="align-center" src="../../../_images/updated1.png" style="width: 600px;" /></a>
-<p>Now, save the file, and re-launch <strong>jupyter notebook</strong> from <strong>Anaconda Navigator</strong>, making sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is still enabled.
-You should see that it opens in your repository folder by default:</p>
-<a class="reference internal image-reference" href="../../../_images/open.png"><img alt="jupyter-notebook, open to the newly set default directory" class="align-center" src="../../../_images/open.png" style="width: 600px;" /></a>
+<p><br /> Now, save the file, and re-launch <strong>jupyter notebook</strong> from <strong>Anaconda Navigator</strong>, making sure that your
+<code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is still enabled. You should see that it opens in your repository folder by default:</p>
+<a class="reference internal image-reference" href="../../../_images/open.png"><img alt="jupyter-notebook, open to the newly set default directory" class="align-center" src="../../../_images/open.png" style="width: 720px;" /></a>
+<p>The final step in getting set up (and I promise, it’s the final step), is setting up an Integrated Development
+Environment (IDE) like <a class="reference internal" href="pycharm.html"><span class="doc">pycharm</span></a>.</p>
 </div>
 
 
