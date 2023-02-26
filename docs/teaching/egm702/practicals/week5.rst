@@ -531,7 +531,8 @@ the classified image.\ [#congalton]_
 
     :far:`circle-question` Question
     ^^^
-    Which of these classes
+    Which of these classes have the most overlap, as indicated by the error matrix? Why do you think this might be?
+    What are some ways that we could try to address this problem?
 
 Once we have trained the **Classifier**, we use ``ee.Image.classify()`` to classify the image:
 
