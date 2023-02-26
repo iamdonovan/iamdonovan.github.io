@@ -124,7 +124,7 @@ anaconda command prompt
 From the **Start** menu, open the **Anaconda Command Prompt**:
 
 .. image:: ../../../img/egm722/setup/environment/anaconda_prompt.png
-    :width: 400
+    :width: 300
     :align: center
     :alt: the anaconda command prompt in the start menu
 
@@ -140,7 +140,7 @@ From the **Start** menu, open the **Anaconda Command Prompt**:
     it likely means that you have opened the normal **Command Prompt**, and so you will see the following error when
     you try to run a command with **conda**:
 
-    .. image:: ../../../img/egm722/setup/environment/anaconda_prompt.png
+    .. image:: ../../../img/egm722/setup/environment/conda_not_found.png
         :width: 600
         :align: center
         :alt: an error stating that conda is not recognized as a command
@@ -153,7 +153,7 @@ Next, navigate to where you have cloned the repository using ``cd``:
 
 If you're in the right place, you should see all of the files from the repository when you enter the ``dir`` command:
 
-.. image:: ../../../img/egm722/setup/environment/anaconda_prompt.png
+.. image:: ../../../img/egm722/setup/environment/conda_dir_output.png
     :width: 720
     :align: center
     :alt: the output of the dir command in the egm722 directory

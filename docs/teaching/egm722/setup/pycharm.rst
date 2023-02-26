@@ -119,27 +119,123 @@ Once the new project has been created, you should see something like this:
 the file browser
 ..................
 
+On the left side of the **PyCharm** window, you should see a file browser (note that you may need to click on the
+**Project** tab to expand the frame).
+
+Here, you can see all of the files and folders included in the project. To open a script or other file, double-click on
+it in the file browser. For example, here is ``debugging_exercise.py``:
+
+.. image:: ../../../img/egm722/setup/pycharm/script_open.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface with the debugging exercise script opened
 
 
-opening a script
-..................
+creating a new script
+......................
+
+You can also create a new file by right-clicking in the file browser and selecting **New**, followed by the file
+type. To create a new python script, it would be: right-click > **New** > **Python File**.
+
+Type the name of the new script in the box that appears, and press **Enter**.
+
+.. warning::
+
+    Remember to include the extension (``.py``) as part of the filename!
+
+PyCharm interfaces with **git** to help you keep track of your projects, so it asks you if you want to add the file to
+**git**. Click **Add** to do this, and you should see the new file appear in the file browser, and in the main panel:
+
+.. image:: ../../../img/egm722/setup/pycharm/new_script.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface with the new script opened up
 
 
+using git
+..........
+
+Note that the filename is colored in green, indicating that the file has been *staged* by **git**. Just like with
+**GitHub Desktop**, we can use PyCharm along with git to keep track of changes to our files.
+
+Under the **Project** tab, you should see a **Commit** tab - click this to bring up the list of current changes:
+
+.. image:: ../../../img/egm722/setup/pycharm/commit.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface with the commit tab showing
+
+|br| In the list of current changes, we can see that one file has been affected: ``new_script.py``.
+
+Before we press **Commit**, we should first write a commit message, which we can do in the lower box of the panel:
+
+.. image:: ../../../img/egm722/setup/pycharm/commit_message.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface with the commit message written
+
+|br| Press **Commit**, and you should see the filename change from green to white.
+
+Now, when you make changes to the file, the color will change again, this time to blue:
+
+.. image:: ../../../img/egm722/setup/pycharm/changes.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface showing the file name change from white to green, indicating uncommitted changes
+
+|br| This indicates that we have unstaged and uncommitted changes to the file\ [3]_. We don't need to commit every small
+change that we make, but it's a idea to do this regularly, and to **push** the changes to the remote repository
+(so that they're backed up). Don't worry about all of this now - we will come back to these ideas over the course of
+the module.
 
 terminal interface
 ....................
 
+Along the bottom of the PyCharm window, you should see a number of tabs, including one that says **Terminal**. Click
+this to open a **Terminal** (**Command Prompt**):
+
+.. image:: ../../../img/egm722/setup/pycharm/terminal.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface with the terminal window open
+
+|br| You can use this in the same way that you would the "normal" **Command Prompt**. If you have configured an
+interpreter for your project, it should open as an **Anaconda Command Prompt** with that environment activated,
+meaning that you can use it to run scripts in that environment:
+
+.. image:: ../../../img/egm722/setup/pycharm/run_script.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface with the terminal window open, and a script having exited in error
 
 python console
 ................
 
+Next to the **Terminal** tab, you should also see a **Python Console** tab:
 
+.. image:: ../../../img/egm722/setup/pycharm/python_console.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface with the python console window open
 
-using git
-............
+|br| This opens an **iPython** (**i**\ nteractive **Python**) terminal, which you can use in the same way that you
+would use the cells of a **jupyter** notebook:
 
+.. image:: ../../../img/egm722/setup/pycharm/console_output.png
+    :width: 720
+    :align: center
+    :alt: the pycharm interface with the python console window open, and the statement 2 + 2 (output 4)
 
-- mention git (provide links to further help)
+more resources
+................
+
+That ends the "tour" of PyCharm - there are many, many more features available, but this should provide enough to
+get you started. If you're interested in learning more of the features, here are a few links to get you going:
+
+- Quick start guide [`JetBrains <https://www.jetbrains.com/help/pycharm/quick-start-guide.html>`__]
+- Quick Tour [`JetBrains <https://www.youtube.com/watch?v=BPC-bGdBSM8>`__]
+- Pycharm Tutorial #1 [`Tech With Tim <https://www.youtube.com/watch?v=56bPIGf4us0>`__]
+
 
 .. _adding interpreter:
 
@@ -217,3 +313,6 @@ notes and references
 
 .. [2] The ``~`` symbol is used to denote the "home" directory for a user. On Windows, this would be ``C:\Users\user``.
     On MacOS, this is ``/Users/user``, and on linux it is ``/home/user``.
+
+.. [3] Other colors include red, which indicates files that are not tracked by **git**, and yellow/amber, which
+    indicates files that are ignored by **git** (i.e., included in the ``.gitignore`` file).

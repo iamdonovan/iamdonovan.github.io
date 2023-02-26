@@ -1,6 +1,10 @@
 configuring jupyter
 ====================
 
+.. note::
+
+    This step is **optional**, as in *most* cases you will be able to use **jupyter** with the default settings.
+
 By default, **jupyter notebook** will open in your ``home`` directory (on Windows, this is most likely
 ``C:\Users\<your_username>``. If you have cloned the repository to a different location (e.g., ``C:\egm722\``,
 or an external drive such as ``D:\``), you may want to set notebook to open to that folder.
