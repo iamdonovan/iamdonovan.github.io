@@ -67,9 +67,9 @@ upper left to add a new configuration:
     :align: center
     :alt: a new python configuration
 
-Call this new configuration ``debug_exercise``, and set the **Script path** to be the path to **debugging_exercise.py**
-in the **Week1** folder of your EGM722 repository. Finally, make sure that the **Python interpreter** is set to
-your ``egm722`` environment, then click **OK** to finish the configuration.
+|br| Call this new configuration ``debug_exercise``, and set the **Script path** to be the path to
+**debugging_exercise.py** in the **Week1** folder of your EGM722 repository. Finally, make sure that the
+**Python interpreter** is set to your ``egm722`` environment, then click **OK** to finish the configuration.
 
 You should see that the buttons in the upper right of the window have changed:
 
