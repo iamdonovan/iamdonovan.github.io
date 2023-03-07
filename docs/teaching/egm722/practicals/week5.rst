@@ -1,11 +1,11 @@
 vector and raster operations using python
 ===========================================
 
-In this practical, we’ll see how we can combine vector and raster data for different analyses, including computing zonal statistics
-for a raster, and rasterizing a vector dataset.
+In this practical, we’ll see how we can combine vector and raster data for different analyses, including computing
+zonal statistics for a raster, and rasterizing a vector dataset.
 
-The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the different steps of
-the practical.
+The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the
+different steps of the practical.
 
 Getting Started
 ---------------
@@ -17,38 +17,60 @@ using **one** of the methods we've seen in previous weeks:
 - using the **git** command-line interface [:doc:`week3<week3>`]
 - using a **Pull Request** [:doc:`week4<week4>`]
 
-Make sure that you have merged ``week5`` into ``main`` using one of the methods outlined above before starting the practical.
+Make sure that you have merged ``week5`` into ``main`` using one of the methods outlined above before starting the
+practical.
 
-The other thing you'll need to do before starting this week's practical is install a new python package, **rasterstats**,
-using **conda**. To do this, open the ``egm722`` command prompt, then type the following command:
-::
-
-    conda install -c conda-forge rasterstats
+The other thing you'll need to do before starting this week's practical is install a new python package,
+**rasterstats**, using **conda** via the command prompt.
 
 .. note::
 
-    You can also install this package using **Anaconda Navigator**, but the following instructions are designed to give
-    you some more experience using the **conda** CLI.
+    You can also install this package using **Anaconda Navigator**, as we did during the Week 4 SentinelSat exercise,
+    but the following instructions are designed to give you some more experience using the **conda** CLI.
+
+To do this, open the ``egm722`` command prompt, then type the following command:
+
+.. code-block:: text
+
+    conda install -c conda-forge rasterstats
 
 Press **Enter**. You should see something like the following (it may take a minute):
 
-**conda install**
+.. figure:: ../../../img/egm722/week5/conda_install.png
+    :width: 720
+    :align: center
+    :alt: conda install running in the command prompt
 
-Type ``y`` and press **Enter**, and **conda** will install **rasterstats** into your current environment (``egm722``). Now, navigate to your
-repository folder.
+Type ``y`` and press **Enter**, and **conda** will install **rasterstats** into your current environment (``egm722``).
+Enter the following command:
+
+.. code-block:: text
+
+    conda list
+
+You should see **rasterstats** included in the output of this command (you may need to scroll up to see it):
+
+.. figure:: ../../../img/egm722/week5/conda_list.png
+    :width: 720
+    :align: center
+    :alt: the output of conda list in the command prompt, showing that rasterstats is installed
 
 At this point, you can launch Jupyter Notebooks from the command prompt, or from Anaconda Navigator, and begin to work
 through the notebook.
 
 .. note::
     
-    Below this point is the **non-interactive** text of the notebook. To actually run the notebook, you'll need to follow the instructions
-    above to open the notebook and run it on your own computer!
+    Below this point is the **non-interactive** text of the notebook. To actually run the notebook, you'll need to
+    follow the instructions above to open the notebook and run it on your own computer!
 
 ....
 
+Nick Cassavetes
+------------------
+
+
 Overview
---------
+..........
 
 Up to now, we have worked with either vector data or raster data, but we
 haven’t really used them together. In this week’s practical, we’ll learn
@@ -57,7 +79,7 @@ different analyses, such as zonal statistics or sampling raster data,
 that we can automate using python.
 
 Objectives
-----------
+...........
 
 -  learn how to use ``rasterstats`` to perform zonal statistics
 -  learn how to handle exceptions using try…except
@@ -66,13 +88,15 @@ Objectives
 -  see additional plotting examples using matplotlib
 
 Data provided
--------------
+..............
 
-In the data_files folder, you should have the following: -
-LCM2015_Aggregate_100m.tif - NI_DEM.tif
+In the data_files folder, you should have the following:
+
+- LCM2015_Aggregate_100m.tif
+- NI_DEM.tif
 
 1. Getting started
-------------------
+....................
 
 In this practical, we’ll look at a number of different GIS tasks related
 to working with both raster and vector data in python, as well as a few
@@ -92,7 +116,7 @@ below.
     plt.rcParams.update({'font.size': 22}) # update the font size for our plots to be size 22
 
 2. Zonal statistics
--------------------
+.....................
 
 In GIS, `zonal
 statistics <https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-zonal-statistics-works.htm>`__
@@ -102,7 +126,7 @@ In this example, we’re going to use the Northern Ireland County border
 dataset from Week 2, along with a re-classified version of the Northern
 Ireland `Land Cover
 Map <https://catalogue.ceh.ac.uk/documents/47f053a0-e34f-4534-a843-76f0a0998a2f>`__
-2015\ `1 <#fn1>`__.
+2015\ [1]_.
 
 The Land Cover Map tells, for each pixel, what type of land cover is
 associated with a location - that is, whether it’s woodland (and what
@@ -247,7 +271,7 @@ the features in the ``counties`` dataset:
     print(county_stats[0])
 
 3. The zip built-in
--------------------
+.....................
 
 This isn’t a very readable result, though. If we want to interpret the
 results for each county, we have to know what land cover name
@@ -345,7 +369,7 @@ want our program to stop as soon as it finds out that one of the
 counties doesn’t have a particular landcover type.
 
 4. Handling Exceptions with try … except
-----------------------------------------
+..........................................
 
 Python provides a way to handle these kind of exceptions: the
 `try…except <https://realpython.com/python-exceptions/#the-try-and-except-block-handling-exceptions>`__
@@ -421,7 +445,7 @@ County Down?
 
 
 5. Rasterizing vector data using rasterio
------------------------------------------
+............................................
 
 ``rasterstats`` provides a nice tool for quickly and easily extracting
 zonal statistics from a raster using vector data. Sometimes, though, we
@@ -516,7 +540,7 @@ corresponds to which ID). In the next section, we’ll see how we can use
 arrays like this to investigate our data further.
 
 6. Masking and indexing rasters
--------------------------------
+.................................
 
 So far, we’ve seen how we can index an array (or a list, a tuple, …)
 using simple indexing (e.g., ``myList[0]``) or *slicing* (e.g.,
@@ -644,16 +668,15 @@ values?
 
 
 Next steps
-----------
+............
 
 That’s all for this practical. In lieu of an an additional exercise this
 week, spend some time working on your project - are there concepts or
 examples from this practical that you can incorporate into your project?
 
 Footnotes
-~~~~~~~~~
+...........
 
-`1 <#fn1-back>`__\ Rowland, C.S.; Morton, R.D.; Carrasco, L.; McShane,
-G.; O’Neil, A.W.; Wood, C.M. (2017). Land Cover Map 2015 (25m raster, N.
-Ireland). NERC Environmental Information Data Centre.
-`doi:10.5285/47f053a0-e34f-4534-a843-76f0a0998a2f <https://doi.org/10.5285/47f053a0-e34f-4534-a843-76f0a0998a2f>`__\ 
+.. [1] Rowland, C.S.; Morton, R.D.; Carrasco, L.; McShane, G.; O’Neil, A.W.; Wood, C.M. (2017). Land Cover Map 2015
+    (25m raster, N. Ireland). NERC Environmental Information Data Centre.
+    doi: `10.5285/47f053a0-e34f-4534-a843-76f0a0998a2f <https://doi.org/10.5285/47f053a0-e34f-4534-a843-76f0a0998a2f>`__

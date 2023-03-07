@@ -25,6 +25,7 @@ eventually work.
    week2
    week3
    week4
+   sentinelsat
    week5
 
 
