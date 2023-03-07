@@ -10,20 +10,23 @@ eventually work.
 
 .. note::
 
-    The following linked pages contain instructions for getting started with each practical, as well as non-interactive
-    overviews of the notebook.
+    The following pages contain instructions for getting started with each practical, including relevant steps
+    using git/GitHub, as well as non-interactive overviews of the notebook.
 
     To actually run the practicals yourself, you'll need to go through the steps of cloning the github repository and
     setting up the environment outlined above, or follow the binder link to run the practicals online.
 
+
 .. toctree::
    :glob:
+   :hidden:
    :maxdepth: 1
 
    week1
    debugging
    week2
    week3
+   folium
    week4
    sentinelsat
    week5
