@@ -19,6 +19,7 @@ As an example, here is the ``environment.yml`` for the ``egm722`` environment, i
       - notebook
       - rasterio
       - pyepsg
+      - folium
 
 Below, I will walk through the different sections of the file to help explain what they are.
 
@@ -63,6 +64,7 @@ In the example above, we see that there are 5 listed **dependencies** (packages 
 - notebook (any version)
 - rasterio (any version)
 - pyepsg (any version)
+- folium (any version)
 
 This will create an environment with python version 3.9, and install the ``geopandas``, ``cartopy``, ``notebook``,
 ``rasterio``, and ``pyepsg`` packages.
