@@ -1,0 +1,1454 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>searching for images with sentinelsat &#8212; space cameras and glaciers</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="vector and raster operations using python" href="week5.html" />
+    <link rel="prev" title="raster data using rasterio" href="week4.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">space cameras and glaciers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../whataboutbob.html">
+   about me
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../index.html">
+   teaching
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm101/index.html">
+     EGM101: skills toolbox
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm101/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week5.html">
+         computation, summary statistics, and graphing in excel
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week6.html">
+         summarizing and graphing data in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week7.html">
+         correlation and regression in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week8.html">
+         hypothesis testing using spss
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm310/index.html">
+     EGM310: introduction to gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm702/index.html">
+     EGM702: photogrammetry and advanced image analysis
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm702/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/setup.html">
+         software setup
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week1.html">
+         dem processing using micmac
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week2.html">
+         dem differencing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week3.html">
+         introduction to google earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week4.html">
+         change detection in earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week5.html">
+         classification in earth engine
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm703/index.html">
+     EGM703: advanced active and passive remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm703/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week1.html">
+         urban heat islands
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week2.html">
+         hyperspectral image analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week3.html">
+         SAR image processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week4.html">
+         InSAR Processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week5.html">
+         SAR image interpretation and flood mapping
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../index.html">
+     EGM722: programming for gis and remote sensing
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/jupyter.html">
+         configuring jupyter
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/pycharm.html">
+         pycharm
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../faq/index.html">
+       help! something went wrong!
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../faq/git.html">
+         git troubleshooting
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../faq/python.html">
+         python troubleshooting
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="index.html">
+       practicals
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+      <label for="toctree-checkbox-12">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="week1.html">
+         intro to python
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="debugging.html">
+         debugging exercise
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week2.html">
+         mapping with cartopy
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week3.html">
+         vector data using shapely and geopandas
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week4.html">
+         raster data using rasterio
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         searching for images with sentinelsat
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="week5.html">
+         vector and raster operations using python
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../project/index.html">
+       programming project
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+      <label for="toctree-checkbox-13">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../project/github.html">
+         creating a new github repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../project/environment.html">
+         environment.yml
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../gee/index.html">
+   google earth engine
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../gee/tutorials/index.html">
+     gee tutorials
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">
+       getting started
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+      <label for="toctree-checkbox-16">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">
+         adding and exporting images
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">
+         spectral signatures
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">
+         image collections and vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">
+         manual mapping (digitizing)
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">
+         band maths
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">
+         zonal statistics
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/classification/index.html">
+       image classification
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+      <label for="toctree-checkbox-17">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">
+         unsupervised classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">
+         pixel-based classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/obia.html">
+         object-based classification
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">
+       change detection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+      <label for="toctree-checkbox-18">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">
+         multi-temporal color composites
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">
+         repeat classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">
+         change vector analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">
+         time series analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">
+       image enhancement
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+      <label for="toctree-checkbox-19">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">
+         image filtering
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">
+         pansharpening
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">
+         edge detection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">
+         spectral unmixing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">
+         principle component analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/advanced/index.html">
+       advanced topics
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+      <label for="toctree-checkbox-20">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">
+         creating an animation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../gee/exercises/index.html">
+     sample exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../research/index.html">
+   ongoing and past research projects
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../github.html">
+   github projects
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/teaching/egm722/practicals/sentinelsat.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-netrc-file">
+   the .netrc file
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#changing-permissions">
+     changing permissions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gena-rowlands">
+   Gena Rowlands
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#objectives">
+     Objectives
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-provided">
+     Data provided
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     1. Getting started
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prepare-a-search-area">
+     2. Prepare a search area
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#search-the-archive-for-images">
+     3. Search the archive for images
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#connect-to-the-api">
+       3.1 Connect to the api
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#search-for-images">
+       3.2 Search for images
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering-by-overlap">
+     4. Filtering by overlap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#downloading-images">
+     5. Downloading images
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#download-an-individual-image">
+       download an individual image
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#download-an-individual-image-but-only-the-image-bands">
+       download an individual image, but only the image bands
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#download-all-images-from-a-list-of-products">
+       download all images from a list of products
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#notes-and-references">
+   notes and references
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>searching for images with sentinelsat</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-netrc-file">
+   the .netrc file
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#changing-permissions">
+     changing permissions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gena-rowlands">
+   Gena Rowlands
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#objectives">
+     Objectives
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-provided">
+     Data provided
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     1. Getting started
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prepare-a-search-area">
+     2. Prepare a search area
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#search-the-archive-for-images">
+     3. Search the archive for images
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#connect-to-the-api">
+       3.1 Connect to the api
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#search-for-images">
+       3.2 Search for images
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering-by-overlap">
+     4. Filtering by overlap
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#downloading-images">
+     5. Downloading images
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#download-an-individual-image">
+       download an individual image
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#download-an-individual-image-but-only-the-image-bands">
+       download an individual image, but only the image bands
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#download-all-images-from-a-list-of-products">
+       download all images from a list of products
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#notes-and-references">
+   notes and references
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="section" id="searching-for-images-with-sentinelsat">
+<h1>searching for images with sentinelsat<a class="headerlink" href="#searching-for-images-with-sentinelsat" title="Permalink to this headline">#</a></h1>
+<div class="section" id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<p>The other thing you’ll need to do before starting this week’s practical is install a new python package,
+<strong>sentinelsat</strong>, into our <strong>conda</strong> environment.</p>
+<p>First, open up <strong>Anaconda Navigator</strong>. Make sure to switch to your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment, then click on the
+<strong>Environments</strong> tab:</p>
+<a class="reference internal image-reference" href="../../../_images/environments.png"><img alt="the &quot;environments&quot; tab in Anaconda Navigator, opened on the egm722 environment" class="align-center" src="../../../_images/environments.png" style="width: 720px;" /></a>
+<p><br /> Change the list from <strong>Installed</strong> to <strong>Not installed</strong>, then type <code class="docutils literal notranslate"><span class="pre">sentinel</span></code> into the <strong>Search</strong> bar in the
+upper right-hand corner:</p>
+<a class="reference internal image-reference" href="../../../_images/package_search.png"><img alt="the &quot;environments&quot; tab in Anaconda Navigator, showing all packages that match 'sentinel'" class="align-center" src="../../../_images/package_search.png" style="width: 720px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If nothing shows up here, don’t panic:</p>
+<a class="reference internal image-reference" href="../../../_images/blank_search.png"><img alt="the &quot;environments&quot; tab in Anaconda Navigator, showing all packages that match 'sentinel'" class="align-center" src="../../../_images/blank_search.png" style="width: 600px;" /></a>
+<p>It just means we need to add the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> channel to the list of <strong>Channels</strong>.</p>
+<p>To do this, first click the <strong>Channels</strong> button, then type <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/add_channel.png"><img alt="adding a new channel called &quot;conda-forge&quot; to the list of channels" class="align-center" src="../../../_images/add_channel.png" style="width: 300px;" /></a>
+<p>Press <strong>Enter</strong>, and you should see the new channel added to the list:</p>
+<a class="reference internal image-reference" href="../../../_images/channels_added.png"><img alt="the new channel added to the list of channels" class="align-center" src="../../../_images/channels_added.png" style="width: 300px;" /></a>
+<p>Click <strong>Update channels</strong>. Once the channel list finishes refreshing, you should see the <code class="docutils literal notranslate"><span class="pre">sentinelsat</span></code> package
+in the list of available packages.</p>
+</div>
+<p>Click the box next to <code class="docutils literal notranslate"><span class="pre">sentinelsat</span></code> to select it, then click <strong>Apply</strong> in the lower right-hand corner:</p>
+<a class="reference internal image-reference" href="../../../_images/package_select.png"><img alt="the &quot;environments&quot; tab in Anaconda Navigator, with the 'sentinelsat' package selected" class="align-center" src="../../../_images/package_select.png" style="width: 720px;" /></a>
+<p><br /> You should see the following window open (note that this may take some time):</p>
+<a class="reference internal image-reference" href="../../../_images/package_install.png"><img alt="the list of new packages to add to the environment" class="align-center" src="../../../_images/package_install.png" style="width: 300px;" /></a>
+<p><br /> Click <strong>Apply</strong>, and the packages will be downloaded/installed in the environment. While you wait for <strong>Anaconda</strong>
+to finish working, you will be able to move on to the next steps.</p>
+<p>Alternatively, go and grab a coffee or tea, and move on to the next steps.</p>
+</div>
+<div class="section" id="the-netrc-file">
+<h2>the .netrc file<a class="headerlink" href="#the-netrc-file" title="Permalink to this headline">#</a></h2>
+<p>In order to search for and download data using the sentinelsat API, we will need to authenticate (log in) using your
+Copernicus Open Access Hub username/password.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SentinelAPI</span></code> (<a class="reference external" href="https://sentinelsat.readthedocs.io/en/stable/api_reference.html#sentinelsat.sentinel.SentinelAPI">documentation</a>)
+class takes your username and password as arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">SentinelAPI</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, typing your password in like this is not a good idea, security-wise.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>No, seriously. <strong>NEVER</strong>, <strong>EVER</strong> type your password in plaintext in a script or a jupyter notebook.</p>
+</div>
+<p>Instead, what we’ll set up is something called a netrc or <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file<a class="footnote-reference brackets" href="#id3" id="id1">1</a>, which <code class="docutils literal notranslate"><span class="pre">SentinelAPI</span></code> can read to
+authenticate you with the Copernicus Open Access Hub.</p>
+<p>A <a class="reference external" href="https://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-file.html">netrc file</a> can be used by a
+number of websites and programs for authentication, making it so that you don’t type your password as plaintext in a
+script or command prompt.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file is a text file with a simple structure, where each line corresponds to a “machine” or website:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>machine &lt;website&gt; login &lt;username&gt; password &lt;password&gt;
+</pre></div>
+</div>
+<p>To create the file, open <strong>notepad++</strong> (or <strong>notepad</strong>, or your text editor of choice), and enter the following line:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>machine apihub.copernicus.eu login &lt;username&gt; password &lt;password&gt;
+</pre></div>
+</div>
+<p>remembering to replace <code class="samp docutils literal notranslate"><span class="pre">&lt;username&gt;</span></code> with your Copernicus Open Access Hub username, and <code class="samp docutils literal notranslate"><span class="pre">&lt;password&gt;</span></code> with
+your Copernicus Open Access Hub password.</p>
+<p>Save the file as <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> to your <strong>Home</strong> directory (on Windows, this should be <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;</span></code>).
+Be sure to select <strong>All Files</strong> for <strong>Save as type</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/saveas_notepad.png"><img alt="the &quot;save as&quot; window for notepad" class="align-center" src="../../../_images/saveas_notepad.png" style="width: 600px;" /></a>
+<p><br /> From <strong>notepad++</strong>, you should also uncheck <strong>Append extension</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/saveas_notepadpp.png"><img alt="the &quot;save as&quot; window for notepad++" class="align-center" src="../../../_images/saveas_notepadpp.png" style="width: 600px;" /></a>
+<p><br /> We’re not quite done - there’s one last thing we’ll need to do before moving on.</p>
+<div class="section" id="changing-permissions">
+<h3>changing permissions<a class="headerlink" href="#changing-permissions" title="Permalink to this headline">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On MacOS or linux-based systems, enter the following command in a terminal window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="mi">600</span> <span class="o">~/.</span><span class="n">netrc</span>
+</pre></div>
+</div>
+<p>This uses the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> command to change the permissions on the file so that only the <em>owner</em> of the file has
+read/write access to the file (for more about <code class="docutils literal notranslate"><span class="pre">chmod</span></code> permissions, see this
+<a class="reference external" href="https://en.wikipedia.org/wiki/Chmod">wikipedia entry</a>).</p>
+</div>
+<p>The last step we want to do in setting up the netrc file is to change the <em>permissions</em> so that other users can’t
+access the file. To change the permissions of the file in Windows, first open <strong>Windows Explorer</strong>.</p>
+<p>From <strong>Windows Explorer</strong>, right-click on the file and select <strong>Properties</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/properties1.png"><img alt="file properties for the new .netrc file" class="align-center" src="../../../_images/properties1.png" style="width: 300px;" /></a>
+<p><br /> Click on the <strong>Security</strong> tab:</p>
+<a class="reference internal image-reference" href="../../../_images/security_orig.png"><img alt="security properties for the new .netrc file" class="align-center" src="../../../_images/security_orig.png" style="width: 300px;" /></a>
+<p><br /> then click <strong>Advanced</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/advanced_orig.png"><img alt="advanced security settings for the new .netrc file" class="align-center" src="../../../_images/advanced_orig.png" style="width: 600px;" /></a>
+<p><br /> Click <strong>Disable inheritance</strong>, then click <strong>Convert inherited permissions into explicit permissions on this object</strong>
+in the window that pops up:</p>
+<a class="reference internal image-reference" href="../../../_images/block_inheritance.png"><img alt="a dialogue asking what to do with the current inherited permissions for the .netrc file" class="align-center" src="../../../_images/block_inheritance.png" style="width: 400px;" /></a>
+<p><br /> Now click <strong>Apply</strong>. Next, remove all of the rows from the table that aren’t your user name (this should be
+<strong>SYSTEM</strong> and <strong>Administrators</strong>):</p>
+<a class="reference internal image-reference" href="../../../_images/advanced_end.png"><img alt="advanced security settings for the new .netrc file, with only the user permissions set" class="align-center" src="../../../_images/advanced_end.png" style="width: 600px;" /></a>
+<p><br /> Click <strong>Apply</strong>, then highlight your username and click <strong>Edit</strong>. In the window that opens up, uncheck
+<strong>Full control</strong>, but make sure that the other 4 available boxes are checked:</p>
+<a class="reference internal image-reference" href="../../../_images/permissions_edited.png"><img alt="the user permissions set so that the file owner can modify, read &amp; execute, read, and write to the file." class="align-center" src="../../../_images/permissions_edited.png" style="width: 600px;" /></a>
+<p><br /> Click <strong>OK</strong>, then <strong>OK</strong> again to close the advanced security settings. You should see the permissions for the
+file have changed:</p>
+<a class="reference internal image-reference" href="../../../_images/security_final.png"><img alt="file properties for the new .netrc file, updated so that only the file owner has access" class="align-center" src="../../../_images/security_final.png" style="width: 300px;" /></a>
+<p><br /> That’s it - you should now be able to work through the notebook (assuming that you have correctly entered your
+credentials in the <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file, that is).</p>
+<p>At this point, you can launch Jupyter Notebooks from the command prompt, or from Anaconda Navigator, and begin to work
+through the exercise.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to
+follow the instructions above to open the notebook and run it on your own computer!</p>
+</div>
+</div>
+</div>
+<div class="section" id="gena-rowlands">
+<h2>Gena Rowlands<a class="headerlink" href="#gena-rowlands" title="Permalink to this headline">#</a></h2>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h3>
+<p>Up to now, you have gained some experience working with basic features
+of python, used cartopy and matplotlib to create a map, explored using
+shapely and geopandas to work with vector data, and explored using
+rasterio and numpy to work with raster data.</p>
+<p>In this example, we’ll see how we can use an application programming
+interface (API) to query and download Sentinel data, using the
+<a class="reference external" href="https://sentinelsat.readthedocs.io/en/stable/">SentinelSat</a> API. As
+part of this, we’ll also introduce a few more geometric operations using
+<code class="docutils literal notranslate"><span class="pre">shapely</span></code> that you may find useful.</p>
+</div>
+<div class="section" id="objectives">
+<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">#</a></h3>
+<p>In this example, you will:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">shapely</span></code> to get the <em>unary union</em> of a collection of shapes</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">shapely</span></code> to find the minimum bounding rectangle of a geometry</p></li>
+<li><p>Use the SentinelAPI to search for Sentinel-2 images</p></li>
+<li><p>Calculate the fractional overlap between shapes</p></li>
+<li><p>Use the SentinelAPI to download images</p></li>
+</ul>
+</div>
+<div class="section" id="data-provided">
+<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline">#</a></h3>
+<p>In this example, we will be using the <code class="docutils literal notranslate"><span class="pre">Counties</span></code> shapefile that we
+used in Week 2.</p>
+</div>
+<div class="section" id="id2">
+<h3>1. Getting started<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p>To get started, run the following cell to import the packages that we’ll
+use in the practical.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">sentinelsat</span> <span class="kn">import</span> <span class="n">SentinelAPI</span><span class="p">,</span> <span class="n">make_path_filter</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span> <span class="c1"># lets us display images that we download</span>
+<span class="kn">import</span> <span class="nn">shapely</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="prepare-a-search-area">
+<h3>2. Prepare a search area<a class="headerlink" href="#prepare-a-search-area" title="Permalink to this headline">#</a></h3>
+<p>Before we get to using the API to search for images, we’ll see how we
+can use existing data, like the <code class="docutils literal notranslate"><span class="pre">Counties</span></code> shapefile we used in Week
+2, to help us search for images.</p>
+<p>We won’t be able to use particularly complicated shapes, but we can use
+a combination of GIS/geometric operations to get a simple outline of our
+data, which can be used for the search.</p>
+<p>First, we’ll load the data using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data_files/Counties.shp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, we’ll use
+<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.unary_union.html">geopandas.Series.unary_union</a>
+to combine all of the County outlines into a single shape:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets a single polygon (or multipolygon) composed of the individual polygons</span>
+<span class="n">outline</span> <span class="o">=</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unary_union</span>
+
+<span class="n">outline</span> <span class="c1"># in jupyter notebook, this actually displays the polygon.</span>
+</pre></div>
+</div>
+<p>In the output of the cell above, we can see that the <code class="docutils literal notranslate"><span class="pre">outline</span></code> shape
+is the combination of all of the individual county outlines.</p>
+<p>We could use this as an input to our search, but we’ll look at one
+additional operation that we can use to get a bounding box of the
+geometry - the <code class="docutils literal notranslate"><span class="pre">minimum_rotated_rectangle</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets the minimum rotated rectangle that covers the outline</span>
+<span class="n">search_area</span> <span class="o">=</span> <span class="n">outline</span><span class="o">.</span><span class="n">minimum_rotated_rectangle</span>
+
+<span class="n">search_area</span>
+</pre></div>
+</div>
+<p>You can see above that this gives a boundary box of the polygon, but
+rather than being a simple rectangle made of the maximum/minimum
+coordinates, it’s rotated to be as small as possible while still
+covering the entire geometry.</p>
+<p>This way, we minimize the area outside of the area of interest (Northern
+Ireland) within our search area, while still making sure to cover the
+entire area of interest.</p>
+<p>Finally, if we look at the docstring for
+<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.query">SentinelAPI.query()</a>,
+we see that the <code class="docutils literal notranslate"><span class="pre">area</span></code> argument needs to be a <code class="docutils literal notranslate"><span class="pre">str</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">SentinelAPI</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specifically, it needs to be a <a class="reference external" href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry">“Well-Known Text
+(WKT)”</a>
+representation of the geometry.</p>
+<p>For a <code class="docutils literal notranslate"><span class="pre">shapely</span></code> geometry, the WKT representation of the geometry is
+stored in the <code class="docutils literal notranslate"><span class="pre">wkt</span></code> attribute:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># displays the search area wkt</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">search_area</span><span class="o">.</span><span class="n">wkt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That’s all we need to be able to search for images that intersect with a
+given geometry. Once we have this, we can connect to the API and start
+the query.</p>
+</div>
+<div class="section" id="search-the-archive-for-images">
+<h3>3. Search the archive for images<a class="headerlink" href="#search-the-archive-for-images" title="Permalink to this headline">#</a></h3>
+<div class="section" id="connect-to-the-api">
+<h4>3.1 Connect to the api<a class="headerlink" href="#connect-to-the-api" title="Permalink to this headline">#</a></h4>
+<p>To connect to the API, we first create a
+<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI">SentinelAPI</a>
+object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">api</span> <span class="o">=</span> <span class="n">SentinelAPI</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From the API reference for <code class="docutils literal notranslate"><span class="pre">sentinelsat</span></code>, we can see that we either
+type in the username and password as a string, or we use <code class="docutils literal notranslate"><span class="pre">None</span></code> to use
+the <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file that we created earlier:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span> <span class="o">=</span> <span class="n">SentinelAPI</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># remember - don&#39;t type your username and password into a jupyter notebook!</span>
+</pre></div>
+</div>
+<p>If there are no error messages or warnings, the connection was
+successfully created, and we can move on to searching for images.</p>
+</div>
+<div class="section" id="search-for-images">
+<h4>3.2 Search for images<a class="headerlink" href="#search-for-images" title="Permalink to this headline">#</a></h4>
+<p>As we saw earlier, the method we’ll use is <code class="docutils literal notranslate"><span class="pre">api.query()</span></code>.</p>
+<p>For this example, we’ll use the following arguments for the search:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">area</span></code>: the search area to use</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date</span></code>: the date range to use. We’ll look for all images from
+February 2023.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">platformname</span></code>: we’re going to limit our search to Sentinel-2, but
+there are other options available</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">producttype</span></code>: we’ll search for the Sentinel-2 MSI Level 2A
+(surface reflectance) products</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cloudcoverpercentage</span></code>: we want (mostly) cloud-free images, so
+we’ll search for images with &lt; 30% cloud cover</p></li>
+</ul>
+<p>To see what additional arguments are available, you can check the
+<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.query">SentinelAPI</a>
+API reference, or the <a class="reference external" href="https://scihub.copernicus.eu/twiki/do/view/SciHubUserGuide/FullTextSearch?redirectedfrom=SciHubUserGuide.3FullTextSearch">Open Access
+Hub</a>
+API reference for additional keywords to use.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">products</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">search_area</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span> <span class="c1"># use the WKT representation of our search area</span>
+                     <span class="n">date</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;20230201&#39;</span><span class="p">,</span> <span class="s1">&#39;20230228&#39;</span><span class="p">),</span> <span class="c1"># all images from February 2023</span>
+                     <span class="n">platformname</span><span class="o">=</span><span class="s1">&#39;Sentinel-2&#39;</span><span class="p">,</span> <span class="c1"># the platform name is Sentinel-2</span>
+                     <span class="n">producttype</span><span class="o">=</span><span class="s1">&#39;S2MSI2A&#39;</span><span class="p">,</span> <span class="c1"># surface reflectance product (L2A)</span>
+                     <span class="n">cloudcoverpercentage</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span> <span class="c1"># limit to 10% cloud cover</span>
+</pre></div>
+</div>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">api.query()</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict()</span></code>, with the product name the
+<code class="docutils literal notranslate"><span class="pre">key</span></code> and the <code class="docutils literal notranslate"><span class="pre">value</span></code> being the metadata.</p>
+<p>To see how many images were returned by the search, we can check the
+length of the <code class="docutils literal notranslate"><span class="pre">dict</span></code> object, which tells us the number of <code class="docutils literal notranslate"><span class="pre">item</span></code>s
+(<code class="docutils literal notranslate"><span class="pre">key</span></code>/<code class="docutils literal notranslate"><span class="pre">value</span></code> pairs) in the <code class="docutils literal notranslate"><span class="pre">dict</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nresults</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">products</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found </span><span class="si">{}</span><span class="s1"> results&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nresults</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>You should hopefully see that the search has returned 11 results.</p>
+<p>To look at the first one returned, we can use the built-ins
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#next">next()</a>
+and
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#iter">iter()</a>,
+which returns the first item that was entered into the <code class="docutils literal notranslate"><span class="pre">dict</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">products</span><span class="p">))</span> <span class="c1"># get the &quot;first&quot; item from the dict</span>
+<span class="n">products</span><span class="p">[</span><span class="n">result</span><span class="p">]</span> <span class="c1"># show the metadata for the first item</span>
+</pre></div>
+</div>
+<p>And, we can also download the browse image for this product, using
+<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook">SentinelAPI.download_quicklook()</a>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qlook</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">download_quicklook</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># download the quicklook image for the first result</span>
+<span class="n">display</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">qlook</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span> <span class="c1"># display the image</span>
+</pre></div>
+</div>
+<p>In this example, we might notice a small problem - while this image
+technically does intersect our area of interest, it does so only barely.
+Northern Ireland is the small bit of land in the lower left-hand corner
+of this image - most of the image is of Scotland and the Irish Sea.</p>
+<p>In the next section, we’ll see one way that we can make sure that we’re
+only getting images that mostly intersect with our area of interest.</p>
+</div>
+</div>
+<div class="section" id="filtering-by-overlap">
+<h3>4. Filtering by overlap<a class="headerlink" href="#filtering-by-overlap" title="Permalink to this headline">#</a></h3>
+<p>To start, we use
+<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook">SentinelAPI.to_geodataframe()</a>
+to convert the results into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">product_geo</span> <span class="o">=</span> <span class="n">SentinelAPI</span><span class="o">.</span><span class="n">to_geodataframe</span><span class="p">(</span><span class="n">products</span><span class="p">)</span> <span class="c1"># convert the search results to a geodataframe</span>
+<span class="n">product_geo</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the first 5 rows of the geodataframe</span>
+</pre></div>
+</div>
+<p>Now, we can iterate over <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> to calculate the intersection
+of the image footprint with the outline of Northern Ireland:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">product_geo</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">intersection</span> <span class="o">=</span> <span class="n">outline</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">])</span> <span class="c1"># find the intersection of the two polygons</span>
+    <span class="n">product_geo</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;overlap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intersection</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="n">outline</span><span class="o">.</span><span class="n">area</span> <span class="c1"># get the fractional overlap</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">product_geo</span><span class="o">.</span><span class="n">overlap</span><span class="p">)</span> <span class="c1"># show the fractional overlap for each index</span>
+</pre></div>
+</div>
+<p>In this example, the third image,
+<code class="docutils literal notranslate"><span class="pre">80558644-2e31-48b9-acd5-5d1475dfc1bf</span></code> has 43% overlap with the
+outline of Northern Ireland; none of the other images have more than
+20%.</p>
+<p>Rather than copying this down, we can use
+<code class="docutils literal notranslate"><span class="pre">geopandas.GeoSeries.argmax()</span></code> to find the integer location of the
+largest value in the <code class="docutils literal notranslate"><span class="pre">overlap</span></code> column:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_index</span> <span class="o">=</span> <span class="n">product_geo</span><span class="o">.</span><span class="n">overlap</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span> <span class="c1"># get the integer location of the largest overlap value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">max_index</span><span class="p">)</span> <span class="c1"># should be 2</span>
+</pre></div>
+</div>
+<p>Then, we get the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> index that corresponds to that integer
+location:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_overlap</span> <span class="o">=</span> <span class="n">product_geo</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">max_index</span><span class="p">]</span> <span class="c1"># get the actual index (image name) with the largest overlap</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">product_geo</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_overlap</span><span class="p">])</span> <span class="c1"># show the metadata for the image with the largest overlap</span>
+</pre></div>
+</div>
+<p>With this, we can use <code class="docutils literal notranslate"><span class="pre">api.download_quicklook()</span></code> to download the
+quicklook image for the result that has the largest overlap with the
+outline of Northern Ireland:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qlook</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">download_quicklook</span><span class="p">(</span><span class="n">best_overlap</span><span class="p">)</span> <span class="c1"># download the quicklook image for the first result</span>
+<span class="n">display</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">qlook</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span> <span class="c1"># display the image</span>
+</pre></div>
+</div>
+<p>So that’s a little bit better - at least with this image, we can see
+much more of Northern Ireland (and the ever-present clouds).</p>
+<p>That’s all for right now - the next few cells provide examples for how
+you can download the actual image data.</p>
+</div>
+<div class="section" id="downloading-images">
+<h3>5. Downloading images<a class="headerlink" href="#downloading-images" title="Permalink to this headline">#</a></h3>
+<p>Remember that these are very large files (each granule is ~1GB), so you
+should only run these cells if you actually want to download the data!</p>
+<div class="section" id="download-an-individual-image">
+<h4>download an individual image<a class="headerlink" href="#download-an-individual-image" title="Permalink to this headline">#</a></h4>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">SentinelAPI.download()</span></code> to download a single product:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">best_overlap</span><span class="p">)</span> <span class="c1"># downloads the first result</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="download-an-individual-image-but-only-the-image-bands">
+<h4>download an individual image, but only the image bands<a class="headerlink" href="#download-an-individual-image-but-only-the-image-bands" title="Permalink to this headline">#</a></h4>
+<p>This example uses the <code class="docutils literal notranslate"><span class="pre">nodefilter</span></code> argument to only download the image
+bands (files that match the format <code class="docutils literal notranslate"><span class="pre">*_B*.jp2</span></code>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">first_result</span><span class="p">,</span> <span class="c1"># downloads the first result</span>
+             <span class="n">nodefilter</span><span class="o">=</span><span class="n">make_path_filter</span><span class="p">(</span><span class="s2">&quot;*_B*.jp2&quot;</span><span class="p">))</span> <span class="c1"># only download the image bands (optional)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="download-all-images-from-a-list-of-products">
+<h4>download all images from a list of products<a class="headerlink" href="#download-all-images-from-a-list-of-products" title="Permalink to this headline">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">SentinelAPI.download_all()</span></code> will download all of the products in a
+list.</p>
+<p>Again, these are very large files, so you should only run the following
+cell if you actually want to download all of the images returned by the
+API!</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">download_all</span><span class="p">(</span><span class="n">products</span><span class="p">,</span>
+                 <span class="n">n_concurrent_dl</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="c1"># allow up to 5 concurrent downloads</span>
+                 <span class="n">nodefilter</span><span class="o">=</span><span class="n">make_path_filter</span><span class="p">(</span><span class="s2">&quot;*_B*.jp2&quot;</span><span class="p">))</span> <span class="c1"># only down the image bands (optional)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="notes-and-references">
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this headline">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>on Windows, some programs may look for a <code class="docutils literal notranslate"><span class="pre">_netrc</span></code> file in your <strong>Home</strong> directory, rather than <code class="docutils literal notranslate"><span class="pre">.netrc</span></code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="week4.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">raster data using rasterio</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="week5.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">vector and raster operations using python</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Bob McNabb<br/>
+  
+      &copy; Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

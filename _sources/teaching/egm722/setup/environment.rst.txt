@@ -48,8 +48,8 @@ Open the **environment.yml** file in a text editor
     :align: center
     :alt: the yml file open in notepad++
 
-Here, you can see the name of the environment (egm722), the ``channels`` to install packages from, listed in order of
-preference, and the ``dependencies``, or required packages.
+|br| Here, you can see the name of the environment (egm722), the ``channels`` to install packages from, listed in order
+of preference, and the ``dependencies``, or required packages.
 
 From the **Anaconda Navigator** window, click on the **Import** button at the bottom of the **Environments** tab. An
 import window will open:
@@ -67,7 +67,7 @@ now look like this:
     :align: center
     :alt: the import window with the yml file selected
 
-The **Name** field is automatically populated based on the **.yml** file, while the location specified will differ
+|br| The **Name** field is automatically populated based on the **.yml** file, while the location specified will differ
 depending on where **Anaconda** is installed on your computer. Click **Import** to start setting up the environment.
 Depending on your connection speed and computer’s specifications, this may take some time. When it finishes, you
 should see the following screen:
@@ -77,9 +77,11 @@ should see the following screen:
     :align: center
     :alt: anaconda navigator with the egm722 environment
 
-Note how many packages were actually installed – 161, from the 5 shown in the original **.yml** file. This is because
-each of those 5 packages have additional dependencies which have to be installed as well. Fortunately, almost all of
-this is done automatically – we don’t have to worry about tracking down each individual dependency on our own.
+|br| Note how many packages were actually installed – 161, from the 5 shown in the original **.yml** file.
+
+This is because each of those 5 packages have additional dependencies which have to be installed as well. Fortunately,
+almost all of this is done automatically – we don’t have to worry about tracking down each individual dependency on our
+own.
 
 changing environments
 .......................

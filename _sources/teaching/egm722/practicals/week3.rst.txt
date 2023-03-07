@@ -27,12 +27,13 @@ When the **Command Prompt** opens, navigate to your repository folder using ``cd
 You should see something similar to the following:
 
 .. image:: ../../../img/egm722/week3/main_dir.png
-    :width: 400
+    :width: 600
     :align: center
     :alt: the dir of the main branch
 
-Switch to the ``week3`` branch by typing:
-::
+|br| Switch to the ``week3`` branch by typing:
+
+.. code-block:: text
 
      git checkout week3
 
@@ -42,9 +43,7 @@ and pressing **Enter**.
 
     If you see some version of the following:
     
-    .. highlight:: none
-    
-    ::
+    .. code-block:: text
 
         hint: If you meant to check out a remote tracking branch on, e.g., 'origin',
         hint: you can do so by fully qualifying the name with the --track option:
@@ -58,56 +57,64 @@ and pressing **Enter**.
     What this is telling you is that you *either* have to explicitly specify **which** remote branch
     you want to check out (e.g., ``origin`` or ``upstream``), **or** you should set your 
     ``defaultRemote`` option using ``git config``:
-    ::
+
+    .. code-block:: text
 
         git config --global checkout.defaultRemote origin
 
 Next, type ``dir`` and press **Enter** again. You should now see this:
 
 .. image:: ../../../img/egm722/week3/week3_dir.png
-    :width: 400
+    :width: 600
     :align: center
     :alt: the dir of the week3 branch
 
-
-To merge the ``week3`` branch of our repository into ``main``, we'll use **git** from the command line. 
+|br| To merge the ``week3`` branch of our repository into ``main``, we'll use **git** from the command line.
 
 Remember that at the :ref:`start<desktop branches>` of last week's practical, we discussed the difference between
 **local**, **origin**, and **upstream** branches: 
 
 - **local** branches are the ones stored *local*\ ly on your computer,
 - **origin** branches are the branches of your repository stored on GitHub,
-- **upstream** branches are the branches of the repository that you forked the egm722 repository from (https://github.com/iamdonovan/egm722).
+- **upstream** branches are the branches of the repository that you forked the egm722 repository from
+  (https://github.com/iamdonovan/egm722).
 
-Sometimes, there may be changes to the **upstream** repository that we want to integrate into our local version of a repository. For
-example, for this module I may have added an additional exercise to the practical in one week, and you want to make sure that you have
-this before you **merge** that week's branch into the ``main`` branch.
+Sometimes, there may be changes to the **upstream** repository that we want to integrate into our local version of a
+repository. For example, for this module I may have added an additional exercise to the practical in one week, and you
+want to make sure that you have this before you **merge** that week's branch into the ``main`` branch.
 
-To be able to keep track of the **upstream** changes, we need to make sure that our local repository knows where the **upstream** repository
-is. First, double-check what **remote** (not **local**) repositories git is keeping track of by typing the following at the command line:
-::
+To be able to keep track of the **upstream** changes, we need to make sure that our local repository knows where the
+**upstream** repository is. First, double-check what **remote** (not **local**) repositories git is keeping track of
+by typing the following at the command line:
+
+.. code-block:: text
 
     git remote -v
 
 This will list the **remote** repositories, and their nicknames. You should see an output like this:
 
 .. image:: ../../../img/egm722/week3/remote_v.png
-    :width: 400
+    :width: 600
     :align: center
     :alt: the remote repositories for this repository
+
+|br|
 
 .. note::
 
     If you only see **origin**, then we need to add the **upstream** remote location using ``git remote add``:
-    ::
+
+    .. code-block:: text
 
         git remote add upstream https://github.com/iamdonovan/egm722.git
 
-    This adds the URL for the **upstream** repository (https://github.com/iamdonovan/egm722.git) to our local configuration. You can check that this
-    worked by typing ``git remote -v`` again - you should now see two lines for the **upstream** repository, as above.
+    This adds the URL for the **upstream** repository (https://github.com/iamdonovan/egm722.git) to our local
+    configuration. You can check that this worked by typing ``git remote -v`` again - you should now see two lines
+    for the **upstream** repository, as above.
 
 Now, we can tell **git** to specifically **pull** the **upstream** version of a particular branch:
-::
+
+.. code-block:: text
 
     git pull upstream <branch>
 
@@ -116,79 +123,87 @@ version of the current branch.
 
 For example, ``git pull upstream week3`` would merge the **upstream** ``week3`` branch into our current branch (``week3``).
 Go ahead and enter this command now:
-::
+
+.. code-block:: text
 
     git pull upstream week3
 
 You should see the following output:
 
 .. image:: ../../../img/egm722/week3/pull_upstream.png
-    :width: 400
+    :width: 600
     :align: center
     :alt: pulling the upstream changes into the current branch
 
-This indicates that there's been no change to the **upstream** branch that isn't already in our **origin** branch, so we can safely
-merge the **local** ``main`` and ``week3`` branches.
+|br| This indicates that there's been no change to the **upstream** branch that isn't already in our **origin** branch,
+so we can safely merge the **local** ``main`` and ``week3`` branches.
 
 Now, switch back to the ``main`` branch:
-::
+
+.. code-block:: text
 
     git checkout main
 
 And enter the following command:
-::
+
+.. code-block:: text
 
     git merge week3
 
 You should now see the following output in the window:
 
 .. image:: ../../../img/egm722/week3/updates.png
-    :width: 400
+    :width: 600
     :align: center
     :alt: the updates displayed after merging week3 into main
 
-This tells us what files have been changed (``18 files``) and how (``854 insertions(+)``). Because none the files in the **Week3** 
-folder were present in the ``main`` branch, we'll only see additions/insertions. As you work on your project and commit changes 
-to existing files, you'll also see deletions (lines that are deleted or changed.
+|br| This tells us what files have been changed (``18 files``) and how (``854 insertions(+)``). Because none the files
+in the **Week3** folder were present in the ``main`` branch, we'll only see additions/insertions. As you work on your
+project and commit changes to existing files, you'll also see deletions (lines that are deleted or changed).
 
 You should also see Weeks 1--3 in your repository folder:
 
 .. image:: ../../../img/egm722/week3/merged_week3.png
-    :width: 400
+    :width: 600
     :align: center
     :alt: the repository folder after merging week3 into main
 
-The last thing to do now is to **push** these changes to your GitHub repository:
-::
+|br| The last thing to do now is to **push** these changes to your GitHub repository:
+
+.. code-block:: text
 
     git push
 
 You can confirm that the changes are now on your remote repository by heading over to GitHub:
 
 .. image:: ../../../img/egm722/week3/week3_remote.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the github repository, with the merged changes updated
 
-At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the practical exercise.
+|br| At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the
+practical exercise.
 
 Next steps
 ----------
 
-Once you have finished the notebook and the exercise, make sure to send me an e-mail with some
-ideas for your coding project. They do not have to be completely fleshed out, but you should try to have a general idea of what
-you would like to work on for the final project – ideally, this will be something related to your work, or a potential MSc thesis
+Once you have finished the notebook and the exercise, make sure to send me an e-mail with some ideas for your coding
+project. They do not have to be completely fleshed out, but you should try to have a general idea of what you would
+like to work on for the final project – ideally, this will be something related to your work, or a potential MSc thesis
 topic.
 
 .. note::
     
-    Below this point is the **non-interactive** text of the notebook. To actually run the notebook, you'll need to follow the instructions
-    above to open the notebook and run it on your own computer!
+    Below this point is the **non-interactive** text of the notebook. To actually run the notebook, you'll need to
+    follow the instructions above to open the notebook and run it on your own computer!
 
 ....
 
+Rachel McAdams
+----------------
+
 Overview
---------
+...........
 
 Up to now, you have gained some experience working with basic features
 of python, and used cartopy and matplotlib to create a map. In each of
@@ -200,7 +215,7 @@ summarizing based on attributes, and how to reproject vector data from
 one coordinate reference system to another.
 
 Objectives
-----------
+.............
 
 -  Gain experience working with different vector data types using
    shapely
@@ -211,15 +226,16 @@ Objectives
    and shapely
 
 Data provided
--------------
+................
 
-In the data_files folder, you should have the following: - NI_roads.shp,
-a shapefile of roads in Northern Ireland - Counties.shp, a shapefile of
-county outlines for Northern Ireland - NI_Wards.shp, a shapefile of
-electoral wards for Northern Ireland
+In the data_files folder, you should have the following:
+
+- NI_roads.shp, a shapefile of roads in Northern Ireland
+- Counties.shp, a shapefile of county outlines for Northern Ireland
+- NI_Wards.shp, a shapefile of electoral wards for Northern Ireland
 
 1. Getting started
-------------------
+.....................
 
 In this practical, we’ll be working with vector data. As a quick
 refresher, the three main types of vector data that we will work with
@@ -247,17 +263,17 @@ To get started, run the following cell to import geopandas and shapely.
 .. code:: ipython3
 
     # this lets us use the figures interactively
-    %matplotlib notebook
-    
+    %matplotlib inline
+
     import pandas as pd
     import geopandas as gpd
     from shapely.geometry import Point, LineString, Polygon
 
 2. Shapely geometry types
--------------------------
+............................
 
 2.1 Points
-~~~~~~~~~~
+^^^^^^^^^^^^^
 
 As we saw in Week 1, to create a Point, we pass x, y (and optionally, z)
 coordinates to the Point class constructor:
@@ -265,10 +281,10 @@ coordinates to the Point class constructor:
 .. code:: ipython3
 
     pt = Point(-6.677, 55.150) # creates a 2d point with coordinates -6.677, 55.150
-    pt2 = Point(-6.658, 55.213)
-    
+    pt2 = Point(-6.658, 55.213) # creates a 2d point with coordinates -6.658, 55.213
+
     pt3d = Point(86.925278, 27.988056, 8848.86) # creates a 3d point
-    
+
     print(pt) # print a well-known text (WKT) representation of the Point object
 
 The last line, ``print(pt)``, prints a
@@ -317,6 +333,9 @@ Use the cell below to work out how we can access the x, y coordinates of
 a Point object. Can you see more than one way to do this? If so, are
 there differences between them?
 
+.. code:: ipython3
+
+    # write your method to access the x,y coordinates of pt here
 
 One of the common operations we might want to do with a Point object is
 to create a **buffer** around the point. In the list of associated
@@ -331,11 +350,11 @@ method called ``buffer``. A look at the help for this method:
    buffer(distance, resolution=16, quadsegs=None, cap_style=1, join_style=1, mitre_limit=5.0, single_sided=False) method of shapely.geometry.point.Point instance
        Get a geometry that represents all points within a distance
        of this geometry.
-       
+
        A positive distance produces a dilation, a negative distance an
        erosion. A very small or zero distance may sometimes be used to
        "tidy" a polygon.
-       
+
        Parameters
        ----------
        distance : float
@@ -357,11 +376,11 @@ around the point location.
 
 .. code:: ipython3
 
-    pt_buffer = pt.buffer(0.001)
+    pt_buffer = pt.buffer(0.001) # buffer the point by 0.001 in the same coordinates
     print(type(pt_buffer))
 
 2.2. LineStrings
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^
 
 Instead of using a single x, y coordinate pair, a **LineString** object
 takes either a list of **Point** objects, or a list of coordinate
@@ -413,7 +432,7 @@ We can also find the ``centroid`` (center) of the **LineString**:
 .. code:: ipython3
 
     center = line1.centroid # get the centerpoint of the line
-    print(line1.centroid)
+    print(center)
 
 The last two methods of **LineString** objects that we will explore for
 now are ``project`` and ``interpolate``:
@@ -426,7 +445,7 @@ now are ``project`` and ``interpolate``:
    project(self, other, normalized=False)
        Returns the distance along this geometry to a point nearest the
        specified point
-       
+
        If the normalized arg is True, return the distance normalized to the
        length of the linear geometry.
 
@@ -441,7 +460,7 @@ other hand, does something a bit different:
 
    interpolate(self, distance, normalized=False)
        Return a point at the specified distance along a linear geometry
-       
+
        Negative length values are taken as measured in the reverse
        direction from the end of the geometry. Out-of-range index
        values are handled by clamping them to the valid range of values.
@@ -456,12 +475,12 @@ of the **LineString** (``normalized=True``).
 .. code:: ipython3
 
     line1.project(center) / line1.length # check to see how far along the line our centerpoint is
-    
-    print(center)
-    print(line1.interpolate(0.5, normalized=True))
+
+    print(center) # print the WKT representation of the center point
+    print(line1.interpolate(0.5, normalized=True)) # print the WKT representation of the point 50% along the line
 
 2.3. Polygons
-~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 The last basic geometry type we will look at in this practical are
 **Polygon** objects. Similar to **LineString** objects, we can create a
@@ -473,7 +492,7 @@ The last basic geometry type we will look at in this practical are
     poly1 = Polygon([(-6.677, 55.150), (-6.658, 55.213), (-6.722, 55.189)])
     poly2 = Polygon([pt, pt2, Point(-6.722, 55.189)])
     
-    print(poly1) # print a well
+    print(poly1) # print a wkt representation of the polygon
     print(poly2)
     print(poly1.equals(poly2))
 
@@ -490,22 +509,29 @@ of coordinates that describe the *holes*:
 
     polygon_with_hole = Polygon(shell=[(-6.677, 55.150), (-6.658, 55.213), (-6.722, 55.189)],
                                 holes=[[(-6.684, 55.168), (-6.704, 55.187), (-6.672, 55.196)]]) # note the double brackets
-    
+
     print(polygon_with_hole)
 
-Note the double brackets in the ``holes`` keyword argument - this is
-necessary, because ``holes`` is expecting a sequence of coordinate
-sequences that describe the *holes* - effectively, a list of **Polygon**
-shells.
+Note the double brackets in the ``holes`` keyword argument:
+
+.. code:: python
+
+   holes=[[(-6.684, 55.168), (-6.704, 55.187), (-6.672, 55.196)]]
+
+This is necessary, because ``holes`` is expecting a sequence of
+coordinate sequences that describe the *holes* - effectively, a list of
+**Polygon** shells.
 
 Accessing the coordinates of a **Polygon** object is a little more
 complicated than it is for **Point** and **LineString** objects - this
 is because **Polygon** objects have two sets of coordinates, the
-exterior (*shell*) and interior (*holes*). But, the ``exterior``
-attribute of the **Polygon** is just a **LinearRing** (a special case of
-**LineString** where the first and last coordinates are the same), and
-the ``interiors`` attribute is an **InteriorRingSequence** (basically, a
-collection of **LinearRings** that have to obey `additional
+exterior (*shell*) and interior (*holes*).
+
+But, the ``exterior`` attribute of the **Polygon** is just a
+**LinearRing** (a special case of **LineString** where the first and
+last coordinates are the same), and the ``interiors`` attribute is an
+**InteriorRingSequence** (basically, a collection of **LinearRings**
+that have to obey `additional
 rules <https://shapely.readthedocs.io/en/stable/manual.html#polygons>`__):
 
 .. code:: ipython3
@@ -535,7 +561,7 @@ continue through the practicals - for now, this should be enough to give
 an idea for how these geometry objects work.
 
 2.4 Interactions between geometry objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``shapely`` also provides a number of methods that we can use to check
 the spatial relationship between different objects. For example, the
@@ -578,7 +604,7 @@ manual <https://shapely.readthedocs.io/en/stable/manual.html>`__ to see
 the rest.
 
 3. geopandas GeoDataFrames
---------------------------
+.............................
 
 We have used geopandas in the past two practicals to read provided
 shapefiles and work with the data they contain - in Practical 1, we
@@ -601,10 +627,12 @@ and print the **header** (first 5 lines of the **GeoDataFrame**):
 
 So this dataset has three columns: **SURVEY**, **Road_class**, and
 **geometry**. Note that each of the geometries is a **LineString**
-object, which means…
+object, which means that we are working with **Line** objects.
+Hopefully, given that the data are supposed to represent roads, this
+makes sense.
 
 3.1 Coordinate reference systems using PROJ
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To start with, let’s see if we can figure out how many kilometers of
 motorway are represented in the dataset - i.e., the sum of the length of
@@ -635,27 +663,36 @@ to different formats, including well-known text, EPSG codes, JavaScript
 Object Notation (JSON), and PROJ string (i.e.,
 ``'+proj=longlat +datum=WGS84 +no_defs +type=crs'``).
 
+For example, to see the JSON representation of the CRS, we would use the
+``pyproj.CRS.to_json()`` method:
+
+.. code:: ipython3
+
+    roads.crs.to_json() # show the representation of the CRS in JSON format
+
 Because this is a *Geographic* CRS, the length information provided by
 ``LineString.length`` will also be in geographic units, which doesn’t
 really make sense for us - we first have to convert the **GeoDataFrame**
 to a different CRS. To do this, we can use the method ``to_crs``:
-::
+
+.. code:: python
 
    In [8]: help(roads.to_crs)
    Help on method to_crs in module geopandas.geodataframe:
 
    to_crs(crs=None, epsg=None, inplace=False) method of geopandas.geodataframe.GeoDataFrame instance
        Transform geometries to a new coordinate reference system.
-       
+
        Transform all geometries in an active geometry column to a different coordinate
-       reference system.  The ``crs`` attribute on the current GeoSeries must
-       be set.  Either ``crs`` or ``epsg`` may be specified for output.
-       
+       reference system.  The crs attribute on the current GeoSeries must
+       be set.  Either crs or epsg may be specified for output.
+
        This method will transform all points in all objects. It has no notion
        or projecting entire geometries.  All segments joining points are
        assumed to be lines in the current projection, not geodesics. Objects
        crossing the dateline (or other projection boundary) will have
        undesirable behavior.
+   ...
 
 So, to transform the **GeoDataFrame** to a different CRS, we have to
 provide either a CRS or an EPSG code. We can also choose to do this in
@@ -664,26 +701,30 @@ object (``inplace=False``). Let’s transform the **GeoDataFrame** to
 Irish Transverse Mercator, and assign the output to a new variable,
 **roads_itm**.
 
-Using the search function on the\ `EPSG
+Rather than trying to find the correct JSON or PROJ representation of
+this CRS, we can instead use the EPSG code, which can be easier to work
+with.
+
+Using the search function on the \ `EPSG
 registry <https://epsg.org/search/by-name>`__\ , or using an internet
 search, look up the EPSG code for the Irish Transverse Mercator CRS and
 enter it in the method call below:
 
 .. code:: ipython3
 
-    roads_itm = roads.to_crs(epsg=)
-    
+    roads_itm = roads.to_crs(epsg=XX) # replace XX with the correct EPSG code for Irish Transverse Mercator
+
     print(roads_itm.head())
 
 Note that only the **geometry** column has changed - instead of
 geographic coordinates (e.g., (-6.21243, 54.48706)), the points in each
 **LineString** should be in a projected CRS (e.g., (715821.764,
 861315.722)). Now, when we access the ``length`` attributes of our
-**LineString** objects, the units will be in meters (the same units as
-our CRS).
+**LineString** objects, the units will be in the same units as our CRS,
+which is meters.
 
 3.2 Summarizing data using geopandas
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 So that’s the first part of our problem solved - our coordinates are in
 meters, and the lengths will be as well. The next step is to select all
@@ -699,7 +740,8 @@ But first, we might want to add a column to our **GeoDataFrame** that
 contains the ``length`` of each of the features. To do this, we can
 *iterate* over the rows of the **GeoDataFrame** using the ``iterrows``
 method:
-::
+
+.. code:: python
 
    In [9]: help(roads_itm.iterrows)
    Iterate over DataFrame rows as (index, Series) pairs.
@@ -707,15 +749,15 @@ method:
    Yields
    ------
    index : label or tuple of label
-       The index of the row. A tuple for a `MultiIndex`.
+       The index of the row. A tuple for a MultiIndex.
    data : Series
        The data of the row as a Series.
    ...
 
 Because ``iterrows`` returns an (index, Series) pair at each step, we
 use **tuple assignment** in our ``for`` loop. This gives us two
-variables, ``i`` and ``row``, which we can use in the ``for`` loop.
-``i`` corresponds to the ``index`` of the ``row``, while ``row``
+variables, ``ind`` and ``row``, which we can use in the ``for`` loop.
+``ind`` corresponds to the ``index`` of the ``row``, while ``row``
 corresponds to the actual data of the ``row``, with each of the columns
 that the full **GeoDataFrame** has.
 
@@ -728,7 +770,7 @@ which uses either a *label* or a **Boolean array** to index the
 
 .. code:: python
 
-   roads_itm.loc[i, 'Length'] = row['geometry'].length
+   roads_itm.loc[ind, 'Length'] = row['geometry'].length
 
 assigns the ``length`` property of the row’s geometry to a new column,
 **Length**, at the corresponding index. Putting it all together, it
@@ -736,13 +778,13 @@ looks like this:
 
 .. code:: ipython3
 
-    for i, row in roads_itm.iterrows(): # iterate over each row in the GeoDataFrame
-        roads_itm.loc[i, 'Length'] = row['geometry'].length # assign the row's geometry length to a new column, Length
-        
+    for ind, row in roads_itm.iterrows(): # iterate over each row in the GeoDataFrame
+        roads_itm.loc[ind, 'Length'] = row['geometry'].length # assign the row's geometry length to a new column, Length
+
     print(roads_itm.head()) # print the updated GeoDataFrame to see the changes
 
 Finally, we can subset our **GeoDataFrame** to select only *MOTORWAY*
-features, and sum their length:
+features, and sum their length using the ``.sum()`` method:
 
 .. code:: ipython3
 
@@ -793,7 +835,7 @@ we can also use arithmetic on it to divide by a conversion factor. The
 class of **DataFrame**).
 
 4. Spatial data operations using geopandas and shapely
-------------------------------------------------------
+.........................................................
 
 Oftentimes in GIS analysis, we want to summarize our data spatially, as
 well as thematically. In this section, we will be looking at two
@@ -819,7 +861,8 @@ write a line of code that will ensure that the test returns True.
     print(counties.crs == roads_itm.crs) # test if the crs is the same for roads_itm and counties.
 
 Now that the two **GeoDataFrame** objects have the same CRS, we can
-proceed with the spatial join using ``gpd.sjoin``:
+proceed with the spatial join using ``gpd.sjoin()``
+(`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.sjoin.html>`__):
 
 .. code:: ipython3
 
@@ -842,8 +885,10 @@ and by *Road_class*:
 
     join_total = join['Length'].sum() # find the total length of roads in the join GeoDataFrame
     print(join.groupby(['CountyName', 'Road_class'])['Length'].sum() / 1000) # summarize the road lengths by CountyName, Road_class
-    
-    print(sum_roads / join_total) # check that the total length of roads is the same between both GeoDataFrames; this should be 1.
+
+    # check that the total length of roads is the same between both GeoDataFrames
+    print('Total length of roads from original file: {:.2f}'.format(sum_roads))
+    print('Total length of roads from spatial join: {:.2f}'.format(join_total))
 
 We can see that the total length of roads is **not** the same in both
 **GeoDataFrame** objects - our ``join`` **GeoDataFrame** has somehow
@@ -852,22 +897,31 @@ increased the length of roads.
 In reality, what has happened here is that we have double-counted any
 road feature that is located in multiple counties - you can also see
 this by comparing the total number of objects in the ``join``
-**GeoDataFrame** and the ``roads_itm`` **GeoDataFrame**. Obviously, we
-don’t want to double-count roads - to get around this, we can use the
-``gpd.clip`` method to clip ``roads_itm`` to each of the county
-boundaries in the ``counties`` **GeoDataFrame**:
-::
+**GeoDataFrame** and the ``roads_itm`` **GeoDataFrame**:
+
+.. code:: ipython3
+
+    print('Number of features in roads_itm: {}'.format(len(roads_itm.index)))
+    print('Number of features in join: {}'.format(len(join.index)))
+
+Obviously, we don’t want to double-count roads - to get around this, we
+can use the ``gpd.clip()`` method
+(`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.clip.html>`__)
+to clip ``roads_itm`` to each of the county boundaries in the
+``counties`` **GeoDataFrame**:
+
+.. code:: python
 
    In [10]: help(gpd.clip)
    Help on function clip in module geopandas.tools.clip:
 
    clip(gdf, mask, keep_geom_type=False)
        Clip points, lines, or polygon geometries to the mask extent.
-       
+
        Both layers must be in the same Coordinate Reference System (CRS).
-       The `gdf` will be clipped to the full extent of the clip object.
-       
-       If there are multiple polygons in mask, data from `gdf` will be
+       The gdf will be clipped to the full extent of the clip object.
+
+       If there are multiple polygons in mask, data from gdf will be
        clipped to the total boundary of all polygons in mask.
    ...
 
@@ -882,26 +936,35 @@ the results in another **GeoDataFrame**:
     clipped = [] # initialize an empty list
     for county in counties['CountyName'].unique():
         tmp_clip = gpd.clip(roads_itm, counties[counties['CountyName'] == county]) # clip the roads by county border
-        for i, row in tmp_clip.iterrows():
-            tmp_clip.loc[i, 'Length'] = row['geometry'].length # we have to update the length for any clipped roads
-            tmp_clip.loc[i, 'CountyName'] = county # set the county name for each road feature    
-        clipped.append(tmp_clip) # add the clipped GeoDataFrame to the 
-    
+        for ind, row in tmp_clip.iterrows():
+            tmp_clip.loc[ind, 'Length'] = row['geometry'].length # we have to update the length for any clipped roads
+            tmp_clip.loc[ind, 'CountyName'] = county # set the county name for each road feature
+        clipped.append(tmp_clip) # add the clipped GeoDataFrame to the
+
     # pandas has a function, concat, which will combine (concatenate) a list of DataFrames (or GeoDataFrames)
     # we can then create a GeoDataFrame from the combined DataFrame, as the combined DataFrame will have a geometry column.
     clipped_gdf = gpd.GeoDataFrame(pd.concat(clipped))
     clip_total = clipped_gdf['Length'].sum()
-    
-    sum_roads / clip_total # check that the total length of roads is the same between both GeoDataFrames; this should be close to 1.
+
+    print('Total length of roads from original file: {:.2f}'.format(sum_roads))
+    print('Total length of roads from clipped join: {:.2f}'.format(clip_total))
 
 So we don’t have perfect overlap, but this has more to do with the fact
 that there isn’t perfect overlap between the ``counties`` boundary and
 the ``roads`` features - there are a good number of places where the
-roads extend beyond the boundary. To fix this, we could first clip
-``roads_itm`` to the entire ``counties`` **GeoDataFrame**, which would
-eliminate these extraneous stretches of road. For now, though, agrement
-to within .01% is acceptable for our purposes - much better than the
-1.5% disagreement from the spatial join alone.
+roads extend beyond the boundary:
+
+.. image:: ../../../img/egm722/week3/road_extension.png
+    :width: 720
+    :align: center
+    :alt: one of the locations where the road shapefile extends beyond the boundaries of NI
+
+To fix this, we could first clip ``roads_itm`` to the entire
+``counties`` **GeoDataFrame**, which would eliminate these extraneous
+stretches of road.
+
+For now, though, agrement to within .01% is acceptable for our purposes
+- much better than the 1.5% disagreement from the spatial join alone.
 
 To wrap up, write a line or two of code in the cell below that will
 summarize the ``clipped_gdf`` GeoDataFrame by county and road type.
@@ -912,7 +975,7 @@ Which county has the most Motorways? The most roads in total?
     # your code goes here!
 
 5. Exercise and next steps
---------------------------
+.............................
 
 Now that you’ve gained some experience working with ``shapely`` geometry
 objects and ``geopandas`` **GeoDataFrame** objects, have a look at
@@ -925,9 +988,12 @@ show population information by census area, with the county boundaries
 plotted overtop of the chloropleth map.
 
 .. image:: ../../../img/egm722/week3/sample_map.png
+    :width: 600
+    :align: center
+    :alt: the sample map to be produced in the exercise
 
 Additional exercise questions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+................................
 
 1. Are there any Wards that are located in more than one county? If so,
    how many, and what is the total population of these Wards?
