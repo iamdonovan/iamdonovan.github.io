@@ -16,6 +16,9 @@ below:
     <iframe src="../../../_static/NI_Transport.html" height="600px" width="100%"></iframe>
 
 
+|br| To begin, launch Jupyter Notebooks as you have in the previous exercises, and begin to work through
+the notebook (``Week3/Folium.ipynb``).
+
 .. note::
 
     Below this point is the **non-interactive** text of the notebook. To actually run the notebook, you'll need to
