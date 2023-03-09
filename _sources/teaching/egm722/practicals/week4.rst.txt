@@ -1,12 +1,13 @@
 raster data using rasterio
 ===========================
 
-In this practical, you’ll gain some more experience working with raster data in python using rasterio and numpy. We will also
-learn about opening and closing files using python, as well as using ``*args`` and ``**kwargs`` to add more flexibility to our function
-definitions.
+In this practical, you’ll gain some more experience working with raster data in python using rasterio and numpy. We
+will also learn about opening and closing files using python, as well as using ``*args`` and ``**kwargs`` to add more
+flexibility to our function definitions.
 
-The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the different steps of
-the practical. An exercise, introduced at the end of the Notebook file, can be completed using the file **assignment_script.py**.
+The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the
+different steps of the practical. An exercise, introduced at the end of the Notebook file, can be completed using the
+file **assignment_script.py**.
 
 Getting Started
 ---------------

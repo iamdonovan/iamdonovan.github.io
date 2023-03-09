@@ -6,6 +6,17 @@ installing git
     The images/instructions below are for git version 2.30.1. There may be some small differences between the steps
     between that version, and the version that you download.
 
+.. note::
+
+    If you are working in MacOS, **git** is most likely already installed on your system. To check, open a
+    **Terminal** window and enter the following command:
+
+    .. code-block:: text
+
+        git
+
+    If you see a usage message, you do not need to install **git** separately, and can move to the next step.
+
 To install **git** (if you do not already have it installed, of course), first head to https://git-scm.com/downloads. 
 Choose the version for your operating system, and download the installer.
 
