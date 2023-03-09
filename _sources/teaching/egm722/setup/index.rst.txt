@@ -25,3 +25,4 @@ and working your way to the bottom in order.
    environment
    jupyter
    pycharm
+   pip
