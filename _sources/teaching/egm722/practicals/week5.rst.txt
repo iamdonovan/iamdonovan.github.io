@@ -82,10 +82,11 @@ Objectives
 ...........
 
 -  learn how to use ``rasterstats`` to perform zonal statistics
--  learn how to handle exceptions using try…except
+-  use the ``zip`` built-in to combine iterables such as lists
+-  learn how to handle exceptions using ``try`` … ``except`` blocks
 -  rasterize polygon data using ``rasterio``
 -  learn how to mask and select (index) rasters using vector data
--  see additional plotting examples using matplotlib
+-  see additional plotting examples using ``matplotlib``
 
 Data provided
 ..............
@@ -105,14 +106,15 @@ below.
 
 .. code:: ipython3
 
-    %matplotlib notebook
-    
+    %matplotlib inline
+
     import numpy as np
     import rasterio as rio
+    import pandas as pd
     import geopandas as gpd
     import matplotlib.pyplot as plt
-    from rasterstats import zonal_stats
-    
+    import rasterstats
+
     plt.rcParams.update({'font.size': 22}) # update the font size for our plots to be size 22
 
 2. Zonal statistics
@@ -155,21 +157,42 @@ Raster value Aggregate class name
 10           Built-up areas and gardens
 ============ ==========================
 
+In the cell below, we’ll create a **dict** object of **key**/**value**
+pairs that maps each raster value (the **key**) to a class name (the
+**value**):
+
+.. code:: ipython3
+
+    landcover_names = dict(1: 'Broadleaf woodland',
+                           2: 'Coniferous woodland',
+                           3: 'Arable',
+                           4: 'Improved grassland',
+                           5: 'Semi-natural grassland',
+                           6: 'Mountain, heath, bog',
+                           7: 'Saltwater',
+                           8: 'Freshwater',
+                           9: 'Coastal',
+                           10: 'Built-up areas and gardens')
+
+We’ll use this later on, when we want to make our outputs more
+readable/understandable.
+
 In this part of the practical, we’ll try to work out the percentage of
-the entire country that is covered by each of these different
-landcovers, as well as each of the different counties. To start, we’ll
-load the ``LCM2015_Aggregate_100m.tif`` raster, as well as the counties
-shapefile from Week 2:
+the entire country, and of each county individually, that is covered by
+each of these different landcovers.
+
+To start, we’ll load the ``LCM2015_Aggregate_100m.tif`` raster, as well
+as the counties shapefile from Week 2:
 
 .. code:: ipython3
 
     # open the land cover raster and read the data
     with rio.open('data_files/LCM2015_Aggregate_100m.tif') as dataset:
-        xmin, ymin, xmax, ymax = dataset.bounds 
+        xmin, ymin, xmax, ymax = dataset.bounds
         crs = dataset.crs
         landcover = dataset.read(1)
         affine_tfm = dataset.transform
-    
+
     # now, load the county dataset from the week 2 folder
     counties = gpd.read_file('../Week2/data_files/Counties.shp').to_crs(crs)
 
@@ -179,40 +202,47 @@ unique values in the array:
 
 .. code:: python
 
-   def count_unique(array, nodata=0):
+   def count_unique(array, names, nodata=0):
        '''
        Count the unique elements of an array.
 
        :param array: Input array
+       :param names: a dict of key/value pairs that map raster values to a name
        :param nodata: nodata value to ignore in the counting
-       
+
        :returns count_dict: a dictionary of unique values and counts
        '''
-       count_dict = {}
-       for val in np.unique(array):
-           if val == nodata:
+       count_dict = dict() # create the output dict
+       for val in np.unique(array): # iterate over the unique values for the raster
+           if val == nodata: # if the value is equal to our nodata value, move on to the next one
                continue
-           count_dict[str(val)] = np.count_nonzero(array == val)
-       return count_dict
+           count_dict[names[val]] = np.count_nonzero(array == val)
+       return count_dict # return the now-populated output dict
 
-Here, we have two input parameters: the first, ``array``, is our array
-(or raster data). The next, ``nodata``, is the value of the array that
-we should ignore. We then define an empty **dict**
-(``count_dict = {}``).
+Here, we have three input parameters: the first, ``array``, is our array
+(or raster data). The next, ``names``, is a dict of **key**/**value**
+pairs to provide human-readable names for each raster value. Finally,
+``nodata`` is the value of the array that we should ignore.
 
-With
-```numpy.unique()`` <https://numpy.org/doc/stable/reference/generated/numpy.unique.html>`__,
-we get an array containing the unique values of the input array. Note
-that this works for data like this raster, where we have a limited
+The first line of the function defines an empty **dict**
+(``count_dict = dict()``), into which we’ll place the **key**/**value**
+pairs corresponding to the count for each landcover class.
+
+Next, using
+`numpy.unique() <https://numpy.org/doc/stable/reference/generated/numpy.unique.html>`__,
+we get an array containing the unique values of the input array.
+
+Note that this works for data like this raster, where we have a limited
 number of pre-defined values. For something like a digital elevation
 model, which represents continuous floating-point values, we wouldn’t
-want to use this approach to bin the data.
+want to use this approach to bin the data - we’ll see how we can handle
+continuous data later on.
 
-Next, for each of the different unique values ``val``, we find all of
-the locations in ``array`` that have that value (``array == val``). Note
+For each of the different unique values ``val``, we find all of the
+locations in ``array`` that have that value (``array == val``). Note
 that this is actually a boolean array, with values of either ``True``
 where ``array == val``, and ``False`` where ``array != val``.
-```numpy.count_nonzero()`` <https://numpy.org/doc/stable/reference/generated/numpy.count_nonzero.html>`__
+`numpy.count_nonzero() <https://numpy.org/doc/stable/reference/generated/numpy.count_nonzero.html>`__
 the counts the number of non-zero (in this case, ``True``) values in the
 array - that is, this:
 
@@ -230,150 +260,212 @@ Run the cell below to define the function and run it on our
 
 .. code:: ipython3
 
-    def count_unique(array, nodata=0):
+    def count_unique(array, names, nodata=0):
         '''
         Count the unique elements of an array.
-    
+
         :param array: Input array
+        :param names: a dict of key/value pairs that map raster values to a name
         :param nodata: nodata value to ignore in the counting
-        
+
         :returns count_dict: a dictionary of unique values and counts
         '''
-        count_dict = {}
-        for val in np.unique(array):
-            if val == nodata:
+        count_dict = dict() # create the output dict
+        for val in np.unique(array): # iterate over the unique values for the raster
+            if val == nodata: # if the value is equal to our nodata value, move on to the next one
                 continue
-            count_dict[str(val)] = np.count_nonzero(array == val)
-        return count_dict
-    
-    unique_landcover = count_unique(landcover)
-    print(unique_landcover)
+            count_dict[names[val]] = np.count_nonzero(array == val)
+        return count_dict # return the now-populated output dict
 
-So this provides us with a **dict** object with keys corresponding to
-each of the unique values (1-10).
+    landcover_count = count_unique(landcover, landcover_names)
+    print(landcover_count) # show the results
 
-Can you work out the percentage area of Northern Ireland that is covered
-by each of the 10 landcover classes?
-
-
-In the following cell, we use
-```rasterstats.zonal_stats()`` <https://pythonhosted.org/rasterstats/manual.html#zonal-statistics>`__
-with our ``counties`` and ``landcover`` datasets to do the same exercise
-as above (counting unique pixel values). Rather than counting the pixels
-in the entire raster, however, we want to count the number of pixels
-with each land cover value that fall within a specific area defined by
-the features in the ``counties`` dataset:
+Exercise: can you work out the percentage area of Northern Ireland that
+is covered by each of the 10 landcover classes?
 
 .. code:: ipython3
 
-    county_stats = zonal_stats(counties, landcover, affine=affine_tfm, categorical=True, nodata=0)
-    
-    print(county_stats[0])
+    # start by using count_unique to get the number of pixels corresponding to each landcover class
+
+    # now, get the total number of pixels in the image that aren't nodata
+    # hint: use np.count_nonzero()
+
+    # now, iterate over the dictionary items to express the number of pixels as a percentage of the total pixels
+
+Now, let’s have a look at the help for
+`rasterstats.gen_zonal_stats() <https://pythonhosted.org/rasterstats/rasterstats.html#rasterstats.gen_zonal_stats>`__,
+which will tell us how we can use ``rasterstats`` to get zonal
+statistics for a raster and vector geometry:
+
+.. code:: ipython3
+
+    rasterstats.gen_zonal_stats?
+
+In the panel that opens up below, you should see the usage for
+``rasterstats.gen_zonal_stats()``, which is the same as the usage for
+``rasterstats.zonal_stats()``. Have a look at the documentation - we’ll
+go over an example below, but there are many more useful features that
+we won’t go into in the tutorial.
+
+In the following cell, we use
+`rasterstats.zonal_stats() <https://pythonhosted.org/rasterstats/manual.html#zonal-statistics>`__
+with our ``counties`` and ``landcover`` datasets to do the same exercise
+as above (counting unique pixel values).
+
+Rather than counting the pixels in the entire raster, however, we want
+to count the number of pixels with each land cover value that fall
+within a specific area defined by each of the features in the
+``counties`` dataset:
+
+.. code:: ipython3
+
+    county_stats = zonal_stats(counties, # the shapefile to use
+                               landcover, # the raster to use - here, we're using the numpy array loaded using rasterio
+                               affine=affine_tfm, # the geotransform for the raster
+                               categorical=True, # whether the data are categorical
+                               category_map=landcover_names,
+                               nodata=0 # the nodata value for the raster
+                              )
+
+    print(type(county_stats)) # county_stats is a list of dict objects
+    print(county_stats[0]) # shows the landcover use for county tyrone (index 0 in counties geodataframe)
 
 3. The zip built-in
 .....................
 
-This isn’t a very readable result, though. If we want to interpret the
-results for each county, we have to know what land cover name
-corresponds to each of the values in the raster. One way that we could
-do this is by writing a function that re-names each of the keys in the
-**dict**. This example shows one way we could do this: the function
-takes the original **dict** object (*dict_in*), as well as a list of the
-‘old’ keys (*old_names*), and the corresponding ‘new’ keys
-(*new_names*).
+Now let’s say that we want to create a **dict** so that we can get the
+landcover statistics for each county, but without having to look up the
+county’s index in the ``counties`` table. We could iterate over the
+``counties`` **GeoDataFrame** to do this:
 
 .. code:: ipython3
 
-    def rename_dict(dict_in, old_names, new_names):
-        '''
-        Rename the keys of a dictionary, given a list of old and new keynames
-    
-        :param dict_in: the dictionary to rename
-        :param old_names: a list of old keys
-        :param new_names: a list of new key names
-        
-        :returns dict_out: a dictionary with the keys re-named
-        '''
-        dict_out = {}
-        for new, old in zip(new_names, old_names):
-            dict_out[new] = dict_in[old]
-    
-        return dict_out
+    county_dict = dict()
+    for ind, row in counties.iterrows():
+        county_dict[row['CountyName'].title()] = county_stats[ind] # we're using str.title() because we're not shouting.
 
-For this function, we’re also making use of the built-in function
-``zip()``
+    print(county_dict['Tyrone']) # this should be the same as the output for the previous cell
+
+In this section, we’ll see another way that we can achieve the same
+thing, using the built-in **zip** function
 (`documentation <https://docs.python.org/3.8/library/functions.html#zip>`__).
-In Python 3, ``zip()`` returns an **iterator** object that combines
-elements from each of the iterable objects passed as arguments. As an
-example:
+
+In Python 3, **zip()** returns an **iterator** object that combines
+elements from each of the iterable objects passed as arguments:
 
 .. code:: ipython3
 
     x = [1, 2, 3, 4]
     y = ['a', 'b', 'c', 'd']
-    
-    list(zip(x, y))
 
-So, with ``zip(x, y)``, each of the elements of ``x`` is paired with the
-corresponding element from ``y``. If ``x`` and ``y`` are different
-lengths, ``zip(x, y)`` will only use up to the shorter of the two:
+    print(zip(x, y))
+
+To see the pairs of items, we can pass the output of **zip** to
+**list**:
+
+.. code:: ipython3
+
+    print(list(zip(x, y)))
+
+We can also pass the output of **zip** to **dict**, to create a **dict**
+of **key**/**value** pairs:
+
+.. code:: ipython3
+
+    print(dict(zip(x, y)))
+
+One thing to keep in mind is that with ``zip(x, y)``, each of the
+elements of ``x`` is paired with the corresponding element from ``y``.
+If ``x`` and ``y`` are different lengths, ``zip(x, y)`` will only use up
+to the shorter of the two:
 
 .. code:: ipython3
 
     x = [1, 2, 3]
-    
+
     list(zip(x, y))
 
-Let’s see what happens when we run our function ``rename_dict()`` using
-the stats for our first county (County Tyrone - remember that the output
-from zonal_stats will have correspond to the rows of our input vector
-data):
+As a final example, we can also use **zip** to combine more than two
+iterables:
 
 .. code:: ipython3
 
-    old_names = [float(i) for i in range(1, 11)]
-    new_names = ['Broadleaf woodland', 'Coniferous woodland', 'Arable', 'Improved grassland',
-                 'Semi-natural grassland', 'Mountain, heath, bog', 'Saltwater', 'Freshwater',
-                 'Coastal', 'Built-up areas and gardens']
-    
-    rename_dict(county_stats[0], old_names, new_names)
+    x = [1, 2, 3, 4]
+    y = ['a', 'b', 'c', 'd']
+    z = ['i', 'ii', 'iii', 'iv']
 
-Have a look at the *keys* for ``county_stats`` - you should notice that
-there are no pixels corresponding to landcover class 7 (Saltwater),
-which makes sense given that County Tyrone is an inland county:
+    print(list(zip(x, y, z)))
+
+Now, let’s use **zip** to create a **dict** that returns the landcover
+stats for each county, given the county name.
+
+First, we can use a *list comprehension* to get a list of the county
+names, formatted using ``str.title()``:
 
 .. code:: ipython3
 
-    print(county_stats[0].keys())
-    print(county_stats[0])
+    names = [n.title() for n in counties['CountyName']] # use str.title() because we're not shouting
 
-To run this for each of our counties, we could run some checks to make
-sure that we only try to access keys that exist in ``dict_in``. For
-example, we could add an ``if`` statement to the function:
+Now, we use **dict** and **zip** to create the same **dict** object that
+we did before.
 
-.. code:: python
+.. code:: ipython3
 
-   def rename_dict(dict_in, old_names, new_names):
-       dict_out = {}
-       for new, old in zip(new_names, old_names)
-           if old in dict_in.keys():
-               dict_out[new] = dict_in[old]
-           else:
-               continue
-       return dict_out
-
-But, this is also an example of an exception that isn’t necessarily
-something that requires us to stop executing our program. We don’t
-expect each landcover type to be present in each county, so we don’t
-want our program to stop as soon as it finds out that one of the
-counties doesn’t have a particular landcover type.
+    stats_dict = dict(zip(names, county_stats))
+    print(stats_dict['Tyrone']) # should be the same output as before
 
 4. Handling Exceptions with try … except
 ..........................................
 
-Python provides a way to handle these kind of exceptions: the
-`try…except <https://realpython.com/python-exceptions/#the-try-and-except-block-handling-exceptions>`__
-block:
+Now, let’s add information about the percent landcover to the
+``counties`` table. We’ll start by using creating a **dict** that takes
+the full landcover class name, and shortens it so that it can be used as
+a column header:
+
+.. code:: ipython3
+
+    short_names = ['broadleaf', 'coniferous', 'arable', 'imp_grass', 'nat_grass',
+                   'mountain', 'saltwater', 'freshwater', 'coastal', 'built_up']
+    short_dict = dict(zip(landcover_names.values(), short_names)) # use dict and zip with the full names
+
+Now, we can use this to populate the data table with new columns for
+each landcover class:
+
+.. code:: ipython3
+
+    for ind, row in counties.iterrows(): # use iterrows to iterate over the rows of the table
+        county_data = county_dict[row['CountyName'].title()] # get the landcover data for this county
+        for name in landcover_names.values(): # iterate over each of the landcover class names
+            counties.loc[ind, short_dict[name]] = county_data[name] # add the landcover count to a new column
+
+What happened? From the error message above, we can see that there is no
+entry for ``Saltwater`` in the data for this county (Tyrone). This means
+that when we try to use ``Saltwater`` as a **key** in the
+``county_data`` dictionary, it raises a **KeyError**.
+
+The problem that we have here is that we don’t necessarily have all
+landcover classes represented in every county - County Tyrone is an
+inland county, so it makes sense that it doesn’t have any saltwater
+areas.
+
+We could insert an **if**/**else** block to check that the landcover
+class is present in the **dict** before trying to access it:
+
+.. code:: python
+
+   for ind, row in counties.iterrows(): # use iterrows to iterate over the rows of the table
+       county_data = county_dict[row['CountyName'].title()] # get the landcover data for this county
+       for name in landcover_names.values(): # iterate over each of the landcover class names
+           if name in county_data.keys(): # check that name is a key of county_data
+               counties.loc[ind, short_dict[name]] = county_data[name] # add the landcover count to a new column
+           else:
+               counties.loc[ind, short_dict[name]] = 0 # if name is not present, value should be 0.
+
+This would check that **name** is a **key** of ``county_data`` - if it
+isn’t, then it will add a value of 0 to the table for that column.
+
+Another option is to use a `try ... except <https://realpython.com/python-exceptions/#the-try-and-except-block-handling-exceptions>`__
+block to “catch” and handle an exception:
 
 .. code:: python
 
@@ -388,60 +480,58 @@ recommended <https://www.python.org/dev/peps/pep-0008/#programming-recommendatio
 to just have a bare ``except:`` clause, as this will make it harder to
 interrupt a program. In our specific case, we only want the interpreter
 to ignore ``KeyError`` exceptions - if there are other problems, we
-still need to know about those:
+still need to know about those.
+
+In our example, the ``try`` … ``except`` block looks like this:
 
 .. code:: ipython3
 
-    def rename_dict(dict_in, old_names, new_names):
-        '''
-        Rename the keys of a dictionary, given a list of old and new keynames
-    
-        :param dict_in: the dictionary to rename
-        :param old_names: a list of old keys
-        :param new_names: a list of new key names
-        
-        :returns dict_out: a dictionary with the keys re-named
-        '''
-        dict_out = {}
-        for new, old in zip(new_names, old_names):
+    for ind, row in counties.iterrows(): # use iterrows to iterate over the rows of the table
+        county_data = county_dict[row['CountyName'].title()] # get the landcover data for this county
+        for name in landcover_names.values(): # iterate over each of the landcover class names
             try:
-                dict_out[new] = dict_in[old]
+                counties.loc[ind, short_dict[name]] = county_data[name] # add the landcover count to a new column
             except KeyError:
-                continue
-        return dict_out
+                counties.loc[ind, short_dict[name]] = 0 # if name is not present, value should be 0.
 
-Notice how for each pair of names, we try to assign the value
-corresponding to ``old`` in ``dict_in``. If ``old`` is not a valid key
-for ``dict_in``, we just move onto the next one. Now, let’s run this new
-function on ``county_stats[0]`` again:
+    counties # just to show the table in the output below
 
-.. code:: ipython3
+Now, we can see that the table has had an additional 10 columns added
+(one for each landcover class), with each column being filled with the
+number of pixels in each county that are classified as that landcover
+class.
 
-    rename_dict(county_stats[0], old_names, new_names)
-
-We’ll do one last thing before moving on here. Just like with the
-**dict** outputs of ``zonal_stats()``, the **list** of **dict** objects
-isn’t very readable. Let’s create a new **dict** object that takes the
-county names as keys, and returns the re-named **dict** objects for
-each:
+As one final step, let’s update the table so that the value corresponds
+to the percentage of each county’s area covered by each landcover class:
 
 .. code:: ipython3
 
-    renamed_list = [rename_dict(d, old_names, new_names) for d in county_stats] # create a list of renamed dict objects
-    nice_names = [n.title() for n in counties.CountyName]
-    stats_dict = dict(zip(nice_names, renamed_list))
-    
-    print(stats_dict['Tyrone'])
-    print(stats_dict['Antrim'])
+    for ind, row in counties.iterrows(): # iterate over the rows of the table
+        counties.loc[ind, short_names] = 100 * row[short_names] / row[short_names].sum()
+    counties # just to show the table in the output below
 
-Depending on how we’re using the data, it might be easier to keep the
-output of ``zonal_stats()`` as-is, rather than using these long,
-complicated keys. For visualization and readability purposes, though, it
-helps to be able to easily and quickly understand what the outputs
-actually represent.
+In the above, you can see that we’ve *indexed* the table using the list
+of column names ``short_name``, which ensures that we only select the
+columns we’re interested in.
 
-What is the total area (in km2) covered by “Mountain, heath, bog” in
-County Down?
+Looking at the table above, what landcover class dominates each county?
+
+As a final exercise, modify the cell below so that each cell represents
+the total area (in square km) covered by each landcover class, rather
+than the number of pixels or the percent area of each county. As a small
+hint, you should only need to change a single line:
+
+.. code:: ipython3
+
+    for ind, row in counties.iterrows(): # use iterrows to iterate over the rows of the table
+        county_data = county_dict[row['CountyName'].title()] # get the landcover data for this county
+        for name in landcover_names.values(): # iterate over each of the landcover class names
+            try:
+                counties.loc[ind, short_dict[name]] = county_data[name] # add the landcover count to a new column
+            except KeyError:
+                counties.loc[ind, short_dict[name]] = 0 # if name is not present, value should be 0.
+
+    counties # just to show the table in the output below
 
 
 5. Rasterizing vector data using rasterio
@@ -452,7 +542,7 @@ zonal statistics from a raster using vector data. Sometimes, though, we
 might want to *rasterize* our vector data - for example, in order to
 mask our raster data, or to be able to select pixels. To do this, we can
 use the
-```rasterio.features`` <https://rasterio.readthedocs.io/en/latest/api/rasterio.features.html>`__
+`rasterio.features <https://rasterio.readthedocs.io/en/latest/api/rasterio.features.html>`__
 module:
 
 .. code:: ipython3
@@ -506,32 +596,34 @@ don’t provide a **value**, it takes the ``default_value`` or the
 So, to create a rasterized version of our county outlines, we could do
 the following:
 
-.. code:: python
+.. code:: ipython3
 
-   shapes = list(zip(counties['geometry'], counties['COUNTY_ID']))
-
-   county_mask = rio.features.rasterize(shapes=shapes, fill=0, 
-                                        out_shape=landcover.shape, transform=affine_tfm)
+    shapes = list(zip(counties['geometry'], counties['COUNTY_ID'])) # get a list of geometry, value pairs
+    county_mask = rio.features.rasterize(shapes=shapes, # the list of geometry/value pairs
+                                         fill=0, # the value to use for cells not covered by any geometry
+                                         out_shape=landcover.shape, # the shape of the new raster
+                                         transform=affine_tfm) # the geotransform of the new raster
 
 The first line uses ``zip()`` and ``list()`` to create a list of
 (**geometry**, **value**) pairs, and the second line actually creates
-the rasterized array, ``county_mask``. Note that in the call to
-``rasterio.features.rasterize()``, we have to set the output shape
-(``out_shape``) of the raster, as well as the ``transform`` - that is,
-how we go from pixel coordinates in the array to real-world coordinates.
+the rasterized array, ``county_mask``.
+
+Note that in the call to ``rasterio.features.rasterize()``, we have to
+set the output shape (``out_shape``) of the raster, as well as the
+``transform`` - that is, how we go from pixel coordinates in the array
+to real-world coordinates.
+
 Since we want to use this rasterized output with our ``landcover``, we
 use the ``shape`` of the ``landcover`` raster, as well as its
 ``transform`` (``affine_tfm``) - that way, the outputs will line up as
-we expect. Run the cell below to see what the output looks like:
+we expect.
+
+Run the cell below to see what the output looks like:
 
 .. code:: ipython3
 
-    shapes = list(zip(counties['geometry'], counties['COUNTY_ID']))
-    
-    county_mask = rio.features.rasterize(shapes=shapes, fill=0,
-                                         out_shape=landcover.shape, transform=affine_tfm)
-    plt.figure()
-    plt.imshow(county_mask) # visualize the rasterized output
+    fig, ax = plt.subplots(1, 1)
+    ax.imshow(county_mask) # visualize the rasterized output
 
 As you can see, this provides us with an **array** whose values
 correspond to the ``COUNTY_ID`` of the county feature at that location
@@ -540,16 +632,18 @@ corresponds to which ID). In the next section, we’ll see how we can use
 arrays like this to investigate our data further.
 
 6. Masking and indexing rasters
-.................................
+................................
 
 So far, we’ve seen how we can index an array (or a list, a tuple, …)
 using simple indexing (e.g., ``myList[0]``) or *slicing* (e.g.,
 ``myList[2:4]``). ``numpy`` arrays, however, can `actually be
 indexed <https://numpy.org/doc/stable/reference/arrays.indexing.html>`__
 using other arrays of type ``bool`` (the elements of the array are
-boolean (``True``/``False``) values). In this section, we’ll see how we
-can use this, along with our rasterized vectors, to select and
-investigate values from a raster using boolean indexing.
+boolean (``True``/``False``) values).
+
+In this section, we’ll see how we can use this, along with our
+rasterized vectors, to select and investigate values from a raster using
+boolean indexing.
 
 To start, we’ll open our dem raster - note that this raster has the same
 georeferencing information as our landcover raster, so we don’t have to
@@ -576,30 +670,31 @@ Let’s see what this mask looks like:
 .. code:: ipython3
 
     county_antrim = county_mask == 1
-    
-    plt.figure()
-    plt.imshow(county_antrim)
+
+    fig, ax = plt.subplots(1, 1)
+    ax.imshow(county_antrim) # visualize the rasterized output
 
 We can also combine expressions using functions like
-```np.logical_and()`` <https://numpy.org/doc/stable/reference/generated/numpy.logical_and.html>`__
+`np.logical_and() <https://numpy.org/doc/stable/reference/generated/numpy.logical_and.html>`__
 or
-```np.logical_or()`` <https://numpy.org/doc/stable/reference/generated/numpy.logical_or.html>`__.
-If we wanted to create a mask corresponding to both County Antrim and
-County Down, we could do the following:
+`np.logical_or() <https://numpy.org/doc/stable/reference/generated/numpy.logical_or.html>`__.
+If we wanted to create a mask corresponding to both County Antrim
+(``county_mask == 3``) and County Down (``county_mask == 1``), we could
+do the following:
 
 .. code:: ipython3
 
     antrim_and_down = np.logical_or(county_mask == 3, county_mask == 1)
-    
-    plt.figure()
-    plt.imshow(antrim_and_down)
+
+    fig, ax = plt.subplots(1, 1)
+    ax.imshow(antrim_and_down)
 
 We could then find the mean elevation of these two counties by indexing,
 or selecting, pixels from ``dem`` using our mask:
 
 .. code:: ipython3
 
-    ad_elevation = dem[antrim_and_down]
+    ad_elevation = dem[antrim_and_down] # index the array using the antrim_and_down mask
     print('Mean elevation: {:.2f} m'.format(ad_elevation.mean()))
 
 Now let’s say we wanted to investigate the two types of woodland we
@@ -617,8 +712,8 @@ Now, we have two different arrays, ``broad_els`` and ``conif_els``, each
 corresponding to the DEM pixel values of each landcover type. We can
 plot a histogram of these arrays using
 ```plt.hist()`` <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html>`__,
-but this will only tell us the number of pixels - for the area-elevation
-distribution, we have to convert the pixel counts into areas by
+but this will only tell us the number of pixels - to work with areas,
+remember that we have to convert the pixel counts into areas by
 multiplying with the pixel area (100 m x 100 m).
 
 First, though, we can use ``numpy.histogram()``, along with an array
@@ -629,10 +724,10 @@ elevations ranging from 0 to 600 meters, with a spacing of 5 meters:
 .. code:: ipython3
 
     el_bins = np.arange(0, 600, 5) # create an array of values ranging from 0 to 600, spaced by 5.
-    
+
     broad_count, _ = np.histogram(broad_els, el_bins) # bin the broadleaf elevations using the elevation bins
     conif_count, _ = np.histogram(conif_els, el_bins) # bin the conifer elevations using the elevation bins
-    
+
     broad_area = broad_count * 100 * 100 # convert the pixel counts to an area by multipling by the pixel size in x, y
     conif_area = conif_count * 100 * 100
 
@@ -643,28 +738,44 @@ type using
 .. code:: ipython3
 
     fig, ax = plt.subplots(1, 1, figsize=(8, 8)) # create a new figure and axes object
-    
+
     # plot the area-elevation distributions using matplotlib.pyplot.bar(), converting from sq m to sq km:
     _ = ax.bar(el_bins[:-1], broad_area / 1e6, align='edge', width=5, alpha=0.8, label='Broadleaf Woodland')
     _ = ax.bar(el_bins[:-1], conif_area / 1e6, align='edge', width=5, alpha=0.8, label='Conifer Woodland')
-    
+
     ax.set_xlim(0, 550) # set the x limits of the plot
     ax.set_ylim(0, 30) # set the y limits of the plot
-    
+
     ax.set_xlabel('Elevation (m)') # add an x label
     ax.set_ylabel('Area (km$^2$)') # add a y label
     ax.legend() # add a legend
 
 From this, we can clearly see that Conifer woodlands tend to be found at
 much higher elevations than Broadleaf woodlands, and at a much larger
-range of elevations (0-500 m, compared to 0-250 m or so). With these
-samples (``broad_els``, ``conif_els``), we can also calculate statistics
-for each of these samples using ``numpy`` functions such as
-``np.mean()``, ``np.median()``, ``np.std()``, and so on.
+range of elevations (0-500 m, compared to 0-250 m or so).
+
+With these samples (``broad_els``, ``conif_els``), we can also calculate
+statistics for each of these samples using ``numpy`` functions such as
+``np.mean()``, ``np.median()``, ``np.std()``, and so on:
+
+.. code:: ipython3
+
+    print('Broadleaf mean elevation: {:.2f} m'.format(np.mean(broad_els)))
+    print('Broadleaf median elevation: {:.2f} m'.format(np.median(broad_els)))
 
 Of the 10 different landcover types shown here, which one has the
 highest mean elevation? What about the largest spread in elevation
 values?
+
+.. code:: ipython3
+
+    # create a new pandas DataFrame with 6 columns
+    landcover_els = pd.DataFrame(columns=['name', 'mean', 'median', 'std. dev', 'max', 'min'])
+
+    landcover_els['name'] = short_names # add the short names to the 'name' column
+
+    # now, write a loop that will populate the table with descriptive statistics about the elevation
+    # of each landcover class
 
 
 Next steps
