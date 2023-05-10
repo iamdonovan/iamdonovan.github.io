@@ -52,9 +52,18 @@ me and I will send you a copy.\ [1]_
 
 .. rst-class:: ref
 
+    Ali, A., P. Dunlop, S. Coleman, D. Kerr, **R. McNabb**, and R. Noormets (2023). Glacier area changes in Novaya
+    Zemlya from 1986–89 to 2019–21 using object-based image analysis in Google Earth Engine.
+    *Journal of Glaciology*, doi: `10.1017/jog.2023.18 <https://doi.org/10.1017/jog.2023.18>`__
+
+    Lauzon, B., L. Copland, W. Van Wychen, W. Kochtitzky, **R. McNabb**, and D. Dahl-Jensen (2023). Dynamics throughout
+    a complete surge of Iceberg Glacier on western Axel Heiberg Island, Canadian High Arctic. *Journal of Glaciology*
+    doi: `10.1017/jog.2023.20 <https://doi.org/10.1017/jog.2023.20>`__
+
     Rounce, D. R., R. Hock, F. Maussion, R. Hugonnet, W. Kochtitzky, M. Huss, E. Berthier, D. Brinkerhoff, L. Compagno,
     L. Copland, D. Farinotti, B. Menounos, and **R. McNabb** (2023). Global glacier change in the 21st century: Every increase
     in temperature matters. *Science* 379(**6627**), 78--83. doi: `10.1126/science.abo1324 <https://doi.org/10.1126/science.abo1324>`__
+
 
 .. _pubs2022:
 
