@@ -76,6 +76,9 @@ me and I will send you a copy.\ [1]_
     (2022). Topographic controls on ice flow and recession for Juneau Icefield (Alaska/British Columbia).
     *Earth Surface Processes and Landforms* 47(**9**), 2357--2390. doi: `10.1001/esp.5383 <https://doi.org/10.1002/esp.5383>`__
 
+    Winton, Ø. A., S. B. Simonsen, A. M. Solgaard, **R. McNabb**, and N. B. Karlsson, (2022). Basal stress controls
+    ice-flow variability during a surge cycle of Hagen Bræ, Greenland. *Journal of Glaciology* 68(**269**),
+    doi: `10.1017/jog.2021.111 <https://doi.org/10.1017/jog.2021.111>`__
 
 .. _pubs2021:
 
@@ -100,10 +103,6 @@ me and I will send you a copy.\ [1]_
     T. C. Seehaus, and D. E. Shean, (2021). Distributed global debris thickness estimates reveal debris significantly
     impacts glacier mass balance. *Geophysical Research Letters* 48, e2020GL091311.
     doi: `10.1029/2020GL091311 <https://doi.org/10.1029/2020GL091311>`__
-
-    Winton, Ø. A., S. B. Simonsen, A. M. Solgaard, **R. McNabb**, and N. B. Karlsson, (2021). Basal stress controls
-    ice-flow variability during a surge cycle of Hagen Bræ, Greenland. *Journal of Glaciology*
-    doi: `10.1017/jog.2021.111 <https://doi.org/10.1017/jog.2021.111>`__
 
     Womble, J. N., P. J. Williams, **R. McNabb**, A. Prakash, R. Gens, B. Sedinger, and C. Acevedo, (2021).
     Harbor Seals as Sentinels of Ice Dynamics in Tidewater Glacier Fjords. *Frontiers in Marine Science* 8,
