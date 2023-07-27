@@ -7,10 +7,10 @@ help you to develop your confidence in using and presenting numerical results.
 
 By the end of this practical, you should:
 
-    - be able to import and format data in a spreadsheet
-    - perform calculations with both manually-entered and built-in functions
-    - create and format different types of graphs
-    - interpret both graphs and numeric values
+- be able to import and format data in a spreadsheet
+- perform calculations with both manually-entered and built-in functions
+- create and format different types of graphs
+- interpret both graphs and numeric values
 
 getting started
 ----------------

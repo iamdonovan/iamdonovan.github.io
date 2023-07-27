@@ -14,9 +14,9 @@ regression analysis and hypothesis testing.
 
 By the end of this practical, you should:
 
-    - be able to import data into SPSS
-    - summarize data using SPSS
-    - produce graphs of your data using SPSS
+- be able to import data into SPSS
+- summarize data using SPSS
+- produce graphs of your data using SPSS
 
 If you have not already, you should download the Week 6 Data from Blackboard and save it to your EGM101
 folder on OneDrive.
