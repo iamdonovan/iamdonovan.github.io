@@ -28,14 +28,14 @@ To open SPSS, use either the **Start** menu (**Start** > **IBM SPSS Statistics**
 double-click the desktop icon (if it exists). You should see the following welcome screen:
 
 .. image:: img/week6/spss_welcome.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the SPSS Welcome screen
 
 |br| To get started, click on **New Dataset**, then **Open**. You should see a blank spreadsheet window open up:
 
 .. image:: img/week6/empty_data.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: an empty SPSS Data Editor window
 
@@ -142,7 +142,7 @@ data editor
 We'll cover the **Outputs** window in a moment, but first have a look at the **Data Editor** window:
 
 .. image:: img/week6/imported.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the Armagh temperature data imported into the SPSS Data Editor window.
 
@@ -150,7 +150,7 @@ We'll cover the **Outputs** window in a moment, but first have a look at the **D
 your imported data onto your OneDrive folder as ``ArmaghData.sav``:
 
 .. image:: img/week6/saved.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the Armagh temperature data imported into the SPSS Data Editor window, saved as ArmaghData.sav
 
@@ -169,7 +169,7 @@ of notable differences between the SPSS **Data View** and Excel, though:
 Later on, we will see how we can calculate new variables in SPSS. For now, click on the **Variable View** tab:
 
 .. image:: img/week6/variable_view.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the SPSS Data Editor, Variable View tab
 
@@ -189,7 +189,7 @@ column, then type in the description. For example, for the ``Year`` variable, yo
 When you're done, the **Variable View** should look something like this:
 
 .. image:: img/week6/add_labels.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the SPSS Variable View, with labels added to each variable
 
@@ -211,7 +211,7 @@ click **OK** to return to the **Variable View** window. You should see that inst
 column for the **Month** row, you now see ``{1, January}``:
 
 .. image:: img/week6/values_labelled.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the Variable View window with value labels added to the Month variable
 
@@ -227,7 +227,7 @@ Save this to your OneDrive folder as ``ArmaghData.spv``, so that you have a reco
 as you work through the practical.
 
 .. image:: img/week6/viewer.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the Viewer window, showing that we have imported the data and saved it to a file.
 
@@ -287,7 +287,7 @@ used for ``Tmax`` and ``Tmin``), and the **Type** is **Numeric**. Click **Contin
 then click **OK** to create the new variable:
 
 .. image:: img/week6/new_variable.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the data editor window, with the column for the new variable, Tmean, highlighted.
 
@@ -295,7 +295,7 @@ then click **OK** to create the new variable:
 **Variable View** tab, by clicking on the row of the variable you want to move, and dragging it to the new position:
 
 .. image:: img/week6/rearranged_variables.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the variable view tab of the data editor, with the Tmean variable moved to be between Tmax and Tmin.
 
@@ -344,7 +344,7 @@ Now, click **OK** to start the calculation.
 In the **Viewer** window, you should see that SPSS has added a table with the requested calculations:
 
 .. image:: img/week6/descriptives_output.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the viewer window, with a table showing the selected descriptive statistics for the selected variables.
 
@@ -352,8 +352,12 @@ In the **Viewer** window, you should see that SPSS has added a table with the re
 statistics. You can also see that there are different values of ``N`` - remember that this is because the temperature
 record doesn't start until April 1865, but the rainfall record begins in January 1853.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     - Which of the temperature variables has the largest variance/standard deviation? Why do you think this might be the case?
     - What is the highest recorded monthly rainfall in Armagh? What about the lowest?
@@ -376,7 +380,7 @@ To *split* the data, click on the **Split File** button from the **Data Editor**
 **Split File** from the **Data** menu (**Data** > **Split File**):
 
 .. image:: img/week6/split_button.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the data editor window, with the split file button highlighted in red.
 
@@ -400,7 +404,7 @@ descriptive statistics:
 When you click **OK**, you should see that the file has sorted by ``Month`` (with month 1 at the top):
 
 .. image:: img/week6/sorted_file.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the data editor window, with variables sorted according to month recorded.
 
@@ -409,7 +413,7 @@ When you click **OK**, you should see that the file has sorted by ``Month`` (wit
 a new table, with a section for each month:
 
 .. image:: img/week6/descriptives_month.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the statistics viewer window, with a table showing descriptive statistics according to month.
 
@@ -421,7 +425,7 @@ the different analyses you have performed as you look back at the results. Go ah
 entry to say "Monthly Descriptives" by clicking on the text and typing in the new name:
 
 .. image:: img/week6/monthly_descriptives_edited.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the statistics viewer window, with the label for monthly descriptives changed.
 
@@ -430,8 +434,12 @@ remove the "Month recorded = " from each entry.
 
 Have a look at the tables in the **Viewer** window, and see if you can answer the questions below before moving on.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     - Which months have the largest variation in temperature? Why do you think this might be the case?
     - In what month was the highest recorded monthly rainfall recorded in Armagh? What about the lowest?
@@ -517,7 +525,7 @@ Just like we did with the months, you can add **Labels** to the new variable so 
 statistics or perform other calculations, the names will make more sense:
 
 .. image:: img/week6/recode_label.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the data editor window with a new variable, season, and labels entered
 
@@ -547,7 +555,7 @@ click **OK** to return to the **Descriptives** dialog, and click **OK** again to
 You should see this table in the **Statistics Viewer** window:
 
 .. image:: img/week6/seasonal_descriptives.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the statistics viewer window, with a table containing descriptives statistics for rainfall in each season.
 
@@ -596,7 +604,7 @@ to the **Select Cases** dialog:
 |br| Click **OK**. You should now see that there is a new variable in the table, ``filter_$``:
 
 .. image:: img/week6/filtered.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the data editor window, with a new "filter" variable added
 
@@ -610,7 +618,7 @@ and ``Tmin``), plus the precipitation variable (``Rain``). When the tool finishe
 following table output in the **Statistics Viewer** window:
 
 .. image:: img/week6/filtered_descriptives.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the statistics viewer, with descriptive statistics for 1951 - 1980 shown.
 
@@ -664,15 +672,19 @@ The last thing we'll do is be sure to check the box for **Display normal curve**
 click **OK**, SPSS will take a minute before displaying the chart in the **Statistics Viewer** window:
 
 .. image:: img/week6/final_histogram.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the chart builder dialog, with a histogram of monthly precipitation added
 
 |br| As a final step, you can edit the entry name in the contents panel and change the section title in the
 viewer panel.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Describe the distribution of rainfall - does it follow a normal distribution, or is it skewed? Is the "tail" on
     one side of the curve larger than the tail on the other side? What other properties do you notice?
@@ -745,7 +757,7 @@ select **Standard deviation**. Set the multiplier to 1 standard deviation, rathe
 (or few), you should see the bar chart added to the **Statistics Viewer** window:
 
 .. image:: img/week6/bar_final.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the statistics viewer window, showing the bar chart added
 
@@ -753,8 +765,12 @@ select **Standard deviation**. Set the multiplier to 1 standard deviation, rathe
 remember to save both your ``.spv`` and ``.sav`` files to OneDrive, as you will be using them again in next week's
 practical, as well as for the assessment for this part of the module!
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Which month has the highest precipitation in Armagh? What about the lowest? Are there any clear differences in the
     dispersion (as measured by the standard deviation) of the monthly values?
