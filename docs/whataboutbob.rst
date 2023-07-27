@@ -71,7 +71,6 @@ me and I will send you a copy.\ [1]_
     L. Copland, D. Farinotti, B. Menounos, and **R. McNabb** (2023). Global glacier change in the 21st century: Every increase
     in temperature matters. *Science* 379(**6627**), 78--83. doi: `10.1126/science.abo1324 <https://doi.org/10.1126/science.abo1324>`__
 
-
 .. _pubs2022:
 
 2022
