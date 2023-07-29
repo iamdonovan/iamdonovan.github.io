@@ -14,6 +14,7 @@ space cameras and glaciers
    teaching/index
    gee/index
    research/index
+   writing/index
    github
 
 
