@@ -56,8 +56,8 @@ me and I will send you a copy.\ [1]_
     Zemlya from 1986–89 to 2019–21 using object-based image analysis in Google Earth Engine.
     *Journal of Glaciology*, doi: `10.1017/jog.2023.18 <https://doi.org/10.1017/jog.2023.18>`__
 
-    Ali, A., P. Dunlop, S. Coleman, D. Kerr, **R. McNabb**, and R. Noormets (2023b). Mapping glacier area changes in
-    the Arctic using satellite remote sensing. *Journal of Maps*, doi: ` <https://doi.org/>`__
+    Ali, A., P. Dunlop, S. Coleman, D. Kerr, **R. McNabb**, and R. Noormets (2023b). Glacier area changes in the Arctic
+    and high latitudes using satellite remote sensing. *Journal of Maps*, doi: ` <https://doi.org/>`__
 
     Lauzon, B., L. Copland, W. Van Wychen, W. Kochtitzky, **R. McNabb**, and D. Dahl-Jensen (2023a). Dynamics throughout
     a complete surge of Iceberg Glacier on western Axel Heiberg Island, Canadian High Arctic. *Journal of Glaciology*,
