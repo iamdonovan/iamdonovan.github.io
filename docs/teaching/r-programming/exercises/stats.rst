@@ -1,3 +1,3 @@
-basic statistical analysis using R
-====================================
+basic statistical analysis using **R**
+=======================================
 

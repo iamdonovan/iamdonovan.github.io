@@ -15,7 +15,6 @@ haven't, you will have a difficult time getting started on the exercises.
 
 .. toctree::
    :glob:
-   :hidden:
    :maxdepth: 1
 
    git
