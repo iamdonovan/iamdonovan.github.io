@@ -1,8 +1,12 @@
 installing github desktop
 ==========================
 
-In addition to the command-line interface, we can also install a graphical user interface to work with both **git** and
-**GitHub**. You can download **GitHub Desktop** for Windows or macOS from the link `here <https://desktop.github.com/>`__.
+.. note::
+
+    Installing **GitHub Desktop** is *optional* - the instructions shown in the exercises will be for the command line,
+    but if you prefer a graphical interface, this option will be for you.
+
+You can download **GitHub Desktop** for Windows or macOS from the link `here <https://desktop.github.com/>`__.
 
 Follow the installer instructions, and then open **GitHub Desktop** once it finishes installing.
 

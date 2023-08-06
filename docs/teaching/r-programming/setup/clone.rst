@@ -3,10 +3,38 @@ cloning the repository
 
 .. note::
 
-    On this page, there are instructions for two ways to clone the repository: using **GitHub Desktop**, and using the
-    **git** command-line interface.
+    On this page, there are instructions for two ways to clone the repository: using the **git** command-line interface,
+    and using **GitHub Desktop**.
 
     Choose **ONE** of the two ways to clone the repository - you do not need to clone it twice.
+
+git command-line interface
+---------------------------
+
+Open a **Command Prompt**, then navigate to the folder where you want to clone the repository using ``cd``:
+
+.. code-block:: text
+
+    cd c:\Users\bob\projects
+
+Now, enter the following command:
+
+.. code-block:: text
+
+    git clone https://github.com/your_username/egm722.git
+
+.. warning::
+
+    Remember to replace ``your_username`` with your GitHub username!
+
+You should see the following output on the screen:
+
+.. image:: ../../../img/egm722/setup/clone/cli_clone.png
+    :width: 720
+    :align: center
+    :alt: the repository being cloned to the local computer in the command prompt
+
+|br| Now that you've cloned the repository, you can move on to the next step: :doc:`setting up conda<conda>`
 
 github desktop
 ---------------
@@ -54,30 +82,3 @@ you plan to contribute to the **upstream** fork. For this module, you won't be c
 
 Now that you've cloned the repository, you can move on to the next step: :doc:`setting up conda<conda>`
 
-git command-line interface
----------------------------
-
-Open a **Command Prompt**, then navigate to the folder where you want to clone the repository using ``cd``:
-
-.. code-block:: text
-
-    cd c:\Users\bob\projects
-
-Now, enter the following command:
-
-.. code-block:: text
-
-    git clone https://github.com/your_username/egm722.git
-
-.. warning::
-
-    Remember to replace ``your_username`` with your GitHub username!
-
-You should see the following output on the screen:
-
-.. image:: ../../../img/egm722/setup/clone/cli_clone.png
-    :width: 720
-    :align: center
-    :alt: the repository being cloned to the local computer in the command prompt
-
-|br| Now that you've cloned the repository, you can move on to the next step: :doc:`setting up conda<conda>`

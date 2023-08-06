@@ -11,7 +11,7 @@ setting up a conda environment
 .. danger::
 
     You should have already opened a :doc:`GitHub<github>` account, installed :doc:`git<git>` and
-    :doc:`GitHub Desktop<desktop>`, :doc:`forked<fork>` the EGM722 repository, :doc:`cloned<clone>` the repository to
+    :doc:`GitHub Desktop<desktop>`, :doc:`forked<fork>` the workshop repository, :doc:`cloned<clone>` the repository to
     your computer, and installed :doc:`Anaconda Navigator<conda>`.
 
     If you haven’t done all of these steps, please do so now before continuing.
@@ -48,8 +48,8 @@ Open the **environment.yml** file in a text editor
     :align: center
     :alt: the yml file open in notepad++
 
-|br| Here, you can see the name of the environment (egm722), the ``channels`` to install packages from, listed in order
-of preference, and the ``dependencies``, or required packages.
+|br| Here, you can see the name of the environment (intro-to-r), the ``channels`` to install packages from, listed in
+order of preference, and the ``dependencies``, or required packages.
 
 From the **Anaconda Navigator** window, click on the **Import** button at the bottom of the **Environments** tab. An
 import window will open:
