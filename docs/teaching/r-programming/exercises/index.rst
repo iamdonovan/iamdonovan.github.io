@@ -21,4 +21,7 @@ haven't, you will have a difficult time getting started on the exercises.
    rintro
    debugging
    plotting
+   transform
+   tidy
    stats
+   project
