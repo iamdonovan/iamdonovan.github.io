@@ -40,15 +40,16 @@ file is one of the ways that we can easily duplicate environments using **conda*
 systems – it provides a list of the packages for the package management system to find and install.
 
 Open the **environment.yml** file in a text editor
-(**NB – this means NotePad, Notepad++ or something similar, NOT MS Word!**). It should look something like this
-(the exact list of dependencies may differ somewhat):
+(**NB – this means NotePad, Notepad++ or something similar, NOT MS Word!**).
 
-.. image:: ../../../img/egm722/setup/environment/notepad.png
+It should look something like this (the exact list of dependencies may differ somewhat):
+
+.. image:: img/r_intro_environment.png
     :width: 720
     :align: center
     :alt: the yml file open in notepad++
 
-|br| Here, you can see the name of the environment (intro-to-r), the ``channels`` to install packages from, listed in
+|br| Here, you can see the name of the environment (**intro-to-r**), the ``channels`` to install packages from, listed in
 order of preference, and the ``dependencies``, or required packages.
 
 From the **Anaconda Navigator** window, click on the **Import** button at the bottom of the **Environments** tab. An
@@ -59,29 +60,30 @@ import window will open:
     :align: center
     :alt: the import window
 
-|br| Click the folder icon to navigate to the **environment.yml** file, select it and click **Open**. The window should
-now look like this:
+|br| Click the folder icon to navigate to the **environment.yml** file on the **Local drive**, select it and click
+**Open**. The window should now look like this:
 
-.. image:: ../../../img/egm722/setup/environment/import2.png
+.. image:: img/import_r.png
     :width: 400
     :align: center
     :alt: the import window with the yml file selected
 
-|br| The **Name** field is automatically populated based on the **.yml** file, while the location specified will differ
-depending on where **Anaconda** is installed on your computer. Click **Import** to start setting up the environment.
-Depending on your connection speed and computer’s specifications, this may take some time. When it finishes, you
-should see the following screen:
+|br| The **Name** field should be automatically populated based on the **.yml** file, but if it isn't make sure to
+change the name to **intro-to-r**.
 
-.. image:: ../../../img/egm722/setup/environment/new_environment.png
+Click **Import** to start setting up the environment. Depending on your connection speed and computer’s specifications,
+this may take some time. When it finishes, you should see the following screen:
+
+.. image:: img/r_environment.png
     :width: 720
     :align: center
-    :alt: anaconda navigator with the egm722 environment
+    :alt: anaconda navigator with the intro-to-r environment
 
-|br| Note how many packages were actually installed – 161, from the 5 shown in the original **.yml** file.
+|br| Note how many packages were actually installed – 329, from the 5 shown in the original **.yml** file. By
 
 This is because each of those 5 packages have additional dependencies which have to be installed as well. Fortunately,
-almost all of this is done automatically – we don’t have to worry about tracking down each individual dependency on our
-own.
+all of this is done automatically by **conda** – we don’t have to worry about tracking down and installing each
+individual dependency on our own.
 
 changing environments
 .......................
@@ -96,7 +98,7 @@ The next thing to do is to switch to the **Home** tab in **Anaconda Navigator**:
 |br| You should see that you have two different environments when you open the dropdown menu next to **Applications on**.
 Whenever you want to switch environments in **Anaconda Navigator**, you can select the environment from this menu.
 
-You should see that when you change between the ``base`` and ``egm722`` environments, the list of installed
+You should see that when you change between the ``base`` and ``intro-to-r`` environments, the list of installed
 applications changes – this is because we have not installed the same applications in the different environments.
 
 .. _phd conda prompt:
@@ -111,12 +113,12 @@ The final step covered in this manual is to install the **CMD.exe Prompt** for t
     :align: center
     :alt: anaconda navigator with the CMD.exe button highlighted
 
-|br| While not strictly required, this will enable you to directly launch a Windows Command Prompt with your **egm722**
-environment already loaded.
+|br| While not strictly required, this will enable you to directly launch a **Windows Command Prompt** with your
+**intro-to-r** environment already loaded.
 
 If you run the **Anaconda Prompt** from the **Start Menu**, it will automatically load the default (``base``)
 environment, and you will need to switch environments using the ``conda activate`` command when you want to use your
-**egm722** environment.
+**intro-to-r** environment.
 
 Once you have the conda environment set up, you are ready to move on to configuring **jupyter**.
 
@@ -151,40 +153,29 @@ Next, navigate to where you have cloned the repository using ``cd``:
 
 .. code-block:: text
 
-    cd c:\Users\bob\projects\egm722
+    cd c:\Users\bob\intro-to-r
 
-If you're in the right place, you should see all of the files from the repository when you enter the ``dir`` command:
+If you're in the right place, you should see all of the files from the repository when you enter the ``dir`` command.
 
-.. image:: ../../../img/egm722/setup/environment/conda_dir_output.png
-    :width: 720
-    :align: center
-    :alt: the output of the dir command in the egm722 directory
-
-|br| Now, enter the following command:
+Now, enter the following command:
 
 .. code-block:: text
 
     conda env create -f environment.yml
 
-This tells **conda** to create a new environment, using the "recipe" provided in ``environment.yml``. You should
-(eventually) see something like the following:
+This tells **conda** to create a new environment, using the "recipe" provided in ``environment.yml``.
 
-.. image:: ../../../img/egm722/setup/environment/conda_working.png
-    :width: 720
-    :align: center
-    :alt: conda collecting package metadata and attempting to create the new environment
+This step may take some time\ [1]_, but if all goes well, you will eventually see the following message:
 
-|br| This step may take some time\ [1]_, but if all goes well, you will eventually see the following message:
-
-.. image:: ../../../img/egm722/setup/environment/conda_success.png
+.. image:: img/success_message.png
     :width: 720
     :align: center
     :alt: the message indicating that conda has successfully installed the new command
 
 |br| And that's it. Once you have done this, you may want to open **Anaconda Navigator** and set up a new command
-prompt link for your environment, following the instructions in :ref:`egm722 conda prompt`.
+prompt link for your environment, following the instructions in :ref:`phd conda prompt`.
 
-Once you have the conda environment set up, you are ready to move on to configuring **jupyter**.
+Once you have the conda environment set up, you are ready to move on to configuring **JupyterLab**.
 
 
 notes and references
