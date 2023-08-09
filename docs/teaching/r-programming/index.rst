@@ -24,16 +24,22 @@ reproducible analysis. The topics covered include (but are not limited to):
 Before moving on to the :doc:`practicals<exercises/index>` below, be sure to visit the
 :doc:`setup<setup/index>` page to make sure that you have the software and materials set up in order to get started.
 
-+---------+-----------------------+--------------------------------+
-| session | lecture theme         | exercise topic                 |
-+---------+-----------------------+--------------------------------+
-| 1       | git and conda         | :doc:`exercises/git`           |
-+---------+-----------------------+--------------------------------+
-| 2       | intro to **r**        | :doc:`exercises/rintro`        |
-+---------+-----------------------+--------------------------------+
-| 3       | debugging             | :doc:`exercises/debugging`     |
-+---------+-----------------------+--------------------------------+
-| 4       | creating plots        | :doc:`exercises/plotting`      |
-+---------+-----------------------+--------------------------------+
-| 5       | statistical analysis  | :doc:`exercises/stats`         |
-+---------+-----------------------+--------------------------------+
++---------+-------------------------+--------------------------------+
+| session | theme                   | exercise topic(s)              |
++---------+-------------------------+--------------------------------+
+| 1       | git and conda           | :doc:`exercises/git`           |
++---------+-------------------------+--------------------------------+
+| 2       | intro to **r**          | :doc:`exercises/rintro`        |
+|         |                         |                                |
+|         |                         | :doc:`exercises/debugging`     |
++---------+-------------------------+--------------------------------+
+| 3       | plotting with `ggplot2` | :doc:`exercises/plotting`      |
++---------+-------------------------+--------------------------------+
+| 4       | organization            | :doc:`exercises/transform`     |
+|         |                         |                                |
+|         |                         | :doc:`exercises/tidy`          |
++---------+-------------------------+--------------------------------+
+| 5       | statistical analysis    | :doc:`exercises/stats`         |
++---------+-------------------------+--------------------------------+
+| 6       | workflow                | :doc:`exercises/project`       |
++---------+-------------------------+--------------------------------+
