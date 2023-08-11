@@ -11,14 +11,15 @@ programming skills for phd researchers
    exercises/index
    resources
 
-The aim of this workshop is to provide you with skills and experience to use programming tools for specialised and
-reproducible analysis. The topics covered include (but are not limited to):
+The aim of this workshop is to provide PhD Researchers with skills and experience to use programming tools for
+specialized and reproducible analysis. The topics covered include (but are not limited to):
 
 - Introduction to version control using git
 - Introduction to the **R** programming language
-- Using debugging tools to fix errors
+- Reading and understanding error messages to fix issues
 - Plotting data using ``ggplot2``
 - Basic statistical analysis using **R**
+- Project organization and "tidy" data
 
 
 Before moving on to the :doc:`practicals<exercises/index>` below, be sure to visit the
@@ -43,3 +44,12 @@ Before moving on to the :doc:`practicals<exercises/index>` below, be sure to vis
 +---------+-------------------------+--------------------------------+
 | 6       | workflow                | :doc:`exercises/project`       |
 +---------+-------------------------+--------------------------------+
+| 7       | byod\ [1]_ project work |                                |
++---------+-------------------------+--------------------------------+
+| 8       | byod project work       |                                |
++---------+-------------------------+--------------------------------+
+
+notes
+-------
+
+.. [1] "bring your own data"
