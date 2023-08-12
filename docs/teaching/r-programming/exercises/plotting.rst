@@ -749,20 +749,15 @@ to save the plot to a file:
 exercise and next steps
 -----------------------
 
-That’s all for this
+That's all for this exercise. To practice your skills, create a script that does the following:
 
-For the task, create a script that does the following:
-
--  loads the packages that you will need at the beginning
--  aggregates the values
--  adds a variable to divide the data into three 50 year periods (e.g.,
-   1871-1920, 1921-1970, 1971-2020)
--  creates a figure to plot the distribution of tmin for each period in
-   its own panel
--  creates a figure to plot the distribution of tmin for each period in
-   the same panel, colored by the period (using fill), with a mean
-   (solid) and dashed (median) line for each season
--  sets labels and font sizes
--  saves each plot to its own file
-
+- loads the packages that you will need at the beginning of the script
+- aggregates the temperature variables (mean by year), and the `rain` variable (summed by year)
+- adds a variable to divide the data into three 50 year periods: 1871-1920, 1921-1970, and 1971-2020
+- calculates the mean and median value of each variable for each period
+- creates a figure to plot the density distribution of tmin for each period in its own panel
+- creates a figure to plot the density distribution of tmin for each period in the same panel, colored by the
+  period (using fill), with a mean (solid) and dashed (median) line for each period
+- sets appropriate labels and font sizes
+- saves each plot to its own file
 
