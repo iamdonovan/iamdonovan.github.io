@@ -24,4 +24,3 @@ and working your way to the bottom in order.
    conda
    environment
    jupyter
-   rstudio
