@@ -45,7 +45,7 @@ Open the **environment.yml** file in a text editor
 It should look something like this (the exact list of dependencies may differ somewhat):
 
 .. image:: img/r_intro_environment.png
-    :width: 720
+    :width: 600
     :align: center
     :alt: the yml file open in notepad++
 
