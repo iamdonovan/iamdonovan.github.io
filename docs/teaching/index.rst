@@ -19,7 +19,7 @@ ulster (2020-present)
 
 .. toctree::
    :glob:
-   :maxdepth: 2
+   :maxdepth: 1
 
    egm101/index
    egm310/index
