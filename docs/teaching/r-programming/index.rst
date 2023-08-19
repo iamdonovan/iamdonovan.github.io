@@ -29,6 +29,8 @@ Before moving on to the :doc:`practicals<exercises/index>` below, be sure to vis
 | session | theme                   | exercise topic(s)              |
 +---------+-------------------------+--------------------------------+
 | 1       | git and conda           | :doc:`exercises/git`           |
+|         |                         |                                |
+|         |                         | :doc:`exercises/project`       |
 +---------+-------------------------+--------------------------------+
 | 2       | intro to **r**          | :doc:`exercises/rintro`        |
 |         |                         |                                |
@@ -42,7 +44,7 @@ Before moving on to the :doc:`practicals<exercises/index>` below, be sure to vis
 +---------+-------------------------+--------------------------------+
 | 5       | statistical analysis    | :doc:`exercises/stats`         |
 +---------+-------------------------+--------------------------------+
-| 6       | workflow                | :doc:`exercises/project`       |
+| 6       | workflow                |                                |
 +---------+-------------------------+--------------------------------+
 | 7       | byod\ [1]_ project work |                                |
 +---------+-------------------------+--------------------------------+

@@ -18,10 +18,10 @@ haven't, you will have a difficult time getting started on the exercises.
    :maxdepth: 1
 
    git
+   project
    rintro
    debugging
    plotting
    transform
    tidy
    stats
-   project
