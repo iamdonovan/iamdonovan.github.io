@@ -6,7 +6,9 @@ plotting data using ggplot2
     This is a **non-interactive** version of the exercise. If you want to run through the steps yourself and see the
     outputs, you'll need to follow the setup steps and work through the notebook on your own computer.
 
-In this exercsise, we're going to investigate how temperature has changed over time, using monthly observations from the Armagh Observatory. By the end of this exercise, you will:
+In this exercsise, we’re going to investigate how temperature has
+changed over time, using monthly observations from the Armagh
+Observatory. By the end of this exercise, you will:
 
 -  be able to load additional libraries in **R**
 -  load data from a file
@@ -422,15 +424,20 @@ respectively - let’s change the plot slightly so that we can see if this
 is correct.
 
 To do this, we can use the ``color`` keyword argument to ``aes()``. Note
-that this argument only tells ``ggplot`` what variable to use for
-grouping and coloring the data - we can’t use this to, say, change all
-of the bars from gray to blue (for that, we use the ``fill`` keyword
+that any of the aesthetic mappings that we include in the original
+``ggplot()`` call (at the *global* level) will be passed down to the
+**geom** layers in the plot. We can also use mappings at the *local*
+level, defining them for each individual layer.
+
+Note also that this argument only tells ``ggplot`` what variable to use
+for grouping and coloring the data - we can’t use this to, say, change
+all of the bars from gray to blue (for that, we use the ``fill`` keyword
 argument to the **geom** we are using):
 
 .. code:: r
 
-    ggplot(armagh, aes(x=tmax, color=season)) +
-      geom_histogram(binwidth=1, linewidth=2, fill='white') # add a histogram with bins of width 1, thick lines, and white bars
+    ggplot(data=armagh, mapping=aes(x=tmax, color=season)) + # define the color mapping at the global level
+        geom_histogram(binwidth=1, linewidth=2, fill='white') # add a histogram with bins of width 1, thick lines, and white bars
 
 
 .. image:: plotting_files/plotting_25_1.png
@@ -455,7 +462,7 @@ default,this is set to ``'stack'``, but if we change it to
 
 .. code:: r
 
-    ggplot(data=armagh, mapping=aes(x=tmax, color=season, fill=season)) +
+    ggplot(data=armagh, mapping=aes(x=tmax, color=season, fill=season)) + # define the color and fill mapping at the global level
       geom_histogram(binwidth=1, linewidth=2, alpha=0.4, position='identity') # add a histogram with bins of width 1, thick lines, and white bars
 
 
@@ -482,106 +489,6 @@ version of the histogram, using ``geom_density()``
    :height: 420px
 
 
-grouping data
--------------
-
-Next, we want to add a vertical line to the plot, showing the mean value
-of ``tmax`` for each season. Before we do this, though, we’ll look at a
-few functions that we can use to calculate the mean by season, while
-also removing all of the ``NA`` values in the table.
-
-handling NA values
-~~~~~~~~~~~~~~~~~~
-
-First, we can use ``filter()``
-(`documentation <https://dplyr.tidyverse.org/reference/filter.html>`__)
-- remember that this is the ``filter()`` from ``dplyr``, **not** from
-the ``base`` package - to remove values that satisfy a given condition.
-
-One thing to note is that we can’t simply use the ``==`` operator to
-test whether a value is ``NA`` or not:
-
-.. code:: r
-
-    armagh[armagh$tmax == NA, ] # this will return a table of NA values
-
-This is because the equality operator (``==``) doesn’t apply to ``NA``
-values - if one of the values in the comparative statement is ``NA``,
-the result is also ``NA``. This is important to keep in mind - ``NA``
-values behave very differently from other values!
-
-Instead, we can use the ``is.na()``
-(`documentation <https://devdocs.io/r/library/matrix/html/is.na-methods>`__)
-function from the ``base`` package:
-
-.. code:: r
-
-    is.na(armagh$tmax) # use is.na to return TRUE wherever tmax is NA, and FALSE wherever it is not
-
-Now we have a statement that will remove all of the ``NA`` values from
-our dataset. Remember that we want to remove ``NA`` values, so really
-this means that we want to filter using the *logical negation* (``!``)
-of the output of ``is.na()``:
-
-.. code:: r
-
-    filter(armagh, !is.na(armagh$tmax)) # use filter to remove rows where tmax is NA
-
-Next, we’ll look at another operator that we can use to easily combine
-function calls: the ``|>`` (“pipe”) operator.
-
-In brief, ``|>`` tells **R** to take the output of the thing on the
-left, and pass it to the function call on the right. Thinking about this
-mathematically, ``x |> f(y)`` is equivalent to ``f(x, y)``. We can also
-use this to combine multiple function calls - so, ``x |> f(y) |> g(z)``
-is equivalent to ``g(f(x, y), z)``, and so on.
-
-So, let’s use this to combine the ``filter()`` output with
-``group_by()``
-(`documentation <https://dplyr.tidyverse.org/reference/group_by.html>`__),
-to group the filtered data using the season:
-
-.. code:: r
-
-    armagh |> # pass armagh on to the next function call
-        filter(!is.na(tmax)) |> # use filter to remove NA values using !is.na
-        group_by(season) # group the filtered output by the value of season
-
-This looks largely the same as the previous output, with one important
-distinction: this is now a **grouped_df**, rather than a **spec_tbl_df**
-- this means that when we call the ``summarize()``
-(`documentation <https://dplyr.tidyverse.org/reference/summarise.html>`__)
-function on the output, the summary is calculated based on each *group*,
-rather than all values of the variable.
-
-The arguments to ``summarize()`` are each of the of variables that we
-want to calculate, including how to calculate them. In the cell below,
-we’re adding a variable to the summary table, ``tmax``, calculated as
-the mean (``mean()``) of ``armagh$tmax``:
-
-.. code:: r
-
-    seasonal_summary <- armagh |>
-                       filter(!is.na(tmax)) |> # remove NA values using !is.na
-                       group_by(season) |> # group the data using season
-                       summarize(tmax = mean(tmax)) # return only the tmax, averaged by season
-    print(seasonal_summary)
-
-Now that we have this put all together, we can use ``geom_vline()`` to
-plot a vertical line at the location of each seasonal mean value:
-
-.. code:: r
-
-    ggplot(data=armagh, mapping=aes(x=tmax, color=season, fill=season)) + # create a plot with tmax on the x-axis, colored by season
-      geom_density(alpha=0.4, linewidth=1) + # add a density plot with transparency of 0.4 and lines of width 1
-      geom_vline(data=seasonal_summary, mapping=aes(xintercept=tmax, color=season), linewidth=1, linetype='dashed') # add dashed vertical lines at the seasonal mean tmax
-
-
-.. image:: plotting_files/plotting_41_1.png
-   :width: 420px
-   :height: 420px
-
-
 example: box plots
 ~~~~~~~~~~~~~~~~~~
 
@@ -593,7 +500,7 @@ To make a box plot, we use ``geom_boxplot()``:
       geom_boxplot()
 
 
-.. image:: plotting_files/plotting_43_1.png
+.. image:: plotting_files/plotting_31_1.png
    :width: 420px
    :height: 420px
 
@@ -611,7 +518,7 @@ We might also want to plot our data using different subplots, or
         geom_point() # plot a point cloud
 
 
-.. image:: plotting_files/plotting_45_1.png
+.. image:: plotting_files/plotting_33_1.png
    :width: 420px
    :height: 420px
 
@@ -628,7 +535,7 @@ split this into a single subplot for each season, we use
         facet_wrap(~season) # use facet_wrap to make a subplot for each season
 
 
-.. image:: plotting_files/plotting_47_1.png
+.. image:: plotting_files/plotting_35_1.png
    :width: 420px
    :height: 420px
 
@@ -636,22 +543,41 @@ split this into a single subplot for each season, we use
 cleaning up and saving the plot to a file
 -----------------------------------------
 
-In the final example, we’ll make a plot showing the annually-averaged
-monthly maximum temperature over time, along with a linear fit to the
-data. We’ll also see how we can change the axes labels, and increase
-font sizes, to help make our plot ready for including in a manuscript or
-presentation.
+In the final example, we’ll make a plot showing the relationship between
+``rain`` and ``tmax``, colored by the ``season``. We’ll also see how we
+can change the axes labels, and increase font sizes, to help make our
+plot ready for including in a manuscript or presentation.
 
-First, we’ll use ``group_by()``, ``summarize()``, and ``filter()`` to
-calculate the annually-averaged value of ``tmax``:
+First, let’s make the initial scatter plot:
 
 .. code:: r
 
-    annual_tmax <- armagh |>
-                    group_by(yyyy) |> # group the data using yyyy (i.e., by year)
-                    summarize(tmax = mean(tmax)) |> # return only the tmax, averaged by yyyy
-                    filter(!is.na(tmax)) # drop NA values from the table
-    print(annual_tmax) # show the first 10 rows of the table
+    ggplot(data=armagh, mapping=aes(x=rain, y=tmax, color=season)) + # create a plot of tmax vs rain
+        geom_point() # make a scatter plot
+
+
+.. image:: plotting_files/plotting_37_1.png
+   :width: 420px
+   :height: 420px
+
+
+Most of the time, though, we don’t just want to rely on color for
+differentiating between groups - different people perceive color
+differently, or someone might view our plots printed onto
+black-and-white paper. By using the ``shape`` argument to ``aes()``, as
+well as ``color``, we can be more sure that our plot can be
+understandable:
+
+.. code:: r
+
+    ggplot(data=armagh, mapping=aes(x=rain, y=tmax)) + # create a plot of tmax vs rain, with no color mapping at the global level
+        geom_point(mapping=aes(color=season, shape=season)) # make a scatter plot with different colors and shapes
+
+
+.. image:: plotting_files/plotting_39_1.png
+   :width: 420px
+   :height: 420px
+
 
 Up to now, we’ve just been showing the output of ``ggplot()`` directly
 by running each cell. In a script, however, this wouldn’t work - we want
@@ -663,13 +589,12 @@ operator:
 
 .. code:: r
 
-    annual_plot <- ggplot(grouped_tmax, aes(x=yyyy, y=tmax)) + # create a plot of tmax vs year
-                    geom_point() # make a scatter plot
-    annual_plot # show the plot
+    rain_tmax_plot <- ggplot(data=armagh, aes(x=rain, y=tmax)) + # create a plot of tmax vs rain
+        geom_point(mapping=aes(color=season, shape=season)) # make a scatter plot with different colors and shapes
+    rain_tmax_plot # show the plot
 
 
-
-.. image:: plotting_files/plotting_51_0.png
+.. image:: plotting_files/plotting_41_1.png
    :width: 420px
    :height: 420px
 
@@ -678,33 +603,36 @@ Now that we have saved the output as an **object**, ``annual_plot``, we
 can add to this in exactly the same way as we have before. For example,
 if we now want to add the linear fit, we can use ``geom_smooth()``
 (`documentation <https://ggplot2.tidyverse.org/reference/geom_smooth.html>`__),
-with ``method`` set to ``lm`` (for **l**\ inear **m**\ odel):
+with ``method`` set to ``lm`` (for **l**\ inear **m**\ odel).
+
+Here, we’re using the ``mapping`` argument at the *local* level to make
+sure that we have one line for each season:
 
 .. code:: r
 
-    annual_plot <- annual_plot +
-                    geom_smooth(method = 'lm') # add a linear fit to the data
-    annual_plot # show the plot again
+    rain_tmax_plot <- rain_tmax_plot +
+                    geom_smooth(mapping=aes(color=season), method = 'lm') # add a linear fit to the data
+    rain_tmax_plot # show the plot again
 
 
-.. image:: plotting_files/plotting_53_1.png
+.. image:: plotting_files/plotting_43_1.png
    :width: 420px
    :height: 420px
 
 
-And, we can change the axes labels using ``xlab()`` (for the **x** axis)
-and ``ylab()`` (for the **y** axis), respectively
+Next, we can change the axes labels using ``xlab()`` (for the **x**
+axis) and ``ylab()`` (for the **y** axis), respectively
 (`documentation <https://ggplot2.tidyverse.org/reference/labs.html>`__):
 
 .. code:: r
 
-    annual_plot <- annual_plot +
-                        xlab('year') +
+    rain_tmax_plot <- rain_tmax_plot +
+                        xlab('total rainfall (mm)') +
                         ylab('mean monthly maximum temperature (°C)')
-    annual_plot
+    rain_tmax_plot
 
 
-.. image:: plotting_files/plotting_55_1.png
+.. image:: plotting_files/plotting_45_1.png
    :width: 420px
    :height: 420px
 
@@ -725,15 +653,16 @@ set them to a font size of 18:
 
 .. code:: r
 
-    annual_plot <- annual_plot +
-                    theme(
-                        axis.text=element_text(size=18),
-                        axis.title=element_text(size=18)
-                    )
-    annual_plot
+    rain_tmax_plot <- rain_tmax_plot +
+        theme(
+            axis.text=element_text(size=18),
+            axis.title=element_text(size=18)
+        )
+
+    rain_tmax_plot # show the plot again
 
 
-.. image:: plotting_files/plotting_57_1.png
+.. image:: plotting_files/plotting_47_1.png
    :width: 420px
    :height: 420px
 
@@ -744,20 +673,21 @@ to save the plot to a file:
 
 .. code:: r
 
-    ggsave('mean_annual_tmax.png', plot=annual_plot) # save the plot to a file
+    ggsave('rain_tmax_plot.png', plot=rain_tmax_plot) # save the plot to a file
 
 exercise and next steps
 -----------------------
 
-That's all for this exercise. To practice your skills, create a script that does the following:
+That’s all for this exercise. To practice your skills, create a script
+that does the following:
 
-- loads the packages that you will need at the beginning of the script
-- aggregates the temperature variables (mean by year), and the `rain` variable (summed by year)
-- adds a variable to divide the data into three 50 year periods: 1871-1920, 1921-1970, and 1971-2020
-- calculates the mean and median value of each variable for each period
-- creates a figure to plot the density distribution of tmin for each period in its own panel
-- creates a figure to plot the density distribution of tmin for each period in the same panel, colored by the
-  period (using fill), with a mean (solid) and dashed (median) line for each period
-- sets appropriate labels and font sizes
-- saves each plot to its own file
-
+-  loads the packages that you will need at the beginning of the script
+-  adds a variable to divide the data into three 50 year periods:
+   1871-1920, 1921-1970, and 1971-2020
+-  creates a figure to plot the density distribution of tmin for each
+   period in its own panel
+-  creates a figure to plot the density distribution of tmin for each
+   period in the same panel, colored by the period (using fill), with a
+   mean (solid) and dashed (median) line for each period
+-  sets appropriate labels and font sizes
+-  saves each plot to its own file
