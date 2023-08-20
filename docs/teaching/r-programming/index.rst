@@ -43,6 +43,8 @@ Before moving on to the :doc:`practicals<exercises/index>` below, be sure to vis
 |         |                         | :doc:`exercises/tidy`          |
 +---------+-------------------------+--------------------------------+
 | 5       | statistical analysis    | :doc:`exercises/stats`         |
+|         |                         |                                |
+|         |                         | :doc:`exercises/regression`    |
 +---------+-------------------------+--------------------------------+
 | 6       | workflow                |                                |
 +---------+-------------------------+--------------------------------+

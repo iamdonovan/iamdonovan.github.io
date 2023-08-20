@@ -25,3 +25,4 @@ haven't, you will have a difficult time getting started on the exercises.
    transform
    tidy
    stats
+   regression
