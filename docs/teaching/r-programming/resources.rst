@@ -12,6 +12,8 @@ On this page, you will find links to additional resources/materials relevant to 
   crash course/guide for the basics of **R**.
 - `Programming with R <https://swcarpentry.github.io/r-novice-inflammation/index.html>`__: An online course introducing
   **R**.
+- `Statology R Guides <https://www.statology.org/r-guides/>`__: A good resource for learning statistics that also has
+  a number of guides for how to do various things in **R**.
 
 git resources
 --------------
