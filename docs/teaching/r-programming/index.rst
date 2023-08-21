@@ -39,8 +39,6 @@ Before moving on to the :doc:`practicals<exercises/index>` below, be sure to vis
 | 3       | plotting with `ggplot2` | :doc:`exercises/plotting`      |
 +---------+-------------------------+--------------------------------+
 | 4       | organization            | :doc:`exercises/transform`     |
-|         |                         |                                |
-|         |                         | :doc:`exercises/tidy`          |
 +---------+-------------------------+--------------------------------+
 | 5       | statistical analysis    | :doc:`exercises/stats`         |
 |         |                         |                                |

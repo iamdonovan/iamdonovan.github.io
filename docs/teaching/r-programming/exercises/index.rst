@@ -23,6 +23,5 @@ haven't, you will have a difficult time getting started on the exercises.
    debugging
    plotting
    transform
-   tidy
    stats
    regression
