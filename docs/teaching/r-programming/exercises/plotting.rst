@@ -30,11 +30,14 @@ downloaded from the `UK Met
 Office <https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data>`__.
 
 To make the data slightly easier to work with, I have done the
-following: - Removed the header on lines 1-5 - Replaced multiple spaces
-with a single space, and replaced single spaces with a comma (``,``) -
-Removed ``---`` to indicate no data, leaving these fields blank -
-Removed ``*`` indicating provisional/estimated values - Removed the 2023
-data - Renamed the file ``armaghdata.csv``.
+following:
+
+- Removed the header on lines 1-5
+- Replaced multiple spaces with a single space, and replaced single spaces with a comma (``,``)
+- Removed ``---`` to indicate no data, leaving these fields blank
+- Removed ``*`` indicating provisional/estimated values
+- Removed the 2023 data
+- Renamed the file ``armaghdata.csv``.
 
 If you wish to use your own data (and there are loads of stations
 available!), please feel free. For the best experience, you will likely
@@ -44,12 +47,12 @@ loading libraries
 -----------------
 
 Before getting started, we need to load the libraries we will use in the
-exercise. We will be using three libraries: -
-`readr <https://readr.tidyverse.org/>`__, for reading the data from a
-file; - `ggplot2 <https://ggplot2.tidyverse.org/>`__, for plotting the
-data; - and `dplyr <https://dplyr.tidyverse.org/>`__, for
-transforming/manipulating (read: “analyzing” or “working with”, not
-“fabricating”!) the data.
+exercise. We will be using three libraries:
+
+- `readr <https://readr.tidyverse.org/>`__, for reading the data from a file;
+- `ggplot2 <https://ggplot2.tidyverse.org/>`__, for plotting the data;
+- and `dplyr <https://dplyr.tidyverse.org/>`__, for transforming/manipulating (read: “analyzing” or “working with”, not
+  “fabricating”!) the data.
 
 To do this, we use the ``library()`` function
 (`documentation <https://devdocs.io/r/library/base/html/library>`__),
