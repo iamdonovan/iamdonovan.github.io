@@ -41,10 +41,8 @@ Before moving on to the :doc:`practicals<exercises/index>` below, be sure to vis
 | 4       | organization            | :doc:`exercises/transform`     |
 +---------+-------------------------+--------------------------------+
 | 5       | statistical analysis    | :doc:`exercises/stats`         |
-|         |                         |                                |
-|         |                         | :doc:`exercises/regression`    |
 +---------+-------------------------+--------------------------------+
-| 6       | workflow                |                                |
+| 6       | regression              | :doc:`exercises/regression`    |
 +---------+-------------------------+--------------------------------+
 | 7       | byod\ [1]_ project work |                                |
 +---------+-------------------------+--------------------------------+
