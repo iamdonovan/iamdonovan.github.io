@@ -6,7 +6,7 @@ workshop. If you are not currently logged in, do so now.
 
 Click the **Fork** button in the upper right-hand corner of the window:
 
-.. image:: ../../../img/egm722/setup/fork/fork.png
+.. image:: img/r_fork.png
     :width: 720
     :align: center
     :alt: the "fork" button for a github repository
@@ -14,7 +14,7 @@ Click the **Fork** button in the upper right-hand corner of the window:
 |br| This will create a *fork* of the repository – it will copy the entire repository over to your account. On this page,
 make sure that you uncheck **Copy the main branch only** before clicking **Create fork**:
 
-.. image:: ../../../img/egm722/setup/fork/create_fork.png
+.. image:: img/r_create_fork.png
     :width: 720
     :align: center
     :alt: the "create fork" page on github
@@ -28,7 +28,7 @@ make sure that you uncheck **Copy the main branch only** before clicking **Creat
 
 After a minute, you should see the following:
 
-.. image:: ../../../img/egm722/setup/fork/forked.png
+.. image:: img/r_forked.png
     :width: 720
     :align: center
     :alt: the newly forked repository
