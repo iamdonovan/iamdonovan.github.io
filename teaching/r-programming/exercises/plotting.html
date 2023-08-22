@@ -1,0 +1,1757 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>plotting data using ggplot2 &#8212; space cameras and glaciers</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="transforming data" href="transform.html" />
+    <link rel="prev" title="debugging code" href="debugging.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">space cameras and glaciers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../whataboutbob.html">
+   about me
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../index.html">
+   teaching
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm101/index.html">
+     EGM101: skills toolbox
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm101/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week5.html">
+         computation, summary statistics, and graphing in excel
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week6.html">
+         summarizing and graphing data in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week7.html">
+         correlation and regression in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week8.html">
+         hypothesis testing using spss
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm310/index.html">
+     EGM310: introduction to gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm702/index.html">
+     EGM702: photogrammetry and advanced image analysis
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm702/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/setup.html">
+         software setup
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week1.html">
+         dem processing using micmac
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week2.html">
+         dem differencing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week3.html">
+         introduction to google earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week4.html">
+         change detection in earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week5.html">
+         classification in earth engine
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm703/index.html">
+     EGM703: advanced active and passive remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm703/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week1.html">
+         urban heat islands
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week2.html">
+         hyperspectral image analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week3.html">
+         SAR image processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week4.html">
+         InSAR Processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week5.html">
+         SAR image interpretation and flood mapping
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm722/index.html">
+     EGM722: programming for gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/jupyter.html">
+         configuring jupyter
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/pycharm.html">
+         pycharm
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/pip.html">
+         installing packages with pip
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm722/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week1.html">
+         intro to python
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/debugging.html">
+         debugging exercise
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week2.html">
+         mapping with cartopy
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week3.html">
+         vector data using shapely and geopandas
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/folium.html">
+         interactive maps with folium
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week4.html">
+         raster data using rasterio
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/sentinelsat.html">
+         searching for images with sentinelsat
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week5.html">
+         vector and raster operations using python
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/faq/index.html">
+       help! something went wrong!
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+      <label for="toctree-checkbox-12">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/faq/git.html">
+         git troubleshooting
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/faq/python.html">
+         python troubleshooting
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/project/index.html">
+       programming project
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+      <label for="toctree-checkbox-13">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/project/github.html">
+         creating a new github repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/project/environment.html">
+         environment.yml
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm722/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../unis/index.html">
+     unis glaciology (AG-325)
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+    <label for="toctree-checkbox-14">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../unis/optical.html">
+       mapping glacier area change
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../unis/dems.html">
+       dem differencing and geodetic mass balance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../index.html">
+     programming skills for phd researchers
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+      <label for="toctree-checkbox-16">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/jupyter.html">
+         configuring jupyterlab
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="index.html">
+       exercises
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+      <label for="toctree-checkbox-17">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="git.html">
+         introduction to version control using git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="project.html">
+         starting a new project
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="rintro.html">
+         introduction to
+         <strong>
+          R
+         </strong>
+         using jupyterlab
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="debugging.html">
+         debugging code
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         plotting data using ggplot2
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="transform.html">
+         transforming data
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="stats.html">
+         basic statistical analysis using
+         <strong>
+          R
+         </strong>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="regression.html">
+         linear regression using
+         <strong>
+          R
+         </strong>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../gee/index.html">
+   google earth engine
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+  <label for="toctree-checkbox-18">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../gee/tutorials/index.html">
+     gee tutorials
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+    <label for="toctree-checkbox-19">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">
+       getting started
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+      <label for="toctree-checkbox-20">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">
+         adding and exporting images
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">
+         spectral signatures
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">
+         image collections and vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">
+         manual mapping (digitizing)
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">
+         band maths
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">
+         zonal statistics
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/classification/index.html">
+       image classification
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+      <label for="toctree-checkbox-21">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">
+         unsupervised classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">
+         pixel-based classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/obia.html">
+         object-based classification
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">
+       change detection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+      <label for="toctree-checkbox-22">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">
+         multi-temporal color composites
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">
+         repeat classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">
+         change vector analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">
+         time series analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">
+       image enhancement
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+      <label for="toctree-checkbox-23">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">
+         image filtering
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">
+         pansharpening
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">
+         edge detection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">
+         spectral unmixing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">
+         principle component analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/advanced/index.html">
+       advanced topics
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
+      <label for="toctree-checkbox-24">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">
+         creating an animation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../gee/exercises/index.html">
+     sample exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../research/index.html">
+   ongoing and past research projects
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
+  <label for="toctree-checkbox-25">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../research/dar.html">
+     deplete and retreat (DaR)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../writing/index.html">
+   selected writing samples
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
+  <label for="toctree-checkbox-26">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../writing/source.html">
+     source magazine (summer 2022)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../github.html">
+   github projects
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/teaching/r-programming/exercises/plotting.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data">
+   data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-libraries">
+   loading libraries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-the-data">
+   loading the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-variables-to-the-table">
+   adding variables to the table
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-strings">
+     combining strings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-note-about-dates">
+     a note about dates
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-a-new-variable">
+   calculating a new variable
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-data">
+   plotting data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-scatter-plot">
+     example: scatter plot
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-basic-histogram">
+   example: basic histogram
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-density-plot">
+     example: density plot
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-box-plots">
+     example: box plots
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#facet-wrapping">
+   facet wrapping
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cleaning-up-and-saving-the-plot-to-a-file">
+   cleaning up and saving the plot to a file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-and-next-steps">
+   exercise and next steps
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>plotting data using ggplot2</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data">
+   data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-libraries">
+   loading libraries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-the-data">
+   loading the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-variables-to-the-table">
+   adding variables to the table
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-strings">
+     combining strings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-note-about-dates">
+     a note about dates
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-a-new-variable">
+   calculating a new variable
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-data">
+   plotting data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-scatter-plot">
+     example: scatter plot
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-basic-histogram">
+   example: basic histogram
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-density-plot">
+     example: density plot
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-box-plots">
+     example: box plots
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#facet-wrapping">
+   facet wrapping
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cleaning-up-and-saving-the-plot-to-a-file">
+   cleaning up and saving the plot to a file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise-and-next-steps">
+   exercise and next steps
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="section" id="plotting-data-using-ggplot2">
+<h1>plotting data using ggplot2<a class="headerlink" href="#plotting-data-using-ggplot2" title="Permalink to this headline">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
+outputs, you’ll need to follow the setup steps and work through the notebook on your own computer.</p>
+</div>
+<p>In this exercsise, we’re going to investigate how temperature has
+changed over time, using monthly observations from the Armagh
+Observatory. By the end of this exercise, you will:</p>
+<ul class="simple">
+<li><p>be able to load additional libraries in <strong>R</strong></p></li>
+<li><p>load data from a file</p></li>
+<li><p>add variables to a table</p></li>
+<li><p>create <strong>date</strong> objects from character strings</p></li>
+<li><p>recode values in a table</p></li>
+<li><p>select data from a table using logical expressions</p></li>
+<li><p>create scatter plots (with smoothing lines)</p></li>
+<li><p>create histograms (+ smoothed histograms)</p></li>
+<li><p>save plots to a file</p></li>
+</ul>
+<div class="section" id="data">
+<h2>data<a class="headerlink" href="#data" title="Permalink to this headline">#</a></h2>
+<p>The data used in this exercise are the historic meteorological
+observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
+Observatory</a>,
+downloaded from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">UK Met
+Office</a>.</p>
+<p>To make the data slightly easier to work with, I have done the
+following:</p>
+<ul class="simple">
+<li><p>Removed the header on lines 1-5</p></li>
+<li><p>Replaced multiple spaces with a single space, and replaced single spaces with a comma (<code class="docutils literal notranslate"><span class="pre">,</span></code>)</p></li>
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">---</span></code> to indicate no data, leaving these fields blank</p></li>
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">*</span></code> indicating provisional/estimated values</p></li>
+<li><p>Removed the 2023 data</p></li>
+<li><p>Renamed the file <code class="docutils literal notranslate"><span class="pre">armaghdata.csv</span></code>.</p></li>
+</ul>
+<p>If you wish to use your own data (and there are loads of stations
+available!), please feel free. For the best experience, you will likely
+need to repeat the steps indicated above.</p>
+</div>
+<div class="section" id="loading-libraries">
+<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this headline">#</a></h2>
+<p>Before getting started, we need to load the libraries we will use in the
+exercise. We will be using three libraries:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://readr.tidyverse.org/">readr</a>, for reading the data from a file;</p></li>
+<li><p><a class="reference external" href="https://ggplot2.tidyverse.org/">ggplot2</a>, for plotting the data;</p></li>
+<li><p>and <a class="reference external" href="https://dplyr.tidyverse.org/">dplyr</a>, for transforming/manipulating (read: “analyzing” or “working with”, not
+“fabricating”!) the data.</p></li>
+</ul>
+<p>To do this, we use the <code class="docutils literal notranslate"><span class="pre">library()</span></code> function
+(<a class="reference external" href="https://devdocs.io/r/library/base/html/library">documentation</a>),
+followed by the name of the package:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w"> </span><span class="c1"># this loads the functions we&#39;ll use to load the data</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w"> </span><span class="c1"># this loads the functions, etc. needed for us to plot</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w"> </span><span class="c1"># this loads the functions, etc. needed for us to work with the data</span>
+</pre></div>
+</div>
+<p>Note the message that pops up once you run this cell:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">Attaching</span><span class="w"> </span><span class="n">package</span><span class="o">:</span><span class="w"> </span>‘<span class="n">dplyr</span>’
+
+
+<span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">objects</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">masked</span><span class="w"> </span><span class="n">from</span><span class="w"> </span>‘<span class="n">package</span><span class="o">:</span><span class="n">stats</span>’<span class="o">:</span>
+
+<span class="w">    </span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">lag</span>
+
+
+<span class="n">The</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">objects</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">masked</span><span class="w"> </span><span class="n">from</span><span class="w"> </span>‘<span class="n">package</span><span class="o">:</span><span class="n">base</span>’<span class="o">:</span>
+
+<span class="w">    </span><span class="n">intersect</span><span class="p">,</span><span class="w"> </span><span class="n">setdiff</span><span class="p">,</span><span class="w"> </span><span class="n">setequal</span><span class="p">,</span><span class="w"> </span><span class="n">union</span>
+</pre></div>
+</div>
+<p>When we load the <code class="docutils literal notranslate"><span class="pre">dplyr</span></code> package, a number of the functions provided
+by that package have the same name as functions in other packages. This
+means that when we call, for example, <code class="docutils literal notranslate"><span class="pre">filter()</span></code>, it will use the
+function provided by <code class="docutils literal notranslate"><span class="pre">dplyr</span></code>, rather than the one provided by
+<code class="docutils literal notranslate"><span class="pre">stats</span></code>. If we still want to use the function provided by <code class="docutils literal notranslate"><span class="pre">stats</span></code>,
+we have to explicitly tell <strong>R</strong> this, by using the full name,
+<code class="docutils literal notranslate"><span class="pre">stats::filter()</span></code>.</p>
+</div>
+<div class="section" id="loading-the-data">
+<h2>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">#</a></h2>
+<p>Now, we are finally ready to load the data file, using <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code>
+(<a class="reference external" href="https://readr.tidyverse.org/reference/read_delim.html">documentation</a>),
+a function provided by the <code class="docutils literal notranslate"><span class="pre">readr</span></code> package:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read_csv</span><span class="p">(</span><span class="s">&#39;data/armaghdata.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When we load the file using <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code>, it shows us a summary of the
+data: the number of rows and columns, the <strong>delimiter</strong> used (<code class="docutils literal notranslate"><span class="pre">,</span></code>,
+since it’s a comma-separated variable file), and the type of each of the
+columns, along with the column names.</p>
+<p>To view a summary of the data, we’ll use the built-in <code class="docutils literal notranslate"><span class="pre">print()</span></code>
+function. Because this object is not actually a <strong>data.frame</strong>, it’s a
+<strong>tibble</strong> (<a class="reference external" href="https://tibble.tidyverse.org/">documentation</a>), we only
+see the first 10 rows this way:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="n">armagh</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From this, we can see that there are 7 columns (and 2040 rows) in the
+<strong>tibble</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">yyyy</span></code>, a <strong>double</strong> representing the year of the observation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mm</span></code>, a <strong>double</strong> representing the month of the observation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tmax</span></code>, a <strong>double</strong> representing the maximum observed temperature
+in the month (in °C)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tmax</span></code>, a <strong>double</strong> representing the minimum observed temperature
+in the month (in °C)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">af</span></code>, a <strong>double</strong> representing the days of air frost in the month</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rain</span></code>, a <strong>double</strong> representing the total precipitation in the
+month (in mm)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sun</span></code>, a <strong>double</strong> representing the total number of hours of
+sunlight in the month</p></li>
+</ul>
+<p>We can also see that only the <code class="docutils literal notranslate"><span class="pre">rain</span></code> variable has values back to 1853
+- missing values are indicated by <code class="docutils literal notranslate"><span class="pre">NA</span></code>, which means “Not Available” -
+i.e., missing.</p>
+</div>
+<div class="section" id="adding-variables-to-the-table">
+<h2>adding variables to the table<a class="headerlink" href="#adding-variables-to-the-table" title="Permalink to this headline">#</a></h2>
+<p>Before moving on, let’s see how we can add additional variables to the
+table, starting with the date. This will make it easier for us to plot
+and analyze the time series of observations.</p>
+<div class="section" id="combining-strings">
+<h3>combining strings<a class="headerlink" href="#combining-strings" title="Permalink to this headline">#</a></h3>
+<p>To do this, we can first use the <code class="docutils literal notranslate"><span class="pre">paste()</span></code>
+(<a class="reference external" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste">documentation</a>)
+function, which <em>concatenates</em> strings or characters together. We’ll use
+<code class="docutils literal notranslate"><span class="pre">armagh$yyyy</span></code> and <code class="docutils literal notranslate"><span class="pre">armagh$mm</span></code> for the year and month, respectively,
+and we’ll arbitrarily choose the first of the month:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">paste</span><span class="p">(</span><span class="n">armagh</span><span class="o">$</span><span class="n">yyyy</span><span class="p">,</span><span class="w"> </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For the first row (yyyy=1853, mm=1), the string representation will be
+<code class="docutils literal notranslate"><span class="pre">1853/1/1</span></code> for 1 January 1853; the second row will be <code class="docutils literal notranslate"><span class="pre">1853/2/1</span></code> for
+1 February 1853, and so on:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">paste</span><span class="p">(</span><span class="n">armagh</span><span class="o">$</span><span class="n">yyyy</span><span class="p">,</span><span class="w"> </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-note-about-dates">
+<h3>a note about dates<a class="headerlink" href="#a-note-about-dates" title="Permalink to this headline">#</a></h3>
+<p>But, we don’t actually want to represent these as strings. Instead, we
+want them to be represented as a <strong>date</strong> object so that they display
+properly when we plot them, and because we may want to do calculations
+using the date/time.</p>
+<p>For this, we use the built-in <code class="docutils literal notranslate"><span class="pre">as.Date()</span></code>
+(<a class="reference external" href="https://devdocs.io/r/library/base/html/as.date">documentation</a>)
+function. The arguments to this function that we will use are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, the object that you want to convert to a date representative</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">format</span></code>, the way that the dates in the object are formatted (for
+more on this, see the
+<a class="reference external" href="https://devdocs.io/r/library/base/html/strptime">strptime</a>
+function)</p></li>
+</ul>
+<p>From above, our dates are formatted as follows:</p>
+<ul class="simple">
+<li><p>year with century (represented as <code class="docutils literal notranslate"><span class="pre">%Y</span></code>)</p></li>
+<li><p>month as decimal number (represented as <code class="docutils literal notranslate"><span class="pre">%m</span></code>)</p></li>
+<li><p>day as decimal number (represented as <code class="docutils literal notranslate"><span class="pre">%d</span></code>)</p></li>
+</ul>
+<p>We used <code class="docutils literal notranslate"><span class="pre">/</span></code> to separate the year, month, and day, which means that the
+format we have is <code class="docutils literal notranslate"><span class="pre">%Y/%m/%d</span></code>. To add this to the table, we can assign
+the output of <code class="docutils literal notranslate"><span class="pre">as.Date</span></code> to a new column, <code class="docutils literal notranslate"><span class="pre">date</span></code>, using
+<code class="docutils literal notranslate"><span class="pre">armagh$date</span></code>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># assign the output of as.Date to a new column, date, in the armagh object:</span>
+<span class="n">armagh</span><span class="o">$</span><span class="n">date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.Date</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">armagh</span><span class="o">$</span><span class="n">yyyy</span><span class="p">,</span><span class="w"> </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;/&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">format</span><span class="o">=</span><span class="s">&quot;%Y/%m/%d&quot;</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">armagh</span><span class="p">)</span><span class="w"> </span><span class="c1"># show the output</span>
+</pre></div>
+</div>
+<p>From the output above, you can see that we have added a new column to
+the table (<code class="docutils literal notranslate"><span class="pre">date</span></code>), which has the type <strong>date</strong>.</p>
+</div>
+</div>
+<div class="section" id="calculating-a-new-variable">
+<h2>calculating a new variable<a class="headerlink" href="#calculating-a-new-variable" title="Permalink to this headline">#</a></h2>
+<p>One thing we might be interested in doing is aggregating our
+observations by meteorological season, rather than just by month or
+year. To help us with this, we can calculate a new variable, <code class="docutils literal notranslate"><span class="pre">season</span></code>,
+and assign it values based on whether the month is part of the
+meteorological spring (March, April, May), summer (June, July, August),
+autumn (September, October, November), or winter (December, January,
+February).</p>
+<p>Another way to look at this is by thinking of these as
+<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">...</span> <span class="pre">then</span> <span class="pre">...</span> <span class="pre">else</span></code> statements:</p>
+<ul class="simple">
+<li><p><strong>if</strong> month is 1, 2, or 12, <strong>then</strong> <code class="docutils literal notranslate"><span class="pre">season</span></code> is “winter”</p></li>
+<li><p><strong>if</strong> month is 3, 4, or 5, <strong>then</strong> <code class="docutils literal notranslate"><span class="pre">season</span></code> is “spring”</p></li>
+<li><p><strong>if</strong> month is 6, 7, or 8, <strong>then</strong> <code class="docutils literal notranslate"><span class="pre">season</span></code> is “summer”</p></li>
+<li><p><strong>if</strong> month is 9, 10, or 11, <strong>then</strong> <code class="docutils literal notranslate"><span class="pre">season</span></code> is “autumn”</p></li>
+</ul>
+<p>First, let’s remember how we can select rows from a table using a
+<strong>conditional</strong> statement. For example, if we want to select all rows
+where the value in the <code class="docutils literal notranslate"><span class="pre">mm</span></code> column is 1, 2, or 12, we could write:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="p">[</span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">12</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>As you can see, this selects a total of 510 rows from the table,
+wherever the value in the <code class="docutils literal notranslate"><span class="pre">mm</span></code> column is 1 or 2 (<code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">3</span></code>), or 12.</p>
+<p>Here, we’ve used the <code class="docutils literal notranslate"><span class="pre">|</span></code> (“pipe” or “logical or”) operator to combine
+two conditional statements: it returns <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> wherever
+<code class="docutils literal notranslate"><span class="pre">armagh$mm</span> <span class="pre">&lt;</span> <span class="pre">3</span></code> <strong>OR</strong> wherever <code class="docutils literal notranslate"><span class="pre">armagh$mm</span> <span class="pre">==</span> <span class="pre">12</span></code>. However, we can
+also use the <code class="docutils literal notranslate"><span class="pre">%in%</span></code> operator to write this a bit more compactly, by
+first creating a <strong>vector</strong> with the values that we want. We then use
+the <code class="docutils literal notranslate"><span class="pre">%in%</span></code> operator, which returns <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> anywhere a value of
+<code class="docutils literal notranslate"><span class="pre">armagh$mm</span></code> is equal to a value in the comparison <strong>vector</strong>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="p">[</span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="c1"># select from the table based on whether values are in the vector c(1, 2, 12)</span>
+</pre></div>
+</div>
+<p>We could then write 4 separate statements to assign values in the table:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="p">[</span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">),</span><span class="w"> </span><span class="s">&#39;season&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&#39;winter&#39;</span>
+<span class="n">armagh</span><span class="p">[</span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">3</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;season&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&#39;spring&#39;</span>
+</pre></div>
+</div>
+<p>… and so on.</p>
+<p>Instead, we’ll look at an easier way to accomplish the same thing, using
+<code class="docutils literal notranslate"><span class="pre">case_when()</span></code>
+(<a class="reference external" href="https://dplyr.tidyverse.org/reference/case_when.html">documentation</a>).
+This allows us to combine the multiple <code class="docutils literal notranslate"><span class="pre">if...else</span></code> statements into a
+single function call:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">$</span><span class="n">season</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">case_when</span><span class="p">(</span>
+<span class="w">    </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s">&#39;winter&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1"># if month is 1, 2, or 12, set it to winter</span>
+<span class="w">    </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">3</span><span class="o">:</span><span class="m">5</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s">&#39;spring&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1"># if month is 3, 4, 5, set it to spring</span>
+<span class="w">    </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">8</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s">&#39;summer&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1"># if month is 6, 7, 8, set it to summer</span>
+<span class="w">    </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">9</span><span class="o">:</span><span class="m">11</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s">&#39;autumn&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1"># if month is 9, 10, 11, set it to autumn</span>
+<span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">armagh</span><span class="p">)</span><span class="w"> </span><span class="c1"># show the updated table</span>
+</pre></div>
+</div>
+<p>We’ll come back to selecting rows in the table later, when we want to
+select a single season to look at. For now, we’ll move on to plotting
+our data.</p>
+</div>
+<div class="section" id="plotting-data">
+<h2>plotting data<a class="headerlink" href="#plotting-data" title="Permalink to this headline">#</a></h2>
+<p>To plot data, we’ll use <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>, a popular and versatile system for
+making graphics. It uses the <strong>grammar of graphics</strong> (the <strong>gg</strong> in
+<code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>), which is a single coherent system for building and
+describing graphs.</p>
+<div class="section" id="example-scatter-plot">
+<h3>example: scatter plot<a class="headerlink" href="#example-scatter-plot" title="Permalink to this headline">#</a></h3>
+<p>In this exercise, we will look at a number of different example plots
+using our data, starting with a simple scatter plot, and introducing the
+different building blocks of <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>.</p>
+<p>We begin with the function <code class="docutils literal notranslate"><span class="pre">ggplot()</span></code>
+(<a class="reference external" href="https://ggplot2.tidyverse.org/reference/ggplot.html">documentation</a>),
+which creates a plot object. We want to use the <code class="docutils literal notranslate"><span class="pre">armagh</span></code> data that we
+have worked with so far, so we can call <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> like this:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_17_0.png"><img alt="../../../_images/plotting_17_0.png" src="../../../_images/plotting_17_0.png" style="width: 420px; height: 420px;" /></a>
+<p>We have not yet told <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> how to visualize the data, so the object
+is currently a blank canvas. In order to visualize our data, we need to
+add some <strong>layers</strong>.</p>
+<p>To do this, we first need tell <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> how these variables are
+<strong>mapped</strong> to the visual properties (“<strong>aesthetics</strong>”) of the plot,
+using the <code class="docutils literal notranslate"><span class="pre">mapping</span></code> argument, and the <code class="docutils literal notranslate"><span class="pre">aes()</span></code> function
+(<a class="reference external" href="https://ggplot2.tidyverse.org/reference/aes.html">documentation</a>).
+Because we want the plot to show how the monthly mean maximum
+temperature has changed over time, we want the <code class="docutils literal notranslate"><span class="pre">date</span></code> variable to
+display on the <code class="docutils literal notranslate"><span class="pre">x</span></code> axis, and the <code class="docutils literal notranslate"><span class="pre">tmax</span></code> variable to display on the
+<code class="docutils literal notranslate"><span class="pre">y</span></code> axis:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span>
+<span class="w">       </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">))</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_19_0.png"><img alt="../../../_images/plotting_19_0.png" src="../../../_images/plotting_19_0.png" style="width: 420px; height: 420px;" /></a>
+<p>When we add the mappings, you can see that the axes labels have been
+added (<strong>tmax</strong> and <strong>date</strong>) and the axes limits have been set based on
+the dataset, but we still haven’t displayed the data. This is because we
+have to add a <strong>geom</strong> (geometry): the actual geometrical object that
+plots the data.</p>
+<p>Some examples of different <strong>geom</strong>s are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">geom_line()</span></code> - for line plots</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">geom_point()</span></code> - for scatter plots</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">geom_bar()</span></code> - for bar charts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">geom_boxplot()</span></code> - for boxplots</p></li>
+</ul>
+<p>… and so on. For a complete list of available <strong>geom</strong>s, check the
+<a class="reference external" href="https://ggplot2.tidyverse.org/reference/#layers">reference list</a>.</p>
+<p>We’ll look at a few more of these examples later, but since we’re
+starting with a scatter plot (<code class="docutils literal notranslate"><span class="pre">geom_point()</span></code>), we’ll add that to our
+plot using the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span>
+<span class="w">       </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_point</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_21_1.png"><img alt="../../../_images/plotting_21_1.png" src="../../../_images/plotting_21_1.png" style="width: 420px; height: 420px;" /></a>
+<p>And voilà! A (very) simple scatterplot, showing the value of <code class="docutils literal notranslate"><span class="pre">tmax</span></code>
+over time.</p>
+<p>Over the rest of the exercise, we will see how we can continue to
+customize this, by adding colors, customizing the labels, changing the
+font sizes, and so on.</p>
+</div>
+</div>
+<div class="section" id="example-basic-histogram">
+<h2>example: basic histogram<a class="headerlink" href="#example-basic-histogram" title="Permalink to this headline">#</a></h2>
+<p>Now, let’s look at another type of plot: a histogram.</p>
+<p>Note that as far as <strong>R</strong> is concerned, this:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Is the same as this:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>That is, the <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">mapping</span></code> arguments can be specified by
+<strong>keyword</strong>, or by <strong>position</strong> (<code class="docutils literal notranslate"><span class="pre">data</span></code> first, then <code class="docutils literal notranslate"><span class="pre">mapping</span></code>). To
+help keep this clear, we’ll continue using the keyword arguments for
+<code class="docutils literal notranslate"><span class="pre">ggplot()</span></code>, but you will most likely see examples online (or even in
+this workshop) where the positional arguments are used instead.</p>
+<p>To create a histogram, we need to specify the <code class="docutils literal notranslate"><span class="pre">x</span></code> variable - we’re
+still looking at <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, so we’ll specify that here. Because we’re
+trying to plot a histogram, we add <code class="docutils literal notranslate"><span class="pre">geom_histogram()</span></code> to this:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">tmax</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_histogram</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_23_1.png"><img alt="../../../_images/plotting_23_1.png" src="../../../_images/plotting_23_1.png" style="width: 420px; height: 420px;" /></a>
+<p>Note the message displayed here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+</pre></div>
+</div>
+<p>When we add the histogram <strong>geom</strong>, we can also specify the
+<code class="docutils literal notranslate"><span class="pre">binwidth</span></code>, which sets the size of the histogram bins in the same
+units as the variable (in this case, °C), or the number of <code class="docutils literal notranslate"><span class="pre">bins</span></code> (the
+default value is 30).</p>
+<p>Go ahead and change the cell above so that the plot uses a <code class="docutils literal notranslate"><span class="pre">binwidth</span></code>
+of 1 - how much does this change the plot?</p>
+<p>In the plot above, you can see how <code class="docutils literal notranslate"><span class="pre">tmax</span></code> is distributed, with several
+apparent peaks around 8°C, 14°C, and 18°C. Presumably, these would be
+peaks that roughly correspond to winter, spring/autumn, and summer,
+respectively - let’s change the plot slightly so that we can see if this
+is correct.</p>
+<p>To do this, we can use the <code class="docutils literal notranslate"><span class="pre">color</span></code> keyword argument to <code class="docutils literal notranslate"><span class="pre">aes()</span></code>. Note
+that any of the aesthetic mappings that we include in the original
+<code class="docutils literal notranslate"><span class="pre">ggplot()</span></code> call (at the <em>global</em> level) will be passed down to the
+<strong>geom</strong> layers in the plot. We can also use mappings at the <em>local</em>
+level, defining them for each individual layer.</p>
+<p>Note also that this argument only tells <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> what variable to use
+for grouping and coloring the data - we can’t use this to, say, change
+all of the bars from gray to blue (for that, we use the <code class="docutils literal notranslate"><span class="pre">fill</span></code> keyword
+argument to the <strong>geom</strong> we are using):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># define the color mapping at the global level</span>
+<span class="w">    </span><span class="nf">geom_histogram</span><span class="p">(</span><span class="n">binwidth</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">linewidth</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1"># add a histogram with bins of width 1, thick lines, and white bars</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_25_1.png"><img alt="../../../_images/plotting_25_1.png" src="../../../_images/plotting_25_1.png" style="width: 420px; height: 420px;" /></a>
+<p>With this plot, we can see how the total distribution of the dataset is
+made up of each group - as we had suspected, the peaks on either side
+primarily correspond to winter (the purple color) and summer (cyan),
+while the peak in the middle is a combination of spring (green) and
+autumn (salmon).</p>
+<p>While this nicely shows us the breakdown for the distribution of the
+entire dataset, and especially for summer and winter, it’s a little bit
+harder to see the distribution for spring and autumn, since they’re
+stacked on top of the other seasons. If we want to show each
+distribution individually, we can use the <code class="docutils literal notranslate"><span class="pre">position</span></code> argument. By
+default,this is set to <code class="docutils literal notranslate"><span class="pre">'stack'</span></code>, but if we change it to
+<code class="docutils literal notranslate"><span class="pre">'identity'</span></code>, the bars are overlapping (note also that I have used the
+<code class="docutils literal notranslate"><span class="pre">alpha</span></code> argument to make the bars transparent):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># define the color and fill mapping at the global level</span>
+<span class="w">  </span><span class="nf">geom_histogram</span><span class="p">(</span><span class="n">binwidth</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">linewidth</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="n">position</span><span class="o">=</span><span class="s">&#39;identity&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1"># add a histogram with bins of width 1, thick lines, and white bars</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_27_1.png"><img alt="../../../_images/plotting_27_1.png" src="../../../_images/plotting_27_1.png" style="width: 420px; height: 420px;" /></a>
+<div class="section" id="example-density-plot">
+<h3>example: density plot<a class="headerlink" href="#example-density-plot" title="Permalink to this headline">#</a></h3>
+<p>We can also plot the density distribution of the data, a smoothed
+version of the histogram, using <code class="docutils literal notranslate"><span class="pre">geom_density()</span></code>
+(<a class="reference external" href="https://ggplot2.tidyverse.org/reference/geom_density.html">documentation</a>):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># create a plot with tmax on the x-axis, colored by season</span>
+<span class="w">  </span><span class="nf">geom_density</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="m">0.4</span><span class="p">,</span><span class="w"> </span><span class="n">linewidth</span><span class="o">=</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="c1"># add a density plot with transparency of 0.4 and lines of width 1</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_29_1.png"><img alt="../../../_images/plotting_29_1.png" src="../../../_images/plotting_29_1.png" style="width: 420px; height: 420px;" /></a>
+</div>
+<div class="section" id="example-box-plots">
+<h3>example: box plots<a class="headerlink" href="#example-box-plots" title="Permalink to this headline">#</a></h3>
+<p>To make a box plot, we use <code class="docutils literal notranslate"><span class="pre">geom_boxplot()</span></code>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">season</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">rain</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_boxplot</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_31_1.png"><img alt="../../../_images/plotting_31_1.png" src="../../../_images/plotting_31_1.png" style="width: 420px; height: 420px;" /></a>
+</div>
+</div>
+<div class="section" id="facet-wrapping">
+<h2>facet wrapping<a class="headerlink" href="#facet-wrapping" title="Permalink to this headline">#</a></h2>
+<p>We might also want to plot our data using different subplots, or
+<strong>facets</strong>. For example, we can create a scatter plot of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> vs
+<code class="docutils literal notranslate"><span class="pre">rain</span></code>, colored by season:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">rain</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># plot tmax vs rain, colored by season</span>
+<span class="w">    </span><span class="nf">geom_point</span><span class="p">()</span><span class="w"> </span><span class="c1"># plot a point cloud</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_33_1.png"><img alt="../../../_images/plotting_33_1.png" src="../../../_images/plotting_33_1.png" style="width: 420px; height: 420px;" /></a>
+<p>But, this makes it difficult to see the scatter for each season. To
+split this into a single subplot for each season, we use
+<code class="docutils literal notranslate"><span class="pre">facet_wrap()</span></code>
+(<a class="reference external" href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">documentation</a>):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">rain</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># plot tmax vs rain, colored by season</span>
+<span class="w">    </span><span class="nf">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># plot a point cloud</span>
+<span class="w">    </span><span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="n">season</span><span class="p">)</span><span class="w"> </span><span class="c1"># use facet_wrap to make a subplot for each season</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_35_1.png"><img alt="../../../_images/plotting_35_1.png" src="../../../_images/plotting_35_1.png" style="width: 420px; height: 420px;" /></a>
+</div>
+<div class="section" id="cleaning-up-and-saving-the-plot-to-a-file">
+<h2>cleaning up and saving the plot to a file<a class="headerlink" href="#cleaning-up-and-saving-the-plot-to-a-file" title="Permalink to this headline">#</a></h2>
+<p>In the final example, we’ll make a plot showing the relationship between
+<code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, colored by the <code class="docutils literal notranslate"><span class="pre">season</span></code>. We’ll also see how we
+can change the axes labels, and increase font sizes, to help make our
+plot ready for including in a manuscript or presentation.</p>
+<p>First, let’s make the initial scatter plot:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">rain</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># create a plot of tmax vs rain</span>
+<span class="w">    </span><span class="nf">geom_point</span><span class="p">()</span><span class="w"> </span><span class="c1"># make a scatter plot</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_37_1.png"><img alt="../../../_images/plotting_37_1.png" src="../../../_images/plotting_37_1.png" style="width: 420px; height: 420px;" /></a>
+<p>Most of the time, though, we don’t just want to rely on color for
+differentiating between groups - different people perceive color
+differently, or someone might view our plots printed onto
+black-and-white paper. By using the <code class="docutils literal notranslate"><span class="pre">shape</span></code> argument to <code class="docutils literal notranslate"><span class="pre">aes()</span></code>, as
+well as <code class="docutils literal notranslate"><span class="pre">color</span></code>, we can be more sure that our plot can be
+understandable:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">rain</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># create a plot of tmax vs rain, with no color mapping at the global level</span>
+<span class="w">    </span><span class="nf">geom_point</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="o">=</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="c1"># make a scatter plot with different colors and shapes</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_39_1.png"><img alt="../../../_images/plotting_39_1.png" src="../../../_images/plotting_39_1.png" style="width: 420px; height: 420px;" /></a>
+<p>Up to now, we’ve just been showing the output of <code class="docutils literal notranslate"><span class="pre">ggplot()</span></code> directly
+by running each cell. In a script, however, this wouldn’t work - we want
+to assign the output to a new <strong>object</strong>, which we can then use in the
+script (including, ultimately, by saving the plot to a file).</p>
+<p>We do this exactly the same way as we have previously, using the <code class="docutils literal notranslate"><span class="pre">&lt;-</span></code>
+operator:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">rain</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># create a plot of tmax vs rain</span>
+<span class="w">    </span><span class="nf">geom_point</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="o">=</span><span class="n">season</span><span class="p">))</span><span class="w"> </span><span class="c1"># make a scatter plot with different colors and shapes</span>
+<span class="n">rain_tmax_plot</span><span class="w"> </span><span class="c1"># show the plot</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_41_1.png"><img alt="../../../_images/plotting_41_1.png" src="../../../_images/plotting_41_1.png" style="width: 420px; height: 420px;" /></a>
+<p>Now that we have saved the output as an <strong>object</strong>, <code class="docutils literal notranslate"><span class="pre">annual_plot</span></code>, we
+can add to this in exactly the same way as we have before. For example,
+if we now want to add the linear fit, we can use <code class="docutils literal notranslate"><span class="pre">geom_smooth()</span></code>
+(<a class="reference external" href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">documentation</a>),
+with <code class="docutils literal notranslate"><span class="pre">method</span></code> set to <code class="docutils literal notranslate"><span class="pre">lm</span></code> (for <strong>l</strong>inear <strong>m</strong>odel).</p>
+<p>Here, we’re using the <code class="docutils literal notranslate"><span class="pre">mapping</span></code> argument at the <em>local</em> level to make
+sure that we have one line for each season:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rain_tmax_plot</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                </span><span class="nf">geom_smooth</span><span class="p">(</span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">season</span><span class="p">),</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;lm&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1"># add a linear fit to the data</span>
+<span class="n">rain_tmax_plot</span><span class="w"> </span><span class="c1"># show the plot again</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_43_1.png"><img alt="../../../_images/plotting_43_1.png" src="../../../_images/plotting_43_1.png" style="width: 420px; height: 420px;" /></a>
+<p>Next, we can change the axes labels using <code class="docutils literal notranslate"><span class="pre">xlab()</span></code> (for the <strong>x</strong>
+axis) and <code class="docutils literal notranslate"><span class="pre">ylab()</span></code> (for the <strong>y</strong> axis), respectively
+(<a class="reference external" href="https://ggplot2.tidyverse.org/reference/labs.html">documentation</a>):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rain_tmax_plot</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                    </span><span class="nf">xlab</span><span class="p">(</span><span class="s">&#39;total rainfall (mm)&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                    </span><span class="nf">ylab</span><span class="p">(</span><span class="s">&#39;mean monthly maximum temperature (°C)&#39;</span><span class="p">)</span>
+<span class="n">rain_tmax_plot</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_45_1.png"><img alt="../../../_images/plotting_45_1.png" src="../../../_images/plotting_45_1.png" style="width: 420px; height: 420px;" /></a>
+<p>We’re almost there, but we have one more step - we need to change the
+size of the text so that it’s more easily readable.</p>
+<p>To modify this aspect of our plot, we use the <code class="docutils literal notranslate"><span class="pre">theme()</span></code> function
+(<a class="reference external" href="https://ggplot2.tidyverse.org/reference/theme.html">documentation</a>).
+There are many different ways to customize our plots in this way - we
+can have different colors for the x and y labels, we can change fonts,
+we can use different font sizes for the tick labels and the axis labels,
+and so on.</p>
+<p>Rather than go too deep into the weeds, though, we’ll set the tick
+labels (<code class="docutils literal notranslate"><span class="pre">axis.text</span></code>) and the axis labels (<code class="docutils literal notranslate"><span class="pre">axis.title</span></code>), and we’ll
+set them to a font size of 18:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rain_tmax_plot</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">        </span><span class="n">axis.text</span><span class="o">=</span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">18</span><span class="p">),</span>
+<span class="w">        </span><span class="n">axis.title</span><span class="o">=</span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">18</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="n">rain_tmax_plot</span><span class="w"> </span><span class="c1"># show the plot again</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/plotting_47_1.png"><img alt="../../../_images/plotting_47_1.png" src="../../../_images/plotting_47_1.png" style="width: 420px; height: 420px;" /></a>
+<p>Finally, we’ll use <code class="docutils literal notranslate"><span class="pre">ggsave()</span></code>
+(<a class="reference external" href="https://ggplot2.tidyverse.org/reference/ggsave.html">documentation</a>)
+to save the plot to a file:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggsave</span><span class="p">(</span><span class="s">&#39;rain_tmax_plot.png&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">plot</span><span class="o">=</span><span class="n">rain_tmax_plot</span><span class="p">)</span><span class="w"> </span><span class="c1"># save the plot to a file</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercise-and-next-steps">
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline">#</a></h2>
+<p>That’s all for this exercise. To practice your skills, create a script
+that does the following:</p>
+<ul class="simple">
+<li><p>loads the packages that you will need at the beginning of the script</p></li>
+<li><p>adds a variable to divide the data into three 50 year periods:
+1871-1920, 1921-1970, and 1971-2020</p></li>
+<li><p>creates a figure to plot the density distribution of tmin for each
+period in its own panel</p></li>
+<li><p>creates a figure to plot the density distribution of tmin for each
+period in the same panel, colored by the period (using fill), with a
+mean (solid) and dashed (median) line for each period</p></li>
+<li><p>sets appropriate labels and font sizes</p></li>
+<li><p>saves each plot to its own file</p></li>
+</ul>
+</div>
+</div>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="debugging.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">debugging code</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="transform.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">transforming data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Bob McNabb<br/>
+  
+      &copy; Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

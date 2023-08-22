@@ -71,7 +71,7 @@ also change the **Width** and **Decimals** for the ``Period`` variable to be 2 a
 the **Measure** is set to **Nominal**:
 
 .. image:: img/week8/period_variable.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the "variable view" tab, with the new period variable
 
@@ -159,7 +159,7 @@ have a look back at where we did this :ref:`in week 6 <egm101 histogram>`. Make 
 Once you have set up the histogram, click on the **Groups/Point ID** tab, then select **Rows panel variable**:
 
 .. image:: img/week8/rows_panel.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the chart builder dialog with the "rows panel variable" activated but not populated
 
@@ -168,21 +168,25 @@ this button, in the same way that you added ``Tmean_mean`` to the **X-Axis?** bu
 histogram changes to show three panels:
 
 .. image:: img/week8/three_panel.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the chart builder dialog showing three panels, one for each period
 
 |br| Click **OK**. You should see a three-panel histogram appear in the **Statistics Viewer** window:
 
 .. image:: img/week8/three_panel_histogram.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the chart displaying the histogram for each time period
 
 |br|
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Look at the three histograms. What do you notice about the distribution of the three periods (1871-1920, 1921-1970,
     and 1971-2020)? Pay attention to the position of the peak of the normal curve (the *mean* value), but also the
@@ -202,14 +206,22 @@ From the plot of the histograms for each time period, it looks like the mean tem
 period - not only that, but it is increasing. One-way ANOVA is a technique that can help us determine whether there
 are *significant* differences in the means of three or more categories or groups of variables.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Why are we using One-way ANOVA to determine whether there are differences between three groups of data, rather
     than conducting multiple tests of two variables?
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Formulate the null and alternative hypotheses for this test.
 
@@ -232,7 +244,7 @@ To perform a One-way ANOVA test in SPSS, select **One-Way ANOVA** from the **Ana
 |br| Click **OK**. You should see the following table added to the **Statistics Viewer** window:
 
 .. image:: img/week8/anova_output.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the one-way anova table in the viewer window
 
@@ -250,8 +262,12 @@ calculated using the degrees of freedom in the table.
 Using our default significance level of :math:`\alpha = 0.05`, there appears to be a *significant* difference between
 at least one pair of groups - that is, they do not all appear to have the same population mean.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     What is the *formal* way to state the outcome of the test, in terms of the null hypothesis?
 
@@ -264,8 +280,12 @@ independent samples *t*-test
 To start looking further into this, we will use the independent samples *t*-test to see whether there is a difference
 between the earliest time period (1871-1920), and the latest time period (1971-2020).
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Why are we using the independent samples *t*-test to compare the difference in mean temperature between these
     two time periods, rather than some other test?
@@ -305,7 +325,7 @@ statistics before clicking **Continue** followed by **OK** to calculate the stat
 You should see the following table added to the **Statistics Viewer** window:
 
 .. image:: img/week8/descriptives_output.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the descriptives table for the Tmean_mean variable
 
@@ -319,8 +339,12 @@ checking the normality assumption
 The next thing to check is the assumption of *normality* - that is, that the data are approximately normally
 distributed.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Look at the **Descriptives** table that you just created - what values of **Kurtosis** and **Skewness** do you see?
     What do these values tell you about how normal each distribution is?
@@ -340,7 +364,7 @@ In the dialog that opens, add the ``Tmean_mean`` variable to the **Variables** f
 |br| You should see a series of plots added to the **Statistics Viewer** window, two for each period:
 
 .. image:: img/week8/qq_plot_output.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the q-q plots added to the statistics viewer window
 
@@ -362,15 +386,23 @@ In Week 6, we discussed what this means in the context of linear regression, but
 something similar here - when we see systematic differences in the de-trended Q-Q plot, it indicates that the data are
 not normally distributed.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Have a look at the plots for the other time periods - what do you notice? Are there any time periods that appear to
     have random differences?
 
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Even though we have determined that (at least one) of the time periods isn't particularly normally distributed,
     why can we still justify using Student's *t*-test to compare the difference in sample means?
@@ -412,7 +444,7 @@ the same information that we saw with the **Descriptive Statistics** step: the m
 error of the mean:
 
 .. image:: img/week8/independent_output.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the independent samples t-test output, showing the results of the test
 
@@ -442,13 +474,21 @@ The estimate of the difference, at least in the table shown above, is -0.631°C,
 warmer than 1871-1920 (the difference is calculated by subtracting the estimate of the second group from the estimate
 of the first group).
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Formulate the null and alternative hypotheses for this test, and formally state the result of the test.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Using the estimates of the difference of the means and the standard error of the difference, write the 95%
     confidence interval as :math:`\Delta_\mu\pm\sigma`, where :math:`\Delta_\mu` is the estimate of the difference
@@ -464,8 +504,12 @@ mann-whitney u-test
 
 The final test we will look at in this practical is the Mann-Whitney *U*-test, a non-parametric statistical test.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Why are we using the Mann-Whitney *U*-test, instead of one of the other non-parametric tests introduced in the
     lectures?
@@ -528,7 +572,7 @@ and select the ``Period`` variable for the **Groups**:
 |br| Click **Run** to run the test. You will see quite a bit more output from this test:
 
 .. image:: img/week8/nonparametric_output.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the output of the nonparametric tests shown in the statistics viewer window
 
@@ -560,8 +604,12 @@ frequency plotted along the horizontal axes:
 that most of the smaller values are contained in the 1871-1920 period, and the larger values are contained in the
 1971-2020 period. In other words, the median value of the second time period is larger than the first.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Formulate the null and alternative hypotheses for this test, and formally state the result of the test.
 

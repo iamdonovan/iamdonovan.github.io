@@ -37,7 +37,7 @@ To get started, open SPSS using either the **Start** menu (**Start** > **IBM SPS
 When SPSS launches, you should see the normal welcome screen:
 
 .. image:: img/week6/spss_welcome.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the SPSS Welcome screen
 
@@ -52,7 +52,7 @@ When SPSS launches, you should see the normal welcome screen:
 |br| Browse to where you have saved your **.sav** file, and open it:
 
 .. image:: img/week7/opened.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the ArmaghData.sav file re-opened in SPSS.
 
@@ -60,7 +60,7 @@ When SPSS launches, you should see the normal welcome screen:
 where you have saved it:
 
 .. image:: img/week7/opened_viewer.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the ArmaghData.spv file re-opened in SPSS.
 
@@ -136,7 +136,7 @@ To start, open the **Chart Builder** (**Graphs** > **Chart Builder**). Under **G
 select **Scatter/Dot**, then select **Scatter Plot** by double-clicking on the icon (red outline):
 
 .. image:: img/week7/chart_builder_scatter.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the "chart builder" dialog, with "scatter plot" highlighted in a red outline.
 
@@ -148,14 +148,14 @@ To do this, click and drag the ``Sun`` variable to the **X-Axis?** box, and the 
 box:
 
 .. image:: img/week7/chart_builder_scatter1.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the "chart builder" dialog, with the two variables added to the chart.
 
 |br| Click **OK**, and you should see four scatter plots created in the **Viewer** window.
 
 .. image:: img/week7/scatter_plots.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the "data viewer" window, with the four scatter plots added.
 
@@ -167,9 +167,12 @@ box:
     previous steps.
 
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
 
+    :far:`circle-question` Question
+    ^^^
     Describe the four different relationships that you see.
 
     - Of the four, which season seems to have the strongest relationship between hours of sun and mean temperature?
@@ -222,15 +225,19 @@ we will see the correlations for each variable in a single column:
 |br| Click **OK**, and you should see two tables added to the **Viewer** window:
 
 .. image:: img/week7/correlations_tables.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the viewer window, with two tables showing the correlation between hours of sun and mean temperature.
 
 |br| The first table, "Correlations", shows the Pearson's correlation coefficient between the variables. The second,
 "Nonparametric Correlations", shows the Spearman's rank correlation coefficient (or "Spearman's rho").
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Compare the correlation values for each season.
 
@@ -270,14 +277,18 @@ the monthly mean temperature as the response (*dependent*) variable. Make sure t
 click **OK** to run the regression. You should see a number of tables and graphs added to the **Viewer** window:
 
 .. image:: img/week7/regressions.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the "data viewer" window, with the regression output added.
 
 |br|
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Of the seasons, which slope is the largest? How do the correlation coefficients that we calculated earlier compare
     to the slopes of the regression line?
@@ -306,8 +317,12 @@ In the **Parameter Estimates** section, we have:
 - **Constant**, the estimate of the intercept of the linear model (:math:`\beta` in the lecture notes)
 - **b1**, the estimate of the slope of the linear model (:math:`\alpha` in the lecture notes)
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     In your own words, what does the :math:`R^2` value for Spring tell us about the linear relationship between hours
     of sun and monthly mean temperature for Spring months?

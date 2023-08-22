@@ -518,6 +518,17 @@ throughout the city:
 
 |br|
 
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Throughout the Landsat scene, you can see a number of extremely bright, hot (:math:`T_s` > 45°C) objects. Can you
+    identify these objects? What is it about these particular objects that makes them so incredibly bright in the
+    thermal infrared?
+
 optional: profiling using the QGIS profile tool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 To create a profile of a raster in QGIS, you can install the **Profile tool** plugin. Go to **Plugins** >
@@ -588,10 +599,6 @@ different demographic data.
     If you have already taken EGM722, you should be able to write a script to extract the temperature data *and* make
     scatterplots of the land surface temperature vs. the different socioeconomic data. Check the
     `Week 5 Practical <https://github.com/iamdonovan/egm722/blob/main/Week5/Practical5.ipynb>`__ tutorial for a refresher.
-
-Throughout the Landsat scene, you can see a number of extremely bright, hot (:math:`T_s` > 45&deg;C) objects. Can you
-identify these objects? What is it about these particular objects that makes them so incredibly bright in the
-thermal infrared?
 
 notes
 -----

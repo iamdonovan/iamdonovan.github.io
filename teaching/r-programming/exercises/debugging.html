@@ -1,0 +1,1324 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>debugging code &#8212; space cameras and glaciers</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="plotting data using ggplot2" href="plotting.html" />
+    <link rel="prev" title="introduction to R using jupyterlab" href="rintro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">space cameras and glaciers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../whataboutbob.html">
+   about me
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../index.html">
+   teaching
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm101/index.html">
+     EGM101: skills toolbox
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm101/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week5.html">
+         computation, summary statistics, and graphing in excel
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week6.html">
+         summarizing and graphing data in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week7.html">
+         correlation and regression in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week8.html">
+         hypothesis testing using spss
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm310/index.html">
+     EGM310: introduction to gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm702/index.html">
+     EGM702: photogrammetry and advanced image analysis
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm702/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/setup.html">
+         software setup
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week1.html">
+         dem processing using micmac
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week2.html">
+         dem differencing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week3.html">
+         introduction to google earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week4.html">
+         change detection in earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week5.html">
+         classification in earth engine
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm703/index.html">
+     EGM703: advanced active and passive remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm703/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week1.html">
+         urban heat islands
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week2.html">
+         hyperspectral image analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week3.html">
+         SAR image processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week4.html">
+         InSAR Processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week5.html">
+         SAR image interpretation and flood mapping
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm722/index.html">
+     EGM722: programming for gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/jupyter.html">
+         configuring jupyter
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/pycharm.html">
+         pycharm
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/pip.html">
+         installing packages with pip
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm722/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week1.html">
+         intro to python
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/debugging.html">
+         debugging exercise
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week2.html">
+         mapping with cartopy
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week3.html">
+         vector data using shapely and geopandas
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/folium.html">
+         interactive maps with folium
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week4.html">
+         raster data using rasterio
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/sentinelsat.html">
+         searching for images with sentinelsat
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week5.html">
+         vector and raster operations using python
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/faq/index.html">
+       help! something went wrong!
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+      <label for="toctree-checkbox-12">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/faq/git.html">
+         git troubleshooting
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/faq/python.html">
+         python troubleshooting
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/project/index.html">
+       programming project
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+      <label for="toctree-checkbox-13">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/project/github.html">
+         creating a new github repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/project/environment.html">
+         environment.yml
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm722/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../unis/index.html">
+     unis glaciology (AG-325)
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+    <label for="toctree-checkbox-14">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../unis/optical.html">
+       mapping glacier area change
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../unis/dems.html">
+       dem differencing and geodetic mass balance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../index.html">
+     programming skills for phd researchers
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+      <label for="toctree-checkbox-16">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/jupyter.html">
+         configuring jupyterlab
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="index.html">
+       exercises
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+      <label for="toctree-checkbox-17">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="git.html">
+         introduction to version control using git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="project.html">
+         starting a new project
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="rintro.html">
+         introduction to
+         <strong>
+          R
+         </strong>
+         using jupyterlab
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         debugging code
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="plotting.html">
+         plotting data using ggplot2
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="transform.html">
+         transforming data
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="stats.html">
+         basic statistical analysis using
+         <strong>
+          R
+         </strong>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="regression.html">
+         linear regression using
+         <strong>
+          R
+         </strong>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../gee/index.html">
+   google earth engine
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+  <label for="toctree-checkbox-18">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../gee/tutorials/index.html">
+     gee tutorials
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+    <label for="toctree-checkbox-19">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">
+       getting started
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+      <label for="toctree-checkbox-20">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">
+         adding and exporting images
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">
+         spectral signatures
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">
+         image collections and vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">
+         manual mapping (digitizing)
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">
+         band maths
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">
+         zonal statistics
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/classification/index.html">
+       image classification
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+      <label for="toctree-checkbox-21">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">
+         unsupervised classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">
+         pixel-based classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/obia.html">
+         object-based classification
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">
+       change detection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+      <label for="toctree-checkbox-22">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">
+         multi-temporal color composites
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">
+         repeat classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">
+         change vector analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">
+         time series analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">
+       image enhancement
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+      <label for="toctree-checkbox-23">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">
+         image filtering
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">
+         pansharpening
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">
+         edge detection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">
+         spectral unmixing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">
+         principle component analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/advanced/index.html">
+       advanced topics
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
+      <label for="toctree-checkbox-24">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">
+         creating an animation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../gee/exercises/index.html">
+     sample exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../research/index.html">
+   ongoing and past research projects
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
+  <label for="toctree-checkbox-25">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../research/dar.html">
+     deplete and retreat (DaR)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../writing/index.html">
+   selected writing samples
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
+  <label for="toctree-checkbox-26">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../writing/source.html">
+     source magazine (summer 2022)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../github.html">
+   github projects
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/teaching/r-programming/exercises/debugging.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-a-new-branch">
+   creating a new branch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-the-script">
+   running the script
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#error-messages">
+   error messages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-git-diff-to-view-changes">
+   using git diff to view changes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#committing-changes">
+   committing changes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semantic-errors">
+   semantic errors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#merging-branches">
+   merging branches
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>debugging code</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#creating-a-new-branch">
+   creating a new branch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-the-script">
+   running the script
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#error-messages">
+   error messages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-git-diff-to-view-changes">
+   using git diff to view changes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#committing-changes">
+   committing changes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semantic-errors">
+   semantic errors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#merging-branches">
+   merging branches
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="section" id="debugging-code">
+<h1>debugging code<a class="headerlink" href="#debugging-code" title="Permalink to this headline">#</a></h1>
+<p>In this exercise, we’ll get some practice running a “buggy” script and interpreting/fixing the errors that we find. We
+will also continue using <strong>git</strong> to keep track of and save our fixes.</p>
+<div class="section" id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<p>To begin, open an <strong>Anaconda Command Prompt</strong> with your <code class="docutils literal notranslate"><span class="pre">intro-to-r</span></code> environment active, then launch <strong>JupyterLab</strong>.</p>
+<p>In the file browser along the left-hand side of the window, navigate to the guessing game script (in the <strong>02.r-intro</strong>
+folder). Open the script (<strong>guessing_game.r</strong>) by double-clicking it in the file browser:</p>
+<a class="reference internal image-reference" href="../../../_images/guessing_game.png"><img alt="the guessing game script opened in the jupyterlab window" class="align-center" src="../../../_images/guessing_game.png" style="width: 720px;" /></a>
+<p><br /> Next, open a <strong>Terminal</strong> from the <strong>Launcher</strong>. If you click on the tab, you can drag it to re-arrange the
+panels - place it in the lower half of the window, so that it looks like this:</p>
+<a class="reference internal image-reference" href="../../../_images/new_terminal.png"><img alt="the guessing game script with a terminal tab opened on the bottom half of the window" class="align-center" src="../../../_images/new_terminal.png" style="width: 720px;" /></a>
+</div>
+<div class="section" id="creating-a-new-branch">
+<h2>creating a new branch<a class="headerlink" href="#creating-a-new-branch" title="Permalink to this headline">#</a></h2>
+<p>Now, open a second terminal next to the first by clicking the <strong>+</strong> button, then selecting <strong>Terminal</strong> from the
+<strong>Launcher</strong>.</p>
+<p>Before we start editing the script, we’re going to create a new <strong>branch</strong> in our repository. This allows us to make
+changes to the repository without affecting other versions of the code - that way, if we somehow make a mistake, we
+don’t cause any damage to the existing, working code. Once we have finished making our changes, and we’re happy that
+things are working as they should be, we can <strong>merge</strong> the branch back into the <strong>main</strong> branch.</p>
+<p>In the terminal, type the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git checkout -b debug
+</pre></div>
+</div>
+<p>This uses <strong>git checkout</strong> to create a new <strong>branch</strong> (the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag) called <code class="docutils literal notranslate"><span class="pre">debug</span></code>. As we fix the errors in the
+script, we will commit the changes to this branch.</p>
+</div>
+<div class="section" id="running-the-script">
+<h2>running the script<a class="headerlink" href="#running-the-script" title="Permalink to this headline">#</a></h2>
+<p>In the first terminal window that you opened, launch <strong>R</strong> by typing <code class="docutils literal notranslate"><span class="pre">R</span></code> at the prompt and pressing <strong>Enter</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/r_open.png"><img alt="the guessing game script opened, with two terminal panels opened on the lower half of the window" class="align-center" src="../../../_images/r_open.png" style="width: 720px;" /></a>
+<p><br /> In the previous exercise, you got some experience running <strong>R</strong> commands through a jupyter notebook, where each
+cell contains snippets of code for the <strong>R</strong> interpreter to <em>execute</em> (run).</p>
+<p>The <strong>R</strong> terminal that you have opened works in much the same way - you can type individual commands or lines of code,
+and the interpreter will execute them.</p>
+<p>This is not necessarily the ideal way to run code, however - for one thing, it would be a lot of typing every time we
+wanted to do any analysis. It’s also a lot less reproducible - by having to enter each command individually each time,
+we greatly increase the chances that we’ll make a mistake.</p>
+<p>A <em>script</em> is a collection of commands that the interpreter runs sequentially (a <em>program</em>). This means that we can
+write down our commands in one place, and repeatedly run them in exactly the same way.</p>
+<p>From inside the <strong>R</strong> interpreter, we can run a script using the <code class="docutils literal notranslate"><span class="pre">source()</span></code> function
+(<a class="reference external" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/source">documentation</a>). The first argument to
+the function is <code class="docutils literal notranslate"><span class="pre">file</span></code>, the pathname or URL for the file to read from.</p>
+<p>To run the guessing game script, enter the following at the <strong>R</strong> prompt:</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">source</span><span class="p">(</span><span class="s">&#39;guessing_game.r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="error-messages">
+<h2>error messages<a class="headerlink" href="#error-messages" title="Permalink to this headline">#</a></h2>
+<p>When you run the script, you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/first_error.png"><img alt="the R terminal with an error message after running the script" class="align-center" src="../../../_images/first_error.png" style="width: 720px;" /></a>
+<p><br /> The error message says:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Error in smaple(1:100, 1) : could not find function &quot;smaple&quot;
+</pre></div>
+</div>
+<p>This is an example of a <strong>syntax error</strong> - an error in the “grammar” (<em>syntax</em>) of the programming language that the
+interpreter doesn’t understand. The error in this case is that there is a typo in <code class="docutils literal notranslate"><span class="pre">sample()</span></code> - when the interpreter
+executes this statement, it looks for a function called <code class="docutils literal notranslate"><span class="pre">smaple()</span></code> - when it doesn’t find any such function, it
+returns an error message.</p>
+<p>We can easily fix this error by correcting the spelling of the function name. Later, we’ll see some examples of error
+messages that aren’t necessarily so easily corrected.</p>
+</div>
+<div class="section" id="using-git-diff-to-view-changes">
+<h2>using git diff to view changes<a class="headerlink" href="#using-git-diff-to-view-changes" title="Permalink to this headline">#</a></h2>
+<p>Now that you have corrected the error at line 3, <strong>save</strong> the file (<strong>CTRL</strong> + <strong>S</strong>) to update the file on the disk.
+We also want to use <strong>git</strong> to keep track of this fix. To do this, open the other terminal tab, then enter the
+following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git status
+</pre></div>
+</div>
+<p>This command shows us what files have been changed - you should see that only a single file has been changed
+(<strong>guessing_game.r</strong>).</p>
+<p>We can also use <strong>git diff</strong> to see what changes have been made since the last commit. By itself, <strong>git diff</strong> will
+tell us the changes for <em>all</em> files in the repository; we can also choose a single file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git diff guessing_game.r
+</pre></div>
+</div>
+<p>This should show you that a single line has changed. First, the line:</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">smaple</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>has been deleted, and the line:</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>has been added in its place. Later, we’ll also see how we can use <strong>git diff</strong> to compare versions of a file across
+two different branches, to see what changes (if any) have been made.</p>
+</div>
+<div class="section" id="committing-changes">
+<h2>committing changes<a class="headerlink" href="#committing-changes" title="Permalink to this headline">#</a></h2>
+<p>For now, though, we want to <strong>commit</strong> these changes so that <strong>git</strong> saves a snapshot of our progress. To do this,
+remember that we first have to <strong>add</strong> to “stage” it, then <strong>commit</strong> the file to take the snapshot. In the terminal,
+type:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git add guessing_game.r
+</pre></div>
+</div>
+<p>If you type <strong>git status</strong>, you should see that the files that have been staged show up as green:</p>
+<a class="reference internal image-reference" href="../../../_images/status_add.png"><img alt="the git terminal showing that the changes to guessing_game.r have been staged" class="align-center" src="../../../_images/status_add.png" style="width: 720px;" /></a>
+<p><br /> To actually commit this change, we use <strong>git commit</strong>. By default, if you type <strong>git commit</strong>, <strong>git</strong> will open
+your default text editor so that you can write a more detailed commit message. Most of the time, though, we can
+use the <strong>-m</strong> (for <strong>message</strong>) flag to write a short message. Enter the following command at the terminal to commit
+the change:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git commit -m &quot;fix typo in sample&quot;
+</pre></div>
+</div>
+<p><strong>git</strong> provides a brief summary of the commit (1 file changed, 1 insertion, 1 deletion), as well as a short version of
+the <em>commit hash</em> (the unique identifier for the commit; in the screenshot below, it is <code class="docutils literal notranslate"><span class="pre">2d84d6d</span></code>).</p>
+<p>When you type <strong>git status</strong> in the terminal, you should now see that there are no changes to commit:</p>
+<a class="reference internal image-reference" href="../../../_images/commit1.png"><img alt="the git terminal showing that the changes to guessing_game.r have been committed" class="align-center" src="../../../_images/commit1.png" style="width: 720px;" /></a>
+</div>
+<div class="section" id="semantic-errors">
+<h2>semantic errors<a class="headerlink" href="#semantic-errors" title="Permalink to this headline">#</a></h2>
+<p>Now that you have fixed the first error, return to the <strong>R</strong> terminal, then re-run the script. You should see that the
+script now runs with no errors:</p>
+<a class="reference internal image-reference" href="../../../_images/second_error.png"><img alt="the script now runs without raising an error, but it is still incorrect" class="align-center" src="../../../_images/second_error.png" style="width: 720px;" /></a>
+<p><br /> This does not mean that the script has run correctly, however. Right away, we can see at least one problem: the
+script asks us to guess a number between 1 and 20, but the “correct” answer is 71 - way outside of the range we’re
+meant to guess!</p>
+<p>Not only this, but we don’t even have a chance to guess - as soon as the script starts running, it tells us the correct
+answer and finishes.</p>
+<p>These are examples of <em>semantic</em> errors - no error message is produced by the interpreter, but the program still doesn’t
+do what you expected. Unfortunately, these are the hardest errors to fix, because they fail in subtle ways.</p>
+<p>Let’s start with fixing the first obvious error - when we generate a random sample at line 3, we choose a number
+between 1 and 100:</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="n">rand</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is why the number to guess was well outside of the range of 1 to 20. To fix this, we can change <code class="docutils literal notranslate"><span class="pre">1:100</span></code> to
+<code class="docutils literal notranslate"><span class="pre">1:20</span></code>.</p>
+<p>Once you have fixed this error, remember to <strong>add</strong> the change, then <strong>commit</strong> it with an appropriate error message.</p>
+<p>The next error, the one that causes the program to completely skip the <strong>while</strong> loop, is a bit subtler. Note that at
+line 9, we initialize the <code class="docutils literal notranslate"><span class="pre">guess</span></code> object by assigning the value of <code class="docutils literal notranslate"><span class="pre">rand</span></code>. But, the condition for the <strong>while</strong>
+loop at line 12 is that <code class="docutils literal notranslate"><span class="pre">guess</span> <span class="pre">!=</span> <span class="pre">rand</span></code> - because <code class="docutils literal notranslate"><span class="pre">guess</span></code> has the value of <code class="docutils literal notranslate"><span class="pre">rand</span></code>, this statement is <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>,
+and so the <strong>while</strong> loop is skipped.</p>
+<p>To fix this, assign a value to <code class="docutils literal notranslate"><span class="pre">guess</span></code> that is outside of the guessing range (for example, <code class="docutils literal notranslate"><span class="pre">-1</span></code>), then <strong>add</strong>
+and <strong>commit</strong> the change with an appropriate commit message.</p>
+<p>When you run the script again, you should notice that you are able to enter a guess at the command line, but you should
+also notice an additional pair of semantic errors. Once you have identified these and fixed them, test out the script -
+does it work correctly? If so, move on to the next section.</p>
+</div>
+<div class="section" id="merging-branches">
+<h2>merging branches<a class="headerlink" href="#merging-branches" title="Permalink to this headline">#</a></h2>
+<p>Now that we have successfully squashed the bugs present in the script, we are ready to <strong>merge</strong> the fix into our
+<strong>main</strong> branch.</p>
+<p>In the <strong>terminal</strong> window where you’ve been working with <strong>git</strong>, enter the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git checkout main
+</pre></div>
+</div>
+<p>This will <strong>checkout</strong> the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch - you may notice that the script changes. Don’t panic! Remember that <strong>git</strong>
+has saved all of the changes, even though the file on the disk has changed. Now that you are on the main branch, you
+can use <strong>git merge</strong> (<a class="reference external" href="https://git-scm.com/docs/git-merge">documentation</a>) to <strong>merge</strong> all of the changes on the
+<code class="docutils literal notranslate"><span class="pre">debug</span></code> branch into the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch, with the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git merge debug
+</pre></div>
+</div>
+<p>You should see something like the following output:</p>
+<a class="reference internal image-reference" href="../../../_images/merged1.png"><img alt="the corrected script, now merged back into the main branch" class="align-center" src="../../../_images/merged1.png" style="width: 720px;" /></a>
+<p>And that’s it! If you like, you can now delete the <code class="docutils literal notranslate"><span class="pre">debug</span></code> branch using the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git branch -d debug
+</pre></div>
+</div>
+<p>You can also use <strong>git push</strong> to send these changes to your remote (GitHub) repository, which ensures that you have
+backed up a copy to a remote location.</p>
+<p>That’s all for this exercise - in the next session, we’ll take a look at how we can use <strong>ggplot2</strong> to display data.</p>
+</div>
+</div>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="rintro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">introduction to <strong>R</strong> using jupyterlab</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="plotting.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">plotting data using ggplot2</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Bob McNabb<br/>
+  
+      &copy; Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

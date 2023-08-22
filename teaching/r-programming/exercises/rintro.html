@@ -1,0 +1,1813 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>introduction to R using jupyterlab &#8212; space cameras and glaciers</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="debugging code" href="debugging.html" />
+    <link rel="prev" title="starting a new project" href="project.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">space cameras and glaciers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../whataboutbob.html">
+   about me
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../index.html">
+   teaching
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm101/index.html">
+     EGM101: skills toolbox
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm101/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week5.html">
+         computation, summary statistics, and graphing in excel
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week6.html">
+         summarizing and graphing data in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week7.html">
+         correlation and regression in spss
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm101/practicals/week8.html">
+         hypothesis testing using spss
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm101/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm310/index.html">
+     EGM310: introduction to gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm310/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm702/index.html">
+     EGM702: photogrammetry and advanced image analysis
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm702/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+      <label for="toctree-checkbox-6">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/setup.html">
+         software setup
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week1.html">
+         dem processing using micmac
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week2.html">
+         dem differencing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week3.html">
+         introduction to google earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week4.html">
+         change detection in earth engine
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm702/practicals/week5.html">
+         classification in earth engine
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm702/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm703/index.html">
+     EGM703: advanced active and passive remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm703/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+      <label for="toctree-checkbox-8">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week1.html">
+         urban heat islands
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week2.html">
+         hyperspectral image analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week3.html">
+         SAR image processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week4.html">
+         InSAR Processing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm703/practicals/week5.html">
+         SAR image interpretation and flood mapping
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm703/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../egm722/index.html">
+     EGM722: programming for gis and remote sensing
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/jupyter.html">
+         configuring jupyter
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/pycharm.html">
+         pycharm
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/setup/pip.html">
+         installing packages with pip
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm722/lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/practicals/index.html">
+       practicals
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week1.html">
+         intro to python
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/debugging.html">
+         debugging exercise
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week2.html">
+         mapping with cartopy
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week3.html">
+         vector data using shapely and geopandas
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/folium.html">
+         interactive maps with folium
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week4.html">
+         raster data using rasterio
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/sentinelsat.html">
+         searching for images with sentinelsat
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/practicals/week5.html">
+         vector and raster operations using python
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/faq/index.html">
+       help! something went wrong!
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+      <label for="toctree-checkbox-12">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/faq/git.html">
+         git troubleshooting
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/faq/python.html">
+         python troubleshooting
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../egm722/project/index.html">
+       programming project
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+      <label for="toctree-checkbox-13">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/project/github.html">
+         creating a new github repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../egm722/project/environment.html">
+         environment.yml
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../egm722/resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../unis/index.html">
+     unis glaciology (AG-325)
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+    <label for="toctree-checkbox-14">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../unis/optical.html">
+       mapping glacier area change
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../unis/dems.html">
+       dem differencing and geodetic mass balance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="../index.html">
+     programming skills for phd researchers
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../setup/index.html">
+       setup
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+      <label for="toctree-checkbox-16">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/github.html">
+         setting up github
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/git.html">
+         installing git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/desktop.html">
+         installing github desktop
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/fork.html">
+         forking the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/clone.html">
+         cloning the repository
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/conda.html">
+         setting up conda/anaconda
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/environment.html">
+         setting up a conda environment
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../setup/jupyter.html">
+         configuring jupyterlab
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../lectures.html">
+       lectures
+      </a>
+     </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="index.html">
+       exercises
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+      <label for="toctree-checkbox-17">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul class="current">
+       <li class="toctree-l4">
+        <a class="reference internal" href="git.html">
+         introduction to version control using git
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="project.html">
+         starting a new project
+        </a>
+       </li>
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         introduction to
+         <strong>
+          R
+         </strong>
+         using jupyterlab
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="debugging.html">
+         debugging code
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="plotting.html">
+         plotting data using ggplot2
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="transform.html">
+         transforming data
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="stats.html">
+         basic statistical analysis using
+         <strong>
+          R
+         </strong>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="regression.html">
+         linear regression using
+         <strong>
+          R
+         </strong>
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../resources.html">
+       additional resources
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../gee/index.html">
+   google earth engine
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+  <label for="toctree-checkbox-18">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../gee/tutorials/index.html">
+     gee tutorials
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+    <label for="toctree-checkbox-19">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">
+       getting started
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+      <label for="toctree-checkbox-20">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">
+         adding and exporting images
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">
+         spectral signatures
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">
+         image collections and vectors
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">
+         manual mapping (digitizing)
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">
+         band maths
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">
+         zonal statistics
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/classification/index.html">
+       image classification
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+      <label for="toctree-checkbox-21">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">
+         unsupervised classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">
+         pixel-based classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/classification/obia.html">
+         object-based classification
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">
+       change detection
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+      <label for="toctree-checkbox-22">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">
+         multi-temporal color composites
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">
+         repeat classification
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">
+         change vector analysis
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">
+         time series analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">
+       image enhancement
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+      <label for="toctree-checkbox-23">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">
+         image filtering
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">
+         pansharpening
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">
+         edge detection
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">
+         spectral unmixing
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">
+         principle component analysis
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../../gee/tutorials/advanced/index.html">
+       advanced topics
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
+      <label for="toctree-checkbox-24">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">
+         creating an animation
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../gee/exercises/index.html">
+     sample exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../research/index.html">
+   ongoing and past research projects
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
+  <label for="toctree-checkbox-25">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../research/dar.html">
+     deplete and retreat (DaR)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../writing/index.html">
+   selected writing samples
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
+  <label for="toctree-checkbox-26">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../writing/source.html">
+     source magazine (summer 2022)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../github.html">
+   github projects
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/teaching/r-programming/exercises/rintro.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objectives">
+   objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objects-and-assignment">
+   objects and assignment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-types">
+   data types
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-structures">
+   data structures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vectors">
+     vectors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#indexing">
+     indexing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#factors">
+     factors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lists">
+     lists
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-frames">
+     data frames
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-arithmetic">
+   basic arithmetic
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functions">
+   functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#control-structures">
+   control structures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comparison-operators">
+     comparison operators
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#if-else-statements">
+     if … else statements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#while-loops">
+     while loops
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for-loops">
+     for loops
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recap">
+   recap
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>introduction to R using jupyterlab</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objectives">
+   objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#objects-and-assignment">
+   objects and assignment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-types">
+   data types
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-structures">
+   data structures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vectors">
+     vectors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#indexing">
+     indexing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#factors">
+     factors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lists">
+     lists
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-frames">
+     data frames
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-arithmetic">
+   basic arithmetic
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functions">
+   functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#control-structures">
+   control structures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comparison-operators">
+     comparison operators
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#if-else-statements">
+     if … else statements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#while-loops">
+     while loops
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#for-loops">
+     for loops
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recap">
+   recap
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="section" id="introduction-to-r-using-jupyterlab">
+<h1>introduction to <strong>R</strong> using jupyterlab<a class="headerlink" href="#introduction-to-r-using-jupyterlab" title="Permalink to this headline">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
+outputs, you’ll need to follow the setup steps and work through the notebook on your own computer.</p>
+</div>
+<div class="section" id="overview">
+<h2>overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>Programming is a powerful tool that allows us to do complicated
+calculations and analysis, visualize data, and automate workflows to
+ensure consistency, accuracy, and reproducibility in our research.</p>
+<p>In this exercise, you will get a basic introduction to the <strong>R</strong>
+programming language, including variables and objects, data types and
+data structures, and how to control the flow of our programs. Over the
+next few sessions, we will build on these ideas, using some real example
+data, to get more of an idea of how to use <strong>R</strong> in our research.</p>
+<p>This is an <em>interactive</em> notebook - in between bits of text, there are
+interactive cells which you can use to execute snippets of <strong>R</strong> code.
+To run these cells, highlight them by clicking on them, then press
+<strong>CTRL</strong> and <strong>ENTER</strong> (or <strong>SHIFT</strong> and <strong>ENTER</strong>, or by pressing the
+“play” button at the top of this tab).</p>
+</div>
+<div class="section" id="objectives">
+<h2>objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">#</a></h2>
+<p>After finishing this exercise, you will:</p>
+<ul class="simple">
+<li><p>learn and gain experience with some of the basic elements of <strong>R</strong>
+and programming</p></li>
+</ul>
+</div>
+<div class="section" id="objects-and-assignment">
+<h2>objects and assignment<a class="headerlink" href="#objects-and-assignment" title="Permalink to this headline">#</a></h2>
+<p>We’ll start by creating a new <strong>object</strong>, <code class="docutils literal notranslate"><span class="pre">foo</span></code>, and <em>assigning</em> it a
+<strong>value</strong> of <code class="docutils literal notranslate"><span class="pre">&quot;hello,</span> <span class="pre">world!&quot;</span></code>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;hello, world!&quot;</span><span class="w"> </span><span class="c1"># assign an object using &lt;-</span>
+</pre></div>
+</div>
+<p>In the text above (and the cell below), you should notice that the color
+of different parts of the text is different. We’ll discuss different
+aspects of this as we go, but pay attention to the greenish text that
+comes after the <code class="docutils literal notranslate"><span class="pre">#</span></code> - this indicates a <em>comment</em>, meaning text that is
+intended for humans to read, but that is ignored by <strong>R</strong>. We’ll discuss
+comments more when we start looking at writing scripts, but as you work
+through the exercises, make sure to read the comments - they’re there to
+help you understand what each line of code actually does.</p>
+<p>After creating the <code class="docutils literal notranslate"><span class="pre">foo</span></code> <strong>object</strong>, we use the built-in <code class="docutils literal notranslate"><span class="pre">print()</span></code>
+function (more on these later) to see the <em>value</em> of that object. Go
+ahead and run the cell to get started:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;hello, world!&quot;</span><span class="w"> </span><span class="c1"># assign an object using &lt;-</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span><span class="w"> </span><span class="c1"># print the object to the terminal</span>
+</pre></div>
+</div>
+<p>You should notice that the cell has changed. First, the square brackets
+(<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code>) have a number inside of them (<code class="docutils literal notranslate"><span class="pre">[1]</span></code>), and you can also see
+the output below the cell:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[1]</span> <span class="pre">&quot;hello,</span> <span class="pre">world!&quot;</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">print()</span></code> function allows us to print messages and information to
+the screen. We’ll see a number of other uses of it as we go, but you can
+also read more about it in the
+<a class="reference external" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print">documentation</a>.</p>
+<p>One important thing to remember is that the <em>name</em> of an <strong>object</strong> is
+<em>case-sensitive</em> (meaning that <code class="docutils literal notranslate"><span class="pre">foo</span></code> is different from <code class="docutils literal notranslate"><span class="pre">Foo</span></code>):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span><span class="w"> </span><span class="c1"># this won&#39;t work, because we haven&#39;t created an object called Foo yet</span>
+</pre></div>
+</div>
+<p>We’ll see more examples of error messages later (and how to interpret
+them), but hopefully the message:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Error</span> <span class="pre">in</span> <span class="pre">print(Foo):</span> <span class="pre">object</span> <span class="pre">'Foo'</span> <span class="pre">not</span> <span class="pre">found</span></code></p>
+<p>is clear enough. Because we were expecting this error message, we can
+ignore it and move on.</p>
+</div>
+<div class="section" id="data-types">
+<h2>data types<a class="headerlink" href="#data-types" title="Permalink to this headline">#</a></h2>
+<p>So, we’ve created our first <strong>object</strong>, <code class="docutils literal notranslate"><span class="pre">foo</span></code>. But what kind of object
+is <code class="docutils literal notranslate"><span class="pre">foo</span></code>? To find out, we can use the <code class="docutils literal notranslate"><span class="pre">typeof()</span></code> function
+(<a class="reference external" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/typeof">documentation</a>):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">typeof</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span><span class="w"> </span><span class="c1"># use the typeof() function to find the type of an object</span>
+</pre></div>
+</div>
+<p>So <code class="docutils literal notranslate"><span class="pre">foo</span></code> is an object of type <strong>character</strong>, meaning that it is
+<em>text</em>.</p>
+<p>In general, <strong>R</strong> has the following basic data types:</p>
+<ul class="simple">
+<li><p><strong>character</strong>, for text objects</p></li>
+<li><p><strong>numeric</strong>, for numbers. These can be divided into the following:</p>
+<ul>
+<li><p><strong>double</strong>, for floating-point (real) values</p></li>
+<li><p><strong>integer</strong>, for integer values</p></li>
+</ul>
+</li>
+<li><p><strong>logical</strong>, for boolean (True/False) objects</p></li>
+<li><p><strong>complex</strong>, for complex numbers</p></li>
+</ul>
+<p>Let’s look at an example of a <strong>numeric</strong> object:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># assign a value of 1 to the object x</span>
+<span class="nf">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1"># should be integer, right?</span>
+</pre></div>
+</div>
+<p>That’s interesting - even though we assigned an integer value to <code class="docutils literal notranslate"><span class="pre">x</span></code>,
+<strong>R</strong> has created an object of type <strong>double</strong>. This is because by
+default, numeric values in <strong>R</strong> are type double.</p>
+<p>To create an object with an <strong>integer</strong> value, we append an <code class="docutils literal notranslate"><span class="pre">L</span></code> to
+each number (alternatively, we can <em>coerce</em> to the integer type using
+the <code class="docutils literal notranslate"><span class="pre">as.integer()</span></code> function):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1L</span>
+<span class="nf">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We’ll come back to data types more as we work through the example
+exercises.</p>
+</div>
+<div class="section" id="data-structures">
+<h2>data structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">#</a></h2>
+<p>Most of the time, we’ll want to use groups of data, or <em>data
+structures</em>, rather than individual values. Just like with data types,
+<strong>R</strong> has a number of different data structures, ranging from
+one-dimensional to multi-dimensional structures.</p>
+<div class="section" id="vectors">
+<h3>vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">#</a></h3>
+<p>A <strong>vector</strong> is the most basic data structure in <strong>R</strong> - it’s a
+one-dimensional sequence of a single data type.</p>
+<p>To assign a vector explicitly, we can use the function <code class="docutils literal notranslate"><span class="pre">c()</span></code> (short
+for “combine”):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">campuses</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Belfast&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Coleraine&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Jordanstown&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Magee&#39;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">campuses</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="indexing">
+<h3>indexing<a class="headerlink" href="#indexing" title="Permalink to this headline">#</a></h3>
+<p>To access the individual elements of a vector, we need to use the
+<strong>index</strong> of that element, along with square brackets (<code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>).</p>
+<p>In the example above:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">campuses</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Belfast&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Coleraine&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Jordanstown&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Magee&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In <strong>R</strong>, the index of a vector starts at 1. “Coleraine” is the second
+element in the <code class="docutils literal notranslate"><span class="pre">campuses</span></code> vector, which means that it has an index of
+2. We can check this with the following cell:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">campuses</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="c1"># return the second element from the &#39;campuses&#39; vector</span>
+</pre></div>
+</div>
+<p>We can also use logical expressions or variables to select values from a
+<strong>vector</strong>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">numbers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w"> </span><span class="c1"># create a sequence of numbers from 1 to 10</span>
+
+<span class="n">numbers</span><span class="p">[</span><span class="n">numbers</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">5</span><span class="p">]</span><span class="w"> </span><span class="c1"># select the values of numbers that are greater than 5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="factors">
+<h3>factors<a class="headerlink" href="#factors" title="Permalink to this headline">#</a></h3>
+<p><strong>factor</strong>s are vectors for categorical variables, where we have a
+limited number of unique character strings. As an example,</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">campus</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Belfast&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Coleraine&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Magee&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Magee&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Coleraine&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Coleraine&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Belfast&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jordanstown&quot;</span><span class="p">)</span><span class="c1"># create a vector</span>
+<span class="n">campus</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">campus</span><span class="p">)</span><span class="w"> </span><span class="c1"># turn it into a factor</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">campus</span><span class="p">)</span><span class="w"> </span><span class="c1"># examine the output</span>
+</pre></div>
+</div>
+<p>In the ouptut above, you can see that just like the <strong>vector</strong> example
+above, the output shows the contents of the factor (the list of campus
+names), but it also shows the <strong>levels</strong>: the unique categories of the
+variable. We can also specify the <strong>levels</strong> when creating the factor,
+which can help us order and sort the categories (for example, months);
+it can also help us identify data entry errors like typos (e.g.,
+<code class="docutils literal notranslate"><span class="pre">Coelraine</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Coleraine</span></code>):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">campus</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Belfast&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Coelraine&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Magee&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Magee&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Coleraine&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Coleraine&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Belfast&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Jordanstown&quot;</span><span class="p">)</span><span class="c1"># create a vector</span>
+<span class="n">campus</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">campus</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="o">=</span><span class="n">campuses</span><span class="p">)</span><span class="w"> </span><span class="c1"># specify the levels</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">campus</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note how the second entry in the <strong>factor</strong>, is now <code class="docutils literal notranslate"><span class="pre">NA</span></code> (for <strong>Not
+Available</strong>), because <code class="docutils literal notranslate"><span class="pre">Coelraine</span></code> is not in our list of campuses.</p>
+</div>
+<div class="section" id="lists">
+<h3>lists<a class="headerlink" href="#lists" title="Permalink to this headline">#</a></h3>
+<p><strong>factor</strong> and <strong>vector</strong> objects don’t allow for mixing types - we
+can’t have a <strong>vector</strong> with both character and numeric values, but we
+can have a <strong>vector</strong> of character values and a <strong>vector</strong> of numeric
+values.</p>
+<p>If we want to mix data types, we can use a <strong>list</strong>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="w"> </span><span class="c1"># a sequence of numbers from 1 to 5</span>
+<span class="n">b</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;these&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;are&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;characters&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1"># a vector of character strings</span>
+<span class="n">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">TRUE</span><span class="w"> </span><span class="c1"># a single boolean value</span>
+
+<span class="n">mixed_bag</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">item_1</span><span class="o">=</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">item_b</span><span class="o">=</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">item_iii</span><span class="o">=</span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="c1"># join the different objects into a list. Note that we have to specify the names of the list variables</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">mixed_bag</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Like with <strong>vector</strong> objects, we can select values/objects from the
+<strong>list</strong> using the index:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">mixed_bag</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="c1"># select the second item in the list</span>
+</pre></div>
+</div>
+<p>Note that the type of this selection is <em>also</em> a <strong>list</strong>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">item2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mixed_bag</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="c1"># select the second item in the list and assign to a new object</span>
+<span class="nf">typeof</span><span class="p">(</span><span class="n">item2</span><span class="p">)</span><span class="w"> </span><span class="c1"># get the type of the new object</span>
+</pre></div>
+</div>
+<p>In addition to using the <strong>index</strong>, we can select a single variable from
+the <strong>list</strong> using the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">mixed_bag</span><span class="o">$</span><span class="n">item_b</span><span class="w"> </span><span class="c1"># select the item_b variable from the mixed_bag list</span>
+</pre></div>
+</div>
+<p>When we select the variable this way, the resulting object is a
+<strong>vector</strong>, not a <strong>list</strong> - so the way that we select values from these
+data structures matters.</p>
+</div>
+<div class="section" id="data-frames">
+<h3>data frames<a class="headerlink" href="#data-frames" title="Permalink to this headline">#</a></h3>
+<p>While a <strong>list</strong> object allows us to mix and nest variables of different
+data types, it is one-dimensional - there is no association between the
+values of the different variables, because they can have different
+lengths.</p>
+<p>A <strong>data frame</strong> (or <code class="docutils literal notranslate"><span class="pre">data.frame</span></code>) is a two-dimensional object - like
+a spreadsheet table. Each variable in a <strong>data.frame</strong> is a <strong>vector</strong>,
+and each <strong>vector</strong> has the same length.</p>
+<p>Most often, this is how we will end up working with data sets - we load
+them from a file such as an Excel spreadsheet, CSV (comma-separated
+variable), or SPSS file into a <strong>data.frame</strong>, then work with the
+<strong>data.frame</strong> object. We can also create our own data frame using
+<strong>vector</strong> objects:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Belfast&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Derry&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Bangor&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Lisburn&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Newry&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Armagh&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1"># a vector of city names</span>
+<span class="n">population</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">345418</span><span class="p">,</span><span class="w"> </span><span class="m">83163</span><span class="p">,</span><span class="w"> </span><span class="m">61011</span><span class="p">,</span><span class="w"> </span><span class="m">45370</span><span class="p">,</span><span class="w"> </span><span class="m">27913</span><span class="p">,</span><span class="w"> </span><span class="m">14777</span><span class="p">)</span><span class="w"> </span><span class="c1"># a vector of populations corresponding to each city name</span>
+
+<span class="n">cities</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">population</span><span class="p">)</span><span class="w"> </span><span class="c1"># create a data frame from these vectors</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">cities</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Like <strong>vector</strong> and <strong>list</strong> objects, there are a number of ways to
+select values from a <strong>data.frame</strong> - the next four examples show
+different ways of selecting by index. Have a look at each of them in
+turn - note that the resulting object changes depending on how we select
+them!</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="c1"># this gives us the first column, as a data.frame</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="c1"># this also gives us the first column, but as a vector</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="c1"># this gives us the first row - note that this is also a data.frame!</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="c1"># this gives us the entry in the first row, second column</span>
+</pre></div>
+</div>
+<p>We can also select variables in a <strong>data.frame</strong> by name, using the
+variable name as a <strong>character</strong>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span><span class="w"> </span><span class="c1"># returns the &#39;name&#39; variable as a 6 x 1 data.frame</span>
+</pre></div>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator, on the other hand, returns a <strong>vector</strong>, not a
+<strong>data.frame</strong>:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="c1"># this is a vector with length 6</span>
+</pre></div>
+</div>
+<p>Like we saw with <strong>vector</strong> objects, we can select subsets of the table
+using logical statements or variables - for example, by selecting all
+cities where the population is greater than 50,000:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span><span class="p">[</span><span class="n">cities</span><span class="o">$</span><span class="n">population</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">50000</span><span class="p">,]</span><span class="w"> </span><span class="c1"># gives us all rows where the population variable is larger than 50000</span>
+</pre></div>
+</div>
+<p>To get the variable names for the <strong>data.frame</strong>, we use the <code class="docutils literal notranslate"><span class="pre">names()</span></code>
+(<a class="reference external" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/names">documentation</a>)
+built-in function:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">names</span><span class="p">(</span><span class="n">cities</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="basic-arithmetic">
+<h2>basic arithmetic<a class="headerlink" href="#basic-arithmetic" title="Permalink to this headline">#</a></h2>
+<p>As you might guess, we will very often want to use <strong>R</strong> to perform
+calculations on our data. In this section, we’ll see how <strong>R</strong> can be
+used to perform basic arithmetic operations, and we’ll discuss the order
+of operations - that is, the order in which arithmetic operations are
+performed.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2</span>
+<span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">3</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&quot;x + y = %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="c1"># print the value of x+y (addition)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&quot;x - y = %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="c1"># print the value of x-y (subtraction)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&quot;x * y = %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="c1"># print the value of x*y (multiplication)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&quot;x / y = %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="c1"># print the value of x/y (division)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&quot;x ^ y = %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="c1"># print the value of x^y (exponentiation)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&quot;y %% x = %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">%%</span><span class="w"> </span><span class="n">x</span><span class="p">))</span><span class="w"> </span><span class="c1"># print the value of x%%y (modular division)</span>
+</pre></div>
+</div>
+<p><strong>R</strong>, like other programming languages, has an order of operator
+precedence - that is, the order in which operators within the same
+statement are executed. They are the same as the order of operations for
+basic (non-computer) arithmetic:</p>
+<ul class="simple">
+<li><p>Parentheses</p></li>
+<li><p>Exponentials</p></li>
+<li><p>Multiplication/Division</p></li>
+<li><p>Addition/Subtraction</p></li>
+</ul>
+<p>Before executing the following cell, think about what the output should
+be. Run the cell - does this result match with your expectation?</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="functions">
+<h2>functions<a class="headerlink" href="#functions" title="Permalink to this headline">#</a></h2>
+<p>So far, we’ve used a number of base functions, such as <code class="docutils literal notranslate"><span class="pre">c()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">print()</span></code>, <code class="docutils literal notranslate"><span class="pre">typeof()</span></code>, and <code class="docutils literal notranslate"><span class="pre">names()</span></code>. We can also define our own
+functions to use. This has many benefits, including:</p>
+<ul class="simple">
+<li><p>improved readability of code</p></li>
+<li><p>eliminating repetitive code</p></li>
+<li><p>allowing for easier debugging of a program/script</p></li>
+<li><p>allowing us to re-use code in other programs/scripts</p></li>
+</ul>
+<p>In <strong>R</strong>, we define a function using, oddly enough, the <code class="docutils literal notranslate"><span class="pre">function()</span></code>
+function
+(<a class="reference external" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/function">documentation</a>),
+and assigning the output to our new function:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">new_function</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># this is the body of the function - add instructions (code) here</span>
+<span class="w">    </span><span class="nf">return</span><span class="p">(</span><span class="n">something</span><span class="p">)</span><span class="w"> </span><span class="c1"># if we want to get the output of the function, we have to return it</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The arguments to <code class="docutils literal notranslate"><span class="pre">function()</span></code> are the arguments that we want to pass
+to our new function - in essence, these are the objects that we will use
+in the function. After the call to <code class="docutils literal notranslate"><span class="pre">function()</span></code>, we have a block of
+code enclosed by curly brackets (<code class="docutils literal notranslate"><span class="pre">{</span></code> and <code class="docutils literal notranslate"><span class="pre">}</span></code>) - this is where the
+instructions (code) that make up the function go. And finally, if we
+want to get something back from our function, we need to ue the
+<code class="docutils literal notranslate"><span class="pre">return()</span></code> function. If we don’t do this, <strong>R</strong> will run the
+instructions that make up the function, but it won’t give us any output.</p>
+<p>To help illustrate this, let’s define a function for calculating the
+area of a circle. Mathematically, this is a function of the radius of
+the circle - equal to the constant pi multiplied by the radius squared.
+Run the cell below to create the new function, and then test it:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">circle.area</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">area</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">pi</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="c1"># alternatively, radius * radius</span>
+<span class="w">    </span><span class="nf">return</span><span class="p">(</span><span class="n">area</span><span class="p">)</span><span class="w"> </span><span class="c1"># use return() to get a value back from the function</span>
+<span class="p">}</span>
+
+<span class="nf">circle.area</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="c1"># get the area of a circle with radius 10 (should be 314.15 ...)</span>
+</pre></div>
+</div>
+<p>In the cell below, I’ve started two more functions for calculating the
+surface area and volume of a sphere. For each function, fill in the code
+that will return the correct result, then confirm that your function
+output matches the values shown in the comment on each line.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sphere.area</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># your code goes here!</span>
+<span class="p">}</span>
+
+<span class="n">sphere.volume</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># your code goes here!</span>
+<span class="p">}</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="nf">sphere.area</span><span class="p">(</span><span class="m">10</span><span class="p">))</span><span class="w"> </span><span class="c1"># get the surface area of a sphere with radius 10 (should be 1256.637)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">sphere.volume</span><span class="p">(</span><span class="m">10</span><span class="p">))</span><span class="w"> </span><span class="c1"># get the volume of a sphere with radius 10 (should be 4188.79)</span>
+</pre></div>
+</div>
+<p>In the exercises to come, we’ll define and use a number of other
+functions.</p>
+</div>
+<div class="section" id="control-structures">
+<h2>control structures<a class="headerlink" href="#control-structures" title="Permalink to this headline">#</a></h2>
+<p>Finally, we’ll have a look at how we can use <strong>control structures</strong> to
+control when and how different parts of our code are executed.</p>
+<ul class="simple">
+<li><p><strong>if</strong>, <strong>else</strong> blocks, for executing code depending on different
+conditions</p></li>
+<li><p><strong>while</strong> loops, for repeating code while a certain condition is met</p></li>
+<li><p><strong>for</strong> loops, for repeating code a set number of times</p></li>
+</ul>
+<p>The basic structure of the blocks is similar to what we saw with
+functions - first, we have the control statement (<strong>if</strong>, <strong>else</strong>,
+<strong>while</strong>, etc.), followed by a <em>condition</em>, and then the code to
+execute if that condition is met, enclosed in curly brackets:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">control </span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># the body of the control block</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="comparison-operators">
+<h3>comparison operators<a class="headerlink" href="#comparison-operators" title="Permalink to this headline">#</a></h3>
+<p>In order to use these control structures, however, we need a statement
+that can be evaluated to be <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> or <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> - a <strong>conditional</strong>
+statement. Most often, we do this using one of six basic <strong>comparison</strong>
+operators:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">==</span></code>: for testing whether the value of two objects are <strong>equal</strong> to
+each other</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">!=</span></code>: for testing whether the value of two objects are <strong>not
+equal</strong> to each other</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code>: for testing whether the value of one object is <strong>less than</strong>
+the value of another object</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>: for testing whether the value of one object is <strong>less than or
+equal to</strong> the value of another object</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code>: for testing whether the value of one object is <strong>greater
+than</strong> the value of another object</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>: for testing whether the value of one object is <strong>greater than
+or equal to</strong> the value of another object</p></li>
+</ul>
+<p>These are not the only ways that we can write conditional statements,
+but they are some of the most common, especially as we’re starting out.</p>
+</div>
+<div class="section" id="if-else-statements">
+<h3>if … else statements<a class="headerlink" href="#if-else-statements" title="Permalink to this headline">#</a></h3>
+<p>We’ll start with a very basic control structure: an <strong>if</strong> statement.
+The code inside of the block is excecuted only if the condition is met -
+if not, the script/program continues without running the code inside of
+the block:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2</span>
+
+<span class="nf">if </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;x is a positive number&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the example above, the code inside of the block
+(<code class="docutils literal notranslate"><span class="pre">print(&quot;x</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">positive</span> <span class="pre">number&quot;)</span></code>) will only be executed if the
+condition <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> is met - if the value of <code class="docutils literal notranslate"><span class="pre">x</span></code> is less than zero,
+nothing will happen (change the value of <code class="docutils literal notranslate"><span class="pre">x</span></code> in the cell above to see
+for yourself!).</p>
+<p>We may also want to provide alternatives, where two or more blocks of
+code are executed depending on the evaulation of one or more conditional
+statements. We’ll begin with the most basic, an <strong>if … else</strong> statement:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-1</span>
+
+<span class="nf">if </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;x is a positive number&quot;</span><span class="p">)</span>
+<span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;x is less than or equal to 0&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In an <strong>if … else</strong> statement, we start with the <strong>if</strong> statement.
+Immediately after the <strong>if</strong> statement, we place the <strong>else</strong> statement.
+The code in this block will only be executed if the <strong>condition</strong> is
+<code class="docutils literal notranslate"><span class="pre">FALSE</span></code> - if the <strong>condition</strong> is <code class="docutils literal notranslate"><span class="pre">TRUE</span></code>, the code in the <strong>if</strong>
+statement is executed, and the code in the <strong>else</strong> statement is
+skipped.</p>
+<p>We can also evaluate more than one condition, using an <strong>else-if</strong>
+statement:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span>
+
+<span class="nf">if </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;x is a positive number&quot;</span><span class="p">)</span>
+<span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="nf">if </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;x is equal to 0&quot;</span><span class="p">)</span>
+<span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;x is a negative number&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With an <strong>else-if</strong> statement, we can have as many conditional branches,
+or cases, as we like. The <strong>else</strong> block at the end is optional, but it
+has to come at the end. This is because only one of these blocks can be
+executed - the block corresponding to the <em>first</em> condition that returns
+<code class="docutils literal notranslate"><span class="pre">TRUE</span></code> when evaluated.</p>
+</div>
+<div class="section" id="while-loops">
+<h3>while loops<a class="headerlink" href="#while-loops" title="Permalink to this headline">#</a></h3>
+<p>A <strong>while</strong> loop is used to repeat a section of code, so long as a given
+condition is met. At the beginning of each iteration of loop, the
+interpreter checks the condition - if it is <code class="docutils literal notranslate"><span class="pre">TRUE</span></code>, the code is
+executed; if <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>, the code inside the loop is skipped.</p>
+<p>When defining a <strong>while</strong> loop, it’s extremely important to remember to
+provide some way for the condition to evaluate as <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> - if the
+condition is always <code class="docutils literal notranslate"><span class="pre">TRUE</span></code>, the loop will never stop running (an
+<strong>infinite</strong> loop). Most often, we can do this by updating the variable
+that is evaluated in the condition, as seen in the example below:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">10</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Countdown begins. Launch in ...&quot;</span><span class="p">)</span>
+<span class="nf">while </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="w">    </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># subtract one from n</span>
+<span class="p">}</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">&quot;Blastoff!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, the value of <code class="docutils literal notranslate"><span class="pre">n</span></code> changes each time the loop is run, so it will
+(eventually) reach 0, and the loop will terminate.</p>
+</div>
+<div class="section" id="for-loops">
+<h3>for loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">#</a></h3>
+<p>A <strong>for</strong> loop is used to repeat code for a set number of repetitions -
+for example, each value in a sequence or a <strong>vector</strong>. At the beginning
+of the loop, the value of the <strong>iterator</strong> takes on the first value in
+the sequence; when the program reaches the bottom of the loop, it
+returns to the top and changes the value of the <strong>iterator</strong> to the next
+value in the sequence. We can see this using our <code class="docutils literal notranslate"><span class="pre">campus</span></code> <strong>vector</strong>
+from earlier:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">campuses</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Belfast&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Coleraine&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Jordanstown&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Magee&#39;</span><span class="p">)</span>
+
+<span class="c1"># loop over all of the values in campuses</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">campus</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">campuses</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="n">campus</span><span class="p">)</span><span class="w"> </span><span class="c1"># print the campus name</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We can also combine control structures - for example, by including an
+<strong>if … else</strong> statement inside of a <strong>for</strong> loop:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">campuses</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Belfast&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Coleraine&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Jordanstown&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Magee&#39;</span><span class="p">)</span>
+
+<span class="c1"># loop over all of the values in campuses</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">campus</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">campuses</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nf">if </span><span class="p">(</span><span class="n">campus</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&#39;Coleraine&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1"># if the value of campus equals &#39;Coleraine&#39;, end the loop</span>
+<span class="w">        </span><span class="n">break</span><span class="w"> </span><span class="c1"># break</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nf">print</span><span class="p">(</span><span class="n">campus</span><span class="p">)</span><span class="w"> </span><span class="c1"># print the campus name</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">break</span></code> statement statement is used to “break out” of a <strong>for</strong>
+loop - once a condition is met that causes it to be executed, the loop
+is terminated and the program continues running from there.</p>
+</div>
+</div>
+<div class="section" id="recap">
+<h2>recap<a class="headerlink" href="#recap" title="Permalink to this headline">#</a></h2>
+<p>That’s all for this exercise. In this lesson, we have introduced the
+following concepts:</p>
+<ul class="simple">
+<li><p>variables, objects, values, and assignment</p></li>
+<li><p>data types</p></li>
+<li><p>data structures:</p>
+<ul>
+<li><p>vectors</p></li>
+<li><p>lists</p></li>
+<li><p>data frames</p></li>
+</ul>
+</li>
+<li><p>indexing</p></li>
+<li><p>arithmetic operations</p></li>
+<li><p>functions</p></li>
+<li><p>flow control using logic</p></li>
+</ul>
+<p>Next, we’ll put some of this to work by having a look at a broken
+program, and see if we can manage to fix it.</p>
+</div>
+</div>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="project.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">starting a new project</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="debugging.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">debugging code</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Bob McNabb<br/>
+  
+      &copy; Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

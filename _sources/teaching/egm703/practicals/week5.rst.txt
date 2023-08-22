@@ -181,8 +181,12 @@ is displayed as a 654 color composite.
 
     Then, right-click on the image that you want to copy the settings to, and select **Styles** > **Paste Style**.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Have a look at the two Landsat images.
 
@@ -236,8 +240,12 @@ may be due to surfaces like bare soil.
 Yellow indicates high values in both the red and green channels, which implies very "bright" surfaces - often, these
 are large metal structures such as buildings.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Have a look at the two images of Midland (Sentinel-1 RGB and Landsat false color). How do the colors in the
     Sentinel-1 composite match up with your interpretation of the Landsat image (or, alternatively, the base layers)?
@@ -329,8 +337,12 @@ to determine an appropriate min/max range to scale the image to:
 |br| In general, the VV image has a larger range (in the example above, scaled from 0 to 0.6) than the VH image
 (scaled from 0 to 0.3), indicating that more energy is recorded by the sensor in the VV band.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Have a look at the two images, and pay attention to the areas that you examined in the RGB images before. What
     (if any) differences do you notice between the VV and VH bands? Using your interpretation of the surface types,
@@ -494,8 +506,12 @@ of the "trough" separating the two peaks), and the maximum value displayed is 0 
 
 |br|
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Zoom in on some of the water bodies, such as the retaining ponds south of Midland, or the Shiawassee National
     Wildlife Refuge, and compare the stretched dB image with what you see in the 20 May Landsat image.
@@ -592,8 +608,12 @@ the **Input layer**, and save the file to ``S1B_IW_20200527T233215_VV_watermask.
 - use **Translate** to apply the NoData value to the water mask
 - use **Polygonize** to create a vector layer of the mapped water extents.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Of the two bands (VV, VH), which band maps the most water? Why do you think this might be?
 
@@ -659,8 +679,12 @@ images. When the dam failed and the reservoirs drained, the surface that we see 
 primarily mud. If you look at the VV or VH bands, in fact, you should see that the former lake bottom has very similar
 backscatter values as many of the waterlogged fields that we can see in the area.
 
-.. admonition:: Question
-    :class: question
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
 
     Arrange the layers so that the water mask is on top of the difference image. Do you see any consistent pattern
     between the areas that you mapped as water based on the backscatter threshold and the difference map? Why do you
