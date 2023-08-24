@@ -57,7 +57,8 @@ me and I will send you a copy.\ [1]_
     *Journal of Glaciology*, doi: `10.1017/jog.2023.18 <https://doi.org/10.1017/jog.2023.18>`__
 
     Ali, A., P. Dunlop, S. Coleman, D. Kerr, **R. McNabb**, and R. Noormets (2023b). Glacier area changes in the Arctic
-    and high latitudes using satellite remote sensing. *Journal of Maps*, doi: ` <https://doi.org/>`__
+    and high latitudes using satellite remote sensing. *Journal of Maps* 19(**1**), 2247416. doi:
+    `10.1080/17445647.2023.2247416 <https://doi.org/10.1080/17445647.2023.2247416>`__
 
     Lauzon, B., L. Copland, W. Van Wychen, W. Kochtitzky, **R. McNabb**, and D. Dahl-Jensen (2023a). Dynamics throughout
     a complete surge of Iceberg Glacier on western Axel Heiberg Island, Canadian High Arctic. *Journal of Glaciology*,
