@@ -607,6 +607,35 @@ Finally, we can select a random sample from each group using
         group_by(season) |>
         slice_sample(n=5) # take a random sample of 5 rows from each season
 
+using ungroup() to remove groups
+--------------------------------
+
+Sometimes, we want to group data using ``group_by()`` to do some kind of
+calculations, but then we want to get rid of the groups - for example,
+if we want to find the top 5 warmest average months, regardless of what
+station they are measured at.
+
+To do this, we can use ``ungroup()``
+(`documentation <https://dplyr.tidyverse.org/reference/group_by.html>`__)
+to remove the grouping:
+
+.. code:: r
+
+    station_data |>
+        group_by(station, month) |> # group by station, season
+        summarize(tmax = mean(tmax, na.rm = TRUE)) |> # calculate the average of tmax
+        ungroup() |> # use ungroup to remove the grouping by station and season on the output of summarize
+        slice_max(tmax, n = 5) # select the 5 rows with the highest value of tmax
+
+Note that without this, we would end up with 20 rows - 5 for each group:
+
+.. code:: r
+
+    station_data |>
+        group_by(station, month) |> # group by station, season
+        summarize(tmax = mean(tmax, na.rm = TRUE)) |> # calculate the average of tmax
+        slice_max(tmax, n = 5) # select the 5 rows with the highest value of tmax
+
 exercise and next steps
 -----------------------
 
@@ -617,15 +646,28 @@ file that does the following:
 -  loads the saved data file (**combined_stations.csv**)
 -  helps you answer the following questions:
 
-   -  what station has the highest recorded rainfall in the dataset, and
-      on what date?
-   -  what season has the lowest average rainfall for each station?
+   -  what station has the highest recorded rainfall in the past 20
+      years, and on what date?
+   -  what season has the lowest average rainfall? is it the same season
+      for all four stations?
+   -  what station has recorded the most months with ``tmin`` < 1°C? are
+      all these observations from a single season?
+   -  what is the median rainfall in months where ``tmax`` is greater
+      than 20°C? make sure that your result is a number, not a tibble!
    -  what year saw the most total rainfall, using data from all four
       stations?
-   -  what is the lowest average annual temperature in the dataset, as
-      measured by one station?
+   -  what are the top 5 driest years, using only data from stations in
+      Britain?
+   -  what is the lowest annually-averaged monthly minimum temperature
+      in the dataset, as measured by a single station?
+   -  what is the sunniest month, on average, in Armagh?
 
-For a bonus, try downloading an additional dataset from the `Met
+      -  bonus: write a line that will rename the months from the number
+         to a 3-letter abbreviation
+         (`hint <https://r-lang.com/month-abb-in-r-with-example/>`__)
+
+For a bonus, try downloading at least one additional dataset from the
+`Met
 Office <https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data>`__,
 saving it to the **data** folder. Next, open a **Terminal** and enter
 the following:
@@ -637,6 +679,4 @@ the following:
 remembering to replace ``{station}`` with the name of the file that you
 just downloaded (e.g., ``durhamdata.txt``). This will convert the
 ``.txt`` file into a ``.csv`` file, using the steps outlined at the top
-of the exercise. In your new notebook file, remember to add this new
-data to your existing dataset (and re-save the file!), then repeat the
-analysis above.
+of the exercise.

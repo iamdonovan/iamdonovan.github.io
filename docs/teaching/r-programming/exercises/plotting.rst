@@ -685,12 +685,19 @@ That’s all for this exercise. To practice your skills, create a script
 that does the following:
 
 -  loads the packages that you will need at the beginning of the script
+-  adds a season variable
 -  adds a variable to divide the data into three 50 year periods:
    1871-1920, 1921-1970, and 1971-2020
+-  selects only those observations between 1871 and 2020 (inclusive)
 -  creates a figure to plot the density distribution of tmin for each
-   period in its own panel
+   period in its own panel, colored by season (using both color and
+   fill)
 -  creates a figure to plot the density distribution of tmin for each
-   period in the same panel, colored by the period (using fill), with a
-   mean (solid) and dashed (median) line for each period
--  sets appropriate labels and font sizes
--  saves each plot to its own file
+   period in the same panel, colored by the period (using both color and
+   fill)
+-  sets appropriate labels and font sizes for the axis text
+-  saves each plot to its own file. For the three-panel figure, change
+   the width and height of the plot so that the plot is more
+   rectangular, and each panel is approximately square (check the
+   `documentation <https://ggplot2.tidyverse.org/reference/ggsave.html>`__
+   to see how)
