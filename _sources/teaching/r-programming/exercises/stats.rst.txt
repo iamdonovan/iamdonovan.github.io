@@ -457,7 +457,6 @@ one of the following:
    there are significant differences in rainfall based on the season.
 -  Using only observations from Oxford, is there a significant
    difference between the values of ``tmax`` in the spring and the
-   autumn?
--  Using only observations from Stornoway Airport, is there a
-   significant difference between the values of ``tmin`` in the winter
-   and the autumn?
+   autumn at the 99.9% confidence level?
+-  Using only observations from Stornoway Airport, is the value of
+   `tmin` significantly lower in the winter, compared to the autumn?

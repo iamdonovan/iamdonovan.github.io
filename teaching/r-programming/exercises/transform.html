@@ -1066,6 +1066,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-ungroup-to-remove-groups">
+   using ungroup() to remove groups
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#exercise-and-next-steps">
    exercise and next steps
   </a>
@@ -1157,6 +1162,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#slicing-the-dataset">
    slicing the dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-ungroup-to-remove-groups">
+   using ungroup() to remove groups
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -1675,6 +1685,30 @@ value, we can use <code class="docutils literal notranslate"><span class="pre">s
 </pre></div>
 </div>
 </div>
+<div class="section" id="using-ungroup-to-remove-groups">
+<h2>using ungroup() to remove groups<a class="headerlink" href="#using-ungroup-to-remove-groups" title="Permalink to this headline">#</a></h2>
+<p>Sometimes, we want to group data using <code class="docutils literal notranslate"><span class="pre">group_by()</span></code> to do some kind of
+calculations, but then we want to get rid of the groups - for example,
+if we want to find the top 5 warmest average months, regardless of what
+station they are measured at.</p>
+<p>To do this, we can use <code class="docutils literal notranslate"><span class="pre">ungroup()</span></code>
+(<a class="reference external" href="https://dplyr.tidyverse.org/reference/group_by.html">documentation</a>)
+to remove the grouping:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">group_by</span><span class="p">(</span><span class="n">station</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="c1"># group by station, season</span>
+<span class="w">    </span><span class="nf">summarize</span><span class="p">(</span><span class="n">tmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="c1"># calculate the average of tmax</span>
+<span class="w">    </span><span class="nf">ungroup</span><span class="p">()</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="c1"># use ungroup to remove the grouping by station and season on the output of summarize</span>
+<span class="w">    </span><span class="nf">slice_max</span><span class="p">(</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="c1"># select the 5 rows with the highest value of tmax</span>
+</pre></div>
+</div>
+<p>Note that without this, we would end up with 20 rows - 5 for each group:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">group_by</span><span class="p">(</span><span class="n">station</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="c1"># group by station, season</span>
+<span class="w">    </span><span class="nf">summarize</span><span class="p">(</span><span class="n">tmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="c1"># calculate the average of tmax</span>
+<span class="w">    </span><span class="nf">slice_max</span><span class="p">(</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="c1"># select the 5 rows with the highest value of tmax</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="exercise-and-next-steps">
 <h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline">#</a></h2>
 <p>That’s all for this exercise. To practice your skills, create a notebook
@@ -1684,17 +1718,32 @@ file that does the following:</p>
 <li><p>loads the saved data file (<strong>combined_stations.csv</strong>)</p></li>
 <li><p>helps you answer the following questions:</p>
 <ul>
-<li><p>what station has the highest recorded rainfall in the dataset, and
-on what date?</p></li>
-<li><p>what season has the lowest average rainfall for each station?</p></li>
+<li><p>what station has the highest recorded rainfall in the past 20
+years, and on what date?</p></li>
+<li><p>what season has the lowest average rainfall? is it the same season
+for all four stations?</p></li>
+<li><p>what station has recorded the most months with <code class="docutils literal notranslate"><span class="pre">tmin</span></code> &lt; 1°C? are
+all these observations from a single season?</p></li>
+<li><p>what is the median rainfall in months where <code class="docutils literal notranslate"><span class="pre">tmax</span></code> is greater
+than 20°C? make sure that your result is a number, not a tibble!</p></li>
 <li><p>what year saw the most total rainfall, using data from all four
 stations?</p></li>
-<li><p>what is the lowest average annual temperature in the dataset, as
-measured by one station?</p></li>
+<li><p>what are the top 5 driest years, using only data from stations in
+Britain?</p></li>
+<li><p>what is the lowest annually-averaged monthly minimum temperature
+in the dataset, as measured by a single station?</p></li>
+<li><p>what is the sunniest month, on average, in Armagh?</p>
+<ul>
+<li><p>bonus: write a line that will rename the months from the number
+to a 3-letter abbreviation
+(<a class="reference external" href="https://r-lang.com/month-abb-in-r-with-example/">hint</a>)</p></li>
 </ul>
 </li>
 </ul>
-<p>For a bonus, try downloading an additional dataset from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">Met
+</li>
+</ul>
+<p>For a bonus, try downloading at least one additional dataset from the
+<a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">Met
 Office</a>,
 saving it to the <strong>data</strong> folder. Next, open a <strong>Terminal</strong> and enter
 the following:</p>
@@ -1704,9 +1753,7 @@ the following:</p>
 <p>remembering to replace <code class="docutils literal notranslate"><span class="pre">{station}</span></code> with the name of the file that you
 just downloaded (e.g., <code class="docutils literal notranslate"><span class="pre">durhamdata.txt</span></code>). This will convert the
 <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file into a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file, using the steps outlined at the top
-of the exercise. In your new notebook file, remember to add this new
-data to your existing dataset (and re-save the file!), then repeat the
-analysis above.</p>
+of the exercise.</p>
 </div>
 </div>
 
