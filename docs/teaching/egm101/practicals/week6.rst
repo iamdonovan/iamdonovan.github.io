@@ -79,7 +79,7 @@ to bring up the second step:
 
 |br| Most of these should look the same, but just in case, make sure to select **Delimited** under **How are your
 variables arranged?**, **Yes** and **Line 1** under **Are variable names included at the top of your file?**, and
-**Period** under **What is the decimal symbol?**. Once you've checked all of these, click **Next**
+**Period** under **What is the decimal symbol?**. Once you've checked all of these, click **Next**:
 
 .. image:: img/week6/import3.png
     :width: 400
@@ -146,8 +146,8 @@ We'll cover the **Outputs** window in a moment, but first have a look at the **D
     :align: center
     :alt: the Armagh temperature data imported into the SPSS Data Editor window.
 
-|br| We will be using this data for the next two practicals (as well as your assignment!), so make sure that you save
-your imported data onto your OneDrive folder as ``ArmaghData.sav``:
+|br| We will be using this data for the next two practicals (**as well as your assignment!**), so make sure that you
+save your imported data onto your OneDrive folder as ``ArmaghData.sav``:
 
 .. image:: img/week6/saved.png
     :width: 720
@@ -160,7 +160,7 @@ At the bottom of this window, you should notice two tabs: **Data View** and **Va
 looking at the **Data View**, which is where you can input data, exactly like you would with Excel. There are a number
 of notable differences between the SPSS **Data View** and Excel, though:
 
-- SPSS uses slightly different terminology than we saw with Excel, though. In the SPSS **Data View**, rows are called
+- SPSS uses slightly different terminology than we saw with Excel. In the SPSS **Data View**, rows are called
   **cases**, while columns are called **variables**.
 - The SPSS **Data Editor** only allows you to enter single values into each cell - no formulas.
 - Unlike in Excel, we can't start a new sub-table in SPSS. The spreadsheet is rectangular, and each cell represents
@@ -175,13 +175,13 @@ Later on, we will see how we can calculate new variables in SPSS. For now, click
 
 |br| In this tab, we can (among other things):
 
-- change variable names
-- change the format/type of variables (e.g., numeric, text, date/time)
-- change how variables are displayed in the table or stored on disk
-- add a **Label** (a more complete descriptions of the variable, including units) to a variable
+- change variable names;
+- change the format/type of variables (e.g., numeric, text, date/time);
+- change how variables are displayed in the table or stored on disk;
+- add a **Label** (a more complete descriptions of the variable, including units) to a variable;
 - add **Value Labels**. Similar to **Labels**, this enables us to provide more complete explanations for values of a
-  variable, which can be especially useful where numeric codes are used to represent non-numeric categories
-- change the type of measurement (e.g., scale, ordinal, nominal) for each variable
+  variable, which can be especially useful where numeric codes are used to represent non-numeric categories;
+- change the type of measurement (e.g., scale, ordinal, nominal) for each variable.
 
 Let's add a **Label** to each of our variables. To do this, click on the cell in the corresponding row of the **Label**
 column, then type in the description. For example, for the ``Year`` variable, you could write "*Year recorded*".
@@ -202,11 +202,11 @@ above. Click on this button to bring up the **Value Labels** dialog:
     :align: center
     :alt: the Value Labels dialog window
 
-|br| To add a **Value Label**, you need to first type in the **Value** in the first field, then type in the **Label**
+|br| To add a **Value Label**, you first need to type the **Value** in the first field, then type the **Label**
 in the second field. For example, to add a **Value Label** for January (month 1), you would type "1" in the **Value**
 field, and "January" in the **Label** field, as above. Click **Add** to add the label.
 
-To add another label, you can add it in the same way. Proceed until you have entered labels for all 12 months, then
+You can add another label in the same way. Proceed until you have entered labels for all 12 months, then
 click **OK** to return to the **Variable View** window. You should see that instead of "None" in the **Values**
 column for the **Month** row, you now see ``{1, January}``:
 
@@ -409,8 +409,9 @@ When you click **OK**, you should see that the file has sorted by ``Month`` (wit
     :alt: the data editor window, with variables sorted according to month recorded.
 
 |br| Now, calculate descriptives again (**Analyze** > **Descriptive Statistics** > **Descriptives**, or by pressing the
-**Run descriptive statistics** button from the **Data Editor**), you should see that the **Viewer** window displays
-a new table, with a section for each month:
+**Run descriptive statistics** button from the **Data Editor**).
+
+You should see that the **Viewer** window displays a new table, with a section for each month:
 
 .. image:: img/week6/descriptives_month.png
     :width: 720
@@ -441,18 +442,21 @@ Have a look at the tables in the **Viewer** window, and see if you can answer th
     :far:`circle-question` Question
     ^^^
 
-    - Which months have the largest variation in temperature? Why do you think this might be the case?
+    - Which months have the largest variation in rainfall? Why do you think this might be the case?
     - In what month was the highest recorded monthly rainfall recorded in Armagh? What about the lowest?
 
 .. note::
 
-    To answer the above questions, it might also be easier to re-calculate the statistics using a single variable.
+    To help answer the questions above, it might also be easier to re-calculate the statistics using a single variable.
 
 
 .. _egm101 recode:
 
 recoding values
 ................
+
+Next, we'll look at *recoding* variables - that is, transforming a variable by combining values or categories together.
+As an example, we'll see how we can assign a season to each observation, based on the month it was recorded.
 
 `Meteorological seasons <https://www.metoffice.gov.uk/weather/learn-about/weather/seasons/>`__ are defined by splitting
 the year into four periods of three months each, which helps with comparing seasonal and monthly statistics between
@@ -476,7 +480,7 @@ When you select this, you should see the following dialog:
 **Output Variable** that we want to create by recoding is ``Season``, so add that to the **Name** of the
 **Output Variable**, and fill in a **Label** as well:
 
-.. image:: img/week6/recode_blank.png
+.. image:: img/week6/recode.png
     :width: 400
     :align: center
     :alt: the "recode into different variables" dialog, with "month" selected and a new variable, "season" added
@@ -559,9 +563,9 @@ You should see this table in the **Statistics Viewer** window:
     :align: center
     :alt: the statistics viewer window, with a table containing descriptives statistics for rainfall in each season.
 
-|br| Rename the table to "Seasonal Rain" as above, and be sure to save both the ``.spv`` file and the ``.sav`` file.
+|br| Rename the table to "Seasonal Rain" as above, and **be sure to save** both the ``.spv`` file and the ``.sav`` file.
 
-As a final step, undo the *split* by opening the **Split File** dialog again (**Data** > **Split File**), and selecting
+As a final step, undo the split by opening the **Split File** dialog again (**Data** > **Split File**), and selecting
 **Analyze all cases, do not create groups**. Do this now, before moving on to the next section.
 
 selecting cases
@@ -624,7 +628,17 @@ following table output in the **Statistics Viewer** window:
 
 |br| Don't forget to change the title of this section to make it clear that these are values for 1951-1980.
 
-Finally, to undo the filtering, open **Select Cases** again, and click the button for **All cases**. Do this before
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Compare the different statistics for this period to the values for the entire dataset. Was the
+    period 1951-1980 warmer or cooler than the average for the entire dataset? What about for rainfall?
+
+To undo the filtering, open **Select Cases** again, and click the button for **All cases**. Do this before
 continuing to the next section.
 
 displaying data
@@ -789,6 +803,26 @@ next steps
 If you are interested in additional practice, here are some suggestions:
 
 - Use **Select Cases** to select cases from 1991 - 2020, and create a table showing the descriptive statistics of the
-  temperature variables and precipitation. Do you notice any differences between this period and the period 1951-1980?
+  temperature variables and precipitation.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Do you notice any differences between this period and the period 1951-1980?
+
 - Using **Split File** and the **Chart Builder**, create histograms of the precipitation for each season, and describe
-  the distributions that you see. What season(s) stand out as the "most"/"least" normal for rainfall?
+  the distributions that you see.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    What season(s) stand out as the "most"/"least" *normal* (as in, normal distribution) for rainfall?
+
