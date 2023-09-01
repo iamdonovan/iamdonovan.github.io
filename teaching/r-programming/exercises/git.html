@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="starting a new project" href="project.html" />
     <link rel="prev" title="exercises" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1145,11 +1150,11 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="introduction-to-version-control-using-git">
-<h1>introduction to version control using git<a class="headerlink" href="#introduction-to-version-control-using-git" title="Permalink to this headline">#</a></h1>
+<h1>introduction to version control using git<a class="headerlink" href="#introduction-to-version-control-using-git" title="Permalink to this heading">#</a></h1>
 <p>In this exercise, we’ll get some practice using the <strong>git</strong> command-line interface for keeping track of the contents
 of a folder.</p>
 <div class="section" id="navigating-the-command-prompt">
-<h2>navigating the command prompt<a class="headerlink" href="#navigating-the-command-prompt" title="Permalink to this headline">#</a></h2>
+<h2>navigating the command prompt<a class="headerlink" href="#navigating-the-command-prompt" title="Permalink to this heading">#</a></h2>
 <p>To start, open the <strong>Anaconda Command Prompt</strong> for your <code class="docutils literal notranslate"><span class="pre">intro-to-r</span></code> environment. You should start in your <code class="docutils literal notranslate"><span class="pre">%HOME%</span></code>
 directory (e.g., <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your</span> <span class="pre">username&gt;</span></code>). At the command prompt, you can see what directory you are currently in
 by looking at the text before the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> symbol:</p>
@@ -1191,7 +1196,7 @@ this from the path, leaving just <code class="docutils literal notranslate"><spa
 up with our recipe ingredients and instructions.</p>
 </div>
 <div class="section" id="creating-a-new-branch">
-<h2>creating a new branch<a class="headerlink" href="#creating-a-new-branch" title="Permalink to this headline">#</a></h2>
+<h2>creating a new branch<a class="headerlink" href="#creating-a-new-branch" title="Permalink to this heading">#</a></h2>
 <p>Before we do that, though, we’ll create a new <em>branch</em> to our repository - this way, we can work on developing our
 recipe without causing any problems with the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.</p>
 <p>For this, we’ll use the <strong>git checkout</strong> command, along with the <strong>-b</strong> flag:</p>
@@ -1211,7 +1216,7 @@ that we just checked out. We can tell what branch we are currently working on by
 asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) to the left of the branch name.</p>
 </div>
 <div class="section" id="editing-the-recipe">
-<h2>editing the recipe<a class="headerlink" href="#editing-the-recipe" title="Permalink to this headline">#</a></h2>
+<h2>editing the recipe<a class="headerlink" href="#editing-the-recipe" title="Permalink to this heading">#</a></h2>
 <p>Now that we have our new branch, let’s make some changes to our files. First, open <strong>ingredients.txt</strong> in a text editor
 (<strong>Notepad</strong>, <strong>Notepad++</strong>, or something similar, <strong>NOT</strong> MS Word!):</p>
 <p>In this file, let’s add the following ingredients:</p>
@@ -1232,7 +1237,7 @@ asterisk (<code class="docutils literal notranslate"><span class="pre">*</span><
 <p>Save the file (<strong>CTRL</strong> + <strong>S</strong>), but don’t close the window just yet.</p>
 </div>
 <div class="section" id="git-status">
-<h2>git status<a class="headerlink" href="#git-status" title="Permalink to this headline">#</a></h2>
+<h2>git status<a class="headerlink" href="#git-status" title="Permalink to this heading">#</a></h2>
 <p>Back in the <strong>Anaconda Command Prompt</strong> window, let’s see how we can use <strong>git</strong> to check the status of the files in
 our repository, using <strong>git status</strong>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git status
@@ -1247,7 +1252,7 @@ our repository, using <strong>git status</strong>:</p>
 </ul>
 </div>
 <div class="section" id="git-diff">
-<h2>git diff<a class="headerlink" href="#git-diff" title="Permalink to this headline">#</a></h2>
+<h2>git diff<a class="headerlink" href="#git-diff" title="Permalink to this heading">#</a></h2>
 <p>If we want to see what changes, specifically, have been made, we can use <strong>git diff</strong>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git diff
 </pre></div>
@@ -1279,7 +1284,7 @@ line is in the new file, while a <code class="docutils literal notranslate"><spa
 added to <strong>ingredients.txt</strong>.</p>
 </div>
 <div class="section" id="staging-changes">
-<h2>staging changes<a class="headerlink" href="#staging-changes" title="Permalink to this headline">#</a></h2>
+<h2>staging changes<a class="headerlink" href="#staging-changes" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve added our ingredients, let’s get ready to commit the changes. Remember that this is a two step process:
 first, we have to <em>stage</em> our commits, using <strong>git add</strong>. To stage <strong>ingredients.txt</strong>, enter the following command:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git add ingredients.txt
@@ -1290,7 +1295,7 @@ first, we have to <em>stage</em> our commits, using <strong>git add</strong>. To
 <p><br /></p>
 </div>
 <div class="section" id="committing-snapshots">
-<h2>committing snapshots<a class="headerlink" href="#committing-snapshots" title="Permalink to this headline">#</a></h2>
+<h2>committing snapshots<a class="headerlink" href="#committing-snapshots" title="Permalink to this heading">#</a></h2>
 <p>At this point, let’s tell <strong>git</strong> to take a snapshot of our progress, using <strong>git commit</strong>.</p>
 <p>For short commit messages, we can use this command with the <strong>-m</strong> flag:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git commit -m &quot;this is a commit message&quot;
@@ -1319,7 +1324,7 @@ many lines were changed and how.</p>
 <a class="reference internal image-reference" href="../../../_images/status_commit.png"><img alt="git status showing a clean working directory" class="align-center" src="../../../_images/status_commit.png" style="width: 600px;" /></a>
 </div>
 <div class="section" id="adding-instructions">
-<h2>adding instructions<a class="headerlink" href="#adding-instructions" title="Permalink to this headline">#</a></h2>
+<h2>adding instructions<a class="headerlink" href="#adding-instructions" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve added ingredients, we should also make sure to include instructions for our recipe. Open up
 <strong>instructions.txt</strong> file (again, using a <strong>text</strong> editor!), and add the following instructions:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1. Chop onion, celery, carrots, and garlic.
@@ -1341,7 +1346,7 @@ many lines were changed and how.</p>
 </div>
 </div>
 <div class="section" id="git-log">
-<h2>git log<a class="headerlink" href="#git-log" title="Permalink to this headline">#</a></h2>
+<h2>git log<a class="headerlink" href="#git-log" title="Permalink to this heading">#</a></h2>
 <p>One way that we can keep track of the history of our repository is using <strong>git log</strong>, which allows us to scroll through
 all of the different snapshots:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git log
@@ -1371,7 +1376,7 @@ a new commit, you see that <code class="docutils literal notranslate"><span clas
 <a class="reference internal image-reference" href="../../../_images/git_log_stat.png"><img alt="git log showing the change history of the current repository, including the files changed with each commit" class="align-center" src="../../../_images/git_log_stat.png" style="width: 600px;" /></a>
 </div>
 <div class="section" id="customizing-the-recipe">
-<h2>customizing the recipe<a class="headerlink" href="#customizing-the-recipe" title="Permalink to this headline">#</a></h2>
+<h2>customizing the recipe<a class="headerlink" href="#customizing-the-recipe" title="Permalink to this heading">#</a></h2>
 <p>Now that you have worked through some of the basics of using <strong>git</strong> to keep track of the files, it’s time to spend
 some time working on customizing and perfecting your soup recipe. For example, you might:</p>
 <ul class="simple">
@@ -1384,7 +1389,7 @@ at tools like <strong>git diff</strong> and <strong>git log</strong> as you go, 
 the files in the repository.</p>
 </div>
 <div class="section" id="merging-branches">
-<h2>merging branches<a class="headerlink" href="#merging-branches" title="Permalink to this headline">#</a></h2>
+<h2>merging branches<a class="headerlink" href="#merging-branches" title="Permalink to this heading">#</a></h2>
 <p>Once you have finished perfecting your soup recipe, it’s time to combine this branch with the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. To do
 this, you can first check out the <code class="docutils literal notranslate"><span class="pre">main</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git checkout main
@@ -1404,7 +1409,7 @@ to help keep the “tree” nicely pruned:</p>
 </div>
 </div>
 <div class="section" id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this lesson. If you are interested in continuing learning how to use the <strong>git</strong> command-line interface,
 <a class="reference external" href="https://learngitbranching.js.org/">learn git branching</a> has a number of interactive exercises to help you practice
 and develop your skills.</p>

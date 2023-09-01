@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +46,7 @@
     <link rel="next" title="InSAR Processing" href="week4.html" />
     <link rel="prev" title="hyperspectral image analysis" href="week2.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1106,7 +1111,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="sar-image-processing">
-<h1>SAR image processing<a class="headerlink" href="#sar-image-processing" title="Permalink to this headline">#</a></h1>
+<h1>SAR image processing<a class="headerlink" href="#sar-image-processing" title="Permalink to this heading">#</a></h1>
 <p>For this week’s practical, we’ll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look
 complex) image, through to a calibrated, terrain-corrected image. In particular, by the end of this practical, you will
 be able to use SNAP to:</p>
@@ -1136,7 +1141,7 @@ range).</p>
 here, which require some additional processing steps.</p>
 </div>
 <div class="section" id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The following instructions were written using SNAP 8.0.7, which is what the example images show. If you have a
@@ -1190,7 +1195,7 @@ signal. We will work with these a bit more next week - for now, you can go ahead
 <p><br /></p>
 </div>
 <div class="section" id="splitting-the-data">
-<h2>splitting the data<a class="headerlink" href="#splitting-the-data" title="Permalink to this headline">#</a></h2>
+<h2>splitting the data<a class="headerlink" href="#splitting-the-data" title="Permalink to this heading">#</a></h2>
 <p>We’ll start by splitting the data, to only work with a single sub-swath. Under <strong>Radar</strong>, select <strong>Sentinel-1 TOPS</strong>
 &gt; <strong>S1 TOPS Split</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/tops_split1.png"><img alt="the first TOPS Split window, showing I/O Parameters" class="align-center" src="../../../_images/tops_split1.png" style="width: 400px;" /></a>
@@ -1205,7 +1210,7 @@ filled in), then click <strong>Processing Parameters</strong>:</p>
 <p><br /></p>
 </div>
 <div class="section" id="calibrating-the-data">
-<h2>calibrating the data<a class="headerlink" href="#calibrating-the-data" title="Permalink to this headline">#</a></h2>
+<h2>calibrating the data<a class="headerlink" href="#calibrating-the-data" title="Permalink to this heading">#</a></h2>
 <p>Next, we’ll calibrate the data, so that we can eventually compare the image to other scenes. Under <strong>Radar</strong>,
 select <strong>Radiometric</strong> &gt; <strong>Calibrate</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/calibration1.png"><img alt="the first calibration dialogue window, showing I/O Parameters" class="align-center" src="../../../_images/calibration1.png" style="width: 400px;" /></a>
@@ -1218,7 +1223,7 @@ sensor by the ground. Without this step, comparing images acquired at different 
 difficult - it’s similar to comparing optical images that haven’t been atmospherically corrected.</p>
 </div>
 <div class="section" id="debursting-the-data">
-<h2>debursting the data<a class="headerlink" href="#debursting-the-data" title="Permalink to this headline">#</a></h2>
+<h2>debursting the data<a class="headerlink" href="#debursting-the-data" title="Permalink to this heading">#</a></h2>
 <p>Next, we need to combine the bursts, to get rid of the demarcation lines that we can see in the image:</p>
 <a class="reference internal image-reference" href="../../../_images/demarcation.png"><img alt="the calibrated image, showing the different bursts and demarcation lines" class="align-center" src="../../../_images/demarcation.png" style="width: 600px;" /></a>
 <p><br /> Under <strong>Radar</strong>, you can again select <strong>Sentinel-1 TOPS</strong> &gt; <strong>S-1 TOPS Deburst</strong>. Be sure that the split image is
@@ -1231,7 +1236,7 @@ overlapping areas have been merged. The demarcation lines are also gone, and we 
 <p><br /></p>
 </div>
 <div class="section" id="speckle-reduction">
-<h2>speckle reduction<a class="headerlink" href="#speckle-reduction" title="Permalink to this headline">#</a></h2>
+<h2>speckle reduction<a class="headerlink" href="#speckle-reduction" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve combined each of the bursts, we can move on to speckle filtering and geometric correction. Speckle
 filtering is an optional step - we don’t necessarily have to do it (and for some applications we don’t want to do it),
 but for visualizing and interpreting an image, it can help to reduce the noise.</p>
@@ -1249,7 +1254,7 @@ see quite a bit more detail in the filtered image. If we zoom in, we should see 
 well. Note that this process isn’t perfect - there’s still some texture in the image, for example.</p>
 </div>
 <div class="section" id="geocoding">
-<h2>geocoding<a class="headerlink" href="#geocoding" title="Permalink to this headline">#</a></h2>
+<h2>geocoding<a class="headerlink" href="#geocoding" title="Permalink to this heading">#</a></h2>
 <p>Next, we need to geocode (terrain-correct) the image, in order to be able to use it in a GIS software or other
 satellite images. Under <strong>Radar</strong>, select <strong>Geometric</strong> &gt; <strong>Terrain Correction</strong> &gt; <strong>Range-Doppler Terrain Correction</strong>.
 Under <strong>Processing Parameters</strong>, be sure to select both source bands:</p>
@@ -1271,7 +1276,7 @@ it should look quite a bit different than what we’ve been seeing:</p>
 <p><br /></p>
 </div>
 <div class="section" id="convert-to-db">
-<h2>convert to dB<a class="headerlink" href="#convert-to-db" title="Permalink to this headline">#</a></h2>
+<h2>convert to dB<a class="headerlink" href="#convert-to-db" title="Permalink to this heading">#</a></h2>
 <p>Finally, we’ll convert the values from linear to log (decibel) values - this will help to increase the contrast in
 darker regions, helping interpretation. Right-click on the first image band, then select <strong>Linear to/from dB</strong>. This
 will create a virtual image with the values scaled using the expression <span class="math notranslate nohighlight">\(10\log_{10}({\rm \sigma_{\rm VH}})\)</span>:</p>
@@ -1291,7 +1296,7 @@ of other Sentinel datasets, including Sentinel-2 and Sentinel-3. Next week, we�
 interferometric SAR (InSAR) applications.</p>
 </div>
 <div class="section" id="questions">
-<h2>questions<a class="headerlink" href="#questions" title="Permalink to this headline">#</a></h2>
+<h2>questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <p>Now that you’ve procssed and exported both images, you can load them into a GIS software of your choice. I would
 recommend adding a basemap (for example, the ESRI Basemap) or an optical image (e.g., Sentinel-2, Landsat), to help
 with some of the interpretation. Think about the following questions - if you need help or want to discuss, be sure to

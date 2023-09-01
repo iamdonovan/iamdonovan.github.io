@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="pixel-based classification" href="pixel.html" />
     <link rel="prev" title="image classification" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1115,7 +1120,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="unsupervised-classification">
-<h1>unsupervised classification<a class="headerlink" href="#unsupervised-classification" title="Permalink to this headline">#</a></h1>
+<h1>unsupervised classification<a class="headerlink" href="#unsupervised-classification" title="Permalink to this heading">#</a></h1>
 <p>For this tutorial, we’re going to use a 15 February 2022 Landsat 9 image covering <a class="reference external" href="https://en.wikipedia.org/wiki/Harrat_Khaybar">Harrat Khaybar</a>,
 a volcanic field in Saudi Arabia:</p>
 <a class="reference internal image-reference" href="../../../_images/harrat_khaybar.png"><img alt="closeup of Harrat Khaybar, the study area for this tutorial." class="align-center" src="../../../_images/harrat_khaybar.png" style="width: 600px;" /></a>
@@ -1132,7 +1137,7 @@ identify what each of these classes represent.</p>
 <li><p>how to plot the spectral characteristics of classes to see their differences</p></li>
 </ul>
 <div class="section" id="selecting-sample-points">
-<h2>selecting sample points<a class="headerlink" href="#selecting-sample-points" title="Permalink to this headline">#</a></h2>
+<h2>selecting sample points<a class="headerlink" href="#selecting-sample-points" title="Permalink to this heading">#</a></h2>
 <p>The <strong>Image</strong> that we’re using is 7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels - that’s a lot. To help improve
 performance of the clustering algorithm, and prevent <code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">Memory</span></code> errors when we run the script, we want to take a
 random sample of pixels.</p>
@@ -1148,7 +1153,7 @@ random sample of pixels.</p>
 the <code class="docutils literal notranslate"><span class="pre">scale</span></code> of the <strong>Image</strong> in meters, and <code class="docutils literal notranslate"><span class="pre">numPixels</span></code>, the number of pixels to sample.</p>
 </div>
 <div class="section" id="training-a-clusterer">
-<h2>training a clusterer<a class="headerlink" href="#training-a-clusterer" title="Permalink to this headline">#</a></h2>
+<h2>training a clusterer<a class="headerlink" href="#training-a-clusterer" title="Permalink to this heading">#</a></h2>
 <p>Next, we use these sample points to train a <strong>Clusterer</strong> using <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaKMeans()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekakmeans">documentation</a>). This will train
 the unsupervised classifier (also called a <strong>Clusterer</strong>, because it uses the properties of the pixels to group, or <em>cluster</em>,
@@ -1165,7 +1170,7 @@ or <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wek
 which are designed to optimize the number of clusters based on the input data.</p>
 </div>
 <div class="section" id="applying-the-classification">
-<h2>applying the classification<a class="headerlink" href="#applying-the-classification" title="Permalink to this headline">#</a></h2>
+<h2>applying the classification<a class="headerlink" href="#applying-the-classification" title="Permalink to this heading">#</a></h2>
 <p>Once we’ve trained the <strong>Clusterer</strong>, we can then apply it to the <strong>Image</strong> using <code class="docutils literal notranslate"><span class="pre">ee.Image.cluster()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-cluster">documentation</a>):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">unsupervised</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">cluster</span><span class="p">(</span><span class="nx">clusterer</span><span class="p">);</span>
@@ -1174,7 +1179,7 @@ which are designed to optimize the number of clusters based on the input data.</
 <p>This will assign a cluster, or class, value to each pixel based on its spectral properties.</p>
 </div>
 <div class="section" id="viewing-the-clusters">
-<h2>viewing the clusters<a class="headerlink" href="#viewing-the-clusters" title="Permalink to this headline">#</a></h2>
+<h2>viewing the clusters<a class="headerlink" href="#viewing-the-clusters" title="Permalink to this heading">#</a></h2>
 <p>To view the clusters on the <strong>Map</strong>, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.randomVisualizer()</span></code>
 (<cite>documentation &lt;https://developers.google.com/earth-engine/apidocs/ee-image-randomvisualizer&gt;__</cite>)
 to provide a random palette to display the image (like we did for the <a class="reference internal" href="../getting_started/zonal_stats.html"><span class="doc">zonal statistics</span></a> tutorial):</p>
@@ -1187,7 +1192,7 @@ to provide a random palette to display the image (like we did for the <a class="
 classification, we would need identify what physical surfaces or objects the class values represent.</p>
 </div>
 <div class="section" id="stratified-sampling">
-<h2>stratified sampling<a class="headerlink" href="#stratified-sampling" title="Permalink to this headline">#</a></h2>
+<h2>stratified sampling<a class="headerlink" href="#stratified-sampling" title="Permalink to this heading">#</a></h2>
 <p>To view the spectral properties of the clusters, we can create a scatter plot that plots the reflectance
 in one band versus the reflectance in a different band, colored by cluster.</p>
 <p>First, we add the clustered <strong>Image</strong> to our original <strong>Image</strong>:</p>
@@ -1224,7 +1229,7 @@ elements per class, we would need to reduce the number of classes.</p>
 </div>
 </div>
 <div class="section" id="creating-a-scatter-plot">
-<h2>creating a scatter plot<a class="headerlink" href="#creating-a-scatter-plot" title="Permalink to this headline">#</a></h2>
+<h2>creating a scatter plot<a class="headerlink" href="#creating-a-scatter-plot" title="Permalink to this heading">#</a></h2>
 <p>To create the scatter plot, we’ll use <code class="docutils literal notranslate"><span class="pre">ui.Chart.feature.groups()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ui-chart-feature-groups">documentation</a>).</p>
 <p>Because we’re limited to plotting two bands at a time, we’ll create a <strong>function</strong> that enables us to easily make multiple
@@ -1273,7 +1278,7 @@ place – <strong>function</strong>s are a way to clean up our script and easily
 overlap between the clusters, because the clustering has been done in seven dimensions, rather than just two.</p>
 </div>
 <div class="section" id="plotting-spectral-signatures">
-<h2>plotting spectral signatures<a class="headerlink" href="#plotting-spectral-signatures" title="Permalink to this headline">#</a></h2>
+<h2>plotting spectral signatures<a class="headerlink" href="#plotting-spectral-signatures" title="Permalink to this heading">#</a></h2>
 <p>The final plot we’ll have a look at will plot the median values in each band for each cluster; in effect, it shows
 us the spectral signature of each cluster.</p>
 <p>To get the median of each cluster, we use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.reduceColumns()</span></code>
@@ -1355,7 +1360,7 @@ each line (<code class="docutils literal notranslate"><span class="pre">series</
 </div>
 </div>
 <div class="section" id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>At this point, you’ve seen how to select a random sample from an <strong>Image</strong>, and train and apply a
 <strong>Clusterer</strong> to that <strong>Image</strong>. You’ve also seen a few examples of how to plot the spectral values of
 the clusters, to aid in investigating what physical surface(s) each cluster belongs to.</p>
@@ -1368,7 +1373,7 @@ the clusters, to aid in investigating what physical surface(s) each cluster belo
 </ul>
 </div>
 <div class="section" id="references-and-notes">
-<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this headline">#</a></h2>
+<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Frank, E., M. A. Hall., and I. H. Witten (2016). The WEKA Workbench. Online Appendix for “Data Mining: Practical Machine Learning Tools and Techniques”, Morgan Kaufmann, Fourth Edition, 2016. [<a class="reference external" href="https://www.cs.waikato.ac.nz/ml/weka/Witten_et_al_2016_appendix.pdf">pdf</a>]</p>

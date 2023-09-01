@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="raster data using rasterio" href="week4.html" />
     <link rel="prev" title="vector data using shapely and geopandas" href="week3.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1139,9 +1144,9 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="interactive-maps-with-folium">
-<h1>interactive maps with folium<a class="headerlink" href="#interactive-maps-with-folium" title="Permalink to this headline">#</a></h1>
+<h1>interactive maps with folium<a class="headerlink" href="#interactive-maps-with-folium" title="Permalink to this heading">#</a></h1>
 <div class="section" id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>In this practical, you’ll gain some more experience working with vector data in python using geopandas. You’ll see
 another way to convert text data into geospatial data given coordinates, and you’ll see how to join different datasets
 based on shared attributes.</p>
@@ -1156,9 +1161,9 @@ follow the instructions above to open the notebook and run it on your own comput
 </div>
 </div>
 <div class="section" id="jeremy-leven">
-<h2>Jeremy Leven<a class="headerlink" href="#jeremy-leven" title="Permalink to this headline">#</a></h2>
+<h2>Jeremy Leven<a class="headerlink" href="#jeremy-leven" title="Permalink to this heading">#</a></h2>
 <div class="section" id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h3>
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
 <p>In last week’s practical, we saw how we can use <code class="docutils literal notranslate"><span class="pre">cartopy</span></code> to create
 static maps. In the first exercise from this week, we saw how we can use
 <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> together with <code class="docutils literal notranslate"><span class="pre">shapely</span></code> to work with vector geometries.
@@ -1166,7 +1171,7 @@ In this exercise, we’ll see how we can use <code class="docutils literal notra
 <code class="docutils literal notranslate"><span class="pre">folium</span></code>, to easily create interactive maps.</p>
 </div>
 <div class="section" id="objectives">
-<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">#</a></h3>
+<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> to convert csv data with geographic information
 into vector data</p></li>
@@ -1177,7 +1182,7 @@ shared field values</p></li>
 </ul>
 </div>
 <div class="section" id="data-provided">
-<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline">#</a></h3>
+<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
 <p>In the data_files folder, you should have the following files:</p>
 <ul class="simple">
 <li><p>Airports.csv, a csv file with information about Airport locations in
@@ -1201,7 +1206,7 @@ locations of all Bus and Rail stations in Northern Ireland, from
 </ul>
 </div>
 <div class="section" id="id1">
-<h3>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<h3>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>To get started, run the following cell to import the packages we’ll use
 in the exercise.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -1244,7 +1249,7 @@ by adding additional data, customizing markers and legend information,
 and even saving the map to an html file that we can share with others.</p>
 </div>
 <div class="section" id="converting-csv-data-to-vector-data">
-<h3>2. Converting csv data to vector data<a class="headerlink" href="#converting-csv-data-to-vector-data" title="Permalink to this headline">#</a></h3>
+<h3>2. Converting csv data to vector data<a class="headerlink" href="#converting-csv-data-to-vector-data" title="Permalink to this heading">#</a></h3>
 <p>We’ve already seen an example of this before in week 1:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data_files/GPSPoints.txt&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]))</span> <span class="c1"># zip is an iterator, so we use list to create</span>
@@ -1282,7 +1287,7 @@ latitude/longitude as before. Now that we have the dataset loaded, we’ll
 see how we can add it to an existing <code class="docutils literal notranslate"><span class="pre">folium.Map</span></code> object.</p>
 </div>
 <div class="section" id="adding-data-to-an-existing-map">
-<h3>3. Adding data to an existing map<a class="headerlink" href="#adding-data-to-an-existing-map" title="Permalink to this headline">#</a></h3>
+<h3>3. Adding data to an existing map<a class="headerlink" href="#adding-data-to-an-existing-map" title="Permalink to this heading">#</a></h3>
 <p>In the
 <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.explore.html">documentation</a>
 for <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.explore()</span></code>, you might notice the following
@@ -1310,7 +1315,7 @@ those do after the jump.</p>
 <p>As you can see, the default <strong>Marker</strong> style is a blue</p>
 </div>
 <div class="section" id="joining-tables-based-on-attribute-data">
-<h3>4. Joining tables based on attribute data<a class="headerlink" href="#joining-tables-based-on-attribute-data" title="Permalink to this headline">#</a></h3>
+<h3>4. Joining tables based on attribute data<a class="headerlink" href="#joining-tables-based-on-attribute-data" title="Permalink to this heading">#</a></h3>
 <p>In the previous exercise, we saw how we can use a <em>spatial join</em> to
 combine vector data based on their spatial relationship. Sometimes,
 though, we will need to combine data that have spatial information with
@@ -1341,7 +1346,7 @@ calls the “input table”), and the <em>right</em> table, <code class="docutil
 ArcGIS calls the “join table”).</p>
 </div>
 <div class="section" id="customizing-legends-and-markers">
-<h3>5. Customizing legends and markers<a class="headerlink" href="#customizing-legends-and-markers" title="Permalink to this headline">#</a></h3>
+<h3>5. Customizing legends and markers<a class="headerlink" href="#customizing-legends-and-markers" title="Permalink to this heading">#</a></h3>
 <p>Once we have this, we can create a different map that shows the distance
 to the nearest bus/rail station (in km) for each electoral ward in
 Northern Ireland, again using <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.explore()</span></code>.</p>
@@ -1407,7 +1412,7 @@ online</a>:</p>
 </div>
 </div>
 <div class="section" id="next-steps">
-<h3>6. Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h3>
+<h3>6. Next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h3>
 <p>That wraps up the introduction to creating interactive maps using
 <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and <code class="docutils literal notranslate"><span class="pre">folium</span></code>. If you’re looking for additional practice,
 here are some suggestions to get you started:</p>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="basic statistical analysis using R" href="stats.html" />
     <link rel="prev" title="plotting data using ggplot2" href="plotting.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1185,7 +1190,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="transforming-data">
-<h1>transforming data<a class="headerlink" href="#transforming-data" title="Permalink to this headline">#</a></h1>
+<h1>transforming data<a class="headerlink" href="#transforming-data" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
@@ -1198,7 +1203,7 @@ using functions from the <code class="docutils literal notranslate"><span class=
 manipulation (again, read this as “analyzing” or “working with”, not
 “fabricating”!).</p>
 <div class="section" id="data">
-<h2>data<a class="headerlink" href="#data" title="Permalink to this headline">#</a></h2>
+<h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
 <p>The data used in this exercise are the historic meteorological
 observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
 Observatory</a>
@@ -1221,7 +1226,7 @@ available!), please feel free. For the best experience, you will likely
 need to repeat the steps indicated above.</p>
 </div>
 <div class="section" id="loading-libraries">
-<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this headline">#</a></h2>
+<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this heading">#</a></h2>
 <p>As before, we load the libraries that we will use in the exercise at the
 beginning. We will be using three libraries:</p>
 <ul class="simple">
@@ -1236,7 +1241,7 @@ beginning. We will be using three libraries:</p>
 </div>
 </div>
 <div class="section" id="loading-the-data">
-<h2>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">#</a></h2>
+<h2>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h2>
 <p>In this exercise, we’re going to see a number of different ways that we
 can work with data tables. Before we get to this, however, we need to
 load the individual data files and combine them into a single data
@@ -1315,7 +1320,7 @@ formatting for data files - we can easily write a loop to load multiple
 files, instead of having to write individual paths.</p>
 </div>
 <div class="section" id="using-filter-to-select-rows">
-<h2>using filter() to select rows<a class="headerlink" href="#using-filter-to-select-rows" title="Permalink to this headline">#</a></h2>
+<h2>using filter() to select rows<a class="headerlink" href="#using-filter-to-select-rows" title="Permalink to this heading">#</a></h2>
 <p>Now that we have a single table, we can also look at ways that we can
 select rows from the table. We have alread seen an example of this - for
 example, we could select all observations where the monthly maximum
@@ -1375,7 +1380,7 @@ and <code class="docutils literal notranslate"><span class="pre">rain</span></co
 </div>
 </div>
 <div class="section" id="using-arrange-to-sort-rows">
-<h2>using arrange() to sort rows<a class="headerlink" href="#using-arrange-to-sort-rows" title="Permalink to this headline">#</a></h2>
+<h2>using arrange() to sort rows<a class="headerlink" href="#using-arrange-to-sort-rows" title="Permalink to this heading">#</a></h2>
 <p>Sometimes, we might want to sort our data according to the value of
 different variables. For example, we can sort the observations by
 rainfall, from smallest to largest values:</p>
@@ -1396,7 +1401,7 @@ sorting by <code class="docutils literal notranslate"><span class="pre">season</
 </div>
 </div>
 <div class="section" id="using-distinct-to-find-unique-rows">
-<h2>using distinct() to find unique rows<a class="headerlink" href="#using-distinct-to-find-unique-rows" title="Permalink to this headline">#</a></h2>
+<h2>using distinct() to find unique rows<a class="headerlink" href="#using-distinct-to-find-unique-rows" title="Permalink to this heading">#</a></h2>
 <p>To find unique rows in the dataset, we can use <code class="docutils literal notranslate"><span class="pre">distinct()</span></code>
 (<a class="reference external" href="https://dplyr.tidyverse.org/reference/distinct.html">documentation</a>).
 By itself, <code class="docutils literal notranslate"><span class="pre">distinct()</span></code> uses all of the variables to determine whether
@@ -1419,7 +1424,7 @@ each dataset - this is because <code class="docutils literal notranslate"><span 
 occurrence of a unique row.</p>
 </div>
 <div class="section" id="counting-occurrences-with-count">
-<h2>counting occurrences with count()<a class="headerlink" href="#counting-occurrences-with-count" title="Permalink to this headline">#</a></h2>
+<h2>counting occurrences with count()<a class="headerlink" href="#counting-occurrences-with-count" title="Permalink to this heading">#</a></h2>
 <p>If we want to count the number times a particular value occurs in the
 table, we can use <code class="docutils literal notranslate"><span class="pre">count()</span></code>
 (<a class="reference external" href="https://dplyr.tidyverse.org/reference/count.html">documentation</a>).
@@ -1437,7 +1442,7 @@ other station in our dataset; by contrast, Oxford has only recorded 12
 such months between 1853 and 2022.</p>
 </div>
 <div class="section" id="adding-variables-to-the-table-using-mutate">
-<h2>adding variables to the table using mutate()<a class="headerlink" href="#adding-variables-to-the-table-using-mutate" title="Permalink to this headline">#</a></h2>
+<h2>adding variables to the table using mutate()<a class="headerlink" href="#adding-variables-to-the-table-using-mutate" title="Permalink to this heading">#</a></h2>
 <p>In a previous exercise, we saw how we can use <strong>R</strong>’s built-in
 functionality to add variables to a data frame:</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">$</span><span class="n">date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.Date</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">armagh</span><span class="o">$</span><span class="n">yyyy</span><span class="p">,</span><span class="w"> </span><span class="n">armagh</span><span class="o">$</span><span class="n">mm</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s">&quot;/&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">format</span><span class="o">=</span><span class="s">&quot;%Y/%m/%d&quot;</span><span class="p">)</span>
@@ -1480,7 +1485,7 @@ table; in addition to specifying where to put them using <code class="docutils l
 table later on.</p>
 </div>
 <div class="section" id="using-select-to-select-columns">
-<h2>using select() to select columns<a class="headerlink" href="#using-select-to-select-columns" title="Permalink to this headline">#</a></h2>
+<h2>using select() to select columns<a class="headerlink" href="#using-select-to-select-columns" title="Permalink to this heading">#</a></h2>
 <p>Sometimes, we might want to select a single variable, or a handful of
 variables from a table - we can do this using <code class="docutils literal notranslate"><span class="pre">select()</span></code>
 (<a class="reference external" href="https://dplyr.tidyverse.org/reference/select.html">documentation</a>):</p>
@@ -1505,7 +1510,7 @@ the <code class="docutils literal notranslate"><span class="pre">is.numeric()</s
 </div>
 </div>
 <div class="section" id="using-rename-to-rename-columns">
-<h2>using rename() to rename columns<a class="headerlink" href="#using-rename-to-rename-columns" title="Permalink to this headline">#</a></h2>
+<h2>using rename() to rename columns<a class="headerlink" href="#using-rename-to-rename-columns" title="Permalink to this heading">#</a></h2>
 <p>Often, we may also want to rename variables to make them easier to
 read/understand. For example, the <code class="docutils literal notranslate"><span class="pre">yyyy</span></code>, <code class="docutils literal notranslate"><span class="pre">mm</span></code>, and <code class="docutils literal notranslate"><span class="pre">af</span></code> variables
 in our table are not necessarily the easiest to understand. We can
@@ -1519,7 +1524,7 @@ rename them to more clear names, such as <code class="docutils literal notransla
 </div>
 </div>
 <div class="section" id="using-relocate-to-move-columns">
-<h2>using relocate() to move columns<a class="headerlink" href="#using-relocate-to-move-columns" title="Permalink to this headline">#</a></h2>
+<h2>using relocate() to move columns<a class="headerlink" href="#using-relocate-to-move-columns" title="Permalink to this heading">#</a></h2>
 <p>With <code class="docutils literal notranslate"><span class="pre">mutate()</span></code>, we saw how we can specify where to put new variables,
 using the <code class="docutils literal notranslate"><span class="pre">.before</span></code> and <code class="docutils literal notranslate"><span class="pre">.after</span></code> arguments. If we aren’t creating
 new variables, we can still re-arrange variables using <code class="docutils literal notranslate"><span class="pre">relocate()</span></code>
@@ -1549,7 +1554,7 @@ operator, and assigns it to the object on the <em>right-hand</em> side.</p>
 the same.</p>
 </div>
 <div class="section" id="saving-data-to-a-file">
-<h2>saving data to a file<a class="headerlink" href="#saving-data-to-a-file" title="Permalink to this headline">#</a></h2>
+<h2>saving data to a file<a class="headerlink" href="#saving-data-to-a-file" title="Permalink to this heading">#</a></h2>
 <p>Finally, let’s save our cleaned, re-arranged dataset to a file, using
 <code class="docutils literal notranslate"><span class="pre">write_csv()</span></code>
 (<a class="reference external" href="https://readr.tidyverse.org/reference/write_delim.html">documentation</a>).
@@ -1569,7 +1574,7 @@ information, check the
 <a class="reference external" href="https://readr.tidyverse.org/reference/write_delim.html">documentation</a>.</p>
 </div>
 <div class="section" id="grouping-data">
-<h2>grouping data<a class="headerlink" href="#grouping-data" title="Permalink to this headline">#</a></h2>
+<h2>grouping data<a class="headerlink" href="#grouping-data" title="Permalink to this heading">#</a></h2>
 <p>Next, we’ll see how we can use different tools to aggregate and
 summarize our data, starting with <code class="docutils literal notranslate"><span class="pre">group_by()</span></code>
 (<a class="reference external" href="https://dplyr.tidyverse.org/reference/group_by.html">documentation</a>).
@@ -1645,7 +1650,7 @@ labels.</p>
 </div>
 </div>
 <div class="section" id="slicing-the-dataset">
-<h2>slicing the dataset<a class="headerlink" href="#slicing-the-dataset" title="Permalink to this headline">#</a></h2>
+<h2>slicing the dataset<a class="headerlink" href="#slicing-the-dataset" title="Permalink to this heading">#</a></h2>
 <p>We’ll finish up by looking at a few functions that we can use to <em>slice</em>
 a dataset - that is, extract specific rows from a group. For example, we
 can combine <code class="docutils literal notranslate"><span class="pre">group_by()</span></code> and <code class="docutils literal notranslate"><span class="pre">slice_max()</span></code>
@@ -1686,7 +1691,7 @@ value, we can use <code class="docutils literal notranslate"><span class="pre">s
 </div>
 </div>
 <div class="section" id="using-ungroup-to-remove-groups">
-<h2>using ungroup() to remove groups<a class="headerlink" href="#using-ungroup-to-remove-groups" title="Permalink to this headline">#</a></h2>
+<h2>using ungroup() to remove groups<a class="headerlink" href="#using-ungroup-to-remove-groups" title="Permalink to this heading">#</a></h2>
 <p>Sometimes, we want to group data using <code class="docutils literal notranslate"><span class="pre">group_by()</span></code> to do some kind of
 calculations, but then we want to get rid of the groups - for example,
 if we want to find the top 5 warmest average months, regardless of what
@@ -1710,7 +1715,7 @@ to remove the grouping:</p>
 </div>
 </div>
 <div class="section" id="exercise-and-next-steps">
-<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline">#</a></h2>
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this exercise. To practice your skills, create a notebook
 file that does the following:</p>
 <ul class="simple">

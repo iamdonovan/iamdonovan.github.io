@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="searching for images with sentinelsat" href="sentinelsat.html" />
     <link rel="prev" title="interactive maps with folium" href="folium.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1149,7 +1154,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="raster-data-using-rasterio">
-<h1>raster data using rasterio<a class="headerlink" href="#raster-data-using-rasterio" title="Permalink to this headline">#</a></h1>
+<h1>raster data using rasterio<a class="headerlink" href="#raster-data-using-rasterio" title="Permalink to this heading">#</a></h1>
 <p>In this practical, you’ll gain some more experience working with raster data in python using rasterio and numpy. We
 will also learn about opening and closing files using python, as well as using <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> to add more
 flexibility to our function definitions.</p>
@@ -1157,7 +1162,7 @@ flexibility to our function definitions.</p>
 different steps of the practical. An exercise, introduced at the end of the Notebook file, can be completed using the
 file <strong>assignment_script.py</strong>.</p>
 <div class="section" id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p><a class="reference internal" href="week3.html"><span class="doc">Last week</span></a>, we saw how we can use the command-line interface (CLI) of <strong>git</strong> to merge two branches (in this case,
 <code class="docutils literal notranslate"><span class="pre">week3</span></code> into <code class="docutils literal notranslate"><span class="pre">main</span></code>). This week, we’re going to see how to do this on GitHub, using a <strong>Pull Request</strong>.</p>
 <p>First, head over to your EGM722 GitHub repository (<code class="samp docutils literal notranslate"><span class="pre">https://github.com/&lt;</span><em><span class="pre">your_username</span></em><span class="pre">&gt;/egm722</span></code>).</p>
@@ -1222,9 +1227,9 @@ follow the instructions above to open the notebook and run it on your own comput
 </div>
 <hr class="docutils" />
 <div class="section" id="james-garner">
-<h2>James Garner<a class="headerlink" href="#james-garner" title="Permalink to this headline">#</a></h2>
+<h2>James Garner<a class="headerlink" href="#james-garner" title="Permalink to this heading">#</a></h2>
 <div class="section" id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h3>
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
 <p>Up to now, you have gained some experience working with basic features
 of python, used cartopy and matplotlib to create a map, and explored
 using shapely and geopandas to work with vector data. In this week’s
@@ -1232,7 +1237,7 @@ practical, we’ll be looking at working with raster data using rasterio
 and numpy.</p>
 </div>
 <div class="section" id="objectives">
-<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">#</a></h3>
+<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Learn about opening and viewing raster data using rasterio and
 cartopy</p></li>
@@ -1242,14 +1247,14 @@ cartopy</p></li>
 </ul>
 </div>
 <div class="section" id="data-provided">
-<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline">#</a></h3>
+<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
 <p>In the <code class="docutils literal notranslate"><span class="pre">data_files</span></code> folder, you should have the following files:</p>
 <ul class="simple">
 <li><p>NI_mosaic.tif</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
-<h3>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<h3>1. Getting started<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>In this practical, we’ll be working with raster data. As a quick
 refresher, raster data are gridded datasets that contain anything from
 aerial and satellite images to elevation, temperature, or classisfied
@@ -1325,7 +1330,7 @@ following form:</p>
 </ul>
 </div>
 <div class="section" id="loading-the-data">
-<h3>2. Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">#</a></h3>
+<h3>2. Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h3>
 <p>To load the data, we use the <code class="docutils literal notranslate"><span class="pre">read()</span></code>
 <a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.io.html#rasterio.io.DatasetReader.read">method</a>
 of the <strong>DatasetReader</strong> object. This returns a
@@ -1384,7 +1389,7 @@ pixel:</p>
 </div>
 </div>
 <div class="section" id="the-with-statement">
-<h3>3. The with statement<a class="headerlink" href="#the-with-statement" title="Permalink to this headline">#</a></h3>
+<h3>3. The with statement<a class="headerlink" href="#the-with-statement" title="Permalink to this heading">#</a></h3>
 <p>In python, we use the built-in <code class="docutils literal notranslate"><span class="pre">open()</span></code> function to open files on the
 disk, in almost exactly the same way that <code class="docutils literal notranslate"><span class="pre">rasterio.open()</span></code> works. If
 you were to run the line of code below, you would see an output like
@@ -1428,7 +1433,7 @@ object:</p>
 </div>
 </div>
 <div class="section" id="displaying-raster-data-using-matplotlib-and-cartopy">
-<h3>4. Displaying raster data using matplotlib and cartopy<a class="headerlink" href="#displaying-raster-data-using-matplotlib-and-cartopy" title="Permalink to this headline">#</a></h3>
+<h3>4. Displaying raster data using matplotlib and cartopy<a class="headerlink" href="#displaying-raster-data-using-matplotlib-and-cartopy" title="Permalink to this heading">#</a></h3>
 <p>Now that we’ve loaded our image, we can use cartopy and matplotlib to
 display it, just like we did for mapping vector data in Weeks 2 and 3.
 To start, we’ll create a new cartopy <strong>CRS</strong> object, and use this to
@@ -1649,7 +1654,7 @@ equal to 0 or 1, respectively:</p>
 and the image is displayed in the correct location on the map.</p>
 </div>
 <div class="section" id="functions-with-args-and-kwargs">
-<h3>5. functions with *args and **kwargs<a class="headerlink" href="#functions-with-args-and-kwargs" title="Permalink to this headline">#</a></h3>
+<h3>5. functions with *args and **kwargs<a class="headerlink" href="#functions-with-args-and-kwargs" title="Permalink to this heading">#</a></h3>
 <p>At the moment, however, our function has a lot of extra
 parameters/arguments:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">img_display</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">bands</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">pmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
@@ -1703,7 +1708,7 @@ enhancement</a> in general, you are
 welcome to watch the lecture videos provided by these links.</p>
 </div>
 <div class="section" id="reprojecting-rasters-using-rasterio">
-<h3>6. Reprojecting rasters using rasterio<a class="headerlink" href="#reprojecting-rasters-using-rasterio" title="Permalink to this headline">#</a></h3>
+<h3>6. Reprojecting rasters using rasterio<a class="headerlink" href="#reprojecting-rasters-using-rasterio" title="Permalink to this heading">#</a></h3>
 <p>Fortunately, our image was provided in a geographic format that matches
 what we’ve been working with (WGS84 UTM Zone 29N). But, what if we need
 to have our image in a different format? In that case, we can use the
@@ -1787,7 +1792,7 @@ accordingly.</p>
 </div>
 </div>
 <div class="section" id="next-steps">
-<h3>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h3>
+<h3>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h3>
 <p>That wraps up the practical for this week. Next week, we’ll look at some
 more programming concepts, as well as ways that we can work with both
 raster data and vector data. In the meantime, use the

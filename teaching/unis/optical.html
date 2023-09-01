@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="dem differencing and geodetic mass balance" href="dems.html" />
     <link rel="prev" title="unis glaciology (AG-325)" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1085,13 +1090,13 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="mapping-glacier-area-change">
-<h1>mapping glacier area change<a class="headerlink" href="#mapping-glacier-area-change" title="Permalink to this headline">#</a></h1>
+<h1>mapping glacier area change<a class="headerlink" href="#mapping-glacier-area-change" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This practical was written for use in ArcMap 10.* - the tool names should be broadly similar in ArcGIS Pro.</p>
 </div>
 <div class="section" id="data-and-setting-up">
-<h2>data and setting up<a class="headerlink" href="#data-and-setting-up" title="Permalink to this headline">#</a></h2>
+<h2>data and setting up<a class="headerlink" href="#data-and-setting-up" title="Permalink to this heading">#</a></h2>
 <p>Create a folder in your home directory called <strong>glacier_mapping</strong>. Inside of this folder, create another folder called
 <strong>temp_files</strong>. As we go through the steps of this exercise, we’ll be creating lots of files, and it’s a good idea to
 keep things organized. Copy the provided Landsat scenes into your glacier mapping folder, and start Arcmap.</p>
@@ -1114,7 +1119,7 @@ is considered sufficient separation for most glaciers.</p>
 </div>
 </div>
 <div class="section" id="band-ratios-and-thresholding">
-<h2>band ratios and thresholding<a class="headerlink" href="#band-ratios-and-thresholding" title="Permalink to this headline">#</a></h2>
+<h2>band ratios and thresholding<a class="headerlink" href="#band-ratios-and-thresholding" title="Permalink to this heading">#</a></h2>
 <p>We’ll start by creating a two band ratios, first a ratio of the Red/SWIR, and second the NIR/SWIR. To do this, we use
 the <strong>Raster Calculator</strong> tool. Open the tool, and insert the expression below into the box:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Float(&quot;LT52080041990232KIS00_B3.TIF&quot;) / &quot;LT52080041990232KIS00_B5.TIF&quot;
@@ -1151,7 +1156,7 @@ but we no longer have so much water included in the mask. We’ll get rid of the
 polygon shapefile of our mask.</p>
 </div>
 <div class="section" id="creating-glacier-outlines">
-<h2>creating glacier outlines<a class="headerlink" href="#creating-glacier-outlines" title="Permalink to this headline">#</a></h2>
+<h2>creating glacier outlines<a class="headerlink" href="#creating-glacier-outlines" title="Permalink to this heading">#</a></h2>
 <p>To create a polygon shapefile from our mask raster, open the <strong>Raster to Polygon</strong> tool. Use your second mask raster
 as the input, and save the output to the temporary folder as <strong>initial_mask.shp</strong>. Uncheck the <strong>simplify polgyons</strong>
 box. We should now have polygon outlines of our mask, including both the glacier and the snowfields along the side.</p>
@@ -1170,7 +1175,7 @@ Then, right-click on the layer in the table of contents, and select <strong>Sele
 to your temporary folder (right-click, <strong>Data</strong> &gt; <strong>Export Data</strong>).</p>
 </div>
 <div class="section" id="cleaning-up-the-outlines">
-<h2>cleaning up the outlines<a class="headerlink" href="#cleaning-up-the-outlines" title="Permalink to this headline">#</a></h2>
+<h2>cleaning up the outlines<a class="headerlink" href="#cleaning-up-the-outlines" title="Permalink to this heading">#</a></h2>
 <p>Great! Now we have glacier outlines from 1990. But, if you look at them, they’re a bit incomplete and messy, and they
 don’t cover everything we want them to cover (“the debris problem”). This means that we have to manually edit the layer,
 removing any areas that look like they might not be glacier (see example below in Fig. 1a,b).</p>
@@ -1194,7 +1199,7 @@ but some excellent articles on the subject are , or .</p>
 </div>
 </div>
 <div class="section" id="area-changes">
-<h2>area changes<a class="headerlink" href="#area-changes" title="Permalink to this headline">#</a></h2>
+<h2>area changes<a class="headerlink" href="#area-changes" title="Permalink to this heading">#</a></h2>
 <p>Now that we have a glacier outline and area from 1990, we can use more recent outlines to see how much glaciers on
 Barentsøya have changed over the past 25+ years. Load the <strong>Barentsøya_rgi50.shp</strong> file, and move it so that it is
 above your glacier mask in the table of contents. To get a more quantitative idea of how much change has happened, we
@@ -1219,7 +1224,7 @@ the updated glacier outlines, and make sure the layers are slightly transparent 
 image). Add a legend and scale bar, and any other features you think are appropriate.</p>
 </div>
 <div class="section" id="further-work">
-<h2>further work<a class="headerlink" href="#further-work" title="Permalink to this headline">#</a></h2>
+<h2>further work<a class="headerlink" href="#further-work" title="Permalink to this heading">#</a></h2>
 <p>If you have time, go ahead and repeat the steps of creating a glacier outline, this time using the Landsat 8 data.
 Remember that the bands have different numbers (refer to the lecture notes or ask if you don’t remember which ones
 correspond to which TM bands). You should also be able to calculate the total glacier change as a percentage, as well

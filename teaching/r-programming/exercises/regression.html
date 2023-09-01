@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +46,7 @@
     <link rel="next" title="additional resources" href="../resources.html" />
     <link rel="prev" title="basic statistical analysis using R" href="stats.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1130,7 +1135,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="linear-regression-using-r">
-<h1>linear regression using <strong>R</strong><a class="headerlink" href="#linear-regression-using-r" title="Permalink to this headline">#</a></h1>
+<h1>linear regression using <strong>R</strong><a class="headerlink" href="#linear-regression-using-r" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
@@ -1141,7 +1146,7 @@ linear regression. We’ll also see how we can calculate the correlation
 between two variables, and get some additional practice working with
 grouped data.</p>
 <div class="section" id="data">
-<h2>data<a class="headerlink" href="#data" title="Permalink to this headline">#</a></h2>
+<h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
 <p>The data used in this exercise are the historic meteorological
 observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
 Observatory</a>
@@ -1152,7 +1157,7 @@ Office</a>
 that we used in previous exercises.</p>
 </div>
 <div class="section" id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>First, we’ll use <code class="docutils literal notranslate"><span class="pre">library()</span></code> to load the <code class="docutils literal notranslate"><span class="pre">tidyverse</span></code> package:</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
 </pre></div>
@@ -1163,7 +1168,7 @@ that we used in previous exercises.</p>
 </div>
 </div>
 <div class="section" id="plotting-relationships">
-<h2>plotting relationships<a class="headerlink" href="#plotting-relationships" title="Permalink to this headline">#</a></h2>
+<h2>plotting relationships<a class="headerlink" href="#plotting-relationships" title="Permalink to this heading">#</a></h2>
 <p>Before jumping into correlation and regreesion, let’s have a look at the
 data we’re investigating. In the cell below, write some lines of code to
 create a scatter plot of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> vs <code class="docutils literal notranslate"><span class="pre">rain</span></code>, with different colors and
@@ -1186,7 +1191,7 @@ it depend on the season? How strong is the relationship, and what does
 this mean for the slope of each regression line?</p>
 </div>
 <div class="section" id="calculating-correlation">
-<h2>calculating correlation<a class="headerlink" href="#calculating-correlation" title="Permalink to this headline">#</a></h2>
+<h2>calculating correlation<a class="headerlink" href="#calculating-correlation" title="Permalink to this heading">#</a></h2>
 <p>The next thing we’ll look at is how to calculate the <em>correlation</em>
 between two variables, using <code class="docutils literal notranslate"><span class="pre">cor()</span></code>
 (<a class="reference external" href="https://rdrr.io/r/stats/cor.html">documentation</a>). We’ll start by
@@ -1194,7 +1199,7 @@ calculating the covariance for all values of a variable, then use some
 of the tools we’ve seen previously to calculate the correlation based on
 different grouping variables.</p>
 <div class="section" id="for-an-entire-dataset">
-<h3>for an entire dataset<a class="headerlink" href="#for-an-entire-dataset" title="Permalink to this headline">#</a></h3>
+<h3>for an entire dataset<a class="headerlink" href="#for-an-entire-dataset" title="Permalink to this heading">#</a></h3>
 <p>The basic use of <code class="docutils literal notranslate"><span class="pre">cor()</span></code> to calculate the correlation between two
 variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> is <code class="docutils literal notranslate"><span class="pre">cor(x,</span> <span class="pre">y)</span></code>. To calculate the correlation
 between <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, then, we can use the <code class="docutils literal notranslate"><span class="pre">$</span></code> operator to
@@ -1207,7 +1212,7 @@ words, we only want to use complete observations (<code class="docutils literal 
 </div>
 </div>
 <div class="section" id="by-groups">
-<h3>by groups<a class="headerlink" href="#by-groups" title="Permalink to this headline">#</a></h3>
+<h3>by groups<a class="headerlink" href="#by-groups" title="Permalink to this heading">#</a></h3>
 <p>We’re more interested in calculating the correlation for different
 groups - as you can see from the plots above, the relationship between
 <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code> is not the same in each season - even though the
@@ -1233,7 +1238,7 @@ calculate Spearman’s rho and Kendall’s tau coefficient:</p>
 </div>
 </div>
 <div class="section" id="simple-linear-regression">
-<h2>simple linear regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this headline">#</a></h2>
+<h2>simple linear regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this heading">#</a></h2>
 <p>We’ll start by fitting a linear model for spring. To prepare the data,
 write a line of code below that selects only the spring observations,
 and assigns the output to an object called <code class="docutils literal notranslate"><span class="pre">spring</span></code>:</p>
@@ -1290,7 +1295,7 @@ the <strong>matrix</strong>:</p>
 </div>
 </div>
 <div class="section" id="multiple-linear-regression">
-<h2>multiple linear regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this headline">#</a></h2>
+<h2>multiple linear regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this heading">#</a></h2>
 <p>Now, let’s try to fit a linear model of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> with two variables:
 <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">sun</span></code>. Remember that multiple linear regression tries to
 fit a model with the form:</p>
@@ -1315,7 +1320,7 @@ before:</p>
 </div>
 </div>
 <div class="section" id="bonus-linear-regression-with-groups">
-<h2>bonus: linear regression with groups<a class="headerlink" href="#bonus-linear-regression-with-groups" title="Permalink to this headline">#</a></h2>
+<h2>bonus: linear regression with groups<a class="headerlink" href="#bonus-linear-regression-with-groups" title="Permalink to this heading">#</a></h2>
 <p>As a final exercise, let’s see how we can combine some of the tools
 we’ve used in the workshop so far, along with a few new ones, to fit
 linear models for each season without having to explicitly assign each
@@ -1373,7 +1378,7 @@ object:</p>
 </div>
 </div>
 <div class="section" id="exercise-and-next-steps">
-<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline">#</a></h2>
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this exercise, and for the exercises of this workshop.
 The next sessions are BYOD (“bring your own data”) sessions where you
 can start building your <strong>git</strong> project repository by applying the

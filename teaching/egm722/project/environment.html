@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="additional resources" href="../resources.html" />
     <link rel="prev" title="creating a new github repository" href="github.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1065,7 +1070,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="environment-yml">
-<h1>environment.yml<a class="headerlink" href="#environment-yml" title="Permalink to this headline">#</a></h1>
+<h1>environment.yml<a class="headerlink" href="#environment-yml" title="Permalink to this heading">#</a></h1>
 <p>One of the required elements for your repository is an <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file, which can be used by
 <strong>conda</strong> or other package management software to create an environment to run your project’s code.</p>
 <p>As an example, here is the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> for the <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment, in its entirety:</p>
@@ -1085,13 +1090,13 @@ title="Print to PDF"
 </div>
 <p>Below, I will walk through the different sections of the file to help explain what they are.</p>
 <div class="section" id="name">
-<h2>name<a class="headerlink" href="#name" title="Permalink to this headline">#</a></h2>
+<h2>name<a class="headerlink" href="#name" title="Permalink to this heading">#</a></h2>
 <p>The first line of the file tells <strong>conda</strong> what to call the new environment - in this example, the new environment will
 be called <code class="docutils literal notranslate"><span class="pre">egm722</span></code>. In your <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file, you should change this to a name that fits with your
 project - don’t just re-use the <code class="docutils literal notranslate"><span class="pre">egm722</span></code> name!</p>
 </div>
 <div class="section" id="channels">
-<h2>channels<a class="headerlink" href="#channels" title="Permalink to this headline">#</a></h2>
+<h2>channels<a class="headerlink" href="#channels" title="Permalink to this heading">#</a></h2>
 <p>The next heading is the <strong>channels</strong> heading, which tells <strong>conda</strong> where to look for packages.
 Under the <strong>channels</strong> heading, you can see that we’ve added two channels, listed in order of preference:</p>
 <ul class="simple">
@@ -1102,7 +1107,7 @@ Under the <strong>channels</strong> heading, you can see that we’ve added two 
 package is not available on that channel, it will look on the other default channels.</p>
 </div>
 <div class="section" id="dependencies">
-<h2>dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">#</a></h2>
+<h2>dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">#</a></h2>
 <p>Underneath the <strong>channels</strong> heading is the <strong>dependencies</strong> heading. This is where we tell <strong>conda</strong> what packages need
 to be installed, and (optionally) what versions it should try to install.</p>
 <div class="admonition warning">
@@ -1139,7 +1144,7 @@ we could tell <strong>conda</strong> to create an environment with a python vers
 <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/resources/package-spec.html#package-match-specifications">the conda documentation</a>.</p>
 </div>
 <div class="section" id="creating-your-own-file">
-<h2>creating your own file<a class="headerlink" href="#creating-your-own-file" title="Permalink to this headline">#</a></h2>
+<h2>creating your own file<a class="headerlink" href="#creating-your-own-file" title="Permalink to this heading">#</a></h2>
 <p>To create your own <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file, you’ll need to open a <em>text</em> editor (<strong>NOT</strong> Microsoft Word).</p>
 <p>The easiest thing to do is to copy the text from above and adapt it to your specific project, starting with the
 environment <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>

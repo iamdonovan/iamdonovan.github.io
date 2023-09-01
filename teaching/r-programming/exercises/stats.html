@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="linear regression using R" href="regression.html" />
     <link rel="prev" title="transforming data" href="transform.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1161,7 +1166,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="basic-statistical-analysis-using-r">
-<h1>basic statistical analysis using <strong>R</strong><a class="headerlink" href="#basic-statistical-analysis-using-r" title="Permalink to this headline">#</a></h1>
+<h1>basic statistical analysis using <strong>R</strong><a class="headerlink" href="#basic-statistical-analysis-using-r" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
@@ -1172,7 +1177,7 @@ with <strong>R</strong> - starting with using <strong>R</strong> to calculate de
 statistics for our datasets, before moving on to look at a few common
 examples of hypothesis tests.</p>
 <div class="section" id="data">
-<h2>data<a class="headerlink" href="#data" title="Permalink to this headline">#</a></h2>
+<h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
 <p>The data used in this exercise are the historic meteorological
 observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
 Observatory</a>
@@ -1186,7 +1191,7 @@ that you created in the process of working through the “transforming
 data” exercise.</p>
 </div>
 <div class="section" id="loading-libraries">
-<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this headline">#</a></h2>
+<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this heading">#</a></h2>
 <p>As before, we load the libraries that we will use in the exercise at the
 beginning. This time, we will load a single library,
 <a class="reference external" href="https://www.tidyverse.org/packages/">tidyverse</a>, which is actually a
@@ -1220,14 +1225,14 @@ at the same time:</p>
 </div>
 </div>
 <div class="section" id="descriptive-statistics">
-<h2>descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">#</a></h2>
+<h2>descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this heading">#</a></h2>
 <p>Before diving into statistical tests, we’ll spend a little bit of time
 expanding on calculating <em>descriptive</em> statistics in <strong>R</strong>. We have seen
 a little bit of this already, using <code class="docutils literal notranslate"><span class="pre">group_by()</span></code> and <code class="docutils literal notranslate"><span class="pre">summarize()</span></code>
 along with <code class="docutils literal notranslate"><span class="pre">mean()</span></code> to calculate the mean value of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> and
 <code class="docutils literal notranslate"><span class="pre">rain</span></code> for each station and season.</p>
 <div class="section" id="describing-variables-using-summary">
-<h3>describing variables using summary()<a class="headerlink" href="#describing-variables-using-summary" title="Permalink to this headline">#</a></h3>
+<h3>describing variables using summary()<a class="headerlink" href="#describing-variables-using-summary" title="Permalink to this heading">#</a></h3>
 <p>First, we’ll have a look at <code class="docutils literal notranslate"><span class="pre">summary()</span></code>
 (<a class="reference external" href="https://rdrr.io/r/base/summary.html">documentation</a>), which
 provides a summary of the results of model fitting functions (such as
@@ -1247,7 +1252,7 @@ variables. When first getting started with a dataset, it can be a good
 idea to check over the dataset using <code class="docutils literal notranslate"><span class="pre">summary()</span></code>.</p>
 </div>
 <div class="section" id="using-summary-to-summarize-groups">
-<h3>using summary() to summarize groups<a class="headerlink" href="#using-summary-to-summarize-groups" title="Permalink to this headline">#</a></h3>
+<h3>using summary() to summarize groups<a class="headerlink" href="#using-summary-to-summarize-groups" title="Permalink to this heading">#</a></h3>
 <p>What if we wanted to get a summary based on some grouping - for example,
 for each station? We could use <code class="docutils literal notranslate"><span class="pre">filter()</span></code> to create an object for each
 value of <code class="docutils literal notranslate"><span class="pre">station</span></code>, then call <code class="docutils literal notranslate"><span class="pre">summary()</span></code> on each of these objects
@@ -1281,7 +1286,7 @@ elements of the <strong>list</strong>:</p>
 </div>
 </div>
 <div class="section" id="using-built-in-functions-for-descriptive-statistics">
-<h3>using built-in functions for descriptive statistics<a class="headerlink" href="#using-built-in-functions-for-descriptive-statistics" title="Permalink to this headline">#</a></h3>
+<h3>using built-in functions for descriptive statistics<a class="headerlink" href="#using-built-in-functions-for-descriptive-statistics" title="Permalink to this heading">#</a></h3>
 <p>This is helpful, but sometimes we want to calculate other descriptive
 statistics, or use the values of descriptive statistics in our code.
 <strong>R</strong> has a number of built-in functions for this - we have already seen
@@ -1323,7 +1328,7 @@ calculating the arithmetic mean of an object:</p>
 </div>
 </div>
 <div class="section" id="using-summarize">
-<h3>using summarize<a class="headerlink" href="#using-summarize" title="Permalink to this headline">#</a></h3>
+<h3>using summarize<a class="headerlink" href="#using-summarize" title="Permalink to this heading">#</a></h3>
 <p>As we have also seen, we can use <code class="docutils literal notranslate"><span class="pre">summarize()</span></code> and <code class="docutils literal notranslate"><span class="pre">group_by()</span></code> to
 calculate any descriptive statistics or values that we want, based on
 the groups created by <code class="docutils literal notranslate"><span class="pre">group_by()</span></code>:</p>
@@ -1345,7 +1350,7 @@ the groups created by <code class="docutils literal notranslate"><span class="pr
 </div>
 </div>
 <div class="section" id="statistical-tests">
-<h2>statistical tests<a class="headerlink" href="#statistical-tests" title="Permalink to this headline">#</a></h2>
+<h2>statistical tests<a class="headerlink" href="#statistical-tests" title="Permalink to this heading">#</a></h2>
 <p>In addition to descriptive statistics, we can use <strong>R</strong> for <em>inferential
 statistics</em> - for example, for hypothesis testing. In the remainder of
 the exercise, we’ll look at a few examples of some common statistical
@@ -1357,7 +1362,7 @@ as part of the default <code class="docutils literal notranslate"><span class="p
 package that you can install. You should be able to find what you need
 with a quick internet search.</p>
 <div class="section" id="independent-samples-students-t-test">
-<h3>independent samples student’s <em>t</em>-test<a class="headerlink" href="#independent-samples-students-t-test" title="Permalink to this headline">#</a></h3>
+<h3>independent samples student’s <em>t</em>-test<a class="headerlink" href="#independent-samples-students-t-test" title="Permalink to this heading">#</a></h3>
 <p>To run Student’s <em>t</em>-test, we use <code class="docutils literal notranslate"><span class="pre">t.test()</span></code>
 (<a class="reference external" href="https://rdrr.io/r/stats/t.test.html">documentation</a>). One of the
 arguments to the function is <code class="docutils literal notranslate"><span class="pre">alternative</span></code>, which allows us to select
@@ -1429,7 +1434,7 @@ is not equal to 21.1°C:</p>
 </div>
 </div>
 <div class="section" id="non-parametric-tests">
-<h3>non-parametric tests<a class="headerlink" href="#non-parametric-tests" title="Permalink to this headline">#</a></h3>
+<h3>non-parametric tests<a class="headerlink" href="#non-parametric-tests" title="Permalink to this heading">#</a></h3>
 <p>We can also conduct non-parametric hypothesis tests using <strong>R</strong>. The
 example we will look at is the one- or two-sample Wilcoxon tests, using
 <code class="docutils literal notranslate"><span class="pre">wilcox.test()</span></code>
@@ -1444,7 +1449,7 @@ rainfall, on average, than Armagh:</p>
 </div>
 </div>
 <div class="section" id="analysis-of-variance">
-<h3>analysis of variance<a class="headerlink" href="#analysis-of-variance" title="Permalink to this headline">#</a></h3>
+<h3>analysis of variance<a class="headerlink" href="#analysis-of-variance" title="Permalink to this heading">#</a></h3>
 <p>Finally, we’ll see how we can set up and interpret an analysis of
 variance test. In this example, we’ll only look at data from Armagh,
 Oxford, and Stornoway Airport, because the Southampton time series ends
@@ -1528,7 +1533,7 @@ between the periods 1971-2020 and 1921-1970.</p>
 </div>
 </div>
 <div class="section" id="exercise-and-next-steps">
-<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline">#</a></h2>
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this exercise. To help practice your skills, try at least
 one of the following:</p>
 <ul class="simple">

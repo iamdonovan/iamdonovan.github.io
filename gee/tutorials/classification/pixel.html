@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +46,7 @@
     <link rel="next" title="object-based classification" href="obia.html" />
     <link rel="prev" title="unsupervised classification" href="unsupervised.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1160,7 +1165,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="pixel-based-classification">
-<h1>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this headline">#</a></h1>
+<h1>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this heading">#</a></h1>
 <p>In this tutorial, we’ll look at doing a pixel-based classification of a Landsat 8 image acquired on 24 June, 2020,
 covering a portion of the Amazon Rainforest south of Santarém, Brazil.</p>
 <p>Pixel-based classification is a <em>supervised</em> classification technique, where we first have to train the computer how
@@ -1174,7 +1179,7 @@ to classify the image based on its characteristics, before classifying each pixe
 <li><p>plot spectral signatures of training classes</p></li>
 </ul>
 <div class="section" id="adding-training-points">
-<h2>adding training points<a class="headerlink" href="#adding-training-points" title="Permalink to this headline">#</a></h2>
+<h2>adding training points<a class="headerlink" href="#adding-training-points" title="Permalink to this heading">#</a></h2>
 <p>To run a supervised classification, we need to provide <strong>labeled training</strong> data - that is, a number of points where
 we have identified what <strong>class</strong> the points belong to.</p>
 <p>The classification algorithm then takes these points, and the associated input data such as reflectance in different bands,
@@ -1201,7 +1206,7 @@ points.</p>
 </div>
 </div>
 <div class="section" id="adding-classes">
-<h2>adding classes<a class="headerlink" href="#adding-classes" title="Permalink to this headline">#</a></h2>
+<h2>adding classes<a class="headerlink" href="#adding-classes" title="Permalink to this heading">#</a></h2>
 <p>You might also want to add additional landcover classes to the classification by adding a new <strong>FeatureCollection</strong> as follows.
 First, mouse back over the <strong>Geometry Imports</strong>. At the bottom of the <strong>Geometry Imports</strong> menu, click on “<strong>new layer</strong>”
 to add a new layer, then click on the gear icon to open the configuration panel:</p>
@@ -1237,7 +1242,7 @@ correspond to the 5 classes that have already been imported.</p>
 </div>
 </div>
 <div class="section" id="using-require-to-load-another-script">
-<h2>using require to load another script<a class="headerlink" href="#using-require-to-load-another-script" title="Permalink to this headline">#</a></h2>
+<h2>using require to load another script<a class="headerlink" href="#using-require-to-load-another-script" title="Permalink to this heading">#</a></h2>
 <p>The very first line of this script (after the initial comment) is this:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">accuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;users/robertmcnabb/modules:accuracy&#39;</span><span class="p">);</span>
 </pre></div>
@@ -1276,7 +1281,7 @@ in your own scripts,
 is a great place to start.</p>
 </div>
 <div class="section" id="getting-training-data">
-<h2>getting training data<a class="headerlink" href="#getting-training-data" title="Permalink to this headline">#</a></h2>
+<h2>getting training data<a class="headerlink" href="#getting-training-data" title="Permalink to this heading">#</a></h2>
 <p>Now that we have training classes and points, we have to decide what image properties to use as inputs for “training”
 the classifier. In the script as written, we use Landsat OLI bands 1-7 (Visible/NIR/SWIR), as shown in this line:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">bands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B7&#39;</span><span class="p">];</span>
@@ -1307,7 +1312,7 @@ points:</p>
 in the training dataset.</p>
 </div>
 <div class="section" id="splitting-the-training-data">
-<h2>splitting the training data<a class="headerlink" href="#splitting-the-training-data" title="Permalink to this headline">#</a></h2>
+<h2>splitting the training data<a class="headerlink" href="#splitting-the-training-data" title="Permalink to this heading">#</a></h2>
 <p>The next step in training a <strong>Classifier</strong> is to <em>split</em> the training dataset into two parts: one, the <em>training</em> split,
 is what we’ll use to actually train the <strong>Classifier</strong>. The second part, the <em>testing</em> split, is what we’ll use to
 check how good a job the <strong>Classifier</strong> has actually done.</p>
@@ -1330,7 +1335,7 @@ which form our <em>testing</em> data:</p>
 </div>
 </div>
 <div class="section" id="training-a-classifier">
-<h2>training a classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this headline">#</a></h2>
+<h2>training a classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this heading">#</a></h2>
 <p>Once we’ve split the input data into <em>training</em> and <em>testing</em> partitions, we can “train” our <strong>Classifier</strong>.</p>
 <p>GEE has a number of <strong>Classifier</strong> algorithms implemented:</p>
 <ul class="simple">
@@ -1363,7 +1368,7 @@ based on the <code class="docutils literal notranslate"><span class="pre">'landc
 the script.</p>
 </div>
 <div class="section" id="classifying-the-image">
-<h2>classifying the image<a class="headerlink" href="#classifying-the-image" title="Permalink to this headline">#</a></h2>
+<h2>classifying the image<a class="headerlink" href="#classifying-the-image" title="Permalink to this heading">#</a></h2>
 <p>Once we have trained the <strong>Classifier</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.classify()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-classify">documentation</a>) to classify the
 image:</p>
@@ -1377,7 +1382,7 @@ Does it overall match with your expectations? In the next few sections, we’ll 
 evaluate how well the <strong>Classifier</strong> has done in classifying each pixel of the image.</p>
 </div>
 <div class="section" id="accuracy-assessment">
-<h2>accuracy assessment<a class="headerlink" href="#accuracy-assessment" title="Permalink to this headline">#</a></h2>
+<h2>accuracy assessment<a class="headerlink" href="#accuracy-assessment" title="Permalink to this heading">#</a></h2>
 <p>Once we’ve trained the <strong>Classifier</strong> and applied it to the image, we can use the <em>testing</em> dataset to evaluate how
 well the <strong>Classifier</strong> has performed. First, though, we have to use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.classify()</span></code>
 (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-classify">documentation</a>) to classify
@@ -1539,7 +1544,7 @@ were misclassified.</p>
 samples for each class. With small sample sizes like this, our results are less likely to be an accurate reflection of
 the accuracy of the classified image.<a class="footnote-reference brackets" href="#congalton" id="id11">11</a></p>
 <div class="section" id="landcover-area-by-class">
-<h3>landcover area by class<a class="headerlink" href="#landcover-area-by-class" title="Permalink to this headline">#</a></h3>
+<h3>landcover area by class<a class="headerlink" href="#landcover-area-by-class" title="Permalink to this heading">#</a></h3>
 <p>To get the total area for each class in the classified image, we start by using
 <code class="docutils literal notranslate"><span class="pre">ee.Image.pixelArea()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-pixelarea">documentation</a>)
 to get an image where the value of each pixel is the pixel area in square meters:</p>
@@ -1625,7 +1630,7 @@ to a <strong>List</strong>.</p>
 </table>
 </div>
 <div class="section" id="unbiased-area-estimates-and-area-uncertainty">
-<h3>unbiased area estimates and area uncertainty<a class="headerlink" href="#unbiased-area-estimates-and-area-uncertainty" title="Permalink to this headline">#</a></h3>
+<h3>unbiased area estimates and area uncertainty<a class="headerlink" href="#unbiased-area-estimates-and-area-uncertainty" title="Permalink to this heading">#</a></h3>
 <p>The next part of the script is where we make use of the <code class="docutils literal notranslate"><span class="pre">require()</span></code> statement discussed earlier. Perhaps just as
 important as the area of each landcover class is the <em>uncertainty</em> of that classified area. Because of the errors of
 omission and commission (the complements of the producer’s and consumer’s accuracy discussed above), the area counts
@@ -1733,7 +1738,7 @@ into a single array using <code class="docutils literal notranslate"><span class
 </div>
 </div>
 <div class="section" id="spectral-signatures">
-<h2>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this headline">#</a></h2>
+<h2>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this heading">#</a></h2>
 <p>When we have two classes where we have significant mis-classification between the two classes, such as bare soil and
 built-up areas, we might think about whether it makes sense to have them as separate classes. We can also try adding
 carefully-chosen training samples that help increase the spectral differences between the two classes.</p>
@@ -1793,7 +1798,7 @@ random sample, they are more separated. This suggests that we might want to add 
 classes, to help increase some of this separation.</p>
 </div>
 <div class="section" id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>In this tutorial, we’ve seen how we can use GEE to classify a satellite image. We’ve also seen how we can assess the
 accuracy of that classification, produce estimates of the area of each landcover class, and examine the spectral
 signatures of our training data to look at ways to improve the classification.</p>
@@ -1809,7 +1814,7 @@ you could address this?</p></li>
 </ul>
 </div>
 <div class="section" id="references-and-notes">
-<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this headline">#</a></h2>
+<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="olofsson"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id12">2</a>)</span></dt>
 <dd><p>Olofsson, P., et al. (2013). <em>Rem. Sens. Env.</em> 129, 122–131.

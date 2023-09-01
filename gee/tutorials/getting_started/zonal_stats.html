@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="image classification" href="../classification/index.html" />
     <link rel="prev" title="band maths" href="band_maths.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1085,7 +1090,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="zonal-statistics">
-<h1>zonal statistics<a class="headerlink" href="#zonal-statistics" title="Permalink to this headline">#</a></h1>
+<h1>zonal statistics<a class="headerlink" href="#zonal-statistics" title="Permalink to this heading">#</a></h1>
 <p>In GIS, <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-zonal-statistics-works.htm">zonal statistics</a>
 is a process whereby you calculate statistics for the pixels of a raster in different groups, or zones, defined by properties in another dataset.</p>
 <p>In this tutorial, we’ll use the <a class="reference external" href="https://developers.google.com/earth-engine/datasets/catalog/FAO_GAUL_2015_level1">Global Administrative Unit Layers 2015</a>,
@@ -1099,7 +1104,7 @@ dataset, to see how we can perform zonal statistics in GEE on both <strong>Featu
 <li><p>use “currying” to re-write a function with multiple arguments into multiple functions of a single argument</p></li>
 </ul>
 <div class="section" id="displaying-vector-data">
-<h2>displaying vector data<a class="headerlink" href="#displaying-vector-data" title="Permalink to this headline">#</a></h2>
+<h2>displaying vector data<a class="headerlink" href="#displaying-vector-data" title="Permalink to this heading">#</a></h2>
 <p>When you open the script, you should see two <strong>imports</strong>: the GAUL level 1 <strong>FeatureCollection</strong>, and the CORINE Land Cover <strong>ImageCollection</strong>.
 The first line of the script selects all <strong>Feature</strong>s where <code class="docutils literal notranslate"><span class="pre">ADM0_NAME</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">Ireland</span></code>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">countries</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;ADM0_NAME&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Ireland&#39;</span><span class="p">));</span>
@@ -1133,7 +1138,7 @@ to provide a random palette to display the image as:</p>
 <a class="reference internal image-reference" href="../../../_images/random.png"><img alt="an image added to the map using a random visualizer" class="align-center" src="../../../_images/random.png" style="width: 600px;" /></a>
 </div>
 <div class="section" id="selecting-from-collections">
-<h2>selecting from collections<a class="headerlink" href="#selecting-from-collections" title="Permalink to this headline">#</a></h2>
+<h2>selecting from collections<a class="headerlink" href="#selecting-from-collections" title="Permalink to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">corine</span></code> <strong>import</strong> is an <strong>ImageCollection</strong>, containing 5 separate images: 1990, 2000, 2006, 2012, and 2018.
 We want to use the 2018 dataset, which means that we need to select the 5th image from the <strong>ImageCollection</strong>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">landcover2018</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="nx">corine</span><span class="p">.</span><span class="nx">toList</span><span class="p">(</span><span class="mf">1000</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mf">4</span><span class="p">)).</span><span class="nx">clipToCollection</span><span class="p">(</span><span class="nx">country</span><span class="p">);</span>
@@ -1164,7 +1169,7 @@ methods).</p>
 <a class="reference internal image-reference" href="../../../_images/landcover.png"><img alt="the landcover image added to the map" class="align-center" src="../../../_images/landcover.png" style="width: 600px;" /></a>
 </div>
 <div class="section" id="chart-by-class">
-<h2>chart by class<a class="headerlink" href="#chart-by-class" title="Permalink to this headline">#</a></h2>
+<h2>chart by class<a class="headerlink" href="#chart-by-class" title="Permalink to this heading">#</a></h2>
 <p>To display a chart showing the percent area that each landcover class occupies in a single county, Donegal
 (recently voted <a class="reference external" href="https://www.reddit.com/r/ireland/comments/njess8/we_have_a_winner_congratulations_to_donegal_for/">the best county in Ireland</a>),
 we first filter the <code class="docutils literal notranslate"><span class="pre">country</span></code> <strong>FeatureCollection</strong> to select the <strong>Feature</strong>s where the <code class="docutils literal notranslate"><span class="pre">ADM1_NAME</span></code>
@@ -1223,7 +1228,7 @@ in the GEE Data Catalog.</p>
 </div>
 </div>
 <div class="section" id="summarizing-over-a-feature">
-<h2>summarizing over a feature<a class="headerlink" href="#summarizing-over-a-feature" title="Permalink to this headline">#</a></h2>
+<h2>summarizing over a feature<a class="headerlink" href="#summarizing-over-a-feature" title="Permalink to this heading">#</a></h2>
 <p>This is one way to summarize the information, but we might also want to add these properties to the <strong>Feature</strong>, so that
 we can export the data for later analysis.</p>
 <p>To do this, we’ll write a <strong>function</strong> that takes a <strong>Feature</strong> and an <strong>Image</strong> as inputs, and <code class="docutils literal notranslate"><span class="pre">return</span></code>s a <strong>Feature</strong>
@@ -1335,7 +1340,7 @@ to <em>zip</em> the two <strong>List</strong>s together, then <code class="docut
 <a class="reference internal image-reference" href="../../../_images/updated.png"><img alt="the updated feature properties" class="align-center" src="../../../_images/updated.png" style="width: 400px;" /></a>
 </div>
 <div class="section" id="summarizing-over-a-featurecollection">
-<h2>summarizing over a featurecollection<a class="headerlink" href="#summarizing-over-a-featurecollection" title="Permalink to this headline">#</a></h2>
+<h2>summarizing over a featurecollection<a class="headerlink" href="#summarizing-over-a-featurecollection" title="Permalink to this heading">#</a></h2>
 <p>Now, we want to do this for all of the <strong>Feature</strong>s in our <strong>FeatureCollection</strong>. To do this,
 we can use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.map()</span></code> to apply a function to each <strong>Feature</strong> in the <strong>FeatureCollection</strong>,
 similar to what we used in the <a class="reference internal" href="image_collections.html"><span class="doc">image collections and vectors</span></a> tutorial.</p>
@@ -1413,7 +1418,7 @@ into your GIS software of choice:</p>
 <a class="reference internal image-reference" href="../../../_images/qgis1.png"><img alt="the exported GeoJSON file, opened in QGIS" class="align-center" src="../../../_images/qgis1.png" style="width: 600px;" /></a>
 </div>
 <div class="section" id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>At this point, you’ve seen how to display vector data in GEE by first converting it into an image. You’ve also selected
 an <strong>Image</strong> from an <strong>ImageCollection</strong> using its index, created a <strong>Chart</strong> of grouped <strong>Image</strong> data, and seen how
 currying can be used to create complicated functions that can be passed to <code class="docutils literal notranslate"><span class="pre">map()</span></code>.</p>

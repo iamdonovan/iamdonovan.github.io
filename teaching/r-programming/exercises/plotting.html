@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="transforming data" href="transform.html" />
     <link rel="prev" title="debugging code" href="debugging.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1187,7 +1192,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="plotting-data-using-ggplot2">
-<h1>plotting data using ggplot2<a class="headerlink" href="#plotting-data-using-ggplot2" title="Permalink to this headline">#</a></h1>
+<h1>plotting data using ggplot2<a class="headerlink" href="#plotting-data-using-ggplot2" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
@@ -1208,7 +1213,7 @@ Observatory. By the end of this exercise, you will:</p>
 <li><p>save plots to a file</p></li>
 </ul>
 <div class="section" id="data">
-<h2>data<a class="headerlink" href="#data" title="Permalink to this headline">#</a></h2>
+<h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
 <p>The data used in this exercise are the historic meteorological
 observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
 Observatory</a>,
@@ -1229,7 +1234,7 @@ available!), please feel free. For the best experience, you will likely
 need to repeat the steps indicated above.</p>
 </div>
 <div class="section" id="loading-libraries">
-<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this headline">#</a></h2>
+<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this heading">#</a></h2>
 <p>Before getting started, we need to load the libraries we will use in the
 exercise. We will be using three libraries:</p>
 <ul class="simple">
@@ -1269,7 +1274,7 @@ we have to explicitly tell <strong>R</strong> this, by using the full name,
 <code class="docutils literal notranslate"><span class="pre">stats::filter()</span></code>.</p>
 </div>
 <div class="section" id="loading-the-data">
-<h2>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">#</a></h2>
+<h2>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h2>
 <p>Now, we are finally ready to load the data file, using <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code>
 (<a class="reference external" href="https://readr.tidyverse.org/reference/read_delim.html">documentation</a>),
 a function provided by the <code class="docutils literal notranslate"><span class="pre">readr</span></code> package:</p>
@@ -1307,12 +1312,12 @@ sunlight in the month</p></li>
 i.e., missing.</p>
 </div>
 <div class="section" id="adding-variables-to-the-table">
-<h2>adding variables to the table<a class="headerlink" href="#adding-variables-to-the-table" title="Permalink to this headline">#</a></h2>
+<h2>adding variables to the table<a class="headerlink" href="#adding-variables-to-the-table" title="Permalink to this heading">#</a></h2>
 <p>Before moving on, let’s see how we can add additional variables to the
 table, starting with the date. This will make it easier for us to plot
 and analyze the time series of observations.</p>
 <div class="section" id="combining-strings">
-<h3>combining strings<a class="headerlink" href="#combining-strings" title="Permalink to this headline">#</a></h3>
+<h3>combining strings<a class="headerlink" href="#combining-strings" title="Permalink to this heading">#</a></h3>
 <p>To do this, we can first use the <code class="docutils literal notranslate"><span class="pre">paste()</span></code>
 (<a class="reference external" href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste">documentation</a>)
 function, which <em>concatenates</em> strings or characters together. We’ll use
@@ -1329,7 +1334,7 @@ and we’ll arbitrarily choose the first of the month:</p>
 </div>
 </div>
 <div class="section" id="a-note-about-dates">
-<h3>a note about dates<a class="headerlink" href="#a-note-about-dates" title="Permalink to this headline">#</a></h3>
+<h3>a note about dates<a class="headerlink" href="#a-note-about-dates" title="Permalink to this heading">#</a></h3>
 <p>But, we don’t actually want to represent these as strings. Instead, we
 want them to be represented as a <strong>date</strong> object so that they display
 properly when we plot them, and because we may want to do calculations
@@ -1365,7 +1370,7 @@ the table (<code class="docutils literal notranslate"><span class="pre">date</sp
 </div>
 </div>
 <div class="section" id="calculating-a-new-variable">
-<h2>calculating a new variable<a class="headerlink" href="#calculating-a-new-variable" title="Permalink to this headline">#</a></h2>
+<h2>calculating a new variable<a class="headerlink" href="#calculating-a-new-variable" title="Permalink to this heading">#</a></h2>
 <p>One thing we might be interested in doing is aggregating our
 observations by meteorological season, rather than just by month or
 year. To help us with this, we can calculate a new variable, <code class="docutils literal notranslate"><span class="pre">season</span></code>,
@@ -1425,13 +1430,13 @@ select a single season to look at. For now, we’ll move on to plotting
 our data.</p>
 </div>
 <div class="section" id="plotting-data">
-<h2>plotting data<a class="headerlink" href="#plotting-data" title="Permalink to this headline">#</a></h2>
+<h2>plotting data<a class="headerlink" href="#plotting-data" title="Permalink to this heading">#</a></h2>
 <p>To plot data, we’ll use <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>, a popular and versatile system for
 making graphics. It uses the <strong>grammar of graphics</strong> (the <strong>gg</strong> in
 <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>), which is a single coherent system for building and
 describing graphs.</p>
 <div class="section" id="example-scatter-plot">
-<h3>example: scatter plot<a class="headerlink" href="#example-scatter-plot" title="Permalink to this headline">#</a></h3>
+<h3>example: scatter plot<a class="headerlink" href="#example-scatter-plot" title="Permalink to this heading">#</a></h3>
 <p>In this exercise, we will look at a number of different example plots
 using our data, starting with a simple scatter plot, and introducing the
 different building blocks of <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code>.</p>
@@ -1490,7 +1495,7 @@ font sizes, and so on.</p>
 </div>
 </div>
 <div class="section" id="example-basic-histogram">
-<h2>example: basic histogram<a class="headerlink" href="#example-basic-histogram" title="Permalink to this headline">#</a></h2>
+<h2>example: basic histogram<a class="headerlink" href="#example-basic-histogram" title="Permalink to this heading">#</a></h2>
 <p>Now, let’s look at another type of plot: a histogram.</p>
 <p>Note that as far as <strong>R</strong> is concerned, this:</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">tmax</span><span class="p">))</span>
@@ -1561,7 +1566,7 @@ default,this is set to <code class="docutils literal notranslate"><span class="p
 </div>
 <a class="reference internal image-reference" href="../../../_images/plotting_27_1.png"><img alt="../../../_images/plotting_27_1.png" src="../../../_images/plotting_27_1.png" style="width: 420px; height: 420px;" /></a>
 <div class="section" id="example-density-plot">
-<h3>example: density plot<a class="headerlink" href="#example-density-plot" title="Permalink to this headline">#</a></h3>
+<h3>example: density plot<a class="headerlink" href="#example-density-plot" title="Permalink to this heading">#</a></h3>
 <p>We can also plot the density distribution of the data, a smoothed
 version of the histogram, using <code class="docutils literal notranslate"><span class="pre">geom_density()</span></code>
 (<a class="reference external" href="https://ggplot2.tidyverse.org/reference/geom_density.html">documentation</a>):</p>
@@ -1572,7 +1577,7 @@ version of the histogram, using <code class="docutils literal notranslate"><span
 <a class="reference internal image-reference" href="../../../_images/plotting_29_1.png"><img alt="../../../_images/plotting_29_1.png" src="../../../_images/plotting_29_1.png" style="width: 420px; height: 420px;" /></a>
 </div>
 <div class="section" id="example-box-plots">
-<h3>example: box plots<a class="headerlink" href="#example-box-plots" title="Permalink to this headline">#</a></h3>
+<h3>example: box plots<a class="headerlink" href="#example-box-plots" title="Permalink to this heading">#</a></h3>
 <p>To make a box plot, we use <code class="docutils literal notranslate"><span class="pre">geom_boxplot()</span></code>:</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="o">=</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">season</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">rain</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
 <span class="w">  </span><span class="nf">geom_boxplot</span><span class="p">()</span>
@@ -1582,7 +1587,7 @@ version of the histogram, using <code class="docutils literal notranslate"><span
 </div>
 </div>
 <div class="section" id="facet-wrapping">
-<h2>facet wrapping<a class="headerlink" href="#facet-wrapping" title="Permalink to this headline">#</a></h2>
+<h2>facet wrapping<a class="headerlink" href="#facet-wrapping" title="Permalink to this heading">#</a></h2>
 <p>We might also want to plot our data using different subplots, or
 <strong>facets</strong>. For example, we can create a scatter plot of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> vs
 <code class="docutils literal notranslate"><span class="pre">rain</span></code>, colored by season:</p>
@@ -1603,7 +1608,7 @@ split this into a single subplot for each season, we use
 <a class="reference internal image-reference" href="../../../_images/plotting_35_1.png"><img alt="../../../_images/plotting_35_1.png" src="../../../_images/plotting_35_1.png" style="width: 420px; height: 420px;" /></a>
 </div>
 <div class="section" id="cleaning-up-and-saving-the-plot-to-a-file">
-<h2>cleaning up and saving the plot to a file<a class="headerlink" href="#cleaning-up-and-saving-the-plot-to-a-file" title="Permalink to this headline">#</a></h2>
+<h2>cleaning up and saving the plot to a file<a class="headerlink" href="#cleaning-up-and-saving-the-plot-to-a-file" title="Permalink to this heading">#</a></h2>
 <p>In the final example, we’ll make a plot showing the relationship between
 <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, colored by the <code class="docutils literal notranslate"><span class="pre">season</span></code>. We’ll also see how we
 can change the axes labels, and increase font sizes, to help make our
@@ -1689,7 +1694,7 @@ to save the plot to a file:</p>
 </div>
 </div>
 <div class="section" id="exercise-and-next-steps">
-<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this headline">#</a></h2>
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this exercise. To practice your skills, create a script
 that does the following:</p>
 <ul class="simple">

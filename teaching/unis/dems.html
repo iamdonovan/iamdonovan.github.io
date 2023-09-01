@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="programming skills for phd researchers" href="../r-programming/index.html" />
     <link rel="prev" title="mapping glacier area change" href="optical.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1065,13 +1070,13 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="dem-differencing-and-geodetic-mass-balance">
-<h1>dem differencing and geodetic mass balance<a class="headerlink" href="#dem-differencing-and-geodetic-mass-balance" title="Permalink to this headline">#</a></h1>
+<h1>dem differencing and geodetic mass balance<a class="headerlink" href="#dem-differencing-and-geodetic-mass-balance" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This practical was written for use in ArcMap 10.* - the tool names should be broadly similar in ArcGIS Pro.</p>
 </div>
 <div class="section" id="data-and-setting-up">
-<h2>data and setting up<a class="headerlink" href="#data-and-setting-up" title="Permalink to this headline">#</a></h2>
+<h2>data and setting up<a class="headerlink" href="#data-and-setting-up" title="Permalink to this heading">#</a></h2>
 <p>Create a folder in your home directory called <strong>dem_differencing</strong>. Inside of this folder, create another folder called
 <strong>temp_files</strong>. As we go through the steps of this exercise, we’ll be creating lots of files, and it’s a good idea to
 keep things organized.</p>
@@ -1081,7 +1086,7 @@ Excel spreadsheet (<strong>DEM_Co-Registration_Tool.xls</strong>) to your home d
 ground mask, and the glacier outlines. Save the map document to your DEM differencing folder, using an appropriate name.</p>
 </div>
 <div class="section" id="differencing-without-co-registration">
-<h2>differencing without co-registration<a class="headerlink" href="#differencing-without-co-registration" title="Permalink to this headline">#</a></h2>
+<h2>differencing without co-registration<a class="headerlink" href="#differencing-without-co-registration" title="Permalink to this heading">#</a></h2>
 <p>First off, we’ll difference the two DEMs without first co-registering them, just to see the errors that can be
 introduced by using un-registered DEMs. We also will use this information to calculate the offsets in the two datasets.
 Open the <strong>Raster Calculator</strong>, and insert the following formula into the box:</p>
@@ -1094,7 +1099,7 @@ in lecture - the shifts in the DEM cause apparent elevation changes on stable gr
 by co-registering the DEMs so that they more accurately line up.</p>
 </div>
 <div class="section" id="co-registration">
-<h2>co-registration<a class="headerlink" href="#co-registration" title="Permalink to this headline">#</a></h2>
+<h2>co-registration<a class="headerlink" href="#co-registration" title="Permalink to this heading">#</a></h2>
 <p>To co-register the DEMs, we have to generate a slope and aspect raster for the primary DEM (<strong>ArcticDEM_Svalbard.tif</strong>).
 Do this, saving the results to your temporary folder.</p>
 <p>Now, we want to select a random sample of 5000 points from each of these rasters, to calculate the offsets. But, we
@@ -1138,7 +1143,7 @@ few iterations to find a good solution to the co-registration. If you are satisf
 here, but feel free to continue refining the co-registration.</p>
 </div>
 <div class="section" id="geodetic-mass-balances">
-<h2>geodetic mass balances<a class="headerlink" href="#geodetic-mass-balances" title="Permalink to this headline">#</a></h2>
+<h2>geodetic mass balances<a class="headerlink" href="#geodetic-mass-balances" title="Permalink to this heading">#</a></h2>
 <p>Once you are satisfied that your DEMs are co-registered properly, we can calculate the geodetic mass balance for each
 of the glaciers in our study area. To do this, we use the <strong>Zonal Statistics as Table</strong> tool.</p>
 <p>The <strong>input raster or feature zone data</strong> should be the RGI outlines. The <strong>Zone Field</strong> is <code class="docutils literal notranslate"><span class="pre">RGIID</span></code>, and the

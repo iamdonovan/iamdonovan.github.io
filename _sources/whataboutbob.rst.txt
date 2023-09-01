@@ -66,7 +66,7 @@ me and I will send you a copy.\ [1]_
 
     Lauzon, B., L. Copland, W. Van Wychen, W. Kochtitzky, and **R. McNabb** (2023b). Evolution of the dynamics of
     Airdrop Glacier, western Axel Heiberg Island, over a seven decade long advance. *Arctic Science*,
-    doi: ` <https://doi.org/>`__
+    doi: `10.1139/AS-2022-0045 <https://doi.org/10.1139/AS-2022-0045>`__
 
     Rounce, D. R., R. Hock, F. Maussion, R. Hugonnet, W. Kochtitzky, M. Huss, E. Berthier, D. Brinkerhoff, L. Compagno,
     L. Copland, D. Farinotti, B. Menounos, and **R. McNabb** (2023). Global glacier change in the 21st century: Every increase

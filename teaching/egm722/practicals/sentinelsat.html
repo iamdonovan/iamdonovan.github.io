@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="vector and raster operations using python" href="week5.html" />
     <link rel="prev" title="raster data using rasterio" href="week4.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1221,9 +1226,9 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="searching-for-images-with-sentinelsat">
-<h1>searching for images with sentinelsat<a class="headerlink" href="#searching-for-images-with-sentinelsat" title="Permalink to this headline">#</a></h1>
+<h1>searching for images with sentinelsat<a class="headerlink" href="#searching-for-images-with-sentinelsat" title="Permalink to this heading">#</a></h1>
 <div class="section" id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>The other thing you’ll need to do before starting this week’s practical is install a new python package,
 <strong>sentinelsat</strong>, into our <strong>conda</strong> environment.</p>
 <p>First, open up <strong>Anaconda Navigator</strong>. Make sure to switch to your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment, then click on the
@@ -1253,7 +1258,7 @@ to finish working, you will be able to move on to the next steps.</p>
 <p>Alternatively, go and grab a coffee or tea, and move on to the next steps.</p>
 </div>
 <div class="section" id="the-netrc-file">
-<h2>the .netrc file<a class="headerlink" href="#the-netrc-file" title="Permalink to this headline">#</a></h2>
+<h2>the .netrc file<a class="headerlink" href="#the-netrc-file" title="Permalink to this heading">#</a></h2>
 <p>In order to search for and download data using the sentinelsat API, we will need to authenticate (log in) using your
 Copernicus Open Access Hub username/password.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">SentinelAPI</span></code> (<a class="reference external" href="https://sentinelsat.readthedocs.io/en/stable/api_reference.html#sentinelsat.sentinel.SentinelAPI">documentation</a>)
@@ -1288,7 +1293,7 @@ Be sure to select <strong>All Files</strong> for <strong>Save as type</strong>:<
 <a class="reference internal image-reference" href="../../../_images/saveas_notepadpp.png"><img alt="the &quot;save as&quot; window for notepad++" class="align-center" src="../../../_images/saveas_notepadpp.png" style="width: 600px;" /></a>
 <p><br /> We’re not quite done - there’s one last thing we’ll need to do before moving on.</p>
 <div class="section" id="changing-permissions">
-<h3>changing permissions<a class="headerlink" href="#changing-permissions" title="Permalink to this headline">#</a></h3>
+<h3>changing permissions<a class="headerlink" href="#changing-permissions" title="Permalink to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>On MacOS or linux-based systems, enter the following command in a terminal window:</p>
@@ -1331,9 +1336,9 @@ follow the instructions above to open the notebook and run it on your own comput
 </div>
 </div>
 <div class="section" id="gena-rowlands">
-<h2>Gena Rowlands<a class="headerlink" href="#gena-rowlands" title="Permalink to this headline">#</a></h2>
+<h2>Gena Rowlands<a class="headerlink" href="#gena-rowlands" title="Permalink to this heading">#</a></h2>
 <div class="section" id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h3>
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
 <p>Up to now, you have gained some experience working with basic features
 of python, used cartopy and matplotlib to create a map, explored using
 shapely and geopandas to work with vector data, and explored using
@@ -1345,7 +1350,7 @@ part of this, we’ll also introduce a few more geometric operations using
 <code class="docutils literal notranslate"><span class="pre">shapely</span></code> that you may find useful.</p>
 </div>
 <div class="section" id="objectives">
-<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">#</a></h3>
+<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <p>In this example, you will:</p>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">shapely</span></code> to get the <em>unary union</em> of a collection of shapes</p></li>
@@ -1356,12 +1361,12 @@ part of this, we’ll also introduce a few more geometric operations using
 </ul>
 </div>
 <div class="section" id="data-provided">
-<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this headline">#</a></h3>
+<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
 <p>In this example, we will be using the <code class="docutils literal notranslate"><span class="pre">Counties</span></code> shapefile that we
 used in Week 2.</p>
 </div>
 <div class="section" id="id2">
-<h3>1. Getting started<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<h3>1. Getting started<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>To get started, run the following cell to import the packages that we’ll
 use in the practical.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -1373,7 +1378,7 @@ use in the practical.</p>
 </div>
 </div>
 <div class="section" id="prepare-a-search-area">
-<h3>2. Prepare a search area<a class="headerlink" href="#prepare-a-search-area" title="Permalink to this headline">#</a></h3>
+<h3>2. Prepare a search area<a class="headerlink" href="#prepare-a-search-area" title="Permalink to this heading">#</a></h3>
 <p>Before we get to using the API to search for images, we’ll see how we
 can use existing data, like the <code class="docutils literal notranslate"><span class="pre">Counties</span></code> shapefile we used in Week
 2, to help us search for images.</p>
@@ -1431,9 +1436,9 @@ given geometry. Once we have this, we can connect to the API and start
 the query.</p>
 </div>
 <div class="section" id="search-the-archive-for-images">
-<h3>3. Search the archive for images<a class="headerlink" href="#search-the-archive-for-images" title="Permalink to this headline">#</a></h3>
+<h3>3. Search the archive for images<a class="headerlink" href="#search-the-archive-for-images" title="Permalink to this heading">#</a></h3>
 <div class="section" id="connect-to-the-api">
-<h4>3.1 Connect to the api<a class="headerlink" href="#connect-to-the-api" title="Permalink to this headline">#</a></h4>
+<h4>3.1 Connect to the api<a class="headerlink" href="#connect-to-the-api" title="Permalink to this heading">#</a></h4>
 <p>To connect to the API, we first create a
 <a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI">SentinelAPI</a>
 object:</p>
@@ -1450,7 +1455,7 @@ the <code class="docutils literal notranslate"><span class="pre">.netrc</span></
 successfully created, and we can move on to searching for images.</p>
 </div>
 <div class="section" id="search-for-images">
-<h4>3.2 Search for images<a class="headerlink" href="#search-for-images" title="Permalink to this headline">#</a></h4>
+<h4>3.2 Search for images<a class="headerlink" href="#search-for-images" title="Permalink to this heading">#</a></h4>
 <p>As we saw earlier, the method we’ll use is <code class="docutils literal notranslate"><span class="pre">api.query()</span></code>.</p>
 <p>For this example, we’ll use the following arguments for the search:</p>
 <ul class="simple">
@@ -1510,7 +1515,7 @@ only getting images that mostly intersect with our area of interest.</p>
 </div>
 </div>
 <div class="section" id="filtering-by-overlap">
-<h3>4. Filtering by overlap<a class="headerlink" href="#filtering-by-overlap" title="Permalink to this headline">#</a></h3>
+<h3>4. Filtering by overlap<a class="headerlink" href="#filtering-by-overlap" title="Permalink to this heading">#</a></h3>
 <p>To start, we use
 <a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook">SentinelAPI.to_geodataframe()</a>
 to convert the results into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>:</p>
@@ -1557,18 +1562,18 @@ much more of Northern Ireland (and the ever-present clouds).</p>
 you can download the actual image data.</p>
 </div>
 <div class="section" id="downloading-images">
-<h3>5. Downloading images<a class="headerlink" href="#downloading-images" title="Permalink to this headline">#</a></h3>
+<h3>5. Downloading images<a class="headerlink" href="#downloading-images" title="Permalink to this heading">#</a></h3>
 <p>Remember that these are very large files (each granule is ~1GB), so you
 should only run these cells if you actually want to download the data!</p>
 <div class="section" id="download-an-individual-image">
-<h4>download an individual image<a class="headerlink" href="#download-an-individual-image" title="Permalink to this headline">#</a></h4>
+<h4>download an individual image<a class="headerlink" href="#download-an-individual-image" title="Permalink to this heading">#</a></h4>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">SentinelAPI.download()</span></code> to download a single product:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">best_overlap</span><span class="p">)</span> <span class="c1"># downloads the first result</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="download-an-individual-image-but-only-the-image-bands">
-<h4>download an individual image, but only the image bands<a class="headerlink" href="#download-an-individual-image-but-only-the-image-bands" title="Permalink to this headline">#</a></h4>
+<h4>download an individual image, but only the image bands<a class="headerlink" href="#download-an-individual-image-but-only-the-image-bands" title="Permalink to this heading">#</a></h4>
 <p>This example uses the <code class="docutils literal notranslate"><span class="pre">nodefilter</span></code> argument to only download the image
 bands (files that match the format <code class="docutils literal notranslate"><span class="pre">*_B*.jp2</span></code>):</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">first_result</span><span class="p">,</span> <span class="c1"># downloads the first result</span>
@@ -1577,7 +1582,7 @@ bands (files that match the format <code class="docutils literal notranslate"><s
 </div>
 </div>
 <div class="section" id="download-all-images-from-a-list-of-products">
-<h4>download all images from a list of products<a class="headerlink" href="#download-all-images-from-a-list-of-products" title="Permalink to this headline">#</a></h4>
+<h4>download all images from a list of products<a class="headerlink" href="#download-all-images-from-a-list-of-products" title="Permalink to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">SentinelAPI.download_all()</span></code> will download all of the products in a
 list.</p>
 <p>Again, these are very large files, so you should only run the following
@@ -1592,7 +1597,7 @@ API!</p>
 </div>
 </div>
 <div class="section" id="notes-and-references">
-<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this headline">#</a></h2>
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>on Windows, some programs may look for a <code class="docutils literal notranslate"><span class="pre">_netrc</span></code> file in your <strong>Home</strong> directory, rather than <code class="docutils literal notranslate"><span class="pre">.netrc</span></code>.</p>

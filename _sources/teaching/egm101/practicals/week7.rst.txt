@@ -312,11 +312,6 @@ Now look at the **Model Summary and Parameter Estimates** table:
 - **df1** and **df2**, the number of degrees of freedom for the *F*-distribution (more on this next week)
 - **Sig.** the results of the significance test for the regression (more on this next week)
 
-In the **Parameter Estimates** section, we have:
-
-- **Constant**, the estimate of the intercept of the linear model (:math:`\beta` in the lecture notes)
-- **b1**, the estimate of the slope of the linear model (:math:`\alpha` in the lecture notes)
-
 .. card::
     :class-header: question
     :class-card: question
@@ -326,6 +321,22 @@ In the **Parameter Estimates** section, we have:
 
     In your own words, what does the :math:`R^2` value for Spring tell us about the linear relationship between hours
     of sun and monthly mean temperature for Spring months?
+
+
+In the **Parameter Estimates** section, we have:
+
+- **Constant**, the estimate of the intercept of the linear model (:math:`\beta` in the lecture notes)
+- **b1**, the estimate of the slope of the linear model (:math:`\alpha` in the lecture notes)
+
+.. hint::
+
+    Putting this all together, the equation for the relationship between monthly hours of sun and the monthly mean
+    temperature for **Summer** would be:
+
+    .. math::
+
+        {\rm Temperature} = 0.007 * {\rm Hours\ of\ Sun} + 13.724
+
 
 .. warning::
 
@@ -340,9 +351,16 @@ next steps
 ------------
 
 Instead of splitting the data based on ``Season``, split based on ``Month`` and re-run the scatter plot and correlation
-steps outlined above. Then, try to answer the following questions:
+steps outlined above.
 
-- What month(s) has/have the strongest correlation between hours of sun and mean temperature? Why do you think this
-  might be the case?
-- Do all of the months in a season show the same relationship? What effect does this have on the overall relationship
-  for each season?
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    - What month(s) has/have the strongest correlation between hours of sun and mean temperature? Why do you think this
+      might be the case?
+    - Do all of the months in a season show the same relationship? What effect do you think this might have on the
+      overall relationship for each season?

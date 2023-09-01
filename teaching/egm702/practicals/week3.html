@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="change detection in earth engine" href="week4.html" />
     <link rel="prev" title="dem differencing" href="week2.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1095,7 +1100,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="introduction-to-google-earth-engine">
-<h1>introduction to google earth engine<a class="headerlink" href="#introduction-to-google-earth-engine" title="Permalink to this headline">#</a></h1>
+<h1>introduction to google earth engine<a class="headerlink" href="#introduction-to-google-earth-engine" title="Permalink to this heading">#</a></h1>
 <style> .green {color:green} </style><p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if
 you have no prior experience with programming, you will be able to complete this practical. All of the programming steps
 have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.</p>
@@ -1103,7 +1108,7 @@ have been provided for you in a script, and your task will be to run each step i
 have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification,
 and computational power above what an average desktop user has access to.</p>
 <div class="section" id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using
 your GEE account. You should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/annotated_window1.png"><img alt="the GEE console with annotations" class="align-center" src="../../../_images/annotated_window1.png" style="width: 720px;" /></a>
@@ -1142,7 +1147,7 @@ Week 5, you don’t have to re-do them each time you re-open your browser window
 </div>
 </div>
 <div class="section" id="part-1-finding-and-inspecting-images">
-<h2>part 1 - finding and inspecting images<a class="headerlink" href="#part-1-finding-and-inspecting-images" title="Permalink to this headline">#</a></h2>
+<h2>part 1 - finding and inspecting images<a class="headerlink" href="#part-1-finding-and-inspecting-images" title="Permalink to this heading">#</a></h2>
 <p>Once you have saved the script, you should see something like the following in the code editor:</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_saved_script.png"><img alt="the gee window after loading and saving the script" class="align-center" src="../../../_images/loaded_saved_script.png" style="width: 720px;" /></a>
 <p><br /> You should also notice that the script begins with a large block of comments (beginning and ending with
@@ -1397,7 +1402,7 @@ and their names:</p>
 <p>Once you’ve looked around the area, move on to the next script.</p>
 </div>
 <div class="section" id="part-2-band-maths-and-charts">
-<h2>part 2 - band maths and charts<a class="headerlink" href="#part-2-band-maths-and-charts" title="Permalink to this headline">#</a></h2>
+<h2>part 2 - band maths and charts<a class="headerlink" href="#part-2-band-maths-and-charts" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve seen a little of how we can search, add, display, and examine images, let’s take a look at some of the
 different DEMs available within GEE.</p>
 <p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">02_band_maths.js</span></code> in the <strong>Script manager</strong>, or using
@@ -1593,7 +1598,7 @@ down below the chart to see these, but be sure to look at these before answering
 </div>
 </div>
 <div class="section" id="part-3-pan-sharpening">
-<h2>part 3 - pan-sharpening<a class="headerlink" href="#part-3-pan-sharpening" title="Permalink to this headline">#</a></h2>
+<h2>part 3 - pan-sharpening<a class="headerlink" href="#part-3-pan-sharpening" title="Permalink to this heading">#</a></h2>
 <p>For the third part of this week’s practical, we’ll look at one method of <em>pan-sharpening</em> - that is, using a
 band or an image with a higher resolution to “sharpen”, or increase the resolution of, another image.</p>
 <p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">03_pan_sharpen.js</span></code> in the <strong>Script manager</strong>, or using
@@ -1682,7 +1687,7 @@ values supplied to <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 <div class="section" id="part-4-pca">
-<h2>part 4 - pca<a class="headerlink" href="#part-4-pca" title="Permalink to this headline">#</a></h2>
+<h2>part 4 - pca<a class="headerlink" href="#part-4-pca" title="Permalink to this heading">#</a></h2>
 <p>In the final part of this week’s practical, we’ll have a look at principal component analysis (PCA), and see how the
 different bands of the PCA image compare to the original image bands. As we discussed in the lecture, PCA can help
 maximize the difference between bands by transforming the image in a way that minimizes the correlation between bands
@@ -1767,7 +1772,7 @@ copy and paste the following code snippet to the bottom of the script, then re-r
 </div>
 </div>
 <div class="section" id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>Make sure that as you work through the practical, you understand and can answer the questions being asked. If you’re
 not sure, ask on the discussion board on blackboard.</p>
 <p>If you’re looking for additional exercises, you can try the following suggestions (in no particular order):</p>
@@ -1778,7 +1783,7 @@ pamphlet, can you identify which color(s) of the decorrelation stretch correspon
 </ul>
 </div>
 <div class="section" id="notes-and-references">
-<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this headline">#</a></h2>
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Gorelick, N., M. Hancher, M. Dixon, S. Ilyushchenko, D. Thau, and R. Moore (2017). Google Earth Engine:

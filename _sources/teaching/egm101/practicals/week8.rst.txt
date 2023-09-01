@@ -29,7 +29,7 @@ splitting the data
 
 Our goal in today's practical is going to be looking at the differences in monthly mean temperature between three
 different time periods: 1871-1920, 1921-1970, and 1971-2020. To do this, we will first need to use
-**Recode into different variables**, like we did in :ref:`week 6 <egm101 recode>` to group our data into meteorological
+**Recode into different variables**, like we did in :ref:`Week 6 <egm101 recode>` to group our data into meteorological
 seasons.
 
 To begin, open the **Recode into different variables** dialog (**Transform** > **Recode into different variables**).
@@ -272,7 +272,7 @@ at least one pair of groups - that is, they do not all appear to have the same p
     What is the *formal* way to state the outcome of the test, in terms of the null hypothesis?
 
 Remember that ANOVA only tells us whether there is a difference between at least one pair of groups - it doesn't tell
-us what the difference is, or even which groups. For that, we need to do additional tests, called *post hoc* tests.
+us what the difference is, or even which groups. For that, we need to do additional tests, called *post hoc* tests.\ [1]_
 
 independent samples *t*-test
 ------------------------------
@@ -630,9 +630,37 @@ should be ready to complete the assessment questions posted on Blackboard.
 If you are looking for additional practice, try the following suggestions:
 
 - Instead of looking at the differences between 1871-1920 and 1971-2020, look at the differences between 1921-1970 and
-  1971-2020. How do the results of this independent samples *t*-test compare to the results for 1871-1920 and 1971-2020?
+  1971-2020.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    How do the results of this independent samples *t*-test compare to the results for 1871-1920 and 1971-2020?
+
 - Change the **Select Cases** condition from ``(Month = 6) & ((Period = 1) | (Period = 3))`` back to
   ``(Month = 6) & (Period > 0)``. Next, run the non-parametric **Independent Samples** test, but instead of the
-  **Mann-Whitney U** test, select the **Median test (k samples)** option. How do the results of these tests compare to
-  the Mann-Whitney *U*-test and the independent samples *t*-tests that you have run? Are you able to make the same
-  conclusions about the differences between the groups?
+  **Mann-Whitney U** test, select the **Median test (k samples)** option.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    How do the results of these tests compare to the Mann-Whitney *U*-test and the independent samples *t*-tests that
+    you have run? Are you able to make the same conclusions about the differences between the groups?
+
+notes
+------
+
+.. [1] In what follows, we'll select a single pair of periods to compare. To correctly compare the means of more than
+    two groups, however, we need to adjust the *p*-value to account for the fact that we're doing multiple comparisons.
+    One way to do this is using the **Post Hoc** button on the right-hand side of the dialog - in
+    `this dialog <https://www.ibm.com/docs/en/spss-statistics/saas?topic=anova-one-way-post-hoc-tests>`__, you can
+    select the different tests to use to account for multiple comparisons.
+

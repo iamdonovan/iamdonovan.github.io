@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +46,7 @@
     <link rel="next" title="introduction to google earth engine" href="week3.html" />
     <link rel="prev" title="dem processing using micmac" href="week1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1086,7 +1091,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="dem-differencing">
-<h1>dem differencing<a class="headerlink" href="#dem-differencing" title="Permalink to this headline">#</a></h1>
+<h1>dem differencing<a class="headerlink" href="#dem-differencing" title="Permalink to this heading">#</a></h1>
 <p><strong>Be sure to download all the data from the Practical 2 area on Blackboard before starting, or from the</strong>
 <a class="reference external" href="https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&amp;export=download">google drive link</a>,
 <strong>then extract the zip file. You should have the following files/folders available:</strong></p>
@@ -1111,7 +1116,7 @@ and estimating the average height of trees that were knocked over by the blast.<
 <li><p>Footage of the 1980 Mt St Helens Eruption [<a class="reference external" href="https://www.youtube.com/watch?v=AYla6q3is6w">YouTube</a>]</p></li>
 </ul>
 <div class="section" id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>Open up ArcGIS Pro, and create a new project in your Week 2 folder. You may need to add a folder connection to your
 Week 2 folder – if so, do that now.</p>
 <p>Import the provided data into the map, re-arranging the drawing order as follows:</p>
@@ -1166,7 +1171,7 @@ between the 1979 acquisition and the 1984 acquisition. In the remainder of the p
 these differences. If you haven’t already, this is a good place to save your map.</p>
 </div>
 <div class="section" id="id1">
-<h2>dem differencing<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<h2>dem differencing<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>The next step is to actually difference the two DEMs (in this case, the 1979 and the 1984 DEMs). From the
 <strong>Geoprocessing</strong> tab, enter “raster calculator” in the search bar and press <strong>Enter</strong>. Open the <strong>Raster Calculator</strong>
 tool from the <strong>Spatial Analyst</strong> toolbox. To subtract the 1979 DEM from the 1984 DEM, enter the following expression
@@ -1192,7 +1197,7 @@ material deposits to the North of the volcano, and the two lakes that have drama
 (Coldwater Lake and Spirit Lake, from West to East).</p>
 </div>
 <div class="section" id="accuracy-estimation">
-<h2>accuracy estimation<a class="headerlink" href="#accuracy-estimation" title="Permalink to this headline">#</a></h2>
+<h2>accuracy estimation<a class="headerlink" href="#accuracy-estimation" title="Permalink to this heading">#</a></h2>
 <p>The next step is to estimate how accurate our DEM difference is, as this will tell us something about how well we can
 estimate both the elevation and volume changes that we’re interested in. When we expect to see changes in elevation of
 different surfaces within the DEM, such as elevation drop due to glacier melt or the collapse of a mountainside, we
@@ -1303,7 +1308,7 @@ with the actual path!):</p>
 </div>
 </div>
 <div class="section" id="filling-nodata-values">
-<h2>filling nodata values<a class="headerlink" href="#filling-nodata-values" title="Permalink to this headline">#</a></h2>
+<h2>filling nodata values<a class="headerlink" href="#filling-nodata-values" title="Permalink to this heading">#</a></h2>
 <p>You may notice that there are a number of voids, or gaps, in the DEM difference. I have masked the clouds present in
 the 1984 image, as well as a few other areas where there are blunders (large errors) in one or the other DEM. There
 are also smaller gaps where the photogrammetric software was unable to correlate the images and calculate an elevation.</p>
@@ -1362,7 +1367,7 @@ this will fill the voids in the dZ raster using the kriging predicted values.</p
 estimating some volume changes.</p>
 </div>
 <div class="section" id="estimating-elevation-and-volume-changes">
-<h2>estimating elevation and volume changes<a class="headerlink" href="#estimating-elevation-and-volume-changes" title="Permalink to this headline">#</a></h2>
+<h2>estimating elevation and volume changes<a class="headerlink" href="#estimating-elevation-and-volume-changes" title="Permalink to this heading">#</a></h2>
 <p>For this step, we’ll start by calculating the lake volume changes. To do this, we’ll use the
 <strong>Zonal Statistics as Table</strong> tool from the <strong>Spatial Analyst</strong> toolbox. Open the tool, then set the
 <strong>Input feature zone data</strong> to <code class="docutils literal notranslate"><span class="pre">1984_shapes</span></code>, and the <strong>Zone field</strong> to <code class="docutils literal notranslate"><span class="pre">name</span></code>. The <strong>Input value raster</strong> should
@@ -1393,7 +1398,7 @@ Assessment Part 1, as well as part of the report you will submit for Assessment 
 guide you.</p>
 </div>
 <div class="section" id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the ca. 2008 ALOS/PRISM DEM. You
 can check out the tutorial provided here: <a class="reference external" href="https://github.com/iamdonovan/dem-coregistration">https://github.com/iamdonovan/dem-coregistration</a> to learn more about how I’ve
 done this, and how you can co-register your own DEMs, either for your project, or for future work.</p>

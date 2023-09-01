@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +46,7 @@
     <link rel="next" title="dem differencing" href="week2.html" />
     <link rel="prev" title="software setup" href="setup.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1096,7 +1101,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="dem-processing-using-micmac">
-<h1>dem processing using micmac<a class="headerlink" href="#dem-processing-using-micmac" title="Permalink to this headline">#</a></h1>
+<h1>dem processing using micmac<a class="headerlink" href="#dem-processing-using-micmac" title="Permalink to this heading">#</a></h1>
 <p><strong>Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the</strong>
 <a class="reference external" href="https://drive.google.com/uc?id=1rwu32Wms_jvrmzkMRckD8kwcgl98qn4k&amp;export=download">google drive link</a>,
 <strong>then extract the zip file. You should have the following files/folders available:</strong></p>
@@ -1126,7 +1131,7 @@ the mountain.</p>
 same for a MacOS/Linux environment, but you’ll need to open a terminal rather than the Windows command prompt.</p>
 </div>
 <div class="section" id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To get started, open the Windows command prompt, either by using the search bar, or <strong>Start</strong> &gt; <strong>Windows System</strong> &gt;
 <strong>Command Prompt</strong>.</p>
 <p>To change folders from the command line, you will use the <cite>cd</cite> command. When you open the command prompt, you should
@@ -1175,7 +1180,7 @@ popup window.</p>
 their meanings. For other commands, such as <code class="docutils literal notranslate"><span class="pre">Malt</span></code>, the text will print directly to the command window.</p>
 </div>
 <div class="section" id="resampling-the-images">
-<h2>resampling the images<a class="headerlink" href="#resampling-the-images" title="Permalink to this headline">#</a></h2>
+<h2>resampling the images<a class="headerlink" href="#resampling-the-images" title="Permalink to this heading">#</a></h2>
 <p>The first thing we have to do is make sure the images are re-sampled to a consistent geometry. To do this in MicMac,
 we use the <code class="docutils literal notranslate"><span class="pre">SaisieAppuisInitQT</span></code> command. We’ll start with the first image, <strong>AR5840034159994.tif</strong>. To begin, type
 the following (or copy &amp; paste) at the command prompt (note the lack of space in
@@ -1259,7 +1264,7 @@ tags, and that the image named within the tag matches the MeasuresIm filename (i
 </div>
 </div>
 <div class="section" id="computing-the-relative-orientation">
-<h2>computing the relative orientation<a class="headerlink" href="#computing-the-relative-orientation" title="Permalink to this headline">#</a></h2>
+<h2>computing the relative orientation<a class="headerlink" href="#computing-the-relative-orientation" title="Permalink to this heading">#</a></h2>
 <p>The next step is to find tie points to help compute the relative orientation of the images. First, run <code class="docutils literal notranslate"><span class="pre">Tapioca</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d Tapioca MulScale &quot;OIS.*tif&quot; 400 1200
 </pre></div>
@@ -1336,7 +1341,7 @@ are quite helpful and happy to help.</p>
 </div>
 </div>
 <div class="section" id="computing-the-absolute-orientation">
-<h2>computing the absolute orientation<a class="headerlink" href="#computing-the-absolute-orientation" title="Permalink to this headline">#</a></h2>
+<h2>computing the absolute orientation<a class="headerlink" href="#computing-the-absolute-orientation" title="Permalink to this heading">#</a></h2>
 <p>At this point, we’re ready to compute the absolute orientation of the images - taking them from the relative geometry
 to the real world.</p>
 <p>To do this, we need to find a number of Ground Control Points (GCPs), which will help the software solve the absolute
@@ -1504,7 +1509,7 @@ finding the right points – don’t just accept the estimated locations.</p>
 </div>
 </div>
 <div class="section" id="bundle-adjustment">
-<h2>bundle adjustment<a class="headerlink" href="#bundle-adjustment" title="Permalink to this headline">#</a></h2>
+<h2>bundle adjustment<a class="headerlink" href="#bundle-adjustment" title="Permalink to this heading">#</a></h2>
 <p>Once you’ve input enough GCPs (at least 10), you can run <code class="docutils literal notranslate"><span class="pre">GCPBascule</span></code> again, which will refine the transformation
 estimated in the previous steps:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d GCPBascule &quot;OIS.*tif&quot; TerrainInit TerrainBrut GCPs.xml MeasuresFinales-S2D.xml
@@ -1595,7 +1600,7 @@ correct the position in each image, be sure to run <code class="docutils literal
 before moving on to the next steps.</p>
 </div>
 <div class="section" id="dem-extraction-and-orthophoto-generation">
-<h2>dem extraction and orthophoto generation<a class="headerlink" href="#dem-extraction-and-orthophoto-generation" title="Permalink to this headline">#</a></h2>
+<h2>dem extraction and orthophoto generation<a class="headerlink" href="#dem-extraction-and-orthophoto-generation" title="Permalink to this heading">#</a></h2>
 <p>The next step is to extract the DEM and create the orthophotomosaic. First, run <code class="docutils literal notranslate"><span class="pre">Malt</span></code> to do the DEM extraction and
 create the individual orthophotos:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d Malt Ortho &quot;OIS.*tif&quot; TerrainFinal MasqImGlob=filtre.tif NbVI=2 ZoomF=1 DefCor=0 CostTrans=4 EZA=1
@@ -1617,7 +1622,7 @@ DEM (black line):</p>
 <p>This will create a mosaicked version of the images, which you can open using <strong>QGIS</strong> or <strong>ArcGIS</strong>.</p>
 </div>
 <div class="section" id="cleaning-up-the-outputs">
-<h2>cleaning up the outputs<a class="headerlink" href="#cleaning-up-the-outputs" title="Permalink to this headline">#</a></h2>
+<h2>cleaning up the outputs<a class="headerlink" href="#cleaning-up-the-outputs" title="Permalink to this heading">#</a></h2>
 <p>The final step (for now) is to clean up the output DEM and Orthophoto, masking out the parts of the DEM raster that
 aren’t covered by the images.</p>
 <p>First, cd into <strong>MEC-Malt</strong>:</p>

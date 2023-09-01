@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="plotting data using ggplot2" href="plotting.html" />
     <link rel="prev" title="introduction to R using jupyterlab" href="rintro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1105,11 +1110,11 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="debugging-code">
-<h1>debugging code<a class="headerlink" href="#debugging-code" title="Permalink to this headline">#</a></h1>
+<h1>debugging code<a class="headerlink" href="#debugging-code" title="Permalink to this heading">#</a></h1>
 <p>In this exercise, we’ll get some practice running a “buggy” script and interpreting/fixing the errors that we find. We
 will also continue using <strong>git</strong> to keep track of and save our fixes.</p>
 <div class="section" id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To begin, open an <strong>Anaconda Command Prompt</strong> with your <code class="docutils literal notranslate"><span class="pre">intro-to-r</span></code> environment active, then launch <strong>JupyterLab</strong>.</p>
 <p>In the file browser along the left-hand side of the window, navigate to the guessing game script (in the <strong>02.r-intro</strong>
 folder). Open the script (<strong>guessing_game.r</strong>) by double-clicking it in the file browser:</p>
@@ -1119,7 +1124,7 @@ panels - place it in the lower half of the window, so that it looks like this:</
 <a class="reference internal image-reference" href="../../../_images/new_terminal.png"><img alt="the guessing game script with a terminal tab opened on the bottom half of the window" class="align-center" src="../../../_images/new_terminal.png" style="width: 720px;" /></a>
 </div>
 <div class="section" id="creating-a-new-branch">
-<h2>creating a new branch<a class="headerlink" href="#creating-a-new-branch" title="Permalink to this headline">#</a></h2>
+<h2>creating a new branch<a class="headerlink" href="#creating-a-new-branch" title="Permalink to this heading">#</a></h2>
 <p>Now, open a second terminal next to the first by clicking the <strong>+</strong> button, then selecting <strong>Terminal</strong> from the
 <strong>Launcher</strong>.</p>
 <p>Before we start editing the script, we’re going to create a new <strong>branch</strong> in our repository. This allows us to make
@@ -1134,7 +1139,7 @@ things are working as they should be, we can <strong>merge</strong> the branch b
 script, we will commit the changes to this branch.</p>
 </div>
 <div class="section" id="running-the-script">
-<h2>running the script<a class="headerlink" href="#running-the-script" title="Permalink to this headline">#</a></h2>
+<h2>running the script<a class="headerlink" href="#running-the-script" title="Permalink to this heading">#</a></h2>
 <p>In the first terminal window that you opened, launch <strong>R</strong> by typing <code class="docutils literal notranslate"><span class="pre">R</span></code> at the prompt and pressing <strong>Enter</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/r_open.png"><img alt="the guessing game script opened, with two terminal panels opened on the lower half of the window" class="align-center" src="../../../_images/r_open.png" style="width: 720px;" /></a>
 <p><br /> In the previous exercise, you got some experience running <strong>R</strong> commands through a jupyter notebook, where each
@@ -1155,7 +1160,7 @@ the function is <code class="docutils literal notranslate"><span class="pre">fil
 </div>
 </div>
 <div class="section" id="error-messages">
-<h2>error messages<a class="headerlink" href="#error-messages" title="Permalink to this headline">#</a></h2>
+<h2>error messages<a class="headerlink" href="#error-messages" title="Permalink to this heading">#</a></h2>
 <p>When you run the script, you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/first_error.png"><img alt="the R terminal with an error message after running the script" class="align-center" src="../../../_images/first_error.png" style="width: 720px;" /></a>
 <p><br /> The error message says:</p>
@@ -1170,7 +1175,7 @@ returns an error message.</p>
 messages that aren’t necessarily so easily corrected.</p>
 </div>
 <div class="section" id="using-git-diff-to-view-changes">
-<h2>using git diff to view changes<a class="headerlink" href="#using-git-diff-to-view-changes" title="Permalink to this headline">#</a></h2>
+<h2>using git diff to view changes<a class="headerlink" href="#using-git-diff-to-view-changes" title="Permalink to this heading">#</a></h2>
 <p>Now that you have corrected the error at line 3, <strong>save</strong> the file (<strong>CTRL</strong> + <strong>S</strong>) to update the file on the disk.
 We also want to use <strong>git</strong> to keep track of this fix. To do this, open the other terminal tab, then enter the
 following:</p>
@@ -1196,7 +1201,7 @@ tell us the changes for <em>all</em> files in the repository; we can also choose
 two different branches, to see what changes (if any) have been made.</p>
 </div>
 <div class="section" id="committing-changes">
-<h2>committing changes<a class="headerlink" href="#committing-changes" title="Permalink to this headline">#</a></h2>
+<h2>committing changes<a class="headerlink" href="#committing-changes" title="Permalink to this heading">#</a></h2>
 <p>For now, though, we want to <strong>commit</strong> these changes so that <strong>git</strong> saves a snapshot of our progress. To do this,
 remember that we first have to <strong>add</strong> to “stage” it, then <strong>commit</strong> the file to take the snapshot. In the terminal,
 type:</p>
@@ -1218,7 +1223,7 @@ the <em>commit hash</em> (the unique identifier for the commit; in the screensho
 <a class="reference internal image-reference" href="../../../_images/commit1.png"><img alt="the git terminal showing that the changes to guessing_game.r have been committed" class="align-center" src="../../../_images/commit1.png" style="width: 720px;" /></a>
 </div>
 <div class="section" id="semantic-errors">
-<h2>semantic errors<a class="headerlink" href="#semantic-errors" title="Permalink to this headline">#</a></h2>
+<h2>semantic errors<a class="headerlink" href="#semantic-errors" title="Permalink to this heading">#</a></h2>
 <p>Now that you have fixed the first error, return to the <strong>R</strong> terminal, then re-run the script. You should see that the
 script now runs with no errors:</p>
 <a class="reference internal image-reference" href="../../../_images/second_error.png"><img alt="the script now runs without raising an error, but it is still incorrect" class="align-center" src="../../../_images/second_error.png" style="width: 720px;" /></a>
@@ -1248,7 +1253,7 @@ also notice an additional pair of semantic errors. Once you have identified thes
 does it work correctly? If so, move on to the next section.</p>
 </div>
 <div class="section" id="merging-branches">
-<h2>merging branches<a class="headerlink" href="#merging-branches" title="Permalink to this headline">#</a></h2>
+<h2>merging branches<a class="headerlink" href="#merging-branches" title="Permalink to this heading">#</a></h2>
 <p>Now that we have successfully squashed the bugs present in the script, we are ready to <strong>merge</strong> the fix into our
 <strong>main</strong> branch.</p>
 <p>In the <strong>terminal</strong> window where you’ve been working with <strong>git</strong>, enter the following command:</p>

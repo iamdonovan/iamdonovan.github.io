@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -40,7 +45,7 @@
     <link rel="next" title="manual mapping (digitizing)" href="mapping.html" />
     <link rel="prev" title="spectral signatures" href="spectral.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1105,7 +1110,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="image-collections-and-vectors">
-<h1>image collections and vectors<a class="headerlink" href="#image-collections-and-vectors" title="Permalink to this headline">#</a></h1>
+<h1>image collections and vectors<a class="headerlink" href="#image-collections-and-vectors" title="Permalink to this heading">#</a></h1>
 <p>In the previous tutorials, we’ve focused on adding individual <strong>Image</strong>s to the <strong>Map</strong>
 using their <code class="docutils literal notranslate"><span class="pre">id</span></code>. This isn’t the only way to find <strong>Image</strong>s to use, however. Very often,
 we might want to do some processing or analysis for many <strong>Image</strong>s. For this, we use <strong>ImageCollection</strong>s.</p>
@@ -1118,7 +1123,7 @@ we might want to do some processing or analysis for many <strong>Image</strong>s
 <li><p>clip an <strong>Image</strong> to a <strong>Geometry</strong></p></li>
 </ul>
 <div class="section" id="adding-dataset-imports">
-<h2>adding dataset imports<a class="headerlink" href="#adding-dataset-imports" title="Permalink to this headline">#</a></h2>
+<h2>adding dataset imports<a class="headerlink" href="#adding-dataset-imports" title="Permalink to this heading">#</a></h2>
 <p>In the previous tutorial, we saw how to <strong>import</strong> geometries, using the <strong>Drawing</strong> tools. These are not the only
 things that we can import, however. When you open the script, you should see the following imports at the top of the script:</p>
 <a class="reference internal image-reference" href="../../../_images/imports1.png"><img alt="datasets and parameters imported at the top of the script" class="align-center" src="../../../_images/imports1.png" style="width: 500px;" /></a>
@@ -1142,7 +1147,7 @@ to find out more about them. To import GEE datasets into a script, you can add t
 <a class="reference internal image-reference" href="../../../_images/imported.png"><img alt="the variable, added as an import to the script" class="align-center" src="../../../_images/imported.png" style="width: 500px;" /></a>
 </div>
 <div class="section" id="filtering">
-<h2>filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">#</a></h2>
+<h2>filtering<a class="headerlink" href="#filtering" title="Permalink to this heading">#</a></h2>
 <p>The first line of the script:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select a single vector from the borders import</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">borders</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="s1">&#39;ADM0_NAME&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Iceland&#39;</span><span class="p">));</span>
@@ -1195,7 +1200,7 @@ to select only images that have months between June (month 6) and August (month 
 </div>
 </div>
 <div class="section" id="functions-mapping-and-masking">
-<h2>functions, mapping, and masking<a class="headerlink" href="#functions-mapping-and-masking" title="Permalink to this headline">#</a></h2>
+<h2>functions, mapping, and masking<a class="headerlink" href="#functions-mapping-and-masking" title="Permalink to this heading">#</a></h2>
 <p>This gives us an <strong>ImageCollection</strong> that we can mosaic to produce a cloud-free mosaic. However, it is often the case that if
 we limit ourselves to “cloud-free” (i.e., the ‘CLOUD_COVER’ metadata value is equal to 0) images, we end up with very little to
 work with:</p>
@@ -1301,7 +1306,7 @@ pass that function to <code class="docutils literal notranslate"><span class="pr
 cloud pixels). If we want to include lower-confidence pixels as well, we can remove <code class="docutils literal notranslate"><span class="pre">.and(qa.bitwiseAnd(1</span> <span class="pre">&lt;&lt;</span> <span class="pre">7))</span></code> from our function.</p>
 </div>
 <div class="section" id="mosaicking">
-<h2>mosaicking<a class="headerlink" href="#mosaicking" title="Permalink to this headline">#</a></h2>
+<h2>mosaicking<a class="headerlink" href="#mosaicking" title="Permalink to this heading">#</a></h2>
 <p>Now that we have our collection of masked images, we’re ready to mosaic (combine) them together. Remember that right now, we have
 a number of overlapping images stored as an <strong>ImageCollection</strong> – what we want to do is combine all of the individual images
 into a single image that covers the whole area.</p>
@@ -1323,7 +1328,7 @@ this script takes an <em>average</em> (median) of all of the valid pixel values,
 make sense to use another method.</p>
 </div>
 <div class="section" id="buffering-geometries">
-<h2>buffering geometries<a class="headerlink" href="#buffering-geometries" title="Permalink to this headline">#</a></h2>
+<h2>buffering geometries<a class="headerlink" href="#buffering-geometries" title="Permalink to this heading">#</a></h2>
 <p>Note that so far, our images cover an area much larger than our area of interest, because <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.filterBounds()</span></code> takes any image
 that intersects the given geometry, even if it’s a tiny overlap.</p>
 <p>To restrict our mosaic to our area of interest, we can use <code class="docutils literal notranslate"><span class="pre">ee.Image.clip()</span></code>
@@ -1351,7 +1356,7 @@ So, we can apply a <strong>buffer</strong> to expand the outline, using <code cl
 <code class="docutils literal notranslate"><span class="pre">country</span></code> - we need to make sure that we’re using a <strong>Feature</strong>, as there is no <code class="docutils literal notranslate"><span class="pre">buffer</span></code> method for <strong>FeatureCollection</strong>s.</p>
 </div>
 <div class="section" id="clipping-images">
-<h2>clipping images<a class="headerlink" href="#clipping-images" title="Permalink to this headline">#</a></h2>
+<h2>clipping images<a class="headerlink" href="#clipping-images" title="Permalink to this heading">#</a></h2>
 <p>We can now use <code class="docutils literal notranslate"><span class="pre">ee.Image.clip()</span></code> with our buffered outline to clip the mosaic:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">median</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">median</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">buffered</span><span class="p">);</span>
 </pre></div>
@@ -1359,7 +1364,7 @@ So, we can apply a <strong>buffer</strong> to expand the outline, using <code cl
 <p>Now, when we add the image to the <strong>Map</strong>, areas outside of the coastline of Iceland (defined by our <strong>Feature</strong>) will be masked out.</p>
 </div>
 <div class="section" id="counting-valid-pixels">
-<h2>counting valid pixels<a class="headerlink" href="#counting-valid-pixels" title="Permalink to this headline">#</a></h2>
+<h2>counting valid pixels<a class="headerlink" href="#counting-valid-pixels" title="Permalink to this heading">#</a></h2>
 <p>One last thing we might want to do is see how many pixels went into the calculation – that is, how many valid (non-cloudy) pixels
 from the <strong>ImageCollection</strong> were there for each pixel of the mosaic?</p>
 <p>To do this, we use <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection.count()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-imagecollection-count">documentation</a>):</p>
@@ -1373,7 +1378,7 @@ from the <strong>ImageCollection</strong> were there for each pixel of the mosai
 <p><br /> In this image, darker blue colors represent fewer valid pixels, while green/yellow pixels represent more valid pixels.</p>
 </div>
 <div class="section" id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>This script also contains an <code class="docutils literal notranslate"><span class="pre">Export.image.toDrive()</span></code> call, to export the mosaicked + clipped image to Google Drive.</p>
 <p>If you’ve made it this far, you should be able to filter <strong>ImageCollection</strong>s and <strong>FeatureCollection</strong>s based
 on metadata and other properties (including <strong>Feature</strong>s). You’ve also seen how you can compare image bits to mask out cloudy

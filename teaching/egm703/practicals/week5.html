@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -32,7 +33,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script src="../../../_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +46,7 @@
     <link rel="next" title="additional resources" href="../resources.html" />
     <link rel="prev" title="InSAR Processing" href="week4.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -1192,7 +1197,7 @@ title="Print to PDF"
               <div>
                 
   <div class="section" id="sar-image-interpretation-and-flood-mapping">
-<h1>SAR image interpretation and flood mapping<a class="headerlink" href="#sar-image-interpretation-and-flood-mapping" title="Permalink to this headline">#</a></h1>
+<h1>SAR image interpretation and flood mapping<a class="headerlink" href="#sar-image-interpretation-and-flood-mapping" title="Permalink to this heading">#</a></h1>
 <p>For this week’s practical, we’re going to gain some first-hand experience interpreting SAR images with the help of
 near-contemporaneous Landsat images, as well as additional basemap layers. In particular, you should be able to:</p>
 <ul class="simple">
@@ -1239,9 +1244,9 @@ download your images.</p>
 downloaded from Earth Explorer and ASF, respectively, are between 600MB and 1 GB in size.</p>
 </div>
 <div class="section" id="getting-started">
-<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <div class="section" id="recommended-add-a-base-layer-in-qgis">
-<h3>recommended: add a base layer in QGIS<a class="headerlink" href="#recommended-add-a-base-layer-in-qgis" title="Permalink to this headline">#</a></h3>
+<h3>recommended: add a base layer in QGIS<a class="headerlink" href="#recommended-add-a-base-layer-in-qgis" title="Permalink to this heading">#</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you are using ArcGIS Pro, you can change the Basemap from the <strong>Map</strong> tab – by default, the <code class="docutils literal notranslate"><span class="pre">Topographic</span></code>
@@ -1270,7 +1275,7 @@ will be the same.</p>
 your interpretation.</p>
 </div>
 <div class="section" id="loading-the-surface-reflectance-images">
-<h3>loading the surface reflectance images<a class="headerlink" href="#loading-the-surface-reflectance-images" title="Permalink to this headline">#</a></h3>
+<h3>loading the surface reflectance images<a class="headerlink" href="#loading-the-surface-reflectance-images" title="Permalink to this heading">#</a></h3>
 <p>To begin, load the 02 April Landsat image into the map. If you followed the optional instructions above, remember that
 you can zoom to the image by right-clicking on the layer and selecting <strong>Zoom to Layer(s)</strong>.</p>
 <a class="reference internal image-reference" href="../../../_images/change_crs.png"><img alt="the QGIS map window, with the project CRS button outlined in red" class="align-center" src="../../../_images/change_crs.png" style="width: 600px;" /></a>
@@ -1326,7 +1331,7 @@ were acquired, what might cause such a large change in reflectance in this band?
 </div>
 </div>
 <div class="section" id="the-dual-polarimetry-rgb-image">
-<h2>the dual polarimetry rgb image<a class="headerlink" href="#the-dual-polarimetry-rgb-image" title="Permalink to this headline">#</a></h2>
+<h2>the dual polarimetry rgb image<a class="headerlink" href="#the-dual-polarimetry-rgb-image" title="Permalink to this heading">#</a></h2>
 <p>In the 654 false color composite, water appears blue/black, vegetation appears green, and built-up areas appear in
 shades of pink and purple. Using the basemap, have a look at the city of Midland, Michigan, approximately in the center
 of the image:</p>
@@ -1374,7 +1379,7 @@ and why they appear this way in the RGB image.</p>
 </div>
 </div>
 <div class="section" id="comparing-differences-between-rgb-composites">
-<h3>comparing differences between rgb composites<a class="headerlink" href="#comparing-differences-between-rgb-composites" title="Permalink to this headline">#</a></h3>
+<h3>comparing differences between rgb composites<a class="headerlink" href="#comparing-differences-between-rgb-composites" title="Permalink to this heading">#</a></h3>
 <p>Now, load the RGB composite from the second image (27 May):</p>
 <a class="reference internal image-reference" href="../../../_images/after_rgb.png"><img alt="a Sentinel-1 RGB image of central Michigan, on 27 May 2020." class="align-center" src="../../../_images/after_rgb.png" style="width: 600px;" /></a>
 <p><br /> In this image, you should notice that the vast majority of the agricultural land in the image changed from
@@ -1391,7 +1396,7 @@ VH files).</p>
 </div>
 </div>
 <div class="section" id="examining-differences-between-vv-vh-images">
-<h2>examining differences between VV, VH images<a class="headerlink" href="#examining-differences-between-vv-vh-images" title="Permalink to this headline">#</a></h2>
+<h2>examining differences between VV, VH images<a class="headerlink" href="#examining-differences-between-vv-vh-images" title="Permalink to this heading">#</a></h2>
 <p>Start by adding the VV band from the 15 May image to the <strong>Map</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/before_vv.png"><img alt="a Sentinel-1 VV-polarized image of central Michigan on 15 May 2020." class="align-center" src="../../../_images/before_vv.png" style="width: 600px;" /></a>
 <p><br /> When you first load this band into QGIS, it appears very dark due to the stretch that’s applied. Open the
@@ -1431,7 +1436,7 @@ your interpretation of the Landsat and Sentinel-1 RGB images, then scroll down t
 explanations/understanding match the given explanations.</p>
 </div>
 <div class="section" id="wind-patterns-1">
-<h3>wind patterns (#1)<a class="headerlink" href="#wind-patterns-1" title="Permalink to this headline">#</a></h3>
+<h3>wind patterns (#1)<a class="headerlink" href="#wind-patterns-1" title="Permalink to this heading">#</a></h3>
 <p>According to data from the National Oceanic and Atmospheric Administration (NOAA)’s
 <a class="reference external" href="https://www.ndbc.noaa.gov/station_page.php?station=sblm4">Saginaw Bay Light #1 station</a>, (43°48’36” N, 83°43’12” W),
 the measured wind speeds at 23:30 UTC on 15 May 2020 was 13.8 m s<sup>-1</sup>, with gusts to 16.4 m s<sup>-1</sup>.</p>
@@ -1460,7 +1465,7 @@ around 0.2 or so.</p>
 difference between the VV and VH bands is due to even less of the signal being returned with a changed polarization.</p>
 </div>
 <div class="section" id="forests-vs-agricultural-land-2">
-<h3>forests vs agricultural land (#2)<a class="headerlink" href="#forests-vs-agricultural-land-2" title="Permalink to this headline">#</a></h3>
+<h3>forests vs agricultural land (#2)<a class="headerlink" href="#forests-vs-agricultural-land-2" title="Permalink to this heading">#</a></h3>
 <p>The brightest parts of the cross-polarized (VH) image are going to be areas where we have more volume scattering,
 as volume scatterers tend to reflect more cross-polarized signals than other kinds of scatterers.</p>
 <p>The forests indicated by label 2 above stand out starkly in the VH image for this reason. Because of the
@@ -1471,13 +1476,13 @@ compared to the VV band. Because of the time of year (spring), fields are still 
 act as a rough surface scatterer, rather than a volume scatterer.</p>
 </div>
 <div class="section" id="urban-and-industrial-areas-3">
-<h3>urban and industrial areas (#3)<a class="headerlink" href="#urban-and-industrial-areas-3" title="Permalink to this headline">#</a></h3>
+<h3>urban and industrial areas (#3)<a class="headerlink" href="#urban-and-industrial-areas-3" title="Permalink to this heading">#</a></h3>
 <p>Urban or industrial areas, like the large factory complex indicated by label 3 in the image above, tend to be
 made up of lots of corner reflectors such as buildings. This means that buildings show up brightly in both the
 VV and VH bands.</p>
 </div>
 <div class="section" id="wetland-areas-4">
-<h3>wetland areas (#4)<a class="headerlink" href="#wetland-areas-4" title="Permalink to this headline">#</a></h3>
+<h3>wetland areas (#4)<a class="headerlink" href="#wetland-areas-4" title="Permalink to this heading">#</a></h3>
 <p>The Shiawassee National Wildlife Refuge, indicated by label 4 in the image above, is an area where the Shiawassee River
 widens into a large network of wetlands, before joining the Tittabawassee River to form the Saginaw River.</p>
 <p>Areas of standing water such as the river itself or the surrounding wetlands appear dark in both the VV and VH bands,
@@ -1487,7 +1492,7 @@ high backsatter in both the VV and VH bands.</p>
 </div>
 </div>
 <div class="section" id="mapping-flood-extent-using-sar">
-<h2>mapping flood extent using SAR<a class="headerlink" href="#mapping-flood-extent-using-sar" title="Permalink to this headline">#</a></h2>
+<h2>mapping flood extent using SAR<a class="headerlink" href="#mapping-flood-extent-using-sar" title="Permalink to this heading">#</a></h2>
 <p>Now that you’ve spent some time looking at the different images available and working on interpreting what you can see
 in the SAR images, we can use the before and after SAR images to map the extent of the flooding that remained on
 27 May.</p>
@@ -1510,7 +1515,7 @@ quite a bit of flood water remaining.</p>
 <p>There are a few other areas where you can see large changes in backscatter - have a look around to see what other areas
 you notice, before moving on to the next section.</p>
 <div class="section" id="creating-a-water-mask">
-<h3>creating a water mask<a class="headerlink" href="#creating-a-water-mask" title="Permalink to this headline">#</a></h3>
+<h3>creating a water mask<a class="headerlink" href="#creating-a-water-mask" title="Permalink to this heading">#</a></h3>
 <p>To map water in the image, we will first convert the <span class="math notranslate nohighlight">\(\sigma^0\)</span> amplitude image to a decibel (dB) scale, to
 help emphasize the differences in values.</p>
 <p>The equation that we will use is:</p>
@@ -1608,7 +1613,7 @@ the <strong>Input layer</strong>, and save the file to <code class="docutils lit
 </div>
 </div>
 <div class="section" id="using-the-difference-between-bands">
-<h3>using the difference between bands<a class="headerlink" href="#using-the-difference-between-bands" title="Permalink to this headline">#</a></h3>
+<h3>using the difference between bands<a class="headerlink" href="#using-the-difference-between-bands" title="Permalink to this heading">#</a></h3>
 <p>In addition to using the individual bands to map water, we can also map differences between bands using the
 <strong>Raster Calculator</strong>.</p>
 <p>Before looking at the differences, though, make sure to convert the “Before” VV and VH bands to dB - this will help
@@ -1652,7 +1657,7 @@ think this is?</p>
 </div>
 </div>
 <div class="section" id="using-the-log-difference">
-<h3>using the log difference<a class="headerlink" href="#using-the-log-difference" title="Permalink to this headline">#</a></h3>
+<h3>using the log difference<a class="headerlink" href="#using-the-log-difference" title="Permalink to this heading">#</a></h3>
 <p>When looking at the difference image, you might notice that the image appears “noisy”, with a speckled pattern to the
 differences.</p>
 <p>In addition to looking at the difference in dB, we can also look at the “log difference”, or the difference of the
@@ -1677,7 +1682,7 @@ on which interval the pixel value falls into. This is another way that we can re
 </div>
 </div>
 <div class="section" id="next-steps">
-<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">#</a></h2>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>In this practical, we’ve seen how we can interpret SAR images with the help of more familiar Landsat images and other
 data, and seen different ways that we can look at changes in SAR images, including:</p>
 <ul class="simple">
