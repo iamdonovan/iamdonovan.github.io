@@ -709,8 +709,11 @@ something like this:
     :far:`circle-question` Question
     ^^^
 
-    Compare the mean and median temperature values for each month. What does this tell you about the distribution
-    of temperature values?
+    - Compare the mean and median temperature values for each month. What does this tell you about the distribution
+      of temperature values within those months?
+    - What month(s) have the most variation in temperature (``Tmax``, ``Tmean``, and ``Tmin``), as measured by the
+      standard deviation? How does this compare to the differences between the mean and median temperature values for
+      those months?
 
 
 annual averages
@@ -968,7 +971,7 @@ increase the font sizes like we did for the histogram:
     ^^^
 
     - What month has the highest average temperature? What about the lowest?
-    - What month(s) have the largest spread in temperatures? What might this tell you about the weather in those months?
+    - What month(s) have the smallest spread in temperature? What might this tell you about the weather in those months?
 
 
 .. note::
