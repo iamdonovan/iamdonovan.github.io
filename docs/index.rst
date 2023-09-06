@@ -13,7 +13,7 @@ space cameras and glaciers
    whataboutbob
    teaching/index
    gee/index
-   rs_notes/index
+   rs/index
    research/index
    writing/index
    github
