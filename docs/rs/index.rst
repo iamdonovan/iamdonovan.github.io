@@ -6,7 +6,7 @@ Lorem ipsum, etc.
 
 .. toctree::
    :glob:
-   :maxdepth: 2
+   :maxdepth: 1
 
    whatis
    fundamentals/index
