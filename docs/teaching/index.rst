@@ -22,3 +22,4 @@ working on delivering/developing your own modules, please feel free to use and a
    egm722/index
    unis/index
    r-programming/index
+   dissertation/index
