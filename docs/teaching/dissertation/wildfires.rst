@@ -7,8 +7,9 @@ description
 Wildfire occurrence is increasing in different regions around the world, due in part to human-induced climate change.
 Several techniques exist to identify and monitor both active and past fire extents using satellite remote sensing,
 including the use of both thermal remote sensing and Synthetic Aperture Radar (SAR). In this project, you will use a
-variety of remote sensing and GIS techniques to investigate wildfires in a study region to be determined. Suitable for
-a student with an interest in remote sensing/GIS, land use management, or hazard and risk management.
+variety of remote sensing and GIS techniques to investigate wildfires in a study region to be determined.
+
+Suitable for a student with an interest in remote sensing/GIS, land use management, or hazard and risk management.
 
 
 example references

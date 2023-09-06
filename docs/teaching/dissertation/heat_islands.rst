@@ -9,8 +9,9 @@ there can be considerable variation in temperature. This effect, known as the â€
 physical properties of the built environment, which tends to absorb solar energy and trap heat. Urban heat islands can
 have a direct impact on the health and welfare of residents, and the effects are often worse in poorer areas of a city.
 In this project, you will use a combination of satellite remote sensing and GIS to investigate aspects of urban heat
-islands in a study area to be determined. Suitable for a student with an interest in remote sensing/GIS, social policy,
-or sustainable development.
+islands in a study area to be determined.
+
+Suitable for a student with an interest in remote sensing/GIS, social policy, or sustainable development.
 
 example references
 -------------------

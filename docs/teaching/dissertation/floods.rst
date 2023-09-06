@@ -8,6 +8,7 @@ Floods can inundate large areas, causing damage to agricultural lands, property,
 loss of life. Satellite remote sensing, especially Synthetic Aperture Radar (SAR), is a key tool for identifying and
 mapping flood-prone areas, helping to improve flood management and mitigate these damaging effects. In this project,
 you will investigate the use of GIS and remote sensing to identify flood-prone areas in a study region to be determined.
+
 Suitable for a student with an interest in remote sensing/GIS, land use management, or hazard and risk management.
 
 example references

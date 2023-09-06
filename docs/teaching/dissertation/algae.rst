@@ -9,8 +9,9 @@ effects associated with pollution and climate change. The growth of available sa
 an effective tool for detecting and monitoring these events. Methods used to detect harmful algal blooms from satellite
 imagery range from relatively simple indices to more complex machine learning approaches. For this project, you will
 investigate the use of optical satellite imagery to detect harmful algal blooms, with the potential for investigating
-both inland water bodies or coastal areas. Suitable for a student with interest in satellite remote sensing and water
-quality monitoring.
+both inland water bodies or coastal areas.
+
+Suitable for a student with interest in satellite remote sensing and water quality monitoring.
 
 example references
 -------------------

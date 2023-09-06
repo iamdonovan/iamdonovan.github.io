@@ -8,8 +8,10 @@ Supraglacial lakes are a significant source of water that has the potential to r
 increasing glacier velocities, which in turn can impact glacier stability, local ecosystems, and global sea levels.
 For this project, you will use optical and radar satellite imagery to detect supraglacial lakes in an area to be
 discussed. The goal is to to determine if and when they drain, and given the availability of digital elevation models
-in the selected study area, estimate lake volumes through time. Suitable for a student with interest in satellite
-remote sensing/GIS, glaciology, or even some computer programming (Python/Matlab or similar).
+in the selected study area, estimate lake volumes through time.
+
+Suitable for a student with interest in satellite remote sensing/GIS, glaciology, or even some computer programming
+(Python/Matlab or similar).
 
 example references
 -------------------
