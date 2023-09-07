@@ -46,8 +46,9 @@ glaciers on Iceland, some of which you can see in the image above. From this dir
 measurements back in time.
 
 The good news is, we can map the glacier extent of Vatnajökull and other glaciers in a few hours (or faster) using
-satellite images. With some of the datasets we’ll look at later, we can even map the glacier extents back to the early
-1970s from satellite images.
+satellite images like the one shown above. With some of the datasets we’ll look at later, we can even map the glacier
+extents back to the early 1970s from satellite images. And of course, we're not limited to glaciers - we'll look at
+many other examples of ways that we can use remote sensing to study the Earth's surface.
 
 the remote sensing process
 ---------------------------
