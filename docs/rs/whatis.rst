@@ -4,9 +4,11 @@ what is remote sensing?
 definition
 -----------
 
-If we open up a textbook to look for a definition of *remote sensing*, we might find examples like the following:
+If we open up a textbook to look for a definition of *remote sensing*, we might find examples like this one:
 
     Remote Sensing is the **acquiring of data** about an object **without touching it**\ [1]_
+
+or:
 
     Photogrammetry and Remote Sensing is the art, science, and technology of **obtaining reliable information** from
     **non-contact imaging and other sensor systems** about the Earth and its environment, and other physical objects
