@@ -21,9 +21,9 @@ specialized and reproducible analysis. The topics covered include (but are not l
 - Basic statistical analysis using **R**
 - Project organization and "tidy" data
 
-
 Before moving on to the :doc:`practicals<exercises/index>` below, be sure to visit the
 :doc:`setup<setup/index>` page to make sure that you have the software and materials set up in order to get started.
+
 
 +---------+-------------------------+--------------------------------+
 | session | theme                   | exercise topic(s)              |
@@ -48,6 +48,15 @@ Before moving on to the :doc:`practicals<exercises/index>` below, be sure to vis
 +---------+-------------------------+--------------------------------+
 | 8       | byod project work       |                                |
 +---------+-------------------------+--------------------------------+
+
+.. note::
+
+    If you are unable to install all of the software on your own machine, you can still work through the exercises
+    online by clicking the badge below:
+
+    .. image:: https://mybinder.org/badge_logo.svg
+        :target: https://mybinder.org/v2/gh/iamdonovan/intro-to-r/binder
+
 
 notes
 -------
