@@ -133,9 +133,12 @@ What you end up using is ultimately a matter of taste, but when you're first sta
 to do your initial analysis in a notebook format, and move the code to a script once you've got things running
 smoothly.
 
-If you are working with notebooks, however, it's usually a good idea to clear the outputs before committing the file
-using git (remember that these outputs are automatically generated, which means there's not much point in keeping
-track of them). This helps avoid potential merge conflicts, and it cuts down on the file size if you have a lot of
+If you are working with notebooks, however, it's usually a good idea to **clear the outputs** before committing the file
+using git (remember: these outputs are automatically generated, which means there's not much point in keeping
+track of them!).
+
+This helps avoid potential merge conflicts, and it cuts down on the file size if you have a lot of plots or other
+embedded images/files in your notebook.
 
 
 notes
