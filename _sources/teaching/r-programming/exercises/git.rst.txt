@@ -7,9 +7,19 @@ of a folder.
 navigating the command prompt
 -------------------------------
 
-To start, open the **Anaconda Command Prompt** for your ``intro-to-r`` environment. You should start in your ``%HOME%``
-directory (e.g., ``C:\Users\<your username>``). At the command prompt, you can see what directory you are currently in
-by looking at the text before the ``>`` symbol:
+To start, open the **Anaconda Command Prompt** for your ``intro-to-r`` environment.
+
+.. note::
+
+    These instructions assume that you are working from a **Windows** environment. If you are working on a different
+    operating system (e.g., MacOS, ChromeOS, Linux), the instructions will be more or less the same, though some of the
+    commands may differ slightly, and the name of the program you use will be different.
+
+    For example, instead of the **Anaconda Command Prompt**, you should open a **Terminal**
+
+
+You should start in your ``%HOME%`` directory (e.g., ``C:\Users\<your username>``)\ [#]_. At the command prompt, you can
+see what directory you are currently in by looking at the text before the ``>`` symbol:
 
 .. code-block:: text
 
@@ -47,7 +57,7 @@ this from the path, leaving just ``intro-to-r``:
 
     cd intro-to-r
 
-To see the contents of the directory, we can use the **dir** command:
+To see the contents of the directory, we can use the **dir** command\ [#]_:
 
 .. code-block:: text
 
@@ -208,7 +218,9 @@ staging changes
 ----------------
 
 Now that we've added our ingredients, let's get ready to commit the changes. Remember that this is a two step process:
-first, we have to *stage* our commits, using **git add**. To stage **ingredients.txt**, enter the following command:
+first, we have to *stage* our commits, using **git add**.
+
+To stage **ingredients.txt**, enter the following command:
 
 .. code-block:: text
 
@@ -216,7 +228,7 @@ first, we have to *stage* our commits, using **git add**. To stage **ingredients
 
 If we use **git status** again, we should see that we have changes "to be committed" for one file:
 
-.. image:: img/git/status_commit.png
+.. image:: img/git/git_add.png
     :width: 600
     :align: center
     :alt: git add showing that changes are to be committed
@@ -242,7 +254,7 @@ Remember that we want our commit messages to:
 - explain why something was changed. For a longer commit message, this happens in the *body*; for shorter commit
   messages, this happens in the title.
 
-We should also be specific - remember that you are writing these for *future you* as much as for anyone else, so try
+We should also be specific - remember that you are writing these for "*future you*" as much as for anyone else, so try
 to write something that will still be clear to you several years from now!
 
 In this commit, we have added a number of ingredients to our recipe, so a good commit message might say this:
@@ -392,6 +404,14 @@ to help keep the "tree" nicely pruned:
 .. code-block::
 
     git branch -d recipe
+
+notes
+------
+
+.. [#] In MacOS, it will most likely be ``/Users/<your username>``, and on Linux (including ChromeOS), it will most
+  likely be ``/home/<your username>``.
+
+.. [#] In MacOS/ChromeOS/Linux, use **ls** to "list" the contents of the directory, instead of **dir**
 
 next steps
 -----------

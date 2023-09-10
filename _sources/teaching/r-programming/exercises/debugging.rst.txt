@@ -58,7 +58,7 @@ In the first terminal window that you opened, launch **R** by typing ``R`` at th
 |br| In the previous exercise, you got some experience running **R** commands through a jupyter notebook, where each
 cell contains snippets of code for the **R** interpreter to *execute* (run).
 
-The **R** terminal that you have opened works in much the same way - you can type individual commands or lines of code,
+The **R** console that you have opened works in much the same way - you can type individual commands or lines of code,
 and the interpreter will execute them.
 
 This is not necessarily the ideal way to run code, however - for one thing, it would be a lot of typing every time we
@@ -69,8 +69,8 @@ A *script* is a collection of commands that the interpreter runs sequentially (a
 write down our commands in one place, and repeatedly run them in exactly the same way.
 
 From inside the **R** interpreter, we can run a script using the ``source()`` function
-(`documentation <https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/source>`__). The first argument to
-the function is ``file``, the pathname or URL for the file to read from.
+(`documentation <https://rdrr.io/r/base/source.html>`__). The first argument to the function is ``file``, the pathname
+or URL for the file to read from.
 
 To run the guessing game script, enter the following at the **R** prompt:
 
@@ -249,7 +249,7 @@ You should see something like the following output:
     :align: center
     :alt: the corrected script, now merged back into the main branch
 
-And that's it! If you like, you can now delete the ``debug`` branch using the following command:
+|br| And that's it! If you like, you can now delete the ``debug`` branch using the following command:
 
 .. code-block:: text
 
