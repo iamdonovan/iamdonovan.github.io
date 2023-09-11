@@ -51,8 +51,8 @@ you may need to login to your **GitHub** account - see :doc:`here<desktop>` for 
     :alt: the starting point for github desktop
 
 |br| You should also see your repository listed under **Your repositories**. Click on
-**Clone a repository from the Internet**, and you should see your forked version of the **egm722** repository
-(it will be listed as :samp:`<{your_github_username}>/egm722`):
+**Clone a repository from the Internet**, and you should see your forked version of the **intro-to-r** repository
+(it will be listed as :samp:`<{your_github_username}>/intro-to-r`):
 
 .. image:: ../../../img/egm722/setup/clone/desktop_clone.png
     :width: 600
