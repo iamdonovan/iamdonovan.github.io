@@ -90,7 +90,7 @@ changing environments
 
 The next thing to do is to switch to the **Home** tab in **Anaconda Navigator**:
 
-.. image:: ../../../img/egm722/setup/environment/new_home.png
+.. image:: img/new_home.png
     :width: 720
     :align: center
     :alt: anaconda navigator showing the home tab in the new environment
@@ -108,7 +108,7 @@ setting up the command prompt
 
 The final step covered in this manual is to install the **CMD.exe Prompt** for this environment:
 
-.. image:: ../../../img/egm722/setup/environment/cmd_prompt.png
+.. image:: img/cmd_prompt.png
     :width: 720
     :align: center
     :alt: anaconda navigator with the CMD.exe button highlighted
