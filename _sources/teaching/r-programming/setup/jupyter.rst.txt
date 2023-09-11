@@ -19,10 +19,14 @@ At the command prompt, enter the following command:
 
 You should see something like the following:
 
-|br| **ouptut**
+.. image:: img/generate_config.png
+    :width: 600
+    :align: center
+    :alt: the command prompt, showing that the jupyter lab config file is being written
 
-Next, open the file (it should be located at ``%HOME%\.jupyter\jupyter_lab_config.py``) in **Notepad++** or a similar
-text editor, and search for ``c.ServerApp.terminado_settings`` (for me, this was at line 1062):
+|br| Next, open the file (it should be located at ``%HOME%\.jupyter\jupyter_lab_config.py``, but check the output in
+the command prompt) in **Notepad++** or a similar text editor, and search for ``c.ServerApp.terminado_settings``
+(for me, this was at line 1062):
 
 .. image:: img/jupyter_settings.png
     :width: 600
