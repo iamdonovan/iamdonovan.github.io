@@ -321,6 +321,7 @@ least one of the following suggestions:
    remove missing values!
 -  What is the relationship between ``tmin`` and ``sun``? does it change
    by season?
--  Set up and fit a multiple linear regression model for ``tmin`` as a
-   function of ``air_frost``, ``sun``, and ``rain`` in the winter. Which
-   of these variables has the strongest effect on ``tmin``?
+-  Set up and fit a multiple linear regression model for ``air_frost``
+   as a function of ``tmax``, ``tmin``, ``sun``, and ``rain`` in the
+   winter. Which of these variables has the strongest effect on
+   ``air_frost``?
