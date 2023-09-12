@@ -30,7 +30,8 @@ git resources
   project within the `Nordic e-Infrastructure Collaboration <https://neic.no/>`__ that provides training courses and
   workshops in scientific programming and computing. This course provides a good introduction to using GitHub (and git)
   without the command line tools.
-
+- `Oh My Git! <https://ohmygit.org/>`__: An open source game about learning git - similar to learn git branching above,
+  but presented in a gameified format to help you learn + understand the commands and concepts surrounding git.
 
 other resources
 ----------------
