@@ -62,7 +62,11 @@ html_css_files = [
 ]
 
 html_theme_options = {
-    'navigation_depth': 6
+    'navigation_depth': 6,
+    'repository_url': 'https://github.com/iamdonovan/iamdonovan.github.io',
+    'use_repository_button': True,
+    'use_issues_button': True,
+    'use_edit_page_button': True
 }
 
 # -- Aliases -----------------------------------------------------------------
