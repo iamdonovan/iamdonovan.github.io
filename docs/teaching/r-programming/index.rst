@@ -1,5 +1,5 @@
-programming skills for phd researchers
-=======================================
+programming skills for phd researchers (using R)
+=================================================
 
 .. note::
 
@@ -30,6 +30,7 @@ specialized and reproducible analysis. The topics covered include (but are not l
 - Introduction to the **R** programming language
 - Reading and understanding error messages to fix issues
 - Plotting data using ``ggplot2``
+- Reading and transforming datasets
 - Basic statistical analysis using **R**
 - Project organization and "tidy" data
 
