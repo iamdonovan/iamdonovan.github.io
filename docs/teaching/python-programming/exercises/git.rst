@@ -25,22 +25,22 @@ see what directory you are currently in by looking at the text before the ``>`` 
 
     (intro-to-r) C:\Users\bob>
 
-In the example above, ``(intro-to-r)`` tells me that I am currently using my ``intro-to-r`` conda environment, while
-``C:\Users\bob`` tells me that I am in my ``%HOME%`` folder (assuming that my username is ``bob``, that is).
+In the example above, ``(intro-to-python)`` tells me that I am currently using my ``intro-to-python`` conda environment,
+while ``C:\Users\bob`` tells me that I am in my ``%HOME%`` folder (assuming that my username is ``bob``, that is).
 
 When I *cloned* the workshop repository to my computer, I cloned it into a folder located in my ``%HOME%`` directory -
 that is, the **absolute** path of the folder is:
 
 .. code-block:: text
 
-    C:\Users\bob\intro-to-r
+    C:\Users\bob\intro-to-python
 
 If I want to navigate into this folder, I can use the **cd** command ("change directory"), along with the
 **absolute** path, to do so:
 
 .. code-block:: text
 
-    cd C:\Users\bob\intro-to-r
+    cd C:\Users\bob\intro-to-python
 
 If you run this command, replacing the path with whatever it is on your own computer, you should see that your
 current directory changes to that folder:
@@ -51,11 +51,11 @@ current directory changes to that folder:
     :alt: the result of using the cd command
 
 |br| You could also use a **relative** path - because I am already located in my ``%HOME%`` directory, I can also omit
-this from the path, leaving just ``intro-to-r``:
+this from the path, leaving just ``intro-to-python``:
 
 .. code-block:: text
 
-    cd intro-to-r
+    cd intro-to-python
 
 To see the contents of the directory, we can use the **dir** command\ [#]_:
 
