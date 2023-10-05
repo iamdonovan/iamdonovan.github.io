@@ -1,14 +1,22 @@
-configuring jupyterlab
-=======================
+configuring the jupyterlab terminal
+=====================================
 
-To be able to run **R** from JupyterLab, we have one (possibly two) final pieces of configuration to do.
+.. note::
 
+    If you have taken the :doc:`R workshop <../../r-programming/index>`, you may not need to do this step - you can
+    check by launching **Jupyter Lab**, then opening a **Terminal**.
 
-changing the terminal (windows only)
--------------------------------------
+    If you see a prompt that looks like the following:
+
+    .. code-block:: text
+
+        (intro-to-python) C:\Users\bob\github\intro-to-python>
+
+    Then you have already changed the terminal from the default **PowerShell** to the **Command Prompt**, and you can
+    move on to installing :doc:`PyCharm<pycharm>`.
 
 If you are using Windows, we need to change the **terminal** from the default (**PowerShell**) to the **Command Prompt**
-(**CMD.exe**). To begin, open the **Anaconda Command Prompt**, making sure that your ``intro-to-r`` environment is
+(**CMD.exe**). To begin, open the **Anaconda Command Prompt**, making sure that your ``intro-to-python`` environment is
 activated.
 
 At the command prompt, enter the following command:
@@ -53,7 +61,7 @@ the command prompt) in **Notepad++** or a similar text editor, and search for ``
     printed out from that command.
 
 Once you have changed the file, save the changes, then close it. Now, launch **JupyterLab** from the command prompt
-(again, making sure that your ``intro-to-r`` environment is active):
+(again, making sure that your ``intro-to-python`` environment is active):
 
 .. code-block:: text
 
@@ -76,55 +84,5 @@ Next, click on **Terminal** under **Other** to launch a terminal window. You sho
     :align: center
     :alt: jupyterlab open in a browser window, with a terminal window opened
 
-|br| If you don't see a **Command Prompt** session with your ``intro-to-r`` environment activated, please let me know
-and I will do my best to help troubleshoot.
-
-using **R**
--------------
-
-To check that **JupyterLab** is configured to run **R**, first launch **JupyterLab** from the
-**Anaconda Command Prompt**, making sure that your ``intro-to-r`` environment is activated:
-
-.. code-block:: text
-
-    jupyter lab
-
-You should see a browser window like this open up:
-
-.. image:: img/jupyterlab_open.png
-    :width: 720
-    :align: center
-    :alt: jupyterlab open in a browser window
-
-|br|
-
-.. note::
-
-    If you don't see this exactly, don't worry. Click the blue **+** button in the upper left-hand corner of the window
-    to open the **Launcher**.
-
-Next, click on **R** under the **Console** heading (second one down), to open the **R Console**:
-
-.. image:: img/r_console.png
-    :width: 720
-    :align: center
-    :alt: jupyterlab open in a browser window
-
-|br|
-
-If you see ``R | Idle`` in the lower left-hand corner, as in the screenshot above, congratulations! You don't need to
-do anything further.
-
-If, however, you don't see this, go ahead and shut down JupyterLab (**File** > **Shutdown**). In your **Command Prompt**
-window, open the **R** terminal by typing ``R`` at the prompt and pressing **Enter**.
-
-Finally, copy and paste (or type) the following into the console, which will tell Jupyter about the **R** kernel:
-
-.. code-block:: r
-
-    IRkernel::installspec()
-
-When this finishes, type ``q()`` and press enter to quit **R**.
-
-To check that this has worked, re-launch JupyterLab and open the **R** console - you should now see that **R** is
-connected to JupyterLab, as in the screenshot above.
+|br| If you don't see a **Command Prompt** session with your ``intro-to-python`` environment activated, please let me
+know and I will do my best to help troubleshoot.
