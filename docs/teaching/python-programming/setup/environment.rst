@@ -44,13 +44,13 @@ Open the **environment.yml** file in a text editor
 
 It should look something like this (the exact list of dependencies may differ somewhat):
 
-.. image:: img/r_intro_environment.png
+.. image:: img/python_intro_environment.png
     :width: 600
     :align: center
     :alt: the yml file open in notepad++
 
-|br| Here, you can see the name of the environment (**intro-to-r**), the ``channels`` to install packages from, listed in
-order of preference, and the ``dependencies``, or required packages.
+|br| Here, you can see the name of the environment (**intro-to-python**), the ``channels`` to install packages from,
+listed in order of preference, and the ``dependencies``, or required packages.
 
 From the **Anaconda Navigator** window, click on the **Import** button at the bottom of the **Environments** tab. An
 import window will open:
@@ -63,25 +63,24 @@ import window will open:
 |br| Click the folder icon to navigate to the **environment.yml** file on the **Local drive**, select it and click
 **Open**. The window should now look like this:
 
-.. image:: img/import_r.png
+.. image:: img/import_python.png
     :width: 400
     :align: center
     :alt: the import window with the yml file selected
 
 |br| The **Name** field should be automatically populated based on the **.yml** file, but if it isn't make sure to
-change the name to **intro-to-r**.
+change the name to **intro-to-python**.
 
 Click **Import** to start setting up the environment. Depending on your connection speed and computer’s specifications,
 this may take some time. When it finishes, you should see the following screen:
 
-.. image:: img/r_environment.png
+.. image:: img/python_environment.png
     :width: 720
     :align: center
     :alt: anaconda navigator with the intro-to-r environment
 
-|br| Note how many packages were actually installed – 329, from the 5 shown in the original **.yml** file. By
-
-This is because each of those 5 packages have additional dependencies which have to be installed as well. Fortunately,
+|br| Note how many packages were actually installed – XXX, from the XXX shown in the original **.yml** file. This is
+because each of those 5 packages have additional dependencies which have to be installed as well. Fortunately,
 all of this is done automatically by **conda** – we don’t have to worry about tracking down and installing each
 individual dependency on our own.
 
@@ -98,10 +97,10 @@ The next thing to do is to switch to the **Home** tab in **Anaconda Navigator**:
 |br| You should see that you have two different environments when you open the dropdown menu next to **Applications on**.
 Whenever you want to switch environments in **Anaconda Navigator**, you can select the environment from this menu.
 
-You should see that when you change between the ``base`` and ``intro-to-r`` environments, the list of installed
+You should see that when you change between the ``base`` and ``intro-to-python`` environments, the list of installed
 applications changes – this is because we have not installed the same applications in the different environments.
 
-.. _phd conda prompt:
+.. _phdpy conda prompt:
 
 setting up the command prompt
 ...............................
@@ -114,11 +113,11 @@ The final step covered in this manual is to install the **CMD.exe Prompt** for t
     :alt: anaconda navigator with the CMD.exe button highlighted
 
 |br| While not strictly required, this will enable you to directly launch a **Windows Command Prompt** with your
-**intro-to-r** environment already loaded.
+**intro-to-python** environment already loaded.
 
 If you run the **Anaconda Prompt** from the **Start Menu**, it will automatically load the default (``base``)
 environment, and you will need to switch environments using the ``conda activate`` command when you want to use your
-**intro-to-r** environment.
+**intro-to-python** environment.
 
 Once you have the conda environment set up, you are ready to move on to configuring **jupyter**.
 
@@ -153,7 +152,7 @@ Next, navigate to where you have cloned the repository using ``cd``:
 
 .. code-block:: text
 
-    cd c:\Users\bob\intro-to-r
+    cd c:\Users\bob\intro-to-python
 
 If you're in the right place, you should see all of the files from the repository when you enter the ``dir`` command.
 

@@ -1,10 +1,10 @@
 setup
 ======
 
-To get started with the exercises, you'll need to install **git**, **conda**, and **Rstudio** on your computer.
+To get started with the exercises, you'll need to install **git**, **conda**, and **PyCharm** on your computer.
 
 You will also need a **GitHub** account, and you'll need to fork and clone the
-`GitHub repository <https://github.com/iamdonovan/intro-to-r>`__ for the workshop.
+`GitHub repository <https://github.com/iamdonovan/intro-to-python>`__ for the workshop.
 
 Finally, you'll need to set up a **conda** environment so that you can install the packages that we will use
 for the exercises.

@@ -21,7 +21,7 @@ Now, enter the following command:
 
 .. code-block:: text
 
-    git clone https://github.com/your_username/intro-to-r.git
+    git clone https://github.com/your_username/intro-to-python.git
 
 .. warning::
 
@@ -51,8 +51,8 @@ you may need to login to your **GitHub** account - see :doc:`here<desktop>` for 
     :alt: the starting point for github desktop
 
 |br| You should also see your repository listed under **Your repositories**. Click on
-**Clone a repository from the Internet**, and you should see your forked version of the **intro-to-r** repository
-(it will be listed as :samp:`<{your_github_username}>/intro-to-r`):
+**Clone a repository from the Internet**, and you should see your forked version of the **intro-to-python** repository
+(it will be listed as :samp:`<{your_github_username}>/intro-to-python`):
 
 .. image:: ../../../img/egm722/setup/clone/desktop_clone.png
     :width: 600
