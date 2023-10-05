@@ -106,7 +106,7 @@ files, a folder for figures that I generate, and so on.
 Whatever way you go, remember to keep clear, consistent filenames. Remember that within your git repository, you don't
 need to resort to the nightmare fuel method of naming files:
 
-.. image:: img/nightmare_fuel.png
+.. image:: ../../r-programming/exercises/img/nightmare_fuel.png
     :width: 500
     :align: center
     :alt: a folder with filenames such as "project", "project final", "project final 2", and so on
