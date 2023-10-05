@@ -34,7 +34,7 @@ for your current operating system (Windows, MacOS, or linux).
 Once you have downloaded the installer, follow the instructions in the installation wizard. Once the installation has
 completed, open PyCharm CE.
 
-.. _create project:
+.. _phd create project:
 
 creating a new project
 -----------------------
@@ -237,7 +237,7 @@ get you started. If you're interested in learning more of the features, here are
 - Pycharm Tutorial #1 [`Tech With Tim <https://www.youtube.com/watch?v=56bPIGf4us0>`__]
 
 
-.. _adding interpreter:
+.. _phd adding interpreter:
 
 adding an interpreter
 ----------------------
