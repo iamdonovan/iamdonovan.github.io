@@ -113,7 +113,7 @@ need to resort to the nightmare fuel method of naming files:
 
 |br| git keeps track of your changes, which means you don't have to add "versions" to the filename itself\ [1]_.
 
-In a :doc:`future exercise <transform>`, we will see how using consistent filenames also makes it easier to write
+In a :doc:`future exercise <pandas>`, we will see how using consistent filenames also makes it easier to write
 code that loads and uses the data that we need for analysis - in the long run, it's less work required to find things
 and use them when you need them. And remember, one of the main motivations for programming is laziness. :)
 
