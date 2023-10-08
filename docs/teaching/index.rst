@@ -21,5 +21,6 @@ working on delivering/developing your own modules, please feel free to use and a
    egm703/index
    egm722/index
    unis/index
-   r-programming/index
    python-programming/index
+   r-programming/index
+
