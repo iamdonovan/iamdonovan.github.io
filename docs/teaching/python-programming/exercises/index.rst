@@ -22,3 +22,6 @@ haven't, you will have a difficult time getting started on the exercises.
    intro
    debugging
    plotting
+   pandas
+   stats
+   regression
