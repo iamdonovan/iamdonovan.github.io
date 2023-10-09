@@ -68,18 +68,7 @@ plot to an object called ``rain_tmax_plot``:
 
 .. code:: ipython3
 
-    rain_tmax_plot = sns.lmplot(data=station_data, x='rain', y='tmax', hue='season', markers=['o', 'x', 's', '+'])
     rain_tmax_plot # show the plot
-
-
-
-
-.. parsed-literal::
-
-    <seaborn.axisgrid.FacetGrid at 0x7f1b9ff37410>
-
-
-
 
 .. image:: regression_files/regression_5_1.png
 
