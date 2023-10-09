@@ -38,8 +38,7 @@ First, we’ll import the various packages that we will be using here:
 -  `seaborn <https://seaborn.pydata.org/>`__, for plotting the data;
 -  `scipy.stats <https://docs.scipy.org/doc/scipy/reference/stats.html>`__,
    for calculating correlation coefficients;
--  `statsmodels.api <https://www.statsmodels.org/dev/index.html>`__, for
-   linear regression;
+-  `pingouin <https://pingouin-stats.org/>`__, for linear regression;
 -  `pathlib <https://docs.python.org/3/library/pathlib.html>`__, for
    working with filesystem paths.
 
@@ -48,7 +47,7 @@ First, we’ll import the various packages that we will be using here:
     import pandas as pd
     import seaborn as sns
     from scipy import stats
-    import statsmodels.api as sm
+    import pingouin as pg
     from pathlib import Path
 
 Next, we’ll use ``pd.read_csv()`` to load the combined station data:
@@ -68,6 +67,8 @@ plot to an object called ``rain_tmax_plot``:
 
 .. code:: ipython3
 
+    rain_tmax_plot = sns.lmplot(data=station_data, x='rain', y='tmax', hue='season', markers=['o', 'x', 's', '+'])
+    # your code goes here!
     rain_tmax_plot # show the plot
 
 .. image:: regression_files/regression_5_1.png
@@ -183,6 +184,18 @@ calculated correlation:
     print(f"calculated value of r: {corr.statistic:.3f}")
     print(f"calculated p-value of r: {corr.pvalue}")
 
+And, using ``pg.corr()``
+(`documentation <https://pingouin-stats.org/build/html/generated/pingouin.corr.html>`__)
+gives us even more information, such as the confidence interval for the
+correlation value, as well as additional options for calculating the
+correlation coefficient:
+
+.. code:: ipython3
+
+    # calculate the biweight midcorrelation between rain and tmax
+    pg.corr(station_data.dropna(subset=['rain', 'tmax'])['rain'],
+            station_data.dropna(subset=['rain', 'tmax'])['tmax'], method='bicor')
+
 simple linear regression
 ------------------------
 
@@ -199,72 +212,51 @@ Remember that a linear model with a single variable has the form:
 .. math::  y = \beta + \alpha x,
 
 where :math:`\beta` is the intercept and :math:`\alpha` is the slope of
-the line. To fit a linear model using ordinary least squares, we can
-first use ``sm.OLS()``
-(`documentation <https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLS.html>`__)
-to create an **OLS** object, then use the ``.fit()`` method
-(`documentation <https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLS.fit.html>`__)
-of that object.
+the line. To fit a linear model using ``pingouin``, we use
+``pg.linear_regression()``
+(`documentation <https://pingouin-stats.org/build/html/generated/pingouin.linear_regression.html>`__).
 
-When we create the **OLS** object, we pass the observations of the
-*response* (*dependent*) variable with the first argument, and the
-observations of the *explanatory* (*independent*) variable(s) in the
-second argument. Note that by default, **OLS** will not fit a constant,
-but we can use ``sm.add_constant()``
-(`documentation <https://www.statsmodels.org/dev/generated/statsmodels.tools.tools.add_constant.html>`__)
-to add a column of ones to the array.
+The main inputs to ``pg.linear_regression()`` are ``X``, the
+observations of the *explanatory* (*independent*) variable(s), and
+``y``, the observations of the *response* (*dependent*) variables. We
+can also specify the significance level (``alpha``) to use when
+calculating the statistics of the fitted model, as well as additional
+arguments. By default, ``pg.linear_regression()`` adds an intercept to
+be fitted.
 
 So, the process to fit a linear relationship between ``tmax`` and
 ``rain`` would look like this:
 
 .. code:: ipython3
 
-    xdata = station_data.dropna(subset=['rain', 'tmax'])['rain'] # select the rain variable, after dropping NaN values
-    ydata = station_data.dropna(subset=['rain', 'tmax'])['tmax'] # select the tmax variable, after dropping NaN values
+    xdata = spring.dropna(subset=['rain', 'tmax'])['rain'] # select the rain variable, after dropping NaN values
+    ydata = spring.dropna(subset=['rain', 'tmax'])['tmax'] # select the tmax variable, after dropping NaN values
 
-    xdata = sm.add_constant(xdata) # add a constant to xdata - otherwise, we're only fitting the slope
+    lin_model = pg.linear_regression(xdata, ydata, alpha=0.01) # run the regression at the 99% significance level
 
-    lin_model = sm.OLS(ydata, xdata) # initialize the OLS object
-    lm_results = lin_model.fit() # fit the model to the data
+    lin_model.round(3) # round the output table to 3 decimal places
 
-The ``params`` attribute has the estimated values for the intercept
-(``const``) and slope (``rain``):
+The output of ``pg.linear_regression()`` is a **DataFrame** with the
+following columns:
 
-.. code:: ipython3
+-  ``names``: the names of the outputs (``intercept``) and the slope for
+   each explanatory variable;
+-  ``coef``: the values of the regression coefficients;
+-  ``se``: the standard error of the estimated coefficients;
+-  ``T``: the *t*-statistic of the estimates;
+-  ``pval``: the *p*-values of the *t*-statistics;
+-  ``r2``: the coefficient of determination;
+-  ``adj_r2``: the adjusted coefficient of determination;
+-  ``CI{alpha/2}%``: the lower value of the confidence interval;
+-  ``CI{1-alpha/2}%``: the upper value of the confidence interval;
+-  ``relimp``: the relative contribution of each predictor to the final
+   (if ``relimp=True``);
+-  ``relimp_perc``: the percent relative contribution
 
-    lm_results.params # see the regression parameters: const is the intercept, rain is the coefficient for 'rain'
-
-Other useful attributes include:
-
--  ``bse``, the estimates of the standard error for the parameters;
--  ``pvalues``, the two-tailed *p*-values for the *t*-statistics of the
-   parameter estimates;
--  ``resid``, the model residuals;
--  ``rsquared`` and ``rsquared_adj``, the R-squared and adjusted
-   R-squared values for the model.
-
-Note that each of these attributes are **pandas.Series**:
-
-.. code:: ipython3
-
-    type(lm_results.bse) # show the type of lm_results.bse
-
-This means that we can easily combine these into a **DataFrame** using
-``pd.concat()``:
-
-.. code:: ipython3
-
-    res_df = pd.concat([lm_results.params, lm_results.bse, lm_results.tvalues, lm_results.pvalues, lm_results.conf_int()], axis=1) # join params, bse, tvalues, pvalues, confidence intervals along the column axis
-    res_df.columns = ['coef', 'std err', 't-value', 'p-value', 'ci_low', 'ci_up'] # set the column names
-
-    res_df # show the dataframe
-
-To get the full summary of the regression results, use ``.summary()``
-(`documentation <https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.RegressionResults.summary.html>`__):
-
-.. code:: ipython3
-
-    lm_results.summary() # show the summary of the results
+The ouptut **DataFrame** also has hidden attributes such as the
+residuals (``lin_model.residuals_``), the degrees of freedom of the
+model (``lin_model.df_model_``), and the degrees of freedom of the
+residuals (``lin_model.df_resid_``).
 
 multiple linear regression
 --------------------------
@@ -279,26 +271,16 @@ With only two variables, this would look like:
 
 .. math::  y = \beta + \alpha_1 x_1 + \alpha_2 x_2
 
-The code to fit this model using ``statsmodels`` looks like this:
+The code to fit this model using ``pingouin`` looks like this:
 
 .. code:: ipython3
 
     xdata = station_data.dropna(subset=['rain', 'tmax', 'sun'])[['rain', 'sun']] # select the rain and sun variables, after dropping NaN values
     ydata = station_data.dropna(subset=['rain', 'tmax', 'sun'])['tmax'] # select the tmax variable, after dropping NaN values
 
-    xdata = sm.add_constant(xdata) # add a constant to xdata - otherwise, we're only fitting the slope
+    ml_model = pg.linear_regression(xdata, ydata, alpha=0.01) # run the regression at the 99% significance level
 
-    ml_model = sm.OLS(ydata, xdata) # initialize the OLS object
-    mlm_results = ml_model.fit() # fit the model to the data
-
-    mlm_results.params # see the regression parameters: const is the intercept, rain is the coefficient for 'rain'
-
-Just as with the simple linear regression case, we can look at the
-summary of the regression results:
-
-.. code:: ipython3
-
-    mlm_results.summary() # show the summary of the results
+    ml_model.round(3) # round the output table to 3 decimal places
 
 bonus: linear regression with groups
 ------------------------------------
@@ -322,76 +304,44 @@ of each season:
         xdata = season_data['rain'] # select the rain variable
         ydata = season_data['tmax'] # select the tmax variable
 
-        xdata = sm.add_constant(xdata) # add a constant to xdata - otherwise, we're only fitting the slope
-
-        model = sm.OLS(ydata, xdata) # initialize the OLS object
-        results[season] = model.fit() # add the result to the results dict, with season as the key
+        results[season] = pg.linear_regression(xdata, ydata, alpha=0.01) # add the result to the results dict, with season as the key
 
 Now, we can view the model summary for each season by using the season
 name as follows:
 
 .. code:: ipython3
 
-    results['spring'].summary() # view the summary for spring
+    results['spring'] # view the results for spring
 
-Next, let’s see how we can combine these results into a single
-**DataFrame**. First, we’ll write a **function** to create the
-**DataFrame** for a single model result - as we have discussed, it is
-often preferable to write functions for repeated lines of code, as it
-can make the code more readable, it helps avoid mistakes, and also
-because programmers are often lazy.
-
-Run the next cell to define the function - the only new bits of code
-here are the use of ``.reset_index()``
-(`documentation <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html>`__),
-which will turn the current index parameter names into a column,
-``index``, and the use of ``.rename()`` to rename this column from
-``index`` to ``parameter``. The reason for doing this will be clear in a
-moment.
+Now, let’s see how we can combine these results into a single
+**DataFrame**. First, we’ll add a column, ``season``, to each
+**DataFrame**:
 
 .. code:: ipython3
-
-    def get_results_df(res):
-        res_df = pd.concat([res.params, res.bse, res.tvalues, res.pvalues, res.conf_int()], axis=1) # join params, bse, tvalues, pvalues, confidence intervals along the column axis
-        res_df.columns = ['coef', 'std err', 't-value', 'p-value', 'ci_low', 'ci_up'] # set the column names
-        res_df.reset_index(inplace=True) # unset the index in-place
-
-        return res_df.rename(columns={'index': 'parameter'}) # return the dataframe with 'index' renamed to 'parameter'
-
-Now, we can loop over the season names to get the parameter table for
-each season, then use ``pd.concat()`` to combine these results into a
-single **DataFrame**:
-
-.. code:: ipython3
-
-    all_results = []
 
     for season in seasons:
-        this_df = get_results_df(results[season]) # get a dataframe for this season
-        this_df['season'] = season
-        all_results.append(this_df)
+        results[season]['season'] = season # add a season column
 
-    all_results = pd.concat(all_results) # combine the list of dataframes into a single dataframe
+Next, we use ``pd.concatenate()``, along with the ``values()`` of the
+results **dict**, to combine the tables into a single table:
 
-Finally, we’ll use ``.set_index()``
+.. code:: ipython3
+
+    all_results = pd.concat(results.values()) # concatenate the results dataframes into a single dataframe
+
+Next, we’ll use ``.set_index()``
 (`documentation <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.set_index.html>`__)
-to set the index of the **DataFrame** using the ``season`` and
-``parameter`` columns:
+to set the ``season`` and ``names`` columns to be the ``index`` of the
+**DataFrame**:
 
 .. code:: ipython3
 
-    all_results.set_index(['season', 'parameter'], inplace=True) # set a multi-level index with season and parameter values
-    all_results # show the dataframe
+    all_results.set_index(['season', 'names'], inplace=True) # set the index to be a multi-index with season and names
 
-Now, in the final **DataFrame**, we can use the season name with
-``.loc`` to get the parameter results:
+    all_results # show the updated table
 
-.. code:: ipython3
-
-    all_results.loc['spring'] # show the rows of the dataframe corresponding to spring
-
-and, save the table of regression parameter results to a file, using
-``pd.to_csv()``:
+Finally, we’ll save the table of regression parameter results to a file,
+using ``pd.to_csv()``:
 
 .. code:: ipython3
 
