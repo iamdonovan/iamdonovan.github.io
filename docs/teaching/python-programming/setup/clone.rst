@@ -29,7 +29,7 @@ Now, enter the following command:
 
 You should see something like the following output on the screen:
 
-.. image:: img/cli_clone.png
+.. image:: img/cli_clone_python.png
     :width: 720
     :align: center
     :alt: the repository being cloned to the local computer in the command prompt
