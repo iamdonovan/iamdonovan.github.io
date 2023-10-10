@@ -140,8 +140,7 @@ each station using ``.loc``. Have a look at this line:
 
    reshaped = pd.concat([this_summary[ind] for ind in columns], axis=1)
 
-This uses something called `list
-comprehension <https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions>`__
+This uses something called `list comprehension <https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions>`__
 to quickly create a list of objects. It is effectively the same as
 writing something like:
 
@@ -415,7 +414,8 @@ meteorological variables, using ``.groupby()`` and ``.mean()``:
 
 Then, we’ll add a new variable, ``period``, to divide the observations
 into three different 50-year periods: 1871-1920, 1921-1970, and
-1971-2020. To do this, we’ll use ``pd.cut()`` (`documentation <>`__). To
+1971-2020. To do this, we’ll use ``pd.cut()`` (`documentation
+<https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.cut.html>`__). To
 do this, we first have to define the labels (``periods``) and category
 boundaries (``bins``). Then, we use ``.dropna()`` to remove any rows
 where ``period`` has a ``NaN`` value (i.e., is outside of the range
