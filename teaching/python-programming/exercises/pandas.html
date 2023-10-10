@@ -1,0 +1,1269 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>working with pandas dataframes &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/python-programming/exercises/pandas';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="basic statistical analysis using python" href="stats.html" />
+    <link rel="prev" title="plotting data using seaborn" href="plotting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm702/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/setup.html">software setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week2.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week3.html">introduction to google earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week4.html">change detection in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week5.html">classification in earth engine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week2.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/sentinelsat.html">searching for images with sentinelsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week5.html">vector and raster operations using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/environment.html">environment.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">programming skills for phd researchers (using python)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">exercises</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/python-programming/exercises/pandas.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/python-programming/exercises/pandas.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/teaching/python-programming/exercises/pandas.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>working with pandas dataframes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-libraries">loading libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-rows-using-expressions">selecting rows using expressions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-sort-values-to-sort-rows">using sort_values to sort rows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-unique-values">find unique values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-occurrences">counting occurrences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-columns-to-the-table">adding columns to the table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-naming-columns">re-naming columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-columns">selecting columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-arranging-columns-using-reindex">re-arranging columns using reindex()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-data-to-a-file">saving data to a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-data">grouping data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slicing">slicing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="working-with-pandas-dataframes">
+<h1>working with pandas dataframes<a class="headerlink" href="#working-with-pandas-dataframes" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
+outputs, you’ll need to do one of the following:</p>
+<ul class="simple">
+<li><p>follow the setup steps and work through the notebook on your own computer</p></li>
+<li><p>open the workshop materials on <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/intro-to-python/HEAD">binder</a> and work
+through them online</p></li>
+<li><p>open a python console, copy the lines of code here, and paste them into the console to run them</p></li>
+</ul>
+</div>
+<p>In this lesson, we’re going to learn how we can work with datasets -
+combining tables, creating and re-arranging variables, selecting and
+sorting rows, and grouping and summarizing data. Mostly, we will be
+working with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, which is designed for data manipulation (again,
+read this as “analyzing” or “working with”, not “fabricating”!).</p>
+<div class="section" id="data">
+<h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<p>The data used in this exercise are the historic meteorological
+observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
+Observatory</a>
+(1853-present), the Oxford Observatory (1853-present), the Southampton
+Observatory (1855-2000), and Stornoway Airport (1873-present),
+downloaded from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">UK Met
+Office</a>.</p>
+<p>Like with the Armagh dataset we used previously, I have done the
+following to make the data slightly easier to work with: - Removed the
+header on lines 1-5 - Replaced multiple spaces with a single space, and
+replaced single spaces with a comma (<code class="docutils literal notranslate"><span class="pre">,</span></code>) - Removed <code class="docutils literal notranslate"><span class="pre">---</span></code> to
+indicate no data, leaving these fields blank - Removed <code class="docutils literal notranslate"><span class="pre">*</span></code> indicating
+provisional/estimated values - Removed the 2023 data - Renamed the file
+(e.g., <code class="docutils literal notranslate"><span class="pre">oxforddata.txt</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">oxforddata.csv</span></code>).</p>
+<p>If you wish to use your own data (and there are loads of stations
+available!), please feel free. I have also included a script,
+<code class="docutils literal notranslate"><span class="pre">convert_metoffice.py</span></code> (in the <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder), that will do
+these steps automatically. All you need to do is run the following from
+a terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_metoffice</span><span class="o">.</span><span class="n">py</span> <span class="p">{</span><span class="n">station</span><span class="p">}</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>This will create a new file, <code class="docutils literal notranslate"><span class="pre">{station}data.csv</span></code>, that has converted +
+cleaned the data into a CSV format that can easily be read by
+<code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+</div>
+<div class="section" id="loading-libraries">
+<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this heading">#</a></h2>
+<p>As before, we load the libraries that we will use in the exercise at the
+beginning. We will be using three libraries: -
+<a class="reference external" href="https://pandas.pydata.org/">pandas</a>, for reading the data from a
+file; - <a class="reference external" href="https://seaborn.pydata.org/">seaborn</a>, for plotting the
+data; - <a class="reference external" href="https://docs.python.org/3/library/pathlib.html">pathlib</a>,
+for working with filesystem paths;</p>
+<p>As before, we’re going to <em>alias</em> <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">pd</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>
+as <code class="docutils literal notranslate"><span class="pre">sns</span></code>. We only want the <code class="docutils literal notranslate"><span class="pre">Path</span></code> <strong>sub-package</strong> from <code class="docutils literal notranslate"><span class="pre">pathlib</span></code>,
+so we use <code class="docutils literal notranslate"><span class="pre">from</span></code> to specify this:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+<p>In this exercise, we’re going to see a number of different ways that we
+can work with data tables. Before we get to this, however, we need to
+load the individual data files and combine them into a single data
+table.</p>
+<p>Rather than loading all four at once and then combining them, however,
+we can simplify this slightly using a <strong>for</strong> loop. First, we’ll load
+the Armagh Observatory data, because it’s currently in a different
+folder.</p>
+<p>Rather than typing the path to the file directly, we can use
+<code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code>
+(<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">documentation</a>)
+to construct a path in a <em>platform-independent</em> way. In general, we want
+to do this because Windows uses <code class="docutils literal notranslate"><span class="pre">\</span></code> to separate folders, while
+Unix-style systems such as Linux and MacOS use <code class="docutils literal notranslate"><span class="pre">/</span></code> - this way, we
+don’t run into issues if we share our code with people working on
+different systems.</p>
+<p>To construct the filename, we’re using a <a class="reference external" href="https://en.wikipedia.org/wiki/Path_(computing)#Absolute_and_relative_paths">relative
+path</a>
+- that is, it is <em>relative</em> to some given working directory (typically
+the current working directory). To get to <strong>armaghdata.csv</strong> from the
+current directory, we have to go up a directory level (<code class="docutils literal notranslate"><span class="pre">..</span></code>), before
+entering the <strong>03.plotting</strong> directory, and the <strong>data</strong> directory after
+that:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;03.plotting&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;armaghdata.csv&#39;</span><span class="p">))</span> <span class="c1"># use file.path to construct a path to the data file</span>
+</pre></div>
+</div>
+<p>Next, we want to make sure that we can keep track of which observation
+comes from which station - so, we should add a <code class="docutils literal notranslate"><span class="pre">station</span></code> variable to
+the table, and make sure to specify that these observations all come
+from the Armagh Observatory:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;armagh&#39;</span> <span class="c1"># add the station name as a column</span>
+</pre></div>
+</div>
+<p>Now, we can set up a loop to load the other 3 stations data. First, we
+can create a <strong>list</strong> of station names:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list of station names</span>
+<span class="n">new_stations</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;oxford&#39;</span><span class="p">,</span> <span class="s1">&#39;southampton&#39;</span><span class="p">,</span> <span class="s1">&#39;stornoway&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Now that we have the vector of station names, we can construct the
+<strong>for</strong> loop to first read each file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fn_data</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">station</span><span class="si">}</span><span class="s2">data.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we use an <strong>f-string</strong> to combine the <code class="docutils literal notranslate"><span class="pre">station</span></code> variable (which
+takes on a value from the <code class="docutils literal notranslate"><span class="pre">new_stations</span></code> <strong>list</strong> on each pass through
+the loop) with <code class="docutils literal notranslate"><span class="pre">'data.csv'</span></code>, so that the resulting file names will be
+<code class="docutils literal notranslate"><span class="pre">'oxforddata.csv'</span></code>, <code class="docutils literal notranslate"><span class="pre">'southamptondata.csv'</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">'stornowaydata.csv'</span></code>. We then use <code class="docutils literal notranslate"><span class="pre">Path()</span></code> to combine this with the
+<code class="docutils literal notranslate"><span class="pre">'data'</span></code> directory name, so that the value of <code class="docutils literal notranslate"><span class="pre">fn_data</span></code> is the
+complete relative path to each file.</p>
+<p>Next, we use <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> to read in the file, and add a
+<code class="docutils literal notranslate"><span class="pre">station</span></code> variable to the table, just like we did with the Armagh
+data.</p>
+<p>Finally, we use <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html">documentation</a>)
+to combine the existing table, <code class="docutils literal notranslate"><span class="pre">station_data</span></code>, with the newly loaded
+table (<code class="docutils literal notranslate"><span class="pre">data</span></code>), and overwrite the value of <code class="docutils literal notranslate"><span class="pre">station_data</span></code> with this
+combined table:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">station_data</span><span class="p">,</span> <span class="n">data</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each time through the <strong>for</strong> loop, the value of <code class="docutils literal notranslate"><span class="pre">station</span></code> is updated:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">new_stations</span><span class="p">:</span>
+    <span class="n">fn_data</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">station</span><span class="si">}</span><span class="s2">data.csv&quot;</span><span class="p">)</span> <span class="c1"># create the filename for each csv file, using file.path and paste</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fn_data</span><span class="p">)</span> <span class="c1"># read the csv</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station</span> <span class="c1"># add the station to the table</span>
+
+    <span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">station_data</span><span class="p">,</span> <span class="n">data</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># combine the new data with the current data table</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">station_data</span><span class="p">)</span> <span class="c1"># show the data</span>
+</pre></div>
+</div>
+<p>Note that this is one advantage of using clear, consistent naming and
+formatting for data files - we can easily write a loop to load multiple
+files, instead of having to write individual paths.</p>
+</div>
+<div class="section" id="selecting-rows-using-expressions">
+<h2>selecting rows using expressions<a class="headerlink" href="#selecting-rows-using-expressions" title="Permalink to this heading">#</a></h2>
+<p>Now that we have a single table, we can also look at ways that we can
+select rows from the table. For a <em>very</em> in-depth overview of how
+indexing and slicing works with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, see this
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html">guide</a>.</p>
+<p>We have alread seen an example of this - for example, we could select
+all observations where the monthly maximum temperature (<code class="docutils literal notranslate"><span class="pre">tmax</span></code>) is
+greater than 20°C by using <code class="docutils literal notranslate"><span class="pre">.loc</span></code> and a conditional statement:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>If we want to use multiple conditions - for example, all observations
+where the monthly maximum temperature is greater than 20°C, and the
+monthly rainfall is grater than 100 mm, we can’t simply use the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>
+operator with the two statements:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span> <span class="o">&amp;</span> <span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">]</span> <span class="c1"># this won&#39;t work to combine conditions</span>
+</pre></div>
+</div>
+<p>Instead, we have to surround each condition with parentheses first:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)]</span> <span class="c1"># this will work to select tmax &gt; 20 and rain &gt; 100</span>
+</pre></div>
+</div>
+<p>Alternatively, we can also use the <code class="docutils literal notranslate"><span class="pre">.query()</span></code> method
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.query.html">documentation</a>),
+which allows us to write slightly more natural expressions. The
+selection above using <code class="docutils literal notranslate"><span class="pre">.query()</span></code> looks like this:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;tmax &gt; 20 &amp; rain &gt; 100&#39;</span><span class="p">)</span> <span class="c1"># use query to select rows where tmax &gt; 20 and rain &gt; 100</span>
+</pre></div>
+</div>
+<p>We can also use variables in the query - we just need to prefix them
+with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_temp</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># create a new variable with a value of 20</span>
+
+<span class="n">station_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;tmax &gt; @min_temp &amp; rain &gt; 100&#39;</span><span class="p">)</span> <span class="c1"># reference the new variable in the query</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-sort-values-to-sort-rows">
+<h2>using sort_values to sort rows<a class="headerlink" href="#using-sort-values-to-sort-rows" title="Permalink to this heading">#</a></h2>
+<p>Sometimes, we might want to sort our data according to the value of
+different variables. For example, we can sort the observations by
+rainfall, from smallest to largest values, using <code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span> <span class="c1"># sort by rainfall, from smallest to largest values</span>
+</pre></div>
+</div>
+<p>By default, the values are sorted in <em>ascending</em> order (from smallest to
+largest, or from A to Z for characters). If we want to see the reverse,
+we can set the <code class="docutils literal notranslate"><span class="pre">ascending</span></code> keyword argument to <code class="docutils literal notranslate"><span class="pre">False</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># sort by rainfall, from largest to smallest values</span>
+</pre></div>
+</div>
+<p>Note that in both cases, <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values come at the bottom - because
+they are not numbers, they are not sorted as being greater than or less
+than other values, so <code class="docutils literal notranslate"><span class="pre">pandas</span></code> moves them to the end by default (to
+put them at the beginning, we can use the <code class="docutils literal notranslate"><span class="pre">na_position</span></code> argument).</p>
+</div>
+<div class="section" id="find-unique-values">
+<h2>find unique values<a class="headerlink" href="#find-unique-values" title="Permalink to this heading">#</a></h2>
+<p>To find unique rows in a <strong>Series</strong> (column), we can use <code class="docutils literal notranslate"><span class="pre">.unique()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.unique.html">documentation</a>).
+For example, we can find the unique values of the <code class="docutils literal notranslate"><span class="pre">station</span></code> variable:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c1"># find unique values of station</span>
+</pre></div>
+</div>
+<p>We can also <code class="docutils literal notranslate"><span class="pre">.drop_duplicates()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html">documentation</a>)
+to find only unique rows in a <strong>DataFrame</strong>. With the <code class="docutils literal notranslate"><span class="pre">subset</span></code>
+argument, we can choose which columns to use in determining whether rows
+are unique/duplicated:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> <span class="c1"># find rows based on unique values of station</span>
+</pre></div>
+</div>
+<p>We can also use it to find combinations of variables:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;mm&#39;</span><span class="p">])</span> <span class="c1"># find rows with unique station/month pairs</span>
+</pre></div>
+</div>
+<p>Note that the distinct values found above are all from the first year of
+each dataset - this is because <code class="docutils literal notranslate"><span class="pre">.drop_duplicates()</span></code> discards all but
+the first occurrence of a unique row.</p>
+</div>
+<div class="section" id="counting-occurrences">
+<h2>counting occurrences<a class="headerlink" href="#counting-occurrences" title="Permalink to this heading">#</a></h2>
+<p>If we want to count the number of non-NaN values in a table, we can use
+<code class="docutils literal notranslate"><span class="pre">.count()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.count.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="c1"># count the number of non-nan values in each column</span>
+</pre></div>
+</div>
+<p>If we want to find the frequency of each distinct row in a
+<strong>DataFrame</strong>, we can use <code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.value_counts.html">documentation</a>).
+By itself, this looks at all columns in a row to determine whether or
+not the row is unique. More often, we will probably want to specify
+which columns to use with the <code class="docutils literal notranslate"><span class="pre">subset</span></code> argument.</p>
+<p>For example, we can count the number of times each station observed
+rainfall greater than 150 mm in a month by first using <code class="docutils literal notranslate"><span class="pre">query()</span></code> to
+select all rows where <code class="docutils literal notranslate"><span class="pre">rain</span></code> is greater than 150, then use
+<code class="docutils literal notranslate"><span class="pre">value_counts()</span></code> with the <code class="docutils literal notranslate"><span class="pre">subset</span></code> argument to count the number of
+unique occurrences of <code class="docutils literal notranslate"><span class="pre">station</span></code> in the resulting table:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;rain &gt; 150&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From this, we can quickly see that Stornoway Airport, located in the
+Outer Hebrides, has far more months with heavy rainfall (278) than any
+other station in our dataset; by contrast, Oxford has only recorded 12
+such months between 1853 and 2022.</p>
+<p>Note that in this cell, we’re also using the <strong>line break</strong> character,
+<code class="docutils literal notranslate"><span class="pre">\</span></code>, to split the call across multiple lines to help with readability.
+As far as python is concerned, there is no difference between this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;rain &gt; 150&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;rain &gt; 150&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But, the former can be easier to read/understand what is being done. You
+will likely see code written in both styles, but I will try to break
+things into different lines when it makes sense.</p>
+</div>
+<div class="section" id="adding-columns-to-the-table">
+<h2>adding columns to the table<a class="headerlink" href="#adding-columns-to-the-table" title="Permalink to this heading">#</a></h2>
+<p>In a previous exercise, we saw how we can add a variable/column to a
+<strong>DataFrame</strong> using the output of a function:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">({</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;yyyy&#39;</span><span class="p">],</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">],</span> <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>And, we saw how we could assign values to a column based on the values
+in other columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># initialize an empty string column</span>
+<span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">]),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;winter&#39;</span> <span class="c1"># if month is 1, 2, or 12, set season to winter</span>
+<span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;spring&#39;</span> <span class="c1"># if month is 3, 4, or 5, set season to spring</span>
+<span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;summer&#39;</span> <span class="c1"># if month is 6, 7, or 8, set season to summer</span>
+<span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;autumn&#39;</span> <span class="c1"># if month is 9, 10, or 11, set season to autumn</span>
+</pre></div>
+</div>
+<p>Now, let’s look at another way that we can accomplish the same thing, in
+a slightly more “<a class="reference external" href="https://stackoverflow.com/a/25011492">pythonic</a>”
+way, by using some of the features of the language.</p>
+<p>First, we’ll use <code class="docutils literal notranslate"><span class="pre">range()</span></code>
+(<a class="reference external" href="https://docs.python.org/3/library/functions.html#func-range">documentation</a>)
+to get a list of numbers from 1 to 12, corresponding to the months of
+the year:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">months</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="c1"># get a list of numbers from 1 to 12</span>
+</pre></div>
+</div>
+<p>Next, we’ll use list multiplication and addition to create a list of the
+season names for each month:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seasons</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;winter&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;spring&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;summer&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;autumn&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;winter&#39;</span><span class="p">]</span>
+
+<span class="n">seasons</span> <span class="c1"># show the list of season names for each month</span>
+</pre></div>
+</div>
+<p>We could, of course, have written this out explicitly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">seasons</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;winter&#39;</span><span class="p">,</span> <span class="s1">&#39;winter&#39;</span><span class="p">,</span> <span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">,</span> <span class="s1">&#39;summer&#39;</span><span class="p">,</span> <span class="s1">&#39;autumn&#39;</span><span class="p">,</span> <span class="s1">&#39;autumn&#39;</span><span class="p">,</span> <span class="s1">&#39;autumn&#39;</span><span class="p">,</span> <span class="s1">&#39;winter&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Instead, we have used the fact that multiplying a <strong>list</strong> by an integer
+repeats the <strong>list</strong>, and adding <strong>list</strong>s together <em>concatenates</em>
+them, to simplify this (and also to remind you of these properties of
+<strong>list</strong>s).</p>
+<p>Next, we can create a <strong>dict()</strong> using <code class="docutils literal notranslate"><span class="pre">zip()</span></code>
+(<a class="reference external" href="https://docs.python.org/3/library/functions.html#zip">documentation</a>)
+to create pairs of month number/season name values:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">months</span><span class="p">,</span> <span class="n">seasons</span><span class="p">))</span> <span class="c1"># create a dict() of month/season pairs</span>
+</pre></div>
+</div>
+<p>Finally, we will use <code class="docutils literal notranslate"><span class="pre">.map()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.map.html">documentation</a>)
+to assign season names to each row, based on the value of <code class="docutils literal notranslate"><span class="pre">mm</span></code> (the
+month number):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">months</span><span class="p">,</span> <span class="n">seasons</span><span class="p">)))</span>
+
+<span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># show the first 12 rows of the table</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="re-naming-columns">
+<h2>re-naming columns<a class="headerlink" href="#re-naming-columns" title="Permalink to this heading">#</a></h2>
+<p>Often, we may also want to rename variables to make them easier to
+read/understand. For example, the <code class="docutils literal notranslate"><span class="pre">yyyy</span></code>, <code class="docutils literal notranslate"><span class="pre">mm</span></code>, and <code class="docutils literal notranslate"><span class="pre">af</span></code> variables
+in our table are not necessarily the easiest to understand. We can
+rename them to more clear names, such as <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">air_frost</span></code>, using the <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> method
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html">documentation</a>).</p>
+<p>To make it clear that we are renaming the columns, we’ll use the
+<code class="docutils literal notranslate"><span class="pre">columns</span></code> argument, passing a <code class="docutils literal notranslate"><span class="pre">dict()</span></code> of old/new names. We also
+want this change to happen “in place”, meaning that it should update the
+column names of the existing <strong>DataFrame</strong>, rather than returning a new
+<strong>DataFrame</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;yyyy&#39;</span><span class="p">:</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;mm&#39;</span><span class="p">:</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;af&#39;</span><span class="p">:</span> <span class="s1">&#39;air_frost&#39;</span><span class="p">},</span> <span class="c1"># rename columns using old/new name pairs</span>
+                    <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span> <span class="c1"># update the values of this dataframe, not return a new one</span>
+                   <span class="p">)</span>
+
+<span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># show the first 5 rows of the dataframe</span>
+</pre></div>
+</div>
+<p>Many of the methods that we are working with in this exercise have an
+<code class="docutils literal notranslate"><span class="pre">inplace</span></code> argument - by default, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> assumes that you don’t
+want to overwrite the existing <strong>DataFrame</strong> object with these changes.
+If we don’t use the <code class="docutils literal notranslate"><span class="pre">inplace</span></code> argument, we need to assign the output
+to a new variable in order to use it; for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_df</span> <span class="o">=</span> <span class="n">old_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;old_name&#39;</span><span class="p">:</span> <span class="s1">&#39;new_name&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selecting-columns">
+<h2>selecting columns<a class="headerlink" href="#selecting-columns" title="Permalink to this heading">#</a></h2>
+<p>Selecting columns from a <strong>DataFrame</strong> works similarly to selecting
+rows. We can use square brackets (<code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>) along with the name
+of the column (as a <strong>str</strong>ing) to select a single column:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="c1"># select the rain column</span>
+</pre></div>
+</div>
+<p>If we want to select multiple columns, we can use a <strong>list</strong> of column
+names inside of the square brackets:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]]</span> <span class="c1"># select the date, rain, station, and season columns</span>
+</pre></div>
+</div>
+<p>Note that the order of the output will be the same as the order of the
+input - so, this is one way that we can also re-arrange columns.</p>
+<p>You can also select a <em>slice</em> of columns using the <code class="docutils literal notranslate"><span class="pre">:</span></code> operator. Note
+that unlike how we have seen this used before, when used to select
+columns (or rows) from a <strong>DataFrame</strong> using labels, <code class="docutils literal notranslate"><span class="pre">:</span></code> is inclusive:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="c1"># select all columns from year to rain (inclusive)</span>
+</pre></div>
+</div>
+<p>Finally, we can also use <code class="docutils literal notranslate"><span class="pre">.filter()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.filter.html">documentation</a>)
+to select columns:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">filter</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">])</span> <span class="c1"># select the date and rain columns using filter()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="re-arranging-columns-using-reindex">
+<h2>re-arranging columns using reindex()<a class="headerlink" href="#re-arranging-columns-using-reindex" title="Permalink to this heading">#</a></h2>
+<p>We might also want to re-arrange the order of columns - there are a
+number of different ways to do this, but we’ll have a look at using
+<code class="docutils literal notranslate"><span class="pre">.reindex()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reindex.html">documentation</a>).</p>
+<p>First, we can create a <strong>list</strong> of the column names, in the order we
+want to see them. We then pass this to <code class="docutils literal notranslate"><span class="pre">.reindex()</span></code>, using the
+<code class="docutils literal notranslate"><span class="pre">columns</span></code> argument:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="s1">&#39;tmin&#39;</span><span class="p">,</span> <span class="s1">&#39;air_frost&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">]</span>
+<span class="n">station_data</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">new_order</span><span class="p">)</span> <span class="c1"># change the order of the columns and assign the output to the same variable</span>
+
+<span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the first 5 rows of the dataframe</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="saving-data-to-a-file">
+<h2>saving data to a file<a class="headerlink" href="#saving-data-to-a-file" title="Permalink to this heading">#</a></h2>
+<p>Now that we have combined the different data files, added some new
+columns to our data, and re-named and re-arranged the columns, we should
+save our dataset to a file. We’ll use the <code class="docutils literal notranslate"><span class="pre">.to_csv()</span></code> method
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html">documentation</a>)
+to do this. As with reading files, though, there are other file
+formatting options.</p>
+<p>Once again, we will use <code class="docutils literal notranslate"><span class="pre">Path</span></code> to create a path object to write the
+file to; we also set the <code class="docutils literal notranslate"><span class="pre">index</span></code> argument to <code class="docutils literal notranslate"><span class="pre">False</span></code> so that
+<code class="docutils literal notranslate"><span class="pre">pandas</span></code> doesn’t write the row numbers to the file:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;combined_stations.csv&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we’ll be able to load this file when we want to do further
+analysis, rather than needing to re-run the steps to load each file,
+combine the tables, create new variables, and so on.</p>
+</div>
+<div class="section" id="grouping-data">
+<h2>grouping data<a class="headerlink" href="#grouping-data" title="Permalink to this heading">#</a></h2>
+<p>Next, we’ll see how we can use different tools to aggregate and
+summarize our data, starting with <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html">documentation</a>).
+To start, we’ll group the data by <code class="docutils literal notranslate"><span class="pre">station</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> <span class="c1"># group the data by station</span>
+</pre></div>
+</div>
+<p>Here, we don’t see anything special - just that the output of
+<code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> is, by itself, a <strong>DataFrameGroupBy</strong> object. Among other
+things, though, we can use this object to calculate <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/groupby.html#dataframegroupby-computations-descriptive-stats">descriptive
+statistics</a>
+for each column, based on the applied groupings.</p>
+<p>For example, we can use <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.core.groupby.SeriesGroupBy.mean.html">documentation</a>)
+to calculate the mean value of each column (specifying
+<code class="docutils literal notranslate"><span class="pre">numeric_only=True</span></code> to make sure that we only get a result for numeric
+columns):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># specify numeric_only=True to avoid warning messages</span>
+</pre></div>
+</div>
+<p>Note that by default, <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> drops <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values - if we want
+to keep these, we need to specify <code class="docutils literal notranslate"><span class="pre">dropna=False</span></code> when we create the
+groupings.</p>
+<p>Now, let’s combine this with what we learned in the previous lesson (the
+plotting exercise) to create a plot that shows the distribution of
+rainfall by season, separated by station. First, we want to create a
+plot that shows the density distribution of rainfall for each season,
+using <code class="docutils literal notranslate"><span class="pre">sns.FacetGrid()</span></code> to create a single panel for each station:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">station_data</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create a 2x2 grid with a panel for each station</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># plot the density of rainfall</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_legend</span><span class="p">()</span> <span class="c1"># add a legend</span>
+</pre></div>
+</div>
+<p>Next, we can use <code class="docutils literal notranslate"><span class="pre">group_by()</span></code> to calculate the mean rainfall for each
+station, and assign this to a new variable, <code class="docutils literal notranslate"><span class="pre">mean_values</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_values</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now, we’ll iterate over axis and mean value pairs to plot a vertical
+line using <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.axvline()</span></code>
+(<a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.axvline.html">documentation</a>).
+As we mentioned in the previous exercise, <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>, like many other
+plotting packages, is built on top of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> - meaning that many
+<code class="docutils literal notranslate"><span class="pre">seaborn</span></code> objects inherit from correpsonding <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> objects.</p>
+<p>First, though, we’ll make sure that we’re plotting in the correct panel
+by using the <code class="docutils literal notranslate"><span class="pre">axes_dict</span></code> <em>attribute</em> of our <strong>FacetGrid</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">axes_dict</span> <span class="c1"># show the dict of key/value pairs for the facetgrid</span>
+</pre></div>
+</div>
+<p>We can iterate over the <code class="docutils literal notranslate"><span class="pre">index</span></code> of <code class="docutils literal notranslate"><span class="pre">mean_values</span></code> (which corresponds
+to each station), then use the <code class="docutils literal notranslate"><span class="pre">axes_dict</span></code> to plot a vertical line
+corresponding to each mean value:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">mean_values</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> <span class="c1"># iterate over station names</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">axes_dict</span><span class="p">[</span><span class="n">station</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">mean_values</span><span class="p">[</span><span class="n">station</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span> <span class="c1"># plot a vertical line at the mean rain value for each station</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">fig</span> <span class="c1"># show the updated figure</span>
+</pre></div>
+</div>
+<p>In the next panel, write some lines of code to change the axes labels
+and increase the font size for the tick labels, axis labels, and panel
+labels:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code goes here!</span>
+</pre></div>
+</div>
+<p>Now that you have finished the plot, be sure to save it to a file:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;seasonal_rain_distribution.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="slicing">
+<h2>slicing<a class="headerlink" href="#slicing" title="Permalink to this heading">#</a></h2>
+<p>We’ll finish up by looking at a few functions that we can use to <em>slice</em>
+a dataset - that is, extract specific rows from a group. For example, we
+can use <code class="docutils literal notranslate"><span class="pre">.loc</span></code> along with the <code class="docutils literal notranslate"><span class="pre">.idxmax()</span></code> function
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.idxmax.html">documentation</a>)
+to get the row corresponding to the maximum value of <code class="docutils literal notranslate"><span class="pre">rain</span></code> (for the
+minimum, we would use <code class="docutils literal notranslate"><span class="pre">.idxmin()</span></code>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span> <span class="c1"># use idxmax to find the index of the maxmimum value</span>
+</pre></div>
+</div>
+<p>We can also make use of <code class="docutils literal notranslate"><span class="pre">.head()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html">documentation</a>),
+along with <code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code>, to select <code class="docutils literal notranslate"><span class="pre">n</span></code> rows corresponding to the
+maximum value of one or more variables:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, we can use <code class="docutils literal notranslate"><span class="pre">.tail()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.tail.html">documentation</a>),
+which returns the last <code class="docutils literal notranslate"><span class="pre">n</span></code> rows of the <strong>DataFrame</strong> (note, however,
+that this may give us <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s say that we wanted to find the month with the most rain from each
+of the stations. To do this, we can first sort <code class="docutils literal notranslate"><span class="pre">rain</span></code> in descending
+order, then group based on <code class="docutils literal notranslate"><span class="pre">station</span></code>, before using <code class="docutils literal notranslate"><span class="pre">.head()</span></code> to
+select the first row for each value of <code class="docutils literal notranslate"><span class="pre">station</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we can select a random sample from a <strong>DataFrame</strong> using
+<code class="docutils literal notranslate"><span class="pre">.sample()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sample.html">documentation</a>).
+On a grouped <strong>DataFrame</strong>, we get a random sample from each group:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">station_data</span> \
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercise-and-next-steps">
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
+<p>That’s all for this exercise. To practice your skills, create a notebook
+file that does the following:</p>
+<ul class="simple">
+<li><p>loads the libraries that you need</p></li>
+<li><p>loads the saved data file (<strong>combined_stations.csv</strong>)</p></li>
+<li><p>helps you answer the following questions:</p>
+<ul>
+<li><p>what station has the highest recorded rainfall in the past 20
+years, and on what date?</p></li>
+<li><p>what season has the lowest average rainfall? is it the same season
+for all four stations?</p></li>
+<li><p>what station has recorded the most months with <code class="docutils literal notranslate"><span class="pre">tmin</span></code> &lt; 1°C? are
+all these observations from a single season?</p></li>
+<li><p>what is the median rainfall in months where <code class="docutils literal notranslate"><span class="pre">tmax</span></code> is greater
+than 20°C? make sure that your result is a number, not a
+<strong>DataFrame</strong>!</p></li>
+<li><p>what year saw the most total rainfall, using data from all four
+stations?</p></li>
+<li><p>what are the top 5 driest years, using only data from stations in
+Britain?</p></li>
+<li><p>what is the lowest annually-averaged monthly minimum temperature
+in the dataset, as measured by a single station?</p></li>
+<li><p>what is the sunniest month, on average, in Armagh?</p>
+<ul>
+<li><p>bonus: write a line that will rename the months from the number
+to a 3-letter abbreviation (<strong>hint</strong>: we saw an example of this
+using <code class="docutils literal notranslate"><span class="pre">.map()</span></code>)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>For a bonus, try downloading at least one additional dataset from the
+<a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">Met
+Office</a>,
+saving it to the <strong>data</strong> folder, and using the script provided
+(<code class="docutils literal notranslate"><span class="pre">convert_metoffice.py</span></code>) to convert the <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file into a <code class="docutils literal notranslate"><span class="pre">.csv</span></code>
+file.</p>
+<p>In your new notebook file, remember to add this new data to your
+existing dataset (and re-save the file!), then repeat the analyis
+questions above.</p>
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="plotting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">plotting data using seaborn</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="stats.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">basic statistical analysis using python</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-libraries">loading libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-rows-using-expressions">selecting rows using expressions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-sort-values-to-sort-rows">using sort_values to sort rows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-unique-values">find unique values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-occurrences">counting occurrences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-columns-to-the-table">adding columns to the table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-naming-columns">re-naming columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-columns">selecting columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-arranging-columns-using-reindex">re-arranging columns using reindex()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-data-to-a-file">saving data to a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-data">grouping data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slicing">slicing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

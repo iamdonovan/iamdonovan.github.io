@@ -79,9 +79,8 @@ this may take some time. When it finishes, you should see the following screen:
     :align: center
     :alt: anaconda navigator with the intro-to-r environment
 
-|br| Note how many packages were actually installed – 329, from the 5 shown in the original **.yml** file. By
-
-This is because each of those 5 packages have additional dependencies which have to be installed as well. Fortunately,
+|br| Note how many packages were actually installed – 329, from the 5 shown in the original **.yml** file. This is
+because each of those 5 packages have additional dependencies which have to be installed as well. Fortunately,
 all of this is done automatically by **conda** – we don’t have to worry about tracking down and installing each
 individual dependency on our own.
 

@@ -1,0 +1,1132 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>basic statistical analysis using python &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/python-programming/exercises/stats';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="linear regression using python" href="regression.html" />
+    <link rel="prev" title="working with pandas dataframes" href="pandas.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm702/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/setup.html">software setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week2.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week3.html">introduction to google earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week4.html">change detection in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week5.html">classification in earth engine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week2.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/sentinelsat.html">searching for images with sentinelsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week5.html">vector and raster operations using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/environment.html">environment.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">programming skills for phd researchers (using python)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">exercises</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/python-programming/exercises/stats.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/python-programming/exercises/stats.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/teaching/python-programming/exercises/stats.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>basic statistical analysis using python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-libraries">loading libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics">descriptive statistics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#describing-variables-using-describe">describing variables using .describe()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-describe-to-summarize-groups">using .describe() to summarize groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-built-in-functions-for-descriptive-statistics">using built-in functions for descriptive statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-groupby">with .groupby()</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-tests">statistical tests</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-samples-students-t-test">independent samples student’s <em>t</em>-test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-parametric-tests">non-parametric tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-variance">analysis of variance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="basic-statistical-analysis-using-python">
+<h1>basic statistical analysis using python<a class="headerlink" href="#basic-statistical-analysis-using-python" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
+outputs, you’ll need to do one of the following:</p>
+<ul class="simple">
+<li><p>follow the setup steps and work through the notebook on your own computer</p></li>
+<li><p>open the workshop materials on <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/intro-to-python/HEAD">binder</a> and work
+through them online</p></li>
+<li><p>open a python console, copy the lines of code here, and paste them into the console to run them</p></li>
+</ul>
+</div>
+<p>In this exercise, we’ll take a look at some basic statistical analysis
+with python - starting with using python and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to calculate
+descriptive statistics for our datasets, before moving on to look at a
+few common examples of hypothesis tests using <code class="docutils literal notranslate"><span class="pre">pingouin</span></code>.</p>
+<div class="section" id="data">
+<h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<p>The data used in this exercise are the historic meteorological
+observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
+Observatory</a>
+(1853-present), the Oxford Observatory (1853-present), the Southampton
+Observatory (1855-2000), and Stornoway Airport (1873-present),
+downloaded from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">UK Met
+Office</a>
+that we used in previous exercises. I have copied the
+<strong>combined_stations.csv</strong> data into this folder - this is the same file
+that you created in the process of working through the “pandas”
+exercise.</p>
+</div>
+<div class="section" id="loading-libraries">
+<h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this heading">#</a></h2>
+<p>First, we’ll import the various packages that we will be using here:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/">pandas</a>, for reading the data from a
+file;</p></li>
+<li><p><a class="reference external" href="https://seaborn.pydata.org/">seaborn</a>, for plotting the data;</p></li>
+<li><p><a class="reference external" href="https://pingouin-stats.org/">pingouin</a>, for the statistical tests
+that we’ll use;</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html">pathlib</a>, for
+working with filesystem paths.</p></li>
+</ul>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">pingouin</span> <span class="k">as</span> <span class="nn">pg</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+<p>Next, we’ll use <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> to load the combined station data.
+We’ll also use the <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> argument to tell <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to read
+the <code class="docutils literal notranslate"><span class="pre">date</span></code> column as a date:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;combined_stations.csv&#39;</span><span class="p">),</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descriptive-statistics">
+<h2>descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this heading">#</a></h2>
+<p>Before diving into statistical tests, we’ll spend a little bit of time
+expanding on calculating <em>descriptive</em> statistics using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. We
+have seen a little bit of this already, using <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">.mean()</span></code> to calculate the mean value of <code class="docutils literal notranslate"><span class="pre">rain</span></code> for each station.</p>
+<div class="section" id="describing-variables-using-describe">
+<h3>describing variables using .describe()<a class="headerlink" href="#describing-variables-using-describe" title="Permalink to this heading">#</a></h3>
+<p>First, we’ll have a look at <code class="docutils literal notranslate"><span class="pre">.describe()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html">documentation</a>),
+which provides a summary of each of the (numeric) columns in the table:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In the output above, we can see the count (<strong>count</strong>) minimum (<strong>min</strong>),
+1st quartile (<strong>25%</strong>), median (<strong>50%</strong>), mean (<strong>mean</strong>), 3rd quartile
+(<strong>75%</strong>), maximum (<strong>max</strong>), and standard deviation (<strong>std</strong>) values of
+each numeric variable.</p>
+<p>With this, we can quickly see where we might have errors in our data -
+for example, if we have non-physical or nonsense values in our
+variables. When first getting started with a dataset, it can be a good
+idea to check over the dataset using <code class="docutils literal notranslate"><span class="pre">.describe()</span></code>.</p>
+</div>
+<div class="section" id="using-describe-to-summarize-groups">
+<h3>using .describe() to summarize groups<a class="headerlink" href="#using-describe-to-summarize-groups" title="Permalink to this heading">#</a></h3>
+<p>What if we wanted to get a summary based on some grouping - for example,
+for each station? We could use <code class="docutils literal notranslate"><span class="pre">filter()</span></code> to create an object for each
+value of <code class="docutils literal notranslate"><span class="pre">station</span></code>, then call <code class="docutils literal notranslate"><span class="pre">summary()</span></code> on each of these objects
+in turn.</p>
+<p>Not surprisingly, however, there is an easier way, using <code class="docutils literal notranslate"><span class="pre">split()</span></code>
+(<a class="reference external" href="https://rdrr.io/r/base/split.html">documentation</a>) and <code class="docutils literal notranslate"><span class="pre">map()</span></code>
+(<a class="reference external" href="https://purrr.tidyverse.org/reference/map.html">documentation</a>).
+First, <code class="docutils literal notranslate"><span class="pre">split()</span></code> divides the table into separate tables based on some
+grouping:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>On its own, this output isn’t all that readable - the summary statistics
+are put into individual columns, which means that the table is very
+wide. Let’s see how we can re-arrange this so that we have a <code class="docutils literal notranslate"><span class="pre">dict()</span></code>
+of <strong>DataFrames</strong>, one for each station. First, we’ll assign the output
+of <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> to a variable, <code class="docutils literal notranslate"><span class="pre">group_summary</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group_summary</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Next, we’ll iterate over the stations to work with each row of the table
+in turn. First, though, let’s look at how the column names are
+organized:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group_summary</span><span class="o">.</span><span class="n">columns</span> <span class="c1"># show the column names</span>
+</pre></div>
+</div>
+<p>This is an example of a <strong>MultiIndex</strong>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.MultiIndex.html">documentation</a>)
+- a multi-level index object, similar to what we have seen previously
+for rows. Before beginning the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop below, we use
+<code class="docutils literal notranslate"><span class="pre">columns.unique()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.Index.unique.html">documentation</a>)
+to get the unique first-level names from the columns (i.e., the variable
+names from the original <strong>DataFrame</strong>).</p>
+<p>Inside of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, we first select the row corresponding to
+each station using <code class="docutils literal notranslate"><span class="pre">.loc</span></code>. Have a look at this line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reshaped</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">this_summary</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This uses something called <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions">list comprehension</a>
+to quickly create a list of objects. It is effectively the same as
+writing something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+    <span class="n">out_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_summary</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
+
+<span class="n">reshaped</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">out_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using list comprehension helps make the code more concise and readable -
+it’s a very handy tool for creating lists with iteration. In addition to
+list comprehension, python also has <a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#dictionaries">dict
+comprehension</a>
+- we won’t use this here, but it works in a very similar way to list
+comprehension.</p>
+<p>Once we have reshaped the row (the <strong>Series</strong>) into a <strong>DataFrame</strong>, we
+assign the column names, before using <code class="docutils literal notranslate"><span class="pre">.append()</span></code> to add the reshaped
+table to a <strong>list</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stations</span> <span class="o">=</span> <span class="n">group_summary</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c1"># get the unique values of station from the table</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="n">group_summary</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># get the unique names of the columns from the first level (level 0)</span>
+
+<span class="n">combined_stats</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># initialize an empty list</span>
+
+<span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">stations</span><span class="p">:</span>
+    <span class="n">this_summary</span> <span class="o">=</span> <span class="n">group_summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station</span><span class="p">]</span> <span class="c1"># get the row corresponding to this station</span>
+
+    <span class="n">reshaped</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">this_summary</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># use list comprehension to reshape the table</span>
+    <span class="n">reshaped</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span> <span class="c1"># set the column names</span>
+    <span class="n">combined_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reshaped</span><span class="p">)</span> <span class="c1"># add the reshaped table to the list</span>
+</pre></div>
+</div>
+<p>Finally, we’ll use the built-in function <code class="docutils literal notranslate"><span class="pre">zip()</span></code> to get pairs of
+station names (from <code class="docutils literal notranslate"><span class="pre">station</span></code>) and <strong>DataFrame</strong>s (from
+<code class="docutils literal notranslate"><span class="pre">combined_stats</span></code>), then pass this to <code class="docutils literal notranslate"><span class="pre">dict()</span></code> to create a dictionary
+of station name/<strong>DataFrame</strong> key/value pairs:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">stations</span><span class="p">,</span> <span class="n">combined_stats</span><span class="p">))</span> <span class="c1"># create a dict of station name, dataframe pairs</span>
+</pre></div>
+</div>
+<p>To check that this worked, let’s look at the summary data for Oxford:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_dict</span><span class="p">[</span><span class="s1">&#39;oxford&#39;</span><span class="p">]</span> <span class="c1"># show the summary data for oxford</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-built-in-functions-for-descriptive-statistics">
+<h3>using built-in functions for descriptive statistics<a class="headerlink" href="#using-built-in-functions-for-descriptive-statistics" title="Permalink to this heading">#</a></h3>
+<p>This is helpful, but sometimes we want to calculate other descriptive
+statistics, or use the values of descriptive statistics in our code.
+<code class="docutils literal notranslate"><span class="pre">pandas</span></code> has a number of built-in functions for this - we have already
+seen <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.mean.html">documentation</a>),
+for calculating the arithmetic mean of each column of a <strong>DataFrame</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># calculate the mean for each numeric column</span>
+</pre></div>
+</div>
+<p><strong>Series</strong> objects (columns/rows) also have <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.mean.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># calculate the mean of the rain column</span>
+</pre></div>
+</div>
+<p>We can calculate the median of the columns of a <strong>DataFrame</strong> (or a
+<strong>Series</strong>) using <code class="docutils literal notranslate"><span class="pre">.median()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.median.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># calculate the median of each numeric column</span>
+</pre></div>
+</div>
+<p>To calculate the variance of the columns of a <strong>DataFrame</strong> (or a
+<strong>Series</strong>), use <code class="docutils literal notranslate"><span class="pre">.var()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.var.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and for the standard deviation, <code class="docutils literal notranslate"><span class="pre">.std()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.std.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> doesn’t have a built-in function for the inter-quartile range
+(IQR), but we can easily calculate it ourselves using <code class="docutils literal notranslate"><span class="pre">.quantile()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.quantile.html">documentation</a>)
+to calculte the 3rd quantile and the 1st quantile and subtracting the
+outputs:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-</span> <span class="n">station_data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we can also calculate the sum of each column of a <strong>DataFrame</strong>
+(or a <strong>Series</strong>) using <code class="docutils literal notranslate"><span class="pre">.sum()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These are far from the only methods available, but they are some of the
+most common. For a full list, check the <code class="docutils literal notranslate"><span class="pre">pandas</span></code>
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">documentation</a>
+under <strong>Methods</strong>.</p>
+</div>
+<div class="section" id="with-groupby">
+<h3>with .groupby()<a class="headerlink" href="#with-groupby" title="Permalink to this heading">#</a></h3>
+<p>As we have seen, the output of <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> is a special type of
+<strong>DataFrame</strong>, and it inherits almost all of the methods for calculating
+summary statistics:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="statistical-tests">
+<h2>statistical tests<a class="headerlink" href="#statistical-tests" title="Permalink to this heading">#</a></h2>
+<p>In addition to descriptive statistics, we can use python for
+<em>inferential statistics</em> - for example, for hypothesis testing. In the
+remainder of the exercise, we’ll look at a few examples of some common
+statistical tests and how to perform these in python, using
+<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>. Please note that these examples are far from exhaustive
+- if you’re looking for a specific hypothesis test, there’s a good
+chance someone has programmed it into python, either as part of the
+<code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> package
+(<a class="reference external" href="https://www.statsmodels.org/stable/index.html">documentation</a>), or
+as part of <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>
+(<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html">documentation</a>),
+or as part of an additional package that you can install. You should be
+able to find what you need with a quick internet search.</p>
+<div class="section" id="independent-samples-students-t-test">
+<h3>independent samples student’s <em>t</em>-test<a class="headerlink" href="#independent-samples-students-t-test" title="Permalink to this heading">#</a></h3>
+<p>For a start, let’s test the hypothesis that Stornoway Airport gets more
+rain than Armagh. If we first have a look at a box plot:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;stornoway&#39;</span><span class="p">,</span> <span class="s1">&#39;armagh&#39;</span><span class="p">])]</span> <span class="c1"># select stornoway airport and armagh data</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selected</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../../_images/stats_35_1.png" src="../../../_images/stats_35_1.png" />
+<p>It does look like Stornoway Airport does get more rain, on average, than
+Armagh.</p>
+<p>To run Student’s <em>t</em>-test using <code class="docutils literal notranslate"><span class="pre">pingouin</span></code>, we use <code class="docutils literal notranslate"><span class="pre">pg.ttest()</span></code>
+(<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.ttest.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh_rain</span> <span class="o">=</span> <span class="n">selected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">selected</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;armagh&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># take a sample of 30 rain observations from armagh</span>
+<span class="n">stornoway_rain</span> <span class="o">=</span> <span class="n">selected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">selected</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;stornoway&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># take a sample of 30 rain observations from stornoway</span>
+
+<span class="c1"># test whether stornoway_rain.mean() &gt; armagh_rain.mean() at the 99% confidence level</span>
+<span class="n">rain_comp</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">ttest</span><span class="p">(</span><span class="n">stornoway_rain</span><span class="p">,</span> <span class="n">armagh_rain</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
+
+<span class="n">rain_comp</span> <span class="c1"># show the results dataframe</span>
+</pre></div>
+</div>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">pg.ttest()</span></code> is a <strong>DataFrame</strong> that gives us the
+following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code>: the value of the <em>t</em>-statistic;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dof</span></code>: the degrees of freedom;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alternative</span></code>: the hypothesis that was used;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p-val</span></code>: the <em>p</em>-value of the <em>t</em>-statistic;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CI{confidence}%</span></code>: the confidence interval for the chosen
+significance level;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cohen-d</span></code>: Cohen’s d effect size;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BF10</span></code>: the Bayes Factor of the alternative hypothesis;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">power</span></code>: the achieved power of the test</p></li>
+</ul>
+<p>Now, let’s look at an example of a one-sample <em>t</em>-test, to see if we can
+determine whether the mean of a small sample of summer temperatures
+provides a good estimate of the mean of all summer temperatures measured
+at Oxford.</p>
+<p>First, we’ll select all of the summer values of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> recorded at
+Oxford, then calculate the mean value of these temperatures:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oxford_summer_tmax</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;station == &quot;oxford&quot; &amp; season == &quot;summer&quot;&#39;</span><span class="p">)[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Oxford Mean Summer Tmax: </span><span class="si">{</span><span class="n">oxford_summer_tmax</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So the mean summer temperature measured in Oxford between 1853-2022 is
+21.1°C - now, let’s take a random sample of 30 temperatures using
+<code class="docutils literal notranslate"><span class="pre">.sample()</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_tmax</span> <span class="o">=</span> <span class="n">oxford_summer_tmax</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># select a random sample of 30 values</span>
+</pre></div>
+</div>
+<p>Once again, we use <code class="docutils literal notranslate"><span class="pre">pg.ttest()</span></code> to conduct the test. Because
+<code class="docutils literal notranslate"><span class="pre">oxford_summer_tmax</span></code> is a single value, the function knows that this
+is a one-sample test:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test whether sample_tmax.mean() is not equal to oxford_summer_tmax at the 95% confidence level</span>
+<span class="n">tmax_comp</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">ttest</span><span class="p">(</span><span class="n">sample_tmax</span><span class="p">,</span> <span class="n">oxford_summer_tmax</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;two-sided&#39;</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+
+<span class="n">tmax_comp</span> <span class="c1"># show the results dataframe</span>
+</pre></div>
+</div>
+<p>Based on this, we can’t conclude that our sample mean is significantly
+different from the mean of all of the summer values of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> recorded
+at Oxford.</p>
+</div>
+<div class="section" id="non-parametric-tests">
+<h3>non-parametric tests<a class="headerlink" href="#non-parametric-tests" title="Permalink to this heading">#</a></h3>
+<p>We can also conduct non-parametric hypothesis tests using <code class="docutils literal notranslate"><span class="pre">pingouin</span></code>.
+The example we will look at is the one- or two-sample Wilcoxon tests,
+using <code class="docutils literal notranslate"><span class="pre">pg.wilcoxon()</span></code>
+(<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.wilcoxon.html">documentation</a>).
+Let’s start by looking at the Wilcoxon Rank Sum test, which is analogous
+to the independent sample <em>t</em>-test. For this, we’ll use the same data
+that we did before, again testing whether Stornoway Airport gets more
+rainfall, on average, than Armagh:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test whether mean(stornoway.rain) &gt; mean(armagh.rain)</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">wilcoxon</span><span class="p">(</span><span class="n">stornoway_rain</span><span class="p">,</span> <span class="n">armagh_rain</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output table has the following columns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">W-val</span></code>: the W-statistic of the test;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alternative</span></code>: the alternative hypothesis uesd;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p-val</span></code>: the <em>p</em>-value of the W-statistic;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RBC</span></code>: the matched pairs rank-biserial correlation (i.e., the
+effect size);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLES</span></code>: the common language effect size.</p></li>
+</ul>
+<p>From this, we can again conclude that Stornoway Airport does get more
+rainfall, on average, than Armagh.</p>
+</div>
+<div class="section" id="analysis-of-variance">
+<h3>analysis of variance<a class="headerlink" href="#analysis-of-variance" title="Permalink to this heading">#</a></h3>
+<p>Finally, we’ll see how we can set up and interpret an analysis of
+variance test. In this example, we’ll only look at data from Armagh,
+Oxford, and Stornoway Airport, because the Southampton time series ends
+in 1999. We’ll first calculate the annually-averaged values of the
+meteorological variables, using <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annual_average</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;armagh&#39;</span><span class="p">,</span> <span class="s1">&#39;oxford&#39;</span><span class="p">,</span> <span class="s1">&#39;stornoway&#39;</span><span class="p">])]</span> \
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, we’ll add a new variable, <code class="docutils literal notranslate"><span class="pre">period</span></code>, to divide the observations
+into three different 50-year periods: 1871-1920, 1921-1970, and
+1971-2020. To do this, we’ll use <code class="docutils literal notranslate"><span class="pre">pd.cut()</span></code> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.cut.html">documentation</a>). To
+do this, we first have to define the labels (<code class="docutils literal notranslate"><span class="pre">periods</span></code>) and category
+boundaries (<code class="docutils literal notranslate"><span class="pre">bins</span></code>). Then, we use <code class="docutils literal notranslate"><span class="pre">.dropna()</span></code> to remove any rows
+where <code class="docutils literal notranslate"><span class="pre">period</span></code> has a <code class="docutils literal notranslate"><span class="pre">NaN</span></code> value (i.e., is outside of the range
+1871-2020):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">periods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1871-1920&#39;</span><span class="p">,</span> <span class="s1">&#39;1921-1970&#39;</span><span class="p">,</span> <span class="s1">&#39;1971-2020&#39;</span><span class="p">]</span> <span class="c1"># make a list of period names</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1870</span><span class="p">,</span> <span class="mi">1920</span><span class="p">,</span> <span class="mi">1970</span><span class="p">,</span> <span class="mi">2020</span><span class="p">]</span> <span class="c1"># make a list of period boundaries - must be 1 longer than the names</span>
+
+<span class="n">annual_average</span><span class="p">[</span><span class="s1">&#39;period&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">annual_average</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">periods</span><span class="p">)</span> <span class="c1"># assign a value to period, using the boundaries and labels above</span>
+
+<span class="n">annual_average</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;period&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># drop any rows where period is NaN</span>
+
+<span class="n">annual_average</span> <span class="c1"># show the dataframe</span>
+</pre></div>
+</div>
+<p>Before running the test, let’s make a box plot that shows the
+distribution of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> values among the three periods:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">annual_average</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># make a box plot of tmax, grouped by period</span>
+</pre></div>
+</div>
+<img alt="../../../_images/stats_51_1.png" src="../../../_images/stats_51_1.png" />
+<p>From this, it certainly appears as though there is a difference in the
+mean value of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> between the three periods. To formally test this,
+we’ll use <code class="docutils literal notranslate"><span class="pre">aov()</span></code>
+(<a class="reference external" href="https://rdrr.io/r/stats/aov.html">documentation</a>).</p>
+<p>To run the one-way ANOVA test, we use <code class="docutils literal notranslate"><span class="pre">pg.anova()</span></code>
+(<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.anova.html">documentation</a>).
+Using this, we can pass our <code class="docutils literal notranslate"><span class="pre">annual_average</span></code> <strong>DataFrame</strong> using the
+<code class="docutils literal notranslate"><span class="pre">data</span></code> argument, and specify <code class="docutils literal notranslate"><span class="pre">tmax</span></code> as the dependent variable
+(<code class="docutils literal notranslate"><span class="pre">dv</span></code>), and <code class="docutils literal notranslate"><span class="pre">period</span></code> as the grouping variable (<code class="docutils literal notranslate"><span class="pre">between</span></code>). We’ll
+also look at the detailed test output (<code class="docutils literal notranslate"><span class="pre">detailed=True</span></code>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aov</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">anova</span><span class="p">(</span><span class="n">dv</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">between</span><span class="o">=</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">annual_average</span><span class="p">,</span> <span class="n">detailed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># run one-way anova for differences of tmax between periods</span>
+
+<span class="n">aov</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># round the output to 3 decimal places</span>
+</pre></div>
+</div>
+<p>The table output has the following columns across two rows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Source</span></code>: the factor names;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SS</span></code>: the sums of squares;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DF</span></code>: the degrees of freedom;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MS</span></code>: the mean squares;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span></code>: the value of the <em>F</em>-statistic;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p-unc</span></code>: the uncorrected <em>p</em>-values;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np2</span></code>: the partial eta-square effect sizes</p></li>
+</ul>
+<p>From the table, we can see that there are significant differences
+between the groups at the 99.9% significance level.</p>
+<p>This doesn’t tell us which pairs of groups are different - for this, we
+would need to run an additional test. As one example, we can use
+<code class="docutils literal notranslate"><span class="pre">pg.pairwise_tukey()</span></code>
+(<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.pairwise_tukey.html">documentation</a>)
+to compute “Tukey’s Honest Significant Difference” between each pair of
+groups:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmax_mc</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">pairwise_tukey</span><span class="p">(</span><span class="n">dv</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">between</span><span class="o">=</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">annual_average</span><span class="p">)</span> <span class="c1"># run the pairwise tukey HSD post-hoc test</span>
+
+<span class="n">tmax_mc</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># round the output to 3 decimal places</span>
+</pre></div>
+</div>
+<p>From this, we can see the estimated difference in the means for each
+pair of groups (shown in <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>); the estimated mean of each
+group; the estimated difference between the mean of each group
+(<code class="docutils literal notranslate"><span class="pre">diff</span></code>); the standard error of the estimate (<code class="docutils literal notranslate"><span class="pre">se</span></code>); the
+<em>t</em>-statistic of the estimated difference (<code class="docutils literal notranslate"><span class="pre">T</span></code>); the corrected
+<em>p</em>-value of the <em>t</em>-statistic (<code class="docutils literal notranslate"><span class="pre">p-tukey</span></code>), and the effect size (by
+default, Hedges).</p>
+<p>Using this, we can clude that, at the 99% significance level, there is a
+significant difference in <code class="docutils literal notranslate"><span class="pre">tmax</span></code> between the periods 1971-2020 and
+1871-2020, and between the periods 1971-2020 and 1921-1970.</p>
+</div>
+</div>
+<div class="section" id="exercise-and-next-steps">
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
+<p>That’s all for this exercise. To help practice your skills, try at least
+one of the following:</p>
+<ul class="simple">
+<li><p>Set up and run an AOV test to compare annual total rainfall at all
+four stations, using data from all avaialable years. Are there
+significant differences between the stations? Use
+<code class="docutils literal notranslate"><span class="pre">pg.pairwise_tukey()</span></code> or <code class="docutils literal notranslate"><span class="pre">pg.pairwise_tests()</span></code>
+(<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.pairwise_tests.html">documentation</a>)
+to investigate further.</p></li>
+<li><p>Using only observations from Armagh, set up and run a test to see if
+there are significant differences in rainfall based on the season.</p></li>
+<li><p>Using only observations from Oxford, is there a significant
+difference between the values of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> in the spring and the
+autumn at the 99.9% confidence level?</p></li>
+<li><p>Using only observations from Stornoway Airport, is the value of
+<code class="docutils literal notranslate"><span class="pre">tmin</span></code> significantly lower in the winter, compared to the autumn?</p></li>
+</ul>
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pandas.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">working with pandas dataframes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="regression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">linear regression using python</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-libraries">loading libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics">descriptive statistics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#describing-variables-using-describe">describing variables using .describe()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-describe-to-summarize-groups">using .describe() to summarize groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-built-in-functions-for-descriptive-statistics">using built-in functions for descriptive statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-groupby">with .groupby()</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-tests">statistical tests</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-samples-students-t-test">independent samples student’s <em>t</em>-test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-parametric-tests">non-parametric tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-variance">analysis of variance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

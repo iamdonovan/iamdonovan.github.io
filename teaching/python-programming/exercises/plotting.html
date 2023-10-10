@@ -1,0 +1,1133 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>plotting data using seaborn &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/python-programming/exercises/plotting';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="working with pandas dataframes" href="pandas.html" />
+    <link rel="prev" title="debugging code" href="debugging.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm702/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/setup.html">software setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week2.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week3.html">introduction to google earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week4.html">change detection in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week5.html">classification in earth engine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week2.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/sentinelsat.html">searching for images with sentinelsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week5.html">vector and raster operations using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/environment.html">environment.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">programming skills for phd researchers (using python)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">exercises</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="debugging.html">debugging code</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/python-programming/exercises/plotting.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/python-programming/exercises/plotting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/teaching/python-programming/exercises/plotting.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>plotting data using seaborn</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">importing libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-data">loading the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-variables-to-the-table">adding variables to the table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-a-new-column">calculating a new column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-data">plotting data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-scatter-plot">example: scatter plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-basic-histogram">example: basic histogram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-density-plot">example: density plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-box-plots">example: box plots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facet-wrapping">facet wrapping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-up-and-saving-the-plot-to-a-file">cleaning up and saving the plot to a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="plotting-data-using-seaborn">
+<h1>plotting data using seaborn<a class="headerlink" href="#plotting-data-using-seaborn" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
+outputs, you’ll need to do one of the following:</p>
+<ul class="simple">
+<li><p>follow the setup steps and work through the notebook on your own computer</p></li>
+<li><p>open the workshop materials on <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/intro-to-python/HEAD">binder</a> and work
+through them online</p></li>
+<li><p>open a python console, copy the lines of code here, and paste them into the console to run them</p></li>
+</ul>
+</div>
+<p>In this exercsise, we’re going to investigate how temperature has
+changed over time, using monthly observations from the Armagh
+Observatory. By the end of this exercise, you will:</p>
+<ul class="simple">
+<li><p>load data from a file</p></li>
+<li><p>add variables to a table</p></li>
+<li><p>create date objects from character strings</p></li>
+<li><p>recode values in a table</p></li>
+<li><p>select data from a table using logical expressions</p></li>
+<li><p>create scatter plots (with smoothing lines)</p></li>
+<li><p>create histograms (+ smoothed histograms)</p></li>
+<li><p>save plots to a file</p></li>
+</ul>
+<div class="section" id="data">
+<h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<p>The data used in this exercise are the historic meteorological
+observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
+Observatory</a>,
+downloaded from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">UK Met
+Office</a>.</p>
+<p>To make the data slightly easier to work with, I have done the
+following: - Removed the header on lines 1-5 - Replaced multiple spaces
+with a single space, and replaced single spaces with a comma (<code class="docutils literal notranslate"><span class="pre">,</span></code>) -
+Removed <code class="docutils literal notranslate"><span class="pre">---</span></code> to indicate no data, leaving these fields blank -
+Removed <code class="docutils literal notranslate"><span class="pre">*</span></code> indicating provisional/estimated values - Removed the 2023
+data - Renamed the file <code class="docutils literal notranslate"><span class="pre">armaghdata.csv</span></code>.</p>
+<p>If you wish to use your own data (and there are loads of stations
+available!), please feel free. I have also included a script,
+<code class="docutils literal notranslate"><span class="pre">convert_metoffice.py</span></code> (in the <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder), that will do
+these steps automatically. All you need to do is run the following from
+a terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convert_metoffice</span><span class="o">.</span><span class="n">py</span> <span class="p">{</span><span class="n">station</span><span class="p">}</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>This will create a new file, <code class="docutils literal notranslate"><span class="pre">{station}data.csv</span></code>, that has converted +
+cleaned the data into a CSV format that can easily be read by
+<code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+</div>
+<div class="section" id="importing-libraries">
+<h2>importing libraries<a class="headerlink" href="#importing-libraries" title="Permalink to this heading">#</a></h2>
+<p>Before getting started, we will import the libraries (packages) that we
+will use in the exercise:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/">pandas</a>, for reading the data from a
+file;</p></li>
+<li><p><a class="reference external" href="https://seaborn.pydata.org/">seaborn</a>, for plotting the data</p></li>
+</ul>
+<p>To do this, we use the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement, followed by the name of the
+package. Remember that we can also <em>alias</em> the package name using
+<code class="docutils literal notranslate"><span class="pre">as</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> <span class="c1"># import pandas, but alias it as pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span> <span class="c1"># import seaborn, but alias it as sns</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-the-data">
+<h2>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h2>
+<p>Now, we’re ready to load the data file, using <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/armaghdata.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> has a number of functions for reading data from files,
+depending on the format - another common one you might use is
+<code class="docutils literal notranslate"><span class="pre">pd.read_excel()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html">documentation</a>).
+Note that in order to read Excel files, you will need to install
+<strong>openpyxl</strong> (<a class="reference external" href="https://openpyxl.readthedocs.io/">link</a>) using
+<strong>conda</strong>.</p>
+<p>To view a summary of the <strong>DataFrame</strong>, we can use the <code class="docutils literal notranslate"><span class="pre">.head()</span></code>
+method
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># show the first 10 rows of the dataframe</span>
+</pre></div>
+</div>
+<p>We can also see that only the <code class="docutils literal notranslate"><span class="pre">rain</span></code> variable has values back to 1853
+- missing values are indicated by <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, which means “Not a Number” -
+i.e., missing.</p>
+</div>
+<div class="section" id="adding-variables-to-the-table">
+<h2>adding variables to the table<a class="headerlink" href="#adding-variables-to-the-table" title="Permalink to this heading">#</a></h2>
+<p>Before moving on, we’ll see how we can add additional variables to the
+table, starting with the date. This will make it easier for us to plot
+and analyze the time series of observations.</p>
+<p>We want this column to be represented as a <strong>datetime</strong> object so that
+it displays properly when we plot it, and because we may want to do
+calculations using the date/time. When working with <strong>DataFrame</strong>
+objects, the easiest way to do this is using <code class="docutils literal notranslate"><span class="pre">pd.to_datetime()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.to_datetime.html">documentation</a>).
+The argument that we will use for this function is a <strong>dict</strong> object,
+with key/value pairs corresponding to <strong>year</strong>, <strong>month</strong>, and <strong>day</strong>.
+Because we don’t have a <strong>day</strong> column in the <strong>DataFrame</strong>, we will
+just default to a value of 1:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">({</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;yyyy&#39;</span><span class="p">],</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">],</span> <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1"># format datetime objects using the yyyy and mm columns</span>
+</pre></div>
+</div>
+<p>Now, we can add this to the <strong>DataFrame</strong> as a column called <code class="docutils literal notranslate"><span class="pre">date</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">({</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;yyyy&#39;</span><span class="p">],</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">],</span> <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1"># add the datetime series to the dataframe with the name &#39;date&#39;</span>
+
+<span class="n">armagh</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># show the first 10 rows of the table</span>
+</pre></div>
+</div>
+<p>we can also check the data type of the new column - we should see that
+it is <code class="docutils literal notranslate"><span class="pre">datetime64[ns]</span></code>, corresponding to a 64-bit <strong>datetime</strong> object
+with units of nanoseconds:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">.</span><span class="n">dtypes</span> <span class="c1"># see the data type of each column</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculating-a-new-column">
+<h2>calculating a new column<a class="headerlink" href="#calculating-a-new-column" title="Permalink to this heading">#</a></h2>
+<p>One thing we might be interested in doing is aggregating our
+observations by meteorological season, rather than just by month or
+year. To help us with this, we can calculate a new variable, <code class="docutils literal notranslate"><span class="pre">season</span></code>,
+and assign it values based on whether the month is part of the
+meteorological spring (March, April, May), summer (June, July, August),
+autumn (September, October, November), or winter (December, January,
+February).</p>
+<p>Another way to look at this is by thinking of these as
+<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">...</span> <span class="pre">then</span> <span class="pre">...</span> <span class="pre">else</span></code> statements:</p>
+<ul class="simple">
+<li><p><strong>if</strong> month is 1, 2, or 12, <strong>then</strong> <code class="docutils literal notranslate"><span class="pre">season</span></code> is “winter”</p></li>
+<li><p><strong>if</strong> month is 3, 4, or 5, <strong>then</strong> <code class="docutils literal notranslate"><span class="pre">season</span></code> is “spring”</p></li>
+<li><p><strong>if</strong> month is 6, 7, or 8, <strong>then</strong> <code class="docutils literal notranslate"><span class="pre">season</span></code> is “summer”</p></li>
+<li><p><strong>if</strong> month is 9, 10, or 11, <strong>then</strong> <code class="docutils literal notranslate"><span class="pre">season</span></code> is “autumn”</p></li>
+</ul>
+<p>First, let’s remember how we can select rows from a table using a
+<strong>conditional</strong> statement. For example, if we want to select all rows
+where the value in the <code class="docutils literal notranslate"><span class="pre">mm</span></code> column is 1, 2, or 12, we could write:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">12</span><span class="p">)]</span> <span class="c1"># select rows where month is &lt; 3 or == 12</span>
+</pre></div>
+</div>
+<p>As you can see, this selects a total of 510 rows from the table,
+wherever the value in the <code class="docutils literal notranslate"><span class="pre">mm</span></code> column is 1 or 2 (<code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">3</span></code>), or 12.</p>
+<p>Here, we’ve used the <code class="docutils literal notranslate"><span class="pre">|</span></code> (“pipe” or “logical or”) operator to combine
+two conditional statements: it returns <code class="docutils literal notranslate"><span class="pre">True</span></code> wherever
+<code class="docutils literal notranslate"><span class="pre">armagh['mm']</span> <span class="pre">&lt;</span> <span class="pre">3</span></code> <strong>or</strong> wherever <code class="docutils literal notranslate"><span class="pre">armagh['mm']</span> <span class="pre">==</span> <span class="pre">12</span></code>.</p>
+<p>However, we can also use the <code class="docutils literal notranslate"><span class="pre">in</span></code> operator to write this a bit more
+compactly, using the <code class="docutils literal notranslate"><span class="pre">.isin()</span></code> method
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.isin.html">documentation</a>)
+and a <strong>list</strong> (or other sequence) of the values to compare:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">])]</span> <span class="c1"># select from the table based on whether values are in [1, 2, 12]</span>
+</pre></div>
+</div>
+<p>We can then write 4 separate statements to assign these values to the
+<strong>DataFrame</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># initialize an empty string column</span>
+<span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">]),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;winter&#39;</span> <span class="c1"># if month is 1, 2, or 12, set season to winter</span>
+<span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;spring&#39;</span> <span class="c1"># if month is 3, 4, or 5, set season to spring</span>
+<span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;summer&#39;</span> <span class="c1"># if month is 6, 7, or 8, set season to summer</span>
+<span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;autumn&#39;</span> <span class="c1"># if month is 9, 10, or 11, set season to autumn</span>
+
+<span class="n">armagh</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># show the first year of data, to check that we have set the values properly</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="plotting-data">
+<h2>plotting data<a class="headerlink" href="#plotting-data" title="Permalink to this heading">#</a></h2>
+<p>To plot data, we’ll use <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>, a popular package for plotting data
+that integrates well with <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <strong>DataFrame</strong> objects.</p>
+<div class="section" id="example-scatter-plot">
+<h3>example: scatter plot<a class="headerlink" href="#example-scatter-plot" title="Permalink to this heading">#</a></h3>
+<p>In this exercise, we will look at a number of different example plots
+using our data, starting with a simple scatter plot using
+<code class="docutils literal notranslate"><span class="pre">sns.scatterplot()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.scatterplot.html">documentation</a>).</p>
+<p>We can pass our <strong>DataFrame</strong> to <code class="docutils literal notranslate"><span class="pre">sns.scatterplot()</span></code> using the
+<code class="docutils literal notranslate"><span class="pre">data</span></code> argument, and specify which columns from the <strong>DataFrame</strong> to
+plot along the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axes. The following will plot <code class="docutils literal notranslate"><span class="pre">tmax</span></code>
+(monthly maximum temperature) vs <code class="docutils literal notranslate"><span class="pre">date</span></code> - in other words, a time
+series of monthly maximum temperature:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">)</span> <span class="c1"># create a simple scatter plot of tmax vs date, using the armagh dataframe</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_19_1.png" src="../../../_images/plotting_19_1.png" />
+<p>over the rest of this exercise, we’ll look at how we can continue to
+customize plots, by adding colors, customizing labels, changing font
+sizes, and so on.</p>
+</div>
+<div class="section" id="example-basic-histogram">
+<h3>example: basic histogram<a class="headerlink" href="#example-basic-histogram" title="Permalink to this heading">#</a></h3>
+<p>Now, let’s look at another type of plot: a histogram. To create a
+histogram using <code class="docutils literal notranslate"><span class="pre">sns.histplot()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.histplot.html">documentation</a>),
+we need to specify the <code class="docutils literal notranslate"><span class="pre">x</span></code> variable. We’ll continue using <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, so
+this will be a histogram of the values of <code class="docutils literal notranslate"><span class="pre">tmax</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># plot a histogram of tmax, using the armagh dataframe</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_21_1.png" src="../../../_images/plotting_21_1.png" />
+<p>By default, <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> calculates the bin width (and therefore number
+of bins) based on the sample size and variance of the variable. We can
+also specify the number of bins to use (using the <code class="docutils literal notranslate"><span class="pre">bins</span></code> argument),
+the width of the bins to use (using the <code class="docutils literal notranslate"><span class="pre">binwidth</span></code> argument), or even
+the edges of the bins (by passing a sequence of bin edges using the
+<code class="docutils literal notranslate"><span class="pre">bins</span></code> argument).</p>
+<p>Here’, let’s see how the plot changes by specifying using 30 bins:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># plot a histogram of tmax, using the armagh dataframe and 30 bins</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_23_1.png" src="../../../_images/plotting_23_1.png" />
+<p>In the plot above, you can see how <code class="docutils literal notranslate"><span class="pre">tmax</span></code> is distributed, with several
+apparent peaks around 8°C, 14°C, and 18°C. Presumably, these would be
+peaks that roughly correspond to winter, spring/autumn, and summer,
+respectively - let’s change the plot slightly so that we can see if this
+is correct.</p>
+<p>To do this, we can use the <code class="docutils literal notranslate"><span class="pre">hue</span></code> keyword argument to
+<code class="docutils literal notranslate"><span class="pre">sns.histplot()</span></code>, which will group the values based on the variable
+passed (in this case, <code class="docutils literal notranslate"><span class="pre">season</span></code>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># show the distribution of tmax, broken down by season</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_25_1.png" src="../../../_images/plotting_25_1.png" />
+<p>With this plot, we can see how the total distribution of the dataset is
+made up of each group - as we had suspected, the peaks on either side
+primarily correspond to winter (blue) and summer (green), while the peak
+in the middle is a combination of spring (orange) and autumn (red).</p>
+<p>With different groups, we can also specify how to display the groups
+using the <code class="docutils literal notranslate"><span class="pre">multiple</span></code> keyword argument. The value of <code class="docutils literal notranslate"><span class="pre">multiple</span></code> must
+be one of the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'layer'</span></code> - the default, which plots each bin in place using
+transparency</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'dodge'</span></code> - shifts and narrows each bin so that they don’t overlap</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'stack'</span></code> - stacks bins on top of each other</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'fill'</span></code> - stacks bins on top of each other, with each category/bin
+adding up to 1.</p></li>
+</ul>
+<p>In the cell below, add an argument to <code class="docutils literal notranslate"><span class="pre">histplot</span></code> to show the
+histograms stacked on top of each other:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># remember to add the right keyword argument!</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_27_1.png" src="../../../_images/plotting_27_1.png" />
+</div>
+<div class="section" id="example-density-plot">
+<h3>example: density plot<a class="headerlink" href="#example-density-plot" title="Permalink to this heading">#</a></h3>
+<p>We can also plot the density distribution of the data, a smoothed
+version of the histogram, using <code class="docutils literal notranslate"><span class="pre">sns.kdeplot()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.kdeplot.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># plot the density distribution of the data, colored by season, filled in</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_29_1.png" src="../../../_images/plotting_29_1.png" />
+</div>
+<div class="section" id="example-box-plots">
+<h3>example: box plots<a class="headerlink" href="#example-box-plots" title="Permalink to this heading">#</a></h3>
+<p>To make a box plot, we can use <code class="docutils literal notranslate"><span class="pre">sns.boxplot()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.boxplot.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span> <span class="c1"># create a vertical box plot of rain, grouped by season</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_31_1.png" src="../../../_images/plotting_31_1.png" />
+<p>To swap the orientation of the boxes, we can change the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>
+mapping:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span> <span class="c1"># create a horizontal box plot of rain, grouped by season</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_33_1.png" src="../../../_images/plotting_33_1.png" />
+</div>
+</div>
+<div class="section" id="facet-wrapping">
+<h2>facet wrapping<a class="headerlink" href="#facet-wrapping" title="Permalink to this heading">#</a></h2>
+<p>We might also want to plot our data using different subplots, or
+<strong>facets</strong>. For example, let’s look at a scatter plot of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> vs
+<code class="docutils literal notranslate"><span class="pre">rain</span></code>, colored by season:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_35_1.png" src="../../../_images/plotting_35_1.png" />
+<p>But, this makes it difficult to see the scatter for each season. To
+split this into a single subplot for each season, we use
+<code class="docutils literal notranslate"><span class="pre">sns.FaceGrid()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.FacetGrid.html">documentation</a>)
+to create a <strong>FacetGrid</strong> object, with each panel of the grid
+corresponding to a different season.</p>
+<p>We can then use <code class="docutils literal notranslate"><span class="pre">.map_dataframe()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.FacetGrid.map_dataframe.html">documentation</a>)
+to <em>map</em> a plotting function (in this case, <code class="docutils literal notranslate"><span class="pre">sns.scatterplot()</span></code>) to
+each panel, specifying the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> data:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create a 2x2 grid of panels, one for each value of season</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># create a scatter plot of tmax vs rain in each panel</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">seaborn</span><span class="o">.</span><span class="n">axisgrid</span><span class="o">.</span><span class="n">FacetGrid</span> <span class="n">at</span> <span class="mh">0x7f1222fbea50</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_37_1.png" src="../../../_images/plotting_37_1.png" />
+</div>
+<div class="section" id="cleaning-up-and-saving-the-plot-to-a-file">
+<h2>cleaning up and saving the plot to a file<a class="headerlink" href="#cleaning-up-and-saving-the-plot-to-a-file" title="Permalink to this heading">#</a></h2>
+<p>In the final example, we’ll make a plot showing the relationship between
+<code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, colored by the <code class="docutils literal notranslate"><span class="pre">season</span></code>, and plot regression
+lines for each season.</p>
+<p>We’ll also see how we can change the axes labels, and increase font
+sizes, to help make our plot ready for including in a manuscript or
+presentation.</p>
+<p>Because we want to see the linear relationship between <code class="docutils literal notranslate"><span class="pre">rain</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tmax</span></code> for each season, we can use <code class="docutils literal notranslate"><span class="pre">sns.lmplot()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.lmplot.html">documentation</a>)-
+this will plot the scatter plot, plus the regression lines:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">seaborn</span><span class="o">.</span><span class="n">axisgrid</span><span class="o">.</span><span class="n">FacetGrid</span> <span class="n">at</span> <span class="mh">0x7f122041b6d0</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_39_1.png" src="../../../_images/plotting_39_1.png" />
+<p>Up to now, we’ve just been showing the output of the different plotting
+calls directly by running each cell. In a script, however, this wouldn’t
+work - we want to assign the output to a new <strong>object</strong>, which we can
+then use in the script (including, ultimately, by saving the plot to a
+file).</p>
+<p>We do this exactly the same way as we have previously, using the <code class="docutils literal notranslate"><span class="pre">=</span></code>
+operator:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_41_0.png" src="../../../_images/plotting_41_0.png" />
+<p>Now, we can use this object to change the properties of the axes.
+<code class="docutils literal notranslate"><span class="pre">seaborn</span></code> is built on top of another package,
+<a class="reference external" href="https://matplotlib.org/stable/users/index">matplotlib</a>, and many of
+the objects created by <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> either are <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> objects, or
+they inherit a number of attributes from the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> classes they
+are built on.</p>
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">rain_tmax_plot</span></code> object we have created is a
+<strong>seaborn.axisgrid.FacetGrid</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">rain_tmax_plot</span><span class="p">)</span> <span class="c1"># show the type of rain_tmax_plot</span>
+</pre></div>
+</div>
+<p>This <strong>class</strong> has an attribute, <code class="docutils literal notranslate"><span class="pre">ax</span></code>, which is a
+<strong>matplotlib.axes.Axes</strong>
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span> <span class="c1"># show the type of rain_tmax_plot.ax</span>
+</pre></div>
+</div>
+<p>To change the properties of the axes, then, we can use the relevant
+<strong>Axes</strong> methods. For example, <code class="docutils literal notranslate"><span class="pre">.set_xlabel()</span></code>
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html">documentation</a>)
+and <code class="docutils literal notranslate"><span class="pre">.set_ylabel()</span></code>
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html">documentation</a>)
+will change the text and properties of the x and y axis labels,
+respectively, and we can use the <code class="docutils literal notranslate"><span class="pre">fontsize</span></code> argument to set the size
+of the text:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;monthly rainfall (mm)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span> <span class="c1"># set the x axis label</span>
+<span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;monthly maximum temperature (°C)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span> <span class="c1"># set the y axis label</span>
+
+<span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span> <span class="c1"># show the figure again</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_47_0.png" src="../../../_images/plotting_47_0.png" />
+<p>We can also use <code class="docutils literal notranslate"><span class="pre">.set_xticks()</span></code>
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xticks.html">documentation</a>)
+and <code class="docutils literal notranslate"><span class="pre">.set_yticks()</span></code>
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_yticks.html">documentation</a>)
+to change the location, text, and properties of the ticks on the x and y
+axis, respectively:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># change the xtick label font size</span>
+<span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># change the xtick label font size</span>
+
+<span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span> <span class="c1"># show the figure again</span>
+</pre></div>
+</div>
+<img alt="../../../_images/plotting_49_0.png" src="../../../_images/plotting_49_0.png" />
+<p>As you can see from the previous few cells, we have been using
+<code class="docutils literal notranslate"><span class="pre">rain_tmax_plot.fig</span></code> to show the updates to the figure. As you might
+have guessed, this is a <strong>matplotlib.figure.Figure</strong> object
+(<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure">documentation</a>)
+- effectively, the canvas where <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> draws the plot:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span><span class="p">)</span> <span class="c1"># show the type of rain_tmax_plot.fig</span>
+</pre></div>
+</div>
+<p>To save our figure to a file, we can use <code class="docutils literal notranslate"><span class="pre">.savefig()</span></code>
+(<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.savefig">documentation</a>)
+as an SVG (scalable vector graphics) file:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;rain_tmax_plot.svg&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span> <span class="c1"># save the figure cropped close to the axes</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercise-and-next-steps">
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
+<p>That’s all for this exercise. To practice your skills, create a script
+that does the following:</p>
+<ul class="simple">
+<li><p>loads the packages that you will need at the beginning of the script</p></li>
+<li><p>adds a season variable</p></li>
+<li><p>adds a variable to divide the data into three 50 year periods:
+1871-1920, 1921-1970, and 1971-2020</p></li>
+<li><p>selects only those observations between 1871 and 2020 (inclusive)</p></li>
+<li><p>creates a figure to plot the density distribution of tmin for each
+period in its own panel, colored by season (using both color and
+fill)</p></li>
+<li><p>creates a figure to plot the density distribution of tmin for each
+period in the same panel, colored by the period (using both color and
+fill)</p></li>
+<li><p>sets appropriate labels and font sizes for the axis text</p></li>
+<li><p>saves each plot to its own file. For the three-panel figure, make
+sure to change the width and height of the plot so that the plot is
+more rectangular, and each panel is approximately square</p></li>
+</ul>
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="debugging.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">debugging code</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pandas.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">working with pandas dataframes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">importing libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-data">loading the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-variables-to-the-table">adding variables to the table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-a-new-column">calculating a new column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-data">plotting data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-scatter-plot">example: scatter plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-basic-histogram">example: basic histogram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-density-plot">example: density plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-box-plots">example: box plots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facet-wrapping">facet wrapping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-up-and-saving-the-plot-to-a-file">cleaning up and saving the plot to a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

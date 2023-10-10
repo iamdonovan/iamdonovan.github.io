@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>setting up a conda environment &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/python-programming/setup/environment';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="configuring the jupyterlab terminal" href="jupyter.html" />
+    <link rel="prev" title="setting up conda/anaconda" href="conda.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm702/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/setup.html">software setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week2.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week3.html">introduction to google earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week4.html">change detection in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week5.html">classification in earth engine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week2.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/sentinelsat.html">searching for images with sentinelsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week5.html">vector and raster operations using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/environment.html">environment.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">programming skills for phd researchers (using python)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">setup</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/python-programming/setup/environment.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/python-programming/setup/environment.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/teaching/python-programming/setup/environment.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>setting up a conda environment</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda-navigator">anaconda navigator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-an-environment">creating an environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-environments">changing environments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-command-prompt">setting up the command prompt</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda-command-prompt">anaconda command prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="setting-up-a-conda-environment">
+<h1>setting up a conda environment<a class="headerlink" href="#setting-up-a-conda-environment" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page provides instructions for creating a new <strong>conda</strong> environment using <strong>Anaconda Navigator</strong>, or using the
+<strong>Anaconda Command Prompt</strong>.</p>
+<p>You only need to choose <strong>ONE</strong> of these methods for setting up the environment.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>You should have already opened a <a class="reference internal" href="github.html"><span class="doc">GitHub</span></a> account, installed <a class="reference internal" href="git.html"><span class="doc">git</span></a> and
+<a class="reference internal" href="desktop.html"><span class="doc">GitHub Desktop</span></a>, <a class="reference internal" href="fork.html"><span class="doc">forked</span></a> the workshop repository, <a class="reference internal" href="clone.html"><span class="doc">cloned</span></a> the repository to
+your computer, and installed <a class="reference internal" href="conda.html"><span class="doc">Anaconda Navigator</span></a>.</p>
+<p>If you haven’t done all of these steps, please do so now before continuing.</p>
+</div>
+<div class="section" id="anaconda-navigator">
+<h2>anaconda navigator<a class="headerlink" href="#anaconda-navigator" title="Permalink to this heading">#</a></h2>
+<div class="section" id="creating-an-environment">
+<h3>creating an environment<a class="headerlink" href="#creating-an-environment" title="Permalink to this heading">#</a></h3>
+<p>From the <strong>Start</strong> menu, open <strong>Anaconda Navigator</strong>. When it opens, click on the <strong>Environments</strong> tab on the left-hand
+side of the screen. You should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/navigator.png"><img alt="anaconda navigator with the base environment" class="align-center" src="../../../_images/navigator.png" style="width: 720px;" /></a>
+<p><br /> As mentioned above, <strong>conda</strong> is a package management system. We can use <strong>conda</strong> to create different programming
+environments, which will enable us to keep track of and manage the specific versions of python packages that we use for
+this module. It also enables us to easily share our environment specifications across different computers, so that we
+can be sure that any processing steps that we do are consistent and reproducible.</p>
+<p>We will be creating a new environment using the <strong>environment.yml</strong> file provided in the git repository. A <strong>.yml</strong>
+file is one of the ways that we can easily duplicate environments using <strong>conda</strong> or other package management
+systems – it provides a list of the packages for the package management system to find and install.</p>
+<p>Open the <strong>environment.yml</strong> file in a text editor
+(<strong>NB – this means NotePad, Notepad++ or something similar, NOT MS Word!</strong>).</p>
+<p>It should look something like this (the exact list of dependencies may differ somewhat):</p>
+<a class="reference internal image-reference" href="../../../_images/python_intro_environment.png"><img alt="the yml file open in notepad++" class="align-center" src="../../../_images/python_intro_environment.png" style="width: 600px;" /></a>
+<p><br /> Here, you can see the name of the environment (<strong>intro-to-python</strong>), the <code class="docutils literal notranslate"><span class="pre">channels</span></code> to install packages from,
+listed in order of preference, and the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>, or required packages.</p>
+<p>From the <strong>Anaconda Navigator</strong> window, click on the <strong>Import</strong> button at the bottom of the <strong>Environments</strong> tab. An
+import window will open:</p>
+<a class="reference internal image-reference" href="../../../_images/import7.png"><img alt="the import window" class="align-center" src="../../../_images/import7.png" style="width: 400px;" /></a>
+<p><br /> Click the folder icon to navigate to the <strong>environment.yml</strong> file on the <strong>Local drive</strong>, select it and click
+<strong>Open</strong>. The window should now look like this:</p>
+<a class="reference internal image-reference" href="../../../_images/import_python.png"><img alt="the import window with the yml file selected" class="align-center" src="../../../_images/import_python.png" style="width: 400px;" /></a>
+<p><br /> The <strong>Name</strong> field should be automatically populated based on the <strong>.yml</strong> file, but if it isn’t make sure to
+change the name to <strong>intro-to-python</strong>.</p>
+<p>Click <strong>Import</strong> to start setting up the environment. Depending on your connection speed and computer’s specifications,
+this may take some time. When it finishes, you should see the following screen:</p>
+<a class="reference internal image-reference" href="../../../_images/python_environment.png"><img alt="anaconda navigator with the intro-to-python environment" class="align-center" src="../../../_images/python_environment.png" style="width: 720px;" /></a>
+<p><br /> Note how many packages were actually installed – 207, from the 6 shown in the original <strong>.yml</strong> file. This is
+because each of those 6 packages have additional dependencies which have to be installed as well. Fortunately,
+all of this is done automatically by <strong>conda</strong> – we don’t have to worry about tracking down and installing each
+individual dependency on our own.</p>
+</div>
+<div class="section" id="changing-environments">
+<h3>changing environments<a class="headerlink" href="#changing-environments" title="Permalink to this heading">#</a></h3>
+<p>The next thing to do is to switch to the <strong>Home</strong> tab in <strong>Anaconda Navigator</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/python_home.png"><img alt="anaconda navigator showing the home tab in the new environment" class="align-center" src="../../../_images/python_home.png" style="width: 720px;" /></a>
+<p><br /> You should see that you have two different environments when you open the dropdown menu next to <strong>Applications on</strong>.
+Whenever you want to switch environments in <strong>Anaconda Navigator</strong>, you can select the environment from this menu.</p>
+<p>You should see that when you change between the <code class="docutils literal notranslate"><span class="pre">base</span></code> and <code class="docutils literal notranslate"><span class="pre">intro-to-python</span></code> environments, the list of installed
+applications changes – this is because we have not installed the same applications in the different environments.</p>
+</div>
+<div class="section" id="setting-up-the-command-prompt">
+<span id="phdpy-conda-prompt"></span><h3>setting up the command prompt<a class="headerlink" href="#setting-up-the-command-prompt" title="Permalink to this heading">#</a></h3>
+<p>The final step covered in this manual is to install the <strong>CMD.exe Prompt</strong> for this environment:</p>
+<a class="reference internal image-reference" href="../../../_images/python_cmd_prompt.png"><img alt="anaconda navigator with the CMD.exe button highlighted" class="align-center" src="../../../_images/python_cmd_prompt.png" style="width: 720px;" /></a>
+<p><br /> While not strictly required, this will enable you to directly launch a <strong>Windows Command Prompt</strong> with your
+<strong>intro-to-python</strong> environment already loaded.</p>
+<p>If you run the <strong>Anaconda Prompt</strong> from the <strong>Start Menu</strong>, it will automatically load the default (<code class="docutils literal notranslate"><span class="pre">base</span></code>)
+environment, and you will need to switch environments using the <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span></code> command when you want to use your
+<strong>intro-to-python</strong> environment.</p>
+<p>Once you have the conda environment set up, you are ready to move on to configuring <strong>jupyter</strong>.</p>
+</div>
+</div>
+<div class="section" id="anaconda-command-prompt">
+<h2>anaconda command prompt<a class="headerlink" href="#anaconda-command-prompt" title="Permalink to this heading">#</a></h2>
+<p>From the <strong>Start</strong> menu, open the <strong>Anaconda Command Prompt</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/anaconda_prompt.png"><img alt="the anaconda command prompt in the start menu" class="align-center" src="../../../_images/anaconda_prompt.png" style="width: 300px;" /></a>
+<p><br /> When you open the command prompt, you should see <code class="docutils literal notranslate"><span class="pre">(base)</span></code> next to the prompt:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(base) C:\Users\bob&gt;
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <strong>Anaconda Command Prompt</strong> automatically loads <strong>conda</strong> so that you can use it; if you don’t see <code class="docutils literal notranslate"><span class="pre">(base)</span></code>,
+it likely means that you have opened the normal <strong>Command Prompt</strong>, and so you will see the following error when
+you try to run a command with <strong>conda</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/conda_not_found.png"><img alt="an error stating that conda is not recognized as a command" class="align-center" src="../../../_images/conda_not_found.png" style="width: 600px;" /></a>
+</div>
+<p>Next, navigate to where you have cloned the repository using <code class="docutils literal notranslate"><span class="pre">cd</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd c:\Users\bob\intro-to-python
+</pre></div>
+</div>
+<p>If you’re in the right place, you should see all of the files from the repository when you enter the <code class="docutils literal notranslate"><span class="pre">dir</span></code> command.</p>
+<p>Now, enter the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>conda env create -f environment.yml
+</pre></div>
+</div>
+<p>This tells <strong>conda</strong> to create a new environment, using the “recipe” provided in <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>.</p>
+<p>This step may take some time<a class="footnote-reference brackets" href="#id2" id="id1">1</a>, but if all goes well, you will eventually see the following message:</p>
+<a class="reference internal image-reference" href="../../../_images/success_message_python.png"><img alt="the message indicating that conda has successfully installed the new command" class="align-center" src="../../../_images/success_message_python.png" style="width: 720px;" /></a>
+<p><br /> And that’s it. Once you have done this, you may want to open <strong>Anaconda Navigator</strong> and set up a new command
+prompt link for your environment, following the instructions in <a class="reference internal" href="../../r-programming/setup/environment.html#phd-conda-prompt"><span class="std std-ref">setting up the command prompt</span></a>.</p>
+<p>Once you have the conda environment set up, you are ready to move on to configuring <strong>JupyterLab</strong>.</p>
+</div>
+<div class="section" id="notes-and-references">
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Conda can be notoriously slow, which is why there has been an effort to increase the speed/efficiency of the
+package “solver”: <a class="reference external" href="https://mamba.readthedocs.io/en/latest/">mamba</a>. I am happy to help you get set up with
+mamba, but I am unsure about how well this works with <strong>Anaconda Navigator</strong>.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="conda.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">setting up conda/anaconda</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="jupyter.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">configuring the jupyterlab terminal</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda-navigator">anaconda navigator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-an-environment">creating an environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-environments">changing environments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-command-prompt">setting up the command prompt</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda-command-prompt">anaconda command prompt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

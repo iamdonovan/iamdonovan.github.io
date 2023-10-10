@@ -1,0 +1,1004 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>linear regression using python &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/python-programming/exercises/regression';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="additional resources" href="../resources.html" />
+    <link rel="prev" title="basic statistical analysis using python" href="stats.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm702/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/setup.html">software setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week2.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week3.html">introduction to google earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week4.html">change detection in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week5.html">classification in earth engine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week2.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/sentinelsat.html">searching for images with sentinelsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week5.html">vector and raster operations using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/environment.html">environment.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">programming skills for phd researchers (using python)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">exercises</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/python-programming/exercises/regression.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/python-programming/exercises/regression.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/teaching/python-programming/exercises/regression.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>linear regression using python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-relationships">plotting relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-correlation">calculating correlation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pandas-corr">using pandas .corr()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#by-groups">by groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-scipy-stats">using scipy.stats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-linear-regression">simple linear regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-linear-regression">multiple linear regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-linear-regression-with-groups">bonus: linear regression with groups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="linear-regression-using-python">
+<h1>linear regression using python<a class="headerlink" href="#linear-regression-using-python" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <strong>non-interactive</strong> version of the exercise. If you want to run through the steps yourself and see the
+outputs, you’ll need to do one of the following:</p>
+<ul class="simple">
+<li><p>follow the setup steps and work through the notebook on your own computer</p></li>
+<li><p>open the workshop materials on <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/intro-to-python/HEAD">binder</a> and work
+through them online</p></li>
+<li><p>open a python console, copy the lines of code here, and paste them into the console to run them</p></li>
+</ul>
+</div>
+<p>In this exercise, we’ll see how we can use python for both simple and
+linear regression. We’ll also see how we can calculate the correlation
+between two variables, and get some additional practice working with
+grouped data.</p>
+<div class="section" id="data">
+<h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
+<p>The data used in this exercise are the historic meteorological
+observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
+Observatory</a>
+(1853-present), the Oxford Observatory (1853-present), the Southampton
+Observatory (1855-2000), and Stornoway Airport (1873-present),
+downloaded from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">UK Met
+Office</a>
+that we used in previous exercises.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<p>First, we’ll import the various packages that we will be using here:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/">pandas</a>, for reading the data from a
+file;</p></li>
+<li><p><a class="reference external" href="https://seaborn.pydata.org/">seaborn</a>, for plotting the data;</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats</a>,
+for calculating correlation coefficients;</p></li>
+<li><p><a class="reference external" href="https://pingouin-stats.org/">pingouin</a>, for linear regression;</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html">pathlib</a>, for
+working with filesystem paths.</p></li>
+</ul>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">pingouin</span> <span class="k">as</span> <span class="nn">pg</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+<p>Next, we’ll use <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> to load the combined station data:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;combined_stations.csv&#39;</span><span class="p">),</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span> <span class="c1"># load the combined station data</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="plotting-relationships">
+<h2>plotting relationships<a class="headerlink" href="#plotting-relationships" title="Permalink to this heading">#</a></h2>
+<p>Before jumping into correlation and regreesion, let’s have a look at the
+data we’re investigating. In the cell below, write some lines of code to
+create a scatter plot of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> vs <code class="docutils literal notranslate"><span class="pre">rain</span></code>, with different colors,
+shapes, and a regression line for each season. Be sure to assign the
+plot to an object called <code class="docutils literal notranslate"><span class="pre">rain_tmax_plot</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code goes here!</span>
+<span class="n">rain_tmax_plot</span> <span class="c1"># show the plot</span>
+</pre></div>
+</div>
+<img alt="../../../_images/regression_5_1.png" src="../../../_images/regression_5_1.png" />
+<p>What kind of relationship is there between <code class="docutils literal notranslate"><span class="pre">tmax</span></code> and <code class="docutils literal notranslate"><span class="pre">rain</span></code>? Does
+it depend on the season? How strong is the relationship, and what does
+this mean for the slope of each regression line?</p>
+</div>
+<div class="section" id="calculating-correlation">
+<h2>calculating correlation<a class="headerlink" href="#calculating-correlation" title="Permalink to this heading">#</a></h2>
+<p>The next thing we’ll look at is how to calculate the <em>correlation</em>
+between two variables, using a few different methods. We’ll start by
+calculating the covariance for all values of a variable in a
+<strong>DataFrame</strong>, then we’ll have a look at calculating correlation using
+<code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>
+(<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html">documentation</a>).</p>
+<div class="section" id="using-pandas-corr">
+<h3>using pandas .corr()<a class="headerlink" href="#using-pandas-corr" title="Permalink to this heading">#</a></h3>
+<p>The basic use of <code class="docutils literal notranslate"><span class="pre">corr()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.corr.html">documentation</a>)
+calculates Pearson’s correlation coefficient between each column in the
+table, pairwise. With the <code class="docutils literal notranslate"><span class="pre">method</span></code> argument, we can also calculate
+Spearman’s rho (<code class="docutils literal notranslate"><span class="pre">method='spearman'</span></code>) and Kendall’s tau
+(<code class="docutils literal notranslate"><span class="pre">method='kendall'</span></code>).</p>
+<p>Because we have non-numeric variables in the table, we’ll use the
+<code class="docutils literal notranslate"><span class="pre">numeric_only</span></code> argument to avoid a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> being raised.
+Helpfully, <code class="docutils literal notranslate"><span class="pre">.corr()</span></code> ignores any <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values for us, so we don’t
+have to</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># calculate the correlation between all numeric variables in the table</span>
+</pre></div>
+</div>
+<p>Out of all of the variables in the table, which have the strongest
+correlation (ignoring the values on the diagonal)? Does this make sense?</p>
+</div>
+<div class="section" id="by-groups">
+<h3>by groups<a class="headerlink" href="#by-groups" title="Permalink to this heading">#</a></h3>
+<p>We’re more interested in calculating the correlation for different
+groups - as you can see from the plot above, the relationship between
+<code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code> is not the same in each season - even though the
+overall correlation is slightly negative, the correlation in winter is
+clearly positive.</p>
+<p>We’ve already seen all of the different parts we need here. To calculate
+the correlation based on <code class="docutils literal notranslate"><span class="pre">season</span></code>, we can use <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> to group
+the dataset before calling <code class="docutils literal notranslate"><span class="pre">.corr()</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;season&#39;</span><span class="p">)[[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span> <span class="c1"># calculate pearson&#39;s r for rain and tmax, grouped by season</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-scipy-stats">
+<h3>using scipy.stats<a class="headerlink" href="#using-scipy-stats" title="Permalink to this heading">#</a></h3>
+<p>From the outputs above, you can see that <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.corr()</span></code>
+outputs the full covariance matrix, not just the correlation value we’re
+interested in. In the cells below, we’ll see how we can use some of what
+we have learned previously, along with <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>, to create a
+<strong>DataFrame</strong> with just the correlation values between <code class="docutils literal notranslate"><span class="pre">rain</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tmax</span></code>.</p>
+<p>In the cell below, we’ll use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to calculate correlation
+coefficients (Pearson’s r, Spearman’s rho, and Kendall’s tau) for
+<code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code> based on data from each season. We’ll build a
+nested list of the correlation coefficients for each season by first
+creating an empty list, then using <code class="docutils literal notranslate"><span class="pre">list.append()</span></code> to add the
+coefficients for each season in turn.</p>
+<p>Before running the cell, be sure to create an object, <code class="docutils literal notranslate"><span class="pre">seasons</span></code>, that
+contains the names of each season. You can write this explicitly, but
+you might want to practice getting this output from the data directly.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get a list of season names - remember that there&#39;s more than one way to do this!</span>
+<span class="n">corr_data</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># initalize an empty list</span>
+
+<span class="k">for</span> <span class="n">season</span> <span class="ow">in</span> <span class="n">seasons</span><span class="p">:</span>
+    <span class="n">season_data</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">season</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">])</span> <span class="c1"># select the data for this season, drop nan values from rain and tmax</span>
+    <span class="n">this_corr</span> <span class="o">=</span> <span class="p">[</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">season_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">],</span> <span class="n">season_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">statistic</span><span class="p">,</span> <span class="c1"># calculate pearson&#39;s r between rain and tmax</span>
+                 <span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">season_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">],</span> <span class="n">season_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">statistic</span><span class="p">,</span> <span class="c1"># calculate spearman&#39;s rho between rain and tmax</span>
+                 <span class="n">stats</span><span class="o">.</span><span class="n">kendalltau</span><span class="p">(</span><span class="n">season_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">],</span> <span class="n">season_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">statistic</span><span class="p">]</span> <span class="c1"># calculate kendall&#39;s tau between rain and tmax</span>
+    <span class="n">corr_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_corr</span><span class="p">)</span> <span class="c1"># add these values to the list</span>
+
+<span class="n">corr_data</span> <span class="c1"># show the nested list of correlation values</span>
+</pre></div>
+</div>
+<p>Now that we have created the nested list (effectively, an array of
+values), we can create a new <strong>DataFrame</strong> object by specifying the
+<code class="docutils literal notranslate"><span class="pre">data</span></code>, <code class="docutils literal notranslate"><span class="pre">index</span></code>, and <code class="docutils literal notranslate"><span class="pre">columns</span></code> arguments:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">corr_data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">seasons</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pearson&#39;</span><span class="p">,</span> <span class="s1">&#39;spearman&#39;</span><span class="p">,</span> <span class="s1">&#39;kendall&#39;</span><span class="p">])</span> <span class="c1"># create a dataframe with the correlation data</span>
+<span class="n">corr_df</span> <span class="c1"># show the correlation dataframe</span>
+</pre></div>
+</div>
+<p>Note that calculating the correlation coefficient using <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>
+has an additional benefit - unlike with <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.corr()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> will also provide a significance value for the
+calculated correlation:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">station_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">])[</span><span class="s1">&#39;rain&#39;</span><span class="p">],</span>
+                      <span class="n">station_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">])[</span><span class="s1">&#39;tmax&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;calculated value of r: </span><span class="si">{</span><span class="n">corr</span><span class="o">.</span><span class="n">statistic</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;calculated p-value of r: </span><span class="si">{</span><span class="n">corr</span><span class="o">.</span><span class="n">pvalue</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And, using <code class="docutils literal notranslate"><span class="pre">pg.corr()</span></code>
+(<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.corr.html">documentation</a>)
+gives us even more information, such as the confidence interval for the
+correlation value, as well as additional options for calculating the
+correlation coefficient:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate the biweight midcorrelation between rain and tmax</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">station_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">])[</span><span class="s1">&#39;rain&#39;</span><span class="p">],</span>
+        <span class="n">station_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">])[</span><span class="s1">&#39;tmax&#39;</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bicor&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="simple-linear-regression">
+<h2>simple linear regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this heading">#</a></h2>
+<p>We’ll start by fitting a linear model for spring. To prepare the data,
+write a line of code below that selects only the spring observations,
+and assigns the output to an object called <code class="docutils literal notranslate"><span class="pre">spring</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select only spring observations</span>
+</pre></div>
+</div>
+<p>Remember that a linear model with a single variable has the form:</p>
+<div class="math notranslate nohighlight">
+\[y = \beta + \alpha x,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta\)</span> is the intercept and <span class="math notranslate nohighlight">\(\alpha\)</span> is the slope of
+the line. To fit a linear model using <code class="docutils literal notranslate"><span class="pre">pingouin</span></code>, we use
+<code class="docutils literal notranslate"><span class="pre">pg.linear_regression()</span></code>
+(<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.linear_regression.html">documentation</a>).</p>
+<p>The main inputs to <code class="docutils literal notranslate"><span class="pre">pg.linear_regression()</span></code> are <code class="docutils literal notranslate"><span class="pre">X</span></code>, the
+observations of the <em>explanatory</em> (<em>independent</em>) variable(s), and
+<code class="docutils literal notranslate"><span class="pre">y</span></code>, the observations of the <em>response</em> (<em>dependent</em>) variables. We
+can also specify the significance level (<code class="docutils literal notranslate"><span class="pre">alpha</span></code>) to use when
+calculating the statistics of the fitted model, as well as additional
+arguments. By default, <code class="docutils literal notranslate"><span class="pre">pg.linear_regression()</span></code> adds an intercept to
+be fitted.</p>
+<p>So, the process to fit a linear relationship between <code class="docutils literal notranslate"><span class="pre">tmax</span></code> and
+<code class="docutils literal notranslate"><span class="pre">rain</span></code> would look like this:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xdata</span> <span class="o">=</span> <span class="n">spring</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">])[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="c1"># select the rain variable, after dropping NaN values</span>
+<span class="n">ydata</span> <span class="o">=</span> <span class="n">spring</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">])[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="c1"># select the tmax variable, after dropping NaN values</span>
+
+<span class="n">lin_model</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">linear_regression</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1"># run the regression at the 99% significance level</span>
+
+<span class="n">lin_model</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># round the output table to 3 decimal places</span>
+</pre></div>
+</div>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">pg.linear_regression()</span></code> is a <strong>DataFrame</strong> with the
+following columns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">names</span></code>: the names of the outputs (<code class="docutils literal notranslate"><span class="pre">intercept</span></code>) and the slope for
+each explanatory variable;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coef</span></code>: the values of the regression coefficients;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">se</span></code>: the standard error of the estimated coefficients;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code>: the <em>t</em>-statistic of the estimates;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pval</span></code>: the <em>p</em>-values of the <em>t</em>-statistics;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r2</span></code>: the coefficient of determination;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adj_r2</span></code>: the adjusted coefficient of determination;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CI{alpha/2}%</span></code>: the lower value of the confidence interval;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CI{1-alpha/2}%</span></code>: the upper value of the confidence interval;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relimp</span></code>: the relative contribution of each predictor to the final
+(if <code class="docutils literal notranslate"><span class="pre">relimp=True</span></code>);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relimp_perc</span></code>: the percent relative contribution</p></li>
+</ul>
+<p>The ouptut <strong>DataFrame</strong> also has hidden attributes such as the
+residuals (<code class="docutils literal notranslate"><span class="pre">lin_model.residuals_</span></code>), the degrees of freedom of the
+model (<code class="docutils literal notranslate"><span class="pre">lin_model.df_model_</span></code>), and the degrees of freedom of the
+residuals (<code class="docutils literal notranslate"><span class="pre">lin_model.df_resid_</span></code>).</p>
+</div>
+<div class="section" id="multiple-linear-regression">
+<h2>multiple linear regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this heading">#</a></h2>
+<p>Now, let’s try to fit a linear model of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> with two variables:
+<code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">sun</span></code>. Remember that multiple linear regression tries to
+fit a model with the form:</p>
+<div class="math notranslate nohighlight">
+\[y = \beta + \alpha_1 x_1 + \cdots + \alpha_n x_n\]</div>
+<p>With only two variables, this would look like:</p>
+<div class="math notranslate nohighlight">
+\[y = \beta + \alpha_1 x_1 + \alpha_2 x_2\]</div>
+<p>The code to fit this model using <code class="docutils literal notranslate"><span class="pre">pingouin</span></code> looks like this:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xdata</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">])[[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">]]</span> <span class="c1"># select the rain and sun variables, after dropping NaN values</span>
+<span class="n">ydata</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">])[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="c1"># select the tmax variable, after dropping NaN values</span>
+
+<span class="n">ml_model</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">linear_regression</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1"># run the regression at the 99% significance level</span>
+
+<span class="n">ml_model</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># round the output table to 3 decimal places</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bonus-linear-regression-with-groups">
+<h2>bonus: linear regression with groups<a class="headerlink" href="#bonus-linear-regression-with-groups" title="Permalink to this heading">#</a></h2>
+<p>As a final exercise, let’s see how we can combine some of the tools
+we’ve used in the workshop so far, along with a few new ones, to fit
+linear models for each season.</p>
+<p>For the most part, the structure of this is the same as the correlation
+example previously. We loop over each season name, and add the result to
+some variable - in this case, a <strong>dict</strong>, where the keys are the names
+of each season:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span> <span class="c1"># initialize an empty dictionary</span>
+
+<span class="k">for</span> <span class="n">season</span> <span class="ow">in</span> <span class="n">seasons</span><span class="p">:</span>
+    <span class="n">season_data</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">season</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">])</span> <span class="c1"># select the data for this season, drop nan values from rain and tmax</span>
+
+    <span class="n">xdata</span> <span class="o">=</span> <span class="n">season_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="c1"># select the rain variable</span>
+    <span class="n">ydata</span> <span class="o">=</span> <span class="n">season_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="c1"># select the tmax variable</span>
+
+    <span class="n">results</span><span class="p">[</span><span class="n">season</span><span class="p">]</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">linear_regression</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1"># add the result to the results dict, with season as the key</span>
+</pre></div>
+</div>
+<p>Now, we can view the model summary for each season by using the season
+name as follows:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;spring&#39;</span><span class="p">]</span> <span class="c1"># view the results for spring</span>
+</pre></div>
+</div>
+<p>Now, let’s see how we can combine these results into a single
+<strong>DataFrame</strong>. First, we’ll add a column, <code class="docutils literal notranslate"><span class="pre">season</span></code>, to each
+<strong>DataFrame</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">season</span> <span class="ow">in</span> <span class="n">seasons</span><span class="p">:</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">season</span><span class="p">][</span><span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">season</span> <span class="c1"># add a season column</span>
+</pre></div>
+</div>
+<p>Next, we use <code class="docutils literal notranslate"><span class="pre">pd.concatenate()</span></code>, along with the <code class="docutils literal notranslate"><span class="pre">values()</span></code> of the
+results <strong>dict</strong>, to combine the tables into a single table:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="c1"># concatenate the results dataframes into a single dataframe</span>
+</pre></div>
+</div>
+<p>Next, we’ll use <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.set_index.html">documentation</a>)
+to set the <code class="docutils literal notranslate"><span class="pre">season</span></code> and <code class="docutils literal notranslate"><span class="pre">names</span></code> columns to be the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the
+<strong>DataFrame</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_results</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="s1">&#39;names&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># set the index to be a multi-index with season and names</span>
+
+<span class="n">all_results</span> <span class="c1"># show the updated table</span>
+</pre></div>
+</div>
+<p>Finally, we’ll save the table of regression parameter results to a file,
+using <code class="docutils literal notranslate"><span class="pre">pd.to_csv()</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_results</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;regression_results.csv&#39;</span><span class="p">))</span> <span class="c1"># save the results to a CSV file</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercise-and-next-steps">
+<h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
+<p>That’s all for this exercise, and for the exercises of this workshop.
+The next sessions are BYOD (“bring your own data”) sessions where you
+can start building your <strong>git</strong> project repository by applying the
+different concepts and skills that we have covered in the workshop.
+Before then, if you would like to practice these skills further, try at
+least one of the following suggestions:</p>
+<ul class="simple">
+<li><p>Investigate the relationship between <code class="docutils literal notranslate"><span class="pre">tmax</span></code> and <code class="docutils literal notranslate"><span class="pre">sun</span></code> overall,
+and by individual seasons, using <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.corr()</span></code>. What
+kind of relationship do these variables appear to have?</p></li>
+<li><p>What is the relationship between <code class="docutils literal notranslate"><span class="pre">tmin</span></code> and <code class="docutils literal notranslate"><span class="pre">sun</span></code>? does it change
+by season?</p></li>
+<li><p>Set up and fit a multiple linear regression model for <code class="docutils literal notranslate"><span class="pre">air_frost</span></code>
+as a function of <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, <code class="docutils literal notranslate"><span class="pre">tmin</span></code>, <code class="docutils literal notranslate"><span class="pre">sun</span></code>, and <code class="docutils literal notranslate"><span class="pre">rain</span></code> in the
+winter. Which of these variables has the strongest effect on
+<code class="docutils literal notranslate"><span class="pre">air_frost</span></code> (hint: )?</p></li>
+</ul>
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="stats.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">basic statistical analysis using python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../resources.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">additional resources</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-relationships">plotting relationships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-correlation">calculating correlation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pandas-corr">using pandas .corr()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#by-groups">by groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-scipy-stats">using scipy.stats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-linear-regression">simple linear regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-linear-regression">multiple linear regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-linear-regression-with-groups">bonus: linear regression with groups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
