@@ -45,7 +45,7 @@ If I want to navigate into this folder, I can use the **cd** command ("change di
 If you run this command, replacing the path with whatever it is on your own computer, you should see that your
 current directory changes to that folder:
 
-.. image:: img/git/cd_absolute_path.png
+.. image:: ../../r-programming/exercises/img/git/cd_absolute_path.png
     :width: 600
     :align: center
     :alt: the result of using the cd command
@@ -65,7 +65,7 @@ To see the contents of the directory, we can use the **dir** command\ [#]_:
 
 This will list all of the files and folders located within the current directory:
 
-.. image:: img/git/dir_output.png
+.. image:: ../../r-programming/exercises/img/git/dir_output.png
     :width: 600
     :align: center
     :alt: the result of using the dir command
@@ -100,14 +100,14 @@ Let's call the new branch ``recipe``, so the full command will be:
 
 You should see the following message output:
 
-.. image:: img/git/new_branch.png
+.. image:: ../../r-programming/exercises/img/git/new_branch.png
     :width: 600
     :align: center
     :alt: checking out a new branch using git checkout
 
 |br| And that's it. We can check what branches **git** is currently keeping track of using the **git branch** command:
 
-.. image:: img/git/git_branch.png
+.. image:: ../../r-programming/exercises/img/git/git_branch.png
     :width: 600
     :align: center
     :alt: the output of git branch in the command prompt
@@ -154,7 +154,7 @@ our repository, using **git status**:
 
 You should see something like this:
 
-.. image:: img/git/status_modified.png
+.. image:: ../../r-programming/exercises/img/git/status_modified.png
     :width: 600
     :align: center
     :alt: git status showing that one file has been modified
@@ -175,7 +175,7 @@ If we want to see what changes, specifically, have been made, we can use **git d
 
 By itself, this tells us the changes that have been made to **all** files:
 
-.. image:: img/git/git_diff.png
+.. image:: ../../r-programming/exercises/img/git/git_diff.png
     :width: 600
     :align: center
     :alt: git diff showing that one file has been modified, with 12 lines added
@@ -228,7 +228,7 @@ To stage **ingredients.txt**, enter the following command:
 
 If we use **git status** again, we should see that we have changes "to be committed" for one file:
 
-.. image:: img/git/git_add.png
+.. image:: ../../r-programming/exercises/img/git/git_add.png
     :width: 600
     :align: center
     :alt: git add showing that changes are to be committed
@@ -265,7 +265,7 @@ In this commit, we have added a number of ingredients to our recipe, so a good c
 
 As soon as you press **ENTER**, you should see the following message:
 
-.. image:: img/git/git_commit.png
+.. image:: ../../r-programming/exercises/img/git/git_commit.png
     :width: 600
     :align: center
     :alt: the output of git commit in the command prompt window
@@ -276,7 +276,7 @@ many lines were changed and how.
 
 Now, run **git status** again to see the current state of the working directory:
 
-.. image:: img/git/status_commit.png
+.. image:: ../../r-programming/exercises/img/git/status_commit.png
     :width: 600
     :align: center
     :alt: git status showing a clean working directory
@@ -320,7 +320,7 @@ all of the different snapshots:
 
     git log
 
-.. image:: img/git/git_log.png
+.. image:: ../../r-programming/exercises/img/git/git_log.png
     :width: 600
     :align: center
     :alt: git log, showing the change history for the current repository
@@ -354,7 +354,7 @@ If you want to see what files were changed with each commit, you can use **--sta
 
     git log --stat
 
-.. image:: img/git/git_log_stat.png
+.. image:: ../../r-programming/exercises/img/git/git_log_stat.png
     :width: 600
     :align: center
     :alt: git log showing the change history of the current repository, including the files changed with each commit
@@ -393,7 +393,7 @@ Once you are back on the ``main`` branch, you can **merge** (combine) the two br
 This will update the current branch (``main``) with all of the changes committed to the ``recipe`` branch. You should
 see something like the following output:
 
-.. image:: img/git/git_merge.png
+.. image:: ../../r-programming/exercises/img/git/git_merge.png
     :width: 600
     :align: center
     :alt: the output of a merge commit, showing that two branches have been merged
