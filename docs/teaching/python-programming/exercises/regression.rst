@@ -67,7 +67,6 @@ plot to an object called ``rain_tmax_plot``:
 
 .. code:: ipython3
 
-    rain_tmax_plot = sns.lmplot(data=station_data, x='rain', y='tmax', hue='season', markers=['o', 'x', 's', '+'])
     # your code goes here!
     rain_tmax_plot # show the plot
 
