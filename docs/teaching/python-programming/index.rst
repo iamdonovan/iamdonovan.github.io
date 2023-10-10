@@ -7,7 +7,7 @@ programming skills for phd researchers (using python)
     online by clicking the badge below:
 
     .. image:: https://mybinder.org/badge_logo.svg
-        :target: https://mybinder.org/v2/gh/iamdonovan/intro-to-python/
+        :target: https://mybinder.org/v2/gh/iamdonovan/intro-to-python/HEAD
 
     |br| This will (eventually) open an online interactive version of the material that you will be able to run from
     within your web browser.
