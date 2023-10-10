@@ -77,10 +77,10 @@ this may take some time. When it finishes, you should see the following screen:
 .. image:: img/python_environment.png
     :width: 720
     :align: center
-    :alt: anaconda navigator with the intro-to-r environment
+    :alt: anaconda navigator with the intro-to-python environment
 
-|br| Note how many packages were actually installed – XXX, from the XXX shown in the original **.yml** file. This is
-because each of those 5 packages have additional dependencies which have to be installed as well. Fortunately,
+|br| Note how many packages were actually installed – 207, from the 6 shown in the original **.yml** file. This is
+because each of those 6 packages have additional dependencies which have to be installed as well. Fortunately,
 all of this is done automatically by **conda** – we don’t have to worry about tracking down and installing each
 individual dependency on our own.
 
@@ -89,7 +89,7 @@ changing environments
 
 The next thing to do is to switch to the **Home** tab in **Anaconda Navigator**:
 
-.. image:: img/new_home.png
+.. image:: img/python_home.png
     :width: 720
     :align: center
     :alt: anaconda navigator showing the home tab in the new environment
@@ -107,7 +107,7 @@ setting up the command prompt
 
 The final step covered in this manual is to install the **CMD.exe Prompt** for this environment:
 
-.. image:: img/cmd_prompt.png
+.. image:: img/python_cmd_prompt.png
     :width: 720
     :align: center
     :alt: anaconda navigator with the CMD.exe button highlighted
@@ -166,7 +166,7 @@ This tells **conda** to create a new environment, using the "recipe" provided in
 
 This step may take some time\ [1]_, but if all goes well, you will eventually see the following message:
 
-.. image:: img/success_message.png
+.. image:: img/success_message_python.png
     :width: 720
     :align: center
     :alt: the message indicating that conda has successfully installed the new command
