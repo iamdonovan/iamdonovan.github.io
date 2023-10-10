@@ -1,262 +1,421 @@
 debugging code
 ==================
 
-In this exercise, we'll get some practice running a "buggy" script and interpreting/fixing the errors that we find. We
-will also continue using **git** to keep track of and save our fixes.
+.. warning::
 
-getting started
----------------
+    Before proceeding, you should have completed all of the :doc:`../setup/index` steps, including installing an IDE
+    such as PyCharm.
 
-To begin, open an **Anaconda Command Prompt** with your ``intro-to-python`` environment active, then launch
-**JupyterLab**.
+    **If you have not completed all of the steps above, stop now and go back to finish them!**
 
-In the file browser along the left-hand side of the window, navigate to the guessing game script (in the
-**02.python-intro** folder). Open the script (**guessing_game.py**) by double-clicking it in the file browser:
+.. note::
 
-.. image:: img/debug/guessing_game.png
+    The example and instructions shown here are for PyCharm Community Edition 2021.3.3 -- if you are using a
+    different IDE, such as VS Code or Spyder, the steps will be similar, broadly speaking, but they are different
+    software packages with a different appearance and menu options.
+
+    I will do my best to provide help with other options, but I can't promise a completely painless experience.
+
+the script
+-----------
+
+The goal with the ``debugging_exercise.py`` script is to have a short guessing game program. The script should
+generate a random integer between 1 and 20, and at the start, the user should enter a guess by typing it into the
+command prompt.
+
+Based on the user's input, the program should say whether the guess is higher or lower than the random number,
+and prompt the user to enter a new guess. This process should repeat, until the user has correctly guessed the number.
+
+Unfortunately, as you will see, the script provided has a number of *bugs*, or errors, in it, that prevent it from
+running as expected. Our task in this exercise is to use PyCharm's debugging tools to correct (*debug*) these error,
+so that the script functions as intended.
+
+setup
+-------
+
+Before getting started with the exercise, there's one final bit of setup needed. PyCharm provides a number of options
+for running scripts - the instructions below will show you how you can do this using the **Run** tool.
+
+.. note::
+
+    Again, this assumes that you have set up PyCharm according to the :doc:`instructions<../setup/pycharm>`, including
+    creating a new project for your EGM722 practicals.
+
+To be able to run a script using the **Run** button, or to use the debugging tools, you'll need to make sure that
+you've configured a python interpreter already, following the instructions in :ref:`create project`
+or :ref:`adding interpreter`.
+
+In the upper right-hand corner of the PyCharm window, you should see this:
+
+.. image:: ../../../img/egm722/debug/buttons.png
+    :width: 300
+    :align: center
+    :alt: the run script and debugging tool buttons
+
+|br| Click on **Add Configuration...** to open the **Run/Debug Configurations** window, then click the **+** icon in the
+upper left to add a new configuration:
+
+.. image:: ../../../img/egm722/debug/new_configuration.png
     :width: 720
     :align: center
-    :alt: the guessing game script opened in the jupyterlab window
+    :alt: selecting a new python configuration
 
-|br| Next, open a **Terminal** from the **Launcher**. If you click on the tab, you can drag it to re-arrange the
-panels - place it in the lower half of the window, so that it looks like this:
+|br| select **Python**:
 
-.. image:: img/debug/new_terminal.png
+.. image:: ../../../img/egm722/debug/empty_configuration.png
     :width: 720
     :align: center
-    :alt: the guessing game script with a terminal tab opened on the bottom half of the window
+    :alt: a new python configuration
 
-creating a new branch
-----------------------
+|br| Call this new configuration ``debug_exercise``, and set the **Script path** to be the path to
+**debugging_exercise.py** in the **Week1** folder of your EGM722 repository. Finally, make sure that the
+**Python interpreter** is set to your ``egm722`` environment, then click **OK** to finish the configuration.
 
-Now, open a second terminal next to the first by clicking the **+** button, then selecting **Terminal** from the
-**Launcher**.
+You should see that the buttons in the upper right of the window have changed:
 
-Before we start editing the script, we're going to create a new **branch** in our repository. This allows us to make
-changes to the repository without affecting other versions of the code - that way, if we somehow make a mistake, we
-don't cause any damage to the existing, working code. Once we have finished making our changes, and we're happy that
-things are working as they should be, we can **merge** the branch back into the **main** branch.
+.. image:: ../../../img/egm722/debug/new_buttons.png
+    :width: 400
+    :align: center
+    :alt: the run script and debugging tool buttons with a configuration selected
 
-In the terminal, type the following command:
+running a script
+-----------------
 
-.. code-block:: text
+Once you have the script configured, you can press the green **Run** button (the triangle). When you do this,
+you should see that the **Run Panel** opens at the bottom of the window:
 
-    git checkout -b debug
+.. image:: ../../../img/egm722/debug/run_error.png
+    :width: 720
+    :align: center
+    :alt: the pycharm window with the run panel opened
 
-This uses **git checkout** to create a new **branch** (the ``-b`` flag) called ``debug``. As we fix the errors in the
-script, we will commit the changes to this branch.
+|br| This is where anything printed to the screen by your script will show, including all error messages. In fact, you
+should see an error message already:
 
-running the script
+.. code-block:: sh
+
+    Traceback (most recent call last):
+      File ("C:/Users/e16006469/egm722/bobtheburner/Week1/debugging_exercise.py", line 4, in <module>
+        rand = random.randint(1, 100)
+    NameError: name 'random' is not defined
+
+    Process finished with exit code 1
+
+Note that, if the script had run successfully, you would see the following at the end:
+
+.. code-block:: sh
+
+    Process finished with exit code 0
+
+If the exit code is any other value, it means that something hasn't gone according to plan. For more information about
+python exit codes, have a look at the documentation for ``sys.exit()``
+`here <https://docs.python.org/3.8/library/sys.html#sys.exit>`__.
+
+Here, we can see that the process finished with exit code 1, which indicates that the interpreter raised an
+**Exception** (an error). Now that we have confirmed that the script that's supposed to have errors in it indeed
+has errors, we'll use the debugging tools in order to fix those errors.
+
+the error message
+------------------
+
+First, though, let's have another look at the error message:
+
+.. code-block:: sh
+
+    Traceback (most recent call last):
+      File ("C:/Users/e16006469/egm722/bobtheburner/Week1/debugging_exercise.py", line 4, in <module>
+        rand = random.randint(1, 100)
+    NameError: name 'random' is not defined
+
+    Process finished with exit code 1
+
+The **Traceback** tells us exactly where something went wrong - in this case, it happened in the
+``debugging_exercise.py`` script at line 4. The line:
+
+.. code-block:: python
+
+    rand = random.randint(1, 100)
+
+Caused a **NameError**, because the interpreter tried to do something with an object called ``random``, and no
+such object had been defined.
+
+Let's open up the script and see if we can find where something went wrong:
+
+.. image:: ../../../img/egm722/debug/syntax_highlighting.png
+    :width: 720
+    :align: center
+    :alt: the pycharm window with the run panel opened
+
+|br| One of the features of PyCharm and other IDEs is that they highlight *syntax*, which helps identify potential
+issues. Here, we can see that at the same spot where the script failed, ``random`` is underlined in red. If you hover
+over this with your mouse, you can see the following message:
+
+.. image:: ../../../img/egm722/debug/pycharm_error.png
+    :width: 400
+    :align: center
+    :alt: an error message from pycharm
+
+|br| This tells us essentially the same thing as the **NameError** - the object called ``random`` has been used before
+it was defined. The issue, in this case, is clear if we look at line 1:
+
+.. code-block:: python
+
+    # import random
+
+The last person who worked on this script commented out the **import** statement, meaning that we never actually
+imported the ``random`` module. Thanks a lot, bob.
+
+If you delete the ``#`` and the space following it:
+
+.. code-block:: python
+
+    import random
+
+You should see that the red underline at line 4 goes away - we should no longer see a **NameError** caused by
+the issue at line 4. Save the script (**CTRL + S**) before moving on.
+
+commiting changes
+------------------
+
+Before we run the script again, notice that the name of the script in the tab has turned blue:
+
+.. image:: ../../../img/egm722/debug/blue_tab.png
+    :width: 200
+    :align: center
+    :alt: the script tab showing that changes have been made, but not committed
+
+|br| This indicates that we have changed the file, but not yet commited it using **git**. To do this, there are a number
+of tools at our disposal; we'll focus on using **GitHub Desktop** for right now.
+
+With **GitHub Desktop** open, you should see the following:
+
+.. image:: ../../../img/egm722/debug/github_changes.png
+    :width: 600
+    :align: center
+    :alt: the changes shown in github desktop
+
+|br| On the left, we see that there's 1 file that has changed (``Week1\debugging_exercise.py``), and in the main panel
+we see what that change is: we've deleted the ``#`` from line 1.
+
+In the lower left, you can see a place to enter a new **commit** message, including a longer **description**. This is
+where you identify what change(s) you've made to your file(s), and (optionally) explain why in a longer message.
+
+For the commit message, enter **"fixed import statement"**, and leave the description blank for now. Press the blue
+**Commit to debug** button to **commit** (save) the changes to the file, then go back to PyCharm.
+
+You should see that the script tab has changed from blue to white, indicating that there are no un-committed changes
+to the file:
+
+.. image:: ../../../img/egm722/debug/white_tab.png
+    :width: 200
+    :align: center
+    :alt: the script tab showing there are no un-committed changes
+
+the debugging tools
 --------------------
 
-In the first terminal window that you opened, launch **R** by typing ``R`` at the prompt and pressing **Enter**:
+Once you've committed this fix, run the script again. You should see that there's now an error in a different spot:
 
-.. image:: img/debug/r_open.png
+.. image:: ../../../img/egm722/debug/new_error.png
     :width: 720
     :align: center
-    :alt: the guessing game script opened, with two terminal panels opened on the lower half of the window
+    :alt: a new error appears! progress!
 
-|br| In the previous exercise, you got some experience running **R** commands through a jupyter notebook, where each
-cell contains snippets of code for the **R** interpreter to *execute* (run).
+.. code-block:: python
 
-The **R** console that you have opened works in much the same way - you can type individual commands or lines of code,
-and the interpreter will execute them.
+    Traceback (most recent call last):
+      File ("C:/Users/bob/intro-to-python/02.python-intro/debugging_exercise.py", line 10, in <module>
+        if guess > rand:  # if the guess is too high, tell the user.
+    TypeError: '>' not supported between instances of 'str' and 'int'
 
-This is not necessarily the ideal way to run code, however - for one thing, it would be a lot of typing every time we
-wanted to do any analysis. It's also a lot less reproducible - by having to enter each command individually each time,
-we greatly increase the chances that we'll make a mistake.
+    Process finished with exit code 1
 
-A *script* is a collection of commands that the interpreter runs sequentially (a *program*). This means that we can
-write down our commands in one place, and repeatedly run them in exactly the same way.
+This time, the line appears at line 10 of the code, inside of the ``while`` loop. But, it made it through at least one
+iteration of the ``while`` loop, because we were able to enter a second guess, which happens at line 16.
 
-From inside the **R** interpreter, we can run a script using the ``source()`` function
-(`documentation <https://rdrr.io/r/base/source.html>`__). The first argument to the function is ``file``, the pathname
-or URL for the file to read from.
+So, let's tell PyCharm to stop the script at that location. To do this,
+click on the left-hand side of the code panel, just to the right of the "16" at line 16.
+You should see a red dot appear:
 
-To run the guessing game script, enter the following at the **R** prompt:
-
-.. code-block:: R
-
-    source('guessing_game.r')
-
-error messages
-----------------
-
-When you run the script, you should see the following:
-
-.. image:: img/debug/first_error.png
+.. image:: ../../../img/egm722/debug/breakpoint.png
     :width: 720
     :align: center
-    :alt: the R terminal with an error message after running the script
+    :alt: a breakpoint added to the script at line 16.
 
-|br| The error message says:
+|br| This is a **breakpoint** - a spot for the interpreter to pause while we inspect what's going on in the script. Run
+the script again, but this time press the green **debugging** button (it looks like a small bug).
 
-.. code-block:: text
+This time, instead of the **Run** panel, you should see that PyCharm has opened the **Debug Panel**. After entering
+your guess in the console, you should see the **Debugger** showing in the lower half of the window:
 
-    Error in smaple(1:100, 1) : could not find function "smaple"
-
-This is an example of a **syntax error** - an error in the "grammar" (*syntax*) of the programming language that the
-interpreter doesn't understand. The error in this case is that there is a typo in ``sample()`` - when the interpreter
-executes this statement, it looks for a function called ``smaple()`` - when it doesn't find any such function, it
-returns an error message.
-
-We can easily fix this error by correcting the spelling of the function name. Later, we'll see some examples of error
-messages that aren't necessarily so easily corrected.
-
-using git diff to view changes
--------------------------------
-
-Now that you have corrected the error at line 3, **save** the file (**CTRL** + **S**) to update the file on the disk.
-We also want to use **git** to keep track of this fix. To do this, open the other terminal tab, then enter the
-following:
-
-.. code-block:: text
-
-    git status
-
-This command shows us what files have been changed - you should see that only a single file has been changed
-(**guessing_game.r**).
-
-We can also use **git diff** to see what changes have been made since the last commit. By itself, **git diff** will
-tell us the changes for *all* files in the repository; we can also choose a single file:
-
-.. code-block:: text
-
-    git diff guessing_game.r
-
-This should show you that a single line has changed. First, the line:
-
-.. code-block:: R
-
-    rand <- smaple(1:100, 1)
-
-has been deleted, and the line:
-
-.. code-block:: R
-
-    rand <- sample(1:100, 1)
-
-has been added in its place. Later, we'll also see how we can use **git diff** to compare versions of a file across
-two different branches, to see what changes (if any) have been made.
-
-committing changes
---------------------
-
-For now, though, we want to **commit** these changes so that **git** saves a snapshot of our progress. To do this,
-remember that we first have to **add** to "stage" it, then **commit** the file to take the snapshot. In the terminal,
-type:
-
-.. code-block:: text
-
-    git add guessing_game.r
-
-If you type **git status**, you should see that the files that have been staged show up as green:
-
-.. image:: img/debug/status_add.png
+.. image:: ../../../img/egm722/debug/debugger.png
     :width: 720
     :align: center
-    :alt: the git terminal showing that the changes to guessing_game.r have been staged
+    :alt: the debugger panel at the bottom of the pycharm window
 
-|br| To actually commit this change, we use **git commit**. By default, if you type **git commit**, **git** will open
-your default text editor so that you can write a more detailed commit message. Most of the time, though, we can
-use the **-m** (for **message**) flag to write a short message. Enter the following command at the terminal to commit
-the change:
+|br| At the moment, the script has stopped running - it's waiting for us to tell it to do something. Have a look at this
+part of the **Debugging Panel**:
 
-.. code-block:: text
+.. image:: ../../../img/egm722/debug/debug_buttons.png
+    :width: 300
+    :align: center
+    :alt: the debugging buttons
 
-    git commit -m "fix typo in sample"
+|br| From left to right, the buttons here are:
 
-**git** provides a brief summary of the commit (1 file changed, 1 insertion, 1 deletion), as well as a short version of
-the *commit hash* (the unique identifier for the commit; in the screenshot below, it is ``2d84d6d``).
+- **Show Execution Point** - this highlights where in the code you currently are
+- **Step Over** - this runs the current line without stepping into any method or function calls, moving right to the
+  next line in the current script
+- **Step Into** - this will actually step into any method or function calls, allowing you to examine what's happening
+  inside of those functions
+- **Step Into My Code** - this works the same as **Step Into**, but it won't step into methods/functions that have been
+  imported
+- **Force Step Into** (currently grayed out) - steps into the method/function even if it's skipped by **Step Into**
+- **Step Out** - steps out of the current method/function and back to where the method/function was called.
+- **Run to Cursor** - will run the program until it reaches where the cursor is currently placed
+- **Evaluate Expression** - you can use this to calculate values of expressions or code fragments, using the variables
+  and methods that have currently been declared.
 
-When you type **git status** in the terminal, you should now see that there are no changes to commit:
+We won't get into using all of these during this exercise, but if you're interested in learning more about these tools
+and how to use them, check out the PyCharm online manual: https://www.jetbrains.com/help/pycharm/debugging-code.html.
 
-.. image:: img/debug/commit.png
+Press the **Step Over** button, then switch back to the **Console** view. You should see a prompt to enter a new guess:
+
+.. image:: ../../../img/egm722/debug/debug_console.png
     :width: 720
     :align: center
-    :alt: the git terminal showing that the changes to guessing_game.r have been committed
+    :alt: the debug console with the new guess
 
+|br| When you enter a new guess this time, you should see the **Error** message again, and the line where the **Error**
+occurred should be highlighted:
+
+.. image:: ../../../img/egm722/debug/error_highlight.png
+    :width: 720
+    :align: center
+    :alt: the location of the error highlighted in the script
+
+|br| Now, switch back to the **Debugger**:
+
+.. image:: ../../../img/egm722/debug/debugger_types.png
+    :width: 720
+    :align: center
+    :alt: the debugger window showing the types of the available variables in the script
+
+|br| Note that our list of variables down below, ``guess`` has a **type** of ``str``, while ``rand`` has a **type** of
+``int``. This, combined with the **Error** message:
+
+.. code-block:: python
+
+    TypeError: '>' not supported between instances of 'str' and 'int'
+
+tells us what the problem is. The output of ``input()``
+(`documentation <https://docs.python.org/3/library/functions.html#input>`__) is a ``str``, which means that if we
+want to treat it like a number, we need to tell python to do so.
+
+To fix this error, we can use ``int()`` to try to convert what the user types from a ``str`` to an ``int``:
+
+.. code-block::
+
+    guess = int(input())
+
+.. note::
+
+    Remember: this will still raise an error if the user types anything other than a number, because ``int()``
+    expects that the argument provided to it is numeric.
+
+Once you've fixed this error, save the script (**CTRL + S**), and press the red **Stop** button to stop the debugger.
 
 semantic errors
 ----------------
 
-Now that you have fixed the first error, return to the **R** terminal, then re-run the script. You should see that the
-script now runs with no errors:
+The errors that we've seen so far (**NameError**, **TypeError**) are examples of **Runtime Errors** - errors that,
+when the python interpreter finds them, cause it to raise an **Exception** that stops the program.
 
-.. image:: img/debug/second_error.png
+The other errors in the script are **semantic** errors - that is, the code is *technically* correct, but
+something is not quite right. These are usually the hardest errors to find and fix, because what is wrong isn't
+immediately obvious.
+
+By using the debugging tools available in an IDE like PyCharm, we can stop the code and have a closer look, which
+should help us narrow down what's wrong.
+
+Run the debugger again, and pay attention to the value of the number you're meant to guess (``rand``), as well as the
+response when you enter your guess:
+
+.. image:: ../../../img/egm722/debug/console_message.png
     :width: 720
     :align: center
-    :alt: the script now runs without raising an error, but it is still incorrect
+    :alt: the final changes tracked in github desktop
 
-|br| This does not mean that the script has run correctly, however. Right away, we can see at least one problem: the
-script asks us to guess a number between 1 and 20, but the "correct" answer is 71 - way outside of the range we're
-meant to guess!
+|br| In the window below, I've entered a guess of 10, and the response from the program
+is ``'Too high. Guess again.'``. Now, this should mean that ``guess > rand``, but have a look at the values displayed
+in the **debugger**:
 
-Not only this, but we don't even have a chance to guess - as soon as the script starts running, it tells us the correct
-answer and finishes.
-
-These are examples of *semantic* errors - no error message is produced by the interpreter, but the program still doesn't
-do what you expected. Unfortunately, these are the hardest errors to fix, because they fail in subtle ways.
-
-Let's start with fixing the first obvious error - when we generate a random sample at line 3, we choose a number
-between 1 and 100:
-
-.. code-block:: R
-
-    rand <- sample(1:100, 1)
-
-This is why the number to guess was well outside of the range of 1 to 20. To fix this, we can change ``1:100`` to
-``1:20``.
-
-Once you have fixed this error, remember to **add** the change, then **commit** it with an appropriate error message.
-
-The next error, the one that causes the program to completely skip the **while** loop, is a bit subtler. Note that at
-line 9, we initialize the ``guess`` object by assigning the value of ``rand``. But, the condition for the **while**
-loop at line 12 is that ``guess != rand`` - because ``guess`` has the value of ``rand``, this statement is ``FALSE``,
-and so the **while** loop is skipped.
-
-To fix this, assign a value to ``guess`` that is outside of the guessing range (for example, ``-1``), then **add**
-and **commit** the change with an appropriate commit message.
-
-When you run the script again, you should notice that you are able to enter a guess at the command line, but you should
-also notice an additional pair of semantic errors. Once you have identified these and fixed them, test out the script -
-does it work correctly? If so, move on to the next section.
-
-merging branches
------------------
-
-Now that we have successfully squashed the bugs present in the script, we are ready to **merge** the fix into our
-**main** branch.
-
-In the **terminal** window where you've been working with **git**, enter the following command:
-
-.. code-block:: text
-
-    git checkout main
-
-This will **checkout** the ``main`` branch - you may notice that the script changes. Don't panic! Remember that **git**
-has saved all of the changes, even though the file on the disk has changed. Now that you are on the main branch, you
-can use **git merge** (`documentation <https://git-scm.com/docs/git-merge>`__) to **merge** all of the changes on the
-``debug`` branch into the ``main`` branch, with the following command:
-
-.. code-block:: text
-
-    git merge debug
-
-You should see something like the following output:
-
-.. image:: img/debug/merged.png
+.. image:: ../../../img/egm722/debug/debug_values.png
     :width: 720
     :align: center
-    :alt: the corrected script, now merged back into the main branch
+    :alt: the final changes tracked in github desktop
 
-|br| And that's it! If you like, you can now delete the ``debug`` branch using the following command:
+|br| Here, we see that ``guess`` has a value of 10, as expected, but ``rand`` has a value of 53. So, there are two
+problems here.
 
-.. code-block:: text
+First, the instructions to the user were to guess a number between 1 and 20, and 53 is decidedly outside of that
+range. Looking at line 4:
 
-    git branch -d debug
+.. code-block:: python
 
-You can also use **git push** to send these changes to your remote (GitHub) repository, which ensures that you have
-backed up a copy to a remote location.
+    rand = random.randint(1, 100)
 
-That's all for this exercise - in the next session, we'll take a look at how we can use **ggplot2** to display data.
+We can see that we're getting a random integer in the range 1 to 100, rather than the expected 1 to 20. Fortunately,
+that's easy enough to fix.
+
+Second, 10 < 53, but the program has told us the opposite:
+
+.. code-block:: python
+
+    if guess > rand:  # if the guess is too high, tell the user
+        print('Too low. Guess again.')
+    else:  # if the guess is too low, tell the user
+        print('Too high. Guess again.')
+
+Based on the comments, and the actual code (``if guess > rand:``), these print messages need to be reversed:
+
+.. code-block:: python
+
+    if guess > rand:  # if the guess is too high, tell the user
+        print('Too high. Guess again.')
+    else:  # if the guess is too low, tell the user
+        print('Too low. Guess again.')
+
+Fix these errors in the script, save it (**CTRL + S**), then try to **Run** the script again. Does it run as expected,
+with no further bugs?
+
+finishing up
+-------------
+
+Once you've identified and fixed the bugs, head back to **GitHub Desktop**. You should see the changes you've made have
+been tracked:
+
+.. image:: ../../../img/egm722/debug/final_changes.png
+    :width: 720
+    :align: center
+    :alt: the final changes tracked in github desktop
+
+|br| This time, because we've made a number of changes, we'll write a longer commit description, at least for practice.
+Add a brief commit message, such as "fix guessing game script", then add a longer description of the changes:
+
+.. image:: ../../../img/egm722/debug/commit_message.png
+    :width: 720
+    :align: center
+    :alt: an example commit message and description in github desktop
+
+|br| Finally, press the **Commit to debug** button to **commit** the changes.
+
+next steps
+-----------
+
+As some additional practice, see if you can add a new feature to the program that keeps track of the number
+of guesses the user has made, and prints out the total number of guesses once the user has correctly guessed the number.
+
+Once you've made these changes, and are satisfied that they're working properly, remember to use **GitHub Desktop**
+to **commit** the changes.
+
