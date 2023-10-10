@@ -27,7 +27,7 @@ At the command prompt, enter the following command:
 
 You should see something like the following:
 
-.. image:: img/generate_config.png
+.. image:: ../../r-programming/setup/img/generate_config.png
     :width: 600
     :align: center
     :alt: the command prompt, showing that the jupyter lab config file is being written
@@ -36,7 +36,7 @@ You should see something like the following:
 the command prompt) in **Notepad++** or a similar text editor, and search for ``c.ServerApp.terminado_settings``
 (for me, this was at line 1062):
 
-.. image:: img/jupyter_settings.png
+.. image:: ../../r-programming/setup/img/jupyter_settings.png
     :width: 600
     :align: center
     :alt: the jupyter config file, showing the terminal setting
@@ -47,7 +47,7 @@ the command prompt) in **Notepad++** or a similar text editor, and search for ``
 
     'shell_command': [r'C:\WINDOWS\System32\cmd.exe']
 
-.. image:: img/jupyter_settings_updated.png
+.. image:: ../../r-programming/setup/img/jupyter_settings_updated.png
     :width: 600
     :align: center
     :alt: the jupyter config file, showing the updated terminal setting
@@ -69,7 +69,7 @@ Once you have changed the file, save the changes, then close it. Now, launch **J
 
 You should see a browser window like this open up:
 
-.. image:: img/jupyterlab_open.png
+.. image:: ../../r-programming/setup/img/jupyterlab_open.png
     :width: 720
     :align: center
     :alt: jupyterlab open in a browser window
@@ -79,7 +79,7 @@ to open the **Launcher**.
 
 Next, click on **Terminal** under **Other** to launch a terminal window. You should see something like this:
 
-.. image:: img/jupyter_terminal.png
+.. image:: ../../r-programming/setup/img/jupyter_terminal.png
     :width: 720
     :align: center
     :alt: jupyterlab open in a browser window, with a terminal window opened
