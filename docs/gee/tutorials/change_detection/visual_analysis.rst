@@ -28,6 +28,9 @@ In the script, we first use ``tools.rescale_lsat_sr`` to re-scale the 16-bit int
     // a Landsat 8 OLI image from 21 October 2022
     var oli2022 = tools.rescale_lsat_sr(ee.Image("LANDSAT/LC08/C02/T1_L2/LC08_122044_20221021"));
 
+false-color composites
+------------------------
+
 When you run the script, you should see the following view in the **Map**:
 
 .. image:: img/visual/visual_1986.png
@@ -57,6 +60,9 @@ Now, toggle the ``2022 SR`` layer on from the **Layers** menu. You should see th
 area that we identified as rice paddies south of Foshan in 1986 has been urbanized, though built-up areas have expanded
 over most of the area covered by the two images.
 
+individual bands
+-----------------
+
 Once you have had a look at the false color composite images, have a look at the SWIR2 (TM/OLI Band 7) images, by
 toggling on ``1986 SR B7`` and ``2022 SR B7``. You should notice somewhat similar patterns to the false color images.
 
@@ -85,6 +91,9 @@ concrete or asphalt:
     To illustrate this, try changing the stretch on ``2022 SR B7`` so that it ranges from 0.02 to 0.65, rather than
     0.28. You should notice that now, it appears that the 2022 image is darker than the 1986 image, giving the mistaken
     impression that SWIR2 reflectance has decreased, when in fact the opposite is true.
+
+multi-temporal false color composites
+--------------------------------------
 
 Visually comparing bands like this is one way that we can see the differences between color composites or individual
 bands. But, we can also construct something called a multi-temporal false color composite to visualize changes
