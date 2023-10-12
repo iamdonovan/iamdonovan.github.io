@@ -325,5 +325,5 @@ references and notes
 
 .. [2] For a (brief) overview of *k*-means clustering, the wikipedia page is a good place to start: https://en.wikipedia.org/wiki/K-means_clustering
 
-.. [3] Arthur, D. and S. Vassilvitskii (2007). in: *Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms, SODA ’07*. pp. 1027–1035. doi: `10.5555/1283383.1283494 <https://doi.org/10.5555/1283383.1283494>__`
+.. [3] Arthur, D. and S. Vassilvitskii (2007). in: *Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms, SODA ’07*. pp. 1027–1035. doi: `10.5555/1283383.1283494 <https://doi.org/10.5555/1283383.1283494>`__
 
