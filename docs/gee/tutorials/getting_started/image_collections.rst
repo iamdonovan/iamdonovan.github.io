@@ -160,25 +160,25 @@ cloud shadow, snow, water, cloud confidence, and so on.
 
 Rather than masking every single possible pixel value, we can use ``ee.Image.bitwiseAnd()`` 
 (`documenation <https://developers.google.com/earth-engine/apidocs/ee-image-bitwiseand>`__) to select pixels where
-the specific bit is set. For Landsat 8 SR products:
+the specific bit is set. For Landsat 8 Collection 2, Level 2 (surface reflectance) products:
 
-- bit 3 corresponds to cloud shadow
-- bit 5 corresponds to cloud
-- bit 7 corresponds to high confidence cloud shadow
+- bit 1 corresponds to dilated cloud
+- bit 2 corresponds to cirrus clouds
+- bit 3 corresponds to clouds
+- bit 4 corresponds to cloud shadow
 
 .. note::
 
-    For a full list of which bits correspond to what, 
-    see the `data catalog <https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC08_C01_T1_SR#bands>`__ and
-    scroll down to the `pixel_qa` band to view the bitmask.
+    For a full list of which bits correspond to what, see the
+    `USGS Data Format Control Book <https://www.usgs.gov/media/files/landsat-8-9-olitirs-collection-2-level-2-data-format-control-book>`__
+    - information about the ``QA_Pixel`` band is found in section 3.2 (page 8).
 
-So, to mask out all of the cloud pixels, we would use:
+So, to select all of the cloud pixels, we would use:
 
 .. code-block:: javascript
 
-    var qa = image.select('pixel_qa');
-    var cloud = qa
-      .bitwiseAnd(1 << 5)
+    var qa = image.select('QA_PIXEL');
+    var cloud = qa.bitwiseAnd(1 << 3)
 
 This uses the `left-shift <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Left_shift>`__ 
 (``<<``) operator to compare the left-hand side (``1``) to the left by the right-hand side number of bits. Written in 16-bit
@@ -186,32 +186,28 @@ This uses the `left-shift <https://developer.mozilla.org/en-US/docs/Web/JavaScri
 
     0000000000000001
 
-When we shift it to the left by 5 bits, we have this:
+When we shift it to the left by 3 bits, we have this:
 
-    0000000000100000
-
+    0000000000001000
 
 ``ee.Image.bitwiseAnd()`` then compares each pixel of the image to this value, returning "``true``" wherever the pixel in
-the image has a value of ``1`` in the 5th bit, and "``false``" wherever the image has a value of ``0`` in the 5th bit.
+the image has a value of ``1`` in the 3rd bit, and "``false``" wherever the image has a value of ``0`` in the 3rd bit.
 
-But, we don't *just* want to mask the cloudy pixels - we only want to mask out the pixels that are high-confidence clouds
-(where the 7th bit is also equal to 1). So, we can use ``ee.Image.and()``
-(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-and>`__) along with ``ee.Image.bitwiseAnd()`` 
-to combine these two:
-
-.. code-block:: javascript
-
-      .and(qa.bitwiseAnd(1 << 7))
-
-Finally, we also want to mask any pixels that might be cloud shadow (bit 3), so we can use ``ee.Image.or()``
-(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-or>`__) with ``ee.Image.bitwiseAnd()``:
+But, we don't *just* want to mask the cloudy pixels - we also want to mask the cloud shadow, cirrus, and dilated cloud
+pixels. So, we can use ``ee.Image.or()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-and>`__)
+to combine these different criteria:
 
 .. code-block:: javascript
 
-      .or(qa.bitwiseAnd(1 << 3));
+      var cloud = qa
+        .bitwiseAnd(1 << 1) // dilated clouds
+        .or(qa.bitwiseAnd(1 << 2)) // cirrus
+        .or(qa.bitwiseAnd(1 << 3)) // cloud
+        .or(qa.bitwiseAnd(1 << 4)); // cloud shadow
 
-This provides an image where pixel values are ``true`` if they match the criteria (high-confidence cloud OR cloud shadow),
-and ``false`` where they don't match the criteria.
+This provides an image where pixel values are ``true`` if they match the criteria (cloud, cloud shadow, cirrus, or
+dilated cloud), and ``false`` where they don't match the criteria.
 
 Finally, not all of the bands of Landsat (or other sensors) cover exactly the same area - there are small differences at
 the edges of the scene. To mosaic the images together in a nice way, we want to exclude these pixels from the mask.
@@ -228,30 +224,32 @@ in all bands:
 
 Then, we can use ``ee.Image.updateMask()`` (`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-updatemask>`__)
 to mask out areas where there are clouds, using the cloud mask we've computed. To do this, we use ``ee.Image.not()``
-(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-not>`__) -- this will mask out pixels where the cloud mask
-has been set (note that using the cloud mask directly will mask out pixels where there are no clouds), and additionally using the
-edge pixel mask:
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-not>`__) -- this will mask out pixels where
+the cloud mask has been set (note that using the cloud mask directly will mask out pixels where there are no clouds),
+and additionally using the edge pixel mask:
 
 .. code-block:: javascript
 
     image.updateMask(cloud.not()).updateMask(edge);
 
-Now, to do this efficiently over the entire **ImageCollection**, we want to combine all of these individual steps into a **function**, then
-pass that function to ``ee.ImageCollection.map()``:
+Now, to do this efficiently over the entire **ImageCollection**, we want to combine all of these individual steps into
+a **function**, then pass that function to ``ee.ImageCollection.map()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-imagecollection-map>`__):
 
 .. code-block:: javascript
 
     // a function that will mask cloudy pixels
     function cloudMask(image) {
       // select the pixel_qa band
-      var qa = image.select('pixel_qa');
+      var qa = image.select('QA_PIXEL');
       var cloud = qa
-        .bitwiseAnd(1 << 5)
-        .and(qa.bitwiseAnd(1 << 7))
-        .or(qa.bitwiseAnd(1 << 3));
+        .bitwiseAnd(1 << 1) // dilated clouds
+        .or(qa.bitwiseAnd(1 << 2)) // cirrus
+        .or(qa.bitwiseAnd(1 << 3)) // cloud
+        .or(qa.bitwiseAnd(1 << 4)); // cloud shadow
       // Remove edge pixels that don't occur in all bands
       var edge = image.mask().reduce(ee.Reducer.min());
-      
+
       // set the mask
       return image.updateMask(cloud.not()).updateMask(edge);
     }
@@ -264,7 +262,7 @@ To confirm that the mask has worked, you can add a sample image to the **Map** u
 .. code-block:: javascript
 
     // add a sample image to the map:
-    Map.addLayer(imgs.first().select('B[1-7]').multiply(0.0001), visParams, 'sample');
+    Map.addLayer(imgs.first().select('SR_B[1-7]').multiply(0.0000275).add(-0.2), visParams, 'sample');
 
 You should see something like this:
 
@@ -273,8 +271,7 @@ You should see something like this:
     :align: center
     :alt: a sample image showing clouds masked out
 
-|br| Note that while a large number of the clouds have been masked out, it's not perfect (since we only included "high confidence"
-cloud pixels). If we want to include lower-confidence pixels as well, we can remove ``.and(qa.bitwiseAnd(1 << 7))`` from our function.
+|br|
 
 mosaicking
 -----------
@@ -285,17 +282,18 @@ into a single image that covers the whole area.
 
 Earth Engine has a `number of ways <https://developers.google.com/earth-engine/guides/ic_composite_mosaic>`__ to do this - 
 we can use ``ee.ImageCollection.mosaic()``, (`documentation <https://developers.google.com/earth-engine/apidocs/ee-imagecollection-mosaic>`__),
-which composites the images according to their order in the **ImageCollection**. With our cloud-masked images, though, this leads to a somewhat
-patchy result:
+which composites the images according to their order in the **ImageCollection**. With our cloud-masked images, though,
+this leads to a somewhat patchy result:
 
 .. image:: img/image_collections/mosaic.png
     :width: 720
     :align: center
     :alt: the result of running ee.ImageCollection.mosaic()
 
-We could also use a **Reducer** to composite the images. If we have an image collection of normalized difference vegetation index (NDVI) images,
-for example, we might want to see the "greenest" pixel value over the course of a season using ``ee.Reducer.max()``. Instead of that, though,
-this script takes an *average* (median) of all of the valid pixel values, then composites them into an image, using ``ee.ImageCollection.median()``
+|br| We could also use a **Reducer** to composite the images. If we have an image collection of normalized difference
+vegetation index (NDVI) images, for example, we might want to see the "greenest" pixel value over the course of a season
+using ``ee.Reducer.max()``. Instead of that, though, this script takes an *average* (median) of all of the valid pixel
+values, then composites them into an image, using ``ee.ImageCollection.median()``
 (`documentation <https://developers.google.com/earth-engine/apidocs/ee-imagecollection-median>`__):
 
 .. code-block:: javascript
@@ -303,10 +301,11 @@ this script takes an *average* (median) of all of the valid pixel values, then c
     // mosaic the images using median
     var median = imgs.median();
 
-This returns an **Image** where each pixel is the median value of all of the valid (unmasked) pixel values from the **ImageCollection**.
+This returns an **Image** where each pixel is the median value of all of the valid (unmasked) pixel values from the
+**ImageCollection**.
 
-This is not the only way to composite the images, but it is a way to give us a relatively smooth-looking mosaic -- for other applications, it might
-make sense to use another method.
+This is not the only way to composite the images, but it is a way to give us a relatively smooth-looking mosaic -- for
+other applications, it might make sense to use another method.
 
 buffering geometries
 ---------------------
@@ -315,11 +314,11 @@ Note that so far, our images cover an area much larger than our area of interest
 that intersects the given geometry, even if it's a tiny overlap.
 
 To restrict our mosaic to our area of interest, we can use ``ee.Image.clip()`` 
-(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-clip>`__) to clip the **Image** to a **Feature**, **Geometry**, or
-even another **Image**. 
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-clip>`__) to clip the **Image** to a
+**Feature**, **Geometry**, or even another **Image**.
 
-However, our country boundaries are fairly low-resolution - by clipping directly to the ``country`` **Feature**, we might lose details at the coastline.
-So, we can apply a **buffer** to expand the outline, using ``ee.Feature.buffer()`` 
+However, our country boundaries are fairly low-resolution - by clipping directly to the ``country`` **Feature**, we
+might lose details at the coastline. So, we can apply a **buffer** to expand the outline, using ``ee.Feature.buffer()``
 (`documentation <https://developers.google.com/earth-engine/apidocs/ee-feature-buffer>`__).
 
 ``ee.Feature.buffer()`` takes the following inputs:
@@ -339,8 +338,9 @@ For this example, we'll use a buffer of 1000 m, and we'll use the ``epsg:3857`` 
       proj: 'epsg:3857' // pseudo-mercator projection
     });
 
-Note that we're also using the ``first()`` method to select only the first **Feature** from our filtered **FeatureCollection**,
-``country`` - we need to make sure that we're using a **Feature**, as there is no ``buffer`` method for **FeatureCollection**\ s.
+Note that we're also using the ``first()`` method to select only the first **Feature** from our filtered
+**FeatureCollection**, ``country`` - we need to make sure that we're using a **Feature**, as there is no ``buffer``
+method for **FeatureCollection**\ s.
 
 clipping images
 ----------------
@@ -351,13 +351,14 @@ We can now use ``ee.Image.clip()`` with our buffered outline to clip the mosaic:
 
     median = median.clip(buffered);
 
-Now, when we add the image to the **Map**, areas outside of the coastline of Iceland (defined by our **Feature**) will be masked out.
+Now, when we add the image to the **Map**, areas outside of the coastline of Iceland (defined by our **Feature**) will
+be masked out.
 
 counting valid pixels
 ----------------------
 
-One last thing we might want to do is see how many pixels went into the calculation -- that is, how many valid (non-cloudy) pixels 
-from the **ImageCollection** were there for each pixel of the mosaic?
+One last thing we might want to do is see how many pixels went into the calculation -- that is, how many valid
+(non-cloudy) pixels from the **ImageCollection** were there for each pixel of the mosaic?
 
 To do this, we use ``ee.ImageCollection.count()`` (`documentation <https://developers.google.com/earth-engine/apidocs/ee-imagecollection-count>`__):
 
@@ -392,8 +393,10 @@ or other pixels, buffer geometries, clip images, and even count the number of un
 
 If you're interested in some additional practice, here are some suggestions:
 
-- Using ``valid_count``, can you apply a **Reducer** to find the average number of valid pixels per pixel of the mosaic? What about the maximum and minimum numbers?
-- The ``cloudMask()`` function written above only includes high-confidence cloud pixels and cloud shadow pixels. Using the information in the Data Catalog, can you add an additional check to mask high- and medium-confidence cirrus pixels?
+- Using ``valid_count``, can you apply a **Reducer** to find the average number of valid pixels per pixel of the mosaic?
+  What about the maximum and minimum numbers?
+- The ``cloudMask()`` function written above only includes high-confidence cloud pixels and cloud shadow pixels. Using
+  the information in the Data Catalog, can you add an additional check to mask high- and medium-confidence cirrus pixels?
 
 
 
