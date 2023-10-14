@@ -1,6 +1,14 @@
 manual mapping (digitizing)
 ============================
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F04_mapping.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``01_getting_started/04_mapping.js`` under the **Reader** section.
+
+
 In this tutorial, we'll see how we can use GEE's digitizing tools to map features. The images we'll be looking at
 show the Geldingadalir (Fagradalsfjall) volcanic eruption on the Reykjanes Peninsula, Iceland, on 26 June 2021:
 

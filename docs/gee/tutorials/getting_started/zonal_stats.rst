@@ -1,6 +1,14 @@
 zonal statistics
 =================
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F06_zonal_stats.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``01_getting_started/06_zonal_stats.js`` under the **Reader** section.
+
+
 In GIS, `zonal statistics <https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-zonal-statistics-works.htm>`__ 
 is a process whereby you calculate statistics for the pixels of a raster in different groups, or zones, defined by properties in another dataset. 
 

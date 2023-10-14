@@ -7,6 +7,14 @@ adding and exporting images
 
 .. role:: green
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F01_adding_exporting_images.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``01_getting_started/01_adding_exporting_images.js`` under the **Reader** section.
+
+
 This tutorial is designed to get you started looking at satellite images using Google Earth Engine. 
 By the end of the tutorial, you will be able to:
 

@@ -1,6 +1,14 @@
 spectral signatures
 ====================
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F02_spectral_signatures.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``01_getting_started/02_spectral_signatures.js`` under the **Reader** section.
+
+
 This tutorial is designed to have you use Google Earth Engine (GEE) to examine the 
 `spectral signatures <https://en.wikipedia.org/wiki/Spectral_signature>`__ of different surfaces. 
 After finishing this tutorial, you should be able to:

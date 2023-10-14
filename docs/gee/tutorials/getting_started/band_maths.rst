@@ -1,6 +1,14 @@
 band maths
 ===========
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F05_band_maths.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``01_getting_started/05_band_maths.js`` under the **Reader** section.
+
+
 In this tutorial, you'll see how you can use band math(s) to enhance the differences in reflectance
 of different surface types, in order to help identify these features in images.
 

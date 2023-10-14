@@ -1,6 +1,14 @@
 image collections and vectors
 ==============================
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F03_image_collections.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``01_getting_started/03_image_collections.js`` under the **Reader** section.
+
+
 In the previous tutorials, we've focused on adding individual **Image**\ s to the **Map**
 using their ``id``. This isn't the only way to find **Image**\ s to use, however. Very often,
 we might want to do some processing or analysis for many **Image**\ s. For this, we use **ImageCollection**\ s.
