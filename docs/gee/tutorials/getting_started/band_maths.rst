@@ -58,17 +58,37 @@ Norway. In the center of the image, we can see two large glaciers, Vestisen and 
 (collectively, `Svartisen <https://en.wikipedia.org/wiki/Svartisen>`__), along with a few other
 glaciers and snow-covered mountains in the northeastern part of the image.
 
-At the beginning of the script, we've added our ``img`` import to the **Map** using two different
-visualization parameters, ``visParams`` and ``infraParams``:
+At the beginning of the script, we start by re-scaling the values of the Surface Reflectance bands from 16-bit integer
+values to values between 0 and 1, using the rescaling factors provided by USGS:
+
+.. code-block:: javascript
+
+    // rescale surface reflectance values
+    img = img.select('SR_B.').multiply(0.0000275).add(-0.2);
+
+Because of a `known issue <https://www.usgs.gov/faqs/why-are-negative-values-observed-over-water-some-landsat-surface-reflectance-products>`__
+with the Landsat Collection 2 Level 2 products, we also need to use ``ee.Image.clamp()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-clamp>`__):
+
+.. code-block:: javascript
+
+    // set pixel values to lie between 0 and 1
+    img = img.clamp(0, 1);
+
+This will set any value below ``0`` to be equal to ``0``, and any value above ``1`` to be equal to ``1``. This ensures
+that when we compute normalized difference indices later, the low reflectance values over water are not masked.
+
+Next, we add the re-scaled image to the **Map** using two different visualization parameters, ``visParams`` and
+``infraParams``:
 
 .. code-block:: javascript
 
     // add the image as a natural color composite
-    Map.addLayer(img.select('B[1-7]').multiply(0.0001), visParams, 'natural color');
+    Map.addLayer(img, visParams, 'natural color');
 
     // add the image as a false color composite
-    Map.addLayer(img.select('B[1-7]').multiply(0.0001),
-      infraParams, 'infrared false color', false);
+    Map.addLayer(img, infraParams, 'infrared false color', false);
+
 
 If you expand these two **imports** by clicking on the arrow next to each one:
 
@@ -122,7 +142,8 @@ to take the difference between the near infrared and red (OLI band 4) reflectanc
 
 .. code-block:: javascript
 
-    var difference = img.select('B5').subtract(img.select('B4')).rename('nir_red');
+    // subtract red (B4) from nir (B5)
+    var difference = img.select('SR_B5').subtract(img.select('SR_B4')).rename('nir_red');
 
 you can also see that we've used ``ee.Image.rename()`` (`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-rename>`__)
 to change the name of the band to ``nir_red`` -- otherwise, it will have the same name as the first band we've used (``B5``).
@@ -148,7 +169,7 @@ In addition to subtraction, we can also take the **ratio** of the visible red an
 
 .. code-block:: javascript
 
-    var ratio = img.select('B4').divide(img.select('B6')).rename('red_swir');
+    var ratio = img.select('SR_B4').divide(img.select('SR_B6')).rename('red_swir');
 
 This helps to highlight snow and ice\ [1]_ -- because snow and ice are bright (high reflectance) at visible wavelengths,
 but dark (low reflectance) at shortwave infrared wavelengths, this ratio is very high for snow and ice, but
@@ -196,7 +217,8 @@ This also has the benefit of being bounded between --1 and +1, making it easier 
 
 .. note::
 
-    Even though this is a normalized "difference", it's a nonlinear transformation of a spectral ratio, **not** a spectral difference.
+    Even though this is a normalized "difference", it's a nonlinear transformation of a spectral ratio, **not** a
+    spectral difference.
 
 .. _ndvi:
 
@@ -220,7 +242,7 @@ using the near infrared (B5) and red (B4) bands:
 
 .. code-block:: javascript
 
-    var ndvi = img.normalizedDifference(['B5', 'B4']).rename('ndvi');
+    var ndvi = img.normalizedDifference(['SR_B5', 'SR_B4']).rename('ndvi');
 
 Because most healthy vegetation has significantly higher reflectance at NIR wavelengths compared to visible 
 red wavelengths, high NDVI values typically correspond to healthy vegetation.
@@ -341,10 +363,10 @@ using ``ee.Image.expression()``, this looks like:
 
     var gray = img.expression({
       expression: '(0.52 * NIR) + (0.25 * R) + (0.23 * G)',
-      map: {'NIR': img.select('B5'),
-            'R': img.select('B4'),
-            'G': img.select('B3')}
-    }).rename('gray').multiply(0.0001);
+      map: {'NIR': img.select('SR_B5'),
+            'R': img.select('SR_B4'),
+            'G': img.select('SR_B3')}
+    }).rename('gray');
 
 
 here, you can see that each key of ``map`` corresponds to the variables in ``expression``:
@@ -392,7 +414,8 @@ The code to reclassify the NDVI **Image** looks like this:
       .where(ndvi.gt(0).and(ndvi.lte(0.5)), 3)
       .where(ndvi.gt(0.5).and(ndvi.lte(1)), 4)
       .rename('reclass_ndvi')
-      .clip(ndvi.geometry());
+      .clip(ndvi.geometry())
+      .updateMask(img.select('SR_B1').mask()); // mask areas outside of the image
 
 First, we create an **Image** with a constant value (``ee.Image(1)``), then apply
 each of our categories. 
@@ -420,11 +443,16 @@ to test whether both conditions are true. Wherever both conditions are true, the
 will be equal to 1. 
 
 The remaining lines repeat this for the other categories, before using ``ee.Image.rename()``
-to rename the output band, and finally to **clip** the **Image** to the ``geometry`` of the ``ndvi`` **Image**.
+to rename the output band, using ``ee.Image.clip()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-clip>`__) to clip the **Image** to the
+``geometry`` of the ``ndvi`` **Image**, and finally using ``ee.Image.updateMask()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-updatemask>`__) to mask areas that are
+outside of the image.
 
 .. note::
 
-    Without this last step, ``ndviReclass`` would have a global extent.
+    Without the ``.clip()`` step, ``ndviReclass`` would have a global extent; without the ``.updateMask()`` step,
+    ``ndviReclass`` would have values outside of the extent of the image.
 
 When we add the reclassified image to the **Map** using the ``reclassVis`` visualization parameters imported at the
 top of the script:
