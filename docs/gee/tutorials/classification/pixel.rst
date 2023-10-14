@@ -1,6 +1,13 @@
 pixel-based classification
 ==================================
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A02_image_classification%2F02_pixel.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``02_image_classification/02_pixel.js`` under the **Reader** section.
+
 In this tutorial, we'll look at doing a pixel-based classification of a Landsat 8 image acquired on 24 June, 2020,
 covering a portion of the Amazon Rainforest south of Santarém, Brazil.
 
@@ -9,6 +16,7 @@ to classify the image based on its characteristics, before classifying each pixe
 
 By the end of this tutorial, you should be able to use Earth Engine to:
 
+- import functions from other scripts/libraries
 - select points to train a **Classifier**
 - train and apply a **Classifier** to a satellite image
 - evaluate the accuracy of a classification
@@ -106,7 +114,8 @@ Change the color to something more appropriate, then click **OK**. You should no
 
 You can now add points to the new **FeatureCollection** by following the digitizing instructions from above.
 
-Finally, you need to make sure to add your new class to the **FeatureCollection** of training points in the script at line 10:
+Finally, you need to make sure to add your new class to the **FeatureCollection** of training points in the script
+at line 14:
 
 .. code-block:: javascript
 
@@ -116,10 +125,10 @@ Finally, you need to make sure to add your new class to the **FeatureCollection*
       .merge(builtup)
       .merge(bare);
 
-To do this, delete the semicolon at the end of line 14, and add ``.merge(yourNewClass);`` on line 15 (remembering, of course, to replace
-``yourNewClass`` with the actual name of the new **FeatureCollection**).
+To do this, delete the semicolon at the end of line 18, and add ``.merge(yourNewClass);`` on line 19 (remembering, of
+course, to replace ``yourNewClass`` with the actual name of the new **FeatureCollection**).
 
-You should also add the name of your class to the list of class names defined at line 20:
+You should also add the name of your class to the list of class names defined at line 24:
 
 .. code-block:: javascript
 
@@ -128,15 +137,17 @@ You should also add the name of your class to the list of class names defined at
 using require to load another script
 -------------------------------------
 
-The very first line of this script (after the initial comment) is this:
+The first two lines of this script (after the initial comment) are:
 
 .. code-block:: javascript
 
     var accuracy = require('users/robertmcnabb/modules:accuracy');
+    var tools = require('users/robertmcnabb/modules:tools');
 
 In Earth Engine, ``require()`` (`documentation <https://developers.google.com/earth-engine/apidocs/require>`__) retrieves
 the script/file provided to it and imports it as a module. In our script, we can then use any of the *exported*
-functions or attributes in ``users/robertmcnabb/modules:accuracy`` by calling them in the script.
+functions or attributes in ``users/robertmcnabb/modules:accuracy`` or ``users/robertmcnabb/modules:tools`` by calling
+them in the script.
 
 As an example, one of the functions in ``users/robertmcnabb/modules:accuracy`` is ``unbiasedArea()``:
 
@@ -177,7 +188,7 @@ getting training data
 -------------------------------
 
 Now that we have training classes and points, we have to decide what image properties to use as inputs for "training"
-the classifier. In the script as written, we use Landsat OLI bands 1-7 (Visible/NIR/SWIR), as shown in this line:
+the classifier. In the script as written, we use Landsat OLI bands 1-7 (Visible/NIR/SWIR), as shown in line 21:
 
 .. code-block:: javascript
 
@@ -274,7 +285,7 @@ the classifier. The inputs to ``ee.Classifier.train()`` used above are:
 - ``inputProperties``, a list of the properties from ``features`` to use to train the **Classifier**
 
 So, this will train the **Classifier** using the ``trainingPartition`` **FeatureCollection**,
-based on the ``'landcover'`` property, using the image bands listed in the ``bands`` variable defined at line 17 of
+based on the ``'landcover'`` property, using the image bands listed in the ``bands`` variable defined at line 21 of
 the script.
 
 classifying the image
@@ -622,7 +633,7 @@ When we have two classes where we have significant mis-classification between th
 built-up areas, we might think about whether it makes sense to have them as separate classes. We can also try adding
 carefully-chosen training samples that help increase the spectral differences between the two classes.
 
-Lines 133-164 of the script define a function, ``spectralPlot()``, that plots the average spectral signature of each of
+Lines 137-168 of the script define a function, ``spectralPlot()``, that plots the average spectral signature of each of
 our classes, given a list of reflectance values and a plot title.
 
 .. note::
@@ -653,7 +664,7 @@ our classes, given a list of reflectance values and a plot title.
             5: {lineWidth: 4, color: '000000'},
         }
 
-Lines 167-185 sample the surface reflectance values at each of the training points, gets the median value in each band
+Lines 171-189 sample the surface reflectance values at each of the training points, gets the median value in each band
 for each class, and plots the median spectral signature for each class:
 
 .. image:: img/pixel/spectral_training.png
