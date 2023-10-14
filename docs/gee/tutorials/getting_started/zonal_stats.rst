@@ -45,7 +45,7 @@ The options for displaying vector data on the **Map** are quite limited, though 
 way that we can for **Image** data:
 
 .. image:: img/zonal_stats/vectors.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the vector data after being added to the map
 
@@ -72,7 +72,7 @@ to provide a random palette to display the image as:
     Map.addLayer(countryImg.randomVisualizer(), {}, 'Regions', false);
 
 .. image:: img/zonal_stats/random.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: an image added to the map using a random visualizer
 
@@ -116,7 +116,7 @@ The CORINE dataset has a built-in palette, which means that when we add the **Im
 it already has a color palette:
 
 .. image:: img/zonal_stats/landcover.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the landcover image added to the map
 
@@ -185,7 +185,7 @@ Similar to what we've done before, we use ``ui.Chart.setOptions()`` to provide l
 to display the chart:
 
 .. image:: img/zonal_stats/landcover_chart.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a chart showing the percent area of each landcover class in donegal
 
@@ -431,7 +431,7 @@ Once you have run the script, you can run the **Task** from the **Tasks** tab to
 into your GIS software of choice:
 
 .. image:: img/zonal_stats/qgis.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the exported GeoJSON file, opened in QGIS
 

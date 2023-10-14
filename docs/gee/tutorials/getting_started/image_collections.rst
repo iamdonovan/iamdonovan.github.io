@@ -142,14 +142,14 @@ we limit ourselves to "cloud-free" (i.e., the 'CLOUD_COVER' metadata value is eq
 work with:
 
 .. image:: img/image_collections/no_images.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: there are no images with exactly 0 cloud cover
 
 |br| But, even low values of cloud cover can still end up in our mosaic:
 
 .. image:: img/image_collections/clouds.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the mosaicked image without clouds masked
 
@@ -269,7 +269,7 @@ To confirm that the mask has worked, you can add a sample image to the **Map** u
 You should see something like this:
 
 .. image:: img/image_collections/sample_image.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a sample image showing clouds masked out
 
@@ -289,7 +289,7 @@ which composites the images according to their order in the **ImageCollection**.
 patchy result:
 
 .. image:: img/image_collections/mosaic.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the result of running ee.ImageCollection.mosaic()
 
@@ -368,14 +368,14 @@ To do this, we use ``ee.ImageCollection.count()`` (`documentation <https://devel
 When you run the script, you should see the following **Map**:
 
 .. image:: img/image_collections/script_run.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the result of running the script
 
 |br| To see the number of valid pixels, you can toggle on the "number of valid pixels" **Image** from the **Layers** menu:
 
 .. image:: img/image_collections/count.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a layer showing the valid pixel count for the mosaic
 

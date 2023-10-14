@@ -13,7 +13,7 @@ In this tutorial, we'll see how we can use GEE's digitizing tools to map feature
 show the Geldingadalir (Fagradalsfjall) volcanic eruption on the Reykjanes Peninsula, Iceland, on 26 June 2021:
 
 .. image:: img/mapping/fagradalsfjall.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the Fagradalsfjall eruption on 26 June 2021
 
@@ -31,7 +31,7 @@ that was designed for rapid digitizing of features from satellite imagery, with 
 workflow of digitizing easier:
 
 .. image:: img/mapping/geedit.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the GEEDiT user interface
 
@@ -69,7 +69,7 @@ The table below lists a few different combinations for OLI (and TM/ETM+) bands, 
 When you run the script, you will see the natural color image loaded into the **Map**:
 
 .. image:: img/mapping/fagradalsfjall.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the Fagradalsfjall eruption on 26 June 2021
 
@@ -111,7 +111,7 @@ then use GEE to remove the rings from the ``exterior``, leaving only the areas c
 First, though, make sure that you've selected **Polygon drawing** from the **Drawing tools**:
 
 .. image:: img/mapping/polygon_drawing.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the drawing tools with polygon drawing selected
 
@@ -127,7 +127,7 @@ the polygon, double-click to finish the shape.
 Once you're done, you should have something that looks like this (your outline might be somewhat different, but the basic shape should be similar):
 
 .. image:: img/mapping/drawn.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the finished polygon
 
@@ -135,7 +135,7 @@ Once you're done, you should have something that looks like this (your outline m
 covered by lava. In the end, you should have something that looks like this:
 
 .. image:: img/mapping/rings.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the rings displayed on the map
 
@@ -149,14 +149,14 @@ We can also move the vertices of our polygon. Make sure that you're no longer dr
 then click on your polygon:
 
 .. image:: img/mapping/editing.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: editing the polygon
 
 |br| You can click/drag on vertices to move them, or click and drag on entire shapes to move them:
 
 .. image:: img/mapping/moved.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the polygon, moved 
 
@@ -183,7 +183,7 @@ Once we've done this, we can add the new **Polygon** to the **Map**:
     Map.addLayer(lavaflow, {}, 'lava flow');
 
 .. image:: img/mapping/polygon_added.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the finished, differenced polygon added to the map
 
@@ -274,7 +274,7 @@ Once you have run the script, you can run the **Task** from the **Tasks** tab to
 into your GIS software of choice:
 
 .. image:: img/mapping/qgis.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the QGIS window with the exported shapefile loaded
 

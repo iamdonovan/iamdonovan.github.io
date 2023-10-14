@@ -27,7 +27,7 @@ In the :doc:`spectral` signatures tutorial, we saw how the spectral reflectances
 surfaces varies with wavelength:
 
 .. image:: img/spectral/final_chart.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the final chart produced in the tutorial
 
@@ -81,7 +81,7 @@ If you expand these two **imports** by clicking on the arrow next to each one:
 to visible red, green, and blue light, respectively:
 
 .. image:: img/band_maths/naturalcolor.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the natural color image added to the map
 
@@ -93,7 +93,7 @@ The "infrared false color" image is displayed using an RGB composite of the SWIR
 (OLI bands 7, 6, and 5, respectively), which colors snow and ice in a bright blue: 
 
 .. image:: img/band_maths/falsecolor.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the infrared (SWIR2/SWIR1/NIR) false color image added to the map
 
@@ -133,7 +133,7 @@ to determine how the image values should be displayed -- in this case, ranging f
 for values close to 0, and a yellowish color (``edf8b1``) for values close to the ``max``:
 
 .. image:: img/band_maths/difference.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the NIR/red difference image, added to the map
 
@@ -165,7 +165,7 @@ we see that most of the land surface is solid blue (values close to or less than
 mostly blue (values closer to 1), and snow/ice is mostly solid yellow (values much greater than 1):
 
 .. image:: img/band_maths/ratio.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the red/swir band ratio image added to the map
 
@@ -238,7 +238,7 @@ colors in the **Map**, while vegetated areas such as forests have NDVI values cl
 by darker green colors in the **Map**.
 
 .. image:: img/band_maths/ndvi.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the normalized difference vegetation index image, added to the map
 
@@ -277,7 +277,7 @@ In the resulting **Map**, we can see how most of the land area has a negative or
 snow/ice have very high (close to 1) NDSI values, and water has intermediate positive NDSI values:
 
 .. image:: img/band_maths/ndsi.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the normalized difference snow index image, added to the map
 
@@ -311,7 +311,7 @@ and we can add it to the map using a palette ranging from yellow to blue:
       palette: ['edf8b1', '7fcdbb', '2c7fb8']}, 'NDWI', false);
 
 .. image:: img/band_maths/ndwi.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the normalized difference water index image, added to the map
 
@@ -353,7 +353,7 @@ here, you can see that each key of ``map`` corresponds to the variables in ``exp
 When added to the **Map**, the new ``grayscale`` image looks like this:
 
 .. image:: img/band_maths/grayscale.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the grayscale image added to the map
 
@@ -430,7 +430,7 @@ When we add the reclassified image to the **Map** using the ``reclassVis`` visua
 top of the script:
 
 .. image:: img/band_maths/reclass.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the reclassified NDVI image
 
@@ -473,7 +473,7 @@ As we've seen before, we then use ``ui.Chart.setOptions()`` to set the axis labe
 To view the **Chart**, we have to use ``print()`` to display it in the **Console**:
 
 .. image:: img/band_maths/ndwi_hist.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a histogram of NDWI values
 
@@ -530,7 +530,7 @@ and add the water mask **FeatureCollection** to the **Map**:
     Map.addLayer(water, {}, 'Water Mask', false);
 
 .. image:: img/band_maths/waterpolygons.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the water polygon mask added to the map
 
