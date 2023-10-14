@@ -14,7 +14,7 @@ For this tutorial, we're going to use a 15 February 2022 Landsat 9 image coverin
 a volcanic field in Saudi Arabia:
 
 .. image:: img/unsupervised/harrat_khaybar.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: closeup of Harrat Khaybar, the study area for this tutorial.
 
@@ -100,7 +100,7 @@ to provide a random palette to display the image (like we did for the :doc:`../g
 This should produce the following artistic image in the **Map**:
 
 .. image:: img/unsupervised/clustered_results.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the clustered image added to the map window
 

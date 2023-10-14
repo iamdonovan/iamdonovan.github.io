@@ -35,7 +35,7 @@ and determines the "rules" for how to classify points based on the input data.
 When you open the script, you should see there are a number of **Geometry Imports**:
 
 .. image:: img/pixel/script_open.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the script open in the earth engine window, with the geometry imports highlighted
 
@@ -58,7 +58,7 @@ the **Geometry Editing** tools:
 |br| Then, click on the map to add the point:
 
 .. image:: img/pixel/water_added.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the earth engine map with a new point added to the water layer
 
