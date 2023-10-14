@@ -1,6 +1,15 @@
 unsupervised classification
 =============================
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A02_image_classification%2F01_unsupervised.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``02_image_classification/01_unsupervised.js`` under the **Reader** section.
+
+
+
 For this tutorial, we're going to use a 15 February 2022 Landsat 9 image covering `Harrat Khaybar <https://en.wikipedia.org/wiki/Harrat_Khaybar>`__,
 a volcanic field in Saudi Arabia:
 
