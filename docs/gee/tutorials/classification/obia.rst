@@ -30,9 +30,15 @@ image segmentation
 -------------------
 
 In this part of the practical, we'll take a look at an example of object-based classification to help illustrate some
-of the differences between object-based image analysis (OBIA) and pixel-based classification.
+of the differences between object-based image analysis (OBIA) and pixel-based classification. To help speed up the
+time it takes to render the images, I've zoomed in on a smaller region around the city of Rurópolis:
 
-The first sections of this script should look similar to the pixel-based script - we use ``require()`` to import
+.. image:: img/obia/classification_subregion.png
+    :width: 720
+    :align: center
+    :alt: a satellite image showing a city in the middle of sections of clear-cut rainforest
+
+|br| The first sections of this script should look similar to the pixel-based script - we use ``require()`` to import
 different modules, rescale the surface reflectance image, add the image to the **Map**, and create some training points
 to use to train the classifier.
 
@@ -75,7 +81,7 @@ to actually segment the image:
 To help visualize the clusters, I've added three layers to the **Map**. The first, ``clusters``, shows the clusters
 created using the chosen parameters, including the original seed size of 4 (roughly 4 * 30 = 120 m spacing):
 
-.. image:: ../../../img/egm702/week5/segmented_image.png
+.. image:: img/obia/clusters_subregion.png
     :width: 720
     :align: center
     :alt: a satellite image and image segments
@@ -112,7 +118,7 @@ Then, we create an empty **Image** and "paint" the edges of each vector using ``
 
 To see what this looks like, toggle this layer on in the **Map**, then zoom in:
 
-.. image:: ../../../img/egm702/week5/segmented_image.png
+.. image:: img/obia/segments_subregion.png
     :width: 720
     :align: center
     :alt: a satellite image and image segments
@@ -126,9 +132,9 @@ these steps using twice the original seed size:
     // create a layer to seed the segmentation algorithm
     var coarse_seeds = ee.Algorithms.Image.Segmentation.seedGrid(2 * seedSize);
 
-To see see the impact of changing the size of the seed grid, toggle the ``coarse segments`` layer on:
+To see the impact of changing the size of the seed grid, toggle the ``coarse segments`` layer on:
 
-.. image:: ../../../img/egm702/week5/segmentation_comparison.png
+.. image:: img/obia/coarse_segments_subregion.png
     :width: 720
     :align: center
     :alt: a comparison of two segmentation scales
@@ -201,7 +207,7 @@ list of the variables, you can see the
 Finally, have a look at the images that have been loaded in the map: the Angular Second Moment (ASM), the Contrast, and the Entropy.
 Take a look at the ASM image first:
 
-.. image:: ../../../img/egm702/week5/asm.png
+.. image:: img/obia/asm_subregion.png
     :width: 720
     :align: center
     :alt: an image showing the angular second moment in the grayscale image
@@ -218,7 +224,7 @@ image? That is, where do you see more variation in the "color" values?
 
 Now, have a look at the ``contrast`` layer:
 
-.. image:: ../../../img/egm702/week5/contrast.png
+.. image:: img/obia/contrast_subregion.png
     :width: 720
     :align: center
     :alt: an image showing the local contrast in the grayscale image
@@ -229,7 +235,7 @@ In a way, this is showing us the same sort of information as the ASM layer - hig
 
 Finally, have a look at the ``entropy`` layer:
 
-.. image:: ../../../img/egm702/week5/entropy.png
+.. image:: img/obia/entropy_subregion.png
     :width: 720
     :align: center
     :alt: an image showing the local entropy in the grayscale image
@@ -289,16 +295,21 @@ Other than that, the remaining steps are the same for the object-based classific
 classification, splitting the training points into training and testing partitions, training the classifier, and then
 applying the classifier to the image.
 
-.. image:: ../../../img/egm702/week5/obia_classified.png
+.. image:: img/obia/obia_classified_subregion.png
     :width: 720
     :align: center
     :alt: the obia classified image loaded in the map
 
 |br| Zoom in on the classified image. What differences do you notice between the pixel-based classification from the
 previous exercise and the object-based classification? What about the error/accuracy metrics? How do the results for
-the two approaches compare?
+the two approaches compare? For comparison, here's the same region with the pixel-based classification shown:
 
-Otherwise, just like with the pixel-based script from earlier, this script initiates a **Task** to export the
+.. image:: img/obia/pixel_subregion.png
+    :width: 720
+    :align: center
+    :alt: the pixel-based classified image loaded in the map
+
+|br| Otherwise, just like with the pixel-based script from earlier, this script initiates a **Task** to export the
 classified image to your google drive for further analysis in your GIS software of choice. To start the task,
 click on the **Tasks** tab, then click **Run**.
 
