@@ -50,39 +50,53 @@ Just like with examples discussed in the :doc:`band maths <../getting_started/ba
 or NDWI\ [2]_, this has the effect of stretching the differences so that they vary between -1 and 1, which can help to
 enhance the changes that we see between the two dates.
 
+interpreting changes
+---------------------
+
 To see this, run the script, then toggle on the ``Difference`` layer:
 
-.. image:: ../../../img/egm702/week4/difference.png
+.. image:: img/threshold/difference_prd.png
     :width: 720
     :align: center
-    :alt: the difference in NIR reflectance between 1984 and 2011
+    :alt: the difference in SWIR2 reflectance between 1986 and 2022
 
 |br| followed by the ``Normalized Difference`` layer:
 
-.. image:: ../../../img/egm702/week4/normalized_difference.png
+.. image:: img/threshold/normalized_difference_prd.png
     :width: 720
     :align: center
-    :alt: the normalized difference in NIR reflectance between 1984 and 2011
+    :alt: the normalized difference in SWIR2 reflectance between 1986 and 2022
 
 |br| Toggle back and forth between the two images - you should notice that while the colors don't change (remember that
 the sign is the same for both), the colors in the normalized difference image have been stretched to fill the color
 range compared to the difference image.
 
-Remember to look at the ratio image as well - how do the changes that you can see in this image compare to the changes
-displayed in the difference and normalized difference images?
+Orange colors in both images indicate a *negative* change in SWIR2 reflectance
+(i.e., the reflectance was higher in 1986), while purple colors indicate a *positive* change (i.e., the reflectance was
+higher in 2022). What types of changes do you see associated with each color?
+
+Remember to look at the ratio image as well:
+
+.. image:: img/threshold/ratio_prd.png
+    :width: 720
+    :align: center
+    :alt: the ratio of SWIR2 reflectance in 2022 to the reflectance in 1986
+
+|br| how do the changes that you can see in this image compare to the changes displayed in the difference and
+normalized difference images?
 
 In addition to adding the images to the **Map**, we have also printed statistics and histograms for these two images
 to the **Console**:
 
-.. image:: ../../../img/egm702/week4/hist_difference.png
+.. image:: img/threshold/hist_difference_prd.png
     :width: 720
     :align: center
-    :alt: a histogram of the difference in NIR reflectance between 1984 and 2011
+    :alt: a histogram of the difference in NIR reflectance between 1986 and 2022
 
-.. image:: ../../../img/egm702/week4/hist_normdiff.png
+.. image:: img/threshold/hist_normdiff_prd.png
     :width: 720
     :align: center
-    :alt: a histogram of the normalized difference in NIR reflectance between 1984 and 2011
+    :alt: a histogram of the normalized difference in NIR reflectance between 1986 and 2022
 
 |br| Just like with the images themselves, you should notice that the histogram of the normalized difference image is
 spread out, or stretched, over a larger range - as a result, it has a much lower, broader peak than the difference
@@ -91,6 +105,9 @@ image.
 Click on ``Object`` (under "Difference"/"Normalized Difference") to show the descriptive statistics calculated for the
 difference/normalized difference image. Which image has the larger standard deviation? What impact do you think this
 might have on determining what pixel values represent "normal variation", and which values represent actual change?
+
+choosing a threshold
+---------------------
 
 In order to distinguish between "change" and "no change", we have to pick a *threshold* value. Here,
 because we are interested in highlighting areas where vegetation has been replaced by built-up areas, we'll pick a
@@ -115,7 +132,7 @@ format that you can use in your GIS software of choice.
 
 To see what this mask looks like, toggle on the **urban change mask** layer in the **Map**:
 
-.. image:: ../../../img/egm702/week4/change_mask.png
+.. image:: img/threshold/change_mask_prd.png
     :width: 720
     :align: center
     :alt: the change mask loaded in the map, showing not very much change
