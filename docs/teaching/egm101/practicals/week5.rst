@@ -71,7 +71,7 @@ For this week's practical, we will be working with meteorological observations f
 provided by the `Met Office <https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data>`__.
 
 Recall that a *variable* is any sort of characteristic of the members of a population - in essence, it's the thing that
-we're meaasuring and analyzing. In this practical, we're primarily going to be working with three different temperature
+we're measuring and analyzing. In this practical, we're primarily going to be working with three different temperature
 variables:
 
 - ``Tmax``, the monthly maximum temperature recorded at the Armagh Observatory;
@@ -342,7 +342,8 @@ time-consuming, (b) makes it significantly more difficult to change the values l
 the chances of making an error (which would require us to change the values later on).
 
 Instead, we can use **cell references** to input the formula. Click on cell D3, and type in the following:
-::
+
+.. code-block:: text
 
    = (C3 + E3) / 2
 
@@ -364,7 +365,7 @@ Rather than re-typing this formula in each row of column D, we can either copy +
 **fill handle**. To use the **fill handle**, make sure that you have highlighted cell D3 in the sheet. Next, hover
 your cursor over the lower right-hand corner of the green outline - when your cursor changes to a "+" symbol, left-click
 the mouse, then drag the cursor toward the bottom of the screen. You should see the green outline extend. Keep going
-until you've highlighted all the way to the bottom of the table (row 1891).
+until you've highlighted all the way to the bottom of the table (row 1904).
 
 When you release the mouse button, you should see that each row of column D is now filled with a value:
 
@@ -373,10 +374,11 @@ When you release the mouse button, you should see that each row of column D is n
     :align: center
     :alt: The workbook, that all values of column D have been filled with the formula above.
 
-|br| To check, click on cell D1891 - you should see the following in the formula bar:
-::
+|br| To check, click on cell D1904 - you should see the following in the formula bar:
 
-    = (C1891 + E1891) / 2
+.. code-block:: text
+
+    = (C1904 + E1904) / 2
 
 We'll see more examples of filling cells in this way later on. For now, scroll back up to the top of the table.
 
@@ -384,7 +386,7 @@ built-in functions
 ....................
 
 Our next task will be to calculate descriptive statistics such as the mean, median, standard deviation, range, and
-interquartile range for each of our temperature *variables* (``Tmax``, ``Tmean``, and ``Tmin``).
+inter-quartile range for each of our temperature *variables* (``Tmax``, ``Tmean``, and ``Tmin``).
 
 To start, create a small table to the right of where we have our data:
 
@@ -398,13 +400,14 @@ To start, create a small table to the right of where we have our data:
 inter-quartile range, as shown above.
 
 In the upper left cell of this table (K5 in the example above), insert the following formula:
-::
 
-    = AVERAGE(C3:C1891)
+.. code-block:: text
+
+    = AVERAGE(C3:C1904)
 
 This uses the built-in `AVERAGE <https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6>`__
 function to calculate the *arithmetic mean* of the cells used as input. Here, we're telling Excel to use the values in
-all of the cells starting from C3 and ending at C1891. Note that the ``:`` in between C3 and C1891 is what Excel uses
+all of the cells starting from C3 and ending at C1904. Note that the ``:`` in between C3 and C1904 is what Excel uses
 to denote a *range* of cells - this way, we don't have to explicitly type in C3, C4, C5, and so on.
 
 When you press enter, you should see the following:
@@ -429,9 +432,10 @@ K3, then drag the cursor over to cell M3:
 |br| Next, we need to fill out the rest of the table. First, use the
 `MEDIAN <https://support.microsoft.com/en-us/office/median-function-d0916313-4753-414c-8537-ce85bdd967d2>`__
 function to calculate the median value of ``Tmax`` by inserting the following formula into cell K6:
-::
 
-    = MEDIAN(C3:C1891)
+.. code-block:: text
+
+    = MEDIAN(C3:C1904)
 
 Next, use **flash fill** to copy this formula to ``Tmean`` and ``Tmin``, as you did above for the arithmetic mean.
 
@@ -439,19 +443,21 @@ For the *standard deviation*, Excel has two functions: `STDEV.P <https://support
 and `STDEV.S <https://support.microsoft.com/en-us/office/stdev-s-function-7d69cf97-0c1f-4acf-be27-f3e83904cc23>`__,
 for the *population* and *sample* standard deviation, respectively. In cell K8, enter the following formula
 to calculate the *population* standard deviation:
-::
 
-    = STDEV.P(C3:C1891)
+.. code-block:: text
+
+    = STDEV.P(C3:C1904)
 
 And in cell K9, enter the following to calculate the *sample* standard deviation:
-::
 
-    = STDEV.S(C3:C1891)
+.. code-block:: text
+
+    = STDEV.S(C3:C1904)
 
 Again, use **flash fill** to fill out each row as you go along.
 
 Excel doesn't have dedicated functions for the *range* and *inter-quartile range*, but we can still calculate them
-using functions that Excel does have. Remember that the *range* is just the difference between the maxmimum and
+using functions that Excel does have. Remember that the *range* is just the difference between the maximum and
 minimum values of a variable:
 
 .. math::
@@ -460,9 +466,10 @@ minimum values of a variable:
 
 We use the same equation here, using the `MAX <https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098>`__
 and `MIN <https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a70f-96f202dcc152>`__ functions:
-::
 
-    = MAX(C3:C1891) - MIN(C3:C1891)
+.. code-block:: text
+
+    = MAX(C3:C1904) - MIN(C3:C1904)
 
 Again, use **flash fill** to fill out this row.
 
@@ -479,13 +486,14 @@ for calculating the quartile *inclusive* of the endpoints, and
 for calculating the quartile *exclusive* of the endpoints. We'll use ``QUARTILE.INC`` here.
 
 Enter the following formula into cell K12:
-::
 
-    = QUARTILE.INC(C3:C1891, 3) - QUARTILE.INC(C3:C1891, 1)
+.. code-block:: text
+
+    = QUARTILE.INC(C3:C1904, 3) - QUARTILE.INC(C3:C1904, 1)
 
 Note that ``QUARTILE.INC`` takes two *arguments*: the first is the range of values to calculate the quartile over,
-and the second is which quartile to calculate. So, ``QUARTILE.INC(C3:C1891, 3)`` calculates :math:`Q_3` of the values
-in cells C3 through C1891, while ``QUARTILE.INC(C3:C1891, 1)`` calculates :math:`Q_1`.
+and the second is which quartile to calculate. So, ``QUARTILE.INC(C3:C1904, 3)`` calculates :math:`Q_3` of the values
+in cells C3 through C1904, while ``QUARTILE.INC(C3:C1904, 1)`` calculates :math:`Q_1`.
 
 Once again, use **flash fill** to fill out the table. It should look something like this:
 
@@ -593,13 +601,14 @@ pattern from the first two cells (1, 2, ...) and fill the remaining cells by con
     :alt: the monthly table, with values 1-12 filled in column A
 
 |br| Now, we're ready to start inputting formulas into the table. In cell C3, enter the following formula:
-::
 
-    = AVERAGEIF(armaghdata!$B$3:$B$1891, $A3, armaghdata!C$3:C$1891)
+.. code-block:: text
+
+    = AVERAGEIF(armaghdata!$B$3:$B$1904, $A3, armaghdata!C$3:C$1904)
 
 This formula uses the `AVERAGEIF <https://support.microsoft.com/en-us/office/averageif-function-faec8e2e-0dec-4308-af69-f5576d8ac642>`__
 function to average cells in some range, based on some criteria. Here, we're telling the function to average all of
-the values in cells C3:C1891 of the ``armaghdata`` sheet, but *only* where the value in cells B3:B1891
+the values in cells C3:C1904 of the ``armaghdata`` sheet, but *only* where the value in cells B3:B1904
 of the ``armaghdata`` sheet is equal to the value in cell A3 - in other words, we're only taking the average of the
 temperatures from rows where **Month** is equal to 1.
 
@@ -607,24 +616,26 @@ The first thing to notice with this formula is that we can reference other sheet
 (``armaghdata``), followed by ``!``, and the cell(s) that we want to reference in the other sheet.
 
 The second thing to notice is the use of the ``$`` in the formula above. Earlier, when we used this formula:
-::
+
+.. code-block:: text
 
     = (C3 + E3) / 2
 
 And used **flash fill** to copy the formula to the other rows in column D, the row number changed - that is, the
-formula in row 1891 was:
-::
+formula in row 1904 was:
 
-    = (C1891 + E1891) / 2
+.. code-block:: text
 
-This is because Excel treats C3 (or E3, or C1891) as a *relative* reference. When we typed this formula into cell D3,
+    = (C1904 + E1904) / 2
+
+This is because Excel treats C3 (or E3, or C1904) as a *relative* reference. When we typed this formula into cell D3,
 Excel interpreted C3 as "the cell in the same row, one column to the left", and E3 as "the cell in the same row,
 one column to the right." When you copy + paste a formula with relative references into another cell, the references
 change.
 
 The ``$`` tells Excel not to do this - it should instead keep the column or row constant, depending on where the ``$``
 is. With only one ``$``, we say this is a *mixed* reference - if it's before the column (``$A3``), then Excel will
-hold the column constant, but adjust the row. If it's before the row (``C$3:C$1891``), Excel will hold the row constant,
+hold the column constant, but adjust the row. If it's before the row (``C$3:C$1904``), Excel will hold the row constant,
 and adjust the column.
 
 If we have two ``$`` in the reference (e.g., ``$B$3``), Excel won't adjust the column or row - this is an *absolute*
@@ -653,13 +664,14 @@ Next, we want to calculate the standard deviation of temperatures for each month
 ``STDEV.IF`` function like there is for ``AVERAGE``. Instead, we have to use
 `IF <https://support.microsoft.com/en-us/office/if-function-nested-formulas-and-avoiding-pitfalls-0b22ff44-f149-44ba-aeb5-4ef99da241c8>`__
 along with ``STDEV.S``. In cell G3, enter the following formula:
-::
 
-    = STDEV.S(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891))
+.. code-block:: text
+
+    = STDEV.S(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904))
 
 Here, we have *nested* the ``IF`` function inside of the ``STDEV.S`` function, meaning that ``STDEV.S`` will perform
 a calculation on whatever the *output* of the ``IF`` function is. Just like we saw with ``AVERAGEIF``, ``IF`` will
-return whatever value is in cells C3 to C1891 of the ``armaghdata`` sheet, as long as the value in column B of the
+return whatever value is in cells C3 to C1904 of the ``armaghdata`` sheet, as long as the value in column B of the
 same row is equal to the value in A3 of this sheet.
 
 Because we have fixed the column, but not the row, when you use **flash fill** to fill in the rest of the cells in
@@ -672,9 +684,10 @@ median
 
 To calculate the monthly median values, we will use the ``MEDIAN`` function nested with the ``IF`` function, exactly
 as we did for the standard deviation. Enter the following formula into cell K3:
-::
 
-    = MEDIAN(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891))
+.. code-block:: text
+
+    = MEDIAN(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904))
 
 Once you have entered the formula into cell K3, use **flash fill** to fill the remaining values in this part of the
 table, then format the cells to show only the first two decimal places.
@@ -682,12 +695,13 @@ table, then format the cells to show only the first two decimal places.
 inter-quartile range
 ^^^^^^^^^^^^^^^^^^^^^
 
-To calculate the monthly interquartile range values, we will use the ``QUARTILE.INC`` function nested with the ``IF``
+To calculate the monthly inter-quartile range values, we will use the ``QUARTILE.INC`` function nested with the ``IF``
 function. This formula is slightly more complicated, if only because it requires two nested functions. Enter the
 following formula into cell O3 (remembering that you can copy and paste):
-::
 
-    = QUARTILE.INC(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891), 3) - QUARTILE.INC(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891), 1)
+.. code-block:: text
+
+    = QUARTILE.INC(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904), 3) - QUARTILE.INC(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904), 1)
 
 Once you have entered the formula into cell O3, use **flash fill** to fill the remaining values in this part of the
 table, then format the cells to show only the first two decimal places.
@@ -726,20 +740,21 @@ To start, add a new sheet by clicking the "+" next to the ``monthly`` tab, then 
 
 Next, add the column headers to the new sheet. For this practical, we're only going to calculate annual means and
 medians, though you can use the same procedure we used in the previous section to calculate standard deviations,
-interquartile ranges, and so on.
+inter-quartile ranges, and so on.
 
 First, though, we have to input the years that we want to average over into the table. In cell A3, type "1866", and
-in cell A4, type "1867", then use **flash fill** to fill the remaining years up until 2021.
+in cell A4, type "1867", then use **flash fill** to fill the remaining years up until 2022.
 
 .. note::
 
     For now, we're only going to include years where we have 12 months of data - because the 1865 data doesn't start
-    until April, and the 2022 data ends in August, we'll exclude those years for this part of the analysis.
+    until April, and the 2023 data ends in August, we'll exclude those years for this part of the analysis.
 
 In cell B3, now, enter the following formula:
-::
 
-    = AVERAGEIF(armaghdata!$A$3:$A$1891, $A3, armaghdata!C$3:C$1891)
+.. code-block:: text
+
+    = AVERAGEIF(armaghdata!$A$3:$A$1904, $A3, armaghdata!C$3:C$1904)
 
 You'll note that this is almost the exact same formula as we used for the monthly averages, with the change that
 we're averaging based on the *year* (column A in the ``armaghdata`` sheet) instead of the *month* (column B).
@@ -748,9 +763,10 @@ Once you have entered the formula, use **flash fill** to fill the remaining cell
 B to D, rows 3 to 158). Next, be sure to format the cells to only show the first two decimal places, as before.
 
 We can now do the same thing for the median values - in cell F3, enter the following formula:
-::
 
-    = MEDIAN(IF(armaghdata!$A$3:$A$1891 = $A3, armaghdata!C$3:C$1891))
+.. code-block:: text
+
+    = MEDIAN(IF(armaghdata!$A$3:$A$1904 = $A3, armaghdata!C$3:C$1904))
 
 Next, use **flash fill** to fill the remaining part of this table (columns F to H, rows 3 to 158), then format the cells
 to only show the first two decimal places. Your table should look something like this:
@@ -770,7 +786,7 @@ to only show the first two decimal places. Your table should look something like
 creating charts
 -----------------
 
-In addition to performing calclulations, we can also create charts and figures using Excel. In this part of the
+In addition to performing calculations, we can also create charts and figures using Excel. In this part of the
 practical, we will see how we can create histograms, bar charts, and line charts.
 
 histograms
@@ -803,7 +819,7 @@ on any of the corners to expand it:
 
 |br| Before we are finished with our histogram, there are a few things that we need to do. First, remember that a
 chart should have a title or a caption that explains the chart. Click on "Chart Title", and change the title from
-"Chart Title" to "Distribution of monthly mean temperatures, 1865-2022".
+"Chart Title" to "Distribution of monthly mean temperatures, 1865-2023".
 
 Next, we need to add labels for the axes. When you click on the chart, you should notice icons appear along the right
 edge. Click on the "+" button to open a menu for adding chart elements:
@@ -932,7 +948,7 @@ select cells H3 to H14 (representing the monthly standard deviation of ``Tmean``
     :align: center
     :alt: the workbook showing the "format error bars" panel and the "custom error bars" window
 
-|br| You can also change the formatting of the error bars to make them thicker and more visisble
+|br| You can also change the formatting of the error bars to make them thicker and more visible
 (**Width** under **Fill & Line** (red box)):
 
 .. image:: img/week5/thick_bars.png
@@ -953,7 +969,7 @@ followed by **Number**, then change the number of decimal places to "0".
 Note that under  **Axis Options**, you can also change the axis bounds, as well as the spacing between the ticks.
 For now, the default values are fine.
 
-To finish up the chart, change the chart title to "Average monthly temperature, 1865-2022", add axis labels, and
+To finish up the chart, change the chart title to "Average monthly temperature, 1865-2023", add axis labels, and
 increase the font sizes like we did for the histogram:
 
 .. image:: img/week5/bar_finished.png
