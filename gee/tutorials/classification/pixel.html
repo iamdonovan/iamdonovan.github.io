@@ -308,7 +308,8 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/thresholding.html">band maths and thresholding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/repeat_classification.html">repeat classification</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/cva.html">change vector analysis</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/time_series.html">time series analysis</a></li>
@@ -578,12 +579,19 @@ document.write(`
                   
   <div class="section" id="pixel-based-classification">
 <h1>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The script for this tutorial can be found via this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A02_image_classification%2F02_pixel.js">direct link</a>.</p>
+<p>Alternatively, if you have already added the repository, you can open the script from the <strong>Code Editor</strong>, by
+navigating to <code class="docutils literal notranslate"><span class="pre">02_image_classification/02_pixel.js</span></code> under the <strong>Reader</strong> section.</p>
+</div>
 <p>In this tutorial, we’ll look at doing a pixel-based classification of a Landsat 8 image acquired on 24 June, 2020,
 covering a portion of the Amazon Rainforest south of Santarém, Brazil.</p>
 <p>Pixel-based classification is a <em>supervised</em> classification technique, where we first have to train the computer how
 to classify the image based on its characteristics, before classifying each pixel of the image.</p>
 <p>By the end of this tutorial, you should be able to use Earth Engine to:</p>
 <ul class="simple">
+<li><p>import functions from other scripts/libraries</p></li>
 <li><p>select points to train a <strong>Classifier</strong></p></li>
 <li><p>train and apply a <strong>Classifier</strong> to a satellite image</p></li>
 <li><p>evaluate the accuracy of a classification</p></li>
@@ -597,7 +605,7 @@ we have identified what <strong>class</strong> the points belong to.</p>
 <p>The classification algorithm then takes these points, and the associated input data such as reflectance in different bands,
 and determines the “rules” for how to classify points based on the input data.</p>
 <p>When you open the script, you should see there are a number of <strong>Geometry Imports</strong>:</p>
-<a class="reference internal image-reference" href="../../../_images/script_open.png"><img alt="the script open in the earth engine window, with the geometry imports highlighted" class="align-center" src="../../../_images/script_open.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/script_open.png"><img alt="the script open in the earth engine window, with the geometry imports highlighted" class="align-center" src="../../../_images/script_open.png" style="width: 720px;" /></a>
 <p><br /> Specifically, there are five <strong>FeatureCollection</strong> imports representing landcover classes (<code class="docutils literal notranslate"><span class="pre">water</span></code>, <code class="docutils literal notranslate"><span class="pre">forest</span></code>,
 <code class="docutils literal notranslate"><span class="pre">grassland</span></code>, <code class="docutils literal notranslate"><span class="pre">builtup</span></code>, and <code class="docutils literal notranslate"><span class="pre">bare</span></code>), each with 40 points. To add more points to each of these, you can use
 the <strong>Geometry Editing</strong> tools:</p>
@@ -605,7 +613,7 @@ the <strong>Geometry Editing</strong> tools:</p>
 <p><br /> Click on the layer that you want to add points to - for example, <code class="docutils literal notranslate"><span class="pre">water</span></code>:</p>
 <a class="reference internal image-reference" href="../../../_images/water_highlighted.png"><img alt="the geometry editing tools with the water layer selected" class="align-center" src="../../../_images/water_highlighted.png" style="width: 500px;" /></a>
 <p><br /> Then, click on the map to add the point:</p>
-<a class="reference internal image-reference" href="../../../_images/water_added.png"><img alt="the earth engine map with a new point added to the water layer" class="align-center" src="../../../_images/water_added.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/water_added.png"><img alt="the earth engine map with a new point added to the water layer" class="align-center" src="../../../_images/water_added.png" style="width: 720px;" /></a>
 <p><br /> If you want to move or delete a point, click on the <strong>Stop drawing</strong> button (the hand), then select the point you
 want to edit:</p>
 <a class="reference internal image-reference" href="../../../_images/point_selected.png"><img alt="the geometry editing tools with a specific point in the water layer highlighted" class="align-center" src="../../../_images/point_selected.png" style="width: 500px;" /></a>
@@ -638,7 +646,8 @@ treated as individual points.</p></li>
 correspond to the 5 classes that have already been imported.</p>
 <p>Change the color to something more appropriate, then click <strong>OK</strong>. You should now see the import at the top of the script.</p>
 <p>You can now add points to the new <strong>FeatureCollection</strong> by following the digitizing instructions from above.</p>
-<p>Finally, you need to make sure to add your new class to the <strong>FeatureCollection</strong> of training points in the script at line 10:</p>
+<p>Finally, you need to make sure to add your new class to the <strong>FeatureCollection</strong> of training points in the script
+at line 14:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">trainingPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">water</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">forest</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">grassland</span><span class="p">)</span>
@@ -646,22 +655,24 @@ correspond to the 5 classes that have already been imported.</p>
 <span class="w">  </span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">bare</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>To do this, delete the semicolon at the end of line 14, and add <code class="docutils literal notranslate"><span class="pre">.merge(yourNewClass);</span></code> on line 15 (remembering, of course, to replace
-<code class="docutils literal notranslate"><span class="pre">yourNewClass</span></code> with the actual name of the new <strong>FeatureCollection</strong>).</p>
-<p>You should also add the name of your class to the list of class names defined at line 20:</p>
+<p>To do this, delete the semicolon at the end of line 18, and add <code class="docutils literal notranslate"><span class="pre">.merge(yourNewClass);</span></code> on line 19 (remembering, of
+course, to replace <code class="docutils literal notranslate"><span class="pre">yourNewClass</span></code> with the actual name of the new <strong>FeatureCollection</strong>).</p>
+<p>You should also add the name of your class to the list of class names defined at line 24:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">classes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">List</span><span class="p">([</span><span class="s1">&#39;water&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;forest&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;grassland&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;built-up&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bare soil&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="using-require-to-load-another-script">
 <h2>using require to load another script<a class="headerlink" href="#using-require-to-load-another-script" title="Permalink to this heading">#</a></h2>
-<p>The very first line of this script (after the initial comment) is this:</p>
+<p>The first two lines of this script (after the initial comment) are:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">accuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;users/robertmcnabb/modules:accuracy&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">tools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;users/robertmcnabb/modules:tools&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>In Earth Engine, <code class="docutils literal notranslate"><span class="pre">require()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/require">documentation</a>) retrieves
 the script/file provided to it and imports it as a module. In our script, we can then use any of the <em>exported</em>
-functions or attributes in <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:accuracy</span></code> by calling them in the script.</p>
+functions or attributes in <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:accuracy</span></code> or <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:tools</span></code> by calling
+them in the script.</p>
 <p>As an example, one of the functions in <code class="docutils literal notranslate"><span class="pre">users/robertmcnabb/modules:accuracy</span></code> is <code class="docutils literal notranslate"><span class="pre">unbiasedArea()</span></code>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm">Estimates the unbiased area estimate of each class in a classification, using the</span>
@@ -695,7 +706,7 @@ is a great place to start.</p>
 <div class="section" id="getting-training-data">
 <h2>getting training data<a class="headerlink" href="#getting-training-data" title="Permalink to this heading">#</a></h2>
 <p>Now that we have training classes and points, we have to decide what image properties to use as inputs for “training”
-the classifier. In the script as written, we use Landsat OLI bands 1-7 (Visible/NIR/SWIR), as shown in this line:</p>
+the classifier. In the script as written, we use Landsat OLI bands 1-7 (Visible/NIR/SWIR), as shown in line 21:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">bands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B2&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B6&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B7&#39;</span><span class="p">];</span>
 </pre></div>
 </div>
@@ -776,7 +787,7 @@ the classifier. The inputs to <code class="docutils literal notranslate"><span c
 <li><p><code class="docutils literal notranslate"><span class="pre">inputProperties</span></code>, a list of the properties from <code class="docutils literal notranslate"><span class="pre">features</span></code> to use to train the <strong>Classifier</strong></p></li>
 </ul>
 <p>So, this will train the <strong>Classifier</strong> using the <code class="docutils literal notranslate"><span class="pre">trainingPartition</span></code> <strong>FeatureCollection</strong>,
-based on the <code class="docutils literal notranslate"><span class="pre">'landcover'</span></code> property, using the image bands listed in the <code class="docutils literal notranslate"><span class="pre">bands</span></code> variable defined at line 17 of
+based on the <code class="docutils literal notranslate"><span class="pre">'landcover'</span></code> property, using the image bands listed in the <code class="docutils literal notranslate"><span class="pre">bands</span></code> variable defined at line 21 of
 the script.</p>
 </div>
 <div class="section" id="classifying-the-image">
@@ -1154,7 +1165,7 @@ into a single array using <code class="docutils literal notranslate"><span class
 <p>When we have two classes where we have significant mis-classification between the two classes, such as bare soil and
 built-up areas, we might think about whether it makes sense to have them as separate classes. We can also try adding
 carefully-chosen training samples that help increase the spectral differences between the two classes.</p>
-<p>Lines 133-164 of the script define a function, <code class="docutils literal notranslate"><span class="pre">spectralPlot()</span></code>, that plots the average spectral signature of each of
+<p>Lines 137-168 of the script define a function, <code class="docutils literal notranslate"><span class="pre">spectralPlot()</span></code>, that plots the average spectral signature of each of
 our classes, given a list of reflectance values and a plot title.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1181,7 +1192,7 @@ it to look like this:</p>
 </pre></div>
 </div>
 </div>
-<p>Lines 167-185 sample the surface reflectance values at each of the training points, gets the median value in each band
+<p>Lines 171-189 sample the surface reflectance values at each of the training points, gets the median value in each band
 for each class, and plots the median spectral signature for each class:</p>
 <a class="reference internal image-reference" href="../../../_images/spectral_training.png"><img alt="spectral signature plots for each class based on the training data" class="align-center" src="../../../_images/spectral_training.png" style="width: 600px;" /></a>
 <p><br /> Using this plot, we can see that the bare soil and built-up classes have similar spectral signatures. There are

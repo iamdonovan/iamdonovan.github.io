@@ -308,7 +308,8 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/thresholding.html">band maths and thresholding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
@@ -653,7 +654,7 @@ to the sheet tabs. You can also switch between sheets using the tabs.</p>
 <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh Observatory</a>,
 provided by the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">Met Office</a>.</p>
 <p>Recall that a <em>variable</em> is any sort of characteristic of the members of a population - in essence, it’s the thing that
-we’re meaasuring and analyzing. In this practical, we’re primarily going to be working with three different temperature
+we’re measuring and analyzing. In this practical, we’re primarily going to be working with three different temperature
 variables:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Tmax</span></code>, the monthly maximum temperature recorded at the Armagh Observatory;</p></li>
@@ -802,7 +803,7 @@ cell using the actual data values for the maximum and minimum temperatures:</p>
 time-consuming, (b) makes it significantly more difficult to change the values later on, (c) dramatically increases
 the chances of making an error (which would require us to change the values later on).</p>
 <p>Instead, we can use <strong>cell references</strong> to input the formula. Click on cell D3, and type in the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="p">(</span><span class="n">C3</span> <span class="o">+</span> <span class="n">E3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= (C3 + E3) / 2
 </pre></div>
 </div>
 <p>Press <code class="docutils literal notranslate"><span class="pre">Enter</span></code> - you should see the following:</p>
@@ -818,11 +819,11 @@ the chances of making an error (which would require us to change the values late
 <strong>fill handle</strong>. To use the <strong>fill handle</strong>, make sure that you have highlighted cell D3 in the sheet. Next, hover
 your cursor over the lower right-hand corner of the green outline - when your cursor changes to a “+” symbol, left-click
 the mouse, then drag the cursor toward the bottom of the screen. You should see the green outline extend. Keep going
-until you’ve highlighted all the way to the bottom of the table (row 1891).</p>
+until you’ve highlighted all the way to the bottom of the table (row 1904).</p>
 <p>When you release the mouse button, you should see that each row of column D is now filled with a value:</p>
 <a class="reference internal image-reference" href="../../../_images/filled_formula.png"><img alt="The workbook, that all values of column D have been filled with the formula above." class="align-center" src="../../../_images/filled_formula.png" style="width: 720px;" /></a>
-<p><br /> To check, click on cell D1891 - you should see the following in the formula bar:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="p">(</span><span class="n">C1891</span> <span class="o">+</span> <span class="n">E1891</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<p><br /> To check, click on cell D1904 - you should see the following in the formula bar:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= (C1904 + E1904) / 2
 </pre></div>
 </div>
 <p>We’ll see more examples of filling cells in this way later on. For now, scroll back up to the top of the table.</p>
@@ -830,19 +831,19 @@ until you’ve highlighted all the way to the bottom of the table (row 1891).</p
 <div class="section" id="built-in-functions">
 <h3>built-in functions<a class="headerlink" href="#built-in-functions" title="Permalink to this heading">#</a></h3>
 <p>Our next task will be to calculate descriptive statistics such as the mean, median, standard deviation, range, and
-interquartile range for each of our temperature <em>variables</em> (<code class="docutils literal notranslate"><span class="pre">Tmax</span></code>, <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>, and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>).</p>
+inter-quartile range for each of our temperature <em>variables</em> (<code class="docutils literal notranslate"><span class="pre">Tmax</span></code>, <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>, and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>).</p>
 <p>To start, create a small table to the right of where we have our data:</p>
 <a class="reference internal image-reference" href="../../../_images/average_table.png"><img alt="The workbook, with a space for showing descriptive statistics of the three temperature variables." class="align-center" src="../../../_images/average_table.png" style="width: 720px;" /></a>
 <p><br /> It doesn’t need to be in the exact same location as shown above, but you should include columns for <code class="docutils literal notranslate"><span class="pre">Tmax</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>, and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>, as well as rows for the mean, median, population and sample standard deviations, range, and
 inter-quartile range, as shown above.</p>
 <p>In the upper left cell of this table (K5 in the example above), insert the following formula:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">AVERAGE</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= AVERAGE(C3:C1904)
 </pre></div>
 </div>
 <p>This uses the built-in <a class="reference external" href="https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6">AVERAGE</a>
 function to calculate the <em>arithmetic mean</em> of the cells used as input. Here, we’re telling Excel to use the values in
-all of the cells starting from C3 and ending at C1891. Note that the <code class="docutils literal notranslate"><span class="pre">:</span></code> in between C3 and C1891 is what Excel uses
+all of the cells starting from C3 and ending at C1904. Note that the <code class="docutils literal notranslate"><span class="pre">:</span></code> in between C3 and C1904 is what Excel uses
 to denote a <em>range</em> of cells - this way, we don’t have to explicitly type in C3, C4, C5, and so on.</p>
 <p>When you press enter, you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/average_table.png"><img alt="The workbook, with a formula entered in cell K3 to compute the average maximum temperature." class="align-center" src="../../../_images/average_table.png" style="width: 720px;" /></a>
@@ -855,7 +856,7 @@ K3, then drag the cursor over to cell M3:</p>
 <p><br /> Next, we need to fill out the rest of the table. First, use the
 <a class="reference external" href="https://support.microsoft.com/en-us/office/median-function-d0916313-4753-414c-8537-ce85bdd967d2">MEDIAN</a>
 function to calculate the median value of <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> by inserting the following formula into cell K6:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">MEDIAN</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= MEDIAN(C3:C1904)
 </pre></div>
 </div>
 <p>Next, use <strong>flash fill</strong> to copy this formula to <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>, as you did above for the arithmetic mean.</p>
@@ -863,22 +864,22 @@ function to calculate the median value of <code class="docutils literal notransl
 and <a class="reference external" href="https://support.microsoft.com/en-us/office/stdev-s-function-7d69cf97-0c1f-4acf-be27-f3e83904cc23">STDEV.S</a>,
 for the <em>population</em> and <em>sample</em> standard deviation, respectively. In cell K8, enter the following formula
 to calculate the <em>population</em> standard deviation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">STDEV</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= STDEV.P(C3:C1904)
 </pre></div>
 </div>
 <p>And in cell K9, enter the following to calculate the <em>sample</em> standard deviation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">STDEV</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= STDEV.S(C3:C1904)
 </pre></div>
 </div>
 <p>Again, use <strong>flash fill</strong> to fill out each row as you go along.</p>
 <p>Excel doesn’t have dedicated functions for the <em>range</em> and <em>inter-quartile range</em>, but we can still calculate them
-using functions that Excel does have. Remember that the <em>range</em> is just the difference between the maxmimum and
+using functions that Excel does have. Remember that the <em>range</em> is just the difference between the maximum and
 minimum values of a variable:</p>
 <div class="math notranslate nohighlight">
 \[{\rm RANGE} = {\rm MAX} - {\rm MIN}\]</div>
 <p>We use the same equation here, using the <a class="reference external" href="https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098">MAX</a>
 and <a class="reference external" href="https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a70f-96f202dcc152">MIN</a> functions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">MAX</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span> <span class="o">-</span> <span class="n">MIN</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">)</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= MAX(C3:C1904) - MIN(C3:C1904)
 </pre></div>
 </div>
 <p>Again, use <strong>flash fill</strong> to fill out this row.</p>
@@ -891,12 +892,12 @@ for calculating the quartile <em>inclusive</em> of the endpoints, and
 <a class="reference external" href="https://support.microsoft.com/en-us/office/quartile-exc-function-5a355b7a-840b-4a01-b0f1-f538c2864cad">QUARTILE.EXC</a>,
 for calculating the quartile <em>exclusive</em> of the endpoints. We’ll use <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC</span></code> here.</p>
 <p>Enter the following formula into cell K12:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="n">QUARTILE</span><span class="o">.</span><span class="n">INC</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">QUARTILE</span><span class="o">.</span><span class="n">INC</span><span class="p">(</span><span class="n">C3</span><span class="p">:</span><span class="n">C1891</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= QUARTILE.INC(C3:C1904, 3) - QUARTILE.INC(C3:C1904, 1)
 </pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC</span></code> takes two <em>arguments</em>: the first is the range of values to calculate the quartile over,
-and the second is which quartile to calculate. So, <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC(C3:C1891,</span> <span class="pre">3)</span></code> calculates <span class="math notranslate nohighlight">\(Q_3\)</span> of the values
-in cells C3 through C1891, while <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC(C3:C1891,</span> <span class="pre">1)</span></code> calculates <span class="math notranslate nohighlight">\(Q_1\)</span>.</p>
+and the second is which quartile to calculate. So, <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC(C3:C1904,</span> <span class="pre">3)</span></code> calculates <span class="math notranslate nohighlight">\(Q_3\)</span> of the values
+in cells C3 through C1904, while <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC(C3:C1904,</span> <span class="pre">1)</span></code> calculates <span class="math notranslate nohighlight">\(Q_1\)</span>.</p>
 <p>Once again, use <strong>flash fill</strong> to fill out the table. It should look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/filled_table.png"><img alt="The workbook, with the descriptive statistics for each temperature variable filled in." class="align-center" src="../../../_images/filled_table.png" style="width: 720px;" /></a>
 <p><br /></p>
@@ -965,32 +966,32 @@ holding down the mouse button, drag the outline so that it includes all of cells
 pattern from the first two cells (1, 2, …) and fill the remaining cells by continuing the pattern:</p>
 <a class="reference internal image-reference" href="../../../_images/monthly_filled.png"><img alt="the monthly table, with values 1-12 filled in column A" class="align-center" src="../../../_images/monthly_filled.png" style="width: 720px;" /></a>
 <p><br /> Now, we’re ready to start inputting formulas into the table. In cell C3, enter the following formula:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= AVERAGEIF(armaghdata!$B$3:$B$1891, $A3, armaghdata!C$3:C$1891)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= AVERAGEIF(armaghdata!$B$3:$B$1904, $A3, armaghdata!C$3:C$1904)
 </pre></div>
 </div>
 <p>This formula uses the <a class="reference external" href="https://support.microsoft.com/en-us/office/averageif-function-faec8e2e-0dec-4308-af69-f5576d8ac642">AVERAGEIF</a>
 function to average cells in some range, based on some criteria. Here, we’re telling the function to average all of
-the values in cells C3:C1891 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet, but <em>only</em> where the value in cells B3:B1891
+the values in cells C3:C1904 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet, but <em>only</em> where the value in cells B3:B1904
 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet is equal to the value in cell A3 - in other words, we’re only taking the average of the
 temperatures from rows where <strong>Month</strong> is equal to 1.</p>
 <p>The first thing to notice with this formula is that we can reference other sheets by using the label of the sheet
 (<code class="docutils literal notranslate"><span class="pre">armaghdata</span></code>), followed by <code class="docutils literal notranslate"><span class="pre">!</span></code>, and the cell(s) that we want to reference in the other sheet.</p>
 <p>The second thing to notice is the use of the <code class="docutils literal notranslate"><span class="pre">$</span></code> in the formula above. Earlier, when we used this formula:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="p">(</span><span class="n">C3</span> <span class="o">+</span> <span class="n">E3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= (C3 + E3) / 2
 </pre></div>
 </div>
 <p>And used <strong>flash fill</strong> to copy the formula to the other rows in column D, the row number changed - that is, the
-formula in row 1891 was:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="p">(</span><span class="n">C1891</span> <span class="o">+</span> <span class="n">E1891</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+formula in row 1904 was:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= (C1904 + E1904) / 2
 </pre></div>
 </div>
-<p>This is because Excel treats C3 (or E3, or C1891) as a <em>relative</em> reference. When we typed this formula into cell D3,
+<p>This is because Excel treats C3 (or E3, or C1904) as a <em>relative</em> reference. When we typed this formula into cell D3,
 Excel interpreted C3 as “the cell in the same row, one column to the left”, and E3 as “the cell in the same row,
 one column to the right.” When you copy + paste a formula with relative references into another cell, the references
 change.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">$</span></code> tells Excel not to do this - it should instead keep the column or row constant, depending on where the <code class="docutils literal notranslate"><span class="pre">$</span></code>
 is. With only one <code class="docutils literal notranslate"><span class="pre">$</span></code>, we say this is a <em>mixed</em> reference - if it’s before the column (<code class="docutils literal notranslate"><span class="pre">$A3</span></code>), then Excel will
-hold the column constant, but adjust the row. If it’s before the row (<code class="docutils literal notranslate"><span class="pre">C$3:C$1891</span></code>), Excel will hold the row constant,
+hold the column constant, but adjust the row. If it’s before the row (<code class="docutils literal notranslate"><span class="pre">C$3:C$1904</span></code>), Excel will hold the row constant,
 and adjust the column.</p>
 <p>If we have two <code class="docutils literal notranslate"><span class="pre">$</span></code> in the reference (e.g., <code class="docutils literal notranslate"><span class="pre">$B$3</span></code>), Excel won’t adjust the column or row - this is an <em>absolute</em>
 reference. To see this in practice, use <strong>flash fill</strong> to copy the formula to the other rows of column C (C3:C14) - you
@@ -1011,12 +1012,12 @@ procedure that we used earlier (right-click, <strong>Format Cells</strong>).</p>
 <code class="docutils literal notranslate"><span class="pre">STDEV.IF</span></code> function like there is for <code class="docutils literal notranslate"><span class="pre">AVERAGE</span></code>. Instead, we have to use
 <a class="reference external" href="https://support.microsoft.com/en-us/office/if-function-nested-formulas-and-avoiding-pitfalls-0b22ff44-f149-44ba-aeb5-4ef99da241c8">IF</a>
 along with <code class="docutils literal notranslate"><span class="pre">STDEV.S</span></code>. In cell G3, enter the following formula:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= STDEV.S(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891))
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= STDEV.S(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904))
 </pre></div>
 </div>
 <p>Here, we have <em>nested</em> the <code class="docutils literal notranslate"><span class="pre">IF</span></code> function inside of the <code class="docutils literal notranslate"><span class="pre">STDEV.S</span></code> function, meaning that <code class="docutils literal notranslate"><span class="pre">STDEV.S</span></code> will perform
 a calculation on whatever the <em>output</em> of the <code class="docutils literal notranslate"><span class="pre">IF</span></code> function is. Just like we saw with <code class="docutils literal notranslate"><span class="pre">AVERAGEIF</span></code>, <code class="docutils literal notranslate"><span class="pre">IF</span></code> will
-return whatever value is in cells C3 to C1891 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet, as long as the value in column B of the
+return whatever value is in cells C3 to C1904 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet, as long as the value in column B of the
 same row is equal to the value in A3 of this sheet.</p>
 <p>Because we have fixed the column, but not the row, when you use <strong>flash fill</strong> to fill in the rest of the cells in
 the standard deviation part of the table, the formula should adjust based on the row, just as it did for <code class="docutils literal notranslate"><span class="pre">AVERAGEIF</span></code>.</p>
@@ -1026,7 +1027,7 @@ the standard deviation part of the table, the formula should adjust based on the
 <h4>median<a class="headerlink" href="#median" title="Permalink to this heading">#</a></h4>
 <p>To calculate the monthly median values, we will use the <code class="docutils literal notranslate"><span class="pre">MEDIAN</span></code> function nested with the <code class="docutils literal notranslate"><span class="pre">IF</span></code> function, exactly
 as we did for the standard deviation. Enter the following formula into cell K3:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= MEDIAN(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891))
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= MEDIAN(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904))
 </pre></div>
 </div>
 <p>Once you have entered the formula into cell K3, use <strong>flash fill</strong> to fill the remaining values in this part of the
@@ -1034,10 +1035,10 @@ table, then format the cells to show only the first two decimal places.</p>
 </div>
 <div class="section" id="inter-quartile-range">
 <h4>inter-quartile range<a class="headerlink" href="#inter-quartile-range" title="Permalink to this heading">#</a></h4>
-<p>To calculate the monthly interquartile range values, we will use the <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC</span></code> function nested with the <code class="docutils literal notranslate"><span class="pre">IF</span></code>
+<p>To calculate the monthly inter-quartile range values, we will use the <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC</span></code> function nested with the <code class="docutils literal notranslate"><span class="pre">IF</span></code>
 function. This formula is slightly more complicated, if only because it requires two nested functions. Enter the
 following formula into cell O3 (remembering that you can copy and paste):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= QUARTILE.INC(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891), 3) - QUARTILE.INC(IF(armaghdata!$B$3:$B$1891 = $A3, armaghdata!C$3:C$1891), 1)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= QUARTILE.INC(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904), 3) - QUARTILE.INC(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904), 1)
 </pre></div>
 </div>
 <p>Once you have entered the formula into cell O3, use <strong>flash fill</strong> to fill the remaining values in this part of the
@@ -1070,16 +1071,16 @@ much the same as for the monthly data. First, we create a new sheet, then add da
 <p>To start, add a new sheet by clicking the “+” next to the <code class="docutils literal notranslate"><span class="pre">monthly</span></code> tab, then re-name the new sheet <code class="docutils literal notranslate"><span class="pre">yearly</span></code>.</p>
 <p>Next, add the column headers to the new sheet. For this practical, we’re only going to calculate annual means and
 medians, though you can use the same procedure we used in the previous section to calculate standard deviations,
-interquartile ranges, and so on.</p>
+inter-quartile ranges, and so on.</p>
 <p>First, though, we have to input the years that we want to average over into the table. In cell A3, type “1866”, and
-in cell A4, type “1867”, then use <strong>flash fill</strong> to fill the remaining years up until 2021.</p>
+in cell A4, type “1867”, then use <strong>flash fill</strong> to fill the remaining years up until 2022.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For now, we’re only going to include years where we have 12 months of data - because the 1865 data doesn’t start
-until April, and the 2022 data ends in August, we’ll exclude those years for this part of the analysis.</p>
+until April, and the 2023 data ends in August, we’ll exclude those years for this part of the analysis.</p>
 </div>
 <p>In cell B3, now, enter the following formula:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= AVERAGEIF(armaghdata!$A$3:$A$1891, $A3, armaghdata!C$3:C$1891)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= AVERAGEIF(armaghdata!$A$3:$A$1904, $A3, armaghdata!C$3:C$1904)
 </pre></div>
 </div>
 <p>You’ll note that this is almost the exact same formula as we used for the monthly averages, with the change that
@@ -1087,7 +1088,7 @@ we’re averaging based on the <em>year</em> (column A in the <code class="docut
 <p>Once you have entered the formula, use <strong>flash fill</strong> to fill the remaining cells in this part of the table (columns
 B to D, rows 3 to 158). Next, be sure to format the cells to only show the first two decimal places, as before.</p>
 <p>We can now do the same thing for the median values - in cell F3, enter the following formula:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>= MEDIAN(IF(armaghdata!$A$3:$A$1891 = $A3, armaghdata!C$3:C$1891))
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= MEDIAN(IF(armaghdata!$A$3:$A$1904 = $A3, armaghdata!C$3:C$1904))
 </pre></div>
 </div>
 <p>Next, use <strong>flash fill</strong> to fill the remaining part of this table (columns F to H, rows 3 to 158), then format the cells
@@ -1102,7 +1103,7 @@ on the keyboard.</p>
 </div>
 <div class="section" id="creating-charts">
 <h2>creating charts<a class="headerlink" href="#creating-charts" title="Permalink to this heading">#</a></h2>
-<p>In addition to performing calclulations, we can also create charts and figures using Excel. In this part of the
+<p>In addition to performing calculations, we can also create charts and figures using Excel. In this part of the
 practical, we will see how we can create histograms, bar charts, and line charts.</p>
 <div class="section" id="histograms">
 <h3>histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h3>
@@ -1118,7 +1119,7 @@ on any of the corners to expand it:</p>
 <a class="reference internal image-reference" href="../../../_images/histogram_resize.png"><img alt="the histogram of monthly mean temperature values re-sized to fill more of the workbook window" class="align-center" src="../../../_images/histogram_resize.png" style="width: 720px;" /></a>
 <p><br /> Before we are finished with our histogram, there are a few things that we need to do. First, remember that a
 chart should have a title or a caption that explains the chart. Click on “Chart Title”, and change the title from
-“Chart Title” to “Distribution of monthly mean temperatures, 1865-2022”.</p>
+“Chart Title” to “Distribution of monthly mean temperatures, 1865-2023”.</p>
 <p>Next, we need to add labels for the axes. When you click on the chart, you should notice icons appear along the right
 edge. Click on the “+” button to open a menu for adding chart elements:</p>
 <a class="reference internal image-reference" href="../../../_images/histogram_elements.png"><img alt="the elements menu of the histogram chart" class="align-center" src="../../../_images/histogram_elements.png" style="width: 720px;" /></a>
@@ -1186,7 +1187,7 @@ to <strong>Custom</strong>, then click on <strong>Specify Value</strong>:</p>
 select cells H3 to H14 (representing the monthly standard deviation of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>). Do the same for the
 <strong>Negative Error Value</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/error_bars_custom.png"><img alt="the workbook showing the &quot;format error bars&quot; panel and the &quot;custom error bars&quot; window" class="align-center" src="../../../_images/error_bars_custom.png" style="width: 720px;" /></a>
-<p><br /> You can also change the formatting of the error bars to make them thicker and more visisble
+<p><br /> You can also change the formatting of the error bars to make them thicker and more visible
 (<strong>Width</strong> under <strong>Fill &amp; Line</strong> (red box)):</p>
 <a class="reference internal image-reference" href="../../../_images/thick_bars.png"><img alt="the workbook with the bar chart, with the error bars set to a width of 2 pts" class="align-center" src="../../../_images/thick_bars.png" style="width: 720px;" /></a>
 <p><br /> Next, we’ll see how we can format the tick labels on the axis. Click on the vertical tick labels:</p>
@@ -1195,7 +1196,7 @@ select cells H3 to H14 (representing the monthly standard deviation of <code cla
 followed by <strong>Number</strong>, then change the number of decimal places to “0”.</p>
 <p>Note that under  <strong>Axis Options</strong>, you can also change the axis bounds, as well as the spacing between the ticks.
 For now, the default values are fine.</p>
-<p>To finish up the chart, change the chart title to “Average monthly temperature, 1865-2022”, add axis labels, and
+<p>To finish up the chart, change the chart title to “Average monthly temperature, 1865-2023”, add axis labels, and
 increase the font sizes like we did for the histogram:</p>
 <a class="reference internal image-reference" href="../../../_images/bar_finished.png"><img alt="the workbook showing the finished bar graph of monthly-averaged mean temperatures" class="align-center" src="../../../_images/bar_finished.png" style="width: 720px;" /></a>
 <p><br /></p>

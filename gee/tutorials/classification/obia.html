@@ -307,7 +307,8 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/thresholding.html">band maths and thresholding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/repeat_classification.html">repeat classification</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/cva.html">change vector analysis</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/time_series.html">time series analysis</a></li>
@@ -550,11 +551,9 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-segmentation">image segmentation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-texture">image texture</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">classification</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-the-classification">exporting the classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-texture-and-contrast">object texture and contrast</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-notes">references and notes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
 </ul>
             </nav>
         </div>
@@ -568,92 +567,125 @@ document.write(`
                   
   <div class="section" id="object-based-classification">
 <h1>object-based classification<a class="headerlink" href="#object-based-classification" title="Permalink to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The script for this tutorial can be found via this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A02_image_classification%2F03_obia.js">direct link</a>.</p>
+<p>Alternatively, if you have already added the repository, you can open the script from the <strong>Code Editor</strong>, by
+navigating to <code class="docutils literal notranslate"><span class="pre">02_image_classification/03_obia.js</span></code> under the <strong>Reader</strong> section.</p>
+</div>
+<p>In this tutorial, we’ll look at doing an object-based classification of the Landsat 8 image we used in the pixel-based
+classification. This is a Landsat 8 image acquired on 24 June, 2020, covering a portion of the Amazon Rainforest
+south of Santarém, Brazil.</p>
+<p>Object-based classification is a <em>supervised</em> classification technique, where we first have to train the computer how
+to classify the image based on its characteristics, before classifying each pixel of the image. The difference between
+an object-based classification and a pixel-based classification is that in the object-based classification, we first
+have to divide the image into objects, or <em>segments</em>, before we train and apply the classifier.</p>
+<p>By the end of this tutorial, you should be able to use Earth Engine to:</p>
+<ul class="simple">
+<li><p>use simple non-iterative clustering (SNIC) to segment an image</p></li>
+<li><p>select points to train a <strong>Classifier</strong></p></li>
+<li><p>train and apply a <strong>Classifier</strong> to a satellite image</p></li>
+<li><p>evaluate the accuracy of a classification</p></li>
+<li><p>create a chart that shows the area by class</p></li>
+<li><p>plot spectral signatures of training classes</p></li>
+</ul>
 <div class="section" id="image-segmentation">
 <h2>image segmentation<a class="headerlink" href="#image-segmentation" title="Permalink to this heading">#</a></h2>
-<p>The last few sections of the practical will take us through an example of object-based classification, to illustrate some of the differences
-between object-based image analysis (OBIA) and pixel-based classification.</p>
-<p>Start by uncommenting the first part of this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 203 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 241). The following lines of code:</p>
+<p>In this part of the practical, we’ll take a look at an example of object-based classification to help illustrate some
+of the differences between object-based image analysis (OBIA) and pixel-based classification. To help speed up the
+time it takes to render the images, I’ve zoomed in on a smaller region around the city of Rurópolis:</p>
+<a class="reference internal image-reference" href="../../../_images/classification_subregion.png"><img alt="a satellite image showing a city in the middle of sections of clear-cut rainforest" class="align-center" src="../../../_images/classification_subregion.png" style="width: 720px;" /></a>
+<p><br /> The first sections of this script should look similar to the pixel-based script - we use <code class="docutils literal notranslate"><span class="pre">require()</span></code> to import
+different modules, rescale the surface reflectance image, add the image to the <strong>Map</strong>, and create some training points
+to use to train the classifier.</p>
+<p>The first major difference comes at line 20:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// set parameters for the size of the seeds and clusters for image segmentation</span>
 <span class="c1">// 4 appears to be the minimum value for seed size</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">seedSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span><span class="w"> </span><span class="c1">//corresponds to 4 * 30 = 120 m spacing;</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">clusterScale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">30</span><span class="p">;</span>
-
-<span class="c1">// create a layer to seed the segmentation algorithm</span>
+</pre></div>
+</div>
+<p>This is where we set the parameters for the size of the seed grid used to segment the image. We’re using an algorithm
+called simple non-iterative clustering (SNIC; Achanta and Susstrunk, 2017<a class="footnote-reference brackets" href="#snic" id="id1">1</a>) to segment our image, creating
+the objects that we’ll use for the classification.</p>
+<p>This section starts by setting two parameters, <code class="docutils literal notranslate"><span class="pre">seedSize</span></code> and <code class="docutils literal notranslate"><span class="pre">clusterScale</span></code>. I’ve added these here, rather than
+using the values directly in the code below, so that it’s easier to change the values if we want to experiment later on.</p>
+<p>Next, we actually run SNIC on the image, using the surface reflectance bands. First, we use
+<code class="docutils literal notranslate"><span class="pre">ee.Algorithms.Image.Segmentation.seedGrid</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-algorithms-image-segmentation-seedgrid">documentation</a>)
+to create a layer to seed the segmentation algorithm, before using <code class="docutils literal notranslate"><span class="pre">ee.Algorithms.Image.Segmentation.SNIC</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-algorithms-image-segmentation-snic">documentation</a>)
+to actually segment the image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a layer to seed the segmentation algorithm</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">seeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">seedGrid</span><span class="p">(</span><span class="nx">seedSize</span><span class="p">);</span>
 
 <span class="c1">// run simple non-iterative clustering (SNIC) on the image, using our seed layer</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">snic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">SNIC</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">),</span>
-<span class="w">  </span><span class="nx">compactness</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">connectivity</span><span class="o">:</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">compactness</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// create objects using only spectral characteristics</span>
+<span class="w">  </span><span class="nx">connectivity</span><span class="o">:</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="c1">// don&#39;t create objects using diagonal pixels</span>
 <span class="w">  </span><span class="nx">neighborhoodSize</span><span class="o">:</span><span class="w"> </span><span class="mf">128</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">seeds</span><span class="o">:</span><span class="w"> </span><span class="nx">seeds</span>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>will use an algorithm called simple non-iterative clustering (SNIC; Achanta and Susstrunk, 2017<a class="footnote-reference brackets" href="#id4" id="id1">3</a>) to segment our image,
-creating the objects that we’ll use for the classification. This section starts by setting two parameters,
-<code class="docutils literal notranslate"><span class="pre">seedSize</span></code> and <code class="docutils literal notranslate"><span class="pre">clusterScale</span></code>. I’ve added these here, rather than using the values directly in the
-code below, so that it’s easier to change the values if we want to experiment later on.</p>
-<p>The next block of code will create a vector layer from the objects, fixed at a specific scale (here, 30 m, corresponding to the original image resolution).
-We can then add a layer to the map that shows the boundaries of the objects.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select the clusters (image segments, or objects) from our snic layer</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">clusters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">snic</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s2">&quot;clusters&quot;</span><span class="p">);</span>
-
-<span class="c1">// visualize the clusters by creating vectors, then displaying the outlines</span>
+<p>To help visualize the clusters, I’ve added three layers to the <strong>Map</strong>. The first, <code class="docutils literal notranslate"><span class="pre">clusters</span></code>, shows the clusters
+created using the chosen parameters, including the original seed size of 4 (roughly 4 * 30 = 120 m spacing):</p>
+<a class="reference internal image-reference" href="../../../_images/clusters_subregion.png"><img alt="a satellite image and image segments" class="align-center" src="../../../_images/clusters_subregion.png" style="width: 720px;" /></a>
+<p><br /> The second, <code class="docutils literal notranslate"><span class="pre">segments</span></code>, shows the outlines of the clusters in a small region of the image. First, we use
+<code class="docutils literal notranslate"><span class="pre">ee.Image.reduceToVectors()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-reducetovectors">documentation</a>)
+to create a vector corresponding to each cluster:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// visualize the clusters by creating vectors, then displaying the outlines</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">vectors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">clusters</span><span class="p">.</span><span class="nx">reduceToVectors</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">geometryType</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;polygon&#39;</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">reducer</span><span class="o">:</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">countEvery</span><span class="p">(),</span>
 <span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="nx">clusterScale</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">maxPixels</span><span class="o">:</span><span class="w"> </span><span class="mf">1e13</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">geometry</span><span class="o">:</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">maxPixels</span><span class="o">:</span><span class="w"> </span><span class="mf">1e16</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">geometry</span><span class="o">:</span><span class="w"> </span><span class="nx">subregion</span><span class="p">,</span>
 <span class="p">});</span>
-
+</pre></div>
+</div>
+<p>Then, we create an empty <strong>Image</strong> and “paint” the edges of each vector using <code class="docutils literal notranslate"><span class="pre">ee.Image.paint()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-paint">documentation</a>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// initialize an empty image</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">().</span><span class="kr">byte</span><span class="p">();</span>
 
+<span class="c1">// paint the edges of the segments</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">empty</span><span class="p">.</span><span class="nx">paint</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">featureCollection</span><span class="o">:</span><span class="w"> </span><span class="nx">vectors</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span>
 <span class="p">});</span>
-
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">outline</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;669999&#39;</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;segments&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Run the script, then toggle the <code class="docutils literal notranslate"><span class="pre">segments</span></code> layer on - you should see the outlines layer, with the original false color image underneath.
-Zoom in to have a look around - how do the object boundaries you see relate to the image underneath? Do they agree? Are there areas where
-the boundaries vary significantly from what you can see in the underlying image?</p>
-<a class="reference internal image-reference" href="../../../_images/segmented_image.png"><img alt="a satellite image and image segments" class="align-center" src="../../../_images/segmented_image.png" style="width: 600px;" /></a>
-<p>One thing to note here is that SNIC starts with a grid spaced by <code class="docutils literal notranslate"><span class="pre">seedSize</span></code> pixels and uses this to segment the image - the objects
-that we end up with depends on the size of the grid that we start with. To illustrate this, uncomment
-(remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 243 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 277) and run the script again.</p>
-<p>The only change I’ve made here is to create a seed grid with twice the spacing as the original:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a layer to seed the segmentation algorithm</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">seeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">seedGrid</span><span class="p">(</span><span class="mf">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">seedSize</span><span class="p">);</span>
+<p>To see what this looks like, toggle this layer on in the <strong>Map</strong>, then zoom in:</p>
+<a class="reference internal image-reference" href="../../../_images/segments_subregion.png"><img alt="a satellite image and image segments" class="align-center" src="../../../_images/segments_subregion.png" style="width: 720px;" /></a>
+<p><br /> Finally, to illustrate the impact of the <code class="docutils literal notranslate"><span class="pre">seeds</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">ee.Algorithms.Image.Segmentation.SNIC</span></code>, we re-run
+these steps using twice the original seed size:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// now, do the same as above but for a larger scale to see how the size of the objects changes</span>
+<span class="c1">// create a layer to seed the segmentation algorithm</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">coarse_seeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">seedGrid</span><span class="p">(</span><span class="mf">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">seedSize</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>After that, the code is mostly the same (aside from a color change for the <code class="docutils literal notranslate"><span class="pre">coarse</span> <span class="pre">segements</span></code> layer). Zoom in on some of the lakes
-North of the peak - you should notice that some of the objects for some of the lakes using the coarser seed grid include both “lake”
-and “not lake”, while the original boundaries do a decent job of picking the shorelines:</p>
-<a class="reference internal image-reference" href="../../../_images/segmentation_comparison.png"><img alt="a comparison of two segmentation scales" class="align-center" src="../../../_images/segmentation_comparison.png" style="width: 600px;" /></a>
-<p>This is something to keep in mind - the scale of our segmentation determines the size of the objects that we end up with. If we segment the image
-too coarsely, we may end up losing detail that we’re interested in.</p>
-<p>Once you’ve had a look around, go ahead and re-comment the coarse segmentation section (add a <code class="docutils literal notranslate"><span class="pre">/*</span></code> to line 243 and a <code class="docutils literal notranslate"><span class="pre">*/</span></code> to line 277), then
-move on to the next section.</p>
+<p>To see the impact of changing the size of the seed grid, toggle the <code class="docutils literal notranslate"><span class="pre">coarse</span> <span class="pre">segments</span></code> layer on:</p>
+<a class="reference internal image-reference" href="../../../_images/coarse_segments_subregion.png"><img alt="a comparison of two segmentation scales" class="align-center" src="../../../_images/coarse_segments_subregion.png" style="width: 720px;" /></a>
+<p><br /> How do the object boundaries you see relate to the image underneath? Do they agree? Are there areas where the
+boundaries vary significantly from what you can see in the underlying image?</p>
+<p>This is something to keep in mind - the scale of our segmentation determines the size of the objects that we end up
+with. If we segment the image too coarsely, we may end up losing detail that we’re interested in.</p>
 </div>
-<div class="section" id="image-texture">
-<h2>image texture<a class="headerlink" href="#image-texture" title="Permalink to this heading">#</a></h2>
-<p>One of the things that we can do with OBIA that is more difficult to incorporate into pixel-based analysis is use image properties such
-as texture or contrast, or even the shape of our segments, to aid our classification.</p>
-<p>Here, we’ll have a look at including texture into our classification using metrics extracted using the Gray Level Co-occurrence
-Matrix (GLCM; Haralick et al., 1973<a class="footnote-reference brackets" href="#id5" id="id2">4</a>). The GLCM contains information about how frequently combinations of pixel values appear
-in a specified relationship in the image. We can use this, and the statistical metrics that we can extract from the GLCM,
-to analyze the texture of the image.</p>
-<p>Here, we’ll look at three examples: the Angular Second Moment (ASM), the local contrast, and the entropy. The Angular Second Moment measures how many
-repeated pairs of values we see within each small window. The local contrast tells us how much variation we see in the small area, and the
-entropy measures the randomness of the values in each small window.</p>
-<p>Uncomment the lines in this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 280 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 301), then run the script.</p>
-<p>Before we compute the GLCM, we make a grayscale image from the NIR, Red, and Green bands, following Tassi and Vizzari (2020)<a class="footnote-reference brackets" href="#id6" id="id3">5</a>:</p>
+<div class="section" id="object-texture-and-contrast">
+<h2>object texture and contrast<a class="headerlink" href="#object-texture-and-contrast" title="Permalink to this heading">#</a></h2>
+<p>One of the things that we can do with OBIA that is more difficult to incorporate into pixel-based analysis is use image
+properties such as texture or contrast, or even the shape of our segments, to aid our classification.</p>
+<p>Here, we’ll have a look at including texture into our classification using metrics extracted using the Gray Level
+Co-occurrence Matrix (GLCM; Haralick et al., 1973<a class="footnote-reference brackets" href="#glcm" id="id2">2</a>). The GLCM contains information about how frequently
+combinations of pixel values appear in a specified relationship in the image. We can use this, and the statistical
+metrics that we can extract from the GLCM, to analyze the texture of the image.</p>
+<p>Here, we’ll look at three examples: the Angular Second Moment (ASM), the local contrast, and the entropy. The ASM
+measures how many repeated pairs of values we see within each small window. The local contrast tells us how much
+variation we see in the small area, and the entropy measures the randomness of the values in each small window.</p>
+<p>Before we compute the GLCM, we make a grayscale image from the NIR, Red, and Green bands, following
+Tassi and Vizzari (2020)<a class="footnote-reference brackets" href="#gray" id="id3">3</a>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a grayscale image to run texture on, following Tassi and Vizzari (2020)</span>
 <span class="c1">// paper: https://doi.org/10.3390/rs12223776</span>
 <span class="c1">// GEE script: https://code.earthengine.google.com/?accept_repo=users/mvizzari/Tassi_Vizzari_RS2020</span>
@@ -664,14 +696,21 @@ entropy measures the randomness of the values in each small window.</p>
 <span class="w">   </span><span class="s1">&#39;G&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">)</span>
 <span class="p">}).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">);</span>
 
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">gray</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">7500</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">17500</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;grayscale&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">gray</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.15</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;grayscale&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>this helps simplify the process somewhat - as we’ve seen in the lectures, there is often redundant information in nearby bands.</p>
-<p>Once we’ve created this layer, we compute the GLCM and display the three images we’re interested in (the ASM, Contrast, and Entropy).</p>
+<p>this helps simplify the process, as there is often redundant information in nearby bands.</p>
+<p>Once we’ve created this layer, we compute the GLCM and display the three images we’re interested in (the ASM, Contrast,
+and Entropy). First, we have to undo the re-scaling that we did earlier, because <code class="docutils literal notranslate"><span class="pre">ee.Image.glcmTexture()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-glcmtexture">documentation</a>) works much better with
+integer images.</p>
+<p>We also use <code class="docutils literal notranslate"><span class="pre">ee.Image.reproject()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-reproject">documentation</a>)
+to fix the projection scale to be 30 m. Without this, when we zoom in/out on the image, the scale over which the GLCM
+parameters are calculated changes.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the GLCM for the grayscale image</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">glcm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gray</span><span class="p">.</span><span class="nx">toInt</span><span class="p">().</span><span class="nx">glcmTexture</span><span class="p">({</span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">reproject</span><span class="p">({</span><span class="nx">crs</span><span class="o">:</span><span class="w"> </span><span class="nx">gray</span><span class="p">.</span><span class="nx">projection</span><span class="p">(),</span><span class="w"> </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">});</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">glcm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gray</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mf">0.2</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="mf">0.0000275</span><span class="p">)</span><span class="w"> </span><span class="c1">// re-scale to Int16 values</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">toInt</span><span class="p">().</span><span class="nx">glcmTexture</span><span class="p">({</span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">reproject</span><span class="p">({</span><span class="nx">crs</span><span class="o">:</span><span class="w"> </span><span class="nx">gray</span><span class="p">.</span><span class="nx">projection</span><span class="p">(),</span><span class="w"> </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">});</span><span class="w"> </span><span class="c1">// fix the projection scale</span>
 
 <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;GLCM Image&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">glcm</span><span class="p">);</span>
 <span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_asm&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0281</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0354</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;ASM&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
@@ -679,69 +718,42 @@ entropy measures the randomness of the values in each small window.</p>
 <span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_ent&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">3.391</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">3.577</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;Entropy&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The result of this is an image, <code class="docutils literal notranslate"><span class="pre">glcm</span></code>, that contains 18 variables for each band in the original image. For a full list of the variables,
-you can see the <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-glcmtexture">documentation</a>. You can also see a list of the
-bands for the <code class="docutils literal notranslate"><span class="pre">glcm</span></code> image in the <strong>Console</strong>.</p>
+<p>The result of this is an image, <code class="docutils literal notranslate"><span class="pre">glcm</span></code>, that contains 18 variables for each band in the original image. For a full
+list of the variables, you can see the
+<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-glcmtexture">documentation</a>.</p>
 <p>Finally, have a look at the images that have been loaded in the map: the Angular Second Moment (ASM), the Contrast, and the Entropy.
 Take a look at the ASM image first:</p>
-<a class="reference internal image-reference" href="../../../_images/asm.png"><img alt="an image showing the angular second moment in the grayscale image" class="align-center" src="../../../_images/asm.png" style="width: 600px;" /></a>
-<p>Remember that this tells us something about the repeated pairs of values within the specified window (here, a window of size 2) - brighter
-colors indicate higher values (more repeated values), darker colors indicate lower values
-(fewer repeated values). Before moving on to the contrast image, see if you can answer the following questions:</p>
-<ul>
-<li><p>Where do you see the most repeated values (brightest “colors”)?</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>What surfaces do these values represent?</p></li>
-<li><p>Why do you think this would be so?</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Look at the grayscale image (toggle it on in the <strong>Layers</strong>). How does the image that you see here compare to the ASM image? That is, where do you see more variation in the “color” values?</p></li>
-</ul>
-<p>Now, have a look at the Contrast layer:</p>
-<a class="reference internal image-reference" href="../../../_images/contrast.png"><img alt="an image showing the local contrast in the grayscale image" class="align-center" src="../../../_images/contrast.png" style="width: 600px;" /></a>
-<p>Here, the bright colors represent the greatest contrast (i.e., difference) in values within the given window. In a way, this is showing us the same sort
-of information as the ASM layer - high contrast indicates more variation (and therefore fewer repeated values), while low contrast indicates less variation
-(and therefore more repeated values).</p>
-<p>Finally, have a look at the Entropy layer:</p>
-<a class="reference internal image-reference" href="../../../_images/entropy.png"><img alt="an image showing the local entropy in the grayscale image" class="align-center" src="../../../_images/entropy.png" style="width: 600px;" /></a>
-<p>This is almost the inverse of the ASM layer - areas with high ASM values typically have lower Entropy. This makes some level of sense, given that more repeat
-values implies that the distribution is likely less random than values that are more spread out.</p>
-<p>Try to compare the three images some more. What patterns do you see in the contrast image? How could you use the texture information to help differentiate
-between, for example, the surfaces on north flank of the volcano and the clear-cut areas in the southwest of the image, which have similar values in the
-grayscale image?</p>
-<p>Once you’ve spent some time thinking about these questions, move on to the next section, where we’ll add the texture bands to our image, and use this to classify
-the scene using OBIA.</p>
-</div>
-<div class="section" id="classification">
-<h2>classification<a class="headerlink" href="#classification" title="Permalink to this heading">#</a></h2>
-<p>Now that we’ve segmented the image and had a look at the image texture, we’ll move on to actually classifying the image using OBIA.</p>
-<p>Uncomment the first part of this section section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 304 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 370), then run the script.
-The first block of code in this section:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the vector labels</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">vectors</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">reduceToImage</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">properties</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
-<span class="w">    </span><span class="nx">reducer</span><span class="o">:</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">first</span><span class="p">()</span>
-<span class="p">}).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">).</span><span class="nx">toInt</span><span class="p">();</span>
-
-<span class="c1">// add the id layer to the image</span>
-<span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">labels</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>will get the <code class="docutils literal notranslate"><span class="pre">id</span></code> (or <code class="docutils literal notranslate"><span class="pre">label</span></code>) for each of the image objects we created by segmenting the image, then add a layer to the image that labels each
-pixel with the <code class="docutils literal notranslate"><span class="pre">id</span></code> of the object it’s part of. This is how we actually do the “object-based” part of the classification - the actual classification
-is quite similar to the pixel-based method we’ve already seen.</p>
-<p>After this, we can add the texture bands to our image:</p>
+<a class="reference internal image-reference" href="../../../_images/asm_subregion.png"><img alt="an image showing the angular second moment in the grayscale image" class="align-center" src="../../../_images/asm_subregion.png" style="width: 720px;" /></a>
+<p><br /> This tells us something about the repeated pairs of values within the specified window (here, a
+window of size 2) - brighter colors indicate higher values (more repeated values), darker colors indicate lower values
+(fewer repeated values).</p>
+<p>Where do you see the most repeated values (brightest “colors”)? What surfaces do these values represent, and why do you
+think this would be so?</p>
+<p>Look at the grayscale image (toggle it on in the <strong>Layers</strong>). How does the image that you see here compare to the ASM
+image? That is, where do you see more variation in the “color” values?</p>
+<p>Now, have a look at the <code class="docutils literal notranslate"><span class="pre">contrast</span></code> layer:</p>
+<a class="reference internal image-reference" href="../../../_images/contrast_subregion.png"><img alt="an image showing the local contrast in the grayscale image" class="align-center" src="../../../_images/contrast_subregion.png" style="width: 720px;" /></a>
+<p><br /> Here, the bright colors represent the greatest contrast (i.e., difference) in values within the given window.
+In a way, this is showing us the same sort of information as the ASM layer - high contrast indicates more variation
+(and therefore fewer repeated values), while low contrast indicates less variation (and therefore more repeated values).</p>
+<p>Finally, have a look at the <code class="docutils literal notranslate"><span class="pre">entropy</span></code> layer:</p>
+<a class="reference internal image-reference" href="../../../_images/entropy_subregion.png"><img alt="an image showing the local entropy in the grayscale image" class="align-center" src="../../../_images/entropy_subregion.png" style="width: 720px;" /></a>
+<p><br /> This is almost the inverse of the ASM layer - areas with high ASM values typically have lower entropy. This makes
+some level of sense, given that more repeat values implies that the distribution is likely less random than values that
+are more spread out.</p>
+<p>Try to compare the three images some more. What patterns do you see in the contrast image? How could you use the
+texture information to help differentiate between, for example, the forest and the clear-cut areas?</p>
+<p>After this, we can add the texture bands to our image (lines 124-127):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_asm&#39;</span><span class="p">))</span>
 <span class="w">  </span><span class="c1">//.addBands(glcm.select(&#39;gray_contrast&#39;)) // uncomment to add contrast</span>
 <span class="w">  </span><span class="c1">//.addBands(glcm.select(&#39;gray_ent&#39;)); // uncomment to add entropy</span>
 </pre></div>
 </div>
-<p>To start with, we’ve only added the ASM layer. Once we’ve had a look at those results, we’ll see how adding additional texture layers changes the classification
-results.</p>
-<p>The next block:</p>
+<p>To start with, we’ve only added the ASM layer. Once we’ve had a look at those results, we can see how adding additional
+texture layers changes the classification results.</p>
+<p>Now that we’ve segmented the image and had a look at the image texture, we’ll move on to actually classifying the image
+using OBIA.</p>
+<p>This block of code:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the mean, std, and median values of all bands for each object</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">img_mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">reduceConnectedComponents</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">reducer</span><span class="o">:</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">mean</span><span class="p">(),</span>
@@ -765,65 +777,53 @@ results.</p>
 <span class="p">]).</span><span class="kr">float</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>will calculate the mean, standard deviation, and median values for each object for each of the image bands
-(surface reflectance, normalized difference indices, slope, ASM, contrast, and entropy, depending on which of lines 26–28 and 317–318 you’ve uncommented).
-These are the values that will go into our classification - rather than the individual pixel values we used earlier.</p>
-<p>When you run the script, you should see the confusion matrix, accuracy, and kappa values for the object-based classifer printed to the console
-(note that this may take some time to finish):</p>
-<a class="reference internal image-reference" href="../../../_images/obia_accuracy.png"><img alt="the error matrix and accuracy values for the OBIA classifier" class="align-center" src="../../../_images/obia_accuracy.png" style="width: 400px;" /></a>
-<p>How does this compare to the pixel-based accuracy values? Try adding the contrast image (uncomment line 317) - how does this impact the
-accuracy results?</p>
-<p>What about if you add the entropy layer (uncomment line 318)?</p>
-<p>Once you’ve trained a few different classifiers by commenting/uncommenting lines 26–28 and 317–318, you can move on to the
-next part of the section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 371 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 398, then re-run the script).</p>
-<p>The final part of this section will apply the OBIA classifier we’ve just trained, count the number of pixels belonging to
-each classification, and then display the result in the map and the <strong>Console</strong>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// apply the classification</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">obia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pred_bands</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">pred_bands</span><span class="p">.</span><span class="nx">bandNames</span><span class="p">()).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
-
-<span class="c1">// add the classified layer to the map</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">classPalette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;013dd6&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;059e2a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;a6613d&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2aff53&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;e3d4ae&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fffbf4&#39;</span><span class="p">];</span>
-
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">obia</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="nx">classPalette</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;OBIA Random Forest&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">outline</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ffffff&#39;</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;segments&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>We’ve also added the segments layer again, so that we can compare the classification with the object boundaries (you’ll need to
-turn this on in the <strong>Layers</strong> menu):</p>
-<a class="reference internal image-reference" href="../../../_images/obia_classified.png"><img alt="the OBIA classified image" class="align-center" src="../../../_images/obia_classified.png" style="width: 600px;" /></a>
-<p>How does this classified image compare to the RF results? Where do you see big differences? Do the boundaries of the
-classification line up with the image segments?</p>
-<p>Have a look at the numeric results, as well - where are the biggest differences between the pixel-based results and
-the object-based results? As you look around the map, do the classified results line up with what you expect to see?</p>
-</div>
-<div class="section" id="exporting-the-classification">
-<h2>exporting the classification<a class="headerlink" href="#exporting-the-classification" title="Permalink to this heading">#</a></h2>
-<p>The code in this section will enable you to export the classified image to your Google Drive, and use them in, for example,
-ArcGIS, QGIS, or ERDAS Imagine. To do so, uncomment this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 401 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 409),
-then re-run the script:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">Export</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">toDrive</span><span class="p">({</span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="nx">obia</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;classification&#39;</span><span class="p">),</span>
-<span class="w">  </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;OBIA Classification&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">crs</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;epsg:32610&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">maxPixels</span><span class="o">:</span><span class="w"> </span><span class="mf">1e13</span>
-<span class="p">});</span>
-</pre></div>
+<p>Shows the other main difference between the pixel-based classification and the object-based classification. Here, we’re
+using a statistical description of the pixel values that fall within each object (mean, median, standard deviation),
+rather than the pixel values themselves.</p>
+<p>Other than that, the remaining steps are the same for the object-based classification. We’re using a random forest
+classification, splitting the training points into training and testing partitions, training the classifier, and then
+applying the classifier to the image.</p>
+<a class="reference internal image-reference" href="../../../_images/obia_classified_subregion.png"><img alt="the obia classified image loaded in the map" class="align-center" src="../../../_images/obia_classified_subregion.png" style="width: 720px;" /></a>
+<p><br /> Zoom in on the classified image. What differences do you notice between the pixel-based classification from the
+previous exercise and the object-based classification? What about the error/accuracy metrics? How do the results for
+the two approaches compare? For comparison, here’s the same region with the pixel-based classification shown:</p>
+<a class="reference internal image-reference" href="../../../_images/pixel_subregion.png"><img alt="the pixel-based classified image loaded in the map" class="align-center" src="../../../_images/pixel_subregion.png" style="width: 720px;" /></a>
+<p><br /> Otherwise, just like with the pixel-based script from earlier, this script initiates a <strong>Task</strong> to export the
+classified image to your google drive for further analysis in your GIS software of choice. To start the task,
+click on the <strong>Tasks</strong> tab, then click <strong>Run</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I have omitted the additional analysis steps (calculating classified area, plotting spectral signatures, etc.) from
+this exercise, because the segmentation and texture analysis steps frequently cause <code class="docutils literal notranslate"><span class="pre">User</span> <span class="pre">memory</span> <span class="pre">limit</span> <span class="pre">exceeded</span></code>
+errors.</p>
 </div>
 </div>
 <div class="section" id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Try varying the number of ‘trees’ used in the random forest classifier. How does this impact the estimated accuracy
+of the classification?</p></li>
+<li><p>You can also try adding different texture measures by uncommenting lines 128 and 129 of the script, along with
+line 147, which will add the contrast (<code class="docutils literal notranslate"><span class="pre">gray_contrast</span></code>) and entropy (<code class="docutils literal notranslate"><span class="pre">gray_ent</span></code>) bands to the classification.</p></li>
+<li><p>Test how does adding additional bands such as the surface temperature or the NDVI affects the classification.
+Remember to first add these bands to the image (lines 125–127), as well as to the list of bands to use in the
+classifier (line 147). Try different combinations of band/indices - you may find that some additional bands help
+more than others.</p></li>
+</ul>
 </div>
-<div class="section" id="references-and-notes">
-<h2>references and notes<a class="headerlink" href="#references-and-notes" title="Permalink to this heading">#</a></h2>
+<div class="section" id="notes-and-references">
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
-<dd><p>Achanta, R. and S. Susstrunk (2017). In <em>Proc. IEEE Conf. Comp. Vis. Patt. Recog.</em>, pp. 4651–4660. doi: <a class="reference external" href="https://doi.org/10.1109/CVPR.2017.520">10.1109/CVPR.2017.520</a> [<a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Achanta_Superpixels_and_Polygons_CVPR_2017_paper.pdf">open-access pdf</a>]</p>
+<dt class="label" id="snic"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Achanta, R. and S. Susstrunk (2017). In <em>Proc. IEEE Conf. Comp. Vis. Patt. Recog.</em>, pp. 4651–4660.
+doi: <a class="reference external" href="https://doi.org/10.1109/CVPR.2017.520">10.1109/CVPR.2017.520</a>
+[<a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Achanta_Superpixels_and_Polygons_CVPR_2017_paper.pdf">open-access pdf</a>]</p>
 </dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">4</a></span></dt>
-<dd><p>Haralick, R. M., K. Shanmugam and I. Dinstein (1973). <em>IEEE Trans. Systems, Man, Cybernetics</em>, SMC-3(<strong>6</strong>), pp. 610-621. doi: <a class="reference external" href="http://doi.org/10.1109/TSMC.1973.4309314">10.1109/TSMC.1973.4309314.</a></p>
+<dt class="label" id="glcm"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Haralick, R. M., K. Shanmugam and I. Dinstein (1973). <em>IEEE Trans. Systems, Man, Cybernetics</em>,
+SMC-3(<strong>6</strong>), pp. 610-621. doi: <a class="reference external" href="http://doi.org/10.1109/TSMC.1973.4309314">10.1109/TSMC.1973.4309314.</a></p>
 </dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">5</a></span></dt>
+<dt class="label" id="gray"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
 <dd><p>Tassi, A. and M. Vizzari (2020). <em>Rem. Sens.</em> 12, 3776. doi: <a class="reference external" href="https://doi.org/10.3390/rs12223776">10.3390/rs12223776</a></p>
 </dd>
 </dl>
@@ -875,11 +875,9 @@ then re-run the script:</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-segmentation">image segmentation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-texture">image texture</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">classification</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-the-classification">exporting the classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-texture-and-contrast">object texture and contrast</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-notes">references and notes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
 </ul>
   </nav></div>
 

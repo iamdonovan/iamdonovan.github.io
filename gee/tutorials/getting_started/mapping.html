@@ -307,7 +307,8 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/thresholding.html">band maths and thresholding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/repeat_classification.html">repeat classification</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/cva.html">change vector analysis</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/time_series.html">time series analysis</a></li>
@@ -572,9 +573,15 @@ document.write(`
                   
   <div class="section" id="manual-mapping-digitizing">
 <h1>manual mapping (digitizing)<a class="headerlink" href="#manual-mapping-digitizing" title="Permalink to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The script for this tutorial can be found via this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F04_mapping.js">direct link</a>.</p>
+<p>Alternatively, if you have already added the repository, you can open the script from the <strong>Code Editor</strong>, by
+navigating to <code class="docutils literal notranslate"><span class="pre">01_getting_started/04_mapping.js</span></code> under the <strong>Reader</strong> section.</p>
+</div>
 <p>In this tutorial, we’ll see how we can use GEE’s digitizing tools to map features. The images we’ll be looking at
 show the Geldingadalir (Fagradalsfjall) volcanic eruption on the Reykjanes Peninsula, Iceland, on 26 June 2021:</p>
-<a class="reference internal image-reference" href="../../../_images/fagradalsfjall.png"><img alt="the Fagradalsfjall eruption on 26 June 2021" class="align-center" src="../../../_images/fagradalsfjall.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/fagradalsfjall.png"><img alt="the Fagradalsfjall eruption on 26 June 2021" class="align-center" src="../../../_images/fagradalsfjall.png" style="width: 720px;" /></a>
 <p><br /> By this point, the eruption, which began on 19 March 2021, has spread throughout parts of the valley, and can be seen
 in the natural color image as a large, black area surrounding the active fissure.</p>
 <p>In this tutorial, we’ll see how we can use different band combinations, along with the GEE digitizing features,
@@ -584,7 +591,7 @@ to map the lava flow and determine its area, as well as other properties.</p>
 <p>Before getting started, I want to plug the Google Earth Engine Digitisation Tool<a class="footnote-reference brackets" href="#id2" id="id1">1</a>, GEEDiT. This is a tool for
 that was designed for rapid digitizing of features from satellite imagery, with a range of tools to help make the
 workflow of digitizing easier:</p>
-<a class="reference internal image-reference" href="../../../_images/geedit.png"><img alt="the GEEDiT user interface" class="align-center" src="../../../_images/geedit.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/geedit.png"><img alt="the GEEDiT user interface" class="align-center" src="../../../_images/geedit.png" style="width: 720px;" /></a>
 <p><br /> If you are planning to do large-scale mapping of features, GEEDiT is a great (and easy!) tool to use. You can
 check out the following links to use it and learn more about it:</p>
 <ul class="simple">
@@ -635,7 +642,7 @@ can even display bands from different images, to help highlight changes over tim
 </tbody>
 </table>
 <p>When you run the script, you will see the natural color image loaded into the <strong>Map</strong>:</p>
-<a class="reference internal image-reference" href="../../../_images/fagradalsfjall.png"><img alt="the Fagradalsfjall eruption on 26 June 2021" class="align-center" src="../../../_images/fagradalsfjall.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/fagradalsfjall.png"><img alt="the Fagradalsfjall eruption on 26 June 2021" class="align-center" src="../../../_images/fagradalsfjall.png" style="width: 720px;" /></a>
 <p><br /> The script will have also loaded (but not displayed) several other band combinations, including the near infrared false color composite
 (bands 5, 4, and 3), a 654 false color composite, and a 764 false color composite.</p>
 <div class="admonition note">
@@ -663,7 +670,7 @@ by lava.</p>
 <p>To be able to digitize <em>only</em> the lava flow, we need to first digitize the exterior perimeter, then the interior “rings”. We’ll
 then use GEE to remove the rings from the <code class="docutils literal notranslate"><span class="pre">exterior</span></code>, leaving only the areas covered by lava.</p>
 <p>First, though, make sure that you’ve selected <strong>Polygon drawing</strong> from the <strong>Drawing tools</strong>:</p>
-<a class="reference internal image-reference" href="../../../_images/polygon_drawing.png"><img alt="the drawing tools with polygon drawing selected" class="align-center" src="../../../_images/polygon_drawing.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/polygon_drawing.png"><img alt="the drawing tools with polygon drawing selected" class="align-center" src="../../../_images/polygon_drawing.png" style="width: 720px;" /></a>
 <p>To start digitizing, you can click on the map, and add points delineating the outer boundary of the lava flow. When you have finished
 the polygon, double-click to finish the shape.</p>
 <div class="admonition note">
@@ -673,10 +680,10 @@ is mostly opaque in the natural color image, but is mostly transparent in the SW
 usually easier to differentiate in the natural color or NIR false color image.</p>
 </div>
 <p>Once you’re done, you should have something that looks like this (your outline might be somewhat different, but the basic shape should be similar):</p>
-<a class="reference internal image-reference" href="../../../_images/drawn.png"><img alt="the finished polygon" class="align-center" src="../../../_images/drawn.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/drawn.png"><img alt="the finished polygon" class="align-center" src="../../../_images/drawn.png" style="width: 720px;" /></a>
 <p><br /> Now, repeat the process of adding a new <strong>Geometry</strong> layer called <code class="docutils literal notranslate"><span class="pre">rings</span></code>, and digitize the areas inside of the outer boundary that aren’t
 covered by lava. In the end, you should have something that looks like this:</p>
-<a class="reference internal image-reference" href="../../../_images/rings.png"><img alt="the rings displayed on the map" class="align-center" src="../../../_images/rings.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/rings.png"><img alt="the rings displayed on the map" class="align-center" src="../../../_images/rings.png" style="width: 720px;" /></a>
 <p><br /> Once you have added these two <strong>Geometry</strong> layers, uncomment the second section of this script (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 24,
 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 61).</p>
 </div>
@@ -684,9 +691,9 @@ and the <code class="docutils literal notranslate"><span class="pre">*/</span></
 <h2>editing polygons<a class="headerlink" href="#editing-polygons" title="Permalink to this heading">#</a></h2>
 <p>We can also move the vertices of our polygon. Make sure that you’re no longer drawing (click on the left-most (hand) button in the <strong>Drawing tools</strong>),
 then click on your polygon:</p>
-<a class="reference internal image-reference" href="../../../_images/editing.png"><img alt="editing the polygon" class="align-center" src="../../../_images/editing.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/editing.png"><img alt="editing the polygon" class="align-center" src="../../../_images/editing.png" style="width: 720px;" /></a>
 <p><br /> You can click/drag on vertices to move them, or click and drag on entire shapes to move them:</p>
-<a class="reference internal image-reference" href="../../../_images/moved.png"><img alt="the polygon, moved" class="align-center" src="../../../_images/moved.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/moved.png"><img alt="the polygon, moved" class="align-center" src="../../../_images/moved.png" style="width: 720px;" /></a>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Be careful with this – you can’t easily move the polygon back to its exact original position!</p>
@@ -704,7 +711,7 @@ then click on your polygon:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">lavaflow</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="s1">&#39;lava flow&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/polygon_added.png"><img alt="the finished, differenced polygon added to the map" class="align-center" src="../../../_images/polygon_added.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/polygon_added.png"><img alt="the finished, differenced polygon added to the map" class="align-center" src="../../../_images/polygon_added.png" style="width: 720px;" /></a>
 </div>
 <div class="section" id="transforming-features">
 <h2>transforming features<a class="headerlink" href="#transforming-features" title="Permalink to this heading">#</a></h2>
@@ -774,7 +781,7 @@ digitized outline to Google Drive using <code class="docutils literal notranslat
 <p>Note that we have to create a <strong>FeatureCollection</strong> from our <strong>Feature</strong>, as <code class="docutils literal notranslate"><span class="pre">Export.table.toDrive()</span></code> requires a <strong>FeatureCollection</strong>.</p>
 <p>Once you have run the script, you can run the <strong>Task</strong> from the <strong>Tasks</strong> tab to start the process. You can then import your feature
 into your GIS software of choice:</p>
-<a class="reference internal image-reference" href="../../../_images/qgis.png"><img alt="the QGIS window with the exported shapefile loaded" class="align-center" src="../../../_images/qgis.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/qgis.png"><img alt="the QGIS window with the exported shapefile loaded" class="align-center" src="../../../_images/qgis.png" style="width: 720px;" /></a>
 </div>
 <div class="section" id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>

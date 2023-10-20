@@ -1,6 +1,14 @@
 spectral signatures
 ====================
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F02_spectral_signatures.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``01_getting_started/02_spectral_signatures.js`` under the **Reader** section.
+
+
 This tutorial is designed to have you use Google Earth Engine (GEE) to examine the 
 `spectral signatures <https://en.wikipedia.org/wiki/Spectral_signature>`__ of different surfaces. 
 After finishing this tutorial, you should be able to:
@@ -19,7 +27,7 @@ In the previous tutorial, we used the **Inspector** tab to look at band values f
 clicking on the map:
 
 .. image:: img/adding_exporting/inspector_tab.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the inspector tab showing the list view
 
@@ -33,7 +41,7 @@ export it for later analysis.
 To get started, look at the top of the script. You should see the following:
 
 .. image:: img/spectral/imports.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the imports at the top of the script
 
@@ -44,7 +52,7 @@ display settings for **Map** layers.
 Run the script - you should see the following:
 
 .. image:: img/spectral/script_run.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the inspector tab showing the list view
 
@@ -62,7 +70,7 @@ First, mouse over the **Geometry Imports** menu:
 the gear icon to open the configuration panel:
 
 .. image:: img/spectral/configuration_panel.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the configuration panel for the geometry imports
 
@@ -111,7 +119,7 @@ and that **Point drawing** is on:
 is turned on, you can add points by clicking on the **Map** -- a new marker will display each time you click:
 
 .. image:: img/spectral/new_point.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: a new point marker added to the map
 
@@ -119,7 +127,7 @@ is turned on, you can add points by clicking on the **Map** -- a new marker will
 (e.g., lots of brown/green color).
 
 .. image:: img/spectral/ten_points.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: 10 new point markers added to the map
 
@@ -437,7 +445,7 @@ would not be updated:
 Once you've set the properties, you should see that the ``water`` line has been updated accordingly:
 
 .. image:: img/spectral/final_chart.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the final chart produced in the tutorial
 

@@ -307,7 +307,8 @@
 </ul>
 </li>
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">change detection</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thresholding.html">band maths and thresholding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="repeat_classification.html">repeat classification</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cva.html">change vector analysis</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">time series analysis</a></li>
@@ -526,9 +527,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -544,14 +543,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-time-series">plotting time series</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -563,24 +554,30 @@ document.write(`
                   
   <div class="section" id="time-series-analysis">
 <h1>time series analysis<a class="headerlink" href="#time-series-analysis" title="Permalink to this heading">#</a></h1>
-<div class="section" id="plotting-time-series">
-<h2>plotting time series<a class="headerlink" href="#plotting-time-series" title="Permalink to this heading">#</a></h2>
-<p>The final portion of this practical will cover how we can get time series of data from images and visually inspect the results.
-To get started, uncomment this section (remove the <code class="docutils literal notranslate"><span class="pre">/*</span></code> from line 371 and the <code class="docutils literal notranslate"><span class="pre">*/</span></code> from line 431). The
-first part of this section declares a variable, <code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code>, that is made up of individual polygons imported at the top of the
-script:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The script for this tutorial can be found via this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A03_change_detection%2F05_time_series.js">direct link</a>.</p>
+<p>Alternatively, if you have already added the repository, you can open the script from the <strong>Code Editor</strong>, by
+navigating to <code class="docutils literal notranslate"><span class="pre">03_change_detection/05_time_series.js</span></code> under the <strong>Reader</strong> section.</p>
+</div>
+<p>The final portion of this practical will cover how we can get time series of data from images and visually inspect the
+results. We’ll see how we can compare time series of NDVI values for different land cover polygons, and compare the
+results that we see with the polygon locations in images at the beginning and end of the time series.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">ndvi_patches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">FeatureCollection</span><span class="p">([</span><span class="nx">fastRegrowth</span><span class="p">,</span><span class="w"> </span><span class="nx">slowRegrowth</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">forest</span><span class="p">,</span><span class="w"> </span><span class="nx">oldClearCut</span><span class="p">,</span><span class="w"> </span><span class="nx">newClearCut</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>The next sections of code here deal with loading Landsat images and filtering based space and cloud cover, similar to what we
-have done in previous steps. After this section, these lines of code:</p>
+<p>The next sections of code here deal with loading Landsat images and filtering based space and cloud cover, similar to
+what we have done in previous steps. After this section, these lines of code:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// combine tm, etm+, oli, and mss images, add an NDVI band, and sort by date.</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">allNDVI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mss</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">mssNDVI</span><span class="p">).</span><span class="nx">merge</span><span class="p">(</span><span class="nx">tm</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">oli</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">getNDVI</span><span class="p">))</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;NDVI&#39;</span><span class="p">).</span><span class="nx">sort</span><span class="p">(</span><span class="s1">&#39;system:time_start&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>merge the MSS, TM, ETM+, and OLI image collections, calculate the NDVI for each image, and sort by acquisition date. The next lines:</p>
+<p>merge the MSS, TM, ETM+, and OLI image collections, calculate the NDVI for each image, and sort by acquisition date.
+We also pull out the first image in the series (a Landsat 1 MSS image from 1972), and the last (latest) image in the
+time series, and add both of these to the <strong>Map</strong> for visualization.</p>
+<p>Finally, this block of code:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// plot a chart of the mean ndvi values, calculated using different polygons</span>
 <span class="c1">// representing different landcover areas</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">ndviChart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ui</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">image</span>
@@ -600,32 +597,69 @@ have done in previous steps. After this section, these lines of code:</p>
 <span class="nx">print</span><span class="p">(</span><span class="nx">ndviChart</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>will plot the average values for each of the individual polygons in <code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code>. You can see what this looks like below. Note
-that some of the apparent lack of seasonality before about 2000 is mostly a result of the lower temporal resolution – Landsat
-acquisitions were often limited during this time, and so some years will only have a few available images.</p>
-<a class="reference internal image-reference" href="../../../_images/ndvi_timeseries.png"><img alt="a time series of ndvi values for different polygons" class="align-center" src="../../../_images/ndvi_timeseries.png" style="width: 600px;" /></a>
-<p>If you open the chart (click on the icon in the upper right-hand corner), you can export the data as a CSV file for further analysis.</p>
-<p>You can also add (or remove) polygons from the plot. To add your own polygon, you can use the digitizing tools located in the
-upper left-hand corner of the map panel:</p>
-<a class="reference internal image-reference" href="../../../_images/digitizing_tools.png"><img alt="the digitizing tools panel highlighted" class="align-center" src="../../../_images/digitizing_tools.png" style="width: 600px;" /></a>
-<p>Be sure to start the polygon as a new layer (click on <strong>+ new layer</strong> at the bottom of the <strong>Geometry Imports</strong> panel):</p>
-<a class="reference internal image-reference" href="../../../_images/geometry_imports_panel.png"><img alt="the geometry imports panel expanded" class="align-center" src="../../../_images/geometry_imports_panel.png" style="width: 600px;" /></a>
-<p>Next, start digitizing a polygon – try to make sure that the polygon represents one type of area. Remember that you can use the
-Landsat images, as well as the background satellite images, to help you. From the <strong>Geometry Imports</strong> panel, click the gear icon
-next to your new layer to change the properties:</p>
+<p>creates a chart that will plot the average values for each of the individual polygons in <code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code>. You can see
+what this looks like below. Note that some of the apparent lack of seasonality before about 2000 is mostly a result of
+the lower temporal resolution – Landsat acquisitions were often limited during this time, and so some years will only
+have a few available images.</p>
+<a class="reference internal image-reference" href="../../../_images/ndvi_timeseries.png"><img alt="a time series of ndvi values for different polygons" class="align-center" src="../../../_images/ndvi_timeseries.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you open the chart (click on the icon in the upper right-hand corner), you can also export the data as a CSV
+file for further analysis.</p>
+</div>
+<p>Next, let’s try a different combination of polygons. To do this, we’ll need to change the code at line 17:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">ndvi_patches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">FeatureCollection</span><span class="p">([</span><span class="nx">fastRegrowth</span><span class="p">,</span><span class="w"> </span><span class="nx">slowRegrowth</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>Instead of looking at the <code class="docutils literal notranslate"><span class="pre">fastRegrowth</span></code> and <code class="docutils literal notranslate"><span class="pre">slowRegrowth</span></code> features, let’s look at the <code class="docutils literal notranslate"><span class="pre">fastRegrowth</span></code> and
+<code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> polygons.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To visualize where the <code class="docutils literal notranslate"><span class="pre">newClearCut</span></code> polygon is, you can toggle it on from the <strong>GeometryImports</strong> menu.</p>
+</div>
+<p>To change the polygons that we use for the plot, replace <code class="docutils literal notranslate"><span class="pre">slowRegrowth</span></code> with <code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> at line 17, then
+re-run the script:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">ndvi_patches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">FeatureCollection</span><span class="p">([</span><span class="nx">fastRegrowth</span><span class="p">,</span><span class="w"> </span><span class="nx">oldClearCut</span><span class="p">]);</span>
+</pre></div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text">Compare the <code class="docutils literal notranslate"><span class="pre">fastRegrowth</span></code> NDVI towards the end of the time series with the <code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> NDVI near the
+beginning of the time series. Do you think these represent similar land cover types? Why or why not?</p></li>
+<li><p class="sd-card-text">Now, compare the <code class="docutils literal notranslate"><span class="pre">fastRegrowth</span></code> location in the <code class="docutils literal notranslate"><span class="pre">Last</span></code> (latest) Landsat image, and the <code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> polygon
+location in the <code class="docutils literal notranslate"><span class="pre">First</span></code> (oldest) Landsat image. Do you think these represent similar land cover types? Why or
+why not?</p></li>
+<li><p class="sd-card-text">Using the polygon location and the <code class="docutils literal notranslate"><span class="pre">Last</span></code> (latest) Landsat image, what kind of land cover does the
+<code class="docutils literal notranslate"><span class="pre">oldClearCut</span></code> polygon represent now? Why do you think this?</p></li>
+</ul>
+</div>
+</div>
+<p>To add your own polygons, or to edit the polygons that are already included in the script, you can use the digitizing
+tools located in the upper left-hand corner of the map panel:</p>
+<a class="reference internal image-reference" href="../../../_images/digitizing_tools.png"><img alt="the digitizing tools panel highlighted" class="align-center" src="../../../_images/digitizing_tools.png" style="width: 720px;" /></a>
+<p><br /> If you’re adding your own polygon, be sure to start the polygon as a new layer (click on <strong>+ new layer</strong> at the
+bottom of the <strong>Geometry Imports</strong> panel):</p>
+<a class="reference internal image-reference" href="../../../_images/geometry_imports_panel.png"><img alt="the geometry imports panel expanded" class="align-center" src="../../../_images/geometry_imports_panel.png" style="width: 720px;" /></a>
+<p><br /> Next, start digitizing a polygon – try to make sure that the polygon represents one type of area. Remember that
+you can use the Landsat images, as well as the background satellite images, to help you. From the <strong>Geometry Imports</strong>
+panel, click the gear icon next to your new layer to change the properties:</p>
 <a class="reference internal image-reference" href="../../../_images/configure_import1.png"><img alt="the configure geometry import panel" class="align-center" src="../../../_images/configure_import1.png" style="width: 300px;" /></a>
-<p>Change the name to something other than <code class="docutils literal notranslate"><span class="pre">geometry</span></code> (or <code class="docutils literal notranslate"><span class="pre">example</span></code>), then change it to <strong>Import as</strong> a <code class="docutils literal notranslate"><span class="pre">Feature</span></code>, and click to add
-property to the feature. Call it <code class="docutils literal notranslate"><span class="pre">label</span></code>, and add a value for the label.</p>
+<p><br /> Change the name to something other than <code class="docutils literal notranslate"><span class="pre">geometry</span></code> (or <code class="docutils literal notranslate"><span class="pre">example</span></code>), then change it to <strong>Import as</strong> a
+<code class="docutils literal notranslate"><span class="pre">Feature</span></code>, and click to add property to the feature. Call it <code class="docutils literal notranslate"><span class="pre">label</span></code>, and add a value for the label.</p>
 <a class="reference internal image-reference" href="../../../_images/configure_import2.png"><img alt="the configure geometry import panel" class="align-center" src="../../../_images/configure_import2.png" style="width: 300px;" /></a>
-<p>Click <strong>OK</strong>, then digitize your polygon (if you haven’t already). Note that each feature can only contain a single polygon – to add
-multiple polygons, you’ll need to create multiple features. You can then update <code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code> and re-run the script to update
-the chart:</p>
-<a class="reference internal image-reference" href="../../../_images/updated_ndvi_timeseries.png"><img alt="the ndvi time series with the new polygon layer added" class="align-center" src="../../../_images/updated_ndvi_timeseries.png" style="width: 600px;" /></a>
-<p>Feel free to try different polygons, and examine the different time series plots – try using the CVA angle map to help you decide
-areas to look further into.</p>
+<p><br /> Click <strong>OK</strong>, then digitize your polygon (if you haven’t already). Note that each feature can only contain a
+single polygon – to add multiple polygons, you’ll need to create multiple features. You can then update the
+<code class="docutils literal notranslate"><span class="pre">ndvi_patches</span></code> variable (line 17) and re-run the script to update the chart:</p>
+<a class="reference internal image-reference" href="../../../_images/updated_ndvi_timeseries.png"><img alt="the ndvi time series with the new polygon layer added" class="align-center" src="../../../_images/updated_ndvi_timeseries.png" style="width: 720px;" /></a>
+<p><br /> Feel free to try different polygons, and examine the different time series plots – try using the CVA angle map to
+help you decide areas to look further into.</p>
 <p>This is the end of this Practical – next week, we’ll look into using Earth Engine to do some more advanced classification
 techniques, and run an accuracy analysis on the results.</p>
-</div>
 </div>
 
 
@@ -663,20 +697,6 @@ techniques, and run an accuracy analysis on the results.</p>
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-time-series">plotting time series</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

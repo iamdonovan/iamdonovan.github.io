@@ -307,7 +307,8 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../change_detection/multitemporal_composites.html">multi-temporal color composites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../change_detection/thresholding.html">band maths and thresholding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/repeat_classification.html">repeat classification</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/cva.html">change vector analysis</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../change_detection/time_series.html">time series analysis</a></li>
@@ -568,6 +569,12 @@ document.write(`
                   
   <div class="section" id="spectral-signatures">
 <h1>spectral signatures<a class="headerlink" href="#spectral-signatures" title="Permalink to this heading">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The script for this tutorial can be found via this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F02_spectral_signatures.js">direct link</a>.</p>
+<p>Alternatively, if you have already added the repository, you can open the script from the <strong>Code Editor</strong>, by
+navigating to <code class="docutils literal notranslate"><span class="pre">01_getting_started/02_spectral_signatures.js</span></code> under the <strong>Reader</strong> section.</p>
+</div>
 <p>This tutorial is designed to have you use Google Earth Engine (GEE) to examine the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Spectral_signature">spectral signatures</a> of different surfaces.
 After finishing this tutorial, you should be able to:</p>
@@ -583,26 +590,26 @@ After finishing this tutorial, you should be able to:</p>
 <h2>importing geometries<a class="headerlink" href="#importing-geometries" title="Permalink to this heading">#</a></h2>
 <p>In the previous tutorial, we used the <strong>Inspector</strong> tab to look at band values for different points by
 clicking on the map:</p>
-<a class="reference internal image-reference" href="../../../_images/inspector_tab.png"><img alt="the inspector tab showing the list view" class="align-center" src="../../../_images/inspector_tab.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/inspector_tab.png"><img alt="the inspector tab showing the list view" class="align-center" src="../../../_images/inspector_tab.png" style="width: 720px;" /></a>
 <p><br /> While useful, this is also limited - we can only do this for one point at a time, the value depends
 at least in part by the zoom level of the <strong>Map</strong> window, and if we want to save the data for later
 analysis, we have to do it every single time we click on a new point.</p>
 <p>In this tutorial, we’ll see how we can use a number of different tools in GEE to plot data and also
 export it for later analysis.</p>
 <p>To get started, look at the top of the script. You should see the following:</p>
-<a class="reference internal image-reference" href="../../../_images/imports2.png"><img alt="the imports at the top of the script" class="align-center" src="../../../_images/imports2.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/imports2.png"><img alt="the imports at the top of the script" class="align-center" src="../../../_images/imports2.png" style="width: 720px;" /></a>
 <p><br /> These are the <strong>Imports</strong> for the script - in addition to the geometries shown here, you can also
 import <strong>Assets</strong> (files uploaded to GEE), <strong>Image</strong>s or <strong>Image Collection</strong>s, and even
 display settings for <strong>Map</strong> layers.</p>
 <p>Run the script - you should see the following:</p>
-<a class="reference internal image-reference" href="../../../_images/script_run2.png"><img alt="the inspector tab showing the list view" class="align-center" src="../../../_images/script_run2.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/script_run2.png"><img alt="the inspector tab showing the list view" class="align-center" src="../../../_images/script_run2.png" style="width: 720px;" /></a>
 <p><br /> Next, we’ll add points for another surface type - instead of turbid water (water with lots of suspended
 sediments), we’ll choose points over deep water.</p>
 <p>First, mouse over the <strong>Geometry Imports</strong> menu:</p>
 <a class="reference internal image-reference" href="../../../_images/geometry_imports.png"><img alt="the geometry imports menu" class="align-center" src="../../../_images/geometry_imports.png" style="width: 400px;" /></a>
 <p><br /> At the bottom of the <strong>Geometry Imports</strong> menu, click on “<strong>new layer</strong>” to add a new layer, then click on
 the gear icon to open the configuration panel:</p>
-<a class="reference internal image-reference" href="../../../_images/configuration_panel1.png"><img alt="the configuration panel for the geometry imports" class="align-center" src="../../../_images/configuration_panel1.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/configuration_panel1.png"><img alt="the configuration panel for the geometry imports" class="align-center" src="../../../_images/configuration_panel1.png" style="width: 720px;" /></a>
 <p><br /> When adding geometry features from the map, you can choose to import them as a <strong>Geometry</strong>, a <strong>Feature</strong>,
 or a <strong>FeatureCollection</strong>:</p>
 <ul class="simple">
@@ -625,10 +632,10 @@ and that <strong>Point drawing</strong> is on:</p>
 <a class="reference internal image-reference" href="../../../_images/drawing_menu.png"><img alt="the drawing menu showing the &quot;add a marker&quot; button" class="align-center" src="../../../_images/drawing_menu.png" style="width: 400px;" /></a>
 <p><br /> If it’s not, you can mouse over the <strong>Geometry Imports</strong> menu and click on the import you want to add geometries to. Once drawing
 is turned on, you can add points by clicking on the <strong>Map</strong> – a new marker will display each time you click:</p>
-<a class="reference internal image-reference" href="../../../_images/new_point.png"><img alt="a new point marker added to the map" class="align-center" src="../../../_images/new_point.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/new_point.png"><img alt="a new point marker added to the map" class="align-center" src="../../../_images/new_point.png" style="width: 720px;" /></a>
 <p><br /> Add 10 points to the class by clicking in the <strong>Map</strong> in areas where you see deep water - try to avoid areas with high turbidity
 (e.g., lots of brown/green color).</p>
-<a class="reference internal image-reference" href="../../../_images/ten_points.png"><img alt="10 new point markers added to the map" class="align-center" src="../../../_images/ten_points.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/ten_points.png"><img alt="10 new point markers added to the map" class="align-center" src="../../../_images/ten_points.png" style="width: 720px;" /></a>
 <p><br /> Once you’ve added your points, turn off <strong>Point drawing</strong> by clicking on the import name, or clicking on the <strong>Stop drawing</strong> (hand)
 button:</p>
 <a class="reference internal image-reference" href="../../../_images/stop_drawing.png"><img alt="the drawing menu showing the &quot;stop drawing&quot; button" class="align-center" src="../../../_images/stop_drawing.png" style="width: 400px;" /></a>
@@ -857,7 +864,7 @@ would not be updated:</p>
 </pre></div>
 </div>
 <p>Once you’ve set the properties, you should see that the <code class="docutils literal notranslate"><span class="pre">water</span></code> line has been updated accordingly:</p>
-<a class="reference internal image-reference" href="../../../_images/final_chart.png"><img alt="the final chart produced in the tutorial" class="align-center" src="../../../_images/final_chart.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/final_chart.png"><img alt="the final chart produced in the tutorial" class="align-center" src="../../../_images/final_chart.png" style="width: 720px;" /></a>
 <p><br /> Finally, open the chart in a new window by clicking the button in the upper right corner of the chart. From here,
 you can save the chart as a SVG or PNG file, or export the data as a CSV.</p>
 </div>
