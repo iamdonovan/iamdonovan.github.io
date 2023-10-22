@@ -1,5 +1,5 @@
-a crash course in machine learning (using python)
-==================================================
+a crash course in machine learning (using python) -- under development
+=======================================================================
 
 .. note::
 
