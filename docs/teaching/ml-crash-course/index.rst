@@ -37,9 +37,12 @@ python. The topics covered include (but are not limited to):
 Before moving on to the :doc:`practicals<exercises/index>` below, be sure to visit the
 :doc:`setup<setup>` page to make sure that you have the software and materials set up in order to get started.
 
-+---------+-------------------------+--------------------------------+
-| session | theme                   | exercise topic(s)              |
-+---------+-------------------------+--------------------------------+
++---------+----------------------------+--------------------------------+
+| session | theme                      | exercise topic(s)              |
++---------+----------------------------+--------------------------------+
+| 1       | basics of machine learning | :doc:`exercises/regression`    |
++---------+----------------------------+--------------------------------+
+
 
 exercise solutions
 -------------------
