@@ -35,7 +35,7 @@ python. The topics covered include (but are not limited to):
 - deep learning
 
 Before moving on to the :doc:`practicals<exercises/index>` below, be sure to visit the
-:doc:`setup<setup/index>` page to make sure that you have the software and materials set up in order to get started.
+:doc:`setup<setup>` page to make sure that you have the software and materials set up in order to get started.
 
 +---------+-------------------------+--------------------------------+
 | session | theme                   | exercise topic(s)              |
