@@ -17,7 +17,7 @@ a crash course in machine learning (using python)
    :hidden:
    :maxdepth: 1
 
-   setup/index
+   setup
    lectures
    exercises/index
    resources
