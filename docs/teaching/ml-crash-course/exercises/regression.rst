@@ -81,6 +81,7 @@ with our **DataFrame** to show a scatter plot of these two variables:
 
     data.plot.scatter('sun', 'tmax')
 
+
 .. image:: regression_files/regression_5_1.png
 
 
@@ -160,15 +161,6 @@ linear model:
 
     model.fit(sun, tmax) # fit the linear model to our data
 
-
-
-
-.. raw:: html
-
-    <style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">LinearRegression</label><div class="sk-toggleable__content"><pre>LinearRegression()</pre></div></div></div></div></div>
-
-
-
 The value of the weight(s) (slope) is stored in the ``.coef_`` attribute
 of the **LinearRegression** object, and the value of the bias
 (intercept) is stored in the ``.intercept_`` attribute:
@@ -198,6 +190,7 @@ data:
 
     ax.set_xlabel('hours of sun') # set the xlabel of the axis
     ax.set_ylabel('monthly maximum temperature (°C)') # set the ylabel of the axis
+
 
 .. image:: regression_files/regression_15_1.png
 
@@ -268,7 +261,7 @@ cell below:
 .. code:: ipython3
 
     average_loss = (loss**2).mean() # calculate the mean of the squared loss
-    print(f'MSE: {average_loss:.2f}') # print the value of the average loss
+    print(f'MSE: {average_loss:.4f}') # print the value of the average loss
 
 
 gradient descent and learning
@@ -355,6 +348,31 @@ for the given values of :math:`w` and :math:`b`:
         loss = (ydata - predict(xdata, weight, bias))**2
         return loss.mean() # return the mean of the loss
 
+We also want to see how the average loss, weight, and bias values
+change, so we can define a function to plot these in a three-panel
+figure:
+
+.. code:: ipython3
+
+    def plot_training_results(df):
+        fig, axs = plt.subplots(1, 3, figsize=(10, 3)) # create a three panel figure
+
+        axs[0].plot(df['epoch'], df['avg_loss']) # plot avg loss vs epoch in the first panel
+        axs[0].set_ylabel('average loss')
+
+        axs[1].plot(df['epoch'], df['weight']) # plot weight vs epoch in the second panel
+        axs[1].set_ylabel('weight')
+
+        axs[2].plot(df['epoch'], df['bias']) # plot bias vs epoch in the third panel
+        axs[2].set_ylabel('bias')
+
+        for ax in axs:
+            ax.set_xlabel('epoch')
+
+        fig.tight_layout() # ensure that the panels and labels don't overlap
+
+        return ax
+
 And finally, we can write a function, ``train()``, to get to the “best”
 values of :math:`w` and :math:`b`.
 
@@ -379,18 +397,17 @@ create a plot showing the loss value as a function of the epoch:
         df.loc[ee, 'bias'] = bias
         df.loc[ee, 'avg_loss'] = avg_loss(xdata, ydata, weight, bias)
 
+        df.reset_index(names=['epoch'], inplace=True)
         # plot the value of the average loss for each epoch
         if plot:
-            ax = df.reset_index(names='epoch').plot('epoch', 'avg_loss', legend=False)
-            ax.set_ylabel('average loss')
+            plot_training_results(df)
 
-
-        return df.reset_index(names=['epoch'])
+        return df
 
 Now that we have defined the functions that we need in order to train
 the model, let’s try this out. Running the cell below will train the
 model for 10,000 epochs, with a very small learning rate
-(:math:`10^{-8}`). At the end, we use ``.tail()``
+(:math:`5 \times 10^{-8}`). At the end, we use ``.tail()``
 (`documentation <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.tail.html>`__)
 to view the parameter values and the average loss for the model at the
 final step:
@@ -398,72 +415,31 @@ final step:
 .. code:: ipython3
 
     # train the model
-    output = train(sun, tmax, weight=0, bias=6.34, learning_rate=1e-7, epochs=10000)
+    output = train(sun, tmax, weight=0, bias=6.34, learning_rate=5e-8, epochs=10000)
 
     output.tail(n=1)
 
 
-
-
-.. raw:: html
-
-    <div>
-    <style scoped>
-        .dataframe tbody tr th:only-of-type {
-            vertical-align: middle;
-        }
-
-        .dataframe tbody tr th {
-            vertical-align: top;
-        }
-
-        .dataframe thead th {
-            text-align: right;
-        }
-    </style>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>epoch</th>
-          <th>weight</th>
-          <th>bias</th>
-          <th>avg_loss</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>1000</th>
-          <td>9999</td>
-          <td>0.065213</td>
-          <td>6.34051</td>
-          <td>10.712505</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
-
-
-
-.. image:: regression_files/regression_31_1.png
+.. image:: regression_files/regression_33_1.png
 
 
 We can see that after 10,000 epochs, the parameter values have gotten
 close to the optimal values found using ``LinearRegression.fit()``,
 though we’re not quite there. We can also see that the average loss is
 low, but not quite to the level we calculated for those optimum values.
-Try changing the learning rate to a larger value - say, :math:`10^{-6}`
-or :math:`10^{-5}` - how does this impact the shape of the loss curve?
-What about the value for the weight and bias?
+We can also see that there’s a big difference in the range covered by
+the calculated values of :math:`w` and :math:`b` - :math:`w` ranges from
+0 to 0.065, while :math:`b` only ranges from 6.34 to 6.340509 - a
+difference of only 0.000509.
 
-What about larger values of learning rate, like 0.01?
+Try changing the learning rate to a larger value - say, :math:`10^{-7}`
+- how does this impact the shape of the loss curve? What about the value
+for the weight and bias?
 
-Once you have tested difference learning rate values, re-run the cell
-above with the original value (``1e-7``), then run the cell below to
-plot the regression line using the values for each epoch. You should
-notice that there’s a big jump from the initial value, then a much
-slower change as the model converges toward the optimal values:
+With the cell below, we can also see how the regression line changes -
+there are large changes in slope for the first 1000 or so epochs, before
+the line more or less “settles in” to the values we would expect from
+ordinary least squares regression:
 
 .. code:: ipython3
 
@@ -478,8 +454,32 @@ slower change as the model converges toward the optimal values:
 
     ax.legend()
 
-.. image:: regression_files/regression_33_1.png
 
+.. image:: regression_files/regression_35_1.png
+
+
+Now let’s try a slightly larger size - :math:`7.46 \times 10^{-5}`.
+Here, we see something very interesting with the values of :math:`w` and
+:math:`b` over time:
+
+.. code:: ipython3
+
+    # train the model with a slightly higher learning rate
+    output = train(sun, tmax, weight=0, bias=6.34, learning_rate=7.46e-5, epochs=10000)
+
+    output.tail(n=1)
+
+
+.. image:: regression_files/regression_37_1.png
+
+
+Rather than starting out low and gradually increasing, the weight starts
+out much higher before approaching the “true value”, but from above this
+time. Similarly, we see that the bias dips down from 6.3410 before
+increasing to over 6.3424 - a much larger range than what we saw with
+the smaller time step. Now, try increasing the learning rate from
+:math:`7.46 \times 10^{-5}` to :math:`7.5 \times 10^{-5}` - what
+happens?
 
 Now let’s see what happens when we change the starting point - that is,
 the initial guess for :math:`w` and :math:`b`:
@@ -492,50 +492,7 @@ the initial guess for :math:`w` and :math:`b`:
     output.tail(n=1)
 
 
-
-
-.. raw:: html
-
-    <div>
-    <style scoped>
-        .dataframe tbody tr th:only-of-type {
-            vertical-align: middle;
-        }
-
-        .dataframe tbody tr th {
-            vertical-align: top;
-        }
-
-        .dataframe thead th {
-            text-align: right;
-        }
-    </style>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>epoch</th>
-          <th>weight</th>
-          <th>bias</th>
-          <th>avg_loss</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>1000</th>
-          <td>9999</td>
-          <td>0.114505</td>
-          <td>0.003295</td>
-          <td>18.340555</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
-
-
-
-.. image:: regression_files/regression_35_1.png
+.. image:: regression_files/regression_39_1.png
 
 
 From this, we can see that the values of both :math:`w` and :math:`b`
@@ -558,7 +515,7 @@ average loss is much higher than we calculated for the optimal values of
 
     ax.legend()
 
-.. image:: regression_files/regression_37_1.png
+.. image:: regression_files/regression_41_1.png
 
 
 visualizing the loss surface
@@ -629,7 +586,7 @@ between -0.2 and 0.2, and values of :math:`b` that range between -5 and
 
     ax.legend()
 
-.. image:: regression_files/regression_41_1.png
+.. image:: regression_files/regression_45_1.png
 
 
 We can see that the surface is fairly lopsided - the range of :math:`w`
@@ -643,7 +600,7 @@ holding both :math:`w` and :math:`b` constant:
 
 
 
-.. image:: regression_files/regression_43_0.png
+.. image:: regression_files/regression_47_0.png
 
 
 Part of the problem here is that there are big differences in the value
@@ -652,23 +609,29 @@ of the partial derivatives of :math:`l` with respect to :math:`w` and
 at :math:`w=0` is -3068.82, while the value of
 :math:`\partial l/\partial b` at :math:`b=0` is -26.28 - this means that
 when we multiply by the learning rate, we have a much larger change for
-:math:`w` compared to :math:`b`. Large gradient values also mean that
-when the learning rate is too large, we end up “jumping” back and forth
+:math:`w` compared to :math:`b`, and it means that a good learning rate
+for one of the parameters is not a good learning rate for the other one
+- this is why we see very little change in the value of :math:`b`
+compared to :math:`w`.
+
+As we saw when we increased the learning rate to
+:math:`7.5 \times 10^{-5}`, large gradient values also mean that when
+the learning rate is too large, we end up “jumping” back and forth
 across the minimum, and can even end up failing to reach a minimum value
 at all.
 
 scaling
 -------
 
-To help counteract this, we can **scale** our feature and label values.
-There are a number of ways to do this, but they typically involve
-subtracting the mean value and dividing by either the standard
-deviation, or by the range of the dataset (the difference between the
-maximum and minimum values):
+One of the ways that we can help counteract this is by **scaling** our
+feature and label values. There are a number of ways to do this, but
+they typically involve subtracting the mean value and dividing by either
+the standard deviation (sometimes also called **standardization**), or
+by the range of the dataset (sometimes also called **normalization**):
 
 .. math::  x_s = \frac{x - \bar{x}}{x_{\rm max} - x_{\rm min}}
 
-First, we’ll scale the values of ``sun`` and ``tmax``:
+First, we’ll *normalize* the values of ``sun`` and ``tmax``:
 
 .. code:: ipython3
 
@@ -695,7 +658,8 @@ values:
 
     ax.legend()
 
-.. image:: regression_files/regression_47_1.png
+
+.. image:: regression_files/regression_51_1.png
 
 
 Notice that the surface is much less lopsided now - the slope of the
@@ -711,7 +675,7 @@ Looking at the cross-section of values, we can see the same:
 
 
 
-.. image:: regression_files/regression_49_0.png
+.. image:: regression_files/regression_53_0.png
 
 
 Using the scaled data, the value of :math:`\partial l/\partial w` at
@@ -759,7 +723,7 @@ using the equations above:
             weight, bias = update_parameters(xx, yy, weight, bias, learning_rate)
 
             if ee % 10 == 0:
-                if scale:
+                if scale: # un-scale the values of weight and bias when we record them to the table
                     df.loc[ee, 'weight'] = weight * (ydata.max() - ydata.min()) / (xdata.max() - xdata.min())
                     df.loc[ee, 'bias'] = bias * (ydata.max() - ydata.min()) + ydata.mean() - (ydata.max() - ydata.min()) / (xdata.max() - xdata.min()) * weight * xdata.mean()
                 else:
@@ -768,7 +732,7 @@ using the equations above:
 
                 df.loc[ee, 'avg_loss'] = avg_loss(xdata, ydata, df.loc[ee, 'weight'], df.loc[ee, 'bias'])
 
-        if scale:
+        if scale: # un-scale the values of weight and bias when we record them to the table
             df.loc[ee, 'weight'] = weight * (ydata.max() - ydata.min()) / (xdata.max() - xdata.min())
             df.loc[ee, 'bias'] = bias * (ydata.max() - ydata.min()) + ydata.mean() - (ydata.max() - ydata.min()) / (xdata.max() - xdata.min()) * weight * xdata.mean()
         else:
@@ -776,13 +740,12 @@ using the equations above:
             df.loc[ee, 'bias'] = bias
 
         df.loc[ee, 'avg_loss'] = avg_loss(xdata, ydata, df.loc[ee, 'weight'], df.loc[ee, 'bias'])
+        df.reset_index(names=['epoch'], inplace=True)
 
         if plot:
-            ax = df.reset_index(names='epoch').plot('epoch', 'avg_loss', legend=False)
-            ax.set_ylabel('average loss')
+            plot_training_results(df)
 
-
-        return df.reset_index(names=['epoch'])
+        return df
 
 Now, let’s see how well this works by using a learning rate of 0.1, and
 training the model for only 1000 epochs:
@@ -792,51 +755,7 @@ training the model for only 1000 epochs:
     output = train(sun, tmax, weight=0, bias=0, learning_rate=0.1, epochs=1000, scale=True)
     output.tail(n=1)
 
-
-
-
-.. raw:: html
-
-    <div>
-    <style scoped>
-        .dataframe tbody tr th:only-of-type {
-            vertical-align: middle;
-        }
-
-        .dataframe tbody tr th {
-            vertical-align: top;
-        }
-
-        .dataframe thead th {
-            text-align: right;
-        }
-    </style>
-    <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: right;">
-          <th></th>
-          <th>epoch</th>
-          <th>weight</th>
-          <th>bias</th>
-          <th>avg_loss</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>100</th>
-          <td>999</td>
-          <td>0.065142</td>
-          <td>6.349433</td>
-          <td>10.712493</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
-
-
-
-.. image:: regression_files/regression_53_1.png
+.. image:: regression_files/regression_57_1.png
 
 
 Not bad - after only 1000 epochs, we have values for :math:`w` and
@@ -867,7 +786,8 @@ result is almost indistinguishable from the “true” solution:
 
     ax.legend()
 
-.. image:: regression_files/regression_55_1.png
+
+.. image:: regression_files/regression_59_1.png
 
 
 next steps
@@ -883,15 +803,21 @@ it enables us to use larger **learning rate** values and spend less time
 training a model; it may also make it possible for the model to converge
 to a solution.
 
-There are some machine learning algorithms for which scaling input data
-is essential - we will cover these more as we continue through the
-workshop.
+In future exercises, we will have a look at some other optimization
+techniques - gradient descent is only one technique out of many. There
+are also additional machine learning algorithms for which scaling input
+data is essential, and we will cover these more as we continue through
+the workshop.
 
 For now, try at least one of the following exercises:
 
 -  Train a model for the relationship between ``tmax`` and ``tmin``,
-   with and without scaling. Does scaling make a large difference to the
-   final result? Why or why not?
+   with and without scaling. How large a learning rate are you able to
+   use, and how many epochs does it take to converge to a good solution?
+   Does scaling make a large difference to the final result? Why or why
+   not?
 -  Train a model for the relationship between ``sun`` and ``rain``,
-   again with/without scaling. Does scaling make a large difference to
-   the final result? Why or why not?
+   again with/without scaling. How large a learning rate are you able to
+   use, and how many epochs does it take to converge to a good solution?
+   Does scaling make a large difference to the final result? Why or why
+   not?
