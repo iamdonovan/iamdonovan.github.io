@@ -609,7 +609,7 @@ polynomial kernels
 The next kernel we will look at is the **polynomial kernel**, which has
 the form:
 
-.. math::  k(\mathbf{x}_1, \mathbf{x}_2) = (\gamma\cdot\mathbf{x}_1^\top\mathbf{x}_2 + r)^2
+.. math::  k(\mathbf{x}_1, \mathbf{x}_2) = (\gamma\cdot\mathbf{x}_1^\top\mathbf{x}_2 + r)^d
 
 where :math:`d` is the degree (``degree``) of the polynomial,
 :math:`\gamma` (``gamma``) controls how much each training sample
