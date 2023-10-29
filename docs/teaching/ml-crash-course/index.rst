@@ -27,9 +27,10 @@ python. The topics covered include (but are not limited to):
 
 - types of machine learning (unsupervised, supervised, reinforced)
 - training, testing, and validation
+- overfitting, underfitting, and generalization
 - decision trees and random forest
 - measuring performance
-- support vector machine
+- support vector machine classification and regression
 - neural networks
 - ethics in machine learning/artificial intelligence
 - deep learning
@@ -37,12 +38,17 @@ python. The topics covered include (but are not limited to):
 Before moving on to the :doc:`practicals<exercises/index>` below, be sure to visit the
 :doc:`setup<setup>` page to make sure that you have the software and materials set up in order to get started.
 
-+---------+----------------------------+--------------------------------+
-| session | theme                      | exercise topic(s)              |
-+---------+----------------------------+--------------------------------+
-| 1       | basics of machine learning | :doc:`exercises/regression`    |
-+---------+----------------------------+--------------------------------+
-
++---------+--------------------------------+-----------------------------------+
+| session | theme                          | exercise topic(s)                 |
++---------+--------------------------------+-----------------------------------+
+| 1       | basics of machine learning     | :doc:`exercises/regression`       |
++---------+--------------------------------+-----------------------------------+
+| 2       | training and generalization    | :doc:`exercises/training_testing` |
++---------+--------------------------------+-----------------------------------+
+| 3       | feature design and engineering | :doc:`exercises/feature_design`   |
++---------+--------------------------------+-----------------------------------+
+| 4       | measuring model performance    | :doc:`exercises/performance`      |
++---------+--------------------------------+-----------------------------------+
 
 exercise solutions
 -------------------

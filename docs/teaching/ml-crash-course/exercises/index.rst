@@ -1,7 +1,7 @@
 exercises
 ==========
 
-To get started with the exercises, make sure that you've followed the :doc:`setup instructions<../setup/index>` - if you
+To get started with the exercises, make sure that you've followed the :doc:`setup instructions<../setup>` - if you
 haven't, you will have a difficult time getting started on the exercises.
 
 .. note::
@@ -17,3 +17,6 @@ haven't, you will have a difficult time getting started on the exercises.
    :maxdepth: 1
 
    regression
+   training_testing
+   feature_design
+   performance
