@@ -121,10 +121,21 @@ message:
 using optional flags
 ---------------------
 
-Now let's return to ``ls`` and look again at the available options. By default, ``ls`` lists files/folders
-alphabetically (note that on some systems, this means that uppercase letters come before lowercase letters).
+Look at the *synopsis* section of ``man ls``, which tells us how to actually use the command:
 
-To see files listed in the reverse order, we can use the ``-r`` option:
+.. code-block:: text
+
+    ls [OPTION]... [FILE]...
+
+Here, the square brackets (``[`` and ``]``) around OPTION and FILE indicate that these are *optional* inputs - the
+program will run without any inputs at all. Later, we will see examples of programs that have *required* inputs.
+
+When we call ``ls``, we can include a number of options to change the output. We can also specify which file(s)
+(or directories) we want to list information about - as we have seen, without any additional input, ``ls`` defaults
+to listing the contents of the current working directory.
+
+By default, ``ls`` also lists files/folders alphabetically (note that on some systems, this means that uppercase
+letters come before lowercase letters). To see files listed in the reverse order, we can use the ``-r`` option:
 
 .. code-block:: bash
 
