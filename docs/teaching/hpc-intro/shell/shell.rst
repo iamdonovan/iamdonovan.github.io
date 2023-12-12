@@ -130,6 +130,9 @@ Look at the *synopsis* section of ``man ls``, which tells us how to actually use
 Here, the square brackets (``[`` and ``]``) around OPTION and FILE indicate that these are *optional* inputs - the
 program will run without any inputs at all. Later, we will see examples of programs that have *required* inputs.
 
+The ``...`` after OPTION and FILE indicates that there can be multiple inputs: we can use multiple options at a time,
+as well as name multiple files (or directories) to list information about.
+
 When we call ``ls``, we can include a number of options to change the output. We can also specify which file(s)
 (or directories) we want to list information about - as we have seen, without any additional input, ``ls`` defaults
 to listing the contents of the current working directory.
