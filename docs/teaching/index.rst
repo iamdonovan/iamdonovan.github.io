@@ -23,4 +23,4 @@ working on delivering/developing your own modules, please feel free to use and a
    unis/index
    python-programming/index
    r-programming/index
-
+   hpc-intro/index
