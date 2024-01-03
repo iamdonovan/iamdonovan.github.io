@@ -474,6 +474,58 @@ To copy entire directories, we can't simply use ``cp``:
     ``directory1``). If it exists, ``directory1`` will be copied into the existing directory ``directory2``.
 
 
+wildcards
+-----------
+
+What if we want to manipulate many files at once, without having to explicitly type them all out? We can do this by
+using **wildcards**: special characters that allow us to specify groups of filenames based on a pattern of characters.
+
+The main wildcards that you will use are listed below:
+
+.. csv-table::
+    :header: "wildcard", "meaning"
+
+    "``*``", "any number of characters"
+    "``?``", "any single character"
+    "``[characters]``", "any character that is a member of the set ``characters``"
+    "``[!characters]``", "any character that is not a member of the set ``characters``"
+
+Sets of characters can either be expressed:
+
+- explicitly (i.e., ``[abc]`` would match a, b, or c);
+- as a range (i.e., ``[0-5]`` would match numbers 0, 1, 2, 3, 4, or 5);
+
+or by using
+`POSIX <https://en.wikibooks.org/wiki/Regular_Expressions/POSIX_Basic_Regular_Expressions#Character_classes>`__
+character classes, such as the following:
+
+.. csv-table::
+    :header: "POSIX class", "meaning"
+
+    "``[:alnum:]``", "any alphanumeric character"
+    "``[:alpha:]``", "any alphabetic character"
+    "``[:digit:]``", "any numeric character"
+    "``[:upper:]``", "any uppercase alphabetic character"
+    "``[:lower:]``", "any lowercase alphabetic character"
+
+We can also combine different wildcards to create more complicated wildcard expressions. The table below shows a few
+different examples of patterns and what file(s) they would match:
+
+.. csv-table::
+    :header: "pattern", "matches"
+
+    "``*``", "all filenames"
+    "``*.txt``", "any filename that ends with the characters ``.txt``"
+    "``Box1[0-2]``", "any filename that starts with ``Box1`` and ends in ``0``, ``1``, or ``2``"
+    "``Box?``", "any filename that starts with ``Box`` followed by exactly one character"
+    "``Box[[:digit:]]``", "any filename that starts with ``Box`` followed by exactly one digit"
+    "``[![:lower:]]*``", "any filename that does not start with a lowercase alphabetic character"
+
+Any command that can accept filename arguments (i.e., ``ls``, ``mv``, ``cp``) can be used with wildcard arguments. Most
+of the time, the shell will "expand" the wildcard expression (create a list of filenames matching the wildcard) *before*
+it runs the command, meaning that the command only sees the list of filenames matching the wildcard, rather than the
+wildcard expression itself.
+
 symbolic links
 ---------------
 
