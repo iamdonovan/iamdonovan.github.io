@@ -131,7 +131,8 @@ For example, we can pass the output of ``sort`` to ``head``, to view the top 5 s
     :align: center
     :alt: the first five lines of the sorted output of the wc command
 
-|br| Now, you'll notice that we need some way of removing the total from the output - we'll come back to this later.
+|br| Now, you'll notice that we need some way of removing the total from the output. Can you think of a way to do this,
+using the techniques introduced above?
 
 grep and regular expressions
 -----------------------------
