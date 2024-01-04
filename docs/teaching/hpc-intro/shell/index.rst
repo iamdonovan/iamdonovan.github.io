@@ -16,7 +16,7 @@ clusters used in the department (and, until Catalina, it was the default shell f
    shell
    navigation
    files
-   variables
+   input
    scripts
    advanced
 
