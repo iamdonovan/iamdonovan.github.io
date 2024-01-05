@@ -169,6 +169,8 @@ names.
 
 By far the most important rule for file and directory names in Unix-like systems, though, is this one\ [1]_:
 
+.. _no spaces:
+
 .. image:: img/no_spaces.jpg
     :width: 400
     :align: center
