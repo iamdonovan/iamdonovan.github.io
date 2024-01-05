@@ -22,7 +22,7 @@ and `slurm <https://en.wikipedia.org/wiki/Slurm_Workload_Manager>`__ (currently 
    :hidden:
    :maxdepth: 1
 
-   setup/index
+   setup
    shell/index
    hpc/index
    resources
