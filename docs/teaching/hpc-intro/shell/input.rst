@@ -172,7 +172,7 @@ pattern, which makes use of some of the wildcards we introduced previously:
 
 .. code-block:: text
 
-    ^\s{3}[[:digit:]]{4}"
+    ^\s{3}[[:digit:]]{4}
 
 Starting from the left:
 
