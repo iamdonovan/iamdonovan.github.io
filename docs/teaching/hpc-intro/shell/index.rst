@@ -18,5 +18,3 @@ clusters used in the department (and, until Catalina, it was the default shell f
    files
    input
    scripts
-   advanced
-
