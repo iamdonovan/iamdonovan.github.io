@@ -313,7 +313,7 @@ next steps
 
 We're still only part of the way to our goal, however - we have seen how we can split the original files into **.data**
 and **.head** files using ``grep`` and ``>``, and how we can use ``wc``, ``|``, and ``sort`` to figure out which files
-have
+have the most lines.
 
 There's another piece missing: we need to split multiple files. In the next lesson, we'll look at how to do this, and
 how we can combine all of these different commands into a single program (a "script") so that we can repeat this
