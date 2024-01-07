@@ -105,12 +105,13 @@ submitting jobs
 
 Unlike your personal workstation or laptop, you typically can't just log into an HPC system and run whatever programs
 you want right away. This is because HPC systems are typically used by many users, each with different needs. Instead,
-you submit a request to an **HPC scheduler**. Like the maître d' at a restaurant, the HPC scheduler takes into account
-the available resources (i.e., the number and size of tables available), existing reservations, and the resources
-required by particular job (i.e., the number of guests in the party), before allowing your job to be run.
+you submit a request to an **HPC scheduler**.
 
-Your request typically needs to include information about the resources that you require for your job. Typically, this
-means:
+Like the maître d' at a restaurant, the HPC scheduler takes into account the available resources (i.e., the number and
+size of tables available), existing reservations, and the resources required by particular job (i.e., the number of
+guests in the party), before allowing your job to be run.
+
+Your request needs to include information about the resources that you require for your job. Typically, this means:
 
 - number of processors (or number of nodes)
 - amount of memory
@@ -134,8 +135,8 @@ resources, you may be forced to wait longer than users who don't need as much.
 In the next exercises, we will look at two different HPC schedulers used on each of the School's HPC systems,
 and explain how to write a job script that can be used to submit and run jobs on the HPCs.
 
-connecting to the hpc
------------------------
+connecting to the hpc cluster
+------------------------------
 
 using ssh
 ..........
