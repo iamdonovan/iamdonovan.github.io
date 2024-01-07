@@ -9,18 +9,18 @@ the filesystem
 
 We should probably start, however, by discussing what "the filesystem" actually means. In effect, it's how the operating
 system stores and retrieves data. Most operating systems have a **hierarchical directory structure** - that is, the
-filesystem is organized
+filesystem is organized like an upside-down tree, starting from a single "root" folder, ``/``.
 
-Most Unix-based systems have a directory structure that looks something like this:
+Most Unix-based filesystems have a top-level directory structure that looks something like this:
 
-**fs diagram**
+.. image:: img/filesystem.png
+    :width: 600
+    :align: center
+    :alt: a diagram showing the top-level directory structure of a unix filesystem
 
-|br| The topmost (**root**) directory is ``/``, and all other files and directories on the computer are organized as
-sub-directories of this root directory.
-
-The Windows filesystem is similar, but with one major difference: on Windows, different storage devices have their own
-"tree" (e.g., ``C:\``, ``D:\``, and so on). On Unix-like systems, there is a single "tree", and each storage device is
-**mounted** (attached) to the tree at a different location.
+|br| The Windows filesystem is similar, but with one major difference: on Windows, different storage devices have their
+own "tree" (e.g., ``C:\``, ``D:\``, and so on). On Unix-like systems, there is a single "tree", and each storage device
+is **mounted** (attached) to the tree at a different location.
 
 where am i?
 ------------
@@ -37,7 +37,15 @@ what that directory is, we can use the ``pwd`` ("print working directory") comma
     :align: center
     :alt: the output of the pwd command in the bash shell
 
-|br| Most of the time, when you first log in or open a terminal, you will be in your **home** directory:
+|br| In our filesystem tree diagram, we are here:
+
+.. image:: img/home_tree.png
+    :width: 600
+    :align: center
+    :alt: a tree diagram showing the location of bob's home folder
+
+|br| Most of the time, when you first log in or open a terminal, you will be in your **home** directory. On Linux
+systems, this directory is usually located here:
 
 .. code-block:: text
 
@@ -46,6 +54,9 @@ what that directory is, we can use the ``pwd`` ("print working directory") comma
 Every user account is given a home directory - very often, this is the only directory where "regular"
 (non-administrator) users are able to write files. Don't worry, we'll look more at permissions and how to manage them
 later.
+
+In OSX, your home directory is usually located at ``/Users/<your username>``, and in Windows, it is located at
+``C:\Users\<your username>``.
 
 navigating the filesystem
 ---------------------------
@@ -58,7 +69,15 @@ would type:
 
     cd Documents
 
-By itself (i.e., without including a pathname), ``cd`` will return us to our home directory. If you type the following:
+In our tree diagram, we are now here:
+
+.. image:: img/documents_tree.png
+    :width: 600
+    :align: center
+    :alt: a tree diagram showing the location of the Documents folder
+
+|br| By itself (i.e., without including a pathname), ``cd`` will return us to our home directory. If you type
+the following:
 
 .. code-block:: bash
 
