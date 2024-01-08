@@ -1,0 +1,1220 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>working with files &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/hpc-intro/shell/files';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="input/output" href="input.html" />
+    <link rel="prev" title="navigating on the command line" href="navigation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm702/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/setup.html">software setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week2.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week3.html">introduction to google earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week4.html">change detection in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week5.html">classification in earth engine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week2.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/sentinelsat.html">searching for images with sentinelsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week5.html">vector and raster operations using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/environment.html">environment.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../python-programming/index.html">programming skills for phd researchers (using python)</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../python-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../python-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../python-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../python-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">introduction to high performance computing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../setup.html">setup</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">the unix shell</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="shell.html">in the beginning was the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="navigation.html">navigating on the command line</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">working with files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input.html">input/output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts.html">shell scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../hpc/index.html">high performance computing</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../hpc/atlas.html">atlas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hpc/data_transfer.html">transferring data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hpc/vulcan.html">vulcan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/thresholding.html">band maths and thresholding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/hpc-intro/shell/files.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/hpc-intro/shell/files.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/teaching/hpc-intro/shell/files.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>working with files</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-editors">text editors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nano">nano</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ctrl-button">the ctrl button</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-meta-key">the “meta” key</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exiting">exiting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">file permissions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-permissions">changing permissions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-characters">using characters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numbers">using numbers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-files-and-directories">moving files (and directories)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moving">moving</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming">renaming</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-files">copying files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-directories">copying directories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wildcards">wildcards</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#symbolic-links">symbolic links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-files">removing files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="working-with-files">
+<h1>working with files<a class="headerlink" href="#working-with-files" title="Permalink to this heading">#</a></h1>
+<p>Now that we have seen how we can navigate the file system and create new directories, let’s take a closer look at
+how we can create and manipulate files and directories from the shell.</p>
+<div class="section" id="text-editors">
+<h2>text editors<a class="headerlink" href="#text-editors" title="Permalink to this heading">#</a></h2>
+<p>We’ll start by using a <strong>text editor</strong> to create a new text file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A very important thing to note here is that “text” really does mean “text”. A text editor only works with plain
+character data: no formatting, no images, no tables, no bells and/or whistles.<a class="footnote-reference brackets" href="#id3" id="id1">1</a></p>
+<p>Examples of common text editors available for Windows include <strong>Notepad</strong> (installed by default) and <strong>Notepad++</strong>.</p>
+<p>I recommend using <strong>Notepad++</strong> (available <a class="reference external" href="https://notepad-plus-plus.org/">here</a>), because it offers many
+useful features beyond the basic level provided by <strong>Notepad</strong>. In a pinch, though, <strong>Notepad</strong> will still get
+the job done - there’s probably a reason it’s still bundled with Windows after over four decades.</p>
+</div>
+<div class="section" id="nano">
+<h3>nano<a class="headerlink" href="#nano" title="Permalink to this heading">#</a></h3>
+<p>For this example, we’ll be using (<a class="reference external" href="https://en.wikipedia.org/wiki/GNU_nano">nano</a>), a free text editor that ships
+with almost all bash terminal emulators.</p>
+<p><strong>nano</strong> is called directly from the command prompt. As with other programs we have looked at, we can use the <code class="docutils literal notranslate"><span class="pre">--help</span></code>
+flag to learn more about the options available:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>As you can see from the output, we can call <strong>nano</strong> on its own, or by specifying a file name. Let’s launch <strong>nano</strong> on
+its own - we can specify a file name when we want to save the file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>nano
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/nano.png"><img alt="a new empty buffer opened in the nano text editor" class="align-center" src="../../../_images/nano.png" style="width: 600px;" /></a>
+<p><br /> In this file, we can add some important notes about using the shell so far - feel free to add your own:</p>
+<a class="reference internal image-reference" href="../../../_images/notes.png"><img alt="notes about the HPC course added to the empty buffer" class="align-center" src="../../../_images/notes.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="the-ctrl-button">
+<h3>the ctrl button<a class="headerlink" href="#the-ctrl-button" title="Permalink to this heading">#</a></h3>
+<p>After you have begun typing some notes, you should see the word <strong>Modified</strong> appear in the upper right-hand corner. This
+indicates that you have unsaved changes to the file.</p>
+<p>At the bottom of the screen, you should also notice that there are a number of commands available:</p>
+<a class="reference internal image-reference" href="../../../_images/commands.png"><img alt="the commands visible in the nano text editor window" class="align-center" src="../../../_images/commands.png" style="width: 600px;" /></a>
+<p><br /> For example, the command to “Write Out” (<em>save</em>) the file is <code class="docutils literal notranslate"><span class="pre">^O</span></code>. The first character here, <code class="docutils literal notranslate"><span class="pre">^</span></code>, is used to
+indicate the <strong>Ctrl</strong> key. So, to save the file, we need to press both the <strong>Ctrl</strong> key and the <strong>O</strong> key at the same
+time. When you do that, you should see the following:</p>
+<a class="reference internal image-reference" href="../../../_images/saving.png"><img alt="nano prompting the user to enter a file name to write the ouput to" class="align-center" src="../../../_images/saving.png" style="width: 600px;" /></a>
+<p><br /> Here, we have to tell <strong>nano</strong> what file name to use - let’s go with <strong>notes.txt</strong>. Once you have typed in a
+filename, press <strong>Enter</strong> to save the file. You should see something like the following:</p>
+<a class="reference internal image-reference" href="../../../_images/written.png"><img alt="the nano text editor indicating the 6 lines have been written to a file" class="align-center" src="../../../_images/written.png" style="width: 600px;" /></a>
+<p><br /> This indicates that the program wrote 6 lines of text to the file - note that the file name (<strong>notes.txt</strong>) is now
+displayed at the top center of the window.</p>
+<p>In other contexts, you may also see <strong>Ctrl</strong> button combinations indicated as any of the following - for example, using
+the <code class="docutils literal notranslate"><span class="pre">^O</span></code> example:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">^O</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Control-O</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Control+O</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl-O</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+O</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C-O</span></code></p></li>
+</ul>
+<p>Any of these indicate that you should press both the <strong>Ctrl</strong> button and the other button at the same time.</p>
+</div>
+<div class="section" id="the-meta-key">
+<h3>the “meta” key<a class="headerlink" href="#the-meta-key" title="Permalink to this heading">#</a></h3>
+<p>You should also see a few key combinations with the “meta” key, indicated by <code class="docutils literal notranslate"><span class="pre">M</span></code> - for example, the command to undo
+changes is <code class="docutils literal notranslate"><span class="pre">M-U</span></code>.</p>
+<p>The “meta” key will most likely be different for different operating systems. For OSX, it is usually the <code class="docutils literal notranslate"><span class="pre">Esc</span></code>
+(<strong>Escape</strong>) key; for Windows and most Linux distributions, either the <code class="docutils literal notranslate"><span class="pre">Esc</span></code> key or the  <code class="docutils literal notranslate"><span class="pre">Alt</span></code> key can be used.</p>
+<p>Try to undo your most recent changes using <code class="docutils literal notranslate"><span class="pre">M-U</span></code>, then re-do them using <code class="docutils literal notranslate"><span class="pre">M-E</span></code> - you should see that the message
+“Undid {change}” appears:</p>
+<a class="reference internal image-reference" href="../../../_images/undone.png"><img alt="the nano text editor indicating that a change has been undone" class="align-center" src="../../../_images/undone.png" style="width: 600px;" /></a>
+<p><br /> followed by “Redid {change}”:</p>
+<a class="reference internal image-reference" href="../../../_images/redone.png"><img alt="the nano text editor indicating that a change has been redone" class="align-center" src="../../../_images/redone.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="exiting">
+<h3>exiting<a class="headerlink" href="#exiting" title="Permalink to this heading">#</a></h3>
+<p>Finally, to exit the program, press both the <strong>Ctrl</strong> and <strong>X</strong> keys at the same time (i.e., <code class="docutils literal notranslate"><span class="pre">^X</span></code>). Note that if you
+have any unsaved changes to the file, you will be prompted to save them - you can choose to do so (<code class="docutils literal notranslate"><span class="pre">Y</span></code>), or to discard
+those changes (<code class="docutils literal notranslate"><span class="pre">N</span></code>), or to cancel exiting the program (<code class="docutils literal notranslate"><span class="pre">^C</span></code>).</p>
+</div>
+</div>
+<div class="section" id="file-permissions">
+<h2>file permissions<a class="headerlink" href="#file-permissions" title="Permalink to this heading">#</a></h2>
+<p>Now that we have created a file, let’s have a look at who is allowed to do what with the file - that is, the
+<strong>permissions</strong> that are set on the file.</p>
+<p>From the shell, we can use the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command, along with the <code class="docutils literal notranslate"><span class="pre">-l</span></code> option, to list more information about the files
+in the current directory:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l
+</pre></div>
+</div>
+<p>When you enter this command, you should see something like the following:</p>
+<a class="reference internal image-reference" href="../../../_images/ls_l_output.png"><img alt="the output of ls -l in the current directory" class="align-center" src="../../../_images/ls_l_output.png" style="width: 600px;" /></a>
+<p><br /> Each file/directory in the current directory is listed on a separate line, along with additional details. In the
+screenshot above, I’ve highlighted the line corresponding to the <strong>notes.txt</strong> file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-rw-rw-r--    1 bob bob    187 jan.   3 11:47 notes.txt
+</pre></div>
+</div>
+<p>Each block in the line tells us the following information:</p>
+<ul class="simple">
+<li><p>the file permissions (<code class="docutils literal notranslate"><span class="pre">-rw-rw-r--</span></code>);</p></li>
+<li><p>the number of links (names) for the file (<code class="docutils literal notranslate"><span class="pre">1</span></code>);</p></li>
+<li><p>the “owner” of the file (<code class="docutils literal notranslate"><span class="pre">bob</span></code>);</p></li>
+<li><p>the “group” of the file (<code class="docutils literal notranslate"><span class="pre">bob</span></code>);</p></li>
+<li><p>the file size in bytes (<code class="docutils literal notranslate"><span class="pre">187</span></code>);</p></li>
+<li><p>the date and time the file was last updated (<code class="docutils literal notranslate"><span class="pre">jan.</span> <span class="pre">3</span> <span class="pre">11:47</span></code>);</p></li>
+<li><p>and finally, the file name (<code class="docutils literal notranslate"><span class="pre">notes.txt</span></code>).</p></li>
+</ul>
+<p>Some of these should be fairly self-explanatory (i.e., the file owner, size, last updated, and name). The permissions,
+though, are probably a bit confusing.</p>
+<p>The permissions block is 10 characters long - the first character in the permissions block indicates the type of file.
+The most common types that you will find are most likely:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">d</span></code> - for directories;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code> - for links;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code> - for other files.</p></li>
+</ul>
+<p>The remaining nine characters are divided into three triplets that indicate the types of permissions for the file at
+different levels: user (the “owner” of the file, represented by a <code class="docutils literal notranslate"><span class="pre">u</span></code>), group (<code class="docutils literal notranslate"><span class="pre">g</span></code>), and other (<code class="docutils literal notranslate"><span class="pre">o</span></code>), displayed
+in that order.</p>
+<p>Files (and directories) have three different types of permissions: reading, writing, and execution:</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>type</p></th>
+<th class="head"><p>explanation</p></th>
+<th class="head"><p>symbol</p></th>
+<th class="head"><p>octal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>reading</strong></p></td>
+<td><p>reading the contents of files/directories</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>writing</strong></p></td>
+<td><p>modifying the contents of files/directories</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">w</span></code></p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>execution</strong></p></td>
+<td><p>run a file as a program/enter or run commands in a directory</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>If a type of permission is granted for a given level, that symbol (<code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code>, or <code class="docutils literal notranslate"><span class="pre">x</span></code>) will be shown in the
+permission block; if it is not, a dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) will be visible in its place.</p>
+<p>For example, <strong>notes.txt</strong> has the following permissions set:</p>
+<ul class="simple">
+<li><p>the file owner (<code class="docutils literal notranslate"><span class="pre">bob</span></code>): <code class="docutils literal notranslate"><span class="pre">rw-</span></code>, indicating that the user <code class="docutils literal notranslate"><span class="pre">bob</span></code> has both read and write permission for the file.</p></li>
+<li><p>the file group (<code class="docutils literal notranslate"><span class="pre">bob</span></code>): <code class="docutils literal notranslate"><span class="pre">rw-</span></code>, indicating that members of the group <code class="docutils literal notranslate"><span class="pre">bob</span></code> have both read and write permission
+for the file;</p></li>
+<li><p>all other users: <code class="docutils literal notranslate"><span class="pre">r--</span></code>, indicating that other users may only read, but not modify, the file.</p></li>
+</ul>
+<p>In the next section, we’ll see how we can change permissions for a file.</p>
+</div>
+<div class="section" id="changing-permissions">
+<h2>changing permissions<a class="headerlink" href="#changing-permissions" title="Permalink to this heading">#</a></h2>
+<p>To change or modify permissions for files and directories, we use the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> command.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As a general rule, it’s best to avoid granting full permissions for a file or directory to all users, as it
+means that any user on the computer has the ability to modify (or delete!) the file/directory.</p>
+</div>
+<div class="section" id="using-characters">
+<h3>using characters<a class="headerlink" href="#using-characters" title="Permalink to this heading">#</a></h3>
+<p>The basic structure of the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> command is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>chmod who=permissions file
+</pre></div>
+</div>
+<p>For example, to change <strong>notes.txt</strong> so that “other” users (<code class="docutils literal notranslate"><span class="pre">o</span></code>) can read and modify the file, we would use the
+following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>chmod o=rw notes.txt
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/set.png"><img alt="setting permissions on a file using chmod" class="align-center" src="../../../_images/set.png" style="width: 600px;" /></a>
+<p><br /> In the screenshot above, we can see how this has changed the permissions block using <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code>. Before running
+<code class="docutils literal notranslate"><span class="pre">chmod</span></code>, the output of <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> was:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 bob bob 187 jan.   3 11:47 notes.txt
+</pre></div>
+</div>
+<p>indicating that “other” users could read (but not write) the file. After running <code class="docutils literal notranslate"><span class="pre">chmod</span></code>, the output is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-rw-rw-rw- 1 bob bob 187 jan.   3 11:47 notes.txt
+</pre></div>
+</div>
+<p>indicating that other users now have read and write permissions for the file.</p>
+<p>Note that by setting permissions in this way, we have to be sure that we include all of the permissions we want - if we
+leave one out, it won’t be set. For example, this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>chmod o=w notes.txt
+</pre></div>
+</div>
+<p>will change the “other” permissions to be write-only:</p>
+<a class="reference internal image-reference" href="../../../_images/write_only.png"><img alt="setting permissions to be write-only by forgetting to specify other permissions" class="align-center" src="../../../_images/write_only.png" style="width: 600px;" /></a>
+<p><br /> For this reason, we can add to (or remove from) the existing permissions using <code class="docutils literal notranslate"><span class="pre">+</span></code> (or <code class="docutils literal notranslate"><span class="pre">-</span></code>). For example, we
+could add write permissions for other users like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>o+w<span class="w"> </span>notes.txt
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/add.png"><img alt="adding permissions using chmod" class="align-center" src="../../../_images/add.png" style="width: 600px;" /></a>
+<p><br /> and we can remove write permissions like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>o-w<span class="w"> </span>notes.txt
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/remove.png"><img alt="removing permissions using chmod" class="align-center" src="../../../_images/remove.png" style="width: 600px;" /></a>
+<p><br /> We can also specify multiple levels at a time - for example, to remove write permissions for everyone but the file
+owner, we could use the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>chmod u=rw,g-w,o-w notes.txt
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/combine.png"><img alt="combining different permissions levels using chmod" class="align-center" src="../../../_images/combine.png" style="width: 600px;" /></a>
+<p><br /> And finally, if we want to set the same permissions for all levels, we can use <code class="docutils literal notranslate"><span class="pre">a</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>chmod a=rw notes.txt
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/all.png"><img alt="using chmod to set the same permissions for all levels" class="align-center" src="../../../_images/all.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="using-numbers">
+<h3>using numbers<a class="headerlink" href="#using-numbers" title="Permalink to this heading">#</a></h3>
+<p>In addition to the symbolic representation (<code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code>, and <code class="docutils literal notranslate"><span class="pre">x</span></code>), we can use the octal representation to set the
+permissions for a file.</p>
+<p>To help explain this, let’s view a single permission block as a series of binary switches, with “1” indicating that the
+permission is given, and “0” indicating that the permission is absent:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rwx -&gt; 111
+rw- -&gt; 110
+r-- -&gt; 100
+</pre></div>
+</div>
+<p>… and so on.</p>
+<p>In binary notation, the number <code class="docutils literal notranslate"><span class="pre">111</span></code> is equal to 7 - and so, the octal value (and the decimal value) corresponding to
+<code class="docutils literal notranslate"><span class="pre">rwx</span></code> permissions is 7 (= 4 + 2 + 1, the sum of the octal values for each permission type). Similarly, the binary
+value <code class="docutils literal notranslate"><span class="pre">110</span></code> is equal to 6, and the octal value for <code class="docutils literal notranslate"><span class="pre">rw-</span></code> is 6 (= 4 + 2 + 0)</p>
+<p>By representing each level of permission as a single octal value (one each for user, group, and other), we have a
+convenient way of representing a given permission setting. For example, let’s look at the original permission setting
+of <strong>notes.txt</strong> again:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-rw-rw-r--    1 bob bob    187 jan.   3 11:47 notes.txt
+</pre></div>
+</div>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">u</span></code> permission (<code class="docutils literal notranslate"><span class="pre">rw-</span></code>) has an octal value of 6, the <code class="docutils literal notranslate"><span class="pre">g</span></code> permission (<code class="docutils literal notranslate"><span class="pre">rw-</span></code>) has an octal value of 6,
+and the <code class="docutils literal notranslate"><span class="pre">o</span></code> permission (<code class="docutils literal notranslate"><span class="pre">r--</span></code>) has an octal value of 4 - meaning that we can represent this permission setting as
+the octal value 664. In fact, if you enter the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span><span class="m">664</span><span class="w"> </span>notes.txt
+</pre></div>
+</div>
+<p>you should notice that the permissions do not change:</p>
+<a class="reference internal image-reference" href="../../../_images/octal.png"><img alt="using chmod to set permissions using octal representation" class="align-center" src="../../../_images/octal.png" style="width: 600px;" /></a>
+<p><br /> Note that we are only able to set permissions for all levels using the octal representation - we can’t add/remove
+permissions using <code class="docutils literal notranslate"><span class="pre">+</span></code> or <code class="docutils literal notranslate"><span class="pre">-</span></code>, and we can’t specify levels using <code class="docutils literal notranslate"><span class="pre">u</span></code>, <code class="docutils literal notranslate"><span class="pre">g</span></code>, or <code class="docutils literal notranslate"><span class="pre">o</span></code>.</p>
+</div>
+</div>
+<div class="section" id="moving-files-and-directories">
+<h2>moving files (and directories)<a class="headerlink" href="#moving-files-and-directories" title="Permalink to this heading">#</a></h2>
+<p>Now that we’ve seen how we can view and edit permissions, we’ll look at a few other useful commands for manipulating
+files and directories from the shell.</p>
+<p>We’ll begin with <code class="docutils literal notranslate"><span class="pre">mv</span></code>, which is used to move (or rename) files and directories.</p>
+<div class="section" id="moving">
+<h3>moving<a class="headerlink" href="#moving" title="Permalink to this heading">#</a></h3>
+<p>To move a file (or multiple files) to a different directory, we use the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mv file [file2 ...] directory
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If we have more than two arguments to <code class="docutils literal notranslate"><span class="pre">mv</span></code>, the final argument <strong>must</strong> be an existing directory - if it is not,
+<code class="docutils literal notranslate"><span class="pre">mv</span></code> will exit with an error.</p>
+</div>
+<p>For example, let’s say that we wanted to move <strong>notes.txt</strong> to the <strong>Documents</strong> directory:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mv notes.txt Documents
+</pre></div>
+</div>
+<p>Run this command, then use <code class="docutils literal notranslate"><span class="pre">ls</span></code> to confirm that the file (a) is no longer in the current working directory, and (b)
+is in the <strong>Documents</strong> directory.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that if <code class="docutils literal notranslate"><span class="pre">directory</span></code> does not already exist, <code class="docutils literal notranslate"><span class="pre">mv</span></code> will simply rename the file to the “directory” name given,
+so be sure to pay attention to your directory names!</p>
+</div>
+</div>
+<div class="section" id="renaming">
+<h3>renaming<a class="headerlink" href="#renaming" title="Permalink to this heading">#</a></h3>
+<p>As noted above, we can also use <code class="docutils literal notranslate"><span class="pre">mv</span></code> to rename existing files:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mv<span class="w"> </span>file1<span class="w"> </span>file2
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that if <code class="docutils literal notranslate"><span class="pre">file2</span></code> already exists, it will be silently replaced (i.e., there will be no warning) by the contents
+of <code class="docutils literal notranslate"><span class="pre">file1</span></code> – remember to be very cautious when using this command!</p>
+<p>To avoid this, you can also use the <code class="docutils literal notranslate"><span class="pre">-i</span></code> option, which will prompt you to confirm whether you want to replace an
+existing file:</p>
+<a class="reference internal image-reference" href="../../../_images/replacing.png"><img alt="using the -i option to avoid overwriting existing files" class="align-center" src="../../../_images/replacing.png" style="width: 600px;" /></a>
+</div>
+<p>We can also use <code class="docutils literal notranslate"><span class="pre">mv</span></code> to rename directories:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mv<span class="w"> </span>directory1<span class="w"> </span>directory2
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">directory2</span></code> already exists, <code class="docutils literal notranslate"><span class="pre">directory1</span></code> will be moved into <code class="docutils literal notranslate"><span class="pre">directory2</span></code>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="copying-files">
+<h2>copying files<a class="headerlink" href="#copying-files" title="Permalink to this heading">#</a></h2>
+<p>To <em>copy</em> files, we use the <code class="docutils literal notranslate"><span class="pre">cp</span></code> command - for example, to copy <code class="docutils literal notranslate"><span class="pre">file1</span></code> to <code class="docutils literal notranslate"><span class="pre">file2</span></code>, use the
+following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>file1<span class="w"> </span>file2
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As with <code class="docutils literal notranslate"><span class="pre">mv</span></code>, if <code class="docutils literal notranslate"><span class="pre">file2</span></code> already exists, it will be silently replaced by the contents of <code class="docutils literal notranslate"><span class="pre">file1</span></code>. To avoid
+this, you can use the <code class="docutils literal notranslate"><span class="pre">-i</span></code> option, which will prompt you to confirm whether you want to replace the existing
+file.</p>
+</div>
+<p>We can also use <code class="docutils literal notranslate"><span class="pre">cp</span></code> to copy file(s) into a directory:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>file<span class="w"> </span><span class="o">[</span>file2<span class="w"> </span>...<span class="o">]</span><span class="w"> </span>directory
+</pre></div>
+</div>
+<p>This will copy the contents of <code class="docutils literal notranslate"><span class="pre">file</span></code> to <code class="docutils literal notranslate"><span class="pre">directory/file</span></code> (and <code class="docutils literal notranslate"><span class="pre">file2</span></code> to <code class="docutils literal notranslate"><span class="pre">directory/file2</span></code>, and so on).</p>
+</div>
+<div class="section" id="copying-directories">
+<h2>copying directories<a class="headerlink" href="#copying-directories" title="Permalink to this heading">#</a></h2>
+<p>To copy entire directories, we can’t simply use <code class="docutils literal notranslate"><span class="pre">cp</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/recursion.png"><img alt="we can't use cp to copy directories without specifying the -r flag" class="align-center" src="../../../_images/recursion.png" style="width: 600px;" /></a>
+<p><br /> Instead, we need to use the <code class="docutils literal notranslate"><span class="pre">-r</span></code> (for “recursive”) option:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>-r<span class="w"> </span>directory1<span class="w"> </span>directory2
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">directory2</span></code> does not exist, it will be created with this command (and filled with the contents of
+<code class="docutils literal notranslate"><span class="pre">directory1</span></code>). If it exists, <code class="docutils literal notranslate"><span class="pre">directory1</span></code> will be copied into the existing directory <code class="docutils literal notranslate"><span class="pre">directory2</span></code>.</p>
+</div>
+</div>
+<div class="section" id="wildcards">
+<h2>wildcards<a class="headerlink" href="#wildcards" title="Permalink to this heading">#</a></h2>
+<p>What if we want to manipulate many files at once, without having to explicitly type them all out? We can do this by
+using <strong>wildcards</strong>: special characters that allow us to specify groups of filenames based on a pattern of characters.</p>
+<p>The main wildcards that you will use are listed below:</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>wildcard</p></th>
+<th class="head"><p>meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>any number of characters</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">?</span></code></p></td>
+<td><p>any single character</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[characters]</span></code></p></td>
+<td><p>any character that is a member of the set <code class="docutils literal notranslate"><span class="pre">characters</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[!characters]</span></code></p></td>
+<td><p>any character that is not a member of the set <code class="docutils literal notranslate"><span class="pre">characters</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Sets of characters can either be expressed:</p>
+<ul class="simple">
+<li><p>explicitly (i.e., <code class="docutils literal notranslate"><span class="pre">[abc]</span></code> would match a, b, or c);</p></li>
+<li><p>as a range (i.e., <code class="docutils literal notranslate"><span class="pre">[0-5]</span></code> would match numbers 0, 1, 2, 3, 4, or 5);</p></li>
+</ul>
+<p>or by using
+<a class="reference external" href="https://en.wikibooks.org/wiki/Regular_Expressions/POSIX_Basic_Regular_Expressions#Character_classes">POSIX</a>
+character classes, such as the following:</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>POSIX class</p></th>
+<th class="head"><p>meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[:alnum:]</span></code></p></td>
+<td><p>any alphanumeric character</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[:alpha:]</span></code></p></td>
+<td><p>any alphabetic character</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[:digit:]</span></code></p></td>
+<td><p>any numeric character</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[:upper:]</span></code></p></td>
+<td><p>any uppercase alphabetic character</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[:lower:]</span></code></p></td>
+<td><p>any lowercase alphabetic character</p></td>
+</tr>
+</tbody>
+</table>
+<p>We can also combine different wildcards to create more complicated wildcard expressions. The table below shows a few
+different examples of patterns and what file(s) they would match:</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>pattern</p></th>
+<th class="head"><p>matches</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>all filenames</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*.txt</span></code></p></td>
+<td><p>any filename that ends with the characters <code class="docutils literal notranslate"><span class="pre">.txt</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Box1[0-2]</span></code></p></td>
+<td><p>any filename that starts with <code class="docutils literal notranslate"><span class="pre">Box1</span></code> and ends in <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, or <code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Box?</span></code></p></td>
+<td><p>any filename that starts with <code class="docutils literal notranslate"><span class="pre">Box</span></code> followed by exactly one character</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Box[[:digit:]]</span></code></p></td>
+<td><p>any filename that starts with <code class="docutils literal notranslate"><span class="pre">Box</span></code> followed by exactly one digit</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[![:lower:]]*</span></code></p></td>
+<td><p>any filename that does not start with a lowercase alphabetic character</p></td>
+</tr>
+</tbody>
+</table>
+<p>Any command that can accept filename arguments (i.e., <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">mv</span></code>, <code class="docutils literal notranslate"><span class="pre">cp</span></code>) can be used with wildcard arguments. Most
+of the time, the shell will “expand” the wildcard expression (create a list of filenames matching the wildcard) <em>before</em>
+it runs the command, meaning that the command only sees the list of filenames matching the wildcard, rather than the
+wildcard expression itself.</p>
+</div>
+<div class="section" id="symbolic-links">
+<h2>symbolic links<a class="headerlink" href="#symbolic-links" title="Permalink to this heading">#</a></h2>
+<p>Copying creates a new file (or directory) on the disk, which means that it increases the amount disk space used. We can
+also create a <strong>symbolic link</strong> (<strong>symlink</strong>) to create a file (or directory) that points to some other file or
+directory in the filesystem.</p>
+<p>To do this, we use the <code class="docutils literal notranslate"><span class="pre">ln</span></code> command, along with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> option<a class="footnote-reference brackets" href="#id4" id="id2">2</a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ln<span class="w"> </span>-s<span class="w"> </span>original<span class="w"> </span>link
+</pre></div>
+</div>
+<p>We can then use that link as we would any other file or folder:</p>
+<a class="reference internal image-reference" href="../../../_images/symlink.png"><img alt="adding a symbolic link to a directory on a separate drive as a link in the home directory" class="align-center" src="../../../_images/symlink.png" style="width: 600px;" /></a>
+<p><br /> In the output of <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> above, you can see that the link is displayed differently to other folders, both in
+color, but also by indicating what file or directory the link points to.</p>
+</div>
+<div class="section" id="removing-files">
+<h2>removing files<a class="headerlink" href="#removing-files" title="Permalink to this heading">#</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In the Unix shell, there is no “recycle bin” to recover deleted files/folders - once you use <code class="docutils literal notranslate"><span class="pre">rm</span></code> to remove
+something, it’s gone.</p>
+<p>Be sure to use this command with caution!</p>
+</div>
+<p>To delete (<em>remove</em>) files, we use the <code class="docutils literal notranslate"><span class="pre">rm</span></code> command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>file
+</pre></div>
+</div>
+<p>As with copying, in order to remove a directory, we need to use the <code class="docutils literal notranslate"><span class="pre">-r</span></code> option:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-r<span class="w"> </span>directory
+</pre></div>
+</div>
+</div>
+<div class="section" id="notes">
+<h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>This is not to say that text editors cannot <em>display</em> text using particular styles, such as
+<a class="reference external" href="https://en.wikipedia.org/wiki/Syntax_highlighting">syntax highlighting</a>. In fact, most text editors can be
+configured for syntax highlighting, which is especially useful for editing scripts.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Without the <code class="docutils literal notranslate"><span class="pre">-s</span></code> option, <code class="docutils literal notranslate"><span class="pre">ln</span></code> creates a <strong>hard link</strong> rather than a symbolic link. In effect, a hard link
+creates a new file in the filesystem with a link to the same space on the disk. A symbolic link is a file that
+links to a different name in the filesystem, similar to a shortcut in Windows.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="navigation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">navigating on the command line</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="input.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">input/output</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-editors">text editors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nano">nano</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ctrl-button">the ctrl button</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-meta-key">the “meta” key</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exiting">exiting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions">file permissions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-permissions">changing permissions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-characters">using characters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-numbers">using numbers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-files-and-directories">moving files (and directories)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moving">moving</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming">renaming</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-files">copying files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-directories">copying directories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wildcards">wildcards</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#symbolic-links">symbolic links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-files">removing files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

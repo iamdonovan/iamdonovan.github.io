@@ -84,6 +84,11 @@ because each of those 6 packages have additional dependencies which have to be i
 all of this is done automatically by **conda** – we don’t have to worry about tracking down and installing each
 individual dependency on our own.
 
+.. note::
+
+    The exact number of packages may differ slightly, so don't worry too much if you don't have the same number shown
+    here.
+
 changing environments
 .......................
 

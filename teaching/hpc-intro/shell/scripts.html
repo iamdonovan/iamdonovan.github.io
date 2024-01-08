@@ -1,0 +1,1093 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>shell scripts &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/hpc-intro/shell/scripts';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="high performance computing" href="../hpc/index.html" />
+    <link rel="prev" title="input/output" href="input.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm702/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/setup.html">software setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week2.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week3.html">introduction to google earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week4.html">change detection in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week5.html">classification in earth engine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week2.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/sentinelsat.html">searching for images with sentinelsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/practicals/week5.html">vector and raster operations using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm722/project/environment.html">environment.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../python-programming/index.html">programming skills for phd researchers (using python)</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../python-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../python-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../python-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../python-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">introduction to high performance computing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../setup.html">setup</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">the unix shell</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="shell.html">in the beginning was the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="navigation.html">navigating on the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="files.html">working with files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input.html">input/output</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">shell scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../hpc/index.html">high performance computing</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../hpc/atlas.html">atlas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hpc/data_transfer.html">transferring data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hpc/vulcan.html">vulcan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/thresholding.html">band maths and thresholding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/hpc-intro/shell/scripts.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/hpc-intro/shell/scripts.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/teaching/hpc-intro/shell/scripts.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>shell scripts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-manipulation">string manipulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loops">for loops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">putting it all together</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-script">running the script</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-arguments">command-line arguments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-making-an-executable">optional: making an executable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-path-variable">the PATH variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="section" id="shell-scripts">
+<h1>shell scripts<a class="headerlink" href="#shell-scripts" title="Permalink to this heading">#</a></h1>
+<p>In this exercise, we will continue working on our task of figuring out which weather station(s) have the most
+observations, using data downloaded from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">UK Met
+Office</a>.</p>
+<p>In the previous lesson, we saw how we can use various shell commands to:</p>
+<ul class="simple">
+<li><p>extract tar files</p></li>
+<li><p>see the number of lines, “words”, and characters in a text file</p></li>
+<li><p>use pipes (<code class="docutils literal notranslate"><span class="pre">|</span></code>) to combine commands</p></li>
+<li><p>use grep and regular expressions for pattern matching</p></li>
+<li><p>redirect command outputs to a file</p></li>
+</ul>
+<p>So, we have most of the pieces in place in place to be able to write a program (a <strong>script</strong>) that will do all of these
+tasks for us, without having to run each command individually. Specifically, we want our program to:</p>
+<ul class="simple">
+<li><p>extract the data from a (<strong>.tar.gz</strong>) file</p></li>
+<li><p>split each file into separate header (<strong>.head</strong>) and data (<strong>.data</strong>) files</p></li>
+<li><p>remove the original files (but leave the <strong>.head</strong> and <strong>.data</strong> files)</p></li>
+<li><p>count the number of observations in each <strong>.data</strong> file</p></li>
+<li><p>print the top 5 stations, excluding the total</p></li>
+</ul>
+<div class="section" id="variables">
+<h2>variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h2>
+<p>First, we’ll learn about <strong>variables</strong> - a name that stores some value. The value can be a string (characters), an
+integer, a floating point (decimal) number, a filename, a shell command, or some other value.</p>
+<p>To see an example of an <strong>environment variable</strong> (something used by the system), enter the following at the command
+prompt:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$HOME</span>
+</pre></div>
+</div>
+<p>This will print the value of the environment variable <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> to the terminal. You should hopefully see that this
+prints <code class="docutils literal notranslate"><span class="pre">/home/$USER</span></code>, where <code class="docutils literal notranslate"><span class="pre">$USER</span></code> is the environment variable corresponding to your username.</p>
+<p>We can also create and use our own variables, both in the shell and within scripts. To do this, we use <code class="docutils literal notranslate"><span class="pre">=</span></code> (the
+“assignment operator”):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>name=value
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are <strong>no</strong> spaces between <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">=</span></code>, and <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+</div>
+<p>bash variable names have the following rules:</p>
+<ul class="simple">
+<li><p>the name <strong>must</strong> start with an alphabetical character (<code class="docutils literal notranslate"><span class="pre">a-z</span></code>, <code class="docutils literal notranslate"><span class="pre">A-Z</span></code>) or an underscore (<code class="docutils literal notranslate"><span class="pre">_</span></code>).</p></li>
+<li><p>the name may only contain alphanumeric characters (<code class="docutils literal notranslate"><span class="pre">a-z</span></code>, <code class="docutils literal notranslate"><span class="pre">A-Z</span></code>, <code class="docutils literal notranslate"><span class="pre">0-9</span></code>) or an underscore (<code class="docutils literal notranslate"><span class="pre">_</span></code>) - all other
+punctuation has some kind of special meaning.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As you can see above, when we are creating (“assigning”) a variable, we don’t use the <code class="docutils literal notranslate"><span class="pre">$</span></code> character - we only use
+this when it comes time to do something with the variable.</p>
+<p>This is because <code class="docutils literal notranslate"><span class="pre">$</span></code> is not part of the variable name, it is used by the shell to indicate that the value of the
+variable should be inserted in place of the name.</p>
+</div>
+</div>
+<div class="section" id="string-manipulation">
+<h2>string manipulation<a class="headerlink" href="#string-manipulation" title="Permalink to this heading">#</a></h2>
+<p>Another piece that we need is to be able to manipulate text variables. In the previous exercise, when we split
+<strong>armagh.txt</strong> into <strong>armagh.data</strong> and <strong>armagh.head</strong>, we had to explicitly type out the filenames.</p>
+<p>Here, because we’re going to be working with a number of variable values corresponding to different filenames, we want
+to avoid having to do this.</p>
+<p>To start, let’s assign a new variable, <code class="docutils literal notranslate"><span class="pre">fn</span></code>, and give it the value <code class="docutils literal notranslate"><span class="pre">armagh.txt</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">fn</span><span class="o">=</span>armagh.txt
+</pre></div>
+</div>
+<p>You can check that this has worked by viewing the value of <code class="docutils literal notranslate"><span class="pre">fn</span></code> using <code class="docutils literal notranslate"><span class="pre">echo</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$fn</span>
+</pre></div>
+</div>
+<p>To manipulate the value of this string (text) in the shell, we use curly brackets (<code class="docutils literal notranslate"><span class="pre">{</span></code> and <code class="docutils literal notranslate"><span class="pre">}</span></code>).</p>
+<p>To start, we can use <code class="docutils literal notranslate"><span class="pre">#</span></code> inside of the curly brackets to get the length of the string stored in <code class="docutils literal notranslate"><span class="pre">fn</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="si">${#</span><span class="nv">fn</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>This should print <code class="docutils literal notranslate"><span class="pre">10</span></code> to the screen (assuming that the value of <code class="docutils literal notranslate"><span class="pre">fn</span></code> is still <code class="docutils literal notranslate"><span class="pre">armagh.txt</span></code>, that is).</p>
+<p>Now, if, if we want to extract characters from <code class="docutils literal notranslate"><span class="pre">fn</span></code>, we can specify the position to start from, along with the length
+of the substring we want to extract, using the following syntax:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">name</span><span class="p">:</span><span class="nv">start</span><span class="p">:</span><span class="nv">length</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>So, to print the first three letters of <code class="docutils literal notranslate"><span class="pre">fn</span></code> (“arm”):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">fn</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">3</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>If we omit <code class="docutils literal notranslate"><span class="pre">length</span></code>, we print the entire string beginning at <code class="docutils literal notranslate"><span class="pre">start</span></code> - for example, to print (<strong>agh.txt</strong>), we could
+use the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">fn</span><span class="p">:</span><span class="nv">3</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>Now, we could use character extraction to get the name of the station (<code class="docutils literal notranslate"><span class="pre">armagh</span></code>), but there’s a small problem: the
+stations will all have different names, with different lengths.</p>
+<p>Rather than something more complicated (for example, taking the length of the filename and subtracting 4 to remove
+<strong>.txt</strong>), we can instead use pattern matching to remove a matched substring with the <code class="docutils literal notranslate"><span class="pre">%</span></code> operator:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">fn</span><span class="p">%.*</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>This should print <code class="docutils literal notranslate"><span class="pre">armagh</span></code> to the screen. The way this works is that bash matches the pattern after <code class="docutils literal notranslate"><span class="pre">%</span></code>, starting
+from the end of the string. It then removes the shortest substring that matches the pattern. So, <code class="docutils literal notranslate"><span class="pre">%.*</span></code> means that
+bash finds the shortest substring that matches the pattern <code class="docutils literal notranslate"><span class="pre">.*</span></code> (in this case, <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, and removes it from the
+string.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If we want to remove the longest substring, we use <code class="docutils literal notranslate"><span class="pre">%%</span></code> instead.</p>
+</div>
+<p>If we want to be sure to <em>only</em> match the extension <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, we can use that pattern instead:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">name</span><span class="o">=</span><span class="si">${</span><span class="nv">fn</span><span class="p">%.txt</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>If, instead of starting from the end of the string, we want to start from the beginning, we use <code class="docutils literal notranslate"><span class="pre">#</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">fn</span><span class="p">#*.</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>Here, bash will match the shortest substring of all of the characters before a <code class="docutils literal notranslate"><span class="pre">.</span></code>, and remove them from the string.
+In this case, that leaves us with <code class="docutils literal notranslate"><span class="pre">txt</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If we want to match the longest substring, we use <code class="docutils literal notranslate"><span class="pre">##</span></code> instead.</p>
+</div>
+<p>In this way, we can use <code class="docutils literal notranslate"><span class="pre">%</span></code> (or <code class="docutils literal notranslate"><span class="pre">%%</span></code>) to remove the extension from a filename, or use <code class="docutils literal notranslate"><span class="pre">#</span></code> (or <code class="docutils literal notranslate"><span class="pre">##</span></code>) to extract
+the extension.</p>
+</div>
+<div class="section" id="for-loops">
+<h2>for loops<a class="headerlink" href="#for-loops" title="Permalink to this heading">#</a></h2>
+<p>In the previous exercise, we saw how we can use <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> to split a single file into a header (<strong>.head</strong>) and
+data (<strong>.data</strong>) file. We have now seen how we can use string manipulation to remove the extension from a filename,
+which means we can</p>
+<p>But, we have more than one (37, in fact) file - we really don’t want to have to type each
+command our for all 37 files!</p>
+<p>Fortunately, we can use a <code class="docutils literal notranslate"><span class="pre">for</span></code> <strong>loop</strong> to repeat a command (or set of commands). In the bash shell, a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop
+has the following basic structure:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>thing<span class="w"> </span><span class="k">in</span><span class="w"> </span>things
+<span class="k">do</span>
+<span class="w">    </span><span class="c1"># add your commands here</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can see that the text after the <code class="docutils literal notranslate"><span class="pre">#</span></code> in the code block above is highlighted differently - this is because
+<code class="docutils literal notranslate"><span class="pre">#</span></code> is used to indicate a <strong>comment</strong> - text that the shell ignores, but that can be read by humans. Using
+comments is a great way to help other people (especially future you!) understand what the code is actually doing
+(or is meant to be doing).</p>
+<p>When typing commands at the prompt, we don’t typically need to include comments; when we write shell scripts,
+however, it’s <strong>always</strong> a good idea to include comments to help make your code more understandable. Future you
+(and, potentially, other users) will thank present you for including them.</p>
+</div>
+<p>The beginning of the loop is indicated using <code class="docutils literal notranslate"><span class="pre">for</span></code>, and the list of commands for the shell to execute is bookended
+by <code class="docutils literal notranslate"><span class="pre">do</span></code> (at the beginning) and <code class="docutils literal notranslate"><span class="pre">done</span></code> (at the end).</p>
+<p>The shell will then repeat these commands for each item (<code class="docutils literal notranslate"><span class="pre">thing</span></code> in the pseudo-code above) in a list (<code class="docutils literal notranslate"><span class="pre">things</span></code>).</p>
+<p>On each pass through the loop, the <strong>variable</strong> <code class="docutils literal notranslate"><span class="pre">thing</span></code> takes on the value of the next item in the list. To help
+illustrate this, we’ll loop through all of the filenames that begin with a <code class="docutils literal notranslate"><span class="pre">c</span></code>, and use <code class="docutils literal notranslate"><span class="pre">echo</span></code> to print the
+filename to the screen:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As you type in the code below, notice how the shell prompt changes from <code class="docutils literal notranslate"><span class="pre">$</span></code> to <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, then back. This is done to
+remind us that we haven’t finished typing the full command, since the loop isn’t finished until we have typed
+<code class="docutils literal notranslate"><span class="pre">done</span></code>. We could also type this on a single line, using a semicolon <code class="docutils literal notranslate"><span class="pre">;</span></code> to separate the commands.</p>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>fn<span class="w"> </span><span class="k">in</span><span class="w"> </span>c*.txt
+<span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$fn</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/for_loop.png"><img alt="the result of the for loop in terminal, showing all filenames that begin with a c" class="align-center" src="../../../_images/for_loop.png" style="width: 600px;" /></a>
+<p><br /> On the first pass through the loop, the <strong>variable</strong> <code class="docutils literal notranslate"><span class="pre">$fn</span></code> has the <strong>value</strong> <code class="docutils literal notranslate"><span class="pre">camborne.txt</span></code>, as this is the
+first value in the list when the <strong>wildcard expression</strong> <code class="docutils literal notranslate"><span class="pre">c*.txt</span></code> is expanded. On the second pass, <code class="docutils literal notranslate"><span class="pre">$fn</span></code> has the
+value <code class="docutils literal notranslate"><span class="pre">cambridge.txt</span></code>, and so on.</p>
+</div>
+<div class="section" id="putting-it-all-together">
+<h2>putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this heading">#</a></h2>
+<p>Now, finally, we are able to write a (series of) commands that will split each <strong>.txt</strong> file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>fn<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.txt
+<span class="k">do</span>
+<span class="w">    </span><span class="nv">name</span><span class="o">=</span><span class="si">${</span><span class="nv">fn</span><span class="p">%.txt</span><span class="si">}</span>
+<span class="w">    </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;^\s{3}[[:digit:]]{4}&quot;</span><span class="w"> </span><span class="nv">$fn</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$name</span>.data
+<span class="w">    </span>grep<span class="w"> </span>-vE<span class="w"> </span><span class="s2">&quot;^\s{3}[[:digit:]]{4}&quot;</span><span class="w"> </span><span class="nv">$fn</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$name</span>.head
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>When this loop has finished running, you should now have 37 <strong>.head</strong> files and 37 <strong>.data</strong> files.</p>
+<p>We’re very nearly finished - all we need to do now is manipulate the output of <code class="docutils literal notranslate"><span class="pre">wc</span></code> as we did before to get the top
+5 stations, but this time using the <strong>.data</strong> files instead of the <strong>.txt</strong> files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Have a look at the output of <code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">*.head</span></code> - do you notice any differences between the files? Are there any files
+that stand out? Why did this happen, and can you think of a way to fix it?</p>
+</div>
+<p>Now we have a rough idea of the steps we need to include in our script:</p>
+<ul class="simple">
+<li><p>extracting the files from the tar.gz file</p></li>
+<li><p>use a for loop to split each file into .head and .data</p></li>
+<li><p>use a combination of wc, sort, and head to list the top 5 stations in descending order</p></li>
+<li><p>remove the original data files</p></li>
+</ul>
+<p>To actually write the script, we need to open a <strong>text editor</strong> and type out the commands, in order:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>xzf<span class="w"> </span>sample_data.tar.gz
+
+<span class="nb">cd</span><span class="w"> </span>sample_data/
+
+<span class="k">for</span><span class="w"> </span>fn<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.txt
+<span class="k">do</span>
+<span class="w">    </span><span class="nv">name</span><span class="o">=</span><span class="si">${</span><span class="nv">fn</span><span class="p">%.txt</span><span class="si">}</span>
+<span class="w">    </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;^\s{3}[[:digit:]]{4}&quot;</span><span class="w"> </span><span class="nv">$fn</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$name</span>.data
+<span class="w">    </span>grep<span class="w"> </span>-vE<span class="w"> </span><span class="s2">&quot;^\s{3}[[:digit:]]{4}&quot;</span><span class="w"> </span><span class="nv">$fn</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$name</span>.head
+<span class="k">done</span>
+
+wc<span class="w"> </span>-l<span class="w"> </span>*.data<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;total&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span>
+
+rm<span class="w"> </span>*.txt
+</pre></div>
+</div>
+<p>Go ahead and do this now, then <strong>Save</strong> the script to the same directory as your <strong>.tar.gz</strong> file with the name
+<strong>longest_record.sh</strong>. Remember to include comments that help you understand what the script is meant to be doing at
+different steps!</p>
+</div>
+<div class="section" id="running-the-script">
+<h2>running the script<a class="headerlink" href="#running-the-script" title="Permalink to this heading">#</a></h2>
+<p>Now that we have a script (<strong>longest_record.sh</strong>), we can run the script using <code class="docutils literal notranslate"><span class="pre">bash</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>longest_record.sh
+</pre></div>
+</div>
+<p>You should see that the top 5 stations in terms of length are printed to the terminal:</p>
+<a class="reference internal image-reference" href="../../../_images/script_output.png"><img alt="the output of the script, showing the 5 stations with the longest records" class="align-center" src="../../../_images/script_output.png" style="width: 600px;" /></a>
+</div>
+<div class="section" id="command-line-arguments">
+<h2>command-line arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this heading">#</a></h2>
+<p>To make our script more usable, though, we don’t necessarily want to specify the name of the <strong>.tar.gz</strong> file to
+extract - we want to be able to run this script on <em>any</em> <strong>.tar.gz</strong> file that contains similar data files, without
+having to edit the script each time we want to run it on a different file.</p>
+<p>For this, we can make use of <strong>command line arguments</strong> - these are variables that are defined on the command line when
+we “call” the script that the shell then passes to the script when it runs.</p>
+<p>For example, we could replace this line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>xvf<span class="w"> </span>sample_data.tar.gz
+</pre></div>
+</div>
+<p>with this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>xvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We are enclosing <code class="docutils literal notranslate"><span class="pre">$1</span></code> with double quotes to help protect against users who do not follow the
+<a class="reference internal" href="navigation.html#no-spaces"><span class="std std-ref">most important rule</span></a> for file and directory names.</p>
+</div>
+<p>Inside of the script, <code class="docutils literal notranslate"><span class="pre">1</span></code> is a special variable that takes the value of the first argument on the command line. So,
+if we wanted to run our script on a different file, we could now run the script like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>longest_record.sh<span class="w"> </span>new_file.tar.gz
+</pre></div>
+</div>
+<p>Perhaps we would also like to be able to specify how many records to show - in this case, we could replace this line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wc<span class="w"> </span>-l<span class="w"> </span>*.data<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;total&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span>
+</pre></div>
+</div>
+<p>with this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wc<span class="w"> </span>-l<span class="w"> </span>*.data<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;total&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="nv">$2</span>
+</pre></div>
+</div>
+<p>Then, we would run our script from the command line like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>longest_record.sh<span class="w"> </span>sample_data.tar.gz<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
+<p>And we should see the top 10 records returned.</p>
+<p>Finally, at the top of the script, it’s probably a good idea to include a few comments about how to use the script, and
+what it is used for:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># script: longest_record.sh</span>
+<span class="c1"># author: bob</span>
+<span class="c1"># purpose: unpack a .tar.gz file, split .txt files into header and data files,</span>
+<span class="c1">#   then print the top &lt;num&gt; longest records</span>
+<span class="c1"># usage: longest_record.sh &lt;tarfile&gt; &lt;num records&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are other, much fancier ways to add flexibility to shell scripts, and even print usage/help information to
+the terminal. For now, though, this is probably enough.</p>
+<p>If you are interested in learning more, a great place to start is Part 4 of <em>The Linux Command Line</em> by W. Shotts,
+a free book that you can find (legitimately!)
+<a class="reference external" href="https://netix.dl.sourceforge.net/project/linuxcommand/TLCL/19.01/TLCL-19.01.pdf">here</a>. You can also have a
+look at William’s <a class="reference external" href="https://linuxcommand.org/lc3_writing_shell_scripts.php">website</a>, which has a great tutorial
+for shell scripting.</p>
+</div>
+</div>
+<div class="section" id="optional-making-an-executable">
+<h2>optional: making an executable<a class="headerlink" href="#optional-making-an-executable" title="Permalink to this heading">#</a></h2>
+<p>At this point, we’re done: we have written a shell script that does the tasks that we wanted it to do, and we have made
+that script more flexible by using command-line arguments. We have also checked that the script runs by executing it
+using the bash shell.</p>
+<p>We could, however, go slightly further and turn our script into an executable file. This way, we could call our script
+by simply typing path to the filename at the terminal, omitting <code class="docutils literal notranslate"><span class="pre">bash</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/home/bob/scripts/longest_record.sh<span class="w"> </span>sample_data.tar.gz<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
+<p>To do this, we need to do two things. The first thing is that we need to add a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29">shebang</a> to the top of the script, which will tell the shell how
+to interpret the script<a class="footnote-reference brackets" href="#id2" id="id1">1</a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/bash</span>
+</pre></div>
+</div>
+<p>This way, when we call the script from the shell, it is interpreted using <code class="docutils literal notranslate"><span class="pre">bash</span></code>, instead of another interpreter.</p>
+<p>Finally, we need to use <code class="docutils literal notranslate"><span class="pre">chmod</span></code> to change the permissions of our script in order to make it executable:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>longest_record.sh
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remember that this will make the script executable at all levels: user, group, and “other”. If you want to restrict
+your script so that only the user and group may run it, you should modify the <code class="docutils literal notranslate"><span class="pre">chmod</span></code> command accordingly:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>u+x,g+x<span class="w"> </span>longest_record.sh
+</pre></div>
+</div>
+</div>
+<p>Now, we can run the script by typing the path to the file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/your/path/here/longest_record.sh<span class="w"> </span>sample_data.tar.gz<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-path-variable">
+<h2>the PATH variable<a class="headerlink" href="#the-path-variable" title="Permalink to this heading">#</a></h2>
+<p>As we have seen, we can “execute” (<em>run</em>) any script/program on our computer by typing the path to the corresponding
+file, (so long as we have the proper permission to do so).</p>
+<p>For example, let’s say we have a script, <code class="docutils literal notranslate"><span class="pre">analysis.sh</span></code>, in the following folder:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home/bob/scripts/analysis.sh
+</pre></div>
+</div>
+<p>We can run this script anywhere on our computer by typing this filename at the command prompt.</p>
+<p>When we type a command at the command prompt, the shell is executing a program that is stored somewhere on the
+filesystem. For example, type the following to see where the <code class="docutils literal notranslate"><span class="pre">ls</span></code> program is located on your computer:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>which<span class="w"> </span>ls
+</pre></div>
+</div>
+<p>you should see something like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/usr/bin/ls
+</pre></div>
+</div>
+<p>When we type a command name, the shell searches through a list of directories (the <strong>filepath</strong>, stored in the
+<code class="docutils literal notranslate"><span class="pre">$PATH</span></code> environment variable), looking for an executable file named <code class="docutils literal notranslate"><span class="pre">ls</span></code>. When it finds that file, it
+executes it.</p>
+<p>To see what directories are included in your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> variable, you can type the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+</pre></div>
+</div>
+<p>You should see a colon-delimited list of directories - these are the directories that the shell will search through
+when you type a command name.</p>
+<p>We can also change our <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable to include other directories, which would enable us to run this script by
+typing <code class="docutils literal notranslate"><span class="pre">analysis.sh</span></code> directly, without including the full path.</p>
+<p>To do this, we can add <code class="docutils literal notranslate"><span class="pre">/home/bob/scripts/</span></code> to our <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable, either by <em>appending</em> it to <code class="docutils literal notranslate"><span class="pre">PATH</span></code> by
+using a colon <code class="docutils literal notranslate"><span class="pre">:</span></code> to indicate the start of a different file system location:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/bob/scripts/
+</pre></div>
+</div>
+<p>or by <em>prepending</em> it to the beginning of the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">PATH</span><span class="o">=</span>/home/bob/scripts/:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The shell searches through the directories in <code class="docutils literal notranslate"><span class="pre">PATH</span></code> in order, meaning that directories at the beginning
+are searched first. If there are two (or more) versions of a program in the path, the one in the earliest
+directory searched will be the one that the shell runs.</p>
+</div>
+<p>If you want to add directories to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable, you <strong>MUST</strong> prepend (or append) them. To “permanently”
+add a directory to your path, you can include the following line in your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file, which should be located
+in your home directory:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/bob/scripts/:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">export</span></code> command will make this updated value of <code class="docutils literal notranslate"><span class="pre">PATH</span></code> available to other programs. The commands in
+the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file are executed whenever start a new shell session, which means that this new value of <code class="docutils literal notranslate"><span class="pre">PATH</span></code>
+will be used every time you begin a new shell session.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>With all of that in mind, <strong>NEVER EVER</strong> try to set the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable directly, like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/bob/scripts<span class="w"> </span><span class="c1"># this is really bad, don&#39;t do it!</span>
+</pre></div>
+</div>
+<p><strong>THIS WILL BREAK YOUR SHELL SESSION</strong>, because it will overwrite the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable with a single directory,
+which most likely contains exactly <strong>none</strong> of the programs needed to actually use the shell!</p>
+</div>
+</div>
+<div class="section" id="notes">
+<h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>There are actually <a class="reference external" href="https://stackoverflow.com/questions/10376206/what-is-the-preferred-bash-shebang">a number of different places</a>
+where different operating systems install <code class="docutils literal notranslate"><span class="pre">bash</span></code>, and there are different arguments for/against the “correct”
+shebang to use here. Because you are likely going to be writing scripts for your own use, rather than
+developing and distributing software to many users, the best option is likely to use the output of <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">bash</span></code>
+from your terminal - in my case, this is <code class="docutils literal notranslate"><span class="pre">/usr/bin/bash</span></code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="input.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">input/output</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../hpc/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">high performance computing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-manipulation">string manipulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loops">for loops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">putting it all together</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-script">running the script</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-arguments">command-line arguments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-making-an-executable">optional: making an executable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-path-variable">the PATH variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
