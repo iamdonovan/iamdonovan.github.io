@@ -11,7 +11,8 @@ and `slurm <https://en.wikipedia.org/wiki/Slurm_Workload_Manager>`__ (currently 
 .. note::
 
     This workshop is meant to provide a quick "how-to" introduction to get you using the available HPC environments;
-    it is manifestly **not** meant to provide in-depth coverage of topics such as parallel computing or programming.
+    it is manifestly **not** meant to provide in-depth coverage of topics such as parallel computing or programming
+    more generally.
 
     If you are interested in those topics, please feel free to browse some of the other sections that you can see to
     the left-hand side of your screen. :)
