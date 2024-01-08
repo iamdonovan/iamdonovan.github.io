@@ -156,16 +156,15 @@ of the machine you are trying to access), you will be prompted for your password
     :align: center
     :alt: anything you type while entering your password does not show up in the terminal
 
-
 .. note::
 
     As you type in your password, note that the cursor will not move - this is a long-standing security measure on
-    Unix-like systems,
+    Unix-like systems, so remember to type slowly and carefully.
 
 If you have typed in your password correctly, when you hit **Enter** a second time, you should see the prompt change,
 and a connection message displayed:
 
-.. image:: img/connected.png
+.. image:: img/atlas_login.png
     :width: 600
     :align: center
     :alt: connecting via ssh shows a connection message and change of prompt
