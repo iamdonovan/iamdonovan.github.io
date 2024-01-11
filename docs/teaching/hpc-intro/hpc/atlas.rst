@@ -236,6 +236,18 @@ to see a complete list, check the ``man`` page or see the online
 `documentation <https://slurm.schedmd.com/sbatch.html>`__.
 
 
+the slurm environment
+------------------------
+
+By default, when you submit a job using ``sbatch``, the script runs in the same environment that you submitted the job
+from. This means that:
+
+- the default working directory is the same as the directory you submitted the job from. Any relative
+  paths used in your script will be relative to that directory.
+- any environment variables (e.g., ``PATH``) will be the same as they are when you submit the job. This means that you
+  need to remember to run commands like ``module load`` before submitting your script; alternatively, you could also
+  include these commands in the script itself.
+
 sample script
 ---------------
 

@@ -124,6 +124,19 @@ the CPU time needed:
 Note that this is not the same as the wall time - it is the total time that is actively used by all of the processors
 running the job. If you're not entirely sure how much CPU time you need, it's probably best to stick to wall time.
 
+the torque environment
+------------------------
+
+By default, when you submit a job using ``qsub``, the script runs in the same environment **as when you first log in**.
+This means that:
+
+- the default working directory is your ``HOME`` directory. Any relative paths used in your script will be relative to
+  that directory.
+- any environment variables (e.g., ``PATH``) will be the same as they are when you first log in. This means that you
+  need to remember to update variables within the script, or use the ``-V`` option with ``qsub`` to export environment
+  variables to the job environment.
+
+
 advanced: using /tmp effectively
 ---------------------------------
 
