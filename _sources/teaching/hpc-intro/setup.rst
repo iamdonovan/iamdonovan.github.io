@@ -10,7 +10,7 @@ this page for more information/instructions.
 windows
 ---------
 
-If you are using a Windows computer, you will need to install a terminal emulator (if you have not already done so), as
+If you are using a Windows computer, you will need to install a ``bash`` emulator (if you have not already done so), as
 they are not installed by default.
 
 You will only need to install **one** of the options listed below, though I very much recommend installing ``git``

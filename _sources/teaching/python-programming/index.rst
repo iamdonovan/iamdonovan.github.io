@@ -70,14 +70,14 @@ concepts covered in each session. On the `GitHub <https://github.com/iamdonovan/
 workshop, you can find some example solutions that I have provided on the ``solutions`` branch. To get there, click the
 link above, which should take you here:
 
-.. image:: img/workshop_github.png
+.. image:: img/py_workshop_github.png
     :width: 720
     :align: center
     :alt: the workshop github page
 
 |br| Next, click the button that says ``main`` to show a list of branches, then select ``solutions``:
 
-.. image:: img/solutions_branch.png
+.. image:: img/py_solutions_branch.png
     :width: 720
     :align: center
     :alt: the workshop github page, with the menu to select branches open and highlighted by a red box.
@@ -85,7 +85,7 @@ link above, which should take you here:
 |br| This will show you the files included on the ``solutions`` branch - inside each folder, you should find script or
 notebook file that contains example solutions for each of the exercise questions:
 
-.. image:: img/example_solution.png
+.. image:: img/py_example_solution.png
     :width: 720
     :align: center
     :alt: an example solution for one of the sets of exercise questions

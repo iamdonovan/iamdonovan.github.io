@@ -220,28 +220,32 @@ series of monthly maximum temperature:
 
     sns.scatterplot(data=armagh, x="date", y="tmax") # create a simple scatter plot of tmax vs date, using the armagh dataframe
 
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='date', ylabel='tmax'>
-
-
-
-
 .. image:: plotting_files/plotting_19_1.png
 
+Note the output of the cell above, above the actual plot:
 
-over the rest of this exercise, we’ll look at how we can continue to
+::
+
+       <Axes: xlabel='date', ylabel='tmax'>
+
+The ``scatterplot`` function creates an **Axes** object
+(`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html>`__)
+- effectively, this is the container into which we put our plot. Our
+**Axes** object exists within a different kind of object - a **Figure**
+(`documentation <https://matplotlib.org/stable/api/figure_api.html>`__).
+
+Over the rest of this exercise, we’ll look at how we can continue to
 customize plots, by adding colors, customizing labels, changing font
-sizes, and so on.
+sizes, and so on. As we do so, we’ll make use of these objects and their
+methods/attributes. As we do so, we’ll also discuss some important
+differences between axes-level and figure-level functions in
+``seaborn``.
 
 example: basic histogram
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Now, let’s look at another type of plot: a histogram. To create a
-histogram using ``sns.histplot()``
+First, though, let’s look at another type of plot: a histogram. To
+create a histogram using ``sns.histplot()``
 (`documentation <https://seaborn.pydata.org/generated/seaborn.histplot.html>`__),
 we need to specify the ``x`` variable. We’ll continue using ``tmax``, so
 this will be a histogram of the values of ``tmax``:
@@ -249,16 +253,6 @@ this will be a histogram of the values of ``tmax``:
 .. code:: ipython3
 
     sns.histplot(data=armagh, x='tmax') # plot a histogram of tmax, using the armagh dataframe
-
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='tmax', ylabel='Count'>
-
-
-
 
 .. image:: plotting_files/plotting_21_1.png
 
@@ -276,16 +270,6 @@ Here’, let’s see how the plot changes by specifying using 30 bins:
 
     sns.histplot(data=armagh, x='tmax', bins=30) # plot a histogram of tmax, using the armagh dataframe and 30 bins
 
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='tmax', ylabel='Count'>
-
-
-
-
 .. image:: plotting_files/plotting_23_1.png
 
 
@@ -302,16 +286,6 @@ passed (in this case, ``season``):
 .. code:: ipython3
 
     sns.histplot(data=armagh, x="tmax", hue="season", bins=30) # show the distribution of tmax, broken down by season
-
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='tmax', ylabel='Count'>
-
-
-
 
 .. image:: plotting_files/plotting_25_1.png
 
@@ -339,16 +313,6 @@ histograms stacked on top of each other:
 
     sns.histplot(data=armagh, x="tmax", hue="season", bins=30) # remember to add the right keyword argument!
 
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='tmax', ylabel='Count'>
-
-
-
-
 .. image:: plotting_files/plotting_27_1.png
 
 
@@ -363,19 +327,6 @@ version of the histogram, using ``sns.kdeplot()``
 
     sns.kdeplot(data=armagh, x='tmax', hue='season', fill=True) # plot the density distribution of the data, colored by season, filled in
 
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='tmax', ylabel='Density'>
-
-
-
-
-.. image:: plotting_files/plotting_29_1.png
-
-
 example: box plots
 ~~~~~~~~~~~~~~~~~~
 
@@ -385,15 +336,6 @@ To make a box plot, we can use ``sns.boxplot()``
 .. code:: ipython3
 
     sns.boxplot(data=armagh, x='season', y='rain') # create a vertical box plot of rain, grouped by season
-
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='season', ylabel='rain'>
-
-
 
 
 .. image:: plotting_files/plotting_31_1.png
@@ -406,75 +348,89 @@ mapping:
 
     sns.boxplot(data=armagh, x='rain', y='season') # create a horizontal box plot of rain, grouped by season
 
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='rain', ylabel='season'>
-
-
-
-
 .. image:: plotting_files/plotting_33_1.png
 
 
-facet wrapping
---------------
+figure-level vs axes-level functions
+------------------------------------
 
-We might also want to plot our data using different subplots, or
-**facets**. For example, let’s look at a scatter plot of ``tmax`` vs
-``rain``, colored by season:
+``seaborn`` has a number of different functions that accomplish the same
+thing in different ways. So far, we have seen a few different examples
+of functions that create plots (e.g., ``scatterplot``, ``histplot``,
+``boxplot``, etc.). The output of these functions, as we have noted
+above, is an **Axes** object. Inside of a script, these functions will
+draw the plot within the “currently active” **Axes** object, or inside
+of whatever **Axes** object you pass to the function using the ``ax``
+argument.
+
+Rather than using these axes-level functions, we can also use
+figure-level plots, which create their own **Figure** object before
+drawing the plot. To see a simple example of this, let’s draw a scatter
+plot using ``sns.relplot()``
+(`documentation <https://seaborn.pydata.org/generated/seaborn.relplot.html>`__):
 
 .. code:: ipython3
 
-    sns.scatterplot(data=armagh, x='rain', y='tmax', hue='season', style='season')
-
-
-
-
-.. parsed-literal::
-
-    <Axes: xlabel='rain', ylabel='tmax'>
-
-
-
+    sns.relplot(data=armagh, kind='scatter', x='date', y='tmax') # use relplot to show a scatterplot of tmax vs date
 
 .. image:: plotting_files/plotting_35_1.png
 
+You should notice that the plot looks exactly the same as the scatter
+plot we created using ``sns.scatterplot()``. But, the actual output of
+the function is different - this time, it’s:
 
-But, this makes it difficult to see the scatter for each season. To
-split this into a single subplot for each season, we use
-``sns.FaceGrid()``
-(`documentation <https://seaborn.pydata.org/generated/seaborn.FacetGrid.html>`__)
-to create a **FacetGrid** object, with each panel of the grid
-corresponding to a different season.
+::
 
-We can then use ``.map_dataframe()``
-(`documentation <https://seaborn.pydata.org/generated/seaborn.FacetGrid.map_dataframe.html>`__)
-to *map* a plotting function (in this case, ``sns.scatterplot()``) to
-each panel, specifying the ``x`` and ``y`` data:
+       <seaborn.axisgrid.FacetGrid at 0x25c20984490>
+
+(note that your output will differ slightly). This time, it’s a
+**FacetGrid**
+(`documentation <https://seaborn.pydata.org/generated/seaborn.FacetGrid.html>`__),
+rather than an **Axes** - a multi-plot grid that can be used to show
+conditional relationships. To see how this works in a more complicated
+case, let’s plot the relationship between ``rain`` and ``tmax``, and use
+the ``col`` argument to create a separate panel for each season:
 
 .. code:: ipython3
 
-    g = sns.FacetGrid(data=armagh, col='season', col_wrap=2) # create a 2x2 grid of panels, one for each value of season
-    g.map_dataframe(sns.scatterplot, x='rain', y='tmax') # create a scatter plot of tmax vs rain in each panel
-
-
-
-
-.. parsed-literal::
-
-    <seaborn.axisgrid.FacetGrid at 0x7f1222fbea50>
-
-
-
+    sns.relplot(data=armagh, kind='scatter', x='rain', y='tmax', col='season', col_wrap=2) # create a 2x2 grid of panels, one for each value of season
 
 .. image:: plotting_files/plotting_37_1.png
 
 
-cleaning up and saving the plot to a file
------------------------------------------
+we can also use the ``hue`` argument to assign a color based on a
+variable. Note that this will also place a **Legend** outside of the
+plot, explaining what each color/symbol combination means:
+
+.. code:: ipython3
+
+    sns.relplot(data=armagh, kind='scatter', x='rain', y='tmax', col='season', col_wrap=2, hue='season') # create a 2x2 grid of panels, one for each value of season
+
+.. image:: plotting_files/plotting_39_1.png
+
+
+``seaborn`` plot types are organized into three different “modules”,
+based on what type of data they are meant to show:
+
+-  ``relplot``, for plotting relationships between variables
+   [axes-level: ``scatterplot``, ``lineplot``]
+-  ``displot``, for plotting distributions [axes-level: ``histplot``,
+   ``kdeplot``, ``ecdfplot``, ``rugplot``]
+-  ``catplot``, for plotting categorical data [axes-level:
+   ``stripplot``, ``swarmplot``, ``boxplot``, ``violinplot``,
+   ``pointplot``, ``barplot``]
+
+For each type of plot we want to make, we can use either the
+figure-level or the axes-level functions, depending on what we are
+doing. For creating a figure with multiple subplots (for example, to
+show a separate subplot for each value of a categorical variable), it is
+easiest to use the figure-level function, rather than the axes-level
+function. For more information about the differences between
+figure-level and axes-level functions in ``seaborn``, see `this official
+guide <https://seaborn.pydata.org/tutorial/function_overview.html>`__.
+
+customizing the plot
+--------------------
 
 In the final example, we’ll make a plot showing the relationship between
 ``rain`` and ``tmax``, colored by the ``season``, and plot regression
@@ -484,26 +440,16 @@ We’ll also see how we can change the axes labels, and increase font
 sizes, to help make our plot ready for including in a manuscript or
 presentation.
 
-Because we want to see the linear relationship between ``rain`` and
-``tmax`` for each season, we can use ``sns.lmplot()``
-(`documentation <https://seaborn.pydata.org/generated/seaborn.lmplot.html>`__)-
-this will plot the scatter plot, plus the regression lines:
+To plot the linear relationship between ``rain`` and ``tmax`` for each
+season, we can use ``sns.lmplot()``
+(`documentation <https://seaborn.pydata.org/generated/seaborn.lmplot.html>`__)
+- this will plot the scatter plot, plus the regression lines:
 
 .. code:: ipython3
 
     sns.lmplot(data=armagh, x='rain', y='tmax', hue='season')
 
-
-
-
-.. parsed-literal::
-
-    <seaborn.axisgrid.FacetGrid at 0x7f122041b6d0>
-
-
-
-
-.. image:: plotting_files/plotting_39_1.png
+.. image:: plotting_files/plotting_41_1.png
 
 
 Up to now, we’ve just been showing the output of the different plotting
@@ -521,7 +467,7 @@ operator:
 
 
 
-.. image:: plotting_files/plotting_41_0.png
+.. image:: plotting_files/plotting_43_0.png
 
 
 Now, we can use this object to change the properties of the axes.
@@ -565,7 +511,7 @@ of the text:
 
 
 
-.. image:: plotting_files/plotting_47_0.png
+.. image:: plotting_files/plotting_49_0.png
 
 
 
@@ -583,12 +529,12 @@ axis, respectively:
 
     rain_tmax_plot.fig # show the figure again
 
+.. image:: plotting_files/plotting_51_0.png
 
 
 
-.. image:: plotting_files/plotting_49_0.png
-
-
+saving the figure to a file
+---------------------------
 
 As you can see from the previous few cells, we have been using
 ``rain_tmax_plot.fig`` to show the updates to the figure. As you might
@@ -626,6 +572,4 @@ that does the following:
    period in the same panel, colored by the period (using both color and
    fill)
 -  sets appropriate labels and font sizes for the axis text
--  saves each plot to its own file. For the three-panel figure, make
-   sure to change the width and height of the plot so that the plot is
-   more rectangular, and each panel is approximately square
+-  saves each plot to its own file.

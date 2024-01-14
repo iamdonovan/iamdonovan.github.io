@@ -571,6 +571,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torque">torque</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-resources">specifying resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-torque-environment">the torque environment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-using-tmp-effectively">advanced: using /tmp effectively</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-script">sample script</a></li>
 </ul>
@@ -691,6 +692,18 @@ the CPU time needed:</p>
 <p>Note that this is not the same as the wall time - it is the total time that is actively used by all of the processors
 running the job. If you’re not entirely sure how much CPU time you need, it’s probably best to stick to wall time.</p>
 </div>
+<div class="section" id="the-torque-environment">
+<h2>the torque environment<a class="headerlink" href="#the-torque-environment" title="Permalink to this heading">#</a></h2>
+<p>By default, when you submit a job using <code class="docutils literal notranslate"><span class="pre">qsub</span></code>, the script runs in the same environment <strong>as when you first log in</strong>.
+This means that:</p>
+<ul class="simple">
+<li><p>the default working directory is your <code class="docutils literal notranslate"><span class="pre">HOME</span></code> directory. Any relative paths used in your script will be relative to
+that directory.</p></li>
+<li><p>any environment variables (e.g., <code class="docutils literal notranslate"><span class="pre">PATH</span></code>) will be the same as they are when you first log in. This means that you
+need to remember to update variables within the script, or use the <code class="docutils literal notranslate"><span class="pre">-V</span></code> option with <code class="docutils literal notranslate"><span class="pre">qsub</span></code> to export environment
+variables to the job environment.</p></li>
+</ul>
+</div>
 <div class="section" id="advanced-using-tmp-effectively">
 <h2>advanced: using /tmp effectively<a class="headerlink" href="#advanced-using-tmp-effectively" title="Permalink to this heading">#</a></h2>
 <p>Unfortunately, the main storage disk used with <code class="docutils literal notranslate"><span class="pre">vulcan</span></code> (mounted at <code class="docutils literal notranslate"><span class="pre">/mnt/DATA</span></code>) is not well-suited to read/write
@@ -810,6 +823,7 @@ cp<span class="w"> </span>-rv<span class="w"> </span><span class="nv">$tmpdir</s
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torque">torque</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-resources">specifying resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-torque-environment">the torque environment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-using-tmp-effectively">advanced: using /tmp effectively</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-script">sample script</a></li>
 </ul>

@@ -581,8 +581,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-box-plots">example: box plots</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facet-wrapping">facet wrapping</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-up-and-saving-the-plot-to-a-file">cleaning up and saving the plot to a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-level-vs-axes-level-functions">figure-level vs axes-level functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-the-plot">customizing the plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-the-figure-to-a-file">saving the figure to a file</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
 </ul>
             </nav>
@@ -782,25 +783,31 @@ series of monthly maximum temperature:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">)</span> <span class="c1"># create a simple scatter plot of tmax vs date, using the armagh dataframe</span>
 </pre></div>
 </div>
+<img alt="../../../_images/plotting_19_1.png" src="../../../_images/plotting_19_1.png" />
+<p>Note the output of the cell above, above the actual plot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_19_1.png" src="../../../_images/plotting_19_1.png" />
-<p>over the rest of this exercise, we’ll look at how we can continue to
+<p>The <code class="docutils literal notranslate"><span class="pre">scatterplot</span></code> function creates an <strong>Axes</strong> object
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html">documentation</a>)
+- effectively, this is the container into which we put our plot. Our
+<strong>Axes</strong> object exists within a different kind of object - a <strong>Figure</strong>
+(<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html">documentation</a>).</p>
+<p>Over the rest of this exercise, we’ll look at how we can continue to
 customize plots, by adding colors, customizing labels, changing font
-sizes, and so on.</p>
+sizes, and so on. As we do so, we’ll make use of these objects and their
+methods/attributes. As we do so, we’ll also discuss some important
+differences between axes-level and figure-level functions in
+<code class="docutils literal notranslate"><span class="pre">seaborn</span></code>.</p>
 </div>
 <div class="section" id="example-basic-histogram">
 <h3>example: basic histogram<a class="headerlink" href="#example-basic-histogram" title="Permalink to this heading">#</a></h3>
-<p>Now, let’s look at another type of plot: a histogram. To create a
-histogram using <code class="docutils literal notranslate"><span class="pre">sns.histplot()</span></code>
+<p>First, though, let’s look at another type of plot: a histogram. To
+create a histogram using <code class="docutils literal notranslate"><span class="pre">sns.histplot()</span></code>
 (<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.histplot.html">documentation</a>),
 we need to specify the <code class="docutils literal notranslate"><span class="pre">x</span></code> variable. We’ll continue using <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, so
 this will be a histogram of the values of <code class="docutils literal notranslate"><span class="pre">tmax</span></code>:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># plot a histogram of tmax, using the armagh dataframe</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <img alt="../../../_images/plotting_21_1.png" src="../../../_images/plotting_21_1.png" />
@@ -814,9 +821,6 @@ the edges of the bins (by passing a sequence of bin edges using the
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># plot a histogram of tmax, using the armagh dataframe and 30 bins</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
 <img alt="../../../_images/plotting_23_1.png" src="../../../_images/plotting_23_1.png" />
 <p>In the plot above, you can see how <code class="docutils literal notranslate"><span class="pre">tmax</span></code> is distributed, with several
 apparent peaks around 8°C, 14°C, and 18°C. Presumably, these would be
@@ -827,9 +831,6 @@ is correct.</p>
 <code class="docutils literal notranslate"><span class="pre">sns.histplot()</span></code>, which will group the values based on the variable
 passed (in this case, <code class="docutils literal notranslate"><span class="pre">season</span></code>):</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># show the distribution of tmax, broken down by season</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <img alt="../../../_images/plotting_25_1.png" src="../../../_images/plotting_25_1.png" />
@@ -853,9 +854,6 @@ histograms stacked on top of each other:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># remember to add the right keyword argument!</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Count&#39;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
 <img alt="../../../_images/plotting_27_1.png" src="../../../_images/plotting_27_1.png" />
 </div>
 <div class="section" id="example-density-plot">
@@ -866,10 +864,6 @@ version of the histogram, using <code class="docutils literal notranslate"><span
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># plot the density distribution of the data, colored by season, filled in</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<img alt="../../../_images/plotting_29_1.png" src="../../../_images/plotting_29_1.png" />
 </div>
 <div class="section" id="example-box-plots">
 <h3>example: box plots<a class="headerlink" href="#example-box-plots" title="Permalink to this heading">#</a></h3>
@@ -878,71 +872,94 @@ version of the histogram, using <code class="docutils literal notranslate"><span
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span> <span class="c1"># create a vertical box plot of rain, grouped by season</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
 <img alt="../../../_images/plotting_31_1.png" src="../../../_images/plotting_31_1.png" />
 <p>To swap the orientation of the boxes, we can change the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>
 mapping:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span> <span class="c1"># create a horizontal box plot of rain, grouped by season</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
 <img alt="../../../_images/plotting_33_1.png" src="../../../_images/plotting_33_1.png" />
 </div>
 </div>
-<div class="section" id="facet-wrapping">
-<h2>facet wrapping<a class="headerlink" href="#facet-wrapping" title="Permalink to this heading">#</a></h2>
-<p>We might also want to plot our data using different subplots, or
-<strong>facets</strong>. For example, let’s look at a scatter plot of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> vs
-<code class="docutils literal notranslate"><span class="pre">rain</span></code>, colored by season:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Axes</span><span class="p">:</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="o">&gt;</span>
+<div class="section" id="figure-level-vs-axes-level-functions">
+<h2>figure-level vs axes-level functions<a class="headerlink" href="#figure-level-vs-axes-level-functions" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code> has a number of different functions that accomplish the same
+thing in different ways. So far, we have seen a few different examples
+of functions that create plots (e.g., <code class="docutils literal notranslate"><span class="pre">scatterplot</span></code>, <code class="docutils literal notranslate"><span class="pre">histplot</span></code>,
+<code class="docutils literal notranslate"><span class="pre">boxplot</span></code>, etc.). The output of these functions, as we have noted
+above, is an <strong>Axes</strong> object. Inside of a script, these functions will
+draw the plot within the “currently active” <strong>Axes</strong> object, or inside
+of whatever <strong>Axes</strong> object you pass to the function using the <code class="docutils literal notranslate"><span class="pre">ax</span></code>
+argument.</p>
+<p>Rather than using these axes-level functions, we can also use
+figure-level plots, which create their own <strong>Figure</strong> object before
+drawing the plot. To see a simple example of this, let’s draw a scatter
+plot using <code class="docutils literal notranslate"><span class="pre">sns.relplot()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.relplot.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># use relplot to show a scatterplot of tmax vs date</span>
 </pre></div>
 </div>
 <img alt="../../../_images/plotting_35_1.png" src="../../../_images/plotting_35_1.png" />
-<p>But, this makes it difficult to see the scatter for each season. To
-split this into a single subplot for each season, we use
-<code class="docutils literal notranslate"><span class="pre">sns.FaceGrid()</span></code>
-(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.FacetGrid.html">documentation</a>)
-to create a <strong>FacetGrid</strong> object, with each panel of the grid
-corresponding to a different season.</p>
-<p>We can then use <code class="docutils literal notranslate"><span class="pre">.map_dataframe()</span></code>
-(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.FacetGrid.map_dataframe.html">documentation</a>)
-to <em>map</em> a plotting function (in this case, <code class="docutils literal notranslate"><span class="pre">sns.scatterplot()</span></code>) to
-each panel, specifying the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> data:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create a 2x2 grid of panels, one for each value of season</span>
-<span class="n">g</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># create a scatter plot of tmax vs rain in each panel</span>
+<p>You should notice that the plot looks exactly the same as the scatter
+plot we created using <code class="docutils literal notranslate"><span class="pre">sns.scatterplot()</span></code>. But, the actual output of
+the function is different - this time, it’s:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">seaborn</span><span class="o">.</span><span class="n">axisgrid</span><span class="o">.</span><span class="n">FacetGrid</span> <span class="n">at</span> <span class="mh">0x25c20984490</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">seaborn</span><span class="o">.</span><span class="n">axisgrid</span><span class="o">.</span><span class="n">FacetGrid</span> <span class="n">at</span> <span class="mh">0x7f1222fbea50</span><span class="o">&gt;</span>
+<p>(note that your output will differ slightly). This time, it’s a
+<strong>FacetGrid</strong>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.FacetGrid.html">documentation</a>),
+rather than an <strong>Axes</strong> - a multi-plot grid that can be used to show
+conditional relationships. To see how this works in a more complicated
+case, let’s plot the relationship between <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, and use
+the <code class="docutils literal notranslate"><span class="pre">col</span></code> argument to create a separate panel for each season:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create a 2x2 grid of panels, one for each value of season</span>
 </pre></div>
 </div>
 <img alt="../../../_images/plotting_37_1.png" src="../../../_images/plotting_37_1.png" />
+<p>we can also use the <code class="docutils literal notranslate"><span class="pre">hue</span></code> argument to assign a color based on a
+variable. Note that this will also place a <strong>Legend</strong> outside of the
+plot, explaining what each color/symbol combination means:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span> <span class="c1"># create a 2x2 grid of panels, one for each value of season</span>
+</pre></div>
 </div>
-<div class="section" id="cleaning-up-and-saving-the-plot-to-a-file">
-<h2>cleaning up and saving the plot to a file<a class="headerlink" href="#cleaning-up-and-saving-the-plot-to-a-file" title="Permalink to this heading">#</a></h2>
+<img alt="../../../_images/plotting_39_1.png" src="../../../_images/plotting_39_1.png" />
+<p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code> plot types are organized into three different “modules”,
+based on what type of data they are meant to show:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">relplot</span></code>, for plotting relationships between variables
+[axes-level: <code class="docutils literal notranslate"><span class="pre">scatterplot</span></code>, <code class="docutils literal notranslate"><span class="pre">lineplot</span></code>]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">displot</span></code>, for plotting distributions [axes-level: <code class="docutils literal notranslate"><span class="pre">histplot</span></code>,
+<code class="docutils literal notranslate"><span class="pre">kdeplot</span></code>, <code class="docutils literal notranslate"><span class="pre">ecdfplot</span></code>, <code class="docutils literal notranslate"><span class="pre">rugplot</span></code>]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">catplot</span></code>, for plotting categorical data [axes-level:
+<code class="docutils literal notranslate"><span class="pre">stripplot</span></code>, <code class="docutils literal notranslate"><span class="pre">swarmplot</span></code>, <code class="docutils literal notranslate"><span class="pre">boxplot</span></code>, <code class="docutils literal notranslate"><span class="pre">violinplot</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pointplot</span></code>, <code class="docutils literal notranslate"><span class="pre">barplot</span></code>]</p></li>
+</ul>
+<p>For each type of plot we want to make, we can use either the
+figure-level or the axes-level functions, depending on what we are
+doing. For creating a figure with multiple subplots (for example, to
+show a separate subplot for each value of a categorical variable), it is
+easiest to use the figure-level function, rather than the axes-level
+function. For more information about the differences between
+figure-level and axes-level functions in <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>, see <a class="reference external" href="https://seaborn.pydata.org/tutorial/function_overview.html">this official
+guide</a>.</p>
+</div>
+<div class="section" id="customizing-the-plot">
+<h2>customizing the plot<a class="headerlink" href="#customizing-the-plot" title="Permalink to this heading">#</a></h2>
 <p>In the final example, we’ll make a plot showing the relationship between
 <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, colored by the <code class="docutils literal notranslate"><span class="pre">season</span></code>, and plot regression
 lines for each season.</p>
 <p>We’ll also see how we can change the axes labels, and increase font
 sizes, to help make our plot ready for including in a manuscript or
 presentation.</p>
-<p>Because we want to see the linear relationship between <code class="docutils literal notranslate"><span class="pre">rain</span></code> and
-<code class="docutils literal notranslate"><span class="pre">tmax</span></code> for each season, we can use <code class="docutils literal notranslate"><span class="pre">sns.lmplot()</span></code>
-(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.lmplot.html">documentation</a>)-
-this will plot the scatter plot, plus the regression lines:</p>
+<p>To plot the linear relationship between <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code> for each
+season, we can use <code class="docutils literal notranslate"><span class="pre">sns.lmplot()</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.lmplot.html">documentation</a>)
+- this will plot the scatter plot, plus the regression lines:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">seaborn</span><span class="o">.</span><span class="n">axisgrid</span><span class="o">.</span><span class="n">FacetGrid</span> <span class="n">at</span> <span class="mh">0x7f122041b6d0</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<img alt="../../../_images/plotting_39_1.png" src="../../../_images/plotting_39_1.png" />
+<img alt="../../../_images/plotting_41_1.png" src="../../../_images/plotting_41_1.png" />
 <p>Up to now, we’ve just been showing the output of the different plotting
 calls directly by running each cell. In a script, however, this wouldn’t
 work - we want to assign the output to a new <strong>object</strong>, which we can
@@ -953,7 +970,7 @@ operator:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_41_0.png" src="../../../_images/plotting_41_0.png" />
+<img alt="../../../_images/plotting_43_0.png" src="../../../_images/plotting_43_0.png" />
 <p>Now, we can use this object to change the properties of the axes.
 <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> is built on top of another package,
 <a class="reference external" href="https://matplotlib.org/stable/users/index">matplotlib</a>, and many of
@@ -985,7 +1002,7 @@ of the text:</p>
 <span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span> <span class="c1"># show the figure again</span>
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_47_0.png" src="../../../_images/plotting_47_0.png" />
+<img alt="../../../_images/plotting_49_0.png" src="../../../_images/plotting_49_0.png" />
 <p>We can also use <code class="docutils literal notranslate"><span class="pre">.set_xticks()</span></code>
 (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xticks.html">documentation</a>)
 and <code class="docutils literal notranslate"><span class="pre">.set_yticks()</span></code>
@@ -998,7 +1015,10 @@ axis, respectively:</p>
 <span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span> <span class="c1"># show the figure again</span>
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_49_0.png" src="../../../_images/plotting_49_0.png" />
+<img alt="../../../_images/plotting_51_0.png" src="../../../_images/plotting_51_0.png" />
+</div>
+<div class="section" id="saving-the-figure-to-a-file">
+<h2>saving the figure to a file<a class="headerlink" href="#saving-the-figure-to-a-file" title="Permalink to this heading">#</a></h2>
 <p>As you can see from the previous few cells, we have been using
 <code class="docutils literal notranslate"><span class="pre">rain_tmax_plot.fig</span></code> to show the updates to the figure. As you might
 have guessed, this is a <strong>matplotlib.figure.Figure</strong> object
@@ -1031,9 +1051,7 @@ fill)</p></li>
 period in the same panel, colored by the period (using both color and
 fill)</p></li>
 <li><p>sets appropriate labels and font sizes for the axis text</p></li>
-<li><p>saves each plot to its own file. For the three-panel figure, make
-sure to change the width and height of the plot so that the plot is
-more rectangular, and each panel is approximately square</p></li>
+<li><p>saves each plot to its own file.</p></li>
 </ul>
 </div>
 </div>
@@ -1094,8 +1112,9 @@ more rectangular, and each panel is approximately square</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-box-plots">example: box plots</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#facet-wrapping">facet wrapping</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-up-and-saving-the-plot-to-a-file">cleaning up and saving the plot to a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#figure-level-vs-axes-level-functions">figure-level vs axes-level functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-the-plot">customizing the plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-the-figure-to-a-file">saving the figure to a file</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-and-next-steps">exercise and next steps</a></li>
 </ul>
   </nav></div>

@@ -12,14 +12,14 @@ To illustrate the second point, let's say that we wanted to create 1000 folders,
 Think of the amount of time it takes for you to create a single folder using the GUI; now, think of the amount of time
 (not to mention the absolute tedium) it would take to do it 1000 times over.
 
-Alternatively, a single set of instructions like this one:
+Alternatively, a single command like this one:
 
 .. code-block:: bash
 
-    for n in {1..1000}; do mkdir dir$n; done
+    mkdir dir{1..1000}
 
 accomplishes the same task in far less time. Timing this on my computer at home, this set of instructions (commands)
-finishes in about two seconds.
+finishes in less than a second.
 
 the command prompt
 -------------------

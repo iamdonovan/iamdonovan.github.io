@@ -573,6 +573,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm">slurm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-job">example job</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-resources">specifying resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-slurm-environment">the slurm environment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-script">sample script</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
 </ul>
@@ -773,6 +774,18 @@ in the script began like this:</p>
 to see a complete list, check the <code class="docutils literal notranslate"><span class="pre">man</span></code> page or see the online
 <a class="reference external" href="https://slurm.schedmd.com/sbatch.html">documentation</a>.</p>
 </div>
+<div class="section" id="the-slurm-environment">
+<h2>the slurm environment<a class="headerlink" href="#the-slurm-environment" title="Permalink to this heading">#</a></h2>
+<p>By default, when you submit a job using <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>, the script runs in the same environment that you submitted the job
+from. This means that:</p>
+<ul class="simple">
+<li><p>the default working directory is the same as the directory you submitted the job from. Any relative
+paths used in your script will be relative to that directory.</p></li>
+<li><p>any environment variables (e.g., <code class="docutils literal notranslate"><span class="pre">PATH</span></code>) will be the same as they are when you submit the job. This means that you
+need to remember to run commands like <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span></code> before submitting your script; alternatively, you could also
+include these commands in the script itself.</p></li>
+</ul>
+</div>
 <div class="section" id="sample-script">
 <h2>sample script<a class="headerlink" href="#sample-script" title="Permalink to this heading">#</a></h2>
 <p>An example batch script is shown in the box below. Feel free to copy and adjust the script for your own use - just
@@ -859,6 +872,7 @@ remember that it will only work on a system that uses Slurm.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm">slurm</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-job">example job</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-resources">specifying resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-slurm-environment">the slurm environment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-script">sample script</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
 </ul>
