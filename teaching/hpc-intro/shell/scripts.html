@@ -596,7 +596,7 @@ observations, using data downloaded from the <a class="reference external" href=
 Office</a>.</p>
 <p>In the previous lesson, we saw how we can use various shell commands to:</p>
 <ul class="simple">
-<li><p>extract tar files</p></li>
+<li><p>extract <strong>.tar</strong> files</p></li>
 <li><p>see the number of lines, “words”, and characters in a text file</p></li>
 <li><p>use pipes (<code class="docutils literal notranslate"><span class="pre">|</span></code>) to combine commands</p></li>
 <li><p>use grep and regular expressions for pattern matching</p></li>
@@ -605,7 +605,7 @@ Office</a>.</p>
 <p>So, we have most of the pieces in place in place to be able to write a program (a <strong>script</strong>) that will do all of these
 tasks for us, without having to run each command individually. Specifically, we want our program to:</p>
 <ul class="simple">
-<li><p>extract the data from a (<strong>.tar.gz</strong>) file</p></li>
+<li><p>extract the data from a <strong>.tar.gz</strong> file</p></li>
 <li><p>split each file into separate header (<strong>.head</strong>) and data (<strong>.data</strong>) files</p></li>
 <li><p>remove the original files (but leave the <strong>.head</strong> and <strong>.data</strong> files)</p></li>
 <li><p>count the number of observations in each <strong>.data</strong> file</p></li>
@@ -614,14 +614,14 @@ tasks for us, without having to run each command individually. Specifically, we 
 <div class="section" id="variables">
 <h2>variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h2>
 <p>First, we’ll learn about <strong>variables</strong> - a name that stores some value. The value can be a string (characters), an
-integer, a floating point (decimal) number, a filename, a shell command, or some other value.</p>
+integer, a floating point (decimal) number, a filename, a shell command, or some other thing that the computer can use.</p>
 <p>To see an example of an <strong>environment variable</strong> (something used by the system), enter the following at the command
 prompt:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$HOME</span>
 </pre></div>
 </div>
-<p>This will print the value of the environment variable <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> to the terminal. You should hopefully see that this
-prints <code class="docutils literal notranslate"><span class="pre">/home/$USER</span></code>, where <code class="docutils literal notranslate"><span class="pre">$USER</span></code> is the environment variable corresponding to your username.</p>
+<p>This will print the value of the environment variable <code class="docutils literal notranslate"><span class="pre">HOME</span></code> to the terminal. You should hopefully see that this
+prints <code class="docutils literal notranslate"><span class="pre">/home/$USER</span></code>, where <code class="docutils literal notranslate"><span class="pre">USER</span></code> is the environment variable corresponding to your username.</p>
 <p>We can also create and use our own variables, both in the shell and within scripts. To do this, we use <code class="docutils literal notranslate"><span class="pre">=</span></code> (the
 “assignment operator”):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>name=value
@@ -686,10 +686,10 @@ stations will all have different names, with different lengths.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">fn</span><span class="p">%.*</span><span class="si">}</span>
 </pre></div>
 </div>
-<p>This should print <code class="docutils literal notranslate"><span class="pre">armagh</span></code> to the screen. The way this works is that bash matches the pattern after <code class="docutils literal notranslate"><span class="pre">%</span></code>, starting
-from the end of the string. It then removes the shortest substring that matches the pattern. So, <code class="docutils literal notranslate"><span class="pre">%.*</span></code> means that
-bash finds the shortest substring that matches the pattern <code class="docutils literal notranslate"><span class="pre">.*</span></code> (in this case, <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, and removes it from the
-string.</p>
+<p>This should print <code class="docutils literal notranslate"><span class="pre">armagh</span></code> to the screen. The way this works is that the shell matches the pattern after <code class="docutils literal notranslate"><span class="pre">%</span></code>,
+starting from the end of the string. It then removes the shortest substring that matches the pattern. So, <code class="docutils literal notranslate"><span class="pre">%.*</span></code>
+means that bash finds the shortest substring that matches the pattern <code class="docutils literal notranslate"><span class="pre">.*</span></code> (in this case, <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, and removes it
+from the string.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If we want to remove the longest substring, we use <code class="docutils literal notranslate"><span class="pre">%%</span></code> instead.</p>
@@ -715,9 +715,8 @@ the extension.</p>
 <h2>for loops<a class="headerlink" href="#for-loops" title="Permalink to this heading">#</a></h2>
 <p>In the previous exercise, we saw how we can use <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> to split a single file into a header (<strong>.head</strong>) and
 data (<strong>.data</strong>) file. We have now seen how we can use string manipulation to remove the extension from a filename,
-which means we can</p>
-<p>But, we have more than one (37, in fact) file - we really don’t want to have to type each
-command our for all 37 files!</p>
+which means we can use shell variables to automatically create a new file with a different extension.</p>
+<p>But, we have more than one (37, in fact) file - we really don’t want to have to type a command for each of our 37 files!</p>
 <p>Fortunately, we can use a <code class="docutils literal notranslate"><span class="pre">for</span></code> <strong>loop</strong> to repeat a command (or set of commands). In the bash shell, a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop
 has the following basic structure:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>thing<span class="w"> </span><span class="k">in</span><span class="w"> </span>things
@@ -729,16 +728,16 @@ has the following basic structure:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can see that the text after the <code class="docutils literal notranslate"><span class="pre">#</span></code> in the code block above is highlighted differently - this is because
-<code class="docutils literal notranslate"><span class="pre">#</span></code> is used to indicate a <strong>comment</strong> - text that the shell ignores, but that can be read by humans. Using
-comments is a great way to help other people (especially future you!) understand what the code is actually doing
-(or is meant to be doing).</p>
+<code class="docutils literal notranslate"><span class="pre">#</span></code> is used to indicate a <strong>comment</strong> - text that the shell ignores, but that can be read by humans.</p>
+<p>Using comments in your scripts is a great way to help other people (especially future you!) understand what the
+code is actually doing (or is meant to be doing).</p>
 <p>When typing commands at the prompt, we don’t typically need to include comments; when we write shell scripts,
 however, it’s <strong>always</strong> a good idea to include comments to help make your code more understandable. Future you
 (and, potentially, other users) will thank present you for including them.</p>
 </div>
 <p>The beginning of the loop is indicated using <code class="docutils literal notranslate"><span class="pre">for</span></code>, and the list of commands for the shell to execute is bookended
 by <code class="docutils literal notranslate"><span class="pre">do</span></code> (at the beginning) and <code class="docutils literal notranslate"><span class="pre">done</span></code> (at the end).</p>
-<p>The shell will then repeat these commands for each item (<code class="docutils literal notranslate"><span class="pre">thing</span></code> in the pseudo-code above) in a list (<code class="docutils literal notranslate"><span class="pre">things</span></code>).</p>
+<p>The shell will then repeat these commands for each item (<code class="docutils literal notranslate"><span class="pre">thing</span></code> in the pseudo-code above) in an array (<code class="docutils literal notranslate"><span class="pre">things</span></code>).</p>
 <p>On each pass through the loop, the <strong>variable</strong> <code class="docutils literal notranslate"><span class="pre">thing</span></code> takes on the value of the next item in the list. To help
 illustrate this, we’ll loop through all of the filenames that begin with a <code class="docutils literal notranslate"><span class="pre">c</span></code>, and use <code class="docutils literal notranslate"><span class="pre">echo</span></code> to print the
 filename to the screen:</p>
@@ -746,7 +745,8 @@ filename to the screen:</p>
 <p class="admonition-title">Note</p>
 <p>As you type in the code below, notice how the shell prompt changes from <code class="docutils literal notranslate"><span class="pre">$</span></code> to <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, then back. This is done to
 remind us that we haven’t finished typing the full command, since the loop isn’t finished until we have typed
-<code class="docutils literal notranslate"><span class="pre">done</span></code>. We could also type this on a single line, using a semicolon <code class="docutils literal notranslate"><span class="pre">;</span></code> to separate the commands.</p>
+<code class="docutils literal notranslate"><span class="pre">done</span></code>.</p>
+<p>We could also type this on a single line, using a semicolon <code class="docutils literal notranslate"><span class="pre">;</span></code> to separate the commands.</p>
 </div>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>fn<span class="w"> </span><span class="k">in</span><span class="w"> </span>c*.txt
 <span class="k">do</span>
@@ -755,8 +755,8 @@ remind us that we haven’t finished typing the full command, since the loop isn
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/for_loop.png"><img alt="the result of the for loop in terminal, showing all filenames that begin with a c" class="align-center" src="../../../_images/for_loop.png" style="width: 600px;" /></a>
-<p><br /> On the first pass through the loop, the <strong>variable</strong> <code class="docutils literal notranslate"><span class="pre">$fn</span></code> has the <strong>value</strong> <code class="docutils literal notranslate"><span class="pre">camborne.txt</span></code>, as this is the
-first value in the list when the <strong>wildcard expression</strong> <code class="docutils literal notranslate"><span class="pre">c*.txt</span></code> is expanded. On the second pass, <code class="docutils literal notranslate"><span class="pre">$fn</span></code> has the
+<p><br /> On the first pass through the loop, the <strong>variable</strong> <code class="docutils literal notranslate"><span class="pre">fn</span></code> has the <strong>value</strong> <code class="docutils literal notranslate"><span class="pre">camborne.txt</span></code>, as this is the
+first value in the list when the <strong>wildcard expression</strong> <code class="docutils literal notranslate"><span class="pre">c*.txt</span></code> is expanded. On the second pass, <code class="docutils literal notranslate"><span class="pre">fn</span></code> has the
 value <code class="docutils literal notranslate"><span class="pre">cambridge.txt</span></code>, and so on.</p>
 </div>
 <div class="section" id="putting-it-all-together">
@@ -778,11 +778,11 @@ value <code class="docutils literal notranslate"><span class="pre">cambridge.txt
 <p>Have a look at the output of <code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">*.head</span></code> - do you notice any differences between the files? Are there any files
 that stand out? Why did this happen, and can you think of a way to fix it?</p>
 </div>
-<p>Now we have a rough idea of the steps we need to include in our script:</p>
+<p>Now we have a rough idea of how to do each of the steps we need to include in our script:</p>
 <ul class="simple">
-<li><p>extracting the files from the tar.gz file</p></li>
-<li><p>use a for loop to split each file into .head and .data</p></li>
-<li><p>use a combination of wc, sort, and head to list the top 5 stations in descending order</p></li>
+<li><p>extracting the files from the <strong>.tar.gz</strong> file</p></li>
+<li><p>use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to split each file into <strong>.head</strong> and <strong>.data</strong></p></li>
+<li><p>use a combination of <code class="docutils literal notranslate"><span class="pre">wc</span></code>, <code class="docutils literal notranslate"><span class="pre">sort</span></code>, and <code class="docutils literal notranslate"><span class="pre">head</span></code> to list the top 5 stations in descending order</p></li>
 <li><p>remove the original data files</p></li>
 </ul>
 <p>To actually write the script, we need to open a <strong>text editor</strong> and type out the commands, in order:</p>
@@ -865,12 +865,12 @@ what it is used for:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There are other, much fancier ways to add flexibility to shell scripts, and even print usage/help information to
-the terminal. For now, though, this is probably enough.</p>
+the terminal. For now, though, this is probably enough for our purposes.</p>
 <p>If you are interested in learning more, a great place to start is Part 4 of <em>The Linux Command Line</em> by W. Shotts,
 a free book that you can find (legitimately!)
-<a class="reference external" href="https://netix.dl.sourceforge.net/project/linuxcommand/TLCL/19.01/TLCL-19.01.pdf">here</a>. You can also have a
-look at William’s <a class="reference external" href="https://linuxcommand.org/lc3_writing_shell_scripts.php">website</a>, which has a great tutorial
-for shell scripting.</p>
+<a class="reference external" href="https://netix.dl.sourceforge.net/project/linuxcommand/TLCL/19.01/TLCL-19.01.pdf">here</a>.</p>
+<p>You can also have a look at William’s <a class="reference external" href="https://linuxcommand.org/lc3_writing_shell_scripts.php">website</a>, which
+has a great tutorial for shell scripting, along with more information about the Linux command line.</p>
 </div>
 </div>
 <div class="section" id="optional-making-an-executable">
@@ -879,7 +879,7 @@ for shell scripting.</p>
 that script more flexible by using command-line arguments. We have also checked that the script runs by executing it
 using the bash shell.</p>
 <p>We could, however, go slightly further and turn our script into an executable file. This way, we could call our script
-by simply typing path to the filename at the terminal, omitting <code class="docutils literal notranslate"><span class="pre">bash</span></code>:</p>
+by simply typing the path to the filename at the terminal, omitting <code class="docutils literal notranslate"><span class="pre">bash</span></code>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/home/bob/scripts/longest_record.sh<span class="w"> </span>sample_data.tar.gz<span class="w"> </span><span class="m">10</span>
 </pre></div>
 </div>
@@ -926,9 +926,9 @@ filesystem. For example, type the following to see where the <code class="docuti
 </pre></div>
 </div>
 <p>When we type a command name, the shell searches through a list of directories (the <strong>filepath</strong>, stored in the
-<code class="docutils literal notranslate"><span class="pre">$PATH</span></code> environment variable), looking for an executable file named <code class="docutils literal notranslate"><span class="pre">ls</span></code>. When it finds that file, it
+<code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable), looking for an executable file named <code class="docutils literal notranslate"><span class="pre">ls</span></code>. When it finds that file, it
 executes it.</p>
-<p>To see what directories are included in your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> variable, you can type the following:</p>
+<p>To see what directories are included in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable, you can type the following:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
 </pre></div>
 </div>
@@ -958,8 +958,8 @@ in your home directory:</p>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">export</span></code> command will make this updated value of <code class="docutils literal notranslate"><span class="pre">PATH</span></code> available to other programs. The commands in
-the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file are executed whenever start a new shell session, which means that this new value of <code class="docutils literal notranslate"><span class="pre">PATH</span></code>
-will be used every time you begin a new shell session.</p>
+the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file are executed whenever you start a new shell session, which means that this new value of <code class="docutils literal notranslate"><span class="pre">PATH</span></code>
+will be used every time you begin a new shell session (for example, when you log into the HPC server).</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>With all of that in mind, <strong>NEVER EVER</strong> try to set the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable directly, like this:</p>

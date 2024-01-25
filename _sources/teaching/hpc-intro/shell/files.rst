@@ -242,7 +242,9 @@ following:
 
     -rw-rw-r-- 1 bob bob 187 jan.   3 11:47 notes.txt
 
-indicating that "other" users could read (but not write) the file. After running ``chmod``, the output is:
+indicating that "other" users could read (but not write) the file.
+
+After running ``chmod``, the output is:
 
 .. code-block:: text
 
@@ -250,8 +252,8 @@ indicating that "other" users could read (but not write) the file. After running
 
 indicating that other users now have read and write permissions for the file.
 
-Note that by setting permissions in this way, we have to be sure that we include all of the permissions we want - if we
-leave one out, it won't be set. For example, this:
+Note that by setting permissions in this way, we have to be sure that we include **all** of the permissions we want for
+a given level - if we leave one out, it won't be set. For example, this:
 
 .. code-block:: text
 
@@ -264,8 +266,9 @@ will change the "other" permissions to be write-only:
     :align: center
     :alt: setting permissions to be write-only by forgetting to specify other permissions
 
-|br| For this reason, we can add to (or remove from) the existing permissions using ``+`` (or ``-``). For example, we
-could add write permissions for other users like this:
+|br| For this reason, we can add to (or remove from) the existing permissions using ``+`` (or ``-``).
+
+For example, we could add write permissions for other users like this:
 
 .. code-block:: sh
 
@@ -324,6 +327,7 @@ permission is given, and "0" indicating that the permission is absent:
 
     rwx -> 111
     rw- -> 110
+    r-x -> 101
     r-- -> 100
 
 ... and so on.
@@ -340,9 +344,11 @@ of **notes.txt** again:
 
     -rw-rw-r--    1 bob bob    187 jan.   3 11:47 notes.txt
 
-Here, the ``u`` permission (``rw-``) has an octal value of 6, the ``g`` permission (``rw-``) has an octal value of 6,
-and the ``o`` permission (``r--``) has an octal value of 4 - meaning that we can represent this permission setting as
-the octal value 664. In fact, if you enter the following command:
+Here, the ``u`` level permissions (``rw-``) corresponds to an octal value of 6, the ``g`` level permissions (``rw-``)
+correspond to an octal value of 6, and the ``o`` level permissions (``r--``) correspond to an octal value of 4. This
+means that we can represent this permission setting as the octal value 664.
+
+In fact, if you enter the following command:
 
 .. code-block:: sh
 
@@ -529,8 +535,8 @@ wildcard expression itself.
 symbolic links
 ---------------
 
-Copying creates a new file (or directory) on the disk, which means that it increases the amount disk space used. We can
-also create a **symbolic link** (**symlink**) to create a file (or directory) that points to some other file or
+Copying creates a new file (or directory) on the disk, which means that it increases the amount of disk space used. We
+can also create a **symbolic link** (**symlink**) to create a file (or directory) that points to some other file or
 directory in the filesystem.
 
 To do this, we use the ``ln`` command, along with the ``-s`` option\ [2]_:

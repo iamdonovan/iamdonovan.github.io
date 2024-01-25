@@ -610,7 +610,7 @@ screen, while the <code class="docutils literal notranslate"><span class="pre">f
 this exercise - use <code class="docutils literal notranslate"><span class="pre">cd</span></code> to move to this directory.</p>
 <p>We’ll start by looking at <code class="docutils literal notranslate"><span class="pre">wc</span></code> (“word count”), which counts the number of lines, words, and characters in a file.
 Navigate to where you have saved the <code class="docutils literal notranslate"><span class="pre">sample_data</span></code> folder, then use <code class="docutils literal notranslate"><span class="pre">ls</span></code> to show the contents of the directory.
-You should have 37 <code class="docutils literal notranslate"><span class="pre">.data</span></code> files, corresponding to 37 different Historic Met Station datasets.</p>
+You should have 37 <code class="docutils literal notranslate"><span class="pre">.txt</span></code> files, corresponding to 37 different Historic Met Station datasets.</p>
 <p>Let’s start by looking at the <code class="docutils literal notranslate"><span class="pre">wc</span></code> output for a single file, <strong>armagh.txt</strong>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wc<span class="w"> </span>armagh.txt
 </pre></div>
@@ -625,12 +625,13 @@ interested in the number of lines in the file (assuming that 1 line = 1 observat
 <div class="section" id="pipes-and-filters">
 <h2>pipes and filters<a class="headerlink" href="#pipes-and-filters" title="Permalink to this heading">#</a></h2>
 <p>We can also use a <strong>wildcard expression</strong> to pass all of the filenames matching a given pattern to <code class="docutils literal notranslate"><span class="pre">wc</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wc<span class="w"> </span>-l<span class="w"> </span>*.txt
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wc<span class="w"> </span>*.txt
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/wc_all.png"><img alt="the output of the wc command with a wildcard expression used as an argument" class="align-center" src="../../../_images/wc_all.png" style="width: 600px;" /></a>
 <p><br /> With multiple files, <code class="docutils literal notranslate"><span class="pre">wc</span></code> prints information for each file (in alphabetical order), along with the total for all
-of the files. So, we’re part of the way to our answer: we now have an idea of how many lines are in each file. Next, we
+of the files.</p>
+<p>This means that we’re part of the way to our answer: we now have an idea of how many lines are in each file. Next, we
 need some way of figuring out which of these values is the largest.</p>
 <p>One way that we can do this is by using a <strong>filter</strong> (a command that takes some input, does some operation, and outputs
 the results). Some commonly used filters include:</p>
@@ -646,10 +647,10 @@ the results). Some commonly used filters include:</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sort</span></code></p></td>
-<td><p>sorts input</p></td>
+<td><p>sorts a file/input</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">uniq</span></code></p></td>
-<td><p>removes duplicated lines from sorted inputs</p></td>
+<td><p>removes duplicated lines from a sorted file/input</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">grep</span></code></p></td>
 <td><p>outputs lines that match a specified pattern (more on this later)</p></td>
@@ -658,10 +659,10 @@ the results). Some commonly used filters include:</p>
 <td><p>formats input text</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">head</span></code></p></td>
-<td><p>outputs the first few lines of input</p></td>
+<td><p>outputs the first few lines of a file/input</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tail</span></code></p></td>
-<td><p>outputs the last few lines of input</p></td>
+<td><p>outputs the last few lines of a file/input</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tr</span></code></p></td>
 <td><p>translates characters (e.g., upper to lowercase and vice-versa)</p></td>
@@ -674,9 +675,9 @@ the results). Some commonly used filters include:</p>
 </tr>
 </tbody>
 </table>
-<p>To sort the output of the <code class="docutils literal notranslate"><span class="pre">wc</span></code> command, then, we can use the <code class="docutils literal notranslate"><span class="pre">sort</span></code> command. To do this, we need to pass the output
-of <code class="docutils literal notranslate"><span class="pre">wc</span></code> to <code class="docutils literal notranslate"><span class="pre">sort</span></code>, using a <strong>pipe</strong> (<code class="docutils literal notranslate"><span class="pre">|</span></code>). This tells the shell that we want to use the output of the command on
-the left as input to the command on the right:</p>
+<p>To sort the output of the <code class="docutils literal notranslate"><span class="pre">wc</span></code> command, then, we can use the <code class="docutils literal notranslate"><span class="pre">sort</span></code> command.</p>
+<p>To do this, we need to pass the output of <code class="docutils literal notranslate"><span class="pre">wc</span></code> to <code class="docutils literal notranslate"><span class="pre">sort</span></code>, using a <strong>pipe</strong> (<code class="docutils literal notranslate"><span class="pre">|</span></code>). This tells the shell that we
+want to use the output of the command on the left as input to the command on the right:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wc<span class="w"> </span>-l<span class="w"> </span>*.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
 </pre></div>
 </div>
@@ -700,8 +701,15 @@ For example, we can pass the output of <code class="docutils literal notranslate
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/wc_head.png"><img alt="the first five lines of the sorted output of the wc command" class="align-center" src="../../../_images/wc_head.png" style="width: 600px;" /></a>
-<p><br /> Now, you’ll notice that we need some way of removing the total from the output. Can you think of a way to do this,
-using the techniques introduced above?</p>
+<p><br /> Now, you’ll notice that we need some way of removing the total from the output.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Can you think of a way to do this, using the techniques introduced above?</p>
+</div>
+</div>
 </div>
 <div class="section" id="grep-and-regular-expressions">
 <h2>grep and regular expressions<a class="headerlink" href="#grep-and-regular-expressions" title="Permalink to this heading">#</a></h2>
@@ -713,7 +721,7 @@ using the techniques introduced above?</p>
 <p><br /> This output shows us that not every line of the file corresponds to an observation - in fact, in this example, the
 observations don’t actually start until the 8th line of the file. We could simply use the number of lines in each file
 and subtract the number of header lines, but we don’t necessarily know that each file has the same number of header
-lines.<a class="footnote-reference brackets" href="#id3" id="id1">1</a></p>
+lines.<a class="footnote-reference brackets" href="#id4" id="id1">1</a></p>
 <p>So, we’ll need to find another way to get the information we’re looking for.</p>
 <p>Look again at the output of <code class="docutils literal notranslate"><span class="pre">head</span></code> on <strong>armagh.txt</strong>, and pay attention to the first line that shows us an
 observation:</p>
@@ -721,11 +729,11 @@ observation:</p>
 </pre></div>
 </div>
 <p>This line begins with three spaces, followed by four digits (representing the year). In fact, all lines with
-observations follow this pattern.</p>
+observations follow this pattern.<a class="footnote-reference brackets" href="#id5" id="id2">2</a></p>
 <p>To search for patterns in text files, we can use <code class="docutils literal notranslate"><span class="pre">grep</span></code>. This incredibly powerful program uses
 <a class="reference external" href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> to find text matching a pattern. For example,
-the pattern of “a line that begins with three spaces followed by four digits” can be represented using the following
-pattern, which makes use of some of the wildcards we introduced previously:</p>
+the pattern of “a line that begins with three spaces followed by four digits” can be represented as the following,
+which makes use of some of the wildcards we introduced previously:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>^\s{3}[[:digit:]]{4}
 </pre></div>
 </div>
@@ -750,15 +758,16 @@ match the pattern:</p>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/grep_inverted.png"><img alt="the output of the grep command, showing the lines that do not match the pattern" class="align-center" src="../../../_images/grep_inverted.png" style="width: 600px;" /></a>
-<p><br /> We will make use of both of these commands to help us split the original <code class="docutils literal notranslate"><span class="pre">.txt</span></code> files into two separate files.</p>
+<p><br /> Later, we will make use of both of these commands to help us split the original <code class="docutils literal notranslate"><span class="pre">.txt</span></code> files into two separate
+files.</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">grep</span></code> only shows us how many lines match (or don’t match) the pattern, but we want to easily count the number
 of lines that match the pattern, so we need at least one more step to reach this part of our goal.</p>
 </div>
 <div class="section" id="redirecting-output">
 <h2>redirecting output<a class="headerlink" href="#redirecting-output" title="Permalink to this heading">#</a></h2>
-<p>Now that we have seen how we can use the <strong>pipe</strong> operator to pass the output of a command to another command, let’s
-see how we can <strong>redirect</strong> the output of a command from the screen to a file, using <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. Similar to <code class="docutils literal notranslate"><span class="pre">|</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>
-tells the shell to take the output of the command on the left and write it to the file on the right.</p>
+<p>Now that we have seen how we can use the <strong>pipe</strong> operator (<code class="docutils literal notranslate"><span class="pre">|</span></code>) to pass the output of a command to another command,
+let’s see how we can <strong>redirect</strong> the output of a command from the screen to a file, using <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. Similar to <code class="docutils literal notranslate"><span class="pre">|</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&gt;</span></code> tells the shell to take the output of the command on the left and write it to the file on the right.</p>
 <p>For example, if we wanted to split our data files into two parts, a header and the observations, we could start by
 redirecting the output of <code class="docutils literal notranslate"><span class="pre">grep</span></code> to a new file, <strong>armagh.data</strong>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;^\s{3}[[:digit:]]{4}&quot;</span><span class="w"> </span>armagh.txt<span class="w"> </span>&gt;<span class="w"> </span>armagh.data
@@ -767,8 +776,8 @@ redirecting the output of <code class="docutils literal notranslate"><span class
 <a class="reference internal image-reference" href="../../../_images/grep_redirected.png"><img alt="the output of the grep command, redirected to a new file" class="align-center" src="../../../_images/grep_redirected.png" style="width: 600px;" /></a>
 <p><br /> You should notice two things here: first, the output of <code class="docutils literal notranslate"><span class="pre">grep</span></code> is no longer printed to the screen, because it
 has instead been “printed” to the file <strong>armagh.data</strong>; second, using <code class="docutils literal notranslate"><span class="pre">ls</span></code>, you should see that there is a new file
-in this directory. To check that the correct lines have been printed, use the <code class="docutils literal notranslate"><span class="pre">less</span></code> command to see the contents of
-the file:</p>
+in this directory.</p>
+<p>To check that the correct lines have been printed, use the <code class="docutils literal notranslate"><span class="pre">less</span></code> command to see the contents of the file:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>less<span class="w"> </span>armagh.data
 </pre></div>
 </div>
@@ -782,8 +791,8 @@ the file:</p>
 the file.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>When using <code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">&gt;</span> <span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code> is overwritten with whatever the output of <code class="docutils literal notranslate"><span class="pre">command</span></code> is. If we want to
-<strong>append</strong> the output of <code class="docutils literal notranslate"><span class="pre">command</span></code> to an existing file, we use <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>:</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">&gt;</span> <span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code> is overwritten with whatever the output of <code class="docutils literal notranslate"><span class="pre">command</span></code> is.</p>
+<p>If we want to <strong>append</strong> the output of <code class="docutils literal notranslate"><span class="pre">command</span></code> to an existing file, we use <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>command &gt;&gt; file
 </pre></div>
 </div>
@@ -797,7 +806,7 @@ using <code class="docutils literal notranslate"><span class="pre">&lt;</span></
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>command &lt; file
 </pre></div>
 </div>
-<p>For example, if we wanted to get a sorted list of all of the txt files in a directory<a class="footnote-reference brackets" href="#id4" id="id2">2</a>, we could first redirect the
+<p>For example, if we wanted to get a sorted list of all of the txt files in a directory<a class="footnote-reference brackets" href="#id6" id="id3">3</a>, we could first redirect the
 output of <code class="docutils literal notranslate"><span class="pre">ls</span></code> to a file:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>*.txt<span class="w"> </span>&gt;<span class="w"> </span>file_list.txt
 </pre></div>
@@ -832,10 +841,13 @@ process whenever we update or add to our data.</p>
 <div class="section" id="notes">
 <h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>spoiler: they don’t.</p>
 </dd>
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>well, nearly all of them.</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
 <dd><p>note that this is just for illustration, since by default <code class="docutils literal notranslate"><span class="pre">ls</span></code> will sort file names alphabetically.</p>
 </dd>
 </dl>

@@ -791,20 +791,21 @@ following:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 bob bob 187 jan.   3 11:47 notes.txt
 </pre></div>
 </div>
-<p>indicating that “other” users could read (but not write) the file. After running <code class="docutils literal notranslate"><span class="pre">chmod</span></code>, the output is:</p>
+<p>indicating that “other” users could read (but not write) the file.</p>
+<p>After running <code class="docutils literal notranslate"><span class="pre">chmod</span></code>, the output is:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-rw-rw-rw- 1 bob bob 187 jan.   3 11:47 notes.txt
 </pre></div>
 </div>
 <p>indicating that other users now have read and write permissions for the file.</p>
-<p>Note that by setting permissions in this way, we have to be sure that we include all of the permissions we want - if we
-leave one out, it won’t be set. For example, this:</p>
+<p>Note that by setting permissions in this way, we have to be sure that we include <strong>all</strong> of the permissions we want for
+a given level - if we leave one out, it won’t be set. For example, this:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>chmod o=w notes.txt
 </pre></div>
 </div>
 <p>will change the “other” permissions to be write-only:</p>
 <a class="reference internal image-reference" href="../../../_images/write_only.png"><img alt="setting permissions to be write-only by forgetting to specify other permissions" class="align-center" src="../../../_images/write_only.png" style="width: 600px;" /></a>
-<p><br /> For this reason, we can add to (or remove from) the existing permissions using <code class="docutils literal notranslate"><span class="pre">+</span></code> (or <code class="docutils literal notranslate"><span class="pre">-</span></code>). For example, we
-could add write permissions for other users like this:</p>
+<p><br /> For this reason, we can add to (or remove from) the existing permissions using <code class="docutils literal notranslate"><span class="pre">+</span></code> (or <code class="docutils literal notranslate"><span class="pre">-</span></code>).</p>
+<p>For example, we could add write permissions for other users like this:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>o+w<span class="w"> </span>notes.txt
 </pre></div>
 </div>
@@ -834,6 +835,7 @@ permissions for a file.</p>
 permission is given, and “0” indicating that the permission is absent:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>rwx -&gt; 111
 rw- -&gt; 110
+r-x -&gt; 101
 r-- -&gt; 100
 </pre></div>
 </div>
@@ -847,9 +849,10 @@ of <strong>notes.txt</strong> again:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-rw-rw-r--    1 bob bob    187 jan.   3 11:47 notes.txt
 </pre></div>
 </div>
-<p>Here, the <code class="docutils literal notranslate"><span class="pre">u</span></code> permission (<code class="docutils literal notranslate"><span class="pre">rw-</span></code>) has an octal value of 6, the <code class="docutils literal notranslate"><span class="pre">g</span></code> permission (<code class="docutils literal notranslate"><span class="pre">rw-</span></code>) has an octal value of 6,
-and the <code class="docutils literal notranslate"><span class="pre">o</span></code> permission (<code class="docutils literal notranslate"><span class="pre">r--</span></code>) has an octal value of 4 - meaning that we can represent this permission setting as
-the octal value 664. In fact, if you enter the following command:</p>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">u</span></code> level permissions (<code class="docutils literal notranslate"><span class="pre">rw-</span></code>) corresponds to an octal value of 6, the <code class="docutils literal notranslate"><span class="pre">g</span></code> level permissions (<code class="docutils literal notranslate"><span class="pre">rw-</span></code>)
+correspond to an octal value of 6, and the <code class="docutils literal notranslate"><span class="pre">o</span></code> level permissions (<code class="docutils literal notranslate"><span class="pre">r--</span></code>) correspond to an octal value of 4. This
+means that we can represent this permission setting as the octal value 664.</p>
+<p>In fact, if you enter the following command:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span><span class="m">664</span><span class="w"> </span>notes.txt
 </pre></div>
 </div>
@@ -1050,8 +1053,8 @@ wildcard expression itself.</p>
 </div>
 <div class="section" id="symbolic-links">
 <h2>symbolic links<a class="headerlink" href="#symbolic-links" title="Permalink to this heading">#</a></h2>
-<p>Copying creates a new file (or directory) on the disk, which means that it increases the amount disk space used. We can
-also create a <strong>symbolic link</strong> (<strong>symlink</strong>) to create a file (or directory) that points to some other file or
+<p>Copying creates a new file (or directory) on the disk, which means that it increases the amount of disk space used. We
+can also create a <strong>symbolic link</strong> (<strong>symlink</strong>) to create a file (or directory) that points to some other file or
 directory in the filesystem.</p>
 <p>To do this, we use the <code class="docutils literal notranslate"><span class="pre">ln</span></code> command, along with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> option<a class="footnote-reference brackets" href="#id4" id="id2">2</a>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ln<span class="w"> </span>-s<span class="w"> </span>original<span class="w"> </span>link

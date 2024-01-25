@@ -11,10 +11,10 @@ concerns. If you need to transfer large amounts of data to/from the cluster, you
 filezilla (on-campus only)
 ---------------------------
 
-Files can be copied to/from ``vulcan`` using `FileZilla <https://filezilla-project.org/>`__, a free FTP ("file transfer
-protocol") software.
+Files can be copied to/from either HPC cluster using `FileZilla <https://filezilla-project.org/>`__, a free FTP
+("file transfer protocol") software.
 
-To set up a connection to ``vulcan``, open **Site Manager** from the **File Menu**:
+To set up a connection, open **Site Manager** from the **File Menu**:
 
 .. image:: img/site_manager.png
     :width: 600
@@ -28,13 +28,13 @@ To set up a connection to ``vulcan``, open **Site Manager** from the **File Menu
     :align: center
     :alt: the site manager window in FileZilla, with a new connection called "vulcan" being added
 
-|br| Name the connection something sensible, such as "vulcan". Next, add the address for ``vulcan`` under **Host**, and
-be sure to select **Require implicit FTP over TLS**. Keep **Logon Type** as normal, then enter your username and
-password.
+|br| Name the connection something sensible, such as the name of the cluster you want to connect to. Next, change
+**Protocol** to ``SFTP - SSH File Transfer Protocol``, then add the address for the cluster under **Host**. Keep
+**Logon Type** as normal, then enter your username and password.
 
-Finally, click **Connect** to open a connection to ``vulcan``.
+Finally, click **Connect** to open a connection to to the cluster.
 
-Once you are connected, you will be able to transfer files between your local computer and ``vulcan`` using the
+Once you are connected, you will be able to transfer files between your local computer and the cluster using the
 available options. For more information about using FileZilla to transfer files, see
 `the wiki <https://wiki.filezilla-project.org/Using>`__.
 
