@@ -57,8 +57,11 @@ getting help
 -------------
 
 ``ls`` can do quite a bit more than simply list the files/directories in order, however. We'll look at a few different
-ways that are available to find out more about how to use a particular command/program. Note that depending on your
-shell, not all of these will work (but at least one of them should).
+ways that are available to find out more about how to use a particular command/program.
+
+.. note::
+
+    Depending on your shell, not all of these will work (but at least one of them should).
 
 the --help option
 ...................
