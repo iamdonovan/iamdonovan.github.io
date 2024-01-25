@@ -7,7 +7,7 @@ Office <https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-sta
 
 In the previous lesson, we saw how we can use various shell commands to:
 
-- extract tar files
+- extract **.tar** files
 - see the number of lines, "words", and characters in a text file
 - use pipes (``|``) to combine commands
 - use grep and regular expressions for pattern matching
@@ -16,7 +16,7 @@ In the previous lesson, we saw how we can use various shell commands to:
 So, we have most of the pieces in place in place to be able to write a program (a **script**) that will do all of these
 tasks for us, without having to run each command individually. Specifically, we want our program to:
 
-- extract the data from a (**.tar.gz**) file
+- extract the data from a **.tar.gz** file
 - split each file into separate header (**.head**) and data (**.data**) files
 - remove the original files (but leave the **.head** and **.data** files)
 - count the number of observations in each **.data** file
@@ -26,7 +26,7 @@ variables
 ----------
 
 First, we'll learn about **variables** - a name that stores some value. The value can be a string (characters), an
-integer, a floating point (decimal) number, a filename, a shell command, or some other value.
+integer, a floating point (decimal) number, a filename, a shell command, or some other thing that the computer can use.
 
 To see an example of an **environment variable** (something used by the system), enter the following at the command
 prompt:
@@ -35,8 +35,8 @@ prompt:
 
     echo $HOME
 
-This will print the value of the environment variable ``$HOME`` to the terminal. You should hopefully see that this
-prints ``/home/$USER``, where ``$USER`` is the environment variable corresponding to your username.
+This will print the value of the environment variable ``HOME`` to the terminal. You should hopefully see that this
+prints ``/home/$USER``, where ``USER`` is the environment variable corresponding to your username.
 
 We can also create and use our own variables, both in the shell and within scripts. To do this, we use ``=`` (the
 "assignment operator"):
@@ -125,10 +125,10 @@ Rather than something more complicated (for example, taking the length of the fi
 
     echo ${fn%.*}
 
-This should print ``armagh`` to the screen. The way this works is that bash matches the pattern after ``%``, starting
-from the end of the string. It then removes the shortest substring that matches the pattern. So, ``%.*`` means that
-bash finds the shortest substring that matches the pattern ``.*`` (in this case, ``.txt``, and removes it from the
-string.
+This should print ``armagh`` to the screen. The way this works is that the shell matches the pattern after ``%``,
+starting from the end of the string. It then removes the shortest substring that matches the pattern. So, ``%.*``
+means that bash finds the shortest substring that matches the pattern ``.*`` (in this case, ``.txt``, and removes it
+from the string.
 
 .. note::
 
@@ -162,10 +162,9 @@ for loops
 
 In the previous exercise, we saw how we can use ``grep`` and ``>`` to split a single file into a header (**.head**) and
 data (**.data**) file. We have now seen how we can use string manipulation to remove the extension from a filename,
-which means we can
+which means we can use shell variables to automatically create a new file with a different extension.
 
-But, we have more than one (37, in fact) file - we really don't want to have to type each
-command our for all 37 files!
+But, we have more than one (37, in fact) file - we really don't want to have to type a command for each of our 37 files!
 
 Fortunately, we can use a ``for`` **loop** to repeat a command (or set of commands). In the bash shell, a ``for`` loop
 has the following basic structure:
@@ -180,9 +179,10 @@ has the following basic structure:
 .. note::
 
     You can see that the text after the ``#`` in the code block above is highlighted differently - this is because
-    ``#`` is used to indicate a **comment** - text that the shell ignores, but that can be read by humans. Using
-    comments is a great way to help other people (especially future you!) understand what the code is actually doing
-    (or is meant to be doing).
+    ``#`` is used to indicate a **comment** - text that the shell ignores, but that can be read by humans.
+
+    Using comments in your scripts is a great way to help other people (especially future you!) understand what the
+    code is actually doing (or is meant to be doing).
 
     When typing commands at the prompt, we don't typically need to include comments; when we write shell scripts,
     however, it's **always** a good idea to include comments to help make your code more understandable. Future you
@@ -191,7 +191,7 @@ has the following basic structure:
 The beginning of the loop is indicated using ``for``, and the list of commands for the shell to execute is bookended
 by ``do`` (at the beginning) and ``done`` (at the end).
 
-The shell will then repeat these commands for each item (``thing`` in the pseudo-code above) in a list (``things``).
+The shell will then repeat these commands for each item (``thing`` in the pseudo-code above) in an array (``things``).
 
 On each pass through the loop, the **variable** ``thing`` takes on the value of the next item in the list. To help
 illustrate this, we'll loop through all of the filenames that begin with a ``c``, and use ``echo`` to print the
@@ -201,7 +201,9 @@ filename to the screen:
 
     As you type in the code below, notice how the shell prompt changes from ``$`` to ``>``, then back. This is done to
     remind us that we haven't finished typing the full command, since the loop isn't finished until we have typed
-    ``done``. We could also type this on a single line, using a semicolon ``;`` to separate the commands.
+    ``done``.
+
+    We could also type this on a single line, using a semicolon ``;`` to separate the commands.
 
 .. code-block:: sh
 
@@ -215,8 +217,8 @@ filename to the screen:
     :align: center
     :alt: the result of the for loop in terminal, showing all filenames that begin with a c
 
-|br| On the first pass through the loop, the **variable** ``$fn`` has the **value** ``camborne.txt``, as this is the
-first value in the list when the **wildcard expression** ``c*.txt`` is expanded. On the second pass, ``$fn`` has the
+|br| On the first pass through the loop, the **variable** ``fn`` has the **value** ``camborne.txt``, as this is the
+first value in the list when the **wildcard expression** ``c*.txt`` is expanded. On the second pass, ``fn`` has the
 value ``cambridge.txt``, and so on.
 
 putting it all together
@@ -243,11 +245,11 @@ We're very nearly finished - all we need to do now is manipulate the output of `
     Have a look at the output of ``wc *.head`` - do you notice any differences between the files? Are there any files
     that stand out? Why did this happen, and can you think of a way to fix it?
 
-Now we have a rough idea of the steps we need to include in our script:
+Now we have a rough idea of how to do each of the steps we need to include in our script:
 
-- extracting the files from the tar.gz file
-- use a for loop to split each file into .head and .data
-- use a combination of wc, sort, and head to list the top 5 stations in descending order
+- extracting the files from the **.tar.gz** file
+- use a ``for`` loop to split each file into **.head** and **.data**
+- use a combination of ``wc``, ``sort``, and ``head`` to list the top 5 stations in descending order
 - remove the original data files
 
 To actually write the script, we need to open a **text editor** and type out the commands, in order:
@@ -359,13 +361,14 @@ what it is used for:
 .. note::
 
     There are other, much fancier ways to add flexibility to shell scripts, and even print usage/help information to
-    the terminal. For now, though, this is probably enough.
+    the terminal. For now, though, this is probably enough for our purposes.
 
     If you are interested in learning more, a great place to start is Part 4 of *The Linux Command Line* by W. Shotts,
     a free book that you can find (legitimately!)
-    `here <https://netix.dl.sourceforge.net/project/linuxcommand/TLCL/19.01/TLCL-19.01.pdf>`__. You can also have a
-    look at William's `website <https://linuxcommand.org/lc3_writing_shell_scripts.php>`__, which has a great tutorial
-    for shell scripting.
+    `here <https://netix.dl.sourceforge.net/project/linuxcommand/TLCL/19.01/TLCL-19.01.pdf>`__.
+
+    You can also have a look at William's `website <https://linuxcommand.org/lc3_writing_shell_scripts.php>`__, which
+    has a great tutorial for shell scripting, along with more information about the Linux command line.
 
 
 optional: making an executable
@@ -376,7 +379,7 @@ that script more flexible by using command-line arguments. We have also checked 
 using the bash shell.
 
 We could, however, go slightly further and turn our script into an executable file. This way, we could call our script
-by simply typing path to the filename at the terminal, omitting ``bash``:
+by simply typing the path to the filename at the terminal, omitting ``bash``:
 
 .. code-block:: sh
 
@@ -441,10 +444,10 @@ you should see something like:
     /usr/bin/ls
 
 When we type a command name, the shell searches through a list of directories (the **filepath**, stored in the
-``$PATH`` environment variable), looking for an executable file named ``ls``. When it finds that file, it
+``PATH`` environment variable), looking for an executable file named ``ls``. When it finds that file, it
 executes it.
 
-To see what directories are included in your ``$PATH`` variable, you can type the following:
+To see what directories are included in your ``PATH`` variable, you can type the following:
 
 .. code-block:: sh
 
@@ -484,8 +487,8 @@ in your home directory:
     export PATH=/home/bob/scripts/:$PATH
 
 The ``export`` command will make this updated value of ``PATH`` available to other programs. The commands in
-the ``.bashrc`` file are executed whenever start a new shell session, which means that this new value of ``PATH``
-will be used every time you begin a new shell session.
+the ``.bashrc`` file are executed whenever you start a new shell session, which means that this new value of ``PATH``
+will be used every time you begin a new shell session (for example, when you log into the HPC server).
 
 .. warning::
 
