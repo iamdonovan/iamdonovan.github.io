@@ -9,9 +9,10 @@ the filesystem
 
 We should probably start, however, by discussing what "the filesystem" actually means. In effect, it's how the operating
 system stores and retrieves data. Most operating systems have a **hierarchical directory structure** - that is, the
-filesystem is organized like an upside-down tree, starting from a single "root" folder, ``/``.
+filesystem is organized like an upside-down tree, starting from a single "root" folder. On Unix-like systems, the root
+directory is ``/``.
 
-Most Unix-based filesystems have a top-level directory structure that looks something like this:
+Most Unix-like filesystems have a top-level directory structure that looks something like this:
 
 .. image:: img/filesystem.png
     :width: 600
@@ -52,11 +53,12 @@ systems, this directory is usually located here:
     /home/<your username>
 
 Every user account is given a home directory - very often, this is the only directory where "regular"
-(non-administrator) users are able to write files. Don't worry, we'll look more at permissions and how to manage them
-later.
+(non-administrator) users are allowed to write files.
 
-In OSX, your home directory is usually located at ``/Users/<your username>``, and in Windows, it is located at
-``C:\Users\<your username>``.
+.. note::
+
+    In OSX, your home directory is usually located at ``/Users/<your username>``. In Windows 10 and 11, it is located at
+    ``C:\Users\<your username>``.
 
 navigating the filesystem
 ---------------------------
@@ -174,13 +176,13 @@ file and path names
 Before we move on to using the shell to work with files, we'll focus on a few different rules for file and directory
 names.
 
-- To start with, filenames (like commands) are **case sensitive** - this means that ``Foo`` and ``foo`` are separate
-  files/directories.
+- To start with, filenames (like commands) are **case sensitive** - this means that ``Foo`` and ``foo`` are two
+  different files/directories.
 - Filenames that begin with a period (``.``) are **hidden** - we will look at this more a bit later, but in practice
   this means that by default, ``ls`` will not actually list these files.
-- Unlike Windows, Unix-like systems have no concept of a file extension: you can name files any way that you like,
+- File extensions are typically not super-important on Unix-like systems: you can name files any way that you like,
   because the operating system has other ways of identifying the file type. That said, some applications may still use
-  file extensions to identify/work with files, so it can still be a good idea to use them.
+  file extensions to identify/work with files, so it's usually still a good idea to use them in practice.
 - File and directory names **cannot** include ``/`` - as we have seen, this character is used for delimiting
   directories in the filesystem, which means it can't show up in the middle of a filename.
 - As a general rule, it's a good idea to only use alphanumeric characters (letters and numbers), periods (``.``),
@@ -202,6 +204,7 @@ By far the most important rule for file and directory names in Unix-like systems
     mkdir my new folder
 
 You might think that this will create a new directory, "my new folder", in the current working directory, right?
+
 Not quite - we can see what actually happens using ``ls``:
 
 .. image:: img/spaces.png
@@ -210,8 +213,9 @@ Not quite - we can see what actually happens using ``ls``:
     :alt: don't use spaces in file and directory names!
 
 |br| As you can see, this command has created three new directories: **my**, **new**, and **folder**. Because
-``mkdir`` allows for multiple inputs, it sees each "word" in the directory name as a separate directory. In the long
-run, it is safer and much less unpredictable to use underscores or dashes to represent spaces.
+``mkdir`` allows for multiple inputs, it sees each "word" in the directory name as a separate directory.
+
+In the long run, it is safer and much less unpredictable to use underscores or dashes to represent spaces.
 
 notes
 -----
