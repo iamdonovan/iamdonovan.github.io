@@ -113,7 +113,7 @@ Alternatively, you can also submit jobs using command-line options - for example
 
 .. code-block:: sh
 
-    sbatch <sbatch arguments> -f <command-line arguments for script.py>
+    sbatch <sbatch arguments> script.py -f <command-line arguments for script.py>
 
 This enables you to submit jobs using scripts written in any language, without needing to write an additional wrapper
 script. For this exercise, we will stick to writing and submitting a batch script.
