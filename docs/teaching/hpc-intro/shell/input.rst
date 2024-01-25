@@ -30,7 +30,7 @@ this exercise - use ``cd`` to move to this directory.
 
 We'll start by looking at ``wc`` ("word count"), which counts the number of lines, words, and characters in a file.
 Navigate to where you have saved the ``sample_data`` folder, then use ``ls`` to show the contents of the directory.
-You should have 37 ``.data`` files, corresponding to 37 different Historic Met Station datasets.
+You should have 37 ``.txt`` files, corresponding to 37 different Historic Met Station datasets.
 
 Let's start by looking at the ``wc`` output for a single file, **armagh.txt**:
 
@@ -57,7 +57,7 @@ We can also use a **wildcard expression** to pass all of the filenames matching 
 
 .. code-block:: sh
 
-    wc -l *.txt
+    wc *.txt
 
 .. image:: img/wc_all.png
     :width: 600
@@ -65,7 +65,9 @@ We can also use a **wildcard expression** to pass all of the filenames matching 
     :alt: the output of the wc command with a wildcard expression used as an argument
 
 |br| With multiple files, ``wc`` prints information for each file (in alphabetical order), along with the total for all
-of the files. So, we're part of the way to our answer: we now have an idea of how many lines are in each file. Next, we
+of the files.
+
+This means that we're part of the way to our answer: we now have an idea of how many lines are in each file. Next, we
 need some way of figuring out which of these values is the largest.
 
 One way that we can do this is by using a **filter** (a command that takes some input, does some operation, and outputs
@@ -74,19 +76,20 @@ the results). Some commonly used filters include:
 .. csv-table::
     :header: "command", "function"
 
-    "``sort``", "sorts input"
-    "``uniq``", "removes duplicated lines from sorted inputs"
+    "``sort``", "sorts a file/input"
+    "``uniq``", "removes duplicated lines from a sorted file/input"
     "``grep``", "outputs lines that match a specified pattern (more on this later)"
     "``fmt``", "formats input text"
-    "``head``", "outputs the first few lines of input"
-    "``tail``", "outputs the last few lines of input"
+    "``head``", "outputs the first few lines of a file/input"
+    "``tail``", "outputs the last few lines of a file/input"
     "``tr``", "translates characters (e.g., upper to lowercase and vice-versa)"
     "``sed``", "'stream editor', for more sophisticated text translation"
     "``awk``", "a programming language designed for constructing complex text filters"
 
-To sort the output of the ``wc`` command, then, we can use the ``sort`` command. To do this, we need to pass the output
-of ``wc`` to ``sort``, using a **pipe** (``|``). This tells the shell that we want to use the output of the command on
-the left as input to the command on the right:
+To sort the output of the ``wc`` command, then, we can use the ``sort`` command.
+
+To do this, we need to pass the output of ``wc`` to ``sort``, using a **pipe** (``|``). This tells the shell that we
+want to use the output of the command on the left as input to the command on the right:
 
 .. code-block:: sh
 
@@ -131,8 +134,16 @@ For example, we can pass the output of ``sort`` to ``head``, to view the top 5 s
     :align: center
     :alt: the first five lines of the sorted output of the wc command
 
-|br| Now, you'll notice that we need some way of removing the total from the output. Can you think of a way to do this,
-using the techniques introduced above?
+|br| Now, you'll notice that we need some way of removing the total from the output.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Can you think of a way to do this, using the techniques introduced above?
 
 grep and regular expressions
 -----------------------------
@@ -163,12 +174,12 @@ observation:
        1853   1    ---     ---     ---    57.3     ---
 
 This line begins with three spaces, followed by four digits (representing the year). In fact, all lines with
-observations follow this pattern.
+observations follow this pattern.\ [2]_
 
 To search for patterns in text files, we can use ``grep``. This incredibly powerful program uses
 `regular expressions <https://en.wikipedia.org/wiki/Regular_expression>`__ to find text matching a pattern. For example,
-the pattern of "a line that begins with three spaces followed by four digits" can be represented using the following
-pattern, which makes use of some of the wildcards we introduced previously:
+the pattern of "a line that begins with three spaces followed by four digits" can be represented as the following,
+which makes use of some of the wildcards we introduced previously:
 
 .. code-block:: text
 
@@ -208,7 +219,8 @@ match the pattern:
     :align: center
     :alt: the output of the grep command, showing the lines that do not match the pattern
 
-|br| We will make use of both of these commands to help us split the original ``.txt`` files into two separate files.
+|br| Later, we will make use of both of these commands to help us split the original ``.txt`` files into two separate
+files.
 
 Using ``grep`` only shows us how many lines match (or don't match) the pattern, but we want to easily count the number
 of lines that match the pattern, so we need at least one more step to reach this part of our goal.
@@ -216,9 +228,9 @@ of lines that match the pattern, so we need at least one more step to reach this
 redirecting output
 -------------------
 
-Now that we have seen how we can use the **pipe** operator to pass the output of a command to another command, let's
-see how we can **redirect** the output of a command from the screen to a file, using ``>``. Similar to ``|``, ``>``
-tells the shell to take the output of the command on the left and write it to the file on the right.
+Now that we have seen how we can use the **pipe** operator (``|``) to pass the output of a command to another command,
+let's see how we can **redirect** the output of a command from the screen to a file, using ``>``. Similar to ``|``,
+``>`` tells the shell to take the output of the command on the left and write it to the file on the right.
 
 For example, if we wanted to split our data files into two parts, a header and the observations, we could start by
 redirecting the output of ``grep`` to a new file, **armagh.data**:
@@ -234,8 +246,9 @@ redirecting the output of ``grep`` to a new file, **armagh.data**:
 
 |br| You should notice two things here: first, the output of ``grep`` is no longer printed to the screen, because it
 has instead been "printed" to the file **armagh.data**; second, using ``ls``, you should see that there is a new file
-in this directory. To check that the correct lines have been printed, use the ``less`` command to see the contents of
-the file:
+in this directory.
+
+To check that the correct lines have been printed, use the ``less`` command to see the contents of the file:
 
 .. code-block:: sh
 
@@ -259,8 +272,9 @@ the file.
 
 .. tip::
 
-    When using ``command > file``, ``file`` is overwritten with whatever the output of ``command`` is. If we want to
-    **append** the output of ``command`` to an existing file, we use ``>>``:
+    When using ``command > file``, ``file`` is overwritten with whatever the output of ``command`` is.
+
+    If we want to **append** the output of ``command`` to an existing file, we use ``>>``:
 
     .. code-block:: text
 
@@ -278,7 +292,7 @@ using ``<``:
 
     command < file
 
-For example, if we wanted to get a sorted list of all of the txt files in a directory\ [2]_, we could first redirect the
+For example, if we wanted to get a sorted list of all of the txt files in a directory\ [3]_, we could first redirect the
 output of ``ls`` to a file:
 
 .. code-block:: sh
@@ -325,4 +339,6 @@ notes
 
 .. [1] spoiler: they don't.
 
-.. [2] note that this is just for illustration, since by default ``ls`` will sort file names alphabetically.
+.. [2] well, nearly all of them.
+
+.. [3] note that this is just for illustration, since by default ``ls`` will sort file names alphabetically.
