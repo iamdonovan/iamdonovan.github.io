@@ -67,17 +67,18 @@ now look like this:
     :align: center
     :alt: the import window with the yml file selected
 
-|br| The **Name** field is automatically populated based on the **.yml** file, while the location specified will differ
-depending on where **Anaconda** is installed on your computer. Click **Import** to start setting up the environment.
-Depending on your connection speed and computer’s specifications, this may take some time. When it finishes, you
-should see the following screen:
+|br| The **Name** field may not automatically populate based on the **.yml** file, so be sure to check that it is
+``egm722``. The **Location** will differ depending on where **Anaconda** is installed on your computer.
+
+Click **Import** to start setting up the environment. Depending on your connection speed and computer’s specifications,
+this may take some time. When it finishes, you should see the following screen:
 
 .. image:: ../../../img/egm722/setup/environment/new_environment.png
     :width: 720
     :align: center
     :alt: anaconda navigator with the egm722 environment
 
-|br| Note how many packages were actually installed – 161, from the 5 shown in the original **.yml** file.
+|br| Note how many packages were actually installed – 161, from the 5 shown in the original **.yml** file.\ [1]_
 
 This is because each of those 5 packages have additional dependencies which have to be installed as well. Fortunately,
 almost all of this is done automatically – we don’t have to worry about tracking down each individual dependency on our
@@ -174,7 +175,7 @@ This tells **conda** to create a new environment, using the "recipe" provided in
     :align: center
     :alt: conda collecting package metadata and attempting to create the new environment
 
-|br| This step may take some time\ [1]_, but if all goes well, you will eventually see the following message:
+|br| This step may take some time\ [2]_, but if all goes well, you will eventually see the following message:
 
 .. image:: ../../../img/egm722/setup/environment/conda_success.png
     :width: 720
@@ -190,6 +191,9 @@ Once you have the conda environment set up, you are ready to move on to configur
 notes and references
 ----------------------
 
-.. [1] Conda can be notoriously slow, which is why there has been an effort to increase the speed/efficiency of the
+.. [1] The exact number of packages may differ - the point is that we have only told conda to install a few of these,
+    and conda has figured out the rest.
+
+.. [2] Conda can be notoriously slow, which is why there has been an effort to increase the speed/efficiency of the
     package "solver": `mamba <https://mamba.readthedocs.io/en/latest/>`__. I am happy to help you get set up with
     mamba, but I am unsure about how well this works with **Anaconda Navigator**.
