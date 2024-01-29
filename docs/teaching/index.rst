@@ -24,3 +24,4 @@ working on delivering/developing your own modules, please feel free to use and a
    python-programming/index
    r-programming/index
    hpc-intro/index
+   dissertation/index
