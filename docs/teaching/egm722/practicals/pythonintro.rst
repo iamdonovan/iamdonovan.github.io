@@ -1,9 +1,9 @@
 intro to python
 ================
 
-To get started in the world of programming using python, we will use `Jupyter Notebooks <https://jupyter.org/>`__, which
-provide a way for creating and sharing documents that have interactive code snippets alongside narrative text, images,
-and more.
+To get started in the world of programming using python, we will use `Jupyter Notebooks <https://jupyter.org/>`__ within
+a Jupyter Lab environment, which provide a way for creating and sharing documents that have interactive code snippets
+alongside narrative text, images, and more.
 
 Getting Started
 ----------------
@@ -17,8 +17,10 @@ Getting Started
     unfamiliar, stop now and go back over the :doc:`setup instructions<../setup/index>`.
 
 To start, open **Anaconda Navigator** and ensure that your environment is set to the ``egm722`` environment created
-during the preliminary setup (you should see "Applications on **egm722**" at the top of the window). To open Jupyter
-Notebooks, we can **either** launch the **CMD.exe Prompt**, or launch Jupyter Notebooks directly:
+during the preliminary setup (you should see "Applications on **egm722**" at the top of the window).
+
+To open Jupyter Lab, we can **either** launch the **CMD.exe Prompt**, or launch Jupyter Lab directly from Anaconda
+Navigator:
 
 .. image:: ../../../img/egm722/week1/anaconda.png
     :width: 720
@@ -31,16 +33,16 @@ Method 1: Command Prompt
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When you launch the command prompt, it will start in the directory where you have installed Anaconda (most likely
-``C:\Users\YourUserName``). Navigate to the **Week1** folder in the directory where you have cloned the EGM722 repository.
+``C:\Users\YourUserName``). Navigate to the directory where you have cloned the EGM722 repository.
 
 Remember that from the command prompt, you can change directories using the **cd** command. For example, if I have cloned
-the directory to ``C:\Users\Bob\EGM722\``, to get to the **Week1** folder I would type:
+the directory to ``C:\Users\bob\egm722\``, to get to that folder I would type:
 
 .. code-block:: text
 
-    cd C:\Users\Bob\EGM722\Week1
+    cd C:\Users\bob\egm722
 
-You can also see the contents of the current director using the **dir** command – you should see a file called **Practical1.ipynb** as
+You can also see the contents of the current director using the **dir** command – you should see a file called **PythonIntro.ipynb** as
 well as two folders, **data_files** and **imgs**:
 
 .. image:: ../../../img/egm722/week1/prompt1.png
@@ -48,7 +50,7 @@ well as two folders, **data_files** and **imgs**:
     :align: center
     :alt: the command prompt
 
-|br| From this folder, type ``jupyter-notebook`` at the prompt and press **Enter**. You should see the notebook app
+|br| From this folder, type ``jupyter-lab`` at the prompt and press **Enter**. You should see the jupyter-lab app
 begin running:
 
 .. image:: ../../../img/egm722/week1/prompt2.png
@@ -65,7 +67,7 @@ begin running:
 
 |br| At this point, skip to the next section (:ref:`Opening the Notebook`).
 
-Method 2: Launch Jupyter Notebooks directly
+Method 2: Launch Jupyter Lab directly
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When you launch Jupyter Notebooks directly from **Anaconda Navigator**, a browser window will open:
@@ -89,23 +91,20 @@ following the links. Navigate to the Week1 folder. Once there, you should see th
 Opening the Notebook
 --------------------
 
-Open the Practical 1 notebook by clicking on **Practical1.ipynb**. This will open the following browser tab (or window):
+Open the Practical 1 notebook by double-clicking on the **Week1** folder, then double-clicking **PythonIntro.ipynb**. This
+will open the following browser tab (or window):
 
 .. image:: ../../../img/egm722/week1/notebook.png
     :width: 720
     :align: center
-    :alt: the jupyter notebook
+    :alt: the jupyter notebook, open in jupyter lab
 
-|br| You can now work through the notebook, reading the text and running the individual cells:
+|br| You can now work through the notebook, reading the text and running the individual code cells. To run a cell, you
+can click on it to highlight it, then press **CTRL + Enter**, or by clicking the triangular **Run** button at the top
+of the window.
 
-.. image:: ../../../img/egm722/week1/first_cell.png
-    :width: 720
-    :align: center
-    :alt: the first cell in the notebook highlighted
-
-|br| To run a cell, you can click on it to highlight it, then press **CTRL + Enter**, or by clicking the **Run** button
-at the top of the window. When the cell has finished running, you should see a number next to ``In`` on the left-hand
-side, as well as any output text produced by the commands:
+When the cell has finished running, you should see a number inside the square brackets on the left-hand side. You may
+also see the output text produced by the commands (assuming that they have produced anything):
 
 .. image:: ../../../img/egm722/week1/first_output.png
     :width: 720
@@ -114,7 +113,7 @@ side, as well as any output text produced by the commands:
 
 |br|
 
-.. note:: 
+.. warning::
 
     Be sure to read the text and any comments **carefully**: not every cell is ready to run automatically, and you may
     need to type in your own code before the cell is ready to run.
@@ -137,21 +136,14 @@ Closing the Notebook
 
 Once you have worked your way through the notebook and are confident that you understand what is being asked, you can
 close the notebook. Note that closing the browser tab will not actually stop the notebook from running – to do this,
-you have to first select the notebook in the original browser window and select **Shutdown**:
+you have to select **Shutdown** from the **File** menu in the upper left-hand corner of the window:
 
 .. image:: ../../../img/egm722/week1/shutdown.png
     :width: 720
     :align: center
-    :alt: the shutdown button highlighted in the jupyter window
+    :alt: the shutdown menu option highlighted in the jupyter window
 
-|br| After that, you can click on **Quit** at the top of the page to shut down the program:
-
-.. image:: ../../../img/egm722/week1/quit.png
-    :width: 720
-    :align: center
-    :alt: the browser window ready to be closed/quit
-
-|br| Close the browser window, and (if you launched Jupyter Notebooks from the **Command Prompt**), close the
+|br| Close the browser window, and (if you launched Jupyter Lab from the **Command Prompt**), close the
 **Command Prompt** window.
 
 Next steps: Introduction to git
