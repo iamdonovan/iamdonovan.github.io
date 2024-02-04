@@ -28,8 +28,8 @@ the notebook (``Week3/Folium.ipynb``).
 Jeremy Leven
 -------------
 
-Overview
-...........
+overview
+^^^^^^^^^
 
 In last week’s practical, we saw how we can use ``cartopy`` to create
 static maps. In the first exercise from this week, we saw how we can use
@@ -37,8 +37,8 @@ static maps. In the first exercise from this week, we saw how we can use
 In this exercise, we’ll see how we can use ``geopandas``, together with
 ``folium``, to easily create interactive maps.
 
-Objectives
-...........
+objectives
+^^^^^^^^^^^
 
 -  Use ``geopandas`` to convert csv data with geographic information
    into vector data
@@ -47,8 +47,8 @@ Objectives
 -  Use ``pandas.DataFrame.merge()`` to join attribute tables based on
    shared field values
 
-Data provided
-...............
+data provided
+^^^^^^^^^^^^^^
 
 In the data_files folder, you should have the following files:
 
@@ -71,8 +71,8 @@ need to download the following files into the **data_files** folder:
    locations of all Bus and Rail stations in Northern Ireland, from
    `OpenDataNI <https://www.opendatani.gov.uk/@translink/translink-ni-railways-stations>`__
 
-1. Getting started
-....................
+getting started
+^^^^^^^^^^^^^^^^
 
 To get started, run the following cell to import the packages we’ll use
 in the exercise.
@@ -83,14 +83,14 @@ in the exercise.
     import geopandas as gpd
     import folium
 
-Next, we’ll load the Wards dataset using geopandas, just like what we
-saw in the previous exercise:
+Next, we’ll load the Wards dataset using ``geopandas``, just like what
+we saw in the previous exercise:
 
 .. code:: ipython3
 
     wards = gpd.read_file('data_files/NI_Wards.shp')
 
-Remember that we can use ``geopandas.GeoDataFrame.head()``
+Remember that we can use ``.head()``
 (`documentation <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html>`__)
 to see a preview of the data:
 
@@ -99,9 +99,9 @@ to see a preview of the data:
     wards.head()
 
 To create an interactive map from the **GeoDataFrame**, we use
-``geopandas.GeoDataFrame.explore()``
+``.explore()``
 (`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.explore.html>`__),
-which creates a ``folium.Map``
+which creates a **folium.Map**
 (`documentation <https://python-visualization.github.io/folium/>`__)
 object.
 
@@ -125,8 +125,8 @@ stop here, but in the next sections, we’ll see how we can build on this
 by adding additional data, customizing markers and legend information,
 and even saving the map to an html file that we can share with others.
 
-2. Converting csv data to vector data
-.......................................
+converting csv data to vector data, revisited
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We’ve already seen an example of this before in week 1:
 
@@ -161,7 +161,7 @@ Here, we’ve used the ``geometry`` and ``crs`` arguments of
 (`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html>`__)
 to do the same thing in a single step.
 
-For the ``geometry`` argument, we used ``geopandas.points_from_xy()``
+For the ``geometry`` argument, we used ``gpd.points_from_xy()``
 (`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.points_from_xy.html>`__)
 to create the geomtry based on the latitude and longitude information
 stored in the csv file.
@@ -170,15 +170,16 @@ For the ``crs`` argument, we used the same EPSG code for WGS84
 latitude/longitude as before. Now that we have the dataset loaded, we’ll
 see how we can add it to an existing ``folium.Map`` object.
 
-3. Adding data to an existing map
-...................................
+adding data to an existing map
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the
 `documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.explore.html>`__
-for ``geopandas.GeoDataFrame.explore()``, you might notice the following
-argument:
+for ``.explore()``, you might notice the following argument:
 
    **m**: *mfolium.Map (default None)*
+
+   ::
 
       Existing map instance on which to draw the plot.
 
@@ -199,10 +200,12 @@ those do after the jump.
                      legend=False, # don't show a separate legend for the point layer
                     )
 
-As you can see, the default **Marker** style is a blue
+As you can see, the default color for the **Marker** style is blue with
+a white circle in the middle. Later on, we will see how we can customize
+the marker to use other colors and icons.
 
-4. Joining tables based on attribute data
-............................................
+joining tables based on attribute data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the previous exercise, we saw how we can use a *spatial join* to
 combine vector data based on their spatial relationship. Sometimes,
@@ -239,12 +242,13 @@ from the *left* table, ``wards`` (what
 calls the “input table”), and the *right* table, ``transport`` (what
 ArcGIS calls the “join table”).
 
-5. Customizing legends and markers
-.....................................
+customizing legends and markers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Once we have this, we can create a different map that shows the distance
-to the nearest bus/rail station (in km) for each electoral ward in
-Northern Ireland, again using ``geopandas.GeoDataFrame.explore()``.
+Once we have this information, we can create a different map that shows
+the distance to the nearest bus/rail station (in km) for each electoral
+ward in Northern Ireland, again using
+``geopandas.GeoDataFrame.explore()``.
 
 This time, though, we’ll make sure to change the legend caption.
 “Population” is easy enough to understand, but “Distance” probably needs
@@ -285,7 +289,8 @@ with the following arguments:
 `Bootstrap <https://getbootstrap.com/docs/3.3/components/>`__
 glyphicons. I’ve creatively chosen the ``plane`` icon from FontAwesome
 (``prefix='fa'``) for the airports, and made them ``red`` to stand out
-from the background a bit.
+from the background a bit, but feel free to make your own adjustments to
+this style.
 
 Run the cell below to create the new map:
 
@@ -317,8 +322,8 @@ online <https://iamdonovan.github.io/teaching/egm722/practicals/folium.html>`__:
 
     m.save('NI_Transport.html')
 
-6. Next steps
-...............
+additional exercises and next steps
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 That wraps up the introduction to creating interactive maps using
 ``geopandas`` and ``folium``. If you’re looking for additional practice,
@@ -328,10 +333,9 @@ here are some suggestions to get you started:
    which corresponds to the number of bus stops in each electoral ward.
    Use this, and some of the topics covered previously, to create a map
    that shows the number of bus stops per capita for each electoral
-   ward.
+   ward, rather than the distance to the nearest bus/rail station.
 -  Download the Translink `bus/train
    station <https://www.opendatani.gov.uk/@translink/translink-ni-railways-stations>`__
    location data from OpenNI, and add these data to the map using a
    custom marker that shows whether the station is a rail station
    (``R``), a bus station (``B``), or a mixed-use (``I``) station.
-
