@@ -132,7 +132,7 @@ Be sure to select **All Files** for **Save as type**:
 |br| We're not quite done - there's one last thing we'll need to do before moving on.
 
 changing permissions
-.......................
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
 
@@ -218,8 +218,8 @@ through the exercise.
 Gena Rowlands
 ---------------
 
-Overview
-..........
+overview
+^^^^^^^^^
 
 Up to now, you have gained some experience working with basic features
 of python, used cartopy and matplotlib to create a map, explored using
@@ -232,8 +232,8 @@ interface (API) to query and download Sentinel data, using the
 part of this, we’ll also introduce a few more geometric operations using
 ``shapely`` that you may find useful.
 
-Objectives
-............
+objectives
+^^^^^^^^^^^
 
 In this example, you will:
 
@@ -243,14 +243,14 @@ In this example, you will:
 -  Calculate the fractional overlap between shapes
 -  Use the SentinelAPI to download images
 
-Data provided
-...............
+data provided
+^^^^^^^^^^^^^^
 
 In this example, we will be using the ``Counties`` shapefile that we
 used in Week 2.
 
-1. Getting started
-....................
+getting started
+^^^^^^^^^^^^^^^^
 
 To get started, run the following cell to import the packages that we’ll
 use in the practical.
@@ -263,8 +263,8 @@ use in the practical.
     from IPython import display # lets us display images that we download
     import shapely
 
-2. Prepare a search area
-...........................
+preparing a search area
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before we get to using the API to search for images, we’ll see how we
 can use existing data, like the ``Counties`` shapefile we used in Week
@@ -274,29 +274,32 @@ We won’t be able to use particularly complicated shapes, but we can use
 a combination of GIS/geometric operations to get a simple outline of our
 data, which can be used for the search.
 
-First, we’ll load the data using ``geopandas``:
+First, we’ll load the data using ``geopandas``, making sure to transform
+from the original CRS to WGS84 latitude/longitude (``epsg=4326``):
 
 .. code:: ipython3
 
-    counties = gpd.read_file('data_files/Counties.shp').to_crs(epsg=4326)
+    counties = gpd.read_file('../Week2/data_files/Counties.shp').to_crs(epsg=4326)
 
-Next, we’ll use
-`geopandas.Series.unary_union <https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.unary_union.html>`__
-to combine all of the County outlines into a single shape:
+Next, we’ll use the ``geopandas.Series.unary_union`` attribute
+(`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.unary_union.html>`__)
+to get a combination of all of the County outlines in a single geometry
+feature:
 
 .. code:: ipython3
 
     # gets a single polygon (or multipolygon) composed of the individual polygons
     outline = counties['geometry'].unary_union
 
-    outline # in jupyter notebook, this actually displays the polygon.
+    outline # note that in a jupyter notebook, this actually displays the polygon.
 
 In the output of the cell above, we can see that the ``outline`` shape
-is the combination of all of the individual county outlines.
+is indeed the combination of all of the individual county outlines.
 
 We could use this as an input to our search, but we’ll look at one
-additional operation that we can use to get a bounding box of the
-geometry - the ``minimum_rotated_rectangle``:
+additional attribute of a ``shapely`` **Polygon** that we can use to get
+a bounding box of the geometry - the ``minimum_rotated_rectangle``
+(`documentation <https://shapely.readthedocs.io/en/stable/reference/shapely.minimum_rotated_rectangle.html>`__):
 
 .. code:: ipython3
 
@@ -314,8 +317,8 @@ This way, we minimize the area outside of the area of interest (Northern
 Ireland) within our search area, while still making sure to cover the
 entire area of interest.
 
-Finally, if we look at the docstring for
-`SentinelAPI.query() <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.query>`__,
+Finally, if we look at the docstring for ``SentinelAPI.query()``
+(`documentation <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.query>`__),
 we see that the ``area`` argument needs to be a ``str``:
 
 .. code:: ipython3
@@ -338,33 +341,29 @@ That’s all we need to be able to search for images that intersect with a
 given geometry. Once we have this, we can connect to the API and start
 the query.
 
-3. Search the archive for images
-...................................
+searching the archive for images
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.1 Connect to the api
-~~~~~~~~~~~~~~~~~~~~~~
+connecting to the api
+~~~~~~~~~~~~~~~~~~~~~
 
-To connect to the API, we first create a
-`SentinelAPI <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI>`__
-object:
-
-.. code:: python
-
-   api = SentinelAPI(user, password)
-
-From the API reference for ``sentinelsat``, we can see that we either
-type in the username and password as a string, or we use ``None`` to use
-the ``.netrc`` file that we created earlier:
+To connect to the API, we first create a **SentinelAPI** object
+(`documentation <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI>`__):
 
 .. code:: ipython3
 
     api = SentinelAPI(None, None) # remember - don't type your username and password into a jupyter notebook!
 
+From the API reference for ``sentinelsat``, we can see that we either
+type in the username and password as a string (**a terrible idea - don’t
+do this!**), or we use ``None`` to use the ``.netrc`` file that we
+created earlier.
+
 If there are no error messages or warnings, the connection was
 successfully created, and we can move on to searching for images.
 
-3.2 Search for images
-~~~~~~~~~~~~~~~~~~~~~
+searching for images
+~~~~~~~~~~~~~~~~~~~~
 
 As we saw earlier, the method we’ll use is ``api.query()``.
 
@@ -374,7 +373,7 @@ For this example, we’ll use the following arguments for the search:
 -  ``date``: the date range to use. We’ll look for all images from
    February 2023.
 -  ``platformname``: we’re going to limit our search to Sentinel-2, but
-   there are other options available
+   note that there are other options available
 -  ``producttype``: we’ll search for the Sentinel-2 MSI Level 2A
    (surface reflectance) products
 -  ``cloudcoverpercentage``: we want (mostly) cloud-free images, so
@@ -394,25 +393,25 @@ API reference for additional keywords to use.
                          producttype='S2MSI2A', # surface reflectance product (L2A)
                          cloudcoverpercentage=(0, 30)) # limit to 10% cloud cover
 
-The output of ``api.query()`` is a ``dict()``, with the product name the
-``key`` and the ``value`` being the metadata.
+The output of ``api.query()`` is a **dict** object, with the product
+name the ``key`` and the ``value`` being the metadata.
 
 To see how many images were returned by the search, we can check the
-length of the ``dict`` object, which tells us the number of ``item``\ s
-(``key``/``value`` pairs) in the ``dict``:
+length of the **dict** object, which tells us the number of ``item``\ s
+(``key``/``value`` pairs) in the **dict**:
 
 .. code:: ipython3
 
     nresults = len(products)
-    print('Found {} results'.format(nresults))
+    print(f'Found {nresults} results')
 
 You should hopefully see that the search has returned 11 results.
 
-To look at the first one returned, we can use the built-ins
-`next() <https://docs.python.org/3/library/functions.html#next>`__
-and
-`iter() <https://docs.python.org/3/library/functions.html#iter>`__,
-which returns the first item that was entered into the ``dict``:
+To look at the first one returned, we can use the built-ins ``next()``
+(`documentation <https://docs.python.org/3/library/functions.html#next>`__)
+and ``iter()``
+(`documentation <https://docs.python.org/3/library/functions.html#iter>`__),
+which returns the first item that was entered into the **dict**:
 
 .. code:: ipython3
 
@@ -420,7 +419,8 @@ which returns the first item that was entered into the ``dict``:
     products[result] # show the metadata for the first item
 
 And, we can also download the browse image for this product, using
-`SentinelAPI.download_quicklook() <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook>`__:
+``SentinelAPI.download_quicklook()``
+(`documentation <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook>`__):
 
 .. code:: ipython3
 
@@ -435,19 +435,19 @@ of this image - most of the image is of Scotland and the Irish Sea.
 In the next section, we’ll see one way that we can make sure that we’re
 only getting images that mostly intersect with our area of interest.
 
-4. Filtering by overlap
-.........................
+filtering by overlap
+^^^^^^^^^^^^^^^^^^^^^
 
-To start, we use
-`SentinelAPI.to_geodataframe() <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook>`__
-to convert the results into a ``GeoDataFrame``:
+To start, we use ``SentinelAPI.to_geodataframe()``
+(`documentation <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook>`__)
+to convert the results into a **GeoDataFrame**:
 
 .. code:: ipython3
 
     product_geo = SentinelAPI.to_geodataframe(products) # convert the search results to a geodataframe
     product_geo.head() # show the first 5 rows of the geodataframe
 
-Now, we can iterate over ``GeoDataFrame`` to calculate the intersection
+Now, we can iterate over **GeoDataFrame** to calculate the intersection
 of the image footprint with the outline of Northern Ireland:
 
 .. code:: ipython3
@@ -464,15 +464,17 @@ outline of Northern Ireland; none of the other images have more than
 20%.
 
 Rather than copying this down, we can use
-``geopandas.GeoSeries.argmax()`` to find the integer location of the
-largest value in the ``overlap`` column:
+``geopandas.GeoSeries.argmax()``
+(`documentation <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.argmax.html>`__)
+to find the integer location of the largest value in the ``overlap``
+column:
 
 .. code:: ipython3
 
     max_index = product_geo.overlap.argmax() # get the integer location of the largest overlap value
     print(max_index) # should be 2
 
-Then, we get the ``GeoDataFrame`` index that corresponds to that integer
+Then, we get the **GeoDataFrame** index that corresponds to that integer
 location:
 
 .. code:: ipython3
@@ -480,9 +482,10 @@ location:
     best_overlap = product_geo.index[max_index] # get the actual index (image name) with the largest overlap
     print(product_geo.loc[best_overlap]) # show the metadata for the image with the largest overlap
 
-With this, we can use ``api.download_quicklook()`` to download the
-quicklook image for the result that has the largest overlap with the
-outline of Northern Ireland:
+With this, we can use ``api.download_quicklook()``
+(`documentation <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook>`__)
+to download the quicklook image for the result that has the largest
+overlap with the outline of Northern Ireland:
 
 .. code:: ipython3
 
@@ -495,16 +498,18 @@ much more of Northern Ireland (and the ever-present clouds).
 That’s all for right now - the next few cells provide examples for how
 you can download the actual image data.
 
-5. Downloading images
-........................
+downloading images
+^^^^^^^^^^^^^^^^^^^
 
 Remember that these are very large files (each granule is ~1GB), so you
 should only run these cells if you actually want to download the data!
 
-download an individual image
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+downloading an individual image
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We can use ``SentinelAPI.download()`` to download a single product:
+We can use ``SentinelAPI.download()``
+(`documentation <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download>`__)
+to download a single product, given the Product ID:
 
 .. code:: ipython3
 
@@ -513,8 +518,11 @@ We can use ``SentinelAPI.download()`` to download a single product:
 download an individual image, but only the image bands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This example uses the ``nodefilter`` argument to only download the image
-bands (files that match the format ``*_B*.jp2``):
+This example uses the ``nodefilter`` argument along with
+``make_path_filter()``
+(`documentation <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.products.make_path_filter>`__)
+to only download the image bands (files that match the format
+``*_B*.jp2``):
 
 .. code:: ipython3
 
@@ -524,8 +532,9 @@ bands (files that match the format ``*_B*.jp2``):
 download all images from a list of products
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``SentinelAPI.download_all()`` will download all of the products in a
-list.
+Finally, ``SentinelAPI.download_all()``
+(`documentation <https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_all>`__)
+will download all of the products in a list.
 
 Again, these are very large files, so you should only run the following
 cell if you actually want to download all of the images returned by the
