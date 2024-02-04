@@ -176,8 +176,8 @@ good footing for the next weeks.
 Nicholas Sparks
 ------------------
 
-Overview
-^^^^^^^^^^^^^^
+overview
+^^^^^^^^^
 
 As we discussed in this week’s lecture, programming is a powerful tool
 that allows us to do complicated calculations and analysis, visualize
@@ -188,232 +188,285 @@ complicated tasks. In the weeks to come, you will learn to work with
 different GIS datasets such as vector (e.g., shapefiles) or raster files
 using python libraries.
 
-Objectives
-^^^^^^^^^^^^^
+objectives
+^^^^^^^^^^^
 
 -  Learn and gain experience with some of the basic elements of python
    and programming
 -  Learn how to use the python command line interface
 -  Practice planning out a script
 
-Data provided
-^^^^^^^^^^^^^^^^^
+data provided
+^^^^^^^^^^^^^^
 
 In the data_files folder, you should have the following:
 
 - GPSPoints.txt
 - Glaciers.shp (and associated files)
 
-1. The python interpreter
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+the python interpreter
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Before we get started, it’s important that we check which verison of
-python we’re running. To do this, we can use the **sys** module. If you
-run the following cell, you should see something like this print out:
+python we’re running. To do this, we can use the ``sys`` module. After
+you run the following cell, you should see something like this print
+out:
 
-``3.9.16 | packaged by conda-forge | (main, Feb  1 2023, 21:39:03) [GCC 11.3.0]``
+``3.12.1 | packaged by conda-forge | (main, Dec 23 2023, 07:53:56) [MSC v.1937 64 bit (AMD64)]``
 
 If you see a version of python other than 3.x, we’ll need to switch your
 working environment.
+
+To run the cell, click on it to highlight it, then either press **Ctrl**
++ **Enter**, or press the triangular “play” button at the top of this
+panel:
 
 .. code:: ipython3
 
     import sys
     print(sys.version)
 
+You should notice a few things. First, the square brackets (``[ ]``)
+have a number inside of them (``[1]``), and you can see the output of
+``print(sys.version)`` below the cell.
+
 Now that we know we’re using the right version of python, run the
-following code snippet:
+following:
 
 .. code:: ipython3
 
     print("Hello, World!")
 
-The ``print()`` **function** allows us to print messages and information
-to the screen, or to a file (more on this later), but it doesn’t allow
-us to save the messages that we display.
+The ``print()`` **function**
+(`documentation <https://docs.python.org/3/library/functions.html#print>`__)
+allows us to print messages and information to the screen, or to a file
+(more on this later), but it doesn’t allow us to save the messages that
+we display. To do this, we first have to create an **object** using the
+**assignment operator**, ``=``:
 
-How can we edit the code above to store our message as a variable? In
-the cell below, type a line of code that will define a **variable**,
-``myString``, that stores our message (``Hello, World!``). Then, print
-the message to the screen using the **variable** you’ve just defined.
+.. code:: python
+
+   foo = 'a message'
+
+This will assign the value ``'a message'`` to a new object, ``foo``.
+
+In the cell below, type a line of code that will define a new
+**object**, ``foo``, that stores the message ``Hello, World!``. Then,
+print the message to the screen using the **variable** name you’ve just
+defined:
 
 .. code:: ipython3
 
-    # your code goes here to write a command that stores the message as a variable called myString...
+    # assign an object/variable using =
+    print() # print the value of the object to the screen using print
 
 Often, you will want to know how to use a particular function. To get
-help, we can use the built-in ``help()`` function. For example, to get
-more information on how to use the ``print()`` function, we could type
-the following at the prompt:
+help, we can use the built-in ``help()`` function
+(`documentation <https://docs.python.org/3/library/functions.html#help>`__).
 
-.. code:: bash
-
-   >>> help(print)
-   Help on built-in function print in module builtins:
-
-   print(...)
-       print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
-
-       Prints the values to a stream, or to sys.stdout by default.
-       Optional keyword arguments:
-       file:  a file-like object (stream); defaults to the current sys.stdout.
-       sep:   string inserted between values, default a space.
-       end:   string appended after the last value, default a newline.
-       flush: whether to forcibly flush the stream.
-
-Go ahead and try this now:
+For example, to get more information on how to use the ``print()``
+function:
 
 .. code:: ipython3
 
     help(print)
 
-In jupyter/ipython, you can also use the ``?`` operator, which will open
-the **docstring** in a new panel at the bottom of the window:
+This tells you the different *positional arguments* to ``print()`` (such
+as ``value``), the *optional keyword arguments* (such as ``file`` or
+``sep``), as well as what ``print()`` does (“Prints the values to a
+stream, or to sys.stdout by default”).
+
+In jupyter/ipython, you can also use the ``?`` operator:
 
 .. code:: ipython3
 
     print?
 
 This is a lot of information for now, but if you want to know how to use
-a particular function, method, or class, you can find that help here. A
-warning, however: some python packages are better-documented than others
-(which is why we should always provide thorough documentation when
-writing our own code, right?)
+a particular function, method, or class, you can find that help here.
 
-2. Variables
-^^^^^^^^^^^^^^^^^
+A warning, however: some python packages are better-documented than
+others (which is why we should always provide thorough documentation
+when writing our own code, right?)
 
-We have already seen one example of a **variable**, ``myString``, above.
-Remember that in programming, a **variable** is name that represents or
-refers to a value. **Variables** store temporary information that can be
-manipulated or changed as we type commands or run scripts.
+objects and variables
+^^^^^^^^^^^^^^^^^^^^^^
 
-In practice, variables can refer to almost anything. As the chosen name
-suggests, ``myString`` is a **string**, or text. Variables can also be
-**int**\ egers, **float**\ ing point numbers (floats or decimal numbers),
-**list**\ s, **tuple**, **dict**\ ionaries, entire files, and many more
-possibilities.
+We have already seen one example of an **object**, ``foo`` (the
+**variable** name), above. Objects store temporary information that can
+be manipulated or changed as we type commands or run scripts.
+
+One important thing to remember is that the *name* of an **object** is
+*case-sensitive* (meaning that ``foo`` is different from ``Foo``):
+
+.. code:: ipython3
+
+    print(Foo) # this won't work, because we haven't created an object called Foo yet
+
+We’ll see more examples of error messages later (and how to interpret
+them), but hopefully the message:
+
+.. code:: pytb
+
+       NameError: name 'Foo' is not defined
+
+is clear enough. Because we were expecting this error message, we can
+ignore it and move on for now.
 
 As we covered in this week’s lecture, in python, variable names can
 consist of letters, digits, or underscores, but they **cannot** begin
 with a digit. If you try to name a **variable** using an illegal name,
 you will get a ``SyntaxError``:
 
-.. code:: pytb
-
-   >>> 3var = "this won't work"
-     Cell In[5], line 1
-       3var = 'this won't work'
-        ^
-   SyntaxError: invalid syntax
-
-To confirm this, try it for yourself below:
-
 .. code:: ipython3
 
     3var = "this won't work"
 
-3. Numeric operations
-^^^^^^^^^^^^^^^^^^^^^^^^
+Here, we see a ``SyntaxError`` raised - this means that the code we have
+written violates the *syntax* (grammar) of the language. We’ll look more
+at different error types in the debugging exercise later on.
+
+numeric operations
+^^^^^^^^^^^^^^^^^^^
 
 A large part of what we will use python for is the manipulation of
 numeric data. Thus, it is a good idea for us to understand how python
-treats numeric data. One by one, type the following expressions into the
-cell below. Before running the cell, be sure to think about what you
-expect the result to be. Does the result you see match your expectation?
-Why or why not?
+treats numeric data. In the cell below, we first define two objects,
+``x`` and ``y``, and assign then values of 2 and 3, respectively.
 
-- ``19 + 32 # the + operator does addition``
-- ``19 - 87 # the - operator does subtraction``
-- ``19 * 12 # the * operator does multiplication``
-- ``1 / 3 # the / operator does division``
-- ``1 // 3 # the // operator does floor division``
-- ``10 % 3 # the % operator does modular arithmetic``
-- ``2 ^ 4``
-- ``2 ** 4 # the ** operator does exponentiation``
-
-.. code-block:: text
-
-
-
-Can you explain what the second-to-last operator (the ^ symbol) is
-doing?
-
-
-4. String variables and operations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-We have already worked with one example of a **str**\ ing variable,
-``myString``.
-
-As noted in the lecture, we can easily access parts of a string by using
-the desired index inside square brackets ``[ ]``. Remember that the
-index has to be an **int**\ eger value:
+Before you run the cell, look at the print statements - these will show
+which operators are being used (``+``, ``-``, ``*``, etc.), along with
+the output of the operation using the variables ``x`` and ``y``. Think
+about what you exect the results to be - when you run the cell, do the
+outputs match your expectation? Why or why not?
 
 .. code:: ipython3
 
-    myString[0]
+    x = 2
+    y = 3
+
+    print(f"x + y = {(x+y)}") # print the value of x + y (addition)
+    print(f"x - y = {(x-y)}") # print the value of x - y (subtraction)
+    print(f"x * y = {(x*y)}") # print the value of x * y (multiplication)
+    print(f"x / y = {(x/y)}") # print the value of x / y (division)
+    print(f"x // y = {(x//y)}") # print the value of x // y (floor division)
+    print(f"x ** y = {(x**y)}") # print the value of x ** y (exponentiation)
+    print(f"x % y = {(x%y)}") # print the value of x % y (modular division)
+    print(f"x ^ y = {(x^y)}") # print the value of x ^ y (bitwise XOR)
+
+Most of these should be fairly straightforward, except perhaps for the
+last two (``%`` and ``^``). The ``%`` (“modular” operator) returns the
+remainder of dividing two numbers. The ``^`` (“bitwise XOR” or “bitwise
+exclusive or”) does something a little more involved - for more
+information about bitwise operators in general, see this `Wikipedia
+article <https://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators>`__.
+
+Note also how we’re using ``print()`` here, with a “`formatted string
+literal <https://docs.python.org/3/tutorial/inputoutput.html#tut-f-strings>`__”
+(or “**f-String**”, ``f"{}"``). By prefixing the string with the letter
+``f``, we can include the value of an expression inside the string,
+using the ``{ }`` operators. We’ll look at more examples of how to use
+these later on, including how we can format numbers inside of strings.
+
+string objects and operations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We have already worked with one example of a **str**\ ing object,
+``foo``. As noted in the lecture, we can easily access parts of a string
+by using the desired index inside square brackets ``[ ]``. Remember that
+the index starts from 0, and it has to be an **int**\ eger value:
+
+.. code:: ipython3
+
+    foo[0]
 
 If we use a **float**\ ing point value, it raises a ``TypeError``:
 
 .. code:: ipython3
 
-    myString[0.0] # slice indices have to be integers, not floats!
+    foo[0.0] # slice indices have to be integers, not floats!
 
-As an additional example, to get the 3rd character in ``myString``, we
-would type ``myString[2]`` at the prompt and press ENTER:
+As an additional example, to get the 3rd character in ``foo``, we would
+type ``foo[2]`` at the prompt and press ENTER:
 
 .. code:: ipython3
 
-    myString[2] # get the 3rd character in myString
+    foo[2] # get the 3rd character in foo
 
-Why does this give us the third character from ``myString``? Well,
-remember that the first element of a **str** (or any sequence; more on
-that later) has an index of 0.
+Why does this give us the third character from ``foo``? Well, remember
+that the first element of a **str** (or any sequence; more on that
+later) has an index of 0 - so, the third element has an index of 2.
 
 To access the last element of a **str** (or a sequence), we could count
 up all of the elements of the **str** and subtract one (remember that we
 start counting at 0, not 1), but python gives us an easier way:
-**negative indexing**.
+**negative indexing**. Negative indexing starts from the end of the
+string (after all of the
 
-Thus, to get the last element of ``myString``, we can type
-``myString[-1]``. To get the second-to-last element, we could type
-``myString[-2]``, and so on.
+Thus, to get the last element of ``foo``, we can type ``foo[-1]``. To
+get the second-to-last element, we could type ``foo[-2]``, and so on:
 
 .. code:: ipython3
 
-    myString[-1] # get the last character in myString
+    foo[-1] # get the last character in myString
 
 If we want to access more than one element of the string, we can use
 multiple indices, with the basic form of:
 
-.. code:: python3
+.. code:: python
 
-   >>> sliced = myString[first:last]
+   sliced = myString[first:last]
 
 This will select the letters of the string starting at index ``first``
 up to, **but not including**, ``last``.
 
-This is also called **slicing**. What does the command ``myString[1:5]``
-return?
+This is also called **slicing**. Before running the cell below, think
+about what the result should be. Does it match your expectation?
 
 .. code:: ipython3
 
-    myString[1:5]
+    foo[1:5]
 
 If we want to find an element in a string, we can use the
 helpfully-named built-in function (or method) ``find()``. For example,
-typing myString.find(’W’) will return the index of the letter ’W’. What
-happens if the given letter (or substring) isn’t found in the string?
-Remember to use the ``help()`` function if you get stuck.
+typing ``foo.find('W')`` will return the index of the letter ``W``:
 
 .. code:: ipython3
 
-    myString.find('W') # find the index of the character W in myString
+    foo.find('W') # find the index of the character W in myString
 
-Finally, although we can’t subtract or divide strings, we do have two
-operators at our disposal: ``+`` (concatenation) and ``*`` (repeated
-concatenation).
+Note that if a given letter (or pattern) occurs more than once,
+``.find()`` will only tell us the index of the *first* occurrence:
+
+.. code:: ipython3
+
+    foo.find('l') # will tell us the index of the first
+
+Have a look at the
+`documentation <https://docs.python.org/3/library/stdtypes.html#string-methods>`__
+for ``str`` to see if you can find a method that will give you the index
+of the *last* occurrence of a pattern in a string, then use that in the
+cell below to find the index of the last ``l``:
+
+.. code:: ipython3
+
+    # insert your code to find the index of the last l here
+
+If the pattern isn’t found in the string, ``find()`` returns a value of
+``-1``:
+
+.. code:: ipython3
+
+    foo.find('a') # what will this return?
+
+As you can see from the documentation linked above, **str** objects have
+a wide range of methods available. We won’t go through these in detail,
+but we will make use of more of them over the remainder of this class.
+
+Finally, we’ll look at some of the operators that we can use with
+**str** objects. Although we can’t subtract or divide strings, we do
+have two operators at our disposal: ``+`` (concatenation) and ``*``
+(repeated concatenation).
 
 Before running the cell below, what do you expect will be stored in each
 variable below? Does the result match what you expected?
@@ -425,12 +478,12 @@ variable below? Does the result match what you expected?
 
     newString = "Hello" + "World!"
     repString = "Hello" * 5
-    
-    print('newString is: ', newString)
-    print('repString is: ', repString)
 
-5. Lists
-^^^^^^^^^^^^^^^^^
+    print(f'newString is: {new_string}')
+    print(f'repString is: {rep_string}')
+
+lists
+^^^^^^
 
 **list**\ s are an incredibly powerful and versatile data type we can
 use in python to store a sequence of values.
@@ -448,7 +501,7 @@ Like with **str** objects, we can access and manipulate **list** objects
 using indexing and slicing techniques, in much the same way.
 
 Can you write a command below to ``print()`` ‘Grapes’ by using the
-corresponding index from the **list**?
+corresponding index from ``fruits``?
 
 .. code:: ipython3
 
@@ -457,24 +510,30 @@ corresponding index from the **list**?
 If we want to access more than one element of a list, we can slice the
 list, using the same syntax as with the ``myString`` examples above.
 
-What do you think will print if you type ``print fruits[2:-1]`` in the
-cell below?
-
-What about ``print(fruits[2:-1][0])``? ``print(fruits[2:-1][0][4])``?
-Try it and see!
-
-**NB!** while indexing a list returns the value of a single element, a
-list slice is itself a list. This difference is subtle, but important to
-remember.
+What do you think will print when you run the cell below?
 
 .. code:: ipython3
 
-    print(fruits[2:-1]) # what does this operation return?
-    print(fruits[2:-1][0]) # what about this one?
-    print(fruits[2:-1][0][4]) # and this one?
+    fruits[2:-1] # think about what this output will look like
 
-6. Functions and Methods
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+What about this cell?
+
+.. code:: ipython3
+
+    fruits[2:-1][0] # what will this show?
+
+and finally, what about this?
+
+.. code:: ipython3
+
+    fruits[2:-1][0][-1]
+
+As you can see from the examples above, while indexing a **list**
+returns the value of a single element, a **list** slice is itself a
+**list**. This difference is subtle, but important to remember.
+
+classes, functions and methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In programming, a **function** is essentially a short program that we
 can use to perform a specific action.
@@ -486,9 +545,10 @@ Parameters can be **positional** (in other words, the order they are
 given matters), or they can be **keyword** (i.e., you specify the
 argument with the parameter name, in the form ``parameter=value``).
 
-Python has a number of built-in functions for us to use. For example,
-instead of typing ``2 ** 8`` earlier, we could instead have typed
-**pow(2,8)**:
+Python has a number of built-in functions for us to - we have already
+seen a few examples such as ``print()`` and ``help()``. As another
+example, instead of typing ``2 ** 8`` earlier, we could instead have
+typed ``pow(2,8)``:
 
 .. code:: ipython3
 
@@ -500,13 +560,15 @@ Here, we are calling the function ``pow()`` and supplying the
 same, ``256`` (or 28), but the approach used is different.
 
 If you want to see a list of **built-in** functions and classes in
-python, you can type ``print(dir(__builtins__))`` (note the two
+python, have a look at the python
+`documentation <https://docs.python.org/3/library/functions.html>`__.
+
+Alternatively, you can type ``print(dir(__builtins__))`` (note the two
 underscores on either side of **builtins**):
 
-.. code:: python3
+.. code:: ipython3
 
-   >>> print(dir(__builtins__))
-   ['ArithmeticError', 'AssertionError', 'AttributeError', 'BaseException', 'BlockingIOError', 'BrokenPipeError', 'BufferError', 'BytesWarning', 'ChildProcessError', 'ConnectionAbortedError', 'ConnectionError', 'ConnectionRefusedError', 'ConnectionResetError', 'DeprecationWarning', 'EOFError', 'Ellipsis', 'EnvironmentError', 'Exception', 'False', 'FileExistsError', 'FileNotFoundError', 'FloatingPointError', 'FutureWarning', 'GeneratorExit', 'IOError', 'ImportError', 'ImportWarning', 'IndentationError', 'IndexError', 'InterruptedError', 'IsADirectoryError', 'KeyError', 'KeyboardInterrupt', 'LookupError', 'MemoryError', 'ModuleNotFoundError', 'NameError', 'None', 'NotADirectoryError', 'NotImplemented', 'NotImplementedError', 'OSError', 'OverflowError', 'PendingDeprecationWarning', 'PermissionError', 'ProcessLookupError', 'RecursionError', 'ReferenceError', 'ResourceWarning', 'RuntimeError', 'RuntimeWarning', 'StopAsyncIteration', 'StopIteration', 'SyntaxError', 'SyntaxWarning', 'SystemError', 'SystemExit', 'TabError', 'TimeoutError', 'True', 'TypeError', 'UnboundLocalError', 'UnicodeDecodeError', 'UnicodeEncodeError', 'UnicodeError', 'UnicodeTranslateError', 'UnicodeWarning', 'UserWarning', 'ValueError', 'Warning', 'ZeroDivisionError', '_', '__build_class__', '__debug__', '__doc__', '__import__', '__loader__', '__name__', '__package__', '__spec__', 'abs', 'all', 'any', 'ascii', 'bin', 'bool', 'breakpoint', 'bytearray', 'bytes', 'callable', 'chr', 'classmethod', 'compile', 'complex', 'copyright', 'credits', 'delattr', 'dict', 'dir', 'divmod', 'enumerate', 'eval', 'exec', 'exit', 'filter', 'float', 'format', 'frozenset', 'getattr', 'globals', 'hasattr', 'hash', 'help', 'hex', 'id', 'input', 'int', 'isinstance', 'issubclass', 'iter', 'len', 'license', 'list', 'locals', 'map', 'max', 'memoryview', 'min', 'next', 'object', 'oct', 'open', 'ord', 'pow', 'print', 'property', 'quit', 'range', 'repr', 'reversed', 'round', 'set', 'setattr', 'slice', 'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple', 'type', 'vars', 'zip']
+    print(dir(__builtins__)) # show a list of all of the builtin functions
 
 While it may not be completely clear at first what each of these things
 are, remember that we can use the ``help()`` **function** to get more
@@ -517,16 +579,16 @@ For example, one very useful built-in **class** is ``range``
 
 To create a new **range** object, we call it like we would a function:
 
-.. code:: python3
+.. code:: python
 
    range(stop)
    range([start,] stop [,step])
 
-“Under the hood”, so to speak, remember that this is actually calling
-the **\__init__()** method of the **class**, which is the **function**
+“Under the hood”, so to speak, this is actually calling the
+**\__init\_\_()** method of the **class**, which is the **function**
 that python uses to *initialize*, or create, a new object.
 
-Note that **range()** takes between one and three arguments:
+Note that ``range()`` takes between one and three arguments:
 
 -  ``range(stop)`` creates a **range** object that will “count” from 0
    up to (**but not including**) ``stop``, incrementing by 1.
@@ -548,18 +610,19 @@ counting from a ``start`` of 10 to 0 (inclusive).
     for ii in range(start, stop, step): # modify this to print out a list of numbers 10, 9, 8, ... 0.
         print(ii)
 
-A **method** is a type of **function** that acts directly on an object.
+A **method** is a type of **function** that acts directly on an object -
+we have seen examples of this already with ``str.find()``. In general,
+methods are called just like functions - the general syntax is
+``object.method(arguments)``.
 
-In general, methods are called just like functions - the general syntax
-is ``object.method(arguments)``.
-
-For example, **str** objects have a **method**, ``str.count()``, which
-counts the number of times a character (or substring) occurs in the
-**str**.
+For example, **str** objects have a **method**, ``.count()``
+`documentation <https://docs.python.org/3/library/stdtypes.html#str.split>`__,
+which counts the number of times a character (or substring) occurs in
+the **str**.
 
 If you type ``topic = "Geographic Information Systems"`` into the
 interpreter, what would you expect the result of ``topic.count("i")`` to
-be? What about topic.count(“s”)?
+be? What about ``topic.count("s")``?
 
 .. code:: ipython3
 
@@ -571,25 +634,16 @@ Another powerful **str** method is ``str.split()``, which returns a
 **list** of the given **str**, split into substrings based on the
 delimeter provided as an argument:
 
-.. code:: python3
+.. code:: ipython3
 
-   >>> help(str.split)
-
-   split(self, /, sep=None, maxsplit=-1)
-       Return a list of the words in the string, using sep as the delimiter string.
-
-       sep
-         The delimiter according which to split the string.
-         None (the default value) means split according to any whitespace,
-         and discard empty strings from the result.
-       maxsplit
-         Maximum number of splits to do.
-         -1 (the default value) means no limit.
+    help(topic.split)
 
 From this, we can see that if we call ``topic.split()`` without any
 arguments at all, it will split ``topic`` based on any whitespace and
-discard any *empty* strings. That is, if we have multiple spaces in our
-string, it will treat those as a single space:
+discard any *empty* strings.
+
+That is, if we have multiple spaces in our string, it will treat those
+as a single space:
 
 .. code:: ipython3
 
@@ -604,36 +658,29 @@ result will change:
 
 .. code:: ipython3
 
-    singlespace.split(' ')
-    multispace.split(' ')
+    print(singlespace.split(' ')) # split on a single space
+    print(multispace.split(' ')) # split on a single space
 
 Using ``str.split()`` and an additional method to change all of the
 letters in the **str** to *lower* -case, can you get the following
 result in the cell below?
 
-.. code:: python3
+.. code:: python
 
-   >>> topic = 'Remote Sensing and Geographic Information Systems'
-   >>> # something else goes here
-   >>> print(topic.split('s'))
-   ['Remote Sen', 'ing and Geographic Information Sy', 'tem', '']
+   ['remote ', 'en', 'ing and geographic information ', 'y', 'tem', '']
 
 .. code:: ipython3
 
     topic = 'Remote Sensing and Geographic Information Systems'
-    # something else goes here
-    print(topic.split('s'))
+    print(topic.split('s')) # edit this line to get the result shown above
 
-6.1 Defining our own functions
-.................................
+defining our own functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Often, we will want to define our own **function**\ s. Using functions
-has many benefits, including:
-
-- improving readability,
-- eliminating repetitive code,
-- allowing for easier debugging of a program,
-- and even allowing us to re-use code in other scripts/programs.
+has many benefits, including: \* improving readability, \* eliminating
+repetitive code, \* allowing for easier debugging of a program, \* and
+even allowing us to re-use code in other scripts/programs.
 
 Defining a **function** in python is quite easy.
 
@@ -641,7 +688,7 @@ We begin the definition with a ``def`` **statement** that includes the
 function name and all parameters (this first line is called the
 **header**). The header must end with a colon (``:``):
 
-.. code:: python3
+.. code:: python
 
    def cat_twice(str1, str2):
 
@@ -650,7 +697,7 @@ the function) are *indented* - like other forms of flow control in
 python, once the interpreter sees a non-indented line, it marks the end
 of the function:
 
-.. code:: python3
+.. code:: python
 
    def cat_twice(str1, str2):
       cat = str1 + str2
@@ -659,35 +706,24 @@ of the function:
 
    # this is no longer part of the function
 
-Let’s say that we want to define a function to **concatenate** (add
-together) two strings, and print the resulting string two times:
+To help illustrate this, let’s define a function for calculating the
+area of a circle. Mathematically, this is a function of the radius of
+the circle - equal to the constant pi multiplied by the radius squared.
+Run the cell below to create the new function, and then test it:
 
 .. code:: ipython3
 
-    def cat_twice(str1, str2):
-        cat = str1 + str2
-        print(cat)
-        print(cat)
+    from math import pi # import the constant pi from the math module
 
-That’s it. Simple, right? Now, we can use our function by calling it
-like any other function:
+    def circle_area(radius):
+        area = pi * radius ** 2 # calculate the area of the circle using the radius argument
+        return area # use return to get a value back from the function
 
-.. code:: ipython3
+    circle_area(10) # get the area of a circle with radius 10 (should be 314.15926 ...)
 
-    cat_twice('bing tiddle ', 'tiddle bing')
-
-Notice that our function doesn’t return anything, however - it just
-prints to the screen. Functions like this that don’t return any a value
-are called **void** functions. To see what happens if we try to assign
-the result of such a function, run the cell below:
-
-.. code:: ipython3
-
-    result = cat_twice('bing tiddle ', 'tiddle bing')
-    print(result)
-
-If we want to return something from a function, we use a ``return``
-**statement**, followed by the variable(s) that we want to return:
+Remember that if we want to return something from a function, we use a
+``return`` **statement**, followed by the variable(s) that we want to
+return:
 
 .. code:: python
 
@@ -697,23 +733,24 @@ If we want to return something from a function, we use a ``return``
        print(cat)
        return cat
 
-Using what you have learned about functions, define your own function
-below to split a string on a given character (letter), regardless of
-whether that character in the original string is upper or lowercase:
+In the cell below, I’ve started two more functions for calculating the
+surface area and volume of a sphere. For each function, fill in the code
+that will return the correct result, then confirm that your function
+output matches the values shown in the comment on each line.
 
 .. code:: ipython3
 
-    def special_split(string, sep):
-        # so the two parameters our function will use are string,
-        # the string to split, and sep, the character to split on.
-        pass # replace this line with the body of your function
+    def sphere_area(radius):
+        # your code goes here!
 
-    topic = 'Remote Sensing and Geographic Information Systems'
-    my_split = special_split(topic, 's')
-    print(my_split)
+    def sphere_volume(radius)
+        # your code goes here!
 
-7. Controlling Flow
-^^^^^^^^^^^^^^^^^^^^^
+    print(sphere_area(10)) # get the surface area of a sphere with radius 10 (should be 1256.637)
+    print(sphere_volume(10)) # get the volume of a sphere with radius 10 (should be 4188.79)
+
+controlling flow
+^^^^^^^^^^^^^^^^^
 
 Some of the most important uses that we’ll have for programming are
 repeating tasks and executing different code based on some condition.
@@ -722,55 +759,24 @@ series of commands on each file, or apply an analysis only if the right
 conditions are met.
 
 In python, we can use the ``while``, ``for``, and ``if`` operators to
-control the flow of our programs. For example, given a number, we might
-want to check whether the value is positive, negative, or zero, and
-perform a different action based on which condition is ``True``:
+control the flow of our programs.
+
+For example, given a number, we might want to check whether the value is
+positive, negative, or zero, and perform a different action based on
+which condition is ``True``:
 
 .. code:: ipython3
 
-    def pos_neg_zero(x):
-        if x > 0:
-            print('{} is a positive number'.format(x))
-        elif x < 0:
-            print('{} is a negative number'.format(x))
-        else:
-            print('{} is zero'.format(x))
+    def pos_neg_zero(x): # a function to tell us whether a number is positive, negative, or 0
+        if x > 0: # if x > 0, print that it is positive
+            print(f'{x} is a positive number')
+        elif x < 0: # if x < 0, print that it is negative
+            print(f'{x} is a negative number')
+        else: # if
+            print(f'{x} is zero')
 
 Here, we take in a number, ``x``, and execute code based on whether
 ``x`` is positive, negative, or zero.
-
-Note that in the following:
-
-.. code:: python3
-
-   print('{} is a positive number'.format(x))
-
-we are using the ``str.format()`` method
-(`documentation <https://docs.python.org/3/tutorial/inputoutput.html#the-string-format-method>`__)
-to insert the value of ``x`` into the ``str`` where the curly brackets
-(``{ }``) are, before printing it to the screen:
-
-.. code:: python3
-
-   >>> x = 2
-   >>> print('{} is a positive number'.format(x))
-   2 is a positive number
-
-We can use this to insert as many values into our ``str`` as we like, so
-long as there are the same number of ``{ }`` available:
-
-.. code:: python3
-
-   >>> y = 3
-   >>> print('{} is larger than {}`.format(y, x))
-   3 is larger than 2
-
-Note also that the order matters - the first argument to
-``str.format()`` goes into the first ``{}``, the second argument into
-the second ``{}``, and so on. We’ll use this a bit more later to
-``print()`` nicely-formatted numeric results, as well.
-
-Anyway, back to ``if``/``elif``/``else`` statements.
 
 Like the header of a function, an ``if`` **statement** has to be
 terminated with a colon (``:``).
@@ -783,20 +789,46 @@ indented code is executed and the whole block is exited.
 For this reason, an ``else`` **statement** is optional, but it must
 always be last (since it automatically evaluates as ``True``).
 
-In the cell below, write a function to compare two numbers, ``x`` and
-``y``, and ``print()`` a statement based on the comparison (including
-the possibility that they are equal).
+Run the cell below to see how the output of the function changes based
+on the input:
+
+.. code:: ipython3
+
+    pos_neg_zero(-1) # a negative number
+    pos_neg_zero(1) # a positive number
+    pos_neg_zero(False) # a weird one
+
+Note that in the example above, ``False`` has evaluated as being equal
+to zero. This is because in python, **bool** (“Boolean”) objects
+(``True`` and ``False``) are subclasses of **int**, and ``False`` has a
+value of ``0``, while ``True`` has a value of ``1``. For more on how
+python tests for truth values, see the
+`documentation <https://docs.python.org/3/library/stdtypes.html#truth-value-testing>`__.
+
+Now, in the cell below, write your own function that takes in two
+arguments ``x`` and ``y``, and prints different output depending on
+which of the two numbers is larger:
 
 .. code:: ipython3
 
     def which_is_greater(x, y):
         pass # replace this line with your code
 
+Next, test your function by running the cell below - you should see “2
+is greater than 1” printed in the first line, and “10 is less than 100”
+in the second:
+
+.. code:: ipython3
+
+    which_is_greater(2, 1) # say which is greater, 2 or 1
+    which_is_greater(10, 100) # say which is greater, 10 or 100
+
 In addition to conditional flow, we might also want to repeat actions.
 For example, we can write a simple function that counts down to some
-event, then announces the arrival of that event. We could define this
-function using a ``while`` loop, making sure to update a variable in
-each step:
+event, then announces the arrival of that event.
+
+We could define this function using a ``while`` loop, making sure to
+update a variable in each step:
 
 .. code:: ipython3
 
@@ -816,42 +848,52 @@ running (an **infinite loop**).
 repetitions. We could just as easily re-define ``countdown()`` using a
 ``for`` loop, using something else we’ve seen before:
 
-.. code:: python
+.. code:: ipython3
 
-   def countdown_for(n):
-       for ii in range(n, 0, -1):
-           print(ii)
-       print("Blastoff!")
+    def countdown_for(n):
+        for ii in range(n, 0, -1):
+            print(ii)
+        print("Blastoff!")
+
+    countdown_for(5) # run the function to count down from 5
 
 This version uses ``range`` to iterate from ``n`` to 1 in increments of
 -1, printing the value of ``i`` each time - that is, we leave ``n``
 unchanged.
 
-We can also use the ``break`` and ``continue`` statements to **break**
-out of a loop, or to **continue** to the next step of a loop:
+We can also use the ``break`` statement to **break** out of a loop:
 
-.. code:: python
+.. code:: ipython3
 
-   def break_example(n):
-       # prints values from n to 1, then Blastoff!
-       while True:  # here, the loop will always run
-       # unless we reach a condition
-       # that breaks out of it:
-           if n <= 0:
-               break
-           print(n)
-           n -= 1
-       print("Blastoff!")
+    def break_example(n):
+        # prints values from n to 1, then Blastoff!
+        while True:  # here, the loop will always run
+        # unless we reach a condition
+        # that breaks out of it:
+            if n <= 0:
+                break
+            print(n)
+            n -= 1
+        print("Blastoff!")
 
-   def continue_example(n):
-       # given an integer, n, prints the values from 0 to n that are even.
-       for x in range(n):
-           if x % 2 == 1:
-               continue
-           print('{} is even'.format(x))
+    break_example(5) # run the function to count down from 5
 
-In the cell below, write a function to print the even values from 1 to
-n, unless the value is divisible by 3 or 4.
+or the ``continue`` statement to continue to the next step of a loop:
+
+.. code:: ipython3
+
+    def continue_example(n):
+        # given an integer, n, prints the values from 0 to n that are even.
+        for x in range(n):
+            if x % 2 == 1:
+                continue
+            print('{} is even'.format(x))
+
+    continue_example(10) # print the even integers from 0 to 9 (remember that range(n) is not inclusive!)
+
+Using the information above, write a function that will print the values
+from 1 to an integer ``n`` that are even, unless those values are also
+divisible by 3 **or** 4:
 
 .. code:: ipython3
 
@@ -860,65 +902,50 @@ n, unless the value is divisible by 3 or 4.
         for x in range(1, n):
             pass # your code goes here
 
-(*Hint: you can use the ``%`` operator to determine whether one number
-is divisble by another*).
+(*Hint: remember that you can use the ``%`` operator to determine
+whether one number is divisble by another*).
 
-8. Importing modules
-^^^^^^^^^^^^^^^^^^^^^^
+importing modules
+^^^^^^^^^^^^^^^^^^
 
 Modules provide a convenient way to package functions and object
 classes, and load these items when needed. This also means that we only
 end up loading the functionality that we need, which helps save on
 memory and other resources.
 
-We have already imported one such module, the ``sys`` module. Another
-useful module to use is the ``math`` module, which provides much more
-than the built-in operators we explored earlier. Run the following cell:
+We have already imported one such module, the ``sys`` module, and above
+where we imported ``pi`` from the ``math`` module. Note that when we
+used ``from``, we *only* imported the attribute ``pi`` - this means that
+we don’t have access to any of the other functions, classes, or
+attributes within the ``math`` module - only ``pi``.
+
+When we import the entire module, we can access the attributes, classes,
+functions, etc. using a ``.``:
 
 .. code:: ipython3
 
-    import math
-    from math import pi
+    import math # import the entire math module
 
-    print('math.pi is equal to: {}'.format(math.pi))
-    print('pi is equal to:      {}'.format(pi))
-
-    h1 = math.floor(10.19)
-    print('math.floor(10.19) is equal to: {}'.format(h1))
-
-    h2 = floor(10.19)
-    print('floor(10.19) is equal to:      {}'.format(h2))
-
-There are a few things to pay attention to here. First, notice that the
-syntax for calling functions from a module is the same as calling a
-method: ``module.function(arguments)``.
-
-You should also notice that we can **import** a whole module
-(``import math``) or **import** an attribute, class, or function from a
-module (``from math import pi``).
+    print(math.pi) # print the value of math.pi
 
 When we specifically name the things we want to import, we only have
 access to those things - importing ``pi`` from ``math`` does not also
-import ``floor`` - hence, the error message.
+import ``floor`` - hence, the error message when you run the cell below:
 
-It is also possible to **import** all of the functions and classes from
-a given module (``from math import *``), but this is not really
-recommended - why do you think this is?
+.. code:: ipython3
 
-Modify the cell above to **import** both ``floor`` and ``pi`` from
-``math``, and run the cell again. Remember that to **import** multiple
-things from a single module, you can separate them by commas:
+    print(f'math.floor(10.19) is equal to: {math.floor(10.19)}') # print the output of math.floor(10.19)
+    print(f'floor(10.19) is equal to:      {floor(10.19)}') # print the output of floor(10.19)
 
-.. code:: python
+To import multiple things from a single module, you can separate them by
+commas:
 
-   from math import sin, cos, tan
+.. code:: ipython3
 
-Notice also that **math.pi** is not a **method**, but an **attribute**.
-You can check this for yourself by typing ``math.pi()`` into the
-interpreter and seeing the result.
+    from math import pi, floor, sin, cos, tan # import pi, floor, sin, cos, and tan from math
 
-9. Working with shapefiles
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example: working with shapefiles
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When using vector data in this course, we will primarily work with
 ``geopandas`` (`documentation <http://geopandas.org/>`__), “an open
@@ -945,13 +972,13 @@ want to use a **method** or **class** from the ``geopandas`` package, we
 instead type ``gpd``. You will most likely see this syntax a lot - it’s
 mostly used to make the code easier to read (or out of laziness).
 
-9.1 a note on filepaths
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+a note on filepaths
+~~~~~~~~~~~~~~~~~~~
 
 On Windows computers, filepaths are separated using ``\``. For example,
 on my Windows machine, this notebook file has the following path:
 
-.. code-block:: text
+::
 
    C:\Users\bob\egm722\Week1\Practical1.ipynb
 
@@ -959,7 +986,7 @@ This is a problem in python, because ``\`` is a protected character –
 specifically, it’s either used as a line continuation to split a string
 over multiple lines:
 
-.. code:: python3
+.. code:: python
 
    >>> mystring = 'this is a string that is split ' + \
    ...            'over multiple lines'
@@ -969,7 +996,7 @@ over multiple lines:
 Inside of a string, ``\`` *escapes* the next character - effectively, it
 makes the interpreter change how it processes it:
 
-.. code:: python3
+.. code:: python
 
    >>> not_escaped = 'this isn't going to work'
      File "<stdin>", line 1
@@ -984,7 +1011,7 @@ In the example above, the single quote in “isn’t” actually ends the
 But, we can use ``\`` to make python see that the single quote in the
 middle of the **str** should be treated as part of the **str**:
 
-.. code:: python3
+.. code:: python
 
    >>> escaped = 'this isn\'t going to cause a problem.'
    >>> print(escaped)
@@ -1009,19 +1036,22 @@ example, the *relative* path:
    'data_files/Glaciers.shp'
 
 will work on Windows, MacOS, and linux systems. Later in this module, we
-will see how we can use the ``os`` module to work with filepaths; if
-we’re using python 3.4 or newer, the
-```pathlib`` <https://docs.python.org/3/library/pathlib.html>`__ module
-provides an even nicer way of working with filepaths.
+will see how we can use both the ``os``
+(`documentation <https://docs.python.org/3/library/os.html>`__) and
+``pathlib``
+(`documentation <https://docs.python.org/3/library/pathlib.html>`__)
+modules to work with filepaths; if we’re using python 3.4 or newer, the
+module provides an even nicer way of working with filepaths.
 
-9.2 working with GeoDataFrames
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+working with GeoDataFrames
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Back to working with shapefile data.
+Back to working with shapefile data. First, let’s use ``.head()`` to
+have a look at the first few rows of data in our shapefile:
 
 .. code:: ipython3
 
-    print(glacier_data.head())
+    glacier_data.head() # show the first 5 rows of the table
 
 Note that the data are stored in a table (a **GeoDataFrame**), much like
 the attribute table in ArcMap. One small difference is the additional
@@ -1038,6 +1068,12 @@ of the **GeoDataFrame** in (rows, columns):
     rows, cols = glacier_data.shape # get the number of rows, columns in the table
     print('Number of features: {}'.format(rows))
 
+We can also use the ``len()`` built-in to print out the number of rows:
+
+.. code:: ipython3
+
+    print('Number of features: {}'.format(len(glacier_data))) # should give us the same as before
+
 We can also perform calculations on the data, get statistics, etc. Many
 of these are built-in methods that can be called on an individual
 column.
@@ -1052,7 +1088,7 @@ look at the ``columns`` **attribute** of the table:
 
 .. code:: ipython3
 
-    glacier_data.columns
+    glacier_data.columns # see the names of the columns in our table
 
 There are quite a few columns here, and most of them aren’t so important
 for now. We might be interested in working with the **AREA** column,
@@ -1062,7 +1098,7 @@ type the following:
 
 .. code:: ipython3
 
-    glacier_data['AREA'].mean()
+    glacier_data['AREA'].mean() # get the mean value of the AREA column
 
 This gives us the average area in square kilometers (the units of the
 column). What if, for some unfathomable reason, we wanted the glacier
@@ -1082,10 +1118,10 @@ also have created a new column:
     glacier_data['AREA_SQKM'] = glacier_data['AREA'] / 1e6 / 3.2808399 / 3.2808399  # the reverse of the above
     glacier_data['AREA_SQKM'].mean()
 
-10. Example - converting text data into shapefiles
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example: converting text data into shapefiles
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Another useful application we’ll make use of is ``pandas``
+Another useful package we’ll make use of is ``pandas``
 (`documentation <https://pandas.pydata.org/>`__), a powerful data
 analysis package that provides the basis for ``geopandas`` (as you
 perhaps guessed by the name). In this example, we’ll take a Comma
@@ -1100,7 +1136,7 @@ First, let’s import the necessary modules and load the data:
     import pandas as pd
     import geopandas as gpd
     from shapely.geometry import Point
-    
+
     df = pd.read_csv('data_files/GPSPoints.txt')
 
 Like we did with the ``geopandas`` data above, let’s have a look at the
@@ -1112,20 +1148,23 @@ Like we did with the ``geopandas`` data above, let’s have a look at the
 
 Here, we see a number of lake names, with accompanying data such as the
 lake area (presumably in square kilometers?), the maximum depth (missing
-for some lakes), Lat/Lon information, and so on. Remember that a
-``GeoDataFrame`` can hold lots of different data, but it needs a column
-that specifies the geometry of a feature. Given that we only have point
-information (a single Lat/Lon coordinate) for each lake, it makes sense
-to create a ``Point`` object for each feature using that point. We can
-do this by first using the python built-in **zip**, then the **apply**
-method of the ``DataFrame`` to create a point object from the list of
-coordinates.
+for some lakes), Lat/Lon information, and so on.
+
+A ``GeoDataFrame`` can hold lots of different data, but it absolutely
+must have a column that specifies the geometry of the features in the
+table. Given that we only have point information (a single Lat/Lon
+coordinate) for each lake, it makes sense to create a ``Point`` object
+for each feature using that point.
+
+One way that we can do this by first using the python built-in **zip**,
+then the **apply** method of the ``DataFrame`` to create a point object
+from the list of coordinates.
 
 .. code:: ipython3
 
-    df['geometry'] = list(zip(df['lon'], df['lat'])) # zip is an iterator, so we use list to create 
+    df['geometry'] = list(zip(df['lon'], df['lat'])) # zip is an iterator, so we use list to create
                                                      # something that pandas can use.
-    df['geometry'] = df['geometry'].apply(Point) # using the 'apply' method of the dataframe, 
+    df['geometry'] = df['geometry'].apply(Point) # using the 'apply' method of the dataframe,
                                                  # turn the coordinates column
                                                  # into points (instead of a tuple of lat, lon coordinates).
                                                  # NB: Point takes (x, y) coordinates
@@ -1138,35 +1177,47 @@ column, with the lat/lon coordinates for each feature:
     df
 
 We could simply create a ``GeoDataFrame`` from this ``DataFrame``, but
-let’s first remove a few extra columns from the table, and change the
-units of the ``area`` column to be in square meters:
+let’s first remove a few extra columns from the table:
 
 .. code:: ipython3
 
     del df['lat'], df['lon'] # we don't really need these, since they're in the 'geometry' column now
-    df['area'] # convert the area column to square meters here
 
-Great. Now we can create a new ``GeoDataFrame`` from the ``DataFrame``.
-We’ll also be sure to set the spatial reference information, so that our
-GIS software knows what reference frame our data use. For this, we’ll
-use the EPSG code representing WGS84 Lat/Lon, 4326. EPSG codes are a
-concise way to refer to a given reference system - more information
+Next, let’s change the units of the ``area`` column to be in square
+meters (assuming that they are currently in square kilometers):
+
+.. code:: ipython3
+
+    df['area'] # modify this cell to convert the area column to square meters here
+
+Now we can create a new ``GeoDataFrame`` from the ``DataFrame``:
+
+.. code:: ipython3
+
+    gdf = gpd.GeoDataFrame(df)
+
+We also want to remember to set the spatial reference information, so
+that our GIS software knows what reference frame our data use. For this,
+we’ll use the EPSG code representing WGS84 Lat/Lon, 4326. EPSG codes are
+a concise way to refer to a given reference system - more information
 about them (and a comprehensive list of codes) can be found
 `here <http://spatialreference.org/>`__.
 
 .. code:: ipython3
 
-    gdf = gpd.GeoDataFrame(df)
-    gdf.set_crs("EPSG:4326", inplace=True) # this sets the coordinate reference system to epsg:4326, wgs84 lat/lon
+    gdf = gdf.set_crs("EPSG:4326") # this sets the coordinate reference system to epsg:4326, wgs84 lat/lon
 
-Let’s take another look at the ``GeoDataFrame``, then we’ll write it to
-a shapefile and load it into ArcGIS. Note that it looks mostly the same
-as the ``DataFrame`` does - it really is just an extension of the
-``pandas`` ``DataFrame``.
+Let’s take another look at the ``GeoDataFrame``:
 
 .. code:: ipython3
 
-    print(gdf)
+    gdf
+
+Finally, let’s save the ``GeoDataFrame`` as a shapefile, which you can
+open in your GIS software of choice:
+
+.. code:: ipython3
+
     gdf.to_file('lake_points.shp')
 
 Load your shapefile into a GIS software package such as ArcGIS Pro or
