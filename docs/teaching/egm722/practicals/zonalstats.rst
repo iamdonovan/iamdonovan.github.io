@@ -7,7 +7,7 @@ zonal statistics for a raster, and rasterizing a vector dataset.
 The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the
 different steps of the practical.
 
-Getting Started
+getting started
 ---------------
 
 To get started with this week’s practical, you'll need to first **merge** the ``week5`` branch into the ``main`` branch,

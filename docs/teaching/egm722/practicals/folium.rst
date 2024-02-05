@@ -1,7 +1,7 @@
 interactive maps with folium
 ==============================
 
-Getting Started
+getting started
 ---------------
 
 In this practical, you’ll gain some more experience working with vector data in python using geopandas. You'll see

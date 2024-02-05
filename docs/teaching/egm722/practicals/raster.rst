@@ -9,7 +9,7 @@ The practical this week is provided as a Jupyter Notebook, which you can use to 
 different steps of the practical. An exercise, introduced at the end of the Notebook file, can be completed using the
 file **assignment_script.py**.
 
-Getting Started
+getting started
 ---------------
 
 :doc:`Last week<vector>`, we saw how we can use the command-line interface (CLI) of **git** to merge two branches (in this case,

@@ -14,7 +14,7 @@ you’ve learned in the Jupyter Notebook and the mapping exercise in Practical 2
     In the main folder, you should also see an example script, **week3_example.py**. Be sure to try out the exercise, and see
     if you can't figure out a solution on your own, before having a look at the (one of many possible) solution offered there.
 
-Getting Started
+getting started
 ---------------
 
 :doc:`Last week<cartopy>`, we saw how we can use **GitHub Desktop** to merge two branches (in this case, ``week2`` into ``main``).
@@ -183,14 +183,6 @@ You can confirm that the changes are now on your remote repository by heading ov
 
 |br| At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through the
 practical exercise.
-
-Next steps
-----------
-
-Once you have finished the notebook and the exercise, make sure to send me an e-mail with some ideas for your coding
-project. They do not have to be completely fleshed out, but you should try to have a general idea of what you would
-like to work on for the final project – ideally, this will be something related to your work, or a potential MSc thesis
-topic.
 
 .. note::
     
@@ -1044,3 +1036,11 @@ additional exercise questions
    population?
 3. Repeat the exercise above using **exercise_script.py**, but this time
    use the population density (in number of residents per square km).
+
+next steps
+----------
+
+Once you have finished the notebook and the exercise, make sure to send me an e-mail with some ideas for your coding
+project. They do not have to be completely fleshed out, but you should try to have a general idea of what you would
+like to work on for the final project – ideally, this will be something related to your work, or a potential MSc thesis
+topic.

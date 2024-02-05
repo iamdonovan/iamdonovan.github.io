@@ -10,7 +10,7 @@ of plotting the data. There is a second file, **practical2_script.py**, which wi
 you have worked through the Jupyter Notebook, you can modify the script to complete the second part of the exercise,
 and experiment with the different parameters used to make the map.
 
-Getting started
+getting started
 ---------------
 
 To get started with this week's practical, first head to the your GitHub repository (:samp:`https://github.com/<{your_username}>/egm722`).
@@ -144,7 +144,7 @@ You should now see that your ``main`` branch has both the **Week1** and **Week2*
 |br| At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the
 same initial steps as last week.
 
-Running the script
+running the script
 -------------------
 
 To edit the script (**practical2_script.py**), open it in your IDE. If your IDE has a built-in terminal/python
