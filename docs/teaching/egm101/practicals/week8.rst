@@ -294,10 +294,12 @@ checking the equal variances assumption
 .........................................
 
 Remember that one of the things we should check is whether or not our samples have "similar enough" variances - if they
-do, then we can use the pooled variance form of the independent *t*-test, rather than "Welch's *t*-test". SPSS will ...
+do, then we can use the pooled variance form of the independent *t*-test, rather than "Welch's *t*-test". SPSS will
+actually do both versions of the test for us, but we should still check whether it's a valid assumption using the
+**Descriptive Statistics**.
 
-To check this ourselves, though, we can use the **Descriptive Statistics**. Before we do that, though, make sure to
-**Split** the data by period, so that there is a row in the output table for each time period.
+Before we do that, though, make sure to **Split** the data by period, so that there is a row in the output table for
+each time period.
 
 .. warning::
 
