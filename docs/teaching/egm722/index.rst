@@ -40,6 +40,8 @@ Before moving on to the :doc:`lectures` and :doc:`practicals<practicals/index>` 
 |         |                       | :doc:`practicals/debugging`   |
 +---------+-----------------------+-------------------------------+
 | 2       | :ref:`egm722 week2`   | :doc:`practicals/cartopy`     |
+|         |                       |                               |
+|         |                       | :doc:`practicals/conflicts`   |
 +---------+-----------------------+-------------------------------+
 | 3       |                       | :doc:`practicals/vector`      |
 |         |                       |                               |
