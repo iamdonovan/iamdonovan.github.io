@@ -54,8 +54,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm722/practicals/sentinelsat';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="vector and raster operations using python" href="week5.html" />
-    <link rel="prev" title="raster data using rasterio" href="week4.html" />
+    <link rel="next" title="zonal statistics using rasterstats" href="zonalstats.html" />
+    <link rel="prev" title="raster data using rasterio" href="raster.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -204,14 +204,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../lectures.html">lectures</a></li>
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">practicals</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pythonintro.html">intro to python</a></li>
 <li class="toctree-l4"><a class="reference internal" href="debugging.html">debugging exercise</a></li>
-<li class="toctree-l4"><a class="reference internal" href="week2.html">mapping with cartopy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cartopy.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vector.html">vector data using shapely and geopandas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="folium.html">interactive maps with folium</a></li>
-<li class="toctree-l4"><a class="reference internal" href="week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="raster.html">raster data using rasterio</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">searching for images with sentinelsat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="week5.html">vector and raster operations using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zonalstats.html">zonal statistics using rasterstats</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -584,19 +584,19 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gena-rowlands">Gena Rowlands</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">Data provided</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1. Getting started</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-a-search-area">2. Prepare a search area</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search-the-archive-for-images">3. Search the archive for images</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-to-the-api">3.1 Connect to the api</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#search-for-images">3.2 Search for images</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">data provided</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">getting started</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-search-area">preparing a search area</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#searching-the-archive-for-images">searching the archive for images</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-the-api">connecting to the api</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#searching-for-images">searching for images</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-by-overlap">4. Filtering by overlap</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-images">5. Downloading images</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-an-individual-image">download an individual image</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-by-overlap">filtering by overlap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-images">downloading images</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-an-individual-image">downloading an individual image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-an-individual-image-but-only-the-image-bands">download an individual image, but only the image bands</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-all-images-from-a-list-of-products">download all images from a list of products</a></li>
 </ul>
@@ -728,7 +728,7 @@ follow the instructions above to open the notebook and run it on your own comput
 <div class="section" id="gena-rowlands">
 <h2>Gena Rowlands<a class="headerlink" href="#gena-rowlands" title="Permalink to this heading">#</a></h2>
 <div class="section" id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
+<h3>overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
 <p>Up to now, you have gained some experience working with basic features
 of python, used cartopy and matplotlib to create a map, explored using
 shapely and geopandas to work with vector data, and explored using
@@ -740,7 +740,7 @@ part of this, we’ll also introduce a few more geometric operations using
 <code class="docutils literal notranslate"><span class="pre">shapely</span></code> that you may find useful.</p>
 </div>
 <div class="section" id="objectives">
-<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
+<h3>objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <p>In this example, you will:</p>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">shapely</span></code> to get the <em>unary union</em> of a collection of shapes</p></li>
@@ -751,12 +751,12 @@ part of this, we’ll also introduce a few more geometric operations using
 </ul>
 </div>
 <div class="section" id="data-provided">
-<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
+<h3>data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
 <p>In this example, we will be using the <code class="docutils literal notranslate"><span class="pre">Counties</span></code> shapefile that we
 used in Week 2.</p>
 </div>
 <div class="section" id="id2">
-<h3>1. Getting started<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3>getting started<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>To get started, run the following cell to import the packages that we’ll
 use in the practical.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -767,32 +767,35 @@ use in the practical.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="prepare-a-search-area">
-<h3>2. Prepare a search area<a class="headerlink" href="#prepare-a-search-area" title="Permalink to this heading">#</a></h3>
+<div class="section" id="preparing-a-search-area">
+<h3>preparing a search area<a class="headerlink" href="#preparing-a-search-area" title="Permalink to this heading">#</a></h3>
 <p>Before we get to using the API to search for images, we’ll see how we
 can use existing data, like the <code class="docutils literal notranslate"><span class="pre">Counties</span></code> shapefile we used in Week
 2, to help us search for images.</p>
 <p>We won’t be able to use particularly complicated shapes, but we can use
 a combination of GIS/geometric operations to get a simple outline of our
 data, which can be used for the search.</p>
-<p>First, we’ll load the data using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data_files/Counties.shp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+<p>First, we’ll load the data using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, making sure to transform
+from the original CRS to WGS84 latitude/longitude (<code class="docutils literal notranslate"><span class="pre">epsg=4326</span></code>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../Week2/data_files/Counties.shp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Next, we’ll use
-<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.unary_union.html">geopandas.Series.unary_union</a>
-to combine all of the County outlines into a single shape:</p>
+<p>Next, we’ll use the <code class="docutils literal notranslate"><span class="pre">geopandas.Series.unary_union</span></code> attribute
+(<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.unary_union.html">documentation</a>)
+to get a combination of all of the County outlines in a single geometry
+feature:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets a single polygon (or multipolygon) composed of the individual polygons</span>
 <span class="n">outline</span> <span class="o">=</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unary_union</span>
 
-<span class="n">outline</span> <span class="c1"># in jupyter notebook, this actually displays the polygon.</span>
+<span class="n">outline</span> <span class="c1"># note that in a jupyter notebook, this actually displays the polygon.</span>
 </pre></div>
 </div>
 <p>In the output of the cell above, we can see that the <code class="docutils literal notranslate"><span class="pre">outline</span></code> shape
-is the combination of all of the individual county outlines.</p>
+is indeed the combination of all of the individual county outlines.</p>
 <p>We could use this as an input to our search, but we’ll look at one
-additional operation that we can use to get a bounding box of the
-geometry - the <code class="docutils literal notranslate"><span class="pre">minimum_rotated_rectangle</span></code>:</p>
+additional attribute of a <code class="docutils literal notranslate"><span class="pre">shapely</span></code> <strong>Polygon</strong> that we can use to get
+a bounding box of the geometry - the <code class="docutils literal notranslate"><span class="pre">minimum_rotated_rectangle</span></code>
+(<a class="reference external" href="https://shapely.readthedocs.io/en/stable/reference/shapely.minimum_rotated_rectangle.html">documentation</a>):</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets the minimum rotated rectangle that covers the outline</span>
 <span class="n">search_area</span> <span class="o">=</span> <span class="n">outline</span><span class="o">.</span><span class="n">minimum_rotated_rectangle</span>
 
@@ -806,8 +809,8 @@ covering the entire geometry.</p>
 <p>This way, we minimize the area outside of the area of interest (Northern
 Ireland) within our search area, while still making sure to cover the
 entire area of interest.</p>
-<p>Finally, if we look at the docstring for
-<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.query">SentinelAPI.query()</a>,
+<p>Finally, if we look at the docstring for <code class="docutils literal notranslate"><span class="pre">SentinelAPI.query()</span></code>
+(<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.query">documentation</a>),
 we see that the <code class="docutils literal notranslate"><span class="pre">area</span></code> argument needs to be a <code class="docutils literal notranslate"><span class="pre">str</span></code>:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">SentinelAPI</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
 </pre></div>
@@ -825,27 +828,24 @@ stored in the <code class="docutils literal notranslate"><span class="pre">wkt</
 given geometry. Once we have this, we can connect to the API and start
 the query.</p>
 </div>
-<div class="section" id="search-the-archive-for-images">
-<h3>3. Search the archive for images<a class="headerlink" href="#search-the-archive-for-images" title="Permalink to this heading">#</a></h3>
-<div class="section" id="connect-to-the-api">
-<h4>3.1 Connect to the api<a class="headerlink" href="#connect-to-the-api" title="Permalink to this heading">#</a></h4>
-<p>To connect to the API, we first create a
-<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI">SentinelAPI</a>
-object:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">api</span> <span class="o">=</span> <span class="n">SentinelAPI</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>From the API reference for <code class="docutils literal notranslate"><span class="pre">sentinelsat</span></code>, we can see that we either
-type in the username and password as a string, or we use <code class="docutils literal notranslate"><span class="pre">None</span></code> to use
-the <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file that we created earlier:</p>
+<div class="section" id="searching-the-archive-for-images">
+<h3>searching the archive for images<a class="headerlink" href="#searching-the-archive-for-images" title="Permalink to this heading">#</a></h3>
+<div class="section" id="connecting-to-the-api">
+<h4>connecting to the api<a class="headerlink" href="#connecting-to-the-api" title="Permalink to this heading">#</a></h4>
+<p>To connect to the API, we first create a <strong>SentinelAPI</strong> object
+(<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI">documentation</a>):</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span> <span class="o">=</span> <span class="n">SentinelAPI</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># remember - don&#39;t type your username and password into a jupyter notebook!</span>
 </pre></div>
 </div>
+<p>From the API reference for <code class="docutils literal notranslate"><span class="pre">sentinelsat</span></code>, we can see that we either
+type in the username and password as a string (<strong>a terrible idea - don’t
+do this!</strong>), or we use <code class="docutils literal notranslate"><span class="pre">None</span></code> to use the <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file that we
+created earlier.</p>
 <p>If there are no error messages or warnings, the connection was
 successfully created, and we can move on to searching for images.</p>
 </div>
-<div class="section" id="search-for-images">
-<h4>3.2 Search for images<a class="headerlink" href="#search-for-images" title="Permalink to this heading">#</a></h4>
+<div class="section" id="searching-for-images">
+<h4>searching for images<a class="headerlink" href="#searching-for-images" title="Permalink to this heading">#</a></h4>
 <p>As we saw earlier, the method we’ll use is <code class="docutils literal notranslate"><span class="pre">api.query()</span></code>.</p>
 <p>For this example, we’ll use the following arguments for the search:</p>
 <ul class="simple">
@@ -853,7 +853,7 @@ successfully created, and we can move on to searching for images.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">date</span></code>: the date range to use. We’ll look for all images from
 February 2023.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">platformname</span></code>: we’re going to limit our search to Sentinel-2, but
-there are other options available</p></li>
+note that there are other options available</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">producttype</span></code>: we’ll search for the Sentinel-2 MSI Level 2A
 (surface reflectance) products</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cloudcoverpercentage</span></code>: we want (mostly) cloud-free images, so
@@ -871,27 +871,28 @@ API reference for additional keywords to use.</p>
                      <span class="n">cloudcoverpercentage</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span> <span class="c1"># limit to 10% cloud cover</span>
 </pre></div>
 </div>
-<p>The output of <code class="docutils literal notranslate"><span class="pre">api.query()</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict()</span></code>, with the product name the
-<code class="docutils literal notranslate"><span class="pre">key</span></code> and the <code class="docutils literal notranslate"><span class="pre">value</span></code> being the metadata.</p>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">api.query()</span></code> is a <strong>dict</strong> object, with the product
+name the <code class="docutils literal notranslate"><span class="pre">key</span></code> and the <code class="docutils literal notranslate"><span class="pre">value</span></code> being the metadata.</p>
 <p>To see how many images were returned by the search, we can check the
-length of the <code class="docutils literal notranslate"><span class="pre">dict</span></code> object, which tells us the number of <code class="docutils literal notranslate"><span class="pre">item</span></code>s
-(<code class="docutils literal notranslate"><span class="pre">key</span></code>/<code class="docutils literal notranslate"><span class="pre">value</span></code> pairs) in the <code class="docutils literal notranslate"><span class="pre">dict</span></code>:</p>
+length of the <strong>dict</strong> object, which tells us the number of <code class="docutils literal notranslate"><span class="pre">item</span></code>s
+(<code class="docutils literal notranslate"><span class="pre">key</span></code>/<code class="docutils literal notranslate"><span class="pre">value</span></code> pairs) in the <strong>dict</strong>:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nresults</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">products</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found </span><span class="si">{}</span><span class="s1"> results&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nresults</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found </span><span class="si">{</span><span class="n">nresults</span><span class="si">}</span><span class="s1"> results&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You should hopefully see that the search has returned 11 results.</p>
-<p>To look at the first one returned, we can use the built-ins
-<a class="reference external" href="https://docs.python.org/3/library/functions.html#next">next()</a>
-and
-<a class="reference external" href="https://docs.python.org/3/library/functions.html#iter">iter()</a>,
-which returns the first item that was entered into the <code class="docutils literal notranslate"><span class="pre">dict</span></code>:</p>
+<p>To look at the first one returned, we can use the built-ins <code class="docutils literal notranslate"><span class="pre">next()</span></code>
+(<a class="reference external" href="https://docs.python.org/3/library/functions.html#next">documentation</a>)
+and <code class="docutils literal notranslate"><span class="pre">iter()</span></code>
+(<a class="reference external" href="https://docs.python.org/3/library/functions.html#iter">documentation</a>),
+which returns the first item that was entered into the <strong>dict</strong>:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">products</span><span class="p">))</span> <span class="c1"># get the &quot;first&quot; item from the dict</span>
 <span class="n">products</span><span class="p">[</span><span class="n">result</span><span class="p">]</span> <span class="c1"># show the metadata for the first item</span>
 </pre></div>
 </div>
 <p>And, we can also download the browse image for this product, using
-<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook">SentinelAPI.download_quicklook()</a>:</p>
+<code class="docutils literal notranslate"><span class="pre">SentinelAPI.download_quicklook()</span></code>
+(<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook">documentation</a>):</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qlook</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">download_quicklook</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1"># download the quicklook image for the first result</span>
 <span class="n">display</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">qlook</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span> <span class="c1"># display the image</span>
 </pre></div>
@@ -905,15 +906,15 @@ only getting images that mostly intersect with our area of interest.</p>
 </div>
 </div>
 <div class="section" id="filtering-by-overlap">
-<h3>4. Filtering by overlap<a class="headerlink" href="#filtering-by-overlap" title="Permalink to this heading">#</a></h3>
-<p>To start, we use
-<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook">SentinelAPI.to_geodataframe()</a>
-to convert the results into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>:</p>
+<h3>filtering by overlap<a class="headerlink" href="#filtering-by-overlap" title="Permalink to this heading">#</a></h3>
+<p>To start, we use <code class="docutils literal notranslate"><span class="pre">SentinelAPI.to_geodataframe()</span></code>
+(<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook">documentation</a>)
+to convert the results into a <strong>GeoDataFrame</strong>:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">product_geo</span> <span class="o">=</span> <span class="n">SentinelAPI</span><span class="o">.</span><span class="n">to_geodataframe</span><span class="p">(</span><span class="n">products</span><span class="p">)</span> <span class="c1"># convert the search results to a geodataframe</span>
 <span class="n">product_geo</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the first 5 rows of the geodataframe</span>
 </pre></div>
 </div>
-<p>Now, we can iterate over <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> to calculate the intersection
+<p>Now, we can iterate over <strong>GeoDataFrame</strong> to calculate the intersection
 of the image footprint with the outline of Northern Ireland:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">product_geo</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     <span class="n">intersection</span> <span class="o">=</span> <span class="n">outline</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">])</span> <span class="c1"># find the intersection of the two polygons</span>
@@ -927,21 +928,24 @@ of the image footprint with the outline of Northern Ireland:</p>
 outline of Northern Ireland; none of the other images have more than
 20%.</p>
 <p>Rather than copying this down, we can use
-<code class="docutils literal notranslate"><span class="pre">geopandas.GeoSeries.argmax()</span></code> to find the integer location of the
-largest value in the <code class="docutils literal notranslate"><span class="pre">overlap</span></code> column:</p>
+<code class="docutils literal notranslate"><span class="pre">geopandas.GeoSeries.argmax()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.argmax.html">documentation</a>)
+to find the integer location of the largest value in the <code class="docutils literal notranslate"><span class="pre">overlap</span></code>
+column:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_index</span> <span class="o">=</span> <span class="n">product_geo</span><span class="o">.</span><span class="n">overlap</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span> <span class="c1"># get the integer location of the largest overlap value</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">max_index</span><span class="p">)</span> <span class="c1"># should be 2</span>
 </pre></div>
 </div>
-<p>Then, we get the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> index that corresponds to that integer
+<p>Then, we get the <strong>GeoDataFrame</strong> index that corresponds to that integer
 location:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_overlap</span> <span class="o">=</span> <span class="n">product_geo</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">max_index</span><span class="p">]</span> <span class="c1"># get the actual index (image name) with the largest overlap</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">product_geo</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_overlap</span><span class="p">])</span> <span class="c1"># show the metadata for the image with the largest overlap</span>
 </pre></div>
 </div>
-<p>With this, we can use <code class="docutils literal notranslate"><span class="pre">api.download_quicklook()</span></code> to download the
-quicklook image for the result that has the largest overlap with the
-outline of Northern Ireland:</p>
+<p>With this, we can use <code class="docutils literal notranslate"><span class="pre">api.download_quicklook()</span></code>
+(<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_quicklook">documentation</a>)
+to download the quicklook image for the result that has the largest
+overlap with the outline of Northern Ireland:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qlook</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">download_quicklook</span><span class="p">(</span><span class="n">best_overlap</span><span class="p">)</span> <span class="c1"># download the quicklook image for the first result</span>
 <span class="n">display</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">qlook</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span> <span class="c1"># display the image</span>
 </pre></div>
@@ -952,20 +956,25 @@ much more of Northern Ireland (and the ever-present clouds).</p>
 you can download the actual image data.</p>
 </div>
 <div class="section" id="downloading-images">
-<h3>5. Downloading images<a class="headerlink" href="#downloading-images" title="Permalink to this heading">#</a></h3>
+<h3>downloading images<a class="headerlink" href="#downloading-images" title="Permalink to this heading">#</a></h3>
 <p>Remember that these are very large files (each granule is ~1GB), so you
 should only run these cells if you actually want to download the data!</p>
-<div class="section" id="download-an-individual-image">
-<h4>download an individual image<a class="headerlink" href="#download-an-individual-image" title="Permalink to this heading">#</a></h4>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">SentinelAPI.download()</span></code> to download a single product:</p>
+<div class="section" id="downloading-an-individual-image">
+<h4>downloading an individual image<a class="headerlink" href="#downloading-an-individual-image" title="Permalink to this heading">#</a></h4>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">SentinelAPI.download()</span></code>
+(<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download">documentation</a>)
+to download a single product, given the Product ID:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">best_overlap</span><span class="p">)</span> <span class="c1"># downloads the first result</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="download-an-individual-image-but-only-the-image-bands">
 <h4>download an individual image, but only the image bands<a class="headerlink" href="#download-an-individual-image-but-only-the-image-bands" title="Permalink to this heading">#</a></h4>
-<p>This example uses the <code class="docutils literal notranslate"><span class="pre">nodefilter</span></code> argument to only download the image
-bands (files that match the format <code class="docutils literal notranslate"><span class="pre">*_B*.jp2</span></code>):</p>
+<p>This example uses the <code class="docutils literal notranslate"><span class="pre">nodefilter</span></code> argument along with
+<code class="docutils literal notranslate"><span class="pre">make_path_filter()</span></code>
+(<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.products.make_path_filter">documentation</a>)
+to only download the image bands (files that match the format
+<code class="docutils literal notranslate"><span class="pre">*_B*.jp2</span></code>):</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">first_result</span><span class="p">,</span> <span class="c1"># downloads the first result</span>
              <span class="n">nodefilter</span><span class="o">=</span><span class="n">make_path_filter</span><span class="p">(</span><span class="s2">&quot;*_B*.jp2&quot;</span><span class="p">))</span> <span class="c1"># only download the image bands (optional)</span>
 </pre></div>
@@ -973,8 +982,9 @@ bands (files that match the format <code class="docutils literal notranslate"><s
 </div>
 <div class="section" id="download-all-images-from-a-list-of-products">
 <h4>download all images from a list of products<a class="headerlink" href="#download-all-images-from-a-list-of-products" title="Permalink to this heading">#</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">SentinelAPI.download_all()</span></code> will download all of the products in a
-list.</p>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">SentinelAPI.download_all()</span></code>
+(<a class="reference external" href="https://sentinelsat.readthedocs.io/en/latest/api_reference.html#sentinelsat.sentinel.SentinelAPI.download_all">documentation</a>)
+will download all of the products in a list.</p>
 <p>Again, these are very large files, so you should only run the following
 cell if you actually want to download all of the images returned by the
 API!</p>
@@ -1008,7 +1018,7 @@ API!</p>
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="week4.html"
+       href="raster.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -1017,11 +1027,11 @@ API!</p>
       </div>
     </a>
     <a class="right-next"
-       href="week5.html"
+       href="zonalstats.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">vector and raster operations using python</p>
+        <p class="prev-next-title">zonal statistics using rasterstats</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1046,19 +1056,19 @@ API!</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gena-rowlands">Gena Rowlands</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">Data provided</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1. Getting started</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-a-search-area">2. Prepare a search area</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search-the-archive-for-images">3. Search the archive for images</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-to-the-api">3.1 Connect to the api</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#search-for-images">3.2 Search for images</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">data provided</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">getting started</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-search-area">preparing a search area</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#searching-the-archive-for-images">searching the archive for images</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-the-api">connecting to the api</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#searching-for-images">searching for images</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-by-overlap">4. Filtering by overlap</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-images">5. Downloading images</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-an-individual-image">download an individual image</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-by-overlap">filtering by overlap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-images">downloading images</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-an-individual-image">downloading an individual image</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-an-individual-image-but-only-the-image-bands">download an individual image, but only the image bands</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#download-all-images-from-a-list-of-products">download all images from a list of products</a></li>
 </ul>

@@ -35,20 +35,20 @@ Before moving on to the :doc:`lectures` and :doc:`practicals<practicals/index>` 
 +---------+-----------------------+-------------------------------+
 | week    | lecture theme         | practical exercise(s)         |
 +---------+-----------------------+-------------------------------+
-| 1       | :ref:`egm722 week1`   | :doc:`practicals/week1`       |
+| 1       | :ref:`egm722 week1`   | :doc:`practicals/pythonintro` |
 |         |                       |                               |
 |         |                       | :doc:`practicals/debugging`   |
 +---------+-----------------------+-------------------------------+
-| 2       | :ref:`egm722 week2`   | :doc:`practicals/week2`       |
+| 2       | :ref:`egm722 week2`   | :doc:`practicals/cartopy`     |
 +---------+-----------------------+-------------------------------+
-| 3       |                       | :doc:`practicals/week3`       |
+| 3       |                       | :doc:`practicals/vector`      |
 |         |                       |                               |
 |         |                       | :doc:`practicals/folium`      |
 +---------+-----------------------+-------------------------------+
-| 4       |                       | :doc:`practicals/week4`       |
+| 4       |                       | :doc:`practicals/raster`      |
 |         |                       |                               |
 |         |                       | :doc:`practicals/sentinelsat` |
 +---------+-----------------------+-------------------------------+
-| 5       |                       | :doc:`practicals/week5`       |
+| 5       |                       | :doc:`practicals/zonalstats`  |
 +---------+-----------------------+-------------------------------+
 

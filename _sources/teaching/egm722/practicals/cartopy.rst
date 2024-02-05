@@ -10,7 +10,7 @@ of plotting the data. There is a second file, **practical2_script.py**, which wi
 you have worked through the Jupyter Notebook, you can modify the script to complete the second part of the exercise,
 and experiment with the different parameters used to make the map.
 
-Getting started
+getting started
 ---------------
 
 To get started with this week's practical, first head to the your GitHub repository (:samp:`https://github.com/<{your_username}>/egm722`).
@@ -144,7 +144,7 @@ You should now see that your ``main`` branch has both the **Week1** and **Week2*
 |br| At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the
 same initial steps as last week.
 
-Running the script
+running the script
 -------------------
 
 To edit the script (**practical2_script.py**), open it in your IDE. If your IDE has a built-in terminal/python
@@ -243,21 +243,18 @@ time using ``cartopy``, ``geopandas``, and ``matplotlib``, three python
 packages used for making maps, working with vector data, and making
 plots, respectively.
 
-Objectives
-.............
+objectives
+^^^^^^^^^^^
 
 -  become familiar with geopandas, cartopy, and matplotlib, including
    reading the provided documentation
 -  use list comprehensions to simplify some for loops
 
-1. Getting started
-.....................
+getting started
+^^^^^^^^^^^^^^^^
 
-First, run the cell below. It will load the python modules we’ll be
-using in the practical, as well as define a few helper functions that
-we’ll use later on. For now, don’t worry too much about what each
-individual line does - we’ll go over these in a bit more depth as we go.
-Remember also that if you get stuck, you can get help in a few ways:
+First, run the cell below to load the python modules we’ll be using in
+the practical.
 
 1. the built-in help (i.e., ``help(plt.text)``)
 2. using ipython’s (the python interpreter used by jupyter-notebooks)
@@ -284,36 +281,41 @@ Remember also that if you get stuck, you can get help in a few ways:
 
     plt.ion() # make the plotting interactive
 
-    # generate matplotlib handles to create a legend of the features we put in our map.
+Let’s also define a few helper functions that we’ll use later on. For
+now, don’t worry too much about what each individual line does - we’ll
+go over these in a bit more depth as we go. Remember also that if you
+get stuck, you can get help in a few ways:
+
+.. code:: ipython3
+
+    # generate matplotlib handles to create a legend of each of the features we put in our map.
     def generate_handles(labels, colors, edge='k', alpha=1):
         lc = len(colors)  # get the length of the color list
-        handles = []
-        for i in range(len(labels)):
-            handles.append(mpatches.Rectangle((0, 0), 1, 1, facecolor=colors[i % lc], edgecolor=edge, alpha=alpha))
+        handles = [] # create an empty list
+        for ii in range(len(labels)): # for each label and color pair that we're given, make an empty box to pass to our legend
+            handles.append(mpatches.Rectangle((0, 0), 1, 1, facecolor=colors[ii % lc], edgecolor=edge, alpha=alpha))
         return handles
 
     # create a scale bar of length 20 km in the upper right corner of the map
     # adapted this question: https://stackoverflow.com/q/32333870
     # answered by SO user Siyh: https://stackoverflow.com/a/35705477
     def scale_bar(ax, location=(0.92, 0.95)):
-        x0, x1, y0, y1 = ax.get_extent()
-        sbx = x0 + (x1 - x0) * location[0]
-        sby = y0 + (y1 - y0) * location[1]
+        x0, x1, y0, y1 = ax.get_extent() # get the current extent of the axis
+        sbx = x0 + (x1 - x0) * location[0] # get the lower left x coordinate of the scale bar
+        sby = y0 + (y1 - y0) * location[1] # get the lower left y coordinate of the scale bar
 
-        ax.plot([sbx, sbx - 20000], [sby, sby], color='k', linewidth=9, transform=ax.projection)
-        ax.plot([sbx, sbx - 10000], [sby, sby], color='k', linewidth=6, transform=ax.projection)
-        ax.plot([sbx-10000, sbx - 20000], [sby, sby], color='w', linewidth=6, transform=ax.projection)
+        ax.plot([sbx, sbx - 20000], [sby, sby], color='k', linewidth=9, transform=ax.projection) # plot a thick black line, 20 km long
+        ax.plot([sbx, sbx - 10000], [sby, sby], color='k', linewidth=6, transform=ax.projection) # plot a smaller black line from 0 to 10 km long
+        ax.plot([sbx-10000, sbx - 20000], [sby, sby], color='w', linewidth=6, transform=ax.projection) # plot a white line from 10 to 20 km
 
-        ax.text(sbx, sby-4500, '20 km', transform=ax.projection, fontsize=8)
-        ax.text(sbx-12500, sby-4500, '10 km', transform=ax.projection, fontsize=8)
-        ax.text(sbx-24500, sby-4500, '0 km', transform=ax.projection, fontsize=8)
+        ax.text(sbx, sby-5000, '20 km', transform=ax.projection, fontsize=8) # add a label at 20 km
+        ax.text(sbx-12500, sby-5000, '10 km', transform=ax.projection, fontsize=8) # add a label at 10 km
+        ax.text(sbx-24500, sby-5000, '0 km', transform=ax.projection, fontsize=8) # add a label at 0 km
 
-    # load the outline of Northern Ireland for a backdrop
-    outline = gpd.read_file(os.path.abspath('data_files/NI_outline.shp'))
+        return ax
 
-
-2. Loading the data
-......................
+loading the data
+^^^^^^^^^^^^^^^^^
 
 Great. Now that we’ve imported most of the modules we’ll be needing, and
 defined a few helper functions, we can actually load our data. To load
@@ -330,6 +332,7 @@ method:
 
 .. code:: ipython3
 
+    outline = gpd.read_file(os.path.abspath('data_files/NI_outline.shp'))
     towns = gpd.read_file(os.path.abspath('data_files/Towns.shp'))
     water = gpd.read_file(os.path.abspath('data_files/Water.shp'))
     rivers = gpd.read_file(os.path.abspath('data_files/Rivers.shp'))
@@ -337,9 +340,9 @@ method:
 
 GeoPandas loads the data associated with a shapefile into a
 GeoDataFrame, a tabular data structure that always has a column
-describing a feature’s geometry. Each line in the table corresponds to a
-feature in the shapefile, just like the attribute table you are familiar
-with from ArcGIS/QGIS.
+describing a feature’s geometry. As we saw in last week’s exercise, each
+line in the table corresponds to a feature in the shapefile, just like
+the attribute table you are familiar with from ArcGIS/QGIS.
 
 To see a subset of a GeoDataFrame, we can use the ``head()``
 (`documentation <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html>`__)
@@ -357,12 +360,12 @@ To select rows in the dataframe using an index, we can use ``.loc``
     water.loc[0] # should show the row for Lough Neagh
 
 Note that ``.loc`` is not a method, since we use square brackets:``[``
-and ``]``, instead of round brackets/parentheses. Instead, it’s a way to
-index or slice a GeoDataFrame.
+and ``]``, instead of round brackets/parentheses. Instead, it’s an
+attribute that provides a way to index or slice a GeoDataFrame.
 
-This means that we can also use ``.loc`` with conditional statements.
-For example, if we wanted to select all bodies of water that are smaller
-than 1 square kilometer, we could use something like this:
+We can also use ``.loc`` with **conditional statements**. For example,
+if we wanted to select all bodies of water that are smaller than 1
+square kilometer, we could use something like this:
 
 .. code:: ipython3
 
@@ -380,16 +383,15 @@ use the following:
 
     water.loc[water['Area_km2'] < 1, 'namespace']
 
-Each “column” of the GeoDataFrame is an object of type Series
+Each “column” of the GeoDataFrame is an object of type **Series**
 (`documentation <https://pandas.pydata.org/docs/reference/api/pandas.Series.html>`__).
 
-If a Series is filled with numeric data, we can use different methods
-such as ``.sum()``
+If a **Series** is filled with numeric data, we can use different
+methods such as ``.sum()``
 (`documentation <https://pandas.pydata.org/docs/reference/api/pandas.Series.sum.html>`__)
 or ``.mean()``
 (`documentation <https://pandas.pydata.org/docs/reference/api/pandas.Series.mean.html>`__),
-to get the sum and mean of the values in the Series, respectively.
-
+to get the sum and mean of the values in the **Series**, respectively.
 So, the total area (in square kilometers) of all of the lakes in the
 dataset would be given by the following statement:
 
@@ -400,12 +402,12 @@ dataset would be given by the following statement:
 We’ll work with GeoDataFrames more in next week’s practical, but for now
 see if you can put these different pieces together and figure out the
 total area of lakes in the ``Water`` dataset that are smaller than 10
-square kilometers. I’ll provide two hints to get you started:
+square kilometers. I’ll provide a few reminder hints to get you started:
 
-1. GeoDataFrames can be subset using a conditional and a column in the
-   GeoDataFrame, like we saw above.
+1. **GeoDataFrame**\ s can be subset using both a conditional and a
+   column in the **GeoDataFrame**, like we saw above.
 2. With only a single value, ``.loc`` returns all columns of the
-   GeoDataFrame where the rows match the given index/conditional
+   GeoDataFrame where the rows match the given index/slice/conditional
    statement. To select a specific column or group of columns, we can
    use a comma to separate the different indexers.
 3. The numerical columns of a GeoDataFrame (also called Series or
@@ -419,8 +421,8 @@ ask for help.
 
     # write a statement (or series of statments) to calculate the total area of lakes < 10 km2 in the water dataset.
 
-3. Creating maps with matplotlib and cartopy
-...............................................
+working with coordinate reference systems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Now that we’re more familiar with the dataset, we can start building our
 map. For this portion of the practical, we’ll be mostly using
@@ -429,64 +431,166 @@ making plots and graphs, and
 `cartopy <https://scitools.org.uk/cartopy/docs/latest/>`__, a package
 designed for making maps and representing geopatial data.
 
+First, let’s look at the coordinate reference system (CRS) for
+``counties``, the outlines of each of the six counties of Northern
+Ireland:
+
 .. code:: ipython3
 
-    myFig = plt.figure(figsize=(10, 10))  # create a figure of size 10x10 (representing the page size in inches)
+    counties.crs # show the CRS of the counties dataset
 
-    myCRS = ccrs.UTM(XX)  # create a Universal Transverse Mercator reference system to transform our data.
+Here, we can see that the county outlines are geographic coordinates,
+corresponding to WGS84 Latitude/Longitude. Now, let’s look at the CRS
+for ``water``, corresponding to the lake outlines:
+
+.. code:: ipython3
+
+    water.crs
+
+Here, we can see the CRS is different - the coordinates of ``water`` are
+in Irish Transverse Mercator, which are very different to WGS84
+Latitude/Longitude.
+
+To correctly plot our geospatial data, then, we need to have some way
+for ``cartopy`` and ``matplotlib`` to “translate” and plot the
+coordinates stored within the shapefile data - this way, even if our
+data are represented in different coordinates (e.g., WGS84
+Latitude/Longitude or Irish Transverse Mecractor), they will show up in
+the correct places on the map.
+
+To do this, we need to create a ``cartopy`` **CRS**, a representation of
+the spatial reference system that we will use to plot our data inside of
+our map. Here, we’re using ``ccrs.UTM()``
+(`documentation <https://scitools.org.uk/cartopy/docs/latest/reference/projections.html#utm>`__)
+to create a CRS corresponding to the Universal Transverse Mercator (UTM)
+Zone that Northern Ireland is part of. In order for this line to work,
+you will need to replace ``XX`` with the correct number for the UTM Zone
+that Northern Ireland is part of - if you’re not sure, `this
+website <https://mangomap.com/robertyoung/maps/69585/what-utm-zone-am-i-in-#>`__
+provides an interactive way for you to find the “best” UTM Zone for any
+given location.
+
+.. code:: ipython3
+
+    ni_utm = ccrs.UTM(XX)  # create a Universal Transverse Mercator reference system to transform our data.
     # be sure to fill in XX above with the correct number for the UTM Zone that Northern Ireland is part of.
 
-    ax = plt.axes(projection=myCRS)  # finally, create an axes object in the figure, using a UTM projection,
+We can also use ``ccrs.CRS()``
+(`documentation <https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.crs.CRS.html>`__),
+along with the ``.crs`` attribute of a **GeoDataFrame**, in order to
+create a ``cartopy`` **CRS** that can be used with other ``cartopy``
+functions and objects:
+
+.. code:: ipython3
+
+    ccrs.CRS(outline.crs) # create a cartopy CRS representation of the CRS associated with the outline dataset
+
+We’ll use this, along with the ``.crs`` attributes of our datasets, in
+order to plot everything in the correct location as we add items to our
+map.
+
+To create the map, we start by using ``plt.figure()``
+(`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__),
+along with the ``figsize`` argument, to create a new **Figure** object.
+The **Figure** is the container that we use to create different plots,
+such as our map.
+
+While the **Figure** is the container that we use to create different
+plots, these plots are actually displayed by an object called an
+**Axes** - the “artist” that will actually draw the plot. Here, we’re
+using ``plt.axes()``
+(`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__)
+to create an empty **Axes** on the current **Figure**.
+
+We use the ``projection`` keyword argument along with our **CRS** object
+to set the **Axes**\ ’ projection to be our UTM Zone - this way, we can
+be sure that the data that we pass to the **Axes** in order to plot are
+shown in the correct location:
+
+.. code:: ipython3
+
+    myFig = plt.figure(figsize=(8, 8))  # create a figure of size 8x8 (representing the page size in inches)
+    ax = plt.axes(projection=ni_utm)  # create an axes object in the figure, using a UTM projection,
     # where we can actually plot our data.
 
-Adding data to the map
-^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. image:: Cartopy_files/Cartopy_27_0.png
+
+
+As you can see, the **Axes** starts off blank - we haven’t added
+anything to it yet.
+
+adding data to the map
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Now that we’ve created a figure and axes, we can start adding data to
 the map. To start, we’ll add the municipal borders.
 
 In order to add these to the map, we first have to create features that
-we can add to the axes using the ``ShapelyFeature`` class from
-``cartopy.feature``. The initialization method for this class takes a
-minimum of two arguments, an **iterable** containing the geometries that
-we’re using, and a CRS representation.
+we can add to the axes using the ``ShapelyFeature`` class
+(`documenation <https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.ShapelyFeature.html#cartopy.feature.ShapelyFeature>`__)
+from ``cartopy.feature``
+(`documentation <https://scitools.org.uk/cartopy/docs/latest/reference/feature.html>`__).
 
-To add the County borders, then, we would use ``counties['geometry']``,
-the GeoSeries of the feature geometries in our Municipalities shapefile,
-and ``myCRS``, the CRS object representing the UTM Zone for Northern
-Ireland:
+The initialization method for this class takes a minimum of two
+arguments: an **iterable** containing the geometries that we’re using,
+and a CRS representation corresponding to the coordinate reference
+system of those geometries.
+
+To add the County borders, then, we can use ``counties['geometry']``,
+the **GeoSeries** of the feature geometries in our outline shapefile,
+and ``outline.crs``, the CRS attribute of that shapefile:
 
 .. code:: ipython3
 
     # first, we just add the outline of Northern Ireland using cartopy's ShapelyFeature
-    outline_feature = ShapelyFeature(outline['geometry'], myCRS, edgecolor='k', facecolor='w')
-    xmin, ymin, xmax, ymax = outline.total_bounds
+    outline_feature = ShapelyFeature(outline['geometry'], ni_utm, edgecolor='k', facecolor='w')
     ax.add_feature(outline_feature) # add the features we've created to the map.
+
+    myFig
+
+.. image:: Cartopy_files/Cartopy_29_0.png
+
+
 
 The other arguments that we pass to ``ShapelyFeature`` tell
 ``matplotlib`` how to draw the features - in this case, with an edge
-color of black and a face color of gray. Once we’ve created the
-features, we add them to the axes using the ``add_feature`` method.
+color (``edgecolor``) of black (``'k'``) and a face color
+(``facecolor``) of white (``'w'``). Once we’ve created the features, we
+add them to the axes using the ``add_feature`` method.
 
-We’ll also want to zoom the map into our area of interest using the
-boundary of the shapefile features (using ``ax.set_extent``). In the
-example below, we’re setting the extent with a 5 km buffer around each
-edge:
+As you can see from the output above, we have added the outline to the
+map, but it’s very zoomed out (by default, it displays the *entire* UTM
+Zone, stretching from the Equator to the North Pole). We can zoom the
+map into our area of interest by using the boundary of the shapefile
+features along with ``.set_extent()``
+(`documentation <https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.mpl.geoaxes.GeoAxes.html#cartopy.mpl.geoaxes.GeoAxes.set_extent>`__).
+
+First, we get the boundary of the shapefile features using
+``.total_bounds``
+(`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.total_bounds.html>`__),
+then use these values when we call ``.set_extent()``. In the example
+below, we’re setting the extent with a 5 km buffer around each edge:
 
 .. code:: ipython3
 
-    # using the boundary of the shapefile features, zoom the map to our area of interest
-    ax.set_extent([xmin-5000, xmax+5000, ymin-5000, ymax+5000], crs=myCRS) # because total_bounds
-    # gives output as xmin, ymin, xmax, ymax,
+    xmin, ymin, xmax, ymax = outline.total_bounds # using the boundary of the shapefile features, zoom the map to our area of interest
+    ax.set_extent([xmin-5000, xmax+5000, ymin-5000, ymax+5000], crs=ni_utm) # because total_bounds gives output as xmin, ymin, xmax, ymax,
     # but set_extent takes xmin, xmax, ymin, ymax, we re-order the coordinates here.
 
-    myFig ## re-draw the figure
+    myFig ## re-draw the figure (only for the notebook)
 
-This is fine, but a bit boring. For one thing, we might want to set
-different colors for the different municipalities, rather than having
-them all be the same color. To do this, we’ll first have to count the
-number of **unique** municipalities in our dataset, then select colors
-to represent each of them.
+
+.. image:: Cartopy_files/Cartopy_31_0.png
+
+
+
+This is a fine start to our map, but a bit boring. For one thing, we
+might want to set different colors for the different county outlines,
+rather than having them all be the same color. To do this, we’ll first
+have to count the number of **unique** counties in our dataset, then
+select colors to represent each of them.
 
 Question: Why might we do this, rather than just use the number of
 features in the dataset?
@@ -496,9 +600,8 @@ dataset, using the ``unique`` method on the **CountyName** GeoSeries.
 
 Note that in addition to the standard indexing (i.e.,
 ``counties['CountyName']``), we are accessing **CountyName** directly as
-an attribute of ``counties`` (i.e., ``counties.CountyName``).
-
-Provided that the column name follows particular rules (`more on this
+an attribute of ``counties`` (i.e., ``counties.CountyName``). Provided
+that the column name follows particular rules (`more on this
 here <http://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access>`__),
 there is no difference between these two methods - they give the same
 results.
@@ -507,7 +610,7 @@ results.
 
     # get the number of unique municipalities we have in the dataset
     num_counties = len(counties.CountyName.unique())
-    print('Number of unique features: {}'.format(num_counties)) # note how we're using {} and format here!
+    print(f'Number of unique features: {num_counties}') # note how we're using an f-string with {} here!
 
 Now that you’ve found the number of colors you need to choose, you can
 use the image below to make a list of the colors. There are other ways
@@ -520,7 +623,6 @@ check out the documentation
 `source <https://matplotlib.org/stable/gallery/color/named_colors.html>`__
 
 .. |title| image:: ../../../img/egm722/week2/named_colors.png
-    :alt: the named colors in matplotlib
 
 .. code:: ipython3
 
@@ -528,18 +630,18 @@ check out the documentation
     # to add a color, enclose the name above (e.g., violet) with single (or double) quotes: 'violet'
     # remember that each colors should be separated by a comma
     county_colors = []
-    
+
     # get a list of unique names for the county boundaries
     county_names = list(counties.CountyName.unique())
     county_names.sort() # sort the counties alphabetically by name
-    
+
     # next, add the municipal outlines to the map using the colors that we've picked.
     # here, we're iterating over the unique values in the 'CountyName' field.
-    # we're also setting the edge color to be black, with a line width of 0.5 pt. 
+    # we're also setting the edge color to be black, with a line width of 0.5 pt.
     # Feel free to experiment with different colors and line widths.
     for ii, name in enumerate(county_names):
         feat = ShapelyFeature(counties.loc[counties['CountyName'] == name, 'geometry'], # first argument is the geometry
-                              myCRS, # second argument is the CRS
+                              ccrs.CRS(counties.crs), # second argument is the CRS
                               edgecolor='k', # outline the feature in black
                               facecolor=county_colors[ii], # set the face color to the corresponding color from the list
                               linewidth=1, # set the outline width to be 1 pt
@@ -548,16 +650,31 @@ check out the documentation
 
     myFig # to show the updated figure
 
-Now that we’ve done this for the municipal boundaries, we can also do
-this for the water datasets. Because we want the water bodies to be the
-same symbology, we add them with a single use of **ShapelyFeature**:
+.. image:: Cartopy_files/Cartopy_35_1.png
+
+
+In the code above, note this line:
+
+.. code:: python
+
+   ccrs.CRS(counties.crs) # second argument is the CRS
+
+As we saw above, this creates a new cartopy **CRS** object using the
+``.crs`` attribute of the **GeoDataFrame**. If we’re not sure that all
+of our datasets use the same CRS, or we haven’t re-projected them all to
+a single CRS, we can use this to make sure that cartopy uses the correct
+CRS when displaying each dataset on the map.
+
+Now that we’ve done this for the county boundaries, we can also do this
+for the water datasets. Because we want each of the water bodies to use
+the same symbology, we add them with a single use of **ShapelyFeature**:
 
 .. code:: ipython3
 
     # here, we're setting the edge color to be the same as the face color. Feel free to change this around,
     # and experiment with different line widths.
     water_feat = ShapelyFeature(water['geometry'], # first argument is the geometry
-                                myCRS, # second argument is the CRS
+                                ccrs.CRS(water.crs), # second argument is the CRS
                                 edgecolor='mediumblue', # set the edgecolor to be mediumblue
                                 facecolor='mediumblue', # set the facecolor to be mediumblue
                                 linewidth=1) # set the outline width to be 1 pt
@@ -565,22 +682,49 @@ same symbology, we add them with a single use of **ShapelyFeature**:
 
     myFig # to show the updated figure
 
-We do the same thing with the rivers. However, because these are
-**Line** objects, not **Polygon**\ s, we don’t set the ``facecolor``
-property:
+.. image:: Cartopy_files/Cartopy_37_0.png
+
+To add the rivers dataset to the map, we can again use
+``ShapelyFeature()``, with ``ccrs.CRS(rivers.crs)`` as the CRS argument.
+Note that because these are **LineString** objects, not **Polygon**\ s,
+we don’t set the ``facecolor`` property.
 
 .. code:: ipython3
 
     river_feat = ShapelyFeature(rivers['geometry'], # first argument is the geometry
-                                myCRS, # second argument is the CRS
+                                ccrs.CRS(rivers.crs), # second argument is the CRS
                                 edgecolor='royalblue', # set the edgecolor to be royalblue
                                 linewidth=0.2) # set the linewidth to be 0.2 pt
     ax.add_feature(river_feat) # add the collection of features to the map
 
     myFig # to show the updated figure
 
-For **Point** data, such as the town locations, we can use ``ax.plot()``
-directly.
+.. image:: Cartopy_files/Cartopy_39_0.png
+
+Before we add the ``towns`` data to the map, let’s take a look at the
+CRS attribute for this dataset:
+
+.. code:: ipython3
+
+    towns.crs
+
+Here, we have *geographic* coordinates (WGS84 latitude/longitude),
+rather than *projected* coordinates (e.g., UTM or Irish Transverse
+Mercator). Because our map is currently set to a projected coordinate
+system, we can’t simply use ``ccrs.CRS()`` with the CRS for ``towns``,
+as we have done for the previous few datasets.
+
+Instead, we can use ``ccrs.PlateCarree()``
+(`documentation <https://scitools.org.uk/cartopy/docs/latest/reference/projections.html#platecarree>`__),
+or `plate
+carrée <https://proj.org/en/9.3/operations/projections/eqc.html>`__,
+which is an *equirectangular projection* that uses latitude/longitude
+values as the projected x/y values. This way, we are able to plot the
+geographic coordinates in our projected system.
+
+Because these are **Point** data, we can use ``ax.plot()``
+(`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html>`__)
+directly, rather than **ShapelyFeature**.
 
 The code below will add a gray (``color='0.5'``) square (``'s'``) marker
 of size 6 (``ms=6``) at each x, y location:
@@ -588,12 +732,14 @@ of size 6 (``ms=6``) at each x, y location:
 .. code:: ipython3
 
     # ShapelyFeature creates a polygon, so for point data we can just use ax.plot()
-    town_handle = ax.plot(towns.geometry.x, towns.geometry.y, 's', color='0.5', ms=6, transform=myCRS)
-    
+    town_handle = ax.plot(towns.geometry.x, towns.geometry.y, 's', color='0.5', ms=6, transform=ccrs.PlateCarree()) # towns is in UTM Zone 29N, so we can use ni_utm
+
     myFig # to show the updated figure
 
-Adding labels and legends
-^^^^^^^^^^^^^^^^^^^^^^^^^
+.. image:: Cartopy_files/Cartopy_43_1.png
+
+adding labels and legends
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Now that we have different colors for each of the county boundaries and
 we’ve displayed lakes, rivers, and towns, it might be good to have a
@@ -601,11 +747,15 @@ legend to keep everything straight.
 
 To do this, we get handles for each of the county boundaries, using the
 colors we defined earlier. Here, we’re using our helper function
-``generate_handles``, which returns a list of ``matplotlib`` handles
-(i.e., the symbol that ``matplotlib`` uses to display the objects in the
-figure), given a list of labels and colors.
+``generate_handles()``, defined at the beginning of the exercise. This
+function returns a **list** of ``matplotlib`` handles (i.e., the
+identifier that ``matplotlib`` uses for the different objects in the
+figure), given a **list** of labels and colors. We will use these
+handles to create the **legend** for our map, which explains what the
+different symbols and colors mean.
 
-We then do the same for the water bodies and rivers:
+The cell below will generate **list**\ s of handles for the counties,
+water bodies, and rivers:
 
 .. code:: ipython3
 
@@ -622,10 +772,12 @@ We then do the same for the water bodies and rivers:
 
 Note that the names in our county dataset are all uppercase - that’s not
 necessarily how we want to display them on the map. To change this, we
-can use a string method called **title()**, which will capitalize the
-first letter of each word in a string. We also have to do this for each
-of the items in our list of names. We *could* write this as a **for**
-loop, like this:
+can use a string method, ``.title()``
+(`documentation <https://docs.python.org/3/library/stdtypes.html#str.title>`__),
+which capitalizes the first letter of each word in the string.
+
+We will need to do this for each of the items in our list of names. Now,
+we *could* write this as a ``for`` loop, like this:
 
 .. code:: python
 
@@ -635,9 +787,11 @@ loop, like this:
 
 But, python offers another, cleaner option, called a `list
 comprehension <https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions>`__.
-A list comprehension allows us to generate a new list from an existing
-iterable. To write the same **for** loop above as a list comprehension
-takes one line:
+A **list comprehension** allows us to generate a new list from an
+existing iterable (for example, a **Series**).
+
+To write the same ``for`` loop shown above as a list comprehension takes
+a single line:
 
 .. code:: ipython3
 
@@ -645,14 +799,19 @@ takes one line:
     nice_names = [name.title() for name in county_names]
 
 That’s it. This creates a new list by iterating over each of the items
-in county_names, applying a method, **str.title()**, to each item. We’ll
-work more with list comprehensions throughout the module, as they
-provide a way to simplify some pretty complicated loops.
+in county_names, applying ``.title()`` to each item. We’ll work more
+with list comprehensions throughout the module, as they provide a way to
+simplify some pretty complicated loops.
 
-We can pass each of our lists of handles and labels to ``plt.legend``,
-to generate a legend for the municipal boundaries data. Feel free to
-experiment with the placement (by changing **loc** and/or
-**bbox_to_anchor**), or the font size, the title font size, and so on.
+Finally, we’re ready to add our legend using ``ax.legend()``
+(`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html#>`__).
+
+As you can see from the call signature in the documentation above, we
+can pass each of our lists of handles and labels to ``ax.legend()``, and
+``matplotlib`` will construct the legend based on these inputs. Feel
+free to modify the legend by changing the placement (for example, by
+changing the ``loc`` keyword argument), or the font size, the title font
+size, or other parameters:
 
 .. code:: ipython3
 
@@ -666,18 +825,22 @@ experiment with the placement (by changing **loc** and/or
 
     myFig # to show the updated figure
 
-Now that we have a legend, let’s go ahead and add grid lines to our
-plot. I’ve chosen some default gridlines, but you can feel free to
-change this.
+Now that we have a legend, let’s go ahead and add grid lines to our plot
+using ``ax.gridlines()``
+(`documentation <https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.mpl.geoaxes.GeoAxes.html#cartopy.mpl.geoaxes.GeoAxes.gridlines>`__).
+Without any arguments, this method will automatically determine the
+“best” gridlines to use for our map, given the extent, the CRS, and so
+on. We can also specify where to draw lines using the ``xlocs`` and
+``ylocs`` keyword arguments, which take an **iterable** of locations to
+draw along the x and y axis, respectively.
 
 What happens if you delete the first and/or last value from xlocs and
 ylocs? Try it and see!
 
-Can you change the labels to show only on the bottom and left side of
+Can you change the labels to show *only* on the bottom and left side of
 the map? To see, try looking at this
 `example <https://scitools.org.uk/cartopy/docs/latest/gallery/gridlines_and_labels/gridliner.html>`__,
-or at the
-`documentation <https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.mpl.gridliner.Gridliner.html#cartopy.mpl.gridliner.Gridliner>`__.
+or at the documentation linked above.
 
 .. code:: ipython3
 
@@ -689,55 +852,61 @@ or at the
 
     myFig # to show the updated figure
 
-Excellent. Now, let’s add text labels for each of our individual towns.
-For each of the points representing our towns/cities, we can place a
-text label. Look over the cell below, and make sure you understand what
-each line is doing. If you’re not sure you understand, you can post your
-questions on Blackboard.
+Now, let’s add text labels for each of our individual towns. For each of
+the points representing our towns/cities, we can place a text label
+using ``ax.text()``
+(`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.text.html>`__).
+
+Look over the cell below, and make sure you understand what each line is
+doing. If you’re not sure you understand, remember that you can post
+your questions on Blackboard.
 
 .. code:: ipython3
 
     for ind, row in towns.iterrows(): # towns.iterrows() returns the index and row
         x, y = row.geometry.x, row.geometry.y # get the x,y location for each town
-        ax.text(x, y, row['TOWN_NAME'].title(), fontsize=7, transform=myCRS) # use plt.text to place a label at x,y
+        ax.text(x, y, row['TOWN_NAME'].title(), fontsize=7, transform=ccrs.PlateCarree()) # use plt.text to place a label at x,y
 
     myFig # to show the updated figure
 
-Last but not least, let’s add a scale bar to the plot. The scale_bar
-function we’ve defined above will produce a scale bar with divisions at
-10 and 20 km, with a location in the upper right corner as default. Try
-to experiment with this a bit - can you design a scale bar with
-divisions at 1, 5, and 10 km? It’s not as straightforward as it is in
-ArcGIS, but it might provide an interesting challenge if you’re
-interested in developing your programming skills a bit.
+Last but not least, let’s add a scale bar to the plot. The
+``scale_bar()`` function we’ve defined above will produce a scale bar
+with divisions at 10 and 20 km, with a location in the upper right
+corner as default:
 
 .. code:: ipython3
 
-    scale_bar(ax)
+    scale_bar(ax) # place a scale bar in the upper right corner of the map window
 
     myFig # to show the updated figure
 
-Finally, we’ll save our figure. The command written below will save the
-figure to the current folder, in a file called ``map.png``, with no
-border around the outside of the map, and with a resolution of 300 dots
-per inch. As always, feel free to change these parameters.
+Finally, we’ll save our figure using ``.savefig()``
+(`documentation <https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.savefig>`__).
+
+The code written below will save the figure to the current folder in a
+file called ``map.png``, with no border around the outside of the map,
+and with a resolution of 300 dots per inch. As always, feel free to
+experiment with or change these parameters.
 
 .. code:: ipython3
 
     myFig.savefig('map.png', bbox_inches='tight', dpi=300)
 
-Next steps
-.............
+further exercises and next steps
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In this directory, you should also have a python script,
 **practical2_script.py**, which will create the same map that we’ve made
-here (though perhaps with different colors).
+here (though perhaps with different colors). For some additional
+practice, try at least one of the following:
 
-Note that the **towns** dataset has an attribute, **STATUS**, that
-describes whether the feature represents a **Town** (e.g., Coleraine),
-or a **City** (e.g., Belfast). As a further exercise, see if you can
-modify the script to plot all of the **Towns** with one marker (e.g.,
-the gray square used above), and plot all of the **Cities** plot with a
-different marker, then add these to the legend. For more information on
-the available markers and colors for matplotlib, see the
-`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html>`__.
+-  The ``towns`` dataset has an attribute, **STATUS**, that describes
+   whether the feature represents a “Town” (e.g., Coleraine), or a
+   “City” (e.g., Belfast). Modify the script to plot all of the
+   **Towns** with one marker (e.g., the gray square used above), and
+   plot all of the **Cities** with a different marker, then add each of
+   these to the legend. For more information on the available markers
+   and colors for matplotlib, see the
+   `documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html>`__.
+-  Try to modify the ``scale_bar()`` function to have divisions at 1, 5,
+   and 10 km, instead of at 10 km.

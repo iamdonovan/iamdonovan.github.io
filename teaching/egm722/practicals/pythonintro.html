@@ -51,7 +51,7 @@
     <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script src="../../../_static/design-tabs.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm722/practicals/week1';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm722/practicals/pythonintro';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="debugging exercise" href="debugging.html" />
@@ -206,12 +206,12 @@
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">practicals</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">intro to python</a></li>
 <li class="toctree-l4"><a class="reference internal" href="debugging.html">debugging exercise</a></li>
-<li class="toctree-l4"><a class="reference internal" href="week2.html">mapping with cartopy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cartopy.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vector.html">vector data using shapely and geopandas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="folium.html">interactive maps with folium</a></li>
-<li class="toctree-l4"><a class="reference internal" href="week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="raster.html">raster data using rasterio</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sentinelsat.html">searching for images with sentinelsat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="week5.html">vector and raster operations using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zonalstats.html">zonal statistics using rasterstats</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -439,7 +439,7 @@
       
       
       
-      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/egm722/practicals/week1.rst" target="_blank"
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/egm722/practicals/pythonintro.rst" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -456,7 +456,7 @@
       
       
       
-      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/egm722/practicals/week1.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/egm722/practicals/pythonintro.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -486,7 +486,7 @@
       
       
       
-      <li><a href="../../../_sources/teaching/egm722/practicals/week1.rst" target="_blank"
+      <li><a href="../../../_sources/teaching/egm722/practicals/pythonintro.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -578,34 +578,34 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-1-command-prompt">Method 1: Command Prompt</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-2-launch-jupyter-notebooks-directly">Method 2: Launch Jupyter Notebooks directly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-1-command-prompt">method 1: command prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-2-launch-jupyterlab-directly">method 2: launch jupyterlab directly</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-the-notebook">Opening the Notebook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clearing-the-outputs">Clearing the Outputs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#closing-the-notebook">Closing the Notebook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps-introduction-to-git">Next steps: Introduction to git</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-the-notebook">opening the notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clearing-the-outputs">clearing the outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#closing-the-notebook">closing the notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps-introduction-to-git">next steps: introduction to git</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nicholas-sparks">Nicholas Sparks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">Data provided</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-python-interpreter">1. The python interpreter</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">2. Variables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numeric-operations">3. Numeric operations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#string-variables-and-operations">4. String variables and operations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">5. Lists</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-and-methods">6. Functions and Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-our-own-functions">6.1 Defining our own functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">data provided</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-python-interpreter">the python interpreter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objects-and-variables">objects and variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numeric-operations">numeric operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#string-objects-and-operations">string objects and operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes-functions-and-methods">classes, functions and methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-our-own-functions">defining our own functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-flow">controlling flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-modules">importing modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-working-with-shapefiles">example: working with shapefiles</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-filepaths">a note on filepaths</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-geodataframes">working with GeoDataFrames</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-flow">7. Controlling Flow</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-modules">8. Importing modules</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-shapefiles">9. Working with shapefiles</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-filepaths">9.1 a note on filepaths</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-geodataframes">9.2 working with GeoDataFrames</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-converting-text-data-into-shapefiles">10. Example - converting text data into shapefiles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-converting-text-data-into-shapefiles">example: converting text data into shapefiles</a></li>
 </ul>
 </li>
 </ul>
@@ -621,11 +621,11 @@ document.write(`
                   
   <div class="section" id="intro-to-python">
 <h1>intro to python<a class="headerlink" href="#intro-to-python" title="Permalink to this heading">#</a></h1>
-<p>To get started in the world of programming using python, we will use <a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a>, which
-provide a way for creating and sharing documents that have interactive code snippets alongside narrative text, images,
-and more.</p>
+<p>To get started in the world of programming using python, we will use <a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a> within
+a JupyterLab environment, which provide a way for creating and sharing documents that have interactive code snippets
+alongside narrative text, images, and more.</p>
 <div class="section" id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Make sure that you have installed <strong>all</strong> of the preliminary steps before continuing - you should already have
@@ -633,53 +633,61 @@ installed <strong>Anaconda</strong> and <strong>git</strong>.</p>
 <p>You should also have forked the course repository and cloned it to your computer. If <strong>any</strong> of these steps sound
 unfamiliar, stop now and go back over the <a class="reference internal" href="../setup/index.html"><span class="doc">setup instructions</span></a>.</p>
 </div>
-<p>To start, open <strong>Anaconda Navigator</strong> and ensure that your environment is set to the <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment created
-during the preliminary setup (you should see “Applications on <strong>egm722</strong>” at the top of the window). To open Jupyter
-Notebooks, we can <strong>either</strong> launch the <strong>CMD.exe Prompt</strong>, or launch Jupyter Notebooks directly:</p>
+<p>To start, open <strong>Anaconda Navigator</strong>, make sure that you are on the <strong>Home</strong> tab, and select the <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment
+created during the preliminary setup from the second menu at the top of the window (to the right of “<strong>on</strong>”).</p>
+<p>You may also want to switch from “<strong>All applications</strong>” to “<strong>Installed applications</strong>”, to make it easier to find the
+applications you’re looking for.</p>
+<p>To open JupyterLab, we can <strong>either</strong> launch the <strong>CMD.exe Prompt</strong> (red box), or launch it directly from
+<strong>Anaconda Navigator</strong> (blue box) - note that your layout may differ slightly from mine:</p>
 <a class="reference internal image-reference" href="../../../_images/anaconda.png"><img alt="the anaconda navigator window" class="align-center" src="../../../_images/anaconda.png" style="width: 720px;" /></a>
 <p><br /> I will provide instructions below for both methods; <strong>you will only need to do one of them</strong>.</p>
 <div class="section" id="method-1-command-prompt">
-<h3>Method 1: Command Prompt<a class="headerlink" href="#method-1-command-prompt" title="Permalink to this heading">#</a></h3>
-<p>When you launch the command prompt, it will start in the directory where you have installed Anaconda (most likely
-<code class="docutils literal notranslate"><span class="pre">C:\Users\YourUserName</span></code>). Navigate to the <strong>Week1</strong> folder in the directory where you have cloned the EGM722 repository.</p>
-<p>Remember that from the command prompt, you can change directories using the <strong>cd</strong> command. For example, if I have cloned
-the directory to <code class="docutils literal notranslate"><span class="pre">C:\Users\Bob\EGM722\</span></code>, to get to the <strong>Week1</strong> folder I would type:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd C:\Users\Bob\EGM722\Week1
+<h3>method 1: command prompt<a class="headerlink" href="#method-1-command-prompt" title="Permalink to this heading">#</a></h3>
+<p>When you launch the <strong>Anaconda command prompt</strong>, it will start in the directory where you have installed Anaconda
+(most likely your <code class="docutils literal notranslate"><span class="pre">%HOME%</span></code> directory, <code class="docutils literal notranslate"><span class="pre">C:\Users\YourUserName</span></code>).</p>
+<p>You will need to navigate from here to the directory where you have cloned the EGM722 repository using the <code class="docutils literal notranslate"><span class="pre">cd</span></code>
+command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd &lt;path-to-repository&gt;
 </pre></div>
 </div>
-<p>You can also see the contents of the current director using the <strong>dir</strong> command – you should see a file called <strong>Practical1.ipynb</strong> as
-well as two folders, <strong>data_files</strong> and <strong>imgs</strong>:</p>
+<p>For example, if I have cloned the repository to <code class="docutils literal notranslate"><span class="pre">C:\Users\bob\egm722</span></code>, to get to that folder I would type:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd C:\Users\bob\egm722
+</pre></div>
+</div>
+<p>You can also see the contents of the current directory using the <code class="docutils literal notranslate"><span class="pre">dir</span></code> command – you should see the
+<strong>environment.yml</strong>, <strong>.gitignore</strong>, <strong>LICENSE</strong>, and <strong>README.md</strong> files, as well as a directory, <strong>Week1</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/prompt1.png"><img alt="the command prompt" class="align-center" src="../../../_images/prompt1.png" style="width: 600px;" /></a>
-<p><br /> From this folder, type <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> at the prompt and press <strong>Enter</strong>. You should see the notebook app
+<p><br /> From this folder, type <code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code> at the prompt and press <strong>Enter</strong>. You should see the <code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code> app
 begin running:</p>
 <a class="reference internal image-reference" href="../../../_images/prompt2.png"><img alt="the command prompt" class="align-center" src="../../../_images/prompt2.png" style="width: 600px;" /></a>
 <p><br /> Followed by a browser window opening up:</p>
 <a class="reference internal image-reference" href="../../../_images/jupyter1.png"><img alt="the jupyter browser window" class="align-center" src="../../../_images/jupyter1.png" style="width: 720px;" /></a>
-<p><br /> At this point, skip to the next section (<a class="reference internal" href="#opening-the-notebook"><span class="std std-ref">Opening the Notebook</span></a>).</p>
+<p><br /> At this point, skip to the next section (<a class="reference internal" href="#opening-the-notebook"><span class="std std-ref">opening the notebook</span></a>).</p>
 </div>
-<div class="section" id="method-2-launch-jupyter-notebooks-directly">
-<h3>Method 2: Launch Jupyter Notebooks directly<a class="headerlink" href="#method-2-launch-jupyter-notebooks-directly" title="Permalink to this heading">#</a></h3>
-<p>When you launch Jupyter Notebooks directly from <strong>Anaconda Navigator</strong>, a browser window will open:</p>
-<a class="reference internal image-reference" href="../../../_images/jupyter_anaconda.png"><img alt="the jupyter browser window" class="align-center" src="../../../_images/jupyter_anaconda.png" style="width: 720px;" /></a>
-<p><br /> The file browser will begin in the directory where you have installed Anaconda (most likely
-<code class="docutils literal notranslate"><span class="pre">C:\Users\YourUserName</span></code>). You will need to navigate to the folder where you have cloned the EGM722 repository by
-following the links. Navigate to the Week1 folder. Once there, you should see the following:</p>
+<div class="section" id="method-2-launch-jupyterlab-directly">
+<h3>method 2: launch jupyterlab directly<a class="headerlink" href="#method-2-launch-jupyterlab-directly" title="Permalink to this heading">#</a></h3>
+<p>When you launch JupyterLab directly from <strong>Anaconda Navigator</strong>, a browser window will open. If you have not
+<a class="reference internal" href="../setup/jupyter.html"><span class="doc">set the configuration</span></a> to open in your EGM722 repository folder, you will most likely need to
+navigate to the folder where you have cloned the EGM722 repository in the file browser on the left-hand side of the
+window. Do this, and navigate through to the <strong>Week1</strong> folder.</p>
+<p>Once there, you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/jupyter1.png"><img alt="the jupyter browser window" class="align-center" src="../../../_images/jupyter1.png" style="width: 720px;" /></a>
 </div>
 </div>
 <div class="section" id="opening-the-notebook">
-<span id="id1"></span><h2>Opening the Notebook<a class="headerlink" href="#opening-the-notebook" title="Permalink to this heading">#</a></h2>
-<p>Open the Practical 1 notebook by clicking on <strong>Practical1.ipynb</strong>. This will open the following browser tab (or window):</p>
-<a class="reference internal image-reference" href="../../../_images/notebook.png"><img alt="the jupyter notebook" class="align-center" src="../../../_images/notebook.png" style="width: 720px;" /></a>
-<p><br /> You can now work through the notebook, reading the text and running the individual cells:</p>
-<a class="reference internal image-reference" href="../../../_images/first_cell.png"><img alt="the first cell in the notebook highlighted" class="align-center" src="../../../_images/first_cell.png" style="width: 720px;" /></a>
-<p><br /> To run a cell, you can click on it to highlight it, then press <strong>CTRL + Enter</strong>, or by clicking the <strong>Run</strong> button
-at the top of the window. When the cell has finished running, you should see a number next to <code class="docutils literal notranslate"><span class="pre">In</span></code> on the left-hand
-side, as well as any output text produced by the commands:</p>
+<span id="id1"></span><h2>opening the notebook<a class="headerlink" href="#opening-the-notebook" title="Permalink to this heading">#</a></h2>
+<p>Open the Practical 1 notebook by double-clicking on the <strong>Week1</strong> folder, then double-clicking <strong>PythonIntro.ipynb</strong>.
+This will open the notebook as a new tab in the JupyterLab console:</p>
+<a class="reference internal image-reference" href="../../../_images/notebook.png"><img alt="the jupyter notebook, open in jupyter lab" class="align-center" src="../../../_images/notebook.png" style="width: 720px;" /></a>
+<p><br /> You can now work through the notebook, reading the text and running the individual code cells. To run a cell, you
+can click on it to highlight it, then press <strong>CTRL + Enter</strong>, or by clicking the triangular <strong>Run</strong> button at the top
+of the window.</p>
+<p>When the cell has finished running, you should see a number inside the square brackets on the left-hand side. You may
+also see the output text produced by the commands (assuming that they have produced anything):</p>
 <a class="reference internal image-reference" href="../../../_images/first_output.png"><img alt="the output of the first cell in the notebook" class="align-center" src="../../../_images/first_output.png" style="width: 720px;" /></a>
 <p><br /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>Be sure to read the text and any comments <strong>carefully</strong>: not every cell is ready to run automatically, and you may
 need to type in your own code before the cell is ready to run.</p>
 <p>Make sure to work through the notebook <strong>sequentially</strong>, as well – some of the cells require that a previous cell
@@ -687,26 +695,35 @@ has been run; if it hasn’t, it will most likely throw an <code class="docutils
 </div>
 </div>
 <div class="section" id="clearing-the-outputs">
-<h2>Clearing the Outputs<a class="headerlink" href="#clearing-the-outputs" title="Permalink to this heading">#</a></h2>
+<h2>clearing the outputs<a class="headerlink" href="#clearing-the-outputs" title="Permalink to this heading">#</a></h2>
 <p>If you would like to start over, you can clear the outputs of individual cells from the menus at the top of the page:
-<strong>Cell</strong> &gt; <strong>Current Outputs</strong> &gt; <strong>Clear</strong>. You can also do this for all of the outputs at one time.</p>
-<p>To completely restart the session, you can restart the python <em>kernel</em> – the python interpreter program that Jupyter
-Notebooks is running “under the hood (or bonnet)” to provide the interactive code. To do this, from the <strong>Kernel</strong> menu,
-you can select <strong>Restart</strong>, or <strong>Restart &amp; Clear Output</strong>.</p>
+<strong>Edit</strong> &gt; <strong>Clear Cell Output</strong> to clear the output of the currently selected cell, or <strong>Edit</strong> &gt;
+<strong>Clear Outputs of All Cells</strong> to clear all outputs at the same time.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Before you make any commits of a notebook (<strong>.ipynb</strong>) file, I very strongly recommend clearing the outputs - most
+of the time, the outputs of a cell are easily reproduced, which means you don’t actually need to save them (just
+the code that produced the output)!</p>
+<p>This will (a) make for smaller commit sizes (since you won’t be keeping track of images, etc.), but also (b) make it
+less likely that you end up with a merge conflict (since git won’t be keeping track of the order that you ran each
+cell in).</p>
+</div>
+<p>To completely restart the session, you can restart the python <em>kernel</em> – the python interpreter program that Jupyter is
+running “under the hood” (or bonnet, depending on your preferred flavor of English) to provide the interactive code.</p>
+<p>To do this, from the <strong>Kernel</strong> menu, you can select <strong>Restart</strong>, or <strong>Restart &amp; Clear Output</strong>. You can also press the
+circular “<strong>Restart the kernel</strong>” button from the notebook menu (right next to the square “stop” button).</p>
 </div>
 <div class="section" id="closing-the-notebook">
-<h2>Closing the Notebook<a class="headerlink" href="#closing-the-notebook" title="Permalink to this heading">#</a></h2>
+<h2>closing the notebook<a class="headerlink" href="#closing-the-notebook" title="Permalink to this heading">#</a></h2>
 <p>Once you have worked your way through the notebook and are confident that you understand what is being asked, you can
 close the notebook. Note that closing the browser tab will not actually stop the notebook from running – to do this,
-you have to first select the notebook in the original browser window and select <strong>Shutdown</strong>:</p>
-<a class="reference internal image-reference" href="../../../_images/shutdown.png"><img alt="the shutdown button highlighted in the jupyter window" class="align-center" src="../../../_images/shutdown.png" style="width: 720px;" /></a>
-<p><br /> After that, you can click on <strong>Quit</strong> at the top of the page to shut down the program:</p>
-<a class="reference internal image-reference" href="../../../_images/quit.png"><img alt="the browser window ready to be closed/quit" class="align-center" src="../../../_images/quit.png" style="width: 720px;" /></a>
-<p><br /> Close the browser window, and (if you launched Jupyter Notebooks from the <strong>Command Prompt</strong>), close the
-<strong>Command Prompt</strong> window.</p>
+you have to select <strong>Shutdown</strong> from the <strong>File</strong> menu in the upper left-hand corner of the window:</p>
+<a class="reference internal image-reference" href="../../../_images/shutdown.png"><img alt="the shutdown menu option highlighted in the jupyter window" class="align-center" src="../../../_images/shutdown.png" style="width: 720px;" /></a>
+<p><br /> Close the browser window, and (if you launched JupyterLab from the <strong>Command Prompt</strong>), you can close the
+<strong>Command Prompt</strong> window now.</p>
 </div>
 <div class="section" id="next-steps-introduction-to-git">
-<h2>Next steps: Introduction to git<a class="headerlink" href="#next-steps-introduction-to-git" title="Permalink to this heading">#</a></h2>
+<h2>next steps: introduction to git<a class="headerlink" href="#next-steps-introduction-to-git" title="Permalink to this heading">#</a></h2>
 <p>We’ll be sprinkling uses of git throughout the work in this module, but you might also find it useful to work through
 some examples to get more familiar with it. I highly recommend the tutorial provided by (Learn Git Branching
 <a class="reference external" href="https://learngitbranching.js.org/">https://learngitbranching.js.org/</a>), which is a free online resource to help you get started with some of the
@@ -724,7 +741,7 @@ above to open the notebook and run it on your own computer!</p>
 <div class="section" id="nicholas-sparks">
 <h2>Nicholas Sparks<a class="headerlink" href="#nicholas-sparks" title="Permalink to this heading">#</a></h2>
 <div class="section" id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
+<h3>overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
 <p>As we discussed in this week’s lecture, programming is a powerful tool
 that allows us to do complicated calculations and analysis, visualize
 data, and automate workflows to ensure consistency, accuracy, and
@@ -735,7 +752,7 @@ different GIS datasets such as vector (e.g., shapefiles) or raster files
 using python libraries.</p>
 </div>
 <div class="section" id="objectives">
-<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
+<h3>objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Learn and gain experience with some of the basic elements of python
 and programming</p></li>
@@ -744,7 +761,7 @@ and programming</p></li>
 </ul>
 </div>
 <div class="section" id="data-provided">
-<h3>Data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
+<h3>data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
 <p>In the data_files folder, you should have the following:</p>
 <ul class="simple">
 <li><p>GPSPoints.txt</p></li>
@@ -752,171 +769,208 @@ and programming</p></li>
 </ul>
 </div>
 <div class="section" id="the-python-interpreter">
-<h3>1. The python interpreter<a class="headerlink" href="#the-python-interpreter" title="Permalink to this heading">#</a></h3>
+<h3>the python interpreter<a class="headerlink" href="#the-python-interpreter" title="Permalink to this heading">#</a></h3>
 <p>Before we get started, it’s important that we check which verison of
-python we’re running. To do this, we can use the <strong>sys</strong> module. If you
-run the following cell, you should see something like this print out:</p>
-<p><code class="docutils literal notranslate"><span class="pre">3.9.16</span> <span class="pre">|</span> <span class="pre">packaged</span> <span class="pre">by</span> <span class="pre">conda-forge</span> <span class="pre">|</span> <span class="pre">(main,</span> <span class="pre">Feb</span>&#160; <span class="pre">1</span> <span class="pre">2023,</span> <span class="pre">21:39:03)</span> <span class="pre">[GCC</span> <span class="pre">11.3.0]</span></code></p>
+python we’re running. To do this, we can use the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module. After
+you run the following cell, you should see something like this print
+out:</p>
+<p><code class="docutils literal notranslate"><span class="pre">3.12.1</span> <span class="pre">|</span> <span class="pre">packaged</span> <span class="pre">by</span> <span class="pre">conda-forge</span> <span class="pre">|</span> <span class="pre">(main,</span> <span class="pre">Dec</span> <span class="pre">23</span> <span class="pre">2023,</span> <span class="pre">07:53:56)</span> <span class="pre">[MSC</span> <span class="pre">v.1937</span> <span class="pre">64</span> <span class="pre">bit</span> <span class="pre">(AMD64)]</span></code></p>
 <p>If you see a version of python other than 3.x, we’ll need to switch your
 working environment.</p>
+<p>To run the cell, click on it to highlight it, then either press <strong>Ctrl</strong>
++ <strong>Enter</strong>, or press the triangular “play” button at the top of this
+panel:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>You should notice a few things. First, the square brackets (<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code>)
+have a number inside of them (<code class="docutils literal notranslate"><span class="pre">[1]</span></code>), and you can see the output of
+<code class="docutils literal notranslate"><span class="pre">print(sys.version)</span></code> below the cell.</p>
 <p>Now that we know we’re using the right version of python, run the
-following code snippet:</p>
+following:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">print()</span></code> <strong>function</strong> allows us to print messages and information
-to the screen, or to a file (more on this later), but it doesn’t allow
-us to save the messages that we display.</p>
-<p>How can we edit the code above to store our message as a variable? In
-the cell below, type a line of code that will define a <strong>variable</strong>,
-<code class="docutils literal notranslate"><span class="pre">myString</span></code>, that stores our message (<code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code>). Then, print
-the message to the screen using the <strong>variable</strong> you’ve just defined.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code goes here to write a command that stores the message as a variable called myString...</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">print()</span></code> <strong>function</strong>
+(<a class="reference external" href="https://docs.python.org/3/library/functions.html#print">documentation</a>)
+allows us to print messages and information to the screen, or to a file
+(more on this later), but it doesn’t allow us to save the messages that
+we display. To do this, we first have to create an <strong>object</strong> using the
+<strong>assignment operator</strong>, <code class="docutils literal notranslate"><span class="pre">=</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;a message&#39;</span>
+</pre></div>
+</div>
+<p>This will assign the value <code class="docutils literal notranslate"><span class="pre">'a</span> <span class="pre">message'</span></code> to a new object, <code class="docutils literal notranslate"><span class="pre">foo</span></code>.</p>
+<p>In the cell below, type a line of code that will define a new
+<strong>object</strong>, <code class="docutils literal notranslate"><span class="pre">foo</span></code>, that stores the message <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code>. Then,
+print the message to the screen using the <strong>variable</strong> name you’ve just
+defined:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># assign an object/variable using =</span>
+<span class="nb">print</span><span class="p">()</span> <span class="c1"># print the value of the object to the screen using print</span>
 </pre></div>
 </div>
 <p>Often, you will want to know how to use a particular function. To get
-help, we can use the built-in <code class="docutils literal notranslate"><span class="pre">help()</span></code> function. For example, to get
-more information on how to use the <code class="docutils literal notranslate"><span class="pre">print()</span></code> function, we could type
-the following at the prompt:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt;<span class="w"> </span>help<span class="o">(</span>print<span class="o">)</span>
-Help<span class="w"> </span>on<span class="w"> </span>built-in<span class="w"> </span><span class="k">function</span><span class="w"> </span>print<span class="w"> </span><span class="k">in</span><span class="w"> </span>module<span class="w"> </span>builtins:
-
-print<span class="o">(</span>...<span class="o">)</span>
-<span class="w">    </span>print<span class="o">(</span>value,<span class="w"> </span>...,<span class="w"> </span><span class="nv">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span>,<span class="w"> </span><span class="nv">end</span><span class="o">=</span><span class="s1">&#39;\n&#39;</span>,<span class="w"> </span><span class="nv">file</span><span class="o">=</span>sys.stdout,<span class="w"> </span><span class="nv">flush</span><span class="o">=</span>False<span class="o">)</span>
-
-<span class="w">    </span>Prints<span class="w"> </span>the<span class="w"> </span>values<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>stream,<span class="w"> </span>or<span class="w"> </span>to<span class="w"> </span>sys.stdout<span class="w"> </span>by<span class="w"> </span>default.
-<span class="w">    </span>Optional<span class="w"> </span>keyword<span class="w"> </span>arguments:
-<span class="w">    </span>file:<span class="w">  </span>a<span class="w"> </span>file-like<span class="w"> </span>object<span class="w"> </span><span class="o">(</span>stream<span class="o">)</span><span class="p">;</span><span class="w"> </span>defaults<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>sys.stdout.
-<span class="w">    </span>sep:<span class="w">   </span>string<span class="w"> </span>inserted<span class="w"> </span>between<span class="w"> </span>values,<span class="w"> </span>default<span class="w"> </span>a<span class="w"> </span>space.
-<span class="w">    </span>end:<span class="w">   </span>string<span class="w"> </span>appended<span class="w"> </span>after<span class="w"> </span>the<span class="w"> </span>last<span class="w"> </span>value,<span class="w"> </span>default<span class="w"> </span>a<span class="w"> </span>newline.
-<span class="w">    </span>flush:<span class="w"> </span>whether<span class="w"> </span>to<span class="w"> </span>forcibly<span class="w"> </span>flush<span class="w"> </span>the<span class="w"> </span>stream.
-</pre></div>
-</div>
-<p>Go ahead and try this now:</p>
+help, we can use the built-in <code class="docutils literal notranslate"><span class="pre">help()</span></code> function
+(<a class="reference external" href="https://docs.python.org/3/library/functions.html#help">documentation</a>).</p>
+<p>For example, to get more information on how to use the <code class="docutils literal notranslate"><span class="pre">print()</span></code>
+function:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="nb">print</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In jupyter/ipython, you can also use the <code class="docutils literal notranslate"><span class="pre">?</span></code> operator, which will open
-the <strong>docstring</strong> in a new panel at the bottom of the window:</p>
+<p>This tells you the different <em>positional arguments</em> to <code class="docutils literal notranslate"><span class="pre">print()</span></code> (such
+as <code class="docutils literal notranslate"><span class="pre">value</span></code>), the <em>optional keyword arguments</em> (such as <code class="docutils literal notranslate"><span class="pre">file</span></code> or
+<code class="docutils literal notranslate"><span class="pre">sep</span></code>), as well as what <code class="docutils literal notranslate"><span class="pre">print()</span></code> does (“Prints the values to a
+stream, or to sys.stdout by default”).</p>
+<p>In jupyter/ipython, you can also use the <code class="docutils literal notranslate"><span class="pre">?</span></code> operator:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print<span class="o">?</span>
 </pre></div>
 </div>
 <p>This is a lot of information for now, but if you want to know how to use
-a particular function, method, or class, you can find that help here. A
-warning, however: some python packages are better-documented than others
-(which is why we should always provide thorough documentation when
-writing our own code, right?)</p>
+a particular function, method, or class, you can find that help here.</p>
+<p>A warning, however: some python packages are better-documented than
+others (which is why we should always provide thorough documentation
+when writing our own code, right?)</p>
 </div>
-<div class="section" id="variables">
-<h3>2. Variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h3>
-<p>We have already seen one example of a <strong>variable</strong>, <code class="docutils literal notranslate"><span class="pre">myString</span></code>, above.
-Remember that in programming, a <strong>variable</strong> is name that represents or
-refers to a value. <strong>Variables</strong> store temporary information that can be
-manipulated or changed as we type commands or run scripts.</p>
-<p>In practice, variables can refer to almost anything. As the chosen name
-suggests, <code class="docutils literal notranslate"><span class="pre">myString</span></code> is a <strong>string</strong>, or text. Variables can also be
-<strong>int</strong>egers, <strong>float</strong>ing point numbers (floats or decimal numbers),
-<strong>list</strong>s, <strong>tuple</strong>, <strong>dict</strong>ionaries, entire files, and many more
-possibilities.</p>
+<div class="section" id="objects-and-variables">
+<h3>objects and variables<a class="headerlink" href="#objects-and-variables" title="Permalink to this heading">#</a></h3>
+<p>We have already seen one example of an <strong>object</strong>, <code class="docutils literal notranslate"><span class="pre">foo</span></code> (the
+<strong>variable</strong> name), above. Objects store temporary information that can
+be manipulated or changed as we type commands or run scripts.</p>
+<p>One important thing to remember is that the <em>name</em> of an <strong>object</strong> is
+<em>case-sensitive</em> (meaning that <code class="docutils literal notranslate"><span class="pre">foo</span></code> is different from <code class="docutils literal notranslate"><span class="pre">Foo</span></code>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span> <span class="c1"># this won&#39;t work, because we haven&#39;t created an object called Foo yet</span>
+</pre></div>
+</div>
+<p>We’ll see more examples of error messages later (and how to interpret
+them), but hopefully the message:</p>
+<div class="highlight-pytb notranslate"><div class="highlight"><pre><span></span><span class="x">NameError: name &#39;Foo&#39; is not defined</span>
+</pre></div>
+</div>
+<p>is clear enough. Because we were expecting this error message, we can
+ignore it and move on for now.</p>
 <p>As we covered in this week’s lecture, in python, variable names can
 consist of letters, digits, or underscores, but they <strong>cannot</strong> begin
 with a digit. If you try to name a <strong>variable</strong> using an illegal name,
 you will get a <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>:</p>
-<div class="highlight-pytb notranslate"><div class="highlight"><pre><span></span><span class="x">&gt;&gt;&gt; 3var = &quot;this won&#39;t work&quot;</span>
-<span class="x">  Cell In[5], line 1</span>
-<span class="x">    3var = &#39;this won&#39;t work&#39;</span>
-<span class="x">     ^</span>
-<span class="x">SyntaxError: invalid syntax</span>
-</pre></div>
-</div>
-<p>To confirm this, try it for yourself below:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span><span class="n">var</span> <span class="o">=</span> <span class="s2">&quot;this won&#39;t work&quot;</span>
 </pre></div>
 </div>
+<p>Here, we see a <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> raised - this means that the code we have
+written violates the <em>syntax</em> (grammar) of the language. We’ll look more
+at different error types in the debugging exercise later on.</p>
 </div>
 <div class="section" id="numeric-operations">
-<h3>3. Numeric operations<a class="headerlink" href="#numeric-operations" title="Permalink to this heading">#</a></h3>
+<h3>numeric operations<a class="headerlink" href="#numeric-operations" title="Permalink to this heading">#</a></h3>
 <p>A large part of what we will use python for is the manipulation of
 numeric data. Thus, it is a good idea for us to understand how python
-treats numeric data. One by one, type the following expressions into the
-cell below. Before running the cell, be sure to think about what you
-expect the result to be. Does the result you see match your expectation?
-Why or why not?</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">19</span> <span class="pre">+</span> <span class="pre">32</span> <span class="pre">#</span> <span class="pre">the</span> <span class="pre">+</span> <span class="pre">operator</span> <span class="pre">does</span> <span class="pre">addition</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">19</span> <span class="pre">-</span> <span class="pre">87</span> <span class="pre">#</span> <span class="pre">the</span> <span class="pre">-</span> <span class="pre">operator</span> <span class="pre">does</span> <span class="pre">subtraction</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">19</span> <span class="pre">*</span> <span class="pre">12</span> <span class="pre">#</span> <span class="pre">the</span> <span class="pre">*</span> <span class="pre">operator</span> <span class="pre">does</span> <span class="pre">multiplication</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">3</span> <span class="pre">#</span> <span class="pre">the</span> <span class="pre">/</span> <span class="pre">operator</span> <span class="pre">does</span> <span class="pre">division</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">//</span> <span class="pre">3</span> <span class="pre">#</span> <span class="pre">the</span> <span class="pre">//</span> <span class="pre">operator</span> <span class="pre">does</span> <span class="pre">floor</span> <span class="pre">division</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">%</span> <span class="pre">3</span> <span class="pre">#</span> <span class="pre">the</span> <span class="pre">%</span> <span class="pre">operator</span> <span class="pre">does</span> <span class="pre">modular</span> <span class="pre">arithmetic</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">^</span> <span class="pre">4</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">4</span> <span class="pre">#</span> <span class="pre">the</span> <span class="pre">**</span> <span class="pre">operator</span> <span class="pre">does</span> <span class="pre">exponentiation</span></code></p></li>
-</ul>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
+treats numeric data. In the cell below, we first define two objects,
+<code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, and assign then values of 2 and 3, respectively.</p>
+<p>Before you run the cell, look at the print statements - these will show
+which operators are being used (<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, etc.), along with
+the output of the operation using the variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. Think
+about what you exect the results to be - when you run the cell, do the
+outputs match your expectation? Why or why not?</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x + y = </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># print the value of x + y (addition)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x - y = </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># print the value of x - y (subtraction)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x * y = </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># print the value of x * y (multiplication)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x / y = </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># print the value of x / y (division)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x // y = </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="o">//</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># print the value of x // y (floor division)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x ** y = </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># print the value of x ** y (exponentiation)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x % y = </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="o">%</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># print the value of x % y (modular division)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x ^ y = </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># print the value of x ^ y (bitwise XOR)</span>
 </pre></div>
 </div>
-<p>Can you explain what the second-to-last operator (the ^ symbol) is
-doing?</p>
+<p>Most of these should be fairly straightforward, except perhaps for the
+last two (<code class="docutils literal notranslate"><span class="pre">%</span></code> and <code class="docutils literal notranslate"><span class="pre">^</span></code>). The <code class="docutils literal notranslate"><span class="pre">%</span></code> (“modular” operator) returns the
+remainder of dividing two numbers. The <code class="docutils literal notranslate"><span class="pre">^</span></code> (“bitwise XOR” or “bitwise
+exclusive or”) does something a little more involved - for more
+information about bitwise operators in general, see this <a class="reference external" href="https://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators">Wikipedia
+article</a>.</p>
+<p>Note also how we’re using <code class="docutils literal notranslate"><span class="pre">print()</span></code> here, with a “<a class="reference external" href="https://docs.python.org/3/tutorial/inputoutput.html#tut-f-strings">formatted string
+literal</a>”
+(or “<strong>f-String</strong>”, <code class="docutils literal notranslate"><span class="pre">f&quot;{}&quot;</span></code>). By prefixing the string with the letter
+<code class="docutils literal notranslate"><span class="pre">f</span></code>, we can include the value of an expression inside the string,
+using the <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code> operators. We’ll look at more examples of how to use
+these later on, including how we can format numbers inside of strings.</p>
 </div>
-<div class="section" id="string-variables-and-operations">
-<h3>4. String variables and operations<a class="headerlink" href="#string-variables-and-operations" title="Permalink to this heading">#</a></h3>
-<p>We have already worked with one example of a <strong>str</strong>ing variable,
-<code class="docutils literal notranslate"><span class="pre">myString</span></code>.</p>
-<p>As noted in the lecture, we can easily access parts of a string by using
-the desired index inside square brackets <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code>. Remember that the
-index has to be an <strong>int</strong>eger value:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myString</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="section" id="string-objects-and-operations">
+<h3>string objects and operations<a class="headerlink" href="#string-objects-and-operations" title="Permalink to this heading">#</a></h3>
+<p>We have already worked with one example of a <strong>str</strong>ing object,
+<code class="docutils literal notranslate"><span class="pre">foo</span></code>. As noted in the lecture, we can easily access parts of a string
+by using the desired index inside square brackets <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code>. Remember that
+the index starts from 0, and it has to be an <strong>int</strong>eger value:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>If we use a <strong>float</strong>ing point value, it raises a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myString</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="c1"># slice indices have to be integers, not floats!</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="c1"># slice indices have to be integers, not floats!</span>
 </pre></div>
 </div>
-<p>As an additional example, to get the 3rd character in <code class="docutils literal notranslate"><span class="pre">myString</span></code>, we
-would type <code class="docutils literal notranslate"><span class="pre">myString[2]</span></code> at the prompt and press ENTER:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myString</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># get the 3rd character in myString</span>
+<p>As an additional example, to get the 3rd character in <code class="docutils literal notranslate"><span class="pre">foo</span></code>, we would
+type <code class="docutils literal notranslate"><span class="pre">foo[2]</span></code> at the prompt and press ENTER:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># get the 3rd character in foo</span>
 </pre></div>
 </div>
-<p>Why does this give us the third character from <code class="docutils literal notranslate"><span class="pre">myString</span></code>? Well,
-remember that the first element of a <strong>str</strong> (or any sequence; more on
-that later) has an index of 0.</p>
+<p>Why does this give us the third character from <code class="docutils literal notranslate"><span class="pre">foo</span></code>? Well, remember
+that the first element of a <strong>str</strong> (or any sequence; more on that
+later) has an index of 0 - so, the third element has an index of 2.</p>
 <p>To access the last element of a <strong>str</strong> (or a sequence), we could count
 up all of the elements of the <strong>str</strong> and subtract one (remember that we
 start counting at 0, not 1), but python gives us an easier way:
-<strong>negative indexing</strong>.</p>
-<p>Thus, to get the last element of <code class="docutils literal notranslate"><span class="pre">myString</span></code>, we can type
-<code class="docutils literal notranslate"><span class="pre">myString[-1]</span></code>. To get the second-to-last element, we could type
-<code class="docutils literal notranslate"><span class="pre">myString[-2]</span></code>, and so on.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myString</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># get the last character in myString</span>
+<strong>negative indexing</strong>. Negative indexing starts from the end of the
+string (after all of the</p>
+<p>Thus, to get the last element of <code class="docutils literal notranslate"><span class="pre">foo</span></code>, we can type <code class="docutils literal notranslate"><span class="pre">foo[-1]</span></code>. To
+get the second-to-last element, we could type <code class="docutils literal notranslate"><span class="pre">foo[-2]</span></code>, and so on:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># get the last character in myString</span>
 </pre></div>
 </div>
 <p>If we want to access more than one element of the string, we can use
 multiple indices, with the basic form of:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sliced</span> <span class="o">=</span> <span class="n">myString</span><span class="p">[</span><span class="n">first</span><span class="p">:</span><span class="n">last</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sliced</span> <span class="o">=</span> <span class="n">myString</span><span class="p">[</span><span class="n">first</span><span class="p">:</span><span class="n">last</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>This will select the letters of the string starting at index <code class="docutils literal notranslate"><span class="pre">first</span></code>
 up to, <strong>but not including</strong>, <code class="docutils literal notranslate"><span class="pre">last</span></code>.</p>
-<p>This is also called <strong>slicing</strong>. What does the command <code class="docutils literal notranslate"><span class="pre">myString[1:5]</span></code>
-return?</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myString</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+<p>This is also called <strong>slicing</strong>. Before running the cell below, think
+about what the result should be. Does it match your expectation?</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>If we want to find an element in a string, we can use the
 helpfully-named built-in function (or method) <code class="docutils literal notranslate"><span class="pre">find()</span></code>. For example,
-typing myString.find(’W’) will return the index of the letter ’W’. What
-happens if the given letter (or substring) isn’t found in the string?
-Remember to use the <code class="docutils literal notranslate"><span class="pre">help()</span></code> function if you get stuck.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myString</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span> <span class="c1"># find the index of the character W in myString</span>
+typing <code class="docutils literal notranslate"><span class="pre">foo.find('W')</span></code> will return the index of the letter <code class="docutils literal notranslate"><span class="pre">W</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span> <span class="c1"># find the index of the character W in myString</span>
 </pre></div>
 </div>
-<p>Finally, although we can’t subtract or divide strings, we do have two
-operators at our disposal: <code class="docutils literal notranslate"><span class="pre">+</span></code> (concatenation) and <code class="docutils literal notranslate"><span class="pre">*</span></code> (repeated
-concatenation).</p>
+<p>Note that if a given letter (or pattern) occurs more than once,
+<code class="docutils literal notranslate"><span class="pre">.find()</span></code> will only tell us the index of the <em>first</em> occurrence:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">)</span> <span class="c1"># will tell us the index of the first</span>
+</pre></div>
+</div>
+<p>Have a look at the
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#string-methods">documentation</a>
+for <code class="docutils literal notranslate"><span class="pre">str</span></code> to see if you can find a method that will give you the index
+of the <em>last</em> occurrence of a pattern in a string, then use that in the
+cell below to find the index of the last <code class="docutils literal notranslate"><span class="pre">l</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># insert your code to find the index of the last l here</span>
+</pre></div>
+</div>
+<p>If the pattern isn’t found in the string, <code class="docutils literal notranslate"><span class="pre">find()</span></code> returns a value of
+<code class="docutils literal notranslate"><span class="pre">-1</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="c1"># what will this return?</span>
+</pre></div>
+</div>
+<p>As you can see from the documentation linked above, <strong>str</strong> objects have
+a wide range of methods available. We won’t go through these in detail,
+but we will make use of more of them over the remainder of this class.</p>
+<p>Finally, we’ll look at some of the operators that we can use with
+<strong>str</strong> objects. Although we can’t subtract or divide strings, we do
+have two operators at our disposal: <code class="docutils literal notranslate"><span class="pre">+</span></code> (concatenation) and <code class="docutils literal notranslate"><span class="pre">*</span></code>
+(repeated concatenation).</p>
 <p>Before running the cell below, what do you expect will be stored in each
 variable below? Does the result match what you expected?</p>
 <ul class="simple">
@@ -926,13 +980,13 @@ variable below? Does the result match what you expected?</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newString</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span> <span class="o">+</span> <span class="s2">&quot;World!&quot;</span>
 <span class="n">repString</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span> <span class="o">*</span> <span class="mi">5</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;newString is: &#39;</span><span class="p">,</span> <span class="n">newString</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;repString is: &#39;</span><span class="p">,</span> <span class="n">repString</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;newString is: </span><span class="si">{</span><span class="n">new_string</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;repString is: </span><span class="si">{</span><span class="n">rep_string</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="lists">
-<h3>5. Lists<a class="headerlink" href="#lists" title="Permalink to this heading">#</a></h3>
+<h3>lists<a class="headerlink" href="#lists" title="Permalink to this heading">#</a></h3>
 <p><strong>list</strong>s are an incredibly powerful and versatile data type we can
 use in python to store a sequence of values.</p>
 <p>Any other data type can be inserted into a <strong>list</strong>, including other
@@ -945,27 +999,30 @@ use in python to store a sequence of values.</p>
 <p>Like with <strong>str</strong> objects, we can access and manipulate <strong>list</strong> objects
 using indexing and slicing techniques, in much the same way.</p>
 <p>Can you write a command below to <code class="docutils literal notranslate"><span class="pre">print()</span></code> ‘Grapes’ by using the
-corresponding index from the <strong>list</strong>?</p>
+corresponding index from <code class="docutils literal notranslate"><span class="pre">fruits</span></code>?</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">()</span> <span class="c1">#insert the correct command inside the ()</span>
 </pre></div>
 </div>
 <p>If we want to access more than one element of a list, we can slice the
 list, using the same syntax as with the <code class="docutils literal notranslate"><span class="pre">myString</span></code> examples above.</p>
-<p>What do you think will print if you type <code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">fruits[2:-1]</span></code> in the
-cell below?</p>
-<p>What about <code class="docutils literal notranslate"><span class="pre">print(fruits[2:-1][0])</span></code>? <code class="docutils literal notranslate"><span class="pre">print(fruits[2:-1][0][4])</span></code>?
-Try it and see!</p>
-<p><strong>NB!</strong> while indexing a list returns the value of a single element, a
-list slice is itself a list. This difference is subtle, but important to
-remember.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># what does this operation return?</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># what about this one?</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span> <span class="c1"># and this one?</span>
+<p>What do you think will print when you run the cell below?</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fruits</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># think about what this output will look like</span>
 </pre></div>
 </div>
+<p>What about this cell?</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fruits</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># what will this show?</span>
+</pre></div>
 </div>
-<div class="section" id="functions-and-methods">
-<h3>6. Functions and Methods<a class="headerlink" href="#functions-and-methods" title="Permalink to this heading">#</a></h3>
+<p>and finally, what about this?</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fruits</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>As you can see from the examples above, while indexing a <strong>list</strong>
+returns the value of a single element, a <strong>list</strong> slice is itself a
+<strong>list</strong>. This difference is subtle, but important to remember.</p>
+</div>
+<div class="section" id="classes-functions-and-methods">
+<h3>classes, functions and methods<a class="headerlink" href="#classes-functions-and-methods" title="Permalink to this heading">#</a></h3>
 <p>In programming, a <strong>function</strong> is essentially a short program that we
 can use to perform a specific action.</p>
 <p>Functions take in <strong>parameters</strong> in the form of <strong>arguments</strong>, and
@@ -973,9 +1030,10 @@ can use to perform a specific action.</p>
 <p>Parameters can be <strong>positional</strong> (in other words, the order they are
 given matters), or they can be <strong>keyword</strong> (i.e., you specify the
 argument with the parameter name, in the form <code class="docutils literal notranslate"><span class="pre">parameter=value</span></code>).</p>
-<p>Python has a number of built-in functions for us to use. For example,
-instead of typing <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">8</span></code> earlier, we could instead have typed
-<strong>pow(2,8)</strong>:</p>
+<p>Python has a number of built-in functions for us to - we have already
+seen a few examples such as <code class="docutils literal notranslate"><span class="pre">print()</span></code> and <code class="docutils literal notranslate"><span class="pre">help()</span></code>. As another
+example, instead of typing <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">8</span></code> earlier, we could instead have
+typed <code class="docutils literal notranslate"><span class="pre">pow(2,8)</span></code>:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;using the ** operator: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">8</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;using the pow() function: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)))</span>
 </pre></div>
@@ -984,10 +1042,11 @@ instead of typing <code class="docutils literal notranslate"><span class="pre">2
 <strong>positional</strong> arguments <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">8</span></code>. The result returned is the
 same, <code class="docutils literal notranslate"><span class="pre">256</span></code> (or 28), but the approach used is different.</p>
 <p>If you want to see a list of <strong>built-in</strong> functions and classes in
-python, you can type <code class="docutils literal notranslate"><span class="pre">print(dir(__builtins__))</span></code> (note the two
+python, have a look at the python
+<a class="reference external" href="https://docs.python.org/3/library/functions.html">documentation</a>.</p>
+<p>Alternatively, you can type <code class="docutils literal notranslate"><span class="pre">print(dir(__builtins__))</span></code> (note the two
 underscores on either side of <strong>builtins</strong>):</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">__builtins__</span><span class="p">))</span>
-<span class="go">[&#39;ArithmeticError&#39;, &#39;AssertionError&#39;, &#39;AttributeError&#39;, &#39;BaseException&#39;, &#39;BlockingIOError&#39;, &#39;BrokenPipeError&#39;, &#39;BufferError&#39;, &#39;BytesWarning&#39;, &#39;ChildProcessError&#39;, &#39;ConnectionAbortedError&#39;, &#39;ConnectionError&#39;, &#39;ConnectionRefusedError&#39;, &#39;ConnectionResetError&#39;, &#39;DeprecationWarning&#39;, &#39;EOFError&#39;, &#39;Ellipsis&#39;, &#39;EnvironmentError&#39;, &#39;Exception&#39;, &#39;False&#39;, &#39;FileExistsError&#39;, &#39;FileNotFoundError&#39;, &#39;FloatingPointError&#39;, &#39;FutureWarning&#39;, &#39;GeneratorExit&#39;, &#39;IOError&#39;, &#39;ImportError&#39;, &#39;ImportWarning&#39;, &#39;IndentationError&#39;, &#39;IndexError&#39;, &#39;InterruptedError&#39;, &#39;IsADirectoryError&#39;, &#39;KeyError&#39;, &#39;KeyboardInterrupt&#39;, &#39;LookupError&#39;, &#39;MemoryError&#39;, &#39;ModuleNotFoundError&#39;, &#39;NameError&#39;, &#39;None&#39;, &#39;NotADirectoryError&#39;, &#39;NotImplemented&#39;, &#39;NotImplementedError&#39;, &#39;OSError&#39;, &#39;OverflowError&#39;, &#39;PendingDeprecationWarning&#39;, &#39;PermissionError&#39;, &#39;ProcessLookupError&#39;, &#39;RecursionError&#39;, &#39;ReferenceError&#39;, &#39;ResourceWarning&#39;, &#39;RuntimeError&#39;, &#39;RuntimeWarning&#39;, &#39;StopAsyncIteration&#39;, &#39;StopIteration&#39;, &#39;SyntaxError&#39;, &#39;SyntaxWarning&#39;, &#39;SystemError&#39;, &#39;SystemExit&#39;, &#39;TabError&#39;, &#39;TimeoutError&#39;, &#39;True&#39;, &#39;TypeError&#39;, &#39;UnboundLocalError&#39;, &#39;UnicodeDecodeError&#39;, &#39;UnicodeEncodeError&#39;, &#39;UnicodeError&#39;, &#39;UnicodeTranslateError&#39;, &#39;UnicodeWarning&#39;, &#39;UserWarning&#39;, &#39;ValueError&#39;, &#39;Warning&#39;, &#39;ZeroDivisionError&#39;, &#39;_&#39;, &#39;__build_class__&#39;, &#39;__debug__&#39;, &#39;__doc__&#39;, &#39;__import__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;abs&#39;, &#39;all&#39;, &#39;any&#39;, &#39;ascii&#39;, &#39;bin&#39;, &#39;bool&#39;, &#39;breakpoint&#39;, &#39;bytearray&#39;, &#39;bytes&#39;, &#39;callable&#39;, &#39;chr&#39;, &#39;classmethod&#39;, &#39;compile&#39;, &#39;complex&#39;, &#39;copyright&#39;, &#39;credits&#39;, &#39;delattr&#39;, &#39;dict&#39;, &#39;dir&#39;, &#39;divmod&#39;, &#39;enumerate&#39;, &#39;eval&#39;, &#39;exec&#39;, &#39;exit&#39;, &#39;filter&#39;, &#39;float&#39;, &#39;format&#39;, &#39;frozenset&#39;, &#39;getattr&#39;, &#39;globals&#39;, &#39;hasattr&#39;, &#39;hash&#39;, &#39;help&#39;, &#39;hex&#39;, &#39;id&#39;, &#39;input&#39;, &#39;int&#39;, &#39;isinstance&#39;, &#39;issubclass&#39;, &#39;iter&#39;, &#39;len&#39;, &#39;license&#39;, &#39;list&#39;, &#39;locals&#39;, &#39;map&#39;, &#39;max&#39;, &#39;memoryview&#39;, &#39;min&#39;, &#39;next&#39;, &#39;object&#39;, &#39;oct&#39;, &#39;open&#39;, &#39;ord&#39;, &#39;pow&#39;, &#39;print&#39;, &#39;property&#39;, &#39;quit&#39;, &#39;range&#39;, &#39;repr&#39;, &#39;reversed&#39;, &#39;round&#39;, &#39;set&#39;, &#39;setattr&#39;, &#39;slice&#39;, &#39;sorted&#39;, &#39;staticmethod&#39;, &#39;str&#39;, &#39;sum&#39;, &#39;super&#39;, &#39;tuple&#39;, &#39;type&#39;, &#39;vars&#39;, &#39;zip&#39;]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">__builtins__</span><span class="p">))</span> <span class="c1"># show a list of all of the builtin functions</span>
 </pre></div>
 </div>
 <p>While it may not be completely clear at first what each of these things
@@ -996,14 +1055,14 @@ information.</p>
 <p>For example, one very useful built-in <strong>class</strong> is <code class="docutils literal notranslate"><span class="pre">range</span></code>
 (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#range">documentation</a>).</p>
 <p>To create a new <strong>range</strong> object, we call it like we would a function:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">range</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">range</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span>
 <span class="nb">range</span><span class="p">([</span><span class="n">start</span><span class="p">,]</span> <span class="n">stop</span> <span class="p">[,</span><span class="n">step</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>“Under the hood”, so to speak, remember that this is actually calling
-the <strong>__init__()</strong> method of the <strong>class</strong>, which is the <strong>function</strong>
+<p>“Under the hood”, so to speak, this is actually calling the
+<strong>__init__()</strong> method of the <strong>class</strong>, which is the <strong>function</strong>
 that python uses to <em>initialize</em>, or create, a new object.</p>
-<p>Note that <strong>range()</strong> takes between one and three arguments:</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">range()</span></code> takes between one and three arguments:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">range(stop)</span></code> creates a <strong>range</strong> object that will “count” from 0
 up to (<strong>but not including</strong>) <code class="docutils literal notranslate"><span class="pre">stop</span></code>, incrementing by 1.</p></li>
@@ -1022,15 +1081,17 @@ counting from a <code class="docutils literal notranslate"><span class="pre">sta
     <span class="nb">print</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A <strong>method</strong> is a type of <strong>function</strong> that acts directly on an object.</p>
-<p>In general, methods are called just like functions - the general syntax
-is <code class="docutils literal notranslate"><span class="pre">object.method(arguments)</span></code>.</p>
-<p>For example, <strong>str</strong> objects have a <strong>method</strong>, <code class="docutils literal notranslate"><span class="pre">str.count()</span></code>, which
-counts the number of times a character (or substring) occurs in the
-<strong>str</strong>.</p>
+<p>A <strong>method</strong> is a type of <strong>function</strong> that acts directly on an object -
+we have seen examples of this already with <code class="docutils literal notranslate"><span class="pre">str.find()</span></code>. In general,
+methods are called just like functions - the general syntax is
+<code class="docutils literal notranslate"><span class="pre">object.method(arguments)</span></code>.</p>
+<p>For example, <strong>str</strong> objects have a <strong>method</strong>, <code class="docutils literal notranslate"><span class="pre">.count()</span></code>
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.split">documentation</a>,
+which counts the number of times a character (or substring) occurs in
+the <strong>str</strong>.</p>
 <p>If you type <code class="docutils literal notranslate"><span class="pre">topic</span> <span class="pre">=</span> <span class="pre">&quot;Geographic</span> <span class="pre">Information</span> <span class="pre">Systems&quot;</span></code> into the
 interpreter, what would you expect the result of <code class="docutils literal notranslate"><span class="pre">topic.count(&quot;i&quot;)</span></code> to
-be? What about topic.count(“s”)?</p>
+be? What about <code class="docutils literal notranslate"><span class="pre">topic.count(&quot;s&quot;)</span></code>?</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">topic</span> <span class="o">=</span> <span class="s2">&quot;Geographic Information Systems&quot;</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">topic</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">topic</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">))</span>
@@ -1039,24 +1100,14 @@ be? What about topic.count(“s”)?</p>
 <p>Another powerful <strong>str</strong> method is <code class="docutils literal notranslate"><span class="pre">str.split()</span></code>, which returns a
 <strong>list</strong> of the given <strong>str</strong>, split into substrings based on the
 delimeter provided as an argument:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">)</span>
-
-<span class="go">split(self, /, sep=None, maxsplit=-1)</span>
-<span class="go">    Return a list of the words in the string, using sep as the delimiter string.</span>
-
-<span class="go">    sep</span>
-<span class="go">      The delimiter according which to split the string.</span>
-<span class="go">      None (the default value) means split according to any whitespace,</span>
-<span class="go">      and discard empty strings from the result.</span>
-<span class="go">    maxsplit</span>
-<span class="go">      Maximum number of splits to do.</span>
-<span class="go">      -1 (the default value) means no limit.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">topic</span><span class="o">.</span><span class="n">split</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>From this, we can see that if we call <code class="docutils literal notranslate"><span class="pre">topic.split()</span></code> without any
 arguments at all, it will split <code class="docutils literal notranslate"><span class="pre">topic</span></code> based on any whitespace and
-discard any <em>empty</em> strings. That is, if we have multiple spaces in our
-string, it will treat those as a single space:</p>
+discard any <em>empty</em> strings.</p>
+<p>That is, if we have multiple spaces in our string, it will treat those
+as a single space:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">singlespace</span> <span class="o">=</span> <span class="s1">&#39;Geographic Information Systems&#39;</span>
 <span class="n">multispace</span> <span class="o">=</span> <span class="s1">&#39;Geographic   Information  Systems&#39;</span>
 
@@ -1066,46 +1117,39 @@ string, it will treat those as a single space:</p>
 </div>
 <p>If we want to specify a single space character (<code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">'</span></code>), though, the
 result will change:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">singlespace</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-<span class="n">multispace</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">singlespace</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="c1"># split on a single space</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">multispace</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="c1"># split on a single space</span>
 </pre></div>
 </div>
 <p>Using <code class="docutils literal notranslate"><span class="pre">str.split()</span></code> and an additional method to change all of the
 letters in the <strong>str</strong> to <em>lower</em> -case, can you get the following
 result in the cell below?</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">topic</span> <span class="o">=</span> <span class="s1">&#39;Remote Sensing and Geographic Information Systems&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># something else goes here</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">topic</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">))</span>
-<span class="go">[&#39;Remote Sen&#39;, &#39;ing and Geographic Information Sy&#39;, &#39;tem&#39;, &#39;&#39;]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;remote &#39;</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;ing and geographic information &#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;tem&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">topic</span> <span class="o">=</span> <span class="s1">&#39;Remote Sensing and Geographic Information Systems&#39;</span>
-<span class="c1"># something else goes here</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">topic</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">topic</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">))</span> <span class="c1"># edit this line to get the result shown above</span>
 </pre></div>
 </div>
+</div>
 <div class="section" id="defining-our-own-functions">
-<h4>6.1 Defining our own functions<a class="headerlink" href="#defining-our-own-functions" title="Permalink to this heading">#</a></h4>
+<h3>defining our own functions<a class="headerlink" href="#defining-our-own-functions" title="Permalink to this heading">#</a></h3>
 <p>Often, we will want to define our own <strong>function</strong>s. Using functions
-has many benefits, including:</p>
-<ul class="simple">
-<li><p>improving readability,</p></li>
-<li><p>eliminating repetitive code,</p></li>
-<li><p>allowing for easier debugging of a program,</p></li>
-<li><p>and even allowing us to re-use code in other scripts/programs.</p></li>
-</ul>
+has many benefits, including: * improving readability, * eliminating
+repetitive code, * allowing for easier debugging of a program, * and
+even allowing us to re-use code in other scripts/programs.</p>
 <p>Defining a <strong>function</strong> in python is quite easy.</p>
 <p>We begin the definition with a <code class="docutils literal notranslate"><span class="pre">def</span></code> <strong>statement</strong> that includes the
 function name and all parameters (this first line is called the
 <strong>header</strong>). The header must end with a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>):</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cat_twice</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cat_twice</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
 </pre></div>
 </div>
 <p>The <strong>body</strong> of the function (i.e., the set of instructions that make up
 the function) are <em>indented</em> - like other forms of flow control in
 python, once the interpreter sees a non-indented line, it marks the end
 of the function:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cat_twice</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cat_twice</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
    <span class="n">cat</span> <span class="o">=</span> <span class="n">str1</span> <span class="o">+</span> <span class="n">str2</span>
    <span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span> <span class="c1"># this is part of the function</span>
    <span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span> <span class="c1"># this is part of the function</span>
@@ -1113,29 +1157,22 @@ of the function:</p>
 <span class="c1"># this is no longer part of the function</span>
 </pre></div>
 </div>
-<p>Let’s say that we want to define a function to <strong>concatenate</strong> (add
-together) two strings, and print the resulting string two times:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cat_twice</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
-    <span class="n">cat</span> <span class="o">=</span> <span class="n">str1</span> <span class="o">+</span> <span class="n">str2</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<p>To help illustrate this, let’s define a function for calculating the
+area of a circle. Mathematically, this is a function of the radius of
+the circle - equal to the constant pi multiplied by the radius squared.
+Run the cell below to create the new function, and then test it:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span> <span class="c1"># import the constant pi from the math module</span>
+
+<span class="k">def</span> <span class="nf">circle_area</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span> <span class="c1"># calculate the area of the circle using the radius argument</span>
+    <span class="k">return</span> <span class="n">area</span> <span class="c1"># use return to get a value back from the function</span>
+
+<span class="n">circle_area</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># get the area of a circle with radius 10 (should be 314.15926 ...)</span>
 </pre></div>
 </div>
-<p>That’s it. Simple, right? Now, we can use our function by calling it
-like any other function:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat_twice</span><span class="p">(</span><span class="s1">&#39;bing tiddle &#39;</span><span class="p">,</span> <span class="s1">&#39;tiddle bing&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Notice that our function doesn’t return anything, however - it just
-prints to the screen. Functions like this that don’t return any a value
-are called <strong>void</strong> functions. To see what happens if we try to assign
-the result of such a function, run the cell below:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">cat_twice</span><span class="p">(</span><span class="s1">&#39;bing tiddle &#39;</span><span class="p">,</span> <span class="s1">&#39;tiddle bing&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>If we want to return something from a function, we use a <code class="docutils literal notranslate"><span class="pre">return</span></code>
-<strong>statement</strong>, followed by the variable(s) that we want to return:</p>
+<p>Remember that if we want to return something from a function, we use a
+<code class="docutils literal notranslate"><span class="pre">return</span></code> <strong>statement</strong>, followed by the variable(s) that we want to
+return:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cat_twice_return</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span>
     <span class="n">cat</span> <span class="o">=</span> <span class="n">str1</span> <span class="o">+</span> <span class="n">str2</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
@@ -1143,68 +1180,44 @@ the result of such a function, run the cell below:</p>
     <span class="k">return</span> <span class="n">cat</span>
 </pre></div>
 </div>
-<p>Using what you have learned about functions, define your own function
-below to split a string on a given character (letter), regardless of
-whether that character in the original string is upper or lowercase:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">special_split</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">sep</span><span class="p">):</span>
-    <span class="c1"># so the two parameters our function will use are string,</span>
-    <span class="c1"># the string to split, and sep, the character to split on.</span>
-    <span class="k">pass</span> <span class="c1"># replace this line with the body of your function</span>
+<p>In the cell below, I’ve started two more functions for calculating the
+surface area and volume of a sphere. For each function, fill in the code
+that will return the correct result, then confirm that your function
+output matches the values shown in the comment on each line.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sphere_area</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="c1"># your code goes here!</span>
 
-<span class="n">topic</span> <span class="o">=</span> <span class="s1">&#39;Remote Sensing and Geographic Information Systems&#39;</span>
-<span class="n">my_split</span> <span class="o">=</span> <span class="n">special_split</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">my_split</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sphere_volume</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+    <span class="c1"># your code goes here!</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sphere_area</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># get the surface area of a sphere with radius 10 (should be 1256.637)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sphere_volume</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># get the volume of a sphere with radius 10 (should be 4188.79)</span>
 </pre></div>
 </div>
 </div>
-</div>
 <div class="section" id="controlling-flow">
-<h3>7. Controlling Flow<a class="headerlink" href="#controlling-flow" title="Permalink to this heading">#</a></h3>
+<h3>controlling flow<a class="headerlink" href="#controlling-flow" title="Permalink to this heading">#</a></h3>
 <p>Some of the most important uses that we’ll have for programming are
 repeating tasks and executing different code based on some condition.
 For example, we might want to loop through a list of files and run a
 series of commands on each file, or apply an analysis only if the right
 conditions are met.</p>
 <p>In python, we can use the <code class="docutils literal notranslate"><span class="pre">while</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code>, and <code class="docutils literal notranslate"><span class="pre">if</span></code> operators to
-control the flow of our programs. For example, given a number, we might
-want to check whether the value is positive, negative, or zero, and
-perform a different action based on which condition is <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pos_neg_zero</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is a positive number&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is a negative number&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is zero&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+control the flow of our programs.</p>
+<p>For example, given a number, we might want to check whether the value is
+positive, negative, or zero, and perform a different action based on
+which condition is <code class="docutils literal notranslate"><span class="pre">True</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pos_neg_zero</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="c1"># a function to tell us whether a number is positive, negative, or 0</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># if x &gt; 0, print that it is positive</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1"> is a positive number&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># if x &lt; 0, print that it is negative</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1"> is a negative number&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># if</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1"> is zero&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Here, we take in a number, <code class="docutils literal notranslate"><span class="pre">x</span></code>, and execute code based on whether
 <code class="docutils literal notranslate"><span class="pre">x</span></code> is positive, negative, or zero.</p>
-<p>Note that in the following:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is a positive number&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>we are using the <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> method
-(<a class="reference external" href="https://docs.python.org/3/tutorial/inputoutput.html#the-string-format-method">documentation</a>)
-to insert the value of <code class="docutils literal notranslate"><span class="pre">x</span></code> into the <code class="docutils literal notranslate"><span class="pre">str</span></code> where the curly brackets
-(<code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code>) are, before printing it to the screen:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is a positive number&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="go">2 is a positive number</span>
-</pre></div>
-</div>
-<p>We can use this to insert as many values into our <code class="docutils literal notranslate"><span class="pre">str</span></code> as we like, so
-long as there are the same number of <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code> available:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is larger than </span><span class="si">{}</span><span class="s1">`.format(y, x))</span>
-<span class="go">3 is larger than 2</span>
-</pre></div>
-</div>
-<p>Note also that the order matters - the first argument to
-<code class="docutils literal notranslate"><span class="pre">str.format()</span></code> goes into the first <code class="docutils literal notranslate"><span class="pre">{}</span></code>, the second argument into
-the second <code class="docutils literal notranslate"><span class="pre">{}</span></code>, and so on. We’ll use this a bit more later to
-<code class="docutils literal notranslate"><span class="pre">print()</span></code> nicely-formatted numeric results, as well.</p>
-<p>Anyway, back to <code class="docutils literal notranslate"><span class="pre">if</span></code>/<code class="docutils literal notranslate"><span class="pre">elif</span></code>/<code class="docutils literal notranslate"><span class="pre">else</span></code> statements.</p>
 <p>Like the header of a function, an <code class="docutils literal notranslate"><span class="pre">if</span></code> <strong>statement</strong> has to be
 terminated with a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>).</p>
 <p>If we have multiple options, we can use an <code class="docutils literal notranslate"><span class="pre">elif</span></code> <strong>statement</strong>. There
@@ -1213,18 +1226,38 @@ that the order matters - once a condition is evaluated as <code class="docutils 
 indented code is executed and the whole block is exited.</p>
 <p>For this reason, an <code class="docutils literal notranslate"><span class="pre">else</span></code> <strong>statement</strong> is optional, but it must
 always be last (since it automatically evaluates as <code class="docutils literal notranslate"><span class="pre">True</span></code>).</p>
-<p>In the cell below, write a function to compare two numbers, <code class="docutils literal notranslate"><span class="pre">x</span></code> and
-<code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">print()</span></code> a statement based on the comparison (including
-the possibility that they are equal).</p>
+<p>Run the cell below to see how the output of the function changes based
+on the input:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_neg_zero</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># a negative number</span>
+<span class="n">pos_neg_zero</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># a positive number</span>
+<span class="n">pos_neg_zero</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># a weird one</span>
+</pre></div>
+</div>
+<p>Note that in the example above, <code class="docutils literal notranslate"><span class="pre">False</span></code> has evaluated as being equal
+to zero. This is because in python, <strong>bool</strong> (“Boolean”) objects
+(<code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>) are subclasses of <strong>int</strong>, and <code class="docutils literal notranslate"><span class="pre">False</span></code> has a
+value of <code class="docutils literal notranslate"><span class="pre">0</span></code>, while <code class="docutils literal notranslate"><span class="pre">True</span></code> has a value of <code class="docutils literal notranslate"><span class="pre">1</span></code>. For more on how
+python tests for truth values, see the
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#truth-value-testing">documentation</a>.</p>
+<p>Now, in the cell below, write your own function that takes in two
+arguments <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, and prints different output depending on
+which of the two numbers is larger:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">which_is_greater</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">pass</span> <span class="c1"># replace this line with your code</span>
 </pre></div>
 </div>
+<p>Next, test your function by running the cell below - you should see “2
+is greater than 1” printed in the first line, and “10 is less than 100”
+in the second:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">which_is_greater</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># say which is greater, 2 or 1</span>
+<span class="n">which_is_greater</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="c1"># say which is greater, 10 or 100</span>
+</pre></div>
+</div>
 <p>In addition to conditional flow, we might also want to repeat actions.
 For example, we can write a simple function that counts down to some
-event, then announces the arrival of that event. We could define this
-function using a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop, making sure to update a variable in
-each step:</p>
+event, then announces the arrival of that event.</p>
+<p>We could define this function using a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop, making sure to
+update a variable in each step:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -1240,18 +1273,19 @@ running (an <strong>infinite loop</strong>).</p>
 <p><code class="docutils literal notranslate"><span class="pre">while</span></code> loops are useful for actions without a pre-defined number of
 repetitions. We could just as easily re-define <code class="docutils literal notranslate"><span class="pre">countdown()</span></code> using a
 <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, using something else we’ve seen before:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">countdown_for</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">countdown_for</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Blastoff!&quot;</span><span class="p">)</span>
+
+<span class="n">countdown_for</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># run the function to count down from 5</span>
 </pre></div>
 </div>
 <p>This version uses <code class="docutils literal notranslate"><span class="pre">range</span></code> to iterate from <code class="docutils literal notranslate"><span class="pre">n</span></code> to 1 in increments of
 -1, printing the value of <code class="docutils literal notranslate"><span class="pre">i</span></code> each time - that is, we leave <code class="docutils literal notranslate"><span class="pre">n</span></code>
 unchanged.</p>
-<p>We can also use the <code class="docutils literal notranslate"><span class="pre">break</span></code> and <code class="docutils literal notranslate"><span class="pre">continue</span></code> statements to <strong>break</strong>
-out of a loop, or to <strong>continue</strong> to the next step of a loop:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">break_example</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<p>We can also use the <code class="docutils literal notranslate"><span class="pre">break</span></code> statement to <strong>break</strong> out of a loop:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">break_example</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="c1"># prints values from n to 1, then Blastoff!</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># here, the loop will always run</span>
     <span class="c1"># unless we reach a condition</span>
@@ -1262,71 +1296,65 @@ out of a loop, or to <strong>continue</strong> to the next step of a loop:</p>
         <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Blastoff!&quot;</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">continue_example</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="n">break_example</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># run the function to count down from 5</span>
+</pre></div>
+</div>
+<p>or the <code class="docutils literal notranslate"><span class="pre">continue</span></code> statement to continue to the next step of a loop:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">continue_example</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="c1"># given an integer, n, prints the values from 0 to n that are even.</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is even&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">continue_example</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># print the even integers from 0 to 9 (remember that range(n) is not inclusive!)</span>
 </pre></div>
 </div>
-<p>In the cell below, write a function to print the even values from 1 to
-n, unless the value is divisible by 3 or 4.</p>
+<p>Using the information above, write a function that will print the values
+from 1 to an integer <code class="docutils literal notranslate"><span class="pre">n</span></code> that are even, unless those values are also
+divisible by 3 <strong>or</strong> 4:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evenNoThreesorFours</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="c1"># given an integer n, prints values from 1 to n that are even, unless they are divisible by 3 or 4.</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
         <span class="k">pass</span> <span class="c1"># your code goes here</span>
 </pre></div>
 </div>
-<p>(<em>Hint: you can use the ``%`` operator to determine whether one number
-is divisble by another</em>).</p>
+<p>(<em>Hint: remember that you can use the ``%`` operator to determine
+whether one number is divisble by another</em>).</p>
 </div>
 <div class="section" id="importing-modules">
-<h3>8. Importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this heading">#</a></h3>
+<h3>importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this heading">#</a></h3>
 <p>Modules provide a convenient way to package functions and object
 classes, and load these items when needed. This also means that we only
 end up loading the functionality that we need, which helps save on
 memory and other resources.</p>
-<p>We have already imported one such module, the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module. Another
-useful module to use is the <code class="docutils literal notranslate"><span class="pre">math</span></code> module, which provides much more
-than the built-in operators we explored earlier. Run the following cell:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<p>We have already imported one such module, the <code class="docutils literal notranslate"><span class="pre">sys</span></code> module, and above
+where we imported <code class="docutils literal notranslate"><span class="pre">pi</span></code> from the <code class="docutils literal notranslate"><span class="pre">math</span></code> module. Note that when we
+used <code class="docutils literal notranslate"><span class="pre">from</span></code>, we <em>only</em> imported the attribute <code class="docutils literal notranslate"><span class="pre">pi</span></code> - this means that
+we don’t have access to any of the other functions, classes, or
+attributes within the <code class="docutils literal notranslate"><span class="pre">math</span></code> module - only <code class="docutils literal notranslate"><span class="pre">pi</span></code>.</p>
+<p>When we import the entire module, we can access the attributes, classes,
+functions, etc. using a <code class="docutils literal notranslate"><span class="pre">.</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="c1"># import the entire math module</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;math.pi is equal to: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pi is equal to:      </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pi</span><span class="p">))</span>
-
-<span class="n">h1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">10.19</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;math.floor(10.19) is equal to: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h1</span><span class="p">))</span>
-
-<span class="n">h2</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="mf">10.19</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;floor(10.19) is equal to:      </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="c1"># print the value of math.pi</span>
 </pre></div>
 </div>
-<p>There are a few things to pay attention to here. First, notice that the
-syntax for calling functions from a module is the same as calling a
-method: <code class="docutils literal notranslate"><span class="pre">module.function(arguments)</span></code>.</p>
-<p>You should also notice that we can <strong>import</strong> a whole module
-(<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span></code>) or <strong>import</strong> an attribute, class, or function from a
-module (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">math</span> <span class="pre">import</span> <span class="pre">pi</span></code>).</p>
 <p>When we specifically name the things we want to import, we only have
 access to those things - importing <code class="docutils literal notranslate"><span class="pre">pi</span></code> from <code class="docutils literal notranslate"><span class="pre">math</span></code> does not also
-import <code class="docutils literal notranslate"><span class="pre">floor</span></code> - hence, the error message.</p>
-<p>It is also possible to <strong>import</strong> all of the functions and classes from
-a given module (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">math</span> <span class="pre">import</span> <span class="pre">*</span></code>), but this is not really
-recommended - why do you think this is?</p>
-<p>Modify the cell above to <strong>import</strong> both <code class="docutils literal notranslate"><span class="pre">floor</span></code> and <code class="docutils literal notranslate"><span class="pre">pi</span></code> from
-<code class="docutils literal notranslate"><span class="pre">math</span></code>, and run the cell again. Remember that to <strong>import</strong> multiple
-things from a single module, you can separate them by commas:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span>
+import <code class="docutils literal notranslate"><span class="pre">floor</span></code> - hence, the error message when you run the cell below:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;math.floor(10.19) is equal to: </span><span class="si">{</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">10.19</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># print the output of math.floor(10.19)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;floor(10.19) is equal to:      </span><span class="si">{</span><span class="n">floor</span><span class="p">(</span><span class="mf">10.19</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># print the output of floor(10.19)</span>
 </pre></div>
 </div>
-<p>Notice also that <strong>math.pi</strong> is not a <strong>method</strong>, but an <strong>attribute</strong>.
-You can check this for yourself by typing <code class="docutils literal notranslate"><span class="pre">math.pi()</span></code> into the
-interpreter and seeing the result.</p>
+<p>To import multiple things from a single module, you can separate them by
+commas:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span> <span class="c1"># import pi, floor, sin, cos, and tan from math</span>
+</pre></div>
 </div>
-<div class="section" id="working-with-shapefiles">
-<h3>9. Working with shapefiles<a class="headerlink" href="#working-with-shapefiles" title="Permalink to this heading">#</a></h3>
+</div>
+<div class="section" id="example-working-with-shapefiles">
+<h3>example: working with shapefiles<a class="headerlink" href="#example-working-with-shapefiles" title="Permalink to this heading">#</a></h3>
 <p>When using vector data in this course, we will primarily work with
 <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> (<a class="reference external" href="http://geopandas.org/">documentation</a>), “an open
 source project to make working with geospatial data in python easier.”</p>
@@ -1346,18 +1374,17 @@ first have to <strong>import</strong> <code class="docutils literal notranslate"
 want to use a <strong>method</strong> or <strong>class</strong> from the <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> package, we
 instead type <code class="docutils literal notranslate"><span class="pre">gpd</span></code>. You will most likely see this syntax a lot - it’s
 mostly used to make the code easier to read (or out of laziness).</p>
-</div>
 <div class="section" id="a-note-on-filepaths">
-<h3>9.1 a note on filepaths<a class="headerlink" href="#a-note-on-filepaths" title="Permalink to this heading">#</a></h3>
+<h4>a note on filepaths<a class="headerlink" href="#a-note-on-filepaths" title="Permalink to this heading">#</a></h4>
 <p>On Windows computers, filepaths are separated using <code class="docutils literal notranslate"><span class="pre">\</span></code>. For example,
 on my Windows machine, this notebook file has the following path:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C:\Users\bob\egm722\Week1\Practical1.ipynb
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">bob</span>\<span class="n">egm722</span>\<span class="n">Week1</span>\<span class="n">Practical1</span><span class="o">.</span><span class="n">ipynb</span>
 </pre></div>
 </div>
 <p>This is a problem in python, because <code class="docutils literal notranslate"><span class="pre">\</span></code> is a protected character –
 specifically, it’s either used as a line continuation to split a string
 over multiple lines:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mystring</span> <span class="o">=</span> <span class="s1">&#39;this is a string that is split &#39;</span> <span class="o">+</span> \
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mystring</span> <span class="o">=</span> <span class="s1">&#39;this is a string that is split &#39;</span> <span class="o">+</span> \
 <span class="gp">... </span>           <span class="s1">&#39;over multiple lines&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mystring</span><span class="p">)</span>
 <span class="go">this is a string that is split over multiple lines</span>
@@ -1365,7 +1392,7 @@ over multiple lines:</p>
 </div>
 <p>Inside of a string, <code class="docutils literal notranslate"><span class="pre">\</span></code> <em>escapes</em> the next character - effectively, it
 makes the interpreter change how it processes it:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_escaped</span> <span class="o">=</span> <span class="s1">&#39;this isn&#39;</span><span class="n">t</span> <span class="n">going</span> <span class="n">to</span> <span class="n">work</span><span class="s1">&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_escaped</span> <span class="o">=</span> <span class="s1">&#39;this isn&#39;</span><span class="n">t</span> <span class="n">going</span> <span class="n">to</span> <span class="n">work</span><span class="s1">&#39;</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>
 <span class="w">    </span><span class="n">not_escaped</span> <span class="o">=</span> <span class="s1">&#39;this isn&#39;</span><span class="n">t</span> <span class="n">going</span> <span class="n">to</span> <span class="n">work</span><span class="s1">&#39;</span>
 <span class="w">                            </span><span class="pm">^</span>
@@ -1377,7 +1404,7 @@ makes the interpreter change how it processes it:</p>
 (<code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">going</span> <span class="pre">to</span> <span class="pre">work'</span></code>) doesn’t work, python raises a <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>.</p>
 <p>But, we can use <code class="docutils literal notranslate"><span class="pre">\</span></code> to make python see that the single quote in the
 middle of the <strong>str</strong> should be treated as part of the <strong>str</strong>:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">escaped</span> <span class="o">=</span> <span class="s1">&#39;this isn</span><span class="se">\&#39;</span><span class="s1">t going to cause a problem.&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">escaped</span> <span class="o">=</span> <span class="s1">&#39;this isn</span><span class="se">\&#39;</span><span class="s1">t going to cause a problem.&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">escaped</span><span class="p">)</span>
 <span class="go">this isn&#39;t going to cause a problem.</span>
 </pre></div>
@@ -1399,15 +1426,18 @@ example, the <em>relative</em> path:</p>
 </pre></div>
 </div>
 <p>will work on Windows, MacOS, and linux systems. Later in this module, we
-will see how we can use the <code class="docutils literal notranslate"><span class="pre">os</span></code> module to work with filepaths; if
-we’re using python 3.4 or newer, the
-<code class="docutils literal notranslate"><span class="pre">`pathlib</span></code> &lt;<a class="reference external" href="https://docs.python.org/3/library/pathlib.html">https://docs.python.org/3/library/pathlib.html</a>&gt;`__ module
-provides an even nicer way of working with filepaths.</p>
+will see how we can use both the <code class="docutils literal notranslate"><span class="pre">os</span></code>
+(<a class="reference external" href="https://docs.python.org/3/library/os.html">documentation</a>) and
+<code class="docutils literal notranslate"><span class="pre">pathlib</span></code>
+(<a class="reference external" href="https://docs.python.org/3/library/pathlib.html">documentation</a>)
+modules to work with filepaths; if we’re using python 3.4 or newer, the
+module provides an even nicer way of working with filepaths.</p>
 </div>
 <div class="section" id="working-with-geodataframes">
-<h3>9.2 working with GeoDataFrames<a class="headerlink" href="#working-with-geodataframes" title="Permalink to this heading">#</a></h3>
-<p>Back to working with shapefile data.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">glacier_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<h4>working with GeoDataFrames<a class="headerlink" href="#working-with-geodataframes" title="Permalink to this heading">#</a></h4>
+<p>Back to working with shapefile data. First, let’s use <code class="docutils literal notranslate"><span class="pre">.head()</span></code> to
+have a look at the first few rows of data in our shapefile:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glacier_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the first 5 rows of the table</span>
 </pre></div>
 </div>
 <p>Note that the data are stored in a table (a <strong>GeoDataFrame</strong>), much like
@@ -1422,6 +1452,10 @@ of the <strong>GeoDataFrame</strong> in (rows, columns):</p>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of features: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span>
 </pre></div>
 </div>
+<p>We can also use the <code class="docutils literal notranslate"><span class="pre">len()</span></code> built-in to print out the number of rows:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of features: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">glacier_data</span><span class="p">)))</span> <span class="c1"># should give us the same as before</span>
+</pre></div>
+</div>
 <p>We can also perform calculations on the data, get statistics, etc. Many
 of these are built-in methods that can be called on an individual
 column.</p>
@@ -1431,7 +1465,7 @@ another lab. The normal way is by indexing with the column name (i.e.,
 <code class="docutils literal notranslate"><span class="pre">dataframe['column_name']</span></code>).</p>
 <p>If we want to see what columns are available in the data table, we can
 look at the <code class="docutils literal notranslate"><span class="pre">columns</span></code> <strong>attribute</strong> of the table:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glacier_data</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glacier_data</span><span class="o">.</span><span class="n">columns</span> <span class="c1"># see the names of the columns in our table</span>
 </pre></div>
 </div>
 <p>There are quite a few columns here, and most of them aren’t so important
@@ -1439,7 +1473,7 @@ for now. We might be interested in working with the <strong>AREA</strong> column
 though, to find out more about the size of glaciers in our study region.
 For example, to find the average glacier area in our dataset, we could
 type the following:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glacier_data</span><span class="p">[</span><span class="s1">&#39;AREA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">glacier_data</span><span class="p">[</span><span class="s1">&#39;AREA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># get the mean value of the AREA column</span>
 </pre></div>
 </div>
 <p>This gives us the average area in square kilometers (the units of the
@@ -1457,9 +1491,10 @@ also have created a new column:</p>
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="example-converting-text-data-into-shapefiles">
-<h3>10. Example - converting text data into shapefiles<a class="headerlink" href="#example-converting-text-data-into-shapefiles" title="Permalink to this heading">#</a></h3>
-<p>Another useful application we’ll make use of is <code class="docutils literal notranslate"><span class="pre">pandas</span></code>
+<h3>example: converting text data into shapefiles<a class="headerlink" href="#example-converting-text-data-into-shapefiles" title="Permalink to this heading">#</a></h3>
+<p>Another useful package we’ll make use of is <code class="docutils literal notranslate"><span class="pre">pandas</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/">documentation</a>), a powerful data
 analysis package that provides the basis for <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> (as you
 perhaps guessed by the name). In this example, we’ll take a Comma
@@ -1481,14 +1516,15 @@ ArcGIS, QGIS, or other GIS software.</p>
 </div>
 <p>Here, we see a number of lake names, with accompanying data such as the
 lake area (presumably in square kilometers?), the maximum depth (missing
-for some lakes), Lat/Lon information, and so on. Remember that a
-<code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> can hold lots of different data, but it needs a column
-that specifies the geometry of a feature. Given that we only have point
-information (a single Lat/Lon coordinate) for each lake, it makes sense
-to create a <code class="docutils literal notranslate"><span class="pre">Point</span></code> object for each feature using that point. We can
-do this by first using the python built-in <strong>zip</strong>, then the <strong>apply</strong>
-method of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to create a point object from the list of
-coordinates.</p>
+for some lakes), Lat/Lon information, and so on.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> can hold lots of different data, but it absolutely
+must have a column that specifies the geometry of the features in the
+table. Given that we only have point information (a single Lat/Lon
+coordinate) for each lake, it makes sense to create a <code class="docutils literal notranslate"><span class="pre">Point</span></code> object
+for each feature using that point.</p>
+<p>One way that we can do this by first using the python built-in <strong>zip</strong>,
+then the <strong>apply</strong> method of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to create a point object
+from the list of coordinates.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]))</span> <span class="c1"># zip is an iterator, so we use list to create</span>
                                                  <span class="c1"># something that pandas can use.</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Point</span><span class="p">)</span> <span class="c1"># using the &#39;apply&#39; method of the dataframe,</span>
@@ -1503,29 +1539,35 @@ column, with the lat/lon coordinates for each feature:</p>
 </pre></div>
 </div>
 <p>We could simply create a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from this <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, but
-let’s first remove a few extra columns from the table, and change the
-units of the <code class="docutils literal notranslate"><span class="pre">area</span></code> column to be in square meters:</p>
+let’s first remove a few extra columns from the table:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span> <span class="c1"># we don&#39;t really need these, since they&#39;re in the &#39;geometry&#39; column now</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="c1"># convert the area column to square meters here</span>
 </pre></div>
 </div>
-<p>Great. Now we can create a new <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.
-We’ll also be sure to set the spatial reference information, so that our
-GIS software knows what reference frame our data use. For this, we’ll
-use the EPSG code representing WGS84 Lat/Lon, 4326. EPSG codes are a
-concise way to refer to a given reference system - more information
+<p>Next, let’s change the units of the <code class="docutils literal notranslate"><span class="pre">area</span></code> column to be in square
+meters (assuming that they are currently in square kilometers):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="c1"># modify this cell to convert the area column to square meters here</span>
+</pre></div>
+</div>
+<p>Now we can create a new <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We also want to remember to set the spatial reference information, so
+that our GIS software knows what reference frame our data use. For this,
+we’ll use the EPSG code representing WGS84 Lat/Lon, 4326. EPSG codes are
+a concise way to refer to a given reference system - more information
 about them (and a comprehensive list of codes) can be found
 <a class="reference external" href="http://spatialreference.org/">here</a>.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">gdf</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># this sets the coordinate reference system to epsg:4326, wgs84 lat/lon</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span> <span class="c1"># this sets the coordinate reference system to epsg:4326, wgs84 lat/lon</span>
 </pre></div>
 </div>
-<p>Let’s take another look at the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>, then we’ll write it to
-a shapefile and load it into ArcGIS. Note that it looks mostly the same
-as the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> does - it really is just an extension of the
-<code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span>
-<span class="n">gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;lake_points.shp&#39;</span><span class="p">)</span>
+<p>Let’s take another look at the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span>
+</pre></div>
+</div>
+<p>Finally, let’s save the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> as a shapefile, which you can
+open in your GIS software of choice:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;lake_points.shp&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Load your shapefile into a GIS software package such as ArcGIS Pro or
@@ -1587,34 +1629,34 @@ some documentation, and ask questions.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-1-command-prompt">Method 1: Command Prompt</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-2-launch-jupyter-notebooks-directly">Method 2: Launch Jupyter Notebooks directly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-1-command-prompt">method 1: command prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-2-launch-jupyterlab-directly">method 2: launch jupyterlab directly</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-the-notebook">Opening the Notebook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clearing-the-outputs">Clearing the Outputs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#closing-the-notebook">Closing the Notebook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps-introduction-to-git">Next steps: Introduction to git</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-the-notebook">opening the notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clearing-the-outputs">clearing the outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#closing-the-notebook">closing the notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps-introduction-to-git">next steps: introduction to git</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nicholas-sparks">Nicholas Sparks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">Data provided</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-python-interpreter">1. The python interpreter</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">2. Variables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numeric-operations">3. Numeric operations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#string-variables-and-operations">4. String variables and operations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">5. Lists</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-and-methods">6. Functions and Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-our-own-functions">6.1 Defining our own functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">data provided</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-python-interpreter">the python interpreter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objects-and-variables">objects and variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numeric-operations">numeric operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#string-objects-and-operations">string objects and operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes-functions-and-methods">classes, functions and methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-our-own-functions">defining our own functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-flow">controlling flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-modules">importing modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-working-with-shapefiles">example: working with shapefiles</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-filepaths">a note on filepaths</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-geodataframes">working with GeoDataFrames</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controlling-flow">7. Controlling Flow</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-modules">8. Importing modules</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-shapefiles">9. Working with shapefiles</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-filepaths">9.1 a note on filepaths</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-geodataframes">9.2 working with GeoDataFrames</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-converting-text-data-into-shapefiles">10. Example - converting text data into shapefiles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-converting-text-data-into-shapefiles">example: converting text data into shapefiles</a></li>
 </ul>
 </li>
 </ul>

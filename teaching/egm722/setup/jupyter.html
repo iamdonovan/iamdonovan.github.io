@@ -204,14 +204,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../lectures.html">lectures</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../practicals/week1.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../practicals/pythonintro.html">intro to python</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../practicals/debugging.html">debugging exercise</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../practicals/week2.html">mapping with cartopy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../practicals/week3.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../practicals/cartopy.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../practicals/vector.html">vector data using shapely and geopandas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../practicals/folium.html">interactive maps with folium</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../practicals/week4.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../practicals/raster.html">raster data using rasterio</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../practicals/sentinelsat.html">searching for images with sentinelsat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../practicals/week5.html">vector and raster operations using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../practicals/zonalstats.html">zonal statistics using rasterstats</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -555,7 +555,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -571,6 +573,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-config-file">generating a config file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-default-launch-directory">changing the default launch directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-the-jupyterlab-terminal">configuring the jupyterlab terminal</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -584,20 +596,34 @@ document.write(`
 <h1>configuring jupyter<a class="headerlink" href="#configuring-jupyter" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This step is <strong>optional</strong>, as in <em>most</em> cases you will be able to use <strong>jupyter</strong> with the default settings.</p>
+<p>These steps are <strong>optional</strong>, as in <em>most</em> cases you will be able to use <strong>jupyter</strong> with the default settings.</p>
 </div>
-<p>By default, <strong>jupyter notebook</strong> will open in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory (on Windows, this is most likely
-<code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;</span></code>. If you have cloned the repository to a different location (e.g., <code class="docutils literal notranslate"><span class="pre">C:\egm722\</span></code>,
-or an external drive such as <code class="docutils literal notranslate"><span class="pre">D:\</span></code>), you may want to set notebook to open to that folder.</p>
-<p>To do this, open the <strong>Command Prompt</strong> from <strong>Anaconda Navigator</strong> (make sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment
-is active).</p>
-<p>At the <strong>Command Prompt</strong>, enter the following command:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter notebook --generate-config
+<div class="section" id="generating-a-config-file">
+<span id="jupyter-config"></span><h2>generating a config file<a class="headerlink" href="#generating-a-config-file" title="Permalink to this heading">#</a></h2>
+<p>In order to change the settings used by <strong>jupyter</strong> on launch, you first have to generate a configuration (“config”)
+file.</p>
+<p>To do this, open the <strong>Command Prompt</strong> from <strong>Anaconda Navigator</strong> (making sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment
+is active). At the <strong>Command Prompt</strong>, enter the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter lab --generate-config
 </pre></div>
 </div>
-<p>This will create a new folder, <code class="docutils literal notranslate"><span class="pre">.jupyter</span></code>, in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory, along with a python script in that directory:
-<code class="docutils literal notranslate"><span class="pre">jupyter_notebook_config.py</span></code>.</p>
-<p>Next, enter the following command:</p>
+<p>This should create a new folder, <code class="docutils literal notranslate"><span class="pre">.jupyter</span></code>, in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory, along with a python script in that directory:
+<code class="docutils literal notranslate"><span class="pre">jupyter_lab_config.py</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to check/note the location that the command prints out - it may be slightly different from what I have on
+my computer.</p>
+</div>
+</div>
+<div class="section" id="changing-the-default-launch-directory">
+<h2>changing the default launch directory<a class="headerlink" href="#changing-the-default-launch-directory" title="Permalink to this heading">#</a></h2>
+<p>By default, <strong>Jupyter Lab</strong> will open in your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory (on Windows, this is most likely
+<code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;</span></code>, or in whatever directory you launch it from.</p>
+<p>For security reasons, <strong>jupyter</strong> will not allow you to navigate to the parent directory of the launch location,
+so if you have cloned the repository to a different location (e.g., <code class="docutils literal notranslate"><span class="pre">C:\egm722\</span></code> or an external drive such as <code class="docutils literal notranslate"><span class="pre">D:\</span></code>)
+and you launch from your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory, you will need to change the default opening folder to wherever you have
+cloned your repository.</p>
+<p>At the command prompt, with your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment activated, enter the following command:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter --paths
 </pre></div>
 </div>
@@ -607,17 +633,75 @@ is active).</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C:\Users\e16006469\Anaconda3\envs\egm722\etc\jupyter
 </pre></div>
 </div>
-<p>Now, copy the script <code class="docutils literal notranslate"><span class="pre">jupyter_notebook_config.py</span></code> into that folder (you will probably have to create a new folder,
+<p>Now, copy the script <code class="docutils literal notranslate"><span class="pre">jupyter_lab_config.py</span></code> into that folder (you may need to create a new folder,
 <code class="docutils literal notranslate"><span class="pre">jupyter</span></code>, in <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your_username&gt;\Anaconda3\envs\etc</span></code>).</p>
-<p>Open the newly-copied script in your IDE of choice, and search for <code class="docutils literal notranslate"><span class="pre">notebook_dir</span></code> - for me, it’s at line 385:</p>
-<a class="reference internal image-reference" href="../../../_images/initial.png"><img alt="the lines in jupyter_notebook_config.py to edit" class="align-center" src="../../../_images/initial.png" style="width: 600px;" /></a>
-<p><br /> Uncomment this line (remove the # and the space from the start), and add the path to your repository here:</p>
+<p>Open this newly-copied script in your IDE of choice (or a text editor such as <strong>Notepad++</strong> or <strong>Notepad</strong>) and search
+for <code class="docutils literal notranslate"><span class="pre">c.ServerApp.root_dir</span></code> - for me, it’s at line 1018:</p>
+<a class="reference internal image-reference" href="../../../_images/initial.png"><img alt="the lines in jupyter_lab_config.py that set the root directory for the server" class="align-center" src="../../../_images/initial.png" style="width: 600px;" /></a>
+<p><br /> Uncomment this line (remove the # and the space from the start), and add the path to your repository here
+(remember to add an <code class="docutils literal notranslate"><span class="pre">r</span></code> before the first quotation mark):</p>
 <a class="reference internal image-reference" href="../../../_images/updated1.png"><img alt="the lines in jupyter_notebook_config.py, edited to update the default directory" class="align-center" src="../../../_images/updated1.png" style="width: 600px;" /></a>
-<p><br /> Now, save the file, and re-launch <strong>jupyter notebook</strong> from <strong>Anaconda Navigator</strong>, making sure that your
-<code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is still enabled. You should see that it opens in your repository folder by default:</p>
-<a class="reference internal image-reference" href="../../../_images/open.png"><img alt="jupyter-notebook, open to the newly set default directory" class="align-center" src="../../../_images/open.png" style="width: 720px;" /></a>
-<p>The final step in getting set up (and I promise, it’s the final step), is setting up an Integrated Development
-Environment (IDE) like <a class="reference internal" href="pycharm.html"><span class="doc">pycharm</span></a>.</p>
+<p><br /> Now, save the file, and launch <strong>Jupyter Lab</strong>, making sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is still enabled.
+You should see that it opens in your repository folder by default:</p>
+<a class="reference internal image-reference" href="../../../_images/open.png"><img alt="jupyter lab, open to the newly set default directory" class="align-center" src="../../../_images/open.png" style="width: 720px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This has only set the default “root” directory for <em>this</em> version of <strong>jupyter</strong>.</p>
+<p>If you create another conda environment, you will need to repeat the steps of copying the config file to the
+<code class="docutils literal notranslate"><span class="pre">&lt;path-to-conda&gt;\envs\&lt;new</span> <span class="pre">environment&gt;\etc\jupyter</span></code> directory, then editing the <code class="docutils literal notranslate"><span class="pre">c.ServerApp.root_dir</span></code> setting
+to point to the desired directory.</p>
+</div>
+</div>
+<div class="section" id="configuring-the-jupyterlab-terminal">
+<h2>configuring the jupyterlab terminal<a class="headerlink" href="#configuring-the-jupyterlab-terminal" title="Permalink to this heading">#</a></h2>
+<p>This step will enable you to use the <strong>Terminal</strong> in JupyterLab with a conda environment pre-loaded.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step should only be necessary on a Windows computer. To check whether you need to complete this step, launch
+<strong>Jupyter Lab</strong>, then open a <strong>Terminal</strong>.</p>
+<p>If you see a prompt that looks like the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(egm722) C:\Users\bob\egm722&gt;
+</pre></div>
+</div>
+<p>Then you have already changed the terminal from the default <strong>PowerShell</strong> to the <strong>Command Prompt</strong>, and you can
+move on to installing <a class="reference internal" href="pycharm.html"><span class="doc">PyCharm</span></a>.</p>
+</div>
+<p>If you are using Windows, we need to change the <strong>Terminal</strong> from the default (<strong>PowerShell</strong>) to the <strong>Command Prompt</strong>
+(<strong>CMD.exe</strong>).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you have not already done so, please complete the steps in the section <a class="reference internal" href="#jupyter-config"><span class="std std-ref">generating a config file</span></a> above.</p>
+</div>
+<p>Open the original config file in <strong>Notepad++</strong> or a similar text editor (it should be located at
+<code class="docutils literal notranslate"><span class="pre">%HOME%\.jupyter\jupyter_lab_config.py</span></code>), and search for <code class="docutils literal notranslate"><span class="pre">c.ServerApp.terminado_settings</span></code> (for me, this is at
+line 1062):</p>
+<a class="reference internal image-reference" href="../../../_images/jupyter_settings.png"><img alt="the jupyter config file, showing the terminal setting" class="align-center" src="../../../_images/jupyter_settings.png" style="width: 600px;" /></a>
+<p><br /> Inside of the curly brackets, add the following text:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;shell_command&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;C:\WINDOWS\System32\cmd.exe&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/jupyter_settings_updated.png"><img alt="the jupyter config file, showing the updated terminal setting" class="align-center" src="../../../_images/jupyter_settings_updated.png" style="width: 600px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>CMD.exe</strong> is, by default, located at <code class="docutils literal notranslate"><span class="pre">%windir%\system32\cmd.exe</span></code>. To double-check that your <code class="docutils literal notranslate"><span class="pre">%windir%</span></code>
+location is, in fact, <code class="docutils literal notranslate"><span class="pre">C:\WINDOWS</span></code>, you can type <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">%windir%</span></code> at the command prompt, and use the location
+printed out from that command.</p>
+</div>
+<p>Once you have changed the file, save the changes, then close it. Now, launch <strong>JupyterLab</strong> from the command prompt
+(again, making sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is active):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter lab
+</pre></div>
+</div>
+<p>You should see a browser window like this open up:</p>
+<a class="reference internal image-reference" href="../../../_images/jupyterlab_open.png"><img alt="jupyterlab open in a browser window" class="align-center" src="../../../_images/jupyterlab_open.png" style="width: 720px;" /></a>
+<p><br /> If you don’t see this exactly, don’t worry. Click the blue <strong>+</strong> button in the upper left-hand corner of the window
+to open the <strong>Launcher</strong>.</p>
+<p>Next, click on <strong>Terminal</strong> under <strong>Other</strong> to launch a terminal window. You should see something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/jupyter_terminal.png"><img alt="jupyterlab open in a browser window, with a terminal window opened" class="align-center" src="../../../_images/jupyter_terminal.png" style="width: 720px;" /></a>
+<p><br /> If you don’t see a <strong>Command Prompt</strong> session with your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment activated, please let me
+know and I will do my best to help troubleshoot.</p>
+</div>
 </div>
 
 
@@ -655,6 +739,22 @@ Environment (IDE) like <a class="reference internal" href="pycharm.html"><span c
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-config-file">generating a config file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-the-default-launch-directory">changing the default launch directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-the-jupyterlab-terminal">configuring the jupyterlab terminal</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
