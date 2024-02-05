@@ -2,10 +2,10 @@ intro to python
 ================
 
 To get started in the world of programming using python, we will use `Jupyter Notebooks <https://jupyter.org/>`__ within
-a Jupyter Lab environment, which provide a way for creating and sharing documents that have interactive code snippets
+a JupyterLab environment, which provide a way for creating and sharing documents that have interactive code snippets
 alongside narrative text, images, and more.
 
-Getting Started
+getting started
 ----------------
 
 .. warning::
@@ -16,11 +16,14 @@ Getting Started
     You should also have forked the course repository and cloned it to your computer. If **any** of these steps sound
     unfamiliar, stop now and go back over the :doc:`setup instructions<../setup/index>`.
 
-To start, open **Anaconda Navigator** and ensure that your environment is set to the ``egm722`` environment created
-during the preliminary setup (you should see "Applications on **egm722**" at the top of the window).
+To start, open **Anaconda Navigator**, make sure that you are on the **Home** tab, and select the ``egm722`` environment
+created during the preliminary setup from the second menu at the top of the window (to the right of "**on**").
 
-To open Jupyter Lab, we can **either** launch the **CMD.exe Prompt**, or launch Jupyter Lab directly from Anaconda
-Navigator:
+You may also want to switch from "**All applications**" to "**Installed applications**", to make it easier to find the
+applications you're looking for.
+
+To open JupyterLab, we can **either** launch the **CMD.exe Prompt** (red box), or launch it directly from
+**Anaconda Navigator** (blue box) - note that your layout may differ slightly from mine:
 
 .. image:: ../../../img/egm722/week1/anaconda.png
     :width: 720
@@ -29,28 +32,34 @@ Navigator:
 
 |br| I will provide instructions below for both methods; **you will only need to do one of them**.
 
-Method 1: Command Prompt
+method 1: command prompt
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When you launch the command prompt, it will start in the directory where you have installed Anaconda (most likely
-``C:\Users\YourUserName``). Navigate to the directory where you have cloned the EGM722 repository.
+When you launch the **Anaconda command prompt**, it will start in the directory where you have installed Anaconda
+(most likely your ``%HOME%`` directory, ``C:\Users\YourUserName``).
 
-Remember that from the command prompt, you can change directories using the **cd** command. For example, if I have cloned
-the directory to ``C:\Users\bob\egm722\``, to get to that folder I would type:
+You will need to navigate from here to the directory where you have cloned the EGM722 repository using the ``cd``
+command:
+
+.. code-block:: text
+
+    cd <path-to-repository>
+
+For example, if I have cloned the repository to ``C:\Users\bob\egm722``, to get to that folder I would type:
 
 .. code-block:: text
 
     cd C:\Users\bob\egm722
 
-You can also see the contents of the current director using the **dir** command – you should see a file called **PythonIntro.ipynb** as
-well as two folders, **data_files** and **imgs**:
+You can also see the contents of the current directory using the ``dir`` command – you should see the
+**environment.yml**, **.gitignore**, **LICENSE**, and **README.md** files, as well as a directory, **Week1**:
 
 .. image:: ../../../img/egm722/week1/prompt1.png
     :width: 600
     :align: center
     :alt: the command prompt
 
-|br| From this folder, type ``jupyter-lab`` at the prompt and press **Enter**. You should see the jupyter-lab app
+|br| From this folder, type ``jupyter-lab`` at the prompt and press **Enter**. You should see the ``jupyter-lab`` app
 begin running:
 
 .. image:: ../../../img/egm722/week1/prompt2.png
@@ -65,21 +74,17 @@ begin running:
     :align: center
     :alt: the jupyter browser window
 
-|br| At this point, skip to the next section (:ref:`Opening the Notebook`).
+|br| At this point, skip to the next section (:ref:`opening the notebook`).
 
-Method 2: Launch Jupyter Lab directly
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+method 2: launch jupyterlab directly
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When you launch Jupyter Notebooks directly from **Anaconda Navigator**, a browser window will open:
+When you launch JupyterLab directly from **Anaconda Navigator**, a browser window will open. If you have not
+:doc:`set the configuration <../setup/jupyter>` to open in your EGM722 repository folder, you will most likely need to
+navigate to the folder where you have cloned the EGM722 repository in the file browser on the left-hand side of the
+window. Do this, and navigate through to the **Week1** folder.
 
-.. image:: ../../../img/egm722/week1/jupyter_anaconda.png
-    :width: 720
-    :align: center
-    :alt: the jupyter browser window
-
-|br| The file browser will begin in the directory where you have installed Anaconda (most likely
-``C:\Users\YourUserName``). You will need to navigate to the folder where you have cloned the EGM722 repository by
-following the links. Navigate to the Week1 folder. Once there, you should see the following:
+Once there, you should see the following:
 
 .. image:: ../../../img/egm722/week1/jupyter.png
     :width: 720
@@ -88,11 +93,11 @@ following the links. Navigate to the Week1 folder. Once there, you should see th
 
 .. _opening the notebook:
 
-Opening the Notebook
+opening the notebook
 --------------------
 
-Open the Practical 1 notebook by double-clicking on the **Week1** folder, then double-clicking **PythonIntro.ipynb**. This
-will open the following browser tab (or window):
+Open the Practical 1 notebook by double-clicking on the **Week1** folder, then double-clicking **PythonIntro.ipynb**.
+This will open the notebook as a new tab in the JupyterLab console:
 
 .. image:: ../../../img/egm722/week1/notebook.png
     :width: 720
@@ -121,17 +126,30 @@ also see the output text produced by the commands (assuming that they have produ
     Make sure to work through the notebook **sequentially**, as well – some of the cells require that a previous cell
     has been run; if it hasn’t, it will most likely throw an ``Error`` or an ``Exception``.
 
-Clearing the Outputs
+clearing the outputs
 --------------------
 
 If you would like to start over, you can clear the outputs of individual cells from the menus at the top of the page:
-**Cell** > **Current Outputs** > **Clear**. You can also do this for all of the outputs at one time.
+**Edit** > **Clear Cell Output** to clear the output of the currently selected cell, or **Edit** >
+**Clear Outputs of All Cells** to clear all outputs at the same time.
 
-To completely restart the session, you can restart the python *kernel* – the python interpreter program that Jupyter
-Notebooks is running "under the hood (or bonnet)" to provide the interactive code. To do this, from the **Kernel** menu,
-you can select **Restart**, or **Restart & Clear Output**.
+.. tip::
 
-Closing the Notebook
+    Before you make any commits of a notebook (**.ipynb**) file, I very strongly recommend clearing the outputs - most
+    of the time, the outputs of a cell are easily reproduced, which means you don't actually need to save them (just
+    the code that produced the output)!
+
+    This will (a) make for smaller commit sizes (since you won't be keeping track of images, etc.), but also (b) make it
+    less likely that you end up with a merge conflict (since git won't be keeping track of the order that you ran each
+    cell in).
+
+To completely restart the session, you can restart the python *kernel* – the python interpreter program that Jupyter is
+running "under the hood" (or bonnet, depending on your preferred flavor of English) to provide the interactive code.
+
+To do this, from the **Kernel** menu, you can select **Restart**, or **Restart & Clear Output**. You can also press the
+circular "**Restart the kernel**" button from the notebook menu (right next to the square "stop" button).
+
+closing the notebook
 --------------------
 
 Once you have worked your way through the notebook and are confident that you understand what is being asked, you can
@@ -143,10 +161,10 @@ you have to select **Shutdown** from the **File** menu in the upper left-hand co
     :align: center
     :alt: the shutdown menu option highlighted in the jupyter window
 
-|br| Close the browser window, and (if you launched Jupyter Lab from the **Command Prompt**), close the
-**Command Prompt** window.
+|br| Close the browser window, and (if you launched JupyterLab from the **Command Prompt**), you can close the
+**Command Prompt** window now.
 
-Next steps: Introduction to git
+next steps: introduction to git
 --------------------------------
 
 We’ll be sprinkling uses of git throughout the work in this module, but you might also find it useful to work through
