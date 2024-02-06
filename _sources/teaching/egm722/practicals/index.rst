@@ -25,6 +25,7 @@ eventually work.
    pythonintro
    debugging
    cartopy
+   conflicts
    vector
    folium
    raster
