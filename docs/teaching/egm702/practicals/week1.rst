@@ -42,11 +42,11 @@ getting started
 To get started, open the Windows command prompt, either by using the search bar, or **Start** > **Windows System** >
 **Command Prompt**.
 
-To change folders from the command line, you will use the `cd` command. When you open the command prompt, you should
+To change folders from the command line, you will use the ``cd`` command. When you open the command prompt, you should
 be in your **home** folder (for me, this is **C:\\Users\\bob**).
 
 At the command prompt, navigate to the folder where you have saved the data above (for me, this is
-**C:\\Data\\MtStHelens**) by typing `cd` followed by the directory name
+**C:\\Data\\MtStHelens**) by typing ``cd`` followed by the directory name
 (**note the space between the command and the directory**):
 
 .. code-block:: text
@@ -270,7 +270,7 @@ or any writing on the image frame:
 
     mm3d HomolFilterMasq "OIS.*tif" GlobalMasq=filtre.tif
 
-If the provided **filtre.tif** file doesn't work, click the link to watch `this video<https://youtu.be/xOHEkKiiRnM>`__
+If the provided **filtre.tif** file doesn't work, click the link to watch `this video <https://youtu.be/xOHEkKiiRnM>`__
 to see how to make your own.
 
 After this, you can compute the relative orientation using ``Tapas``:
