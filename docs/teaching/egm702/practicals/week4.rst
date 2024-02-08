@@ -25,7 +25,7 @@ In the **Script manager**, open the script for part 1 by clicking on ``week4/01_
 
 Remember that you have access to all of the scripts in the repository as a *Reader*, but in order to save any changes
 you'll need to save the script to your own repository. Again, the easiest way for you to do this is to replace
-"YOUR NAME HERE!" on line 1 with your name, then click **Save**.
+**"YOUR NAME HERE!"** on line 1 with your name, then click **Save**.
 
 Save the script to your ``egm702`` repository as ``week4/01_visual_analysis.js`` - just like last week, you should
 see a ``week4`` folder appear in the repository with a new script, ``01_visual_analysis.js``.
@@ -117,8 +117,10 @@ we see a large amount of snow:
     way, we know that the differences that we're seeing are differences in reflectance, and not in the visualization.
 
     To illustrate this, try changing the stretch on ``2011 SR B4`` so that it ranges from 0.05 to 1.30, rather than
-    0.65. You should notice that now, it appears that the 2011 image is darker than the 1984 image, indicating that
-    NIR reflectance has decreased.
+    0.65.
+
+    You should notice that now, it appears that the 2011 image is darker than the 1984 image, giving the impression that
+    NIR reflectance has decreased, even though the opposite is true.
 
 
 Visually comparing bands like this is one way that we can see the differences between color composites or individual
@@ -173,8 +175,8 @@ of the mountain has largely similar reflectance between the two dates (aside fro
 
     :far:`circle-question` Question
     ^^^
-    Paste the following code at the end of the script to create a multi-temporal false color composite using the red
-    reflectance (TM band 3), then re-run the script.
+    Paste the following code at the end of the script (after line 47) to create a multi-temporal false color composite
+    using the red reflectance (TM band 3), then re-run the script.
 
     What are some of the differences between the NIR and Red changes that you notice? Using what you know about
     reflectance, and what you know about the changes at Mt St Helens between the two images, how can you
@@ -193,9 +195,9 @@ of the mountain has largely similar reflectance between the two dates (aside fro
           'Multi-temporal B3 composite', true);
 
 
-Visually inspecting images for differences can be an excellent way to notice changes - our eyes can be quite sensitive
-to subtle differences in appearance between images. However, it is not always the most effective/efficient way to
-quantify changes - for this, we'll look at other methods.
+Visually inspecting images for differences can be an excellent way to *identify* changes, because our eyes can be quite
+sensitive to subtle differences in appearance between images. However, it is not always the most effective/efficient way
+to *quantify* changes - for this, we'll look at other methods.
 
 part 2 - band maths and thresholding
 --------------------------------------------
@@ -238,7 +240,8 @@ to view the multi-temporal false color composite:
       tm2011.select('SR_B4').rename('2011_B4')
     ]);
 
-then we use ``ee.Image.normalizedDifference()`` to calculate the normalized difference between 1984 and 2011:
+then we use ``ee.Image.normalizedDifference()`` (`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-normalizeddifference>`__)
+to calculate the normalized difference between 1984 and 2011:
 
 .. code-block:: javascript
 
@@ -264,7 +267,7 @@ To see this, run the script, then toggle on the ``Difference`` layer:
     :alt: the normalized difference in NIR reflectance between 1984 and 2011
 
 |br| Toggle back and forth between the two images - you should notice that while the colors don't change (remember that
-the sign is the same for both), the colors in the normalized difference image have been stretched to fill the color
+the sign is the same for both), the values in the normalized difference image have been stretched to fill the color
 range compared to the difference image.
 
 .. card::
@@ -345,8 +348,10 @@ the mountain, and small patches scattered around the rest of the image.
     change have been excluded from the mask.
 
     Using the histogram of the normalized difference image, the descriptive statistics, and a bit of trial and error,
-    try to improve on this result. The goal is to include as much of the vegetation regrowth that you can see
-    north of the mountain as possible, while minimizing differences that are due to natural fluctuations in reflectance.
+    try to improve on this result.
+
+    The goal is to include as much of the vegetation regrowth that you can see north of the mountain as possible, while
+    minimizing differences that are due to natural fluctuations in reflectance.
 
 .. note::
 
@@ -360,9 +365,9 @@ part 3 - change vector analysis
 Open the script for this part of the practical by clicking on ``03_change_vector_analysis.js`` in the **Script manager**, or using
 this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F03_change_vector_analysis.js>`__.
 
-For this part of the practical, we'll use the same images that we used in the first part of the practical -- this time,
-using change vector analysis (CVA). While CVA can be used for any number of band differences, we’re going to stick to
-the differences in NIR and Red reflectance between the two images, similar to what we looked at with the
+For this part of the practical, we'll use the same images that we used in the first two parts of the practical -- this
+time, using change vector analysis (CVA). While CVA can be used for any number of band differences, we’re going to stick
+to the differences in NIR and Red reflectance between the two images, similar to what we looked at with the
 multi-temporal false color composite.
 
 .. card::
@@ -392,6 +397,7 @@ difference between the 1984 and 2011 images:
         var diff = tm2011.subtract(tm1984)
 
     We would get back an image with the difference of all of the bands that ``tm2011`` and ``tm1984`` share in common.
+
     By selecting only ``SR_B4`` and ``SR_B3``, however, we end up with just the difference in those two bands.
 
 Next, we calculate the magnitudes of the change vectors:
