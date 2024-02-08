@@ -600,9 +600,13 @@ document.write(`
                   
   <div class="section" id="dem-processing-using-micmac">
 <h1>dem processing using micmac<a class="headerlink" href="#dem-processing-using-micmac" title="Permalink to this heading">#</a></h1>
-<p><strong>Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the
 <a class="reference external" href="https://drive.google.com/uc?id=1rwu32Wms_jvrmzkMRckD8kwcgl98qn4k&amp;export=download">google drive link</a>,
-<strong>then extract the zip file. You should have the following files/folders available:</strong></p>
+then extract the <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file.</p>
+</div>
+<p>You should have the following files/folders available in the extracted <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├─ AR5840034159994.tif
 ├─ AR5840034159995.tif
 ├─ AR5840034159996.tif
@@ -620,9 +624,9 @@ document.write(`
 </pre></div>
 </div>
 <p>In this practical, we’re going to work on processing a digital elevation model (DEM) and orthophotos using a collection
-of aerial photos acquired in 1984 over Mt St Helens, a volcano in Washington state, USA. During the 1980s and early
-1990s, the volcano erupted several times, including an eruption in May 1980 that collapsed the entire north face of
-the mountain.</p>
+of aerial photos acquired in 1984 over Mt St Helens, a volcano in Washington state, USA.</p>
+<p>During the 1980s and early 1990s, the volcano erupted several times, including an eruption in May 1980 that collapsed
+the entire north face of the mountain.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The instructions/images below assume that you are using MicMac in a Windows environment; the commands will be the
@@ -632,9 +636,10 @@ same for a MacOS/Linux environment, but you’ll need to open a terminal rather 
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To get started, open the Windows command prompt, either by using the search bar, or <strong>Start</strong> &gt; <strong>Windows System</strong> &gt;
 <strong>Command Prompt</strong>.</p>
-<p>To change folders from the command line, you will use the <cite>cd</cite> command. When you open the command prompt, you should
-be in your <strong>home</strong> folder (for me, this is <strong>C:\Users\bob</strong>). At the command prompt, navigate to the folder where
-you have saved the data above (for me, this is <strong>C:\Data\MtStHelens</strong>) by typing <cite>cd</cite> followed by the directory name
+<p>To change folders from the command line, you will use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command. When you open the command prompt, you should
+be in your <strong>home</strong> folder (for me, this is <strong>C:\Users\bob</strong>).</p>
+<p>At the command prompt, navigate to the folder where you have saved the data above (for me, this is
+<strong>C:\Data\MtStHelens</strong>) by typing <code class="docutils literal notranslate"><span class="pre">cd</span></code> followed by the directory name
 (<strong>note the space between the command and the directory</strong>):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>C:\Users\bob&gt;cd &quot;C:\Data\MtStHelens\&quot;
 </pre></div>
@@ -661,14 +666,13 @@ prompt - the default starting disk is <code class="docutils literal notranslate"
 <a class="reference internal image-reference" href="../../../_images/dir_output.png"><img alt="the outputs of the dir command" class="align-center" src="../../../_images/dir_output.png" style="width: 600px;" /></a>
 <p><br /> We’re going to run each of the processing steps in MicMac using the command line interface. If you are curious
 about what a particular command or input parameter does, you can always type <code class="docutils literal notranslate"><span class="pre">-help</span></code> after the command, and
-information about how to use the command will be printed to the screen. For example, for the first command we will use,
-you can type the following at the command prompt:</p>
+information about how to use the command will be printed to the screen.</p>
+<p>For example, for the first command we will use, you can type the following at the command prompt:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisInitQt -help
 </pre></div>
 </div>
 <p>This will open the following window:</p>
-<a class="reference internal image-reference" href="../../../_images/saisie_help.png"><img alt="the saisieappuis help window" class="align-center" src="../../../_images/saisie_help.png" style="width: 400px;" /></a>
-<p><br /></p>
+<a class="reference internal image-reference" href="../../../_images/saisie_help.png"><img alt="the saisieappuis help window, detailing the arguments for the command" class="align-center" src="../../../_images/saisie_help.png" style="width: 400px;" /></a>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In a MacOS/linux environment, the help message may just display to the terminal window, rather than opening a
@@ -680,32 +684,40 @@ their meanings. For other commands, such as <code class="docutils literal notran
 <div class="section" id="resampling-the-images">
 <h2>resampling the images<a class="headerlink" href="#resampling-the-images" title="Permalink to this heading">#</a></h2>
 <p>The first thing we have to do is make sure the images are re-sampled to a consistent geometry. To do this in MicMac,
-we use the <code class="docutils literal notranslate"><span class="pre">SaisieAppuisInitQT</span></code> command. We’ll start with the first image, <strong>AR5840034159994.tif</strong>. To begin, type
-the following (or copy &amp; paste) at the command prompt (note the lack of space in
-<strong>MeasuresIm-AR5840034159994.tif.xml</strong>). You may also have to re-type the quotation marks, as the command prompt may
-not recognize them:</p>
+we use the <code class="docutils literal notranslate"><span class="pre">SaisieAppuisInitQT</span></code> command.</p>
+<p>We’ll start with the first image, <strong>AR5840034159994.tif</strong>. To begin, type the following (or copy &amp; paste) at the
+command prompt (note the lack of space in <strong>MeasuresIm-AR5840034159994.tif.xml</strong>). You may also have to re-type the
+quotation marks, as the command prompt may not recognize them:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisInitQT &quot;AR5840034159994.tif&quot; NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
 </pre></div>
 </div>
 <p>This will open the window shown below:</p>
 <a class="reference internal image-reference" href="../../../_images/saisie_fid.png"><img alt="the saisie window" class="align-center" src="../../../_images/saisie_fid.png" style="width: 600px;" /></a>
 <p><br /> You’ll need to set the locations of each of the fiducial marks in the image (there are 8 in total). They are
-numbered as you can see in the image above, with <strong>P1</strong> located in the lower left corner of the image. You can pan
-around the viewer by pressing the centre wheel on your mouse, or zoom in/out using the scroll wheel on your mouse.
-Zoom in on the <strong>P1</strong> mark, then click on <strong>P1</strong> in the table on the right side of the frame, and finally click on the
+numbered as you can see in the image above, with <strong>P1</strong> located in the lower left corner of the image.</p>
+<p>You can pan around the viewer by pressing the center wheel on your mouse, or zoom in/out using the scroll wheel on
+your mouse.</p>
+<p>Zoom in on the <strong>P1</strong> mark, then click on <strong>P1</strong> in the table on the right side of the frame, and finally click on the
 dot in the center of the fiducial mark:</p>
 <a class="reference internal image-reference" href="../../../_images/fiducial.png"><img alt="a fiducial marker" class="align-center" src="../../../_images/fiducial.png" style="width: 200px;" /></a>
-<p><br /> You want to get as close to the middle of the dot as possible. You might notice that this isn’t easy for <strong>P6</strong>,
-which is partly obscured - just do the best that you can. When you’re satisfied you have the right point, continue for
-the remainder of the points, then select <strong>File</strong> &gt; <strong>Exit</strong>.</p>
-<p>To input the points for the next image (<strong>AR5840034159995.tif</strong>), you’ll need to change both the input filename and the
-output filename in the command:</p>
+<p><br /> You want to get as close to the middle of the dot as possible. Once you have done this for <strong>P1</strong>, repeat this
+process for each of the other markers, <strong>P2</strong> through <strong>P8</strong>.</p>
+<p>You might notice that this isn’t easy for <strong>P6</strong>, which is partly obscured - just do the best that you can. When you
+have finished inputting all of the points, select <strong>File</strong> &gt; <strong>Exit</strong> to close the window and save the point locations
+to a file.</p>
+<p>To input the points for the next image (<strong>AR5840034159995.tif</strong>), you’ll need to change <strong>both</strong> the input filename and
+the output filename in the command:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisInitQT &quot;AR5840034159995.tif&quot; NONE id_fiducial.txt MeasuresIm-AR5840034159995.tif.xml
 </pre></div>
 </div>
-<p>Once that’s done, repeat this for the remaining images in the directory. You’ll notice that micmac has created two
-MeasuresIm files for each image, one with an extension <strong>-S2D.xml</strong>, and the other with an extension <strong>-S3D.xml</strong>.
-You’ll need to move each of the <strong>S2D.xml</strong> files:</p>
+<p>Once you have finished the process for <strong>AR5840034159995.tif</strong>, repeat this for the remaining images in the directory.</p>
+<p>When you have finished, use the <code class="docutils literal notranslate"><span class="pre">dir</span></code> command (or open the folder in <strong>Windows Explorer</strong>).</p>
+<p>You should notice that MicMac has created two <strong>MeasuresIm</strong> files for each image:</p>
+<ul class="simple">
+<li><p>one with an extension <strong>-S2D.xml</strong>,</p></li>
+<li><p>one with an extension <strong>-S3D.xml</strong>.</p></li>
+</ul>
+<p>You’ll need to move each of the <strong>S2D.xml</strong> files:</p>
 <ul class="simple">
 <li><p>MeasuresIm-AR5840034159994.tif-S2D.xml</p></li>
 <li><p>MeasuresIm-AR5840034159995.tif-S2D.xml</p></li>
@@ -714,28 +726,30 @@ You’ll need to move each of the <strong>S2D.xml</strong> files:</p>
 <li><p>MeasuresIm-AR5840034159998.tif-S2D.xml</p></li>
 <li><p>MeasuresIm-AR5840034159999.tif-S2D.xml</p></li>
 </ul>
-<p>into the <strong>Ori-InterneScan</strong> directory, being sure to remove the <strong>-S2D</strong> from each name. <strong>Ori-InterneScan/</strong> should now
-look like this:</p>
+<p>into the <strong>Ori-InterneScan</strong> directory, being sure to remove the <strong>-S2D</strong> from each name. The contents of
+<strong>Ori-InterneScan/</strong> should now look like this:</p>
 <a class="reference internal image-reference" href="../../../_images/ori-internescan_dir.png"><img alt="the contents of the ori-internescan directory" class="align-center" src="../../../_images/ori-internescan_dir.png" style="width: 600px;" /></a>
-<p><br /> At this point, you can delete the <strong>S3D</strong> files – the program creates them, but we don’t actually need them.
-Next up, re-sample the images using the fiducial marks you have identified, so that each image has the same geometry:</p>
+<p><br /> At this point, you can delete the <strong>S3D</strong> files – the program creates them, but we don’t actually need them.</p>
+<p>The next step is to re-sample the images using the fiducial marks you have identified, so that each image has the same
+geometry:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d ReSampFid &quot;AR.*tif&quot; 0.05
 </pre></div>
 </div>
 <p>This will re-sample each of the images to a resolution of 50 microns (i.e., 1 pixel = 0.05 mm). If you’re worried about
-space, you can re-sample to 100 microns if need be (change 0.05 to 0.1 in the command above). Note that this will lower
-the final resolution of your DEM and orthophoto, though, from about 4 meters to 8 meters.</p>
+space on your disk, you can re-sample to 100 microns if need be (change 0.05 to 0.1 in the command above).</p>
+<p>Note that this will lower the final resolution of your DEM and orthophoto, though, from about 4 meters to 8 meters.</p>
 <p>If the command runs correctly, you should see the names of each image printed out, along with the residuals (in # of
 pixels) and the amount of time it took to re-sample each image:</p>
-<p><strong>resamp output</strong></p>
-<p>As long as the residuals are small (&lt;2 pixels or so), you can continue. If not, you’ll need to adjust your fiducial
-mark selection, and run <code class="docutils literal notranslate"><span class="pre">ReSampFid</span></code> again. When you have successfully re-sampled the images, create a new directory
-called <strong>OrigImg</strong> and move the original image files into it:</p>
+<a class="reference internal image-reference" href="../../../_images/resamp.png"><img alt="the output of ReSampFid, showing the residuals for each image transformation." class="align-center" src="../../../_images/resamp.png" style="width: 600px;" /></a>
+<p><br /> As long as the residuals are small (&lt;2 pixels or so), you can continue. If not, you’ll need to adjust your fiducial
+mark selection, and run <code class="docutils literal notranslate"><span class="pre">ReSampFid</span></code> again.</p>
+<p>When you have successfully re-sampled the images, create a new directory called <strong>OrigImg</strong> and move the original
+image files into it:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mkdir OrigImg
 move AR*.tif OrigImg
 </pre></div>
 </div>
-<p>Note that the wildcard, or asterisk (*), symbol tells the computer to move anything that matches the pattern
+<p>Note that the wildcard, or asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>), symbol tells the computer to move anything that matches the pattern
 <code class="docutils literal notranslate"><span class="pre">AR(something).tif</span></code> into the directory <strong>OrigImg</strong> – so it should move all of the scanned images.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -750,43 +764,55 @@ move AR*.tif OrigImg
 </pre></div>
 </div>
 <p>This indicates that you have defined the image points for an image in more than one file, and it most often happens
-when you accidentally re-use the ouput filename for multiple <code class="docutils literal notranslate"><span class="pre">SaisieAppuisInitQT</span></code> commands, e.g.:</p>
+when you accidentally re-use the output filename for multiple <code class="docutils literal notranslate"><span class="pre">SaisieAppuisInitQT</span></code> commands, e.g.:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisInitQT &quot;AR5840034159994.tif&quot; NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
 mm3d SaisieAppuisInitQT &quot;AR5840034159995.tif&quot; NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
 </pre></div>
 </div>
 <p>To fix this, you’ll need to go through each MeasuresIm file and ensure that there is only one set of <code class="docutils literal notranslate"><span class="pre">&lt;NameIm&gt;</span></code>
-tags, and that the image named within the tag matches the MeasuresIm filename (i.e., check that you only have
-<code class="docutils literal notranslate"><span class="pre">&lt;NamePt&gt;AR5840034159994.tif&lt;/NamePt&gt;</span></code> in <strong>MeasuresIm-AR5840034159994.tif.xml</strong>,
-<code class="docutils literal notranslate"><span class="pre">&lt;NamePt&gt;AR5840034159995.tif&lt;/NamePt&gt;</span></code> in <strong>MeasuresIm-AR5840034159995.tif.xml</strong>, and so on.</p>
+tags, and that the image named within the tag matches the MeasuresIm filename. For example, check that you only have</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;NamePt&gt;AR5840034159994.tif&lt;/NamePt&gt;</span></code> in <strong>MeasuresIm-AR5840034159994.tif.xml</strong>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;NamePt&gt;AR5840034159995.tif&lt;/NamePt&gt;</span></code> in <strong>MeasuresIm-AR5840034159995.tif.xml</strong>,</p></li>
+</ul>
+<p>and so on.</p>
 </div>
 </div>
 <div class="section" id="computing-the-relative-orientation">
 <h2>computing the relative orientation<a class="headerlink" href="#computing-the-relative-orientation" title="Permalink to this heading">#</a></h2>
-<p>The next step is to find tie points to help compute the relative orientation of the images. First, run <code class="docutils literal notranslate"><span class="pre">Tapioca</span></code>:</p>
+<p>The next step is to find tie points to help compute the relative orientation of the images. To do this, we use the
+<code class="docutils literal notranslate"><span class="pre">Tapioca</span></code> command:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d Tapioca MulScale &quot;OIS.*tif&quot; 400 1200
 </pre></div>
 </div>
-<p>This will compute tie points at two resolutions to help speed things up. Once this completes, you can filter the tie
-points, to make sure that they don’t include things like the fiducial marks or any writing on the image frame:</p>
+<p>This will compute tie points at two resolutions:</p>
+<ul class="simple">
+<li><p>first, images that are approximately 400x400 pixels</p></li>
+<li><p>second, images that are approximately 1200x1200 pixels</p></li>
+</ul>
+<p>This helps to speed up the matching, because MicMac will only do the higher-resolution matching for images that have
+matches at the lower resolution.</p>
+<p>Once this completes, you can filter the tie points, to make sure that they don’t include things like the fiducial marks
+or any writing on the image frame:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d HomolFilterMasq &quot;OIS.*tif&quot; GlobalMasq=filtre.tif
 </pre></div>
 </div>
-<p>If the provided <strong>filtre.tif</strong> doesn’t work, you can watch the video <a class="reference external" href="https://youtu.be/xOHEkKiiRnM">here</a> to make
-your own.</p>
+<p>If the provided <strong>filtre.tif</strong> file doesn’t work, click the link to watch <a class="reference external" href="https://youtu.be/xOHEkKiiRnM">this video</a>
+to see how to make your own.</p>
 <p>After this, you can compute the relative orientation using <code class="docutils literal notranslate"><span class="pre">Tapas</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d Tapas RadialBasic &quot;OIS.*tif&quot; Out=Relative SH=HomolMasqFiltered LibFoc=0
 </pre></div>
 </div>
 <p>For these images, the estimated focal length is 302.26 mm, based on the value recorded by the camera at the time of
-acquisition. At this stage, we will keep the focal length fixed (<code class="docutils literal notranslate"><span class="pre">LibFoc=0</span></code>) to this value (which is stored in
+acquisition.</p>
+<p>At this stage, we keep the focal length fixed (<code class="docutils literal notranslate"><span class="pre">LibFoc=0</span></code>) to this value (which is stored in
 <strong>MicMac-LocalChantierDescripteur.xml</strong>). This will calibrate the relative orientation using a basic radial distortion
 camera model (<code class="docutils literal notranslate"><span class="pre">RadialBasic</span></code>).</p>
 <p>If you continue to use MicMac for your own projects, you might need to change the
 camera model used – you can check out the <a class="reference external" href="https://micmac.ensg.eu/index.php/Accueil">MicMac Wiki</a> to see the other
 camera models available.</p>
-<p>Tapas is run iteratively, meaning that it will go through several steps before finishing the calculation. The output
-should look something like this (note that you may need to scroll up a bit):</p>
+<p><code class="docutils literal notranslate"><span class="pre">Tapas</span></code> is run iteratively, meaning that it will go through several steps before finishing the calculation. The output
+should look something like this (note that you may need to scroll up a bit in the command prompt window):</p>
 <a class="reference internal image-reference" href="../../../_images/tapas.png"><img alt="the output of the tapas command" class="align-center" src="../../../_images/tapas.png" style="width: 600px;" /></a>
 <p><br /> To explain what this means, we’ll look at this block of text:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RES:[OIS-Reech_AR5840034159994.tif][C] ER2 0.652321 Nn 99.7638 Of 2963 Mul 334 Mul-NN 334 Time 0.0829999
@@ -797,11 +823,15 @@ RES:[OIS-Reech_AR5840034159998.tif][C] ER2 0.677032 Nn 99.7247 Of 10897 Mul 4329
 RES:[OIS-Reech_AR5840034159999.tif][C] ER2 0.697072 Nn 99.7558 Of 4914 Mul 929 Mul-NN 927 Time 0.14
 </pre></div>
 </div>
-<p>This shows the total residual (in pixels) for all of the tie points found in each image, excluding outliers (<strong>ER2</strong>),
-as well as the percentage of tie points out of the total number of tie points in each image (<strong>Nn XX of XX</strong>) that were
-correct within the maximum acceptable error before a point is considered an outlier.</p>
-<p>It also shows how many points are seen in &gt; 2 images (<strong>Mul</strong>), and the number of points that were properly located
-(<strong>Mul-NN</strong>), as well as the time it took to do the calculation.</p>
+<p>This shows:</p>
+<ul class="simple">
+<li><p><strong>ER2</strong>: the total residual (in pixels) for all of the tie points found in each image, excluding outliers;</p></li>
+<li><p><strong>Nn XX of XX</strong>: the percentage of tie points out of the total number of tie points in each image (<strong>Nn XX of XX</strong>)
+that were correct within the maximum acceptable error before a point is considered an outlier;</p></li>
+<li><p><strong>Mul</strong>: the number of points seen in more than 2 images;</p></li>
+<li><p><strong>Mul-NN</strong>: the number of points seen in more than 2 images that were properly located;</p></li>
+<li><p><strong>Time</strong>: the time it took to do the calculation.</p></li>
+</ul>
 <p>Below that, we see information about the set of images as a whole:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>----- Stat on type of point (ok/elim) ----
      *   Perc=99.709% ;  Nb=49342 for Ok
@@ -812,19 +842,22 @@ correct within the maximum acceptable error before a point is considered an outl
 | |  Cond , Aver 9.23336 Max 58.0925 Prop&gt;100 0
 </pre></div>
 </div>
-<p>This says that 99.709% of all tie points (49342 points) were “Ok” - that is, using the calibrated camera model and
+<p>This says that 99.709% of all tie points (49342 points) were “Ok”. In other words, using the calibrated camera model and
 orientation, the location of each point agreed with the predicted location within the maximum allowed error. Only
-0.290991% of points (140 points) had an invalid residual.</p>
+0.290991% of points (144 points) had an invalid residual.</p>
 <p>Below this, we see the total residual for all points in all images was 0.671665 - this indicates that the cameras are
 generally well-calibrated, and the images are well-placed. If the residual is very high, you might need to re-do the
 earlier steps of placing the fiducial markers, resampling the images, and finding the tie points.</p>
-<p>You can also see that the “Worst” residual was 0.697072 for image <strong>OIS-Reech_AR5840034159999.tif</strong> - if the residual
-for an individual image is high, this is a hint as to which image might need to be re-done.</p>
-<p>Now, let’s visualize the relative orientation using <code class="docutils literal notranslate"><span class="pre">AperiCloud</span></code> and <strong>MeshLab</strong> (or <strong>CloudCompare</strong>). First, run
-this command:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d AperiCloud &quot;OIS.*tif&quot; Relative SH=HomolMasqFiltered
-</pre></div>
-</div>
+<p>You can also see that the “Worst” residual was 0.697072 for image <strong>OIS-Reech_AR5840034159999.tif</strong>. if the residual
+for an individual image is much higher than the others, this might be a hint that you need to correct the re-sampling
+step for that image.</p>
+<p>Once <code class="docutils literal notranslate"><span class="pre">Tapas</span></code> has finished, we can visualize the relative orientation using <code class="docutils literal notranslate"><span class="pre">AperiCloud</span></code> and <strong>MeshLab</strong> (or
+<strong>CloudCompare</strong>). First, run this command:
+s
+.. code-block:: text</p>
+<blockquote>
+<div><p>mm3d AperiCloud “OIS.*tif” Relative SH=HomolMasqFiltered</p>
+</div></blockquote>
 <p>When this completes, you should have a file called <strong>AperiCloud_Relative_MasqFiltered.ply</strong> in your directory. Open
 either <strong>MeshLab</strong> or <strong>CloudCompare</strong>, and then open this file. You should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/meshlab.jpg"><img alt="the relative orientation displayed in meshlab" class="align-center" src="../../../_images/meshlab.jpg" style="width: 600px;" /></a>
@@ -845,9 +878,9 @@ to the real world.</p>
 <p>To do this, we need to find a number of Ground Control Points (GCPs), which will help the software solve the absolute
 orientation of the cameras, and compute the 3-dimensional location for each pixel in the images.</p>
 <p>To help save some time, and because finding GCPs in 30+ year old aerial photos can be difficult, I’ve provided a number
-of GCPs that you should be able to find in the images. In your folder, you should have a file, <strong>GCPs.txt</strong>, which
-contains the name and <em>x</em>, <em>y</em>, and <em>z</em> location for the GCPs. To make the file usable by MicMac,
-you need to convert it:</p>
+of GCPs that you should be able to find in the images.</p>
+<p>In your folder, you should have a file, <strong>GCPs.txt</strong>, which contains the name and <em>x</em>, <em>y</em>, and <em>z</em> location for the
+GCPs. To make the file usable by MicMac, you first need to convert it:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d GCPConvert AppInFile GCPs.txt
 </pre></div>
 </div>
@@ -855,8 +888,10 @@ you need to convert it:</p>
 have to find the image locations for each of the GCPs. <strong>GCPs.txt</strong> has 33 different points, picked from US Dept of
 Agriculture
 <a class="reference external" href="https://www.fsa.usda.gov/programs-and-services/aerial-photography/imagery-programs/naip-imagery/">National Agriculture Imagery Program (NAIP) orthophotos</a>,
-which are provided in the directory NAIP_Images. Rather than trying to find each point individually, we can first use
-MicMac to estimate where each of the points should be. First, run the following command:</p>
+which are provided in the directory <strong>NAIP_Images</strong>.</p>
+<p>Rather than trying to find each point individually, we can first use MicMac to estimate where each of the points
+should be.</p>
+<p>First, run the following command:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisInitQT &quot;OIS-Reech_AR5840034159995.tif&quot; Relative id_gcps.txt MeasuresInit.xml
 </pre></div>
 </div>
@@ -865,10 +900,10 @@ MicMac to estimate where each of the points should be. First, run the following 
 <p><br /> You might also want to see what the GCPs actually look like on the ground. To do this, you can load the NAIP
 Imagery into either <strong>QGIS</strong> or <strong>ArcGIS</strong>. You can add the images individually, or you can add them all at once using
 the Virtual Raster (<strong>mtsthelens.vrt</strong>), which should work for either software.</p>
-<p>To display <strong>GCPs.txt</strong> in QGIS, you can add them as a <strong>Delimited Text Layer</strong>. Choose <strong>Custom Delimiter</strong> under
-<strong>File Format</strong>, and set the delimiter to <cite>Space</cite>. Under <strong>Record and Fields Options</strong>, set the
-<strong>Number of header lines to discard</strong> as <code class="docutils literal notranslate"><span class="pre">2</span></code>, and uncheck <strong>First record has field names</strong>. Set <code class="docutils literal notranslate"><span class="pre">field_2</span></code> to be
-the <strong>X field</strong>, and <code class="docutils literal notranslate"><span class="pre">field_3</span></code> to be the <strong>Y field</strong>. Finally, set the <strong>Geometry CRS</strong> to be
+<p>To display <strong>GCPs.txt</strong> in QGIS, you can add them as a <strong>Delimited Text Layer</strong>.</p>
+<p>Choose <strong>Custom Delimiter</strong> under <strong>File Format</strong>, and set the delimiter to <cite>Space</cite>. Under <strong>Record and Fields Options</strong>,
+set the <strong>Number of header lines to discard</strong> as <code class="docutils literal notranslate"><span class="pre">2</span></code>, and uncheck <strong>First record has field names</strong>.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">field_2</span></code> to be the <strong>X field</strong>, and <code class="docutils literal notranslate"><span class="pre">field_3</span></code> to be the <strong>Y field</strong>. Finally, set the <strong>Geometry CRS</strong> to be
 <code class="docutils literal notranslate"><span class="pre">EPSG:32610</span> <span class="pre">–</span> <span class="pre">WGS84/UTM</span> <span class="pre">zone</span> <span class="pre">10N</span></code>, as shown below, then click <strong>Add</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/qgis_import.png"><img alt="the qgis import as text dialogue" class="align-center" src="../../../_images/qgis_import.png" style="width: 600px;" /></a>
 <p><br /> This will load the points into the map. You can also display the names of the points (<strong>field_1</strong> in the example
@@ -887,40 +922,41 @@ You may also need to replace the first two lines:</p>
 <div><p>name,x,y,z</p>
 </div></blockquote>
 <p>To be on the safe side, I recommend copying the file <strong>GCPs.txt</strong> to <strong>GCPs.csv</strong> before making these changes, as
-you will need the original txt file later on in the practical.</p>
+you will need the original <strong>.txt</strong> file later on in the practical.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You may notice that the air photos are rotated relative to the ground, as they were acquired while flying South-North.
-You may find it helpful to rotate your map so that North is to the right (i.e., a 270° rotation), so that what you see
-on the map has the same orientation as the air photos.</p>
+<p>You may notice that the air photos are rotated relative to the ground, as they were acquired while flying South-North.</p>
+<p>You may find it helpful to rotate your map so that North is to the right (i.e., a 270° rotation), so that what you
+see on the map has the same orientation as the air photos.</p>
 </div>
 <p>We’ll start by inputting <strong>GCP0</strong>. This GCP is the junction of two forest roads to the southwest of the mountain
-(but in the upper left of image <strong>9996</strong>, in the far upper left of image <strong>9997</strong>, and in the upper center of image
-<strong>9995</strong>). Open image <strong>9995</strong> using the following command:</p>
+(in the upper left of image <strong>9996</strong>, in the far upper left of image <strong>9997</strong>, and in the upper center of image
+<strong>9995</strong>).</p>
+<p>Open image <strong>9995</strong> using the following command:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisInitQT &quot;OIS-Reech_AR5840034159995.tif&quot; Relative id_gcps.txt MeasuresInit.xml
 </pre></div>
 </div>
 <p>then zoom in toward the upper middle of the image <strong>9995</strong>. The junction should look like this:</p>
 <a class="reference internal image-reference" href="../../../_images/gcp0_location.png"><img alt="the first GCP" class="align-center" src="../../../_images/gcp0_location.png" style="width: 400px;" /></a>
 <p><br /> As with the fiducial marks, click the point name in the table on the right (<strong>GCP0</strong>), then click on its location
-in the image. Close the window (<strong>File</strong> &gt; <strong>Exit</strong>). Next, open image <strong>9996</strong>:</p>
+in the image. When you have done this, close the window (<strong>File</strong> &gt; <strong>Exit</strong>).</p>
+<p>Next, open image <strong>9996</strong>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisInitQT &quot;OIS-Reech_AR5840034159996.tif&quot; Relative id_gcps.txt MeasuresInit.xml
 </pre></div>
 </div>
 <p>You should see that the point <strong>GCP0</strong> is now displayed in <strong>9996</strong>, but it’s not quite in the correct location, and
 it’s yellow rather than green. Zoom in on the marker, then hold down the <strong>CTRL</strong> button and click and drag the marker
-to the correct location. When you’re satisfied with its location, right-click and select <code class="docutils literal notranslate"><span class="pre">Validate</span></code> – it should turn
-green.</p>
+to the correct location.</p>
+<p>When you’re satisfied with its location, right-click and select <code class="docutils literal notranslate"><span class="pre">Validate</span></code> – it should turn green.</p>
 <p>To start with, we’ll only put in a few of the GCPs. I recommend doing <strong>GCP6</strong> next – you should be able to find it in
 images <strong>9996</strong>, <strong>9997</strong>, and <strong>9998</strong>. It should look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/gcp6.png"><img alt="the second GCP" class="align-center" src="../../../_images/gcp6.png" style="width: 600px;" /></a>
-<p><br /> Close the window, and open up image <strong>9997</strong>. Here, you should be able to find both <strong>GPC0</strong> and <strong>GCP6</strong>, as well
-as <strong>GCP13</strong> in the lower right corner of the image:</p>
+<p><br /> Now, close the window and open up image <strong>9997</strong>. You should be able to find both <strong>GPC0</strong> and <strong>GCP6</strong>, as well
+as <strong>GCP13</strong> in the lower right corner of the image (shown in blue in the image below):</p>
 <a class="reference internal image-reference" href="../../../_images/image9997.png"><img alt="image 9997 showing 2 GCPs located" class="align-center" src="../../../_images/image9997.png" style="width: 600px;" /></a>
 <p><br /> Continue on to images <strong>9998</strong> and <strong>9999</strong>. Once you have put in these GCPs (<strong>GCP0</strong>, <strong>GCP6</strong> and <strong>GCP13</strong>),
-you can run the <code class="docutils literal notranslate"><span class="pre">GCPBascule</span></code> command to make a rough estimate of where the remaining GCPs should fall in each of
-the images:</p>
+run the <code class="docutils literal notranslate"><span class="pre">GCPBascule</span></code> command to make a rough estimate of where the remaining GCPs should fall in each of the images:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d GCPBascule &quot;OIS.*tif&quot; Relative TerrainInit GCPs.xml MeasuresInit-S2D.xml
 </pre></div>
 </div>
@@ -935,7 +971,8 @@ NOT OK (UPL) FOR GCP5 , Reason NoPb
 </pre></div>
 </div>
 <p>What this shows that <strong>GCP5</strong> is not used (“NOT OK”), with the reason given that there are no points to work with
-(<code class="docutils literal notranslate"><span class="pre">NoPb</span></code>). Below that, you can see the output for <strong>GCP6</strong>:</p>
+(<code class="docutils literal notranslate"><span class="pre">NoPb</span></code>).</p>
+<p>Below that, you can see the output for <strong>GCP6</strong>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>==== ADD Pts GCP6 Has Gr 1 Inc [1, 1, 1]
 --NamePt GCP6 Ec Estim-Ter [-4.50946,2.33578,-2.32917]           Dist =5.58714 ground units
 Inc = [1,1,1]PdsIm = [1e+08,1e+08,1e+08]
@@ -948,58 +985,78 @@ Inc = [1,1,1]PdsIm = [1e+08,1e+08,1e+08]
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ErrMax = 0.011786 pixels, For Im=OIS-Reech_AR5840034159996.tif,  Point=GCP6
 </pre></div>
 </div>
-<p>This says that the estimated maximum error (<code class="docutils literal notranslate"><span class="pre">ErrMax</span></code>) is 0.011786 pixels, and that’s the measurement taken from image
-<strong>OIS-Reech_AR5840034159996.tif</strong>.</p>
+<p>This says that the estimated maximum error (<code class="docutils literal notranslate"><span class="pre">ErrMax</span></code>) is 0.011786 pixels, and that corresponds to the measurement
+taken from image <strong>OIS-Reech_AR5840034159996.tif</strong>.</p>
 <p>The line before that:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ErrMoy 0.0844219 pixels  Nb measures=3
 </pre></div>
 </div>
 <p>Says that the average pixel error (<code class="docutils literal notranslate"><span class="pre">ErrMoy</span></code>) is 0.0844219 pixels, and that there are 3 images where GCP6 has been
-input (<code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">measures=3</span></code>). On the second line:</p>
+input (<code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">measures=3</span></code>). Now look at the second line:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--NamePt GCP6 Ec Estim-Ter [-4.50946,2.33578,-2.32917]           Dist =5.58714 ground units
 </pre></div>
 </div>
-<p>This tells us that for this point (<strong>GCP6</strong>), the difference between the best estimate and the “true” location
-(<code class="docutils literal notranslate"><span class="pre">Estim-Ter</span></code>) is -4.50946 ground units (meters) in the <em>x</em> direction, 2.33578 m in the <em>y</em> direction, and -2.32917 m
-in the <em>z</em> direction, for a total distance (<span class="math notranslate nohighlight">\(\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}z^2}\)</span>) of 5.58714 m.
-The total distance (<strong>Dist</strong>) is then 5.58714 “ground units” - since we’re working with UTM points, this would be meters.</p>
+<p>This tells us that for this point (<strong>GCP6</strong>):</p>
+<ul class="simple">
+<li><p>the difference between the best estimate and the “true” location (<code class="docutils literal notranslate"><span class="pre">Estim-Ter</span></code>) is -4.50946 ground units (meters) in
+the <em>x</em> direction, 2.33578 m in the <em>y</em> direction, and -2.32917 m in the <em>z</em> direction,</p></li>
+<li><p>the total total distance (<span class="math notranslate nohighlight">\(\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}z^2}\)</span>) is 5.58714 ground units. Because
+we are working with UTM coordinates, these are in meters.</p></li>
+</ul>
 <p>Below that line:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Ecart Estim-Faisceaux 0.00155021 Ter-Faisceau [4.50878,-2.33578,2.32778] D= 5.58601
 </pre></div>
 </div>
-<p>This tells us that the difference between the position estimated from the “true” location and the bundle adjustment
+<p>This tells us that:</p>
+<ul class="simple">
+<li><p>the difference between the position estimated from the “true” location and the bundle adjustment
 (<code class="docutils literal notranslate"><span class="pre">Ter-Faisceau</span></code>) is 4.50878 ground units (meters) in the <em>x</em> direction, -2.33578 m in the <em>y</em> direction, and
-2.32778 m in the <em>z</em> direction, for a total distance (<span class="math notranslate nohighlight">\(\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}y^2}\)</span>)
-of 5.58601 m.</p>
+2.32778 m in the <em>z</em> direction</p></li>
+<li><p>the total distance (<span class="math notranslate nohighlight">\(\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}y^2}\)</span>) is 5.58601 m.</p></li>
+</ul>
 <p>Finally, at the very bottom, we see the following:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>============================== ERRROR MAX PTS FL =====================
 ||     Value=0.505585 for Cam=OIS-Reech_AR584003415997.tif and Pt=GCP0 ; MoyErr=0.244851
 ======================================================================
 </pre></div>
 </div>
-<p>This gives us the summary for the entire set of GCPs and images. Here, we can see that the maximum error is 0.505585
-pixels for <strong>GCP0</strong> in image <strong>OIS-Reech_AR5840034159997.tif</strong>, and the average error for all points in all images
-(<strong>MoyErr</strong>) is 0.244851 pixels.</p>
+<p>This gives us the summary for the entire set of GCPs and images:</p>
+<ul class="simple">
+<li><p>the maximum error is 0.505585 pixels for <strong>GCP0</strong> in image <strong>OIS-Reech_AR5840034159997.tif</strong>;</p></li>
+<li><p>the average error for all points in all images (<strong>MoyErr</strong>) is 0.244851 pixels.</p></li>
+</ul>
 <p>As long as your errors aren’t very large (both <strong>ErrMax</strong> and <strong>MoyErr</strong> &lt; 2 pixels or so), you can move on to the
-next steps. If you have large (residual) errors, you’ll need to carefully check the locations of your GCPs. By reading
-the report for each GCP, you can see which image has the largest residual for each point, and try to correct the points
+next steps.</p>
+<p>If you have large (residual) errors, you’ll need to carefully check the locations of your GCPs. By reading
+the report for each GCP, you can see which image has the largest residual for each point. Try to correct the points
 to improve the overall residual.</p>
 <p>The next step is to run <code class="docutils literal notranslate"><span class="pre">SaisieAppuisPredicQT</span></code>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisPredicQT &quot;OIS-Reech_AR584003415999[4-7].tif&quot; TerrainInit GCPs.xml MeasuresFinales.xml
 </pre></div>
 </div>
 <p>This will place markers at their approximate locations in the images, making it easier to find the control points in
-the image. Note that the parameter <code class="docutils literal notranslate"><span class="pre">&quot;OIS-Reech_AR584003415999[4-7].tif&quot;</span></code> will open 4 images (<strong>9994</strong>, <strong>9995</strong>,
-<strong>9996</strong>, and <strong>9997</strong>), which can be memory-intensive. If need be, you can proceed one image at a time, or by only
-opening 2 images (e.g., replace <code class="docutils literal notranslate"><span class="pre">&quot;OIS-Reech_AR584003415999[4-7].tif&quot;</span></code> with <code class="docutils literal notranslate"><span class="pre">&quot;OIS-Reech_AR584003415999[4-5].tif&quot;</span></code>
-to only open images <strong>9994</strong> and <strong>9995</strong>).</p>
+the image. Note that this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;OIS-Reech_AR584003415999[4-7].tif&quot;
+</pre></div>
+</div>
+<p>will open 4 images (<strong>9994</strong>, <strong>9995</strong>, <strong>9996</strong>, and <strong>9997</strong>), which can be memory-intensive.</p>
+<p>If need be, you can proceed one image at a time, or by only opening 2 images. For example, replace this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;OIS-Reech_AR584003415999[4-7].tif&quot;
+</pre></div>
+</div>
+<p>with this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;OIS-Reech_AR584003415999[4-5].tif&quot;
+</pre></div>
+</div>
+<p>to only open images <strong>9994</strong> and <strong>9995</strong>.</p>
 <p>The window should now look something like this (note that the image order may be different – if you look just above the
 table on the right-hand side, you can see which image is which by hovering over them):</p>
 <a class="reference internal image-reference" href="../../../_images/saisie_predict.jpg"><img alt="the saisiepredict window, showing 4 images plus predicted gcp locations" class="align-center" src="../../../_images/saisie_predict.jpg" style="width: 600px;" /></a>
 <p><br /> From here, locate and validate as many of the points as you can – it’s not strictly necessary to do all of them,
-but it can help to improve the final results. I recommend trying to do at least a few of the ones at higher elevations,
-for reasons that should be clear from the lectures. Remember to check the orthoimages provided to be sure you’re
-finding the right points – don’t just accept the estimated locations.</p>
+but it can help to improve the final results.</p>
+<p>I recommend trying to do at least a few of the ones at higher elevations, for reasons that should be clear from the
+lectures. Remember to check the orthoimages provided to be sure you’re finding the right points – don’t just accept
+the estimated locations.</p>
 <p>Once you’ve accepted points from the first four images (<strong>9994</strong>-<strong>9997</strong>), you’ll need to exit Saisie (<strong>File</strong> &gt;
 <strong>Exit</strong>), and re-run the command to input points to the remaining images:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d SaisieAppuisPredicQT &quot;OIS-Reech_AR584003415999[6-9].tif&quot; TerrainInit GCPs.xml MeasuresFinales.xml
@@ -1020,20 +1077,20 @@ adjustment and refine the camera calibration even further:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mm3d Campari &quot;OIS.*tif&quot; TerrainBrut TerrainFinal GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2] SH=HomolMasqFiltered AllFree=1
 </pre></div>
 </div>
-<p>This will take the orientation estimated in <code class="docutils literal notranslate"><span class="pre">Ori-TerrainBrut</span></code> [we drop the <code class="docutils literal notranslate"><span class="pre">Ori-</span></code> when entering the command], and
-create a new orientation directory, <code class="docutils literal notranslate"><span class="pre">Ori-TerrainFinal</span></code>. The numerical values in the GCP option (<code class="docutils literal notranslate"><span class="pre">5</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code> in
-<code class="docutils literal notranslate"><span class="pre">GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2]</span></code>) are the estimate of the GCP accuracy in world coordinates (first number)
-and in pixels (second number).</p>
+<p>This will take the orientation estimated in <code class="docutils literal notranslate"><span class="pre">Ori-TerrainBrut</span></code> (we drop the <code class="docutils literal notranslate"><span class="pre">Ori-</span></code> when entering the command), and
+create a new orientation directory, <code class="docutils literal notranslate"><span class="pre">Ori-TerrainFinal</span></code>.</p>
+<p>The numerical values in the GCP option (<code class="docutils literal notranslate"><span class="pre">5</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code> in <code class="docutils literal notranslate"><span class="pre">GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2]</span></code>) are the
+estimate of the GCP accuracy in world coordinates (first number) and in pixels (second number).</p>
 <p>For now, I recommend keeping them at these default values, but feel free to experiment after you’ve gotten the hang of
 it somewhat.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">SH=HomolMasqFiltered</span></code> flag tells <code class="docutils literal notranslate"><span class="pre">Campari</span></code> to use the tie points found in <code class="docutils literal notranslate"><span class="pre">HomolMasqFiltered</span></code> - if you
-haven’t done the <code class="docutils literal notranslate"><span class="pre">HomolFilterMasq</span></code> step, leave this flag out. Finally, the <code class="docutils literal notranslate"><span class="pre">AllFree=1</span></code> flag means that we’re also
-refining the camera calibration (focal length, principal point location, radial distortion), in addition to resolving
-the camera orientations.</p>
+haven’t done the <code class="docutils literal notranslate"><span class="pre">HomolFilterMasq</span></code> step, leave this flag out.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">AllFree=1</span></code> flag means that we’re also refining the camera calibration (focal length, principal point
+location, radial distortion), in addition to resolving the camera orientations.</p>
 <p>The output for <code class="docutils literal notranslate"><span class="pre">Campari</span></code> is iterative, meaning that it will go through several steps. At the end of the output, you
 should see something like this (note that you may need to scroll up):</p>
 <a class="reference internal image-reference" href="../../../_images/campari_output.png"><img alt="the output of campari" class="align-center" src="../../../_images/campari_output.png" style="width: 400px;" /></a>
-<p><br /> The information for each GCP looks fairly similar to the output for <code class="docutils literal notranslate"><span class="pre">GCPBascule</span></code>. Taking the output for
+<p><br /> The information for each GCP looks similar to the output for <code class="docutils literal notranslate"><span class="pre">GCPBascule</span></code>. Taking the output for
 <strong>GCP6</strong> again:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>==== ADD Pts GCP6 Has Gr 1 Inc [5,5,5]
 --NamePt GCP6 Ec Estim-Ter [-3.47157,-1.35434,-0.48158]           Dist =3.75739 ground units
@@ -1043,11 +1100,15 @@ Inc = [5,5,5]PdsIm = [0.25,0.25,0.25]
      ErrMax = 0.871427 pixels, For Im=OIS-Reech_AR5840034159997.tif,  Point=GCP6
 </pre></div>
 </div>
-<p>We can see that the maximum error (<strong>ErrMax</strong>) of 0.871427 pixels is found in image <strong>OIS-Reech_AR5840034159997.tif</strong>,
-and the average pixel error of 3 measurements is 0.595718 pixels. The difference between the initial estimate and the
-“true” location (in <em>x</em>, <em>y</em>, <em>z</em>) is -3.47157 m, -1.35434 m, -0.48158 m, for a total distance of 3.75739 m. The
-difference between the “true” location and the predicted location after the bundle adjustment (again in <em>x</em>, <em>y</em>, <em>z</em>)
-is 4.1262 m, 1.5956 m, 5.36046 m, for a total distance of 6.95026 m.</p>
+<p>We can see that:</p>
+<ul class="simple">
+<li><p>the maximum error (<strong>ErrMax</strong>) of 0.871427 pixels is found in image <strong>OIS-Reech_AR5840034159997.tif</strong>, and the
+average pixel error of 3 measurements is 0.595718 pixels;</p></li>
+<li><p>the difference between the initial estimate and the “true” location (in <em>x</em>, <em>y</em>, <em>z</em>) is -3.47157 m, -1.35434 m,
+and -0.48158 m, for a total distance of 3.75739 m;</p></li>
+<li><p>the difference between the “true” location and the predicted location after the bundle adjustment (again in <em>x</em>, <em>y</em>,
+<em>z</em>) is 4.1262 m, 1.5956 m, 5.36046 m, for a total distance of 6.95026 m.</p></li>
+</ul>
 <p>As with <code class="docutils literal notranslate"><span class="pre">GCPBascule</span></code>, we can see the maximum error for all points in all images:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>============================= ERRROR MAX PTS FL ======================
 ||    Value=3.2908 for Cam=OIS-Reech_AR5840034159995.tif and Pt=GCP4 ; MoyErr=1.0297
@@ -1066,12 +1127,16 @@ RES:[OIS-Reech_AR5840034159998.tif][C] ER2 0.737522 Nn 99.7247 Of 10897 Mul 4329
 RES:[OIS-Reech_AR5840034159999.tif][C] ER2 0.732468 Nn 99.7965 Of 4914 Mul 929 Mul-NN 928 Time 0.145
 </pre></div>
 </div>
-<p>Looks very similar to the output from <code class="docutils literal notranslate"><span class="pre">Tapas</span></code>. Each line tells us the total residual (in pixels) for all of the tie
-points found in each image (<strong>ER2</strong>), as well as the percentage of tie points out of the total number of tie points in
-each image (<strong>Nn XX of XX</strong>) that were correct within the maximum acceptable error before a point is considered an
-outlier. It also shows how many points are seen in &gt; 2 images (<strong>Mul</strong>), and the number of points that were properly
-located (<strong>Mul-NN</strong>), as well as the time it took to do the calculation.</p>
-<p>As long as the residual for each image is fairly low (&lt; 2 or so), and the percentage is reasonably close to 100, you
+<p>Looks very similar to the output from <code class="docutils literal notranslate"><span class="pre">Tapas</span></code>. Each line tells us:</p>
+<ul class="simple">
+<li><p><strong>ER2</strong>: the total residual (in pixels) for all of the tie points found in each image;</p></li>
+<li><p><strong>Nn XX of XX</strong>: the percentage of tie points out of the total number of tie points in each image that were correct
+within the maximum acceptable error before a point is considered an outlier;</p></li>
+<li><p><strong>Mul</strong>: how many tie points are seen in more than 2 images;</p></li>
+<li><p><strong>Mul-NN</strong>: and the number of these points that were properly located;</p></li>
+<li><p><strong>Time</strong>: the time it took to do the calculation.</p></li>
+</ul>
+<p>As long as the residual for each image is low (&lt; 2 or so), and the percentage is reasonably close to 100, you
 should be able to continue to the next step and get usable, if not perfect, results.</p>
 <p>And finally, we can see the stats for the whole block of images:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>----- Stat on type of point (ok/elim) ----
@@ -1106,8 +1171,9 @@ create the individual orthophotos:</p>
 </div>
 <p>This will create two folders, <strong>MEC-Malt</strong> and <strong>Ortho-MEC-Malt</strong>. In <strong>MEC-Malt</strong>, you will find the DEM
 (<strong>Z_Num9_DeZoom1_STD-MALT.tif</strong>), as well as the correlation image (<strong>Correl_STD-MALT_Num_8.tif</strong>) and the image mask
-(<strong>AutoMask_STD-MALT_Num_8.tif</strong>). This will also take some time, depending on your computer – on my laptop, it takes
-around 10-15 minutes for this set of images.</p>
+(<strong>AutoMask_STD-MALT_Num_8.tif</strong>).</p>
+<p>This will also take some time, depending on your computer – on my laptop, it takes around 10-15 minutes for this set of
+images.</p>
 <p>At the end, you can load the final DEM (<strong>Z_Num9_DeZoom1-STD-MALT.tif</strong>) into <strong>QGIS</strong> or <strong>ArcGIS</strong>. The image below
 shows a comparison between my results (hillshade, red profile line) and the Shuttle Radar Topography Mission (SRTM)
 DEM (black line):</p>
@@ -1123,7 +1189,7 @@ DEM (black line):</p>
 <h2>cleaning up the outputs<a class="headerlink" href="#cleaning-up-the-outputs" title="Permalink to this heading">#</a></h2>
 <p>The final step (for now) is to clean up the output DEM and Orthophoto, masking out the parts of the DEM raster that
 aren’t covered by the images.</p>
-<p>First, cd into <strong>MEC-Malt</strong>:</p>
+<p>First, use <code class="docutils literal notranslate"><span class="pre">cd</span></code> to navigate into <strong>MEC-Malt</strong>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd MEC-Malt
 </pre></div>
 </div>

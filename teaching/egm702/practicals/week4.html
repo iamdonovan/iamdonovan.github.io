@@ -620,7 +620,7 @@ week 4, the scripts are:</p>
 <p>In the <strong>Script manager</strong>, open the script for part 1 by clicking on <code class="docutils literal notranslate"><span class="pre">week4/01_visual_analysis.js</span></code>.</p>
 <p>Remember that you have access to all of the scripts in the repository as a <em>Reader</em>, but in order to save any changes
 you’ll need to save the script to your own repository. Again, the easiest way for you to do this is to replace
-“YOUR NAME HERE!” on line 1 with your name, then click <strong>Save</strong>.</p>
+<strong>“YOUR NAME HERE!”</strong> on line 1 with your name, then click <strong>Save</strong>.</p>
 <p>Save the script to your <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository as <code class="docutils literal notranslate"><span class="pre">week4/01_visual_analysis.js</span></code> - just like last week, you should
 see a <code class="docutils literal notranslate"><span class="pre">week4</span></code> folder appear in the repository with a new script, <code class="docutils literal notranslate"><span class="pre">01_visual_analysis.js</span></code>.</p>
 <p>As you work your way through the practical, remember to save each script in this way, so that any changes you make to
@@ -682,8 +682,9 @@ we see a large amount of snow:</p>
 <p>When visually inspecting images for changes, we normally want the images to be visualized in the same way - that
 way, we know that the differences that we’re seeing are differences in reflectance, and not in the visualization.</p>
 <p>To illustrate this, try changing the stretch on <code class="docutils literal notranslate"><span class="pre">2011</span> <span class="pre">SR</span> <span class="pre">B4</span></code> so that it ranges from 0.05 to 1.30, rather than
-0.65. You should notice that now, it appears that the 2011 image is darker than the 1984 image, indicating that
-NIR reflectance has decreased.</p>
+0.65.</p>
+<p>You should notice that now, it appears that the 2011 image is darker than the 1984 image, giving the impression that
+NIR reflectance has decreased, even though the opposite is true.</p>
 </div>
 <p>Visually comparing bands like this is one way that we can see the differences between color composites or individual
 bands. As discussed in this week’s lectures, we can also use a multi-temporal false color composite to visualize changes
@@ -724,8 +725,8 @@ of the mountain has largely similar reflectance between the two dates (aside fro
 <p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
 </div>
 <div class="sd-card-body docutils">
-<p class="sd-card-text">Paste the following code at the end of the script to create a multi-temporal false color composite using the red
-reflectance (TM band 3), then re-run the script.</p>
+<p class="sd-card-text">Paste the following code at the end of the script (after line 47) to create a multi-temporal false color composite
+using the red reflectance (TM band 3), then re-run the script.</p>
 <p class="sd-card-text">What are some of the differences between the NIR and Red changes that you notice? Using what you know about
 reflectance, and what you know about the changes at Mt St Helens between the two images, how can you
 interpret/explain these difference?</p>
@@ -742,9 +743,9 @@ interpret/explain these difference?</p>
 </div>
 </div>
 </div>
-<p>Visually inspecting images for differences can be an excellent way to notice changes - our eyes can be quite sensitive
-to subtle differences in appearance between images. However, it is not always the most effective/efficient way to
-quantify changes - for this, we’ll look at other methods.</p>
+<p>Visually inspecting images for differences can be an excellent way to <em>identify</em> changes, because our eyes can be quite
+sensitive to subtle differences in appearance between images. However, it is not always the most effective/efficient way
+to <em>quantify</em> changes - for this, we’ll look at other methods.</p>
 </div>
 <div class="section" id="part-2-band-maths-and-thresholding">
 <h2>part 2 - band maths and thresholding<a class="headerlink" href="#part-2-band-maths-and-thresholding" title="Permalink to this heading">#</a></h2>
@@ -780,7 +781,8 @@ to view the multi-temporal false color composite:</p>
 <span class="p">]);</span>
 </pre></div>
 </div>
-<p>then we use <code class="docutils literal notranslate"><span class="pre">ee.Image.normalizedDifference()</span></code> to calculate the normalized difference between 1984 and 2011:</p>
+<p>then we use <code class="docutils literal notranslate"><span class="pre">ee.Image.normalizedDifference()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-normalizeddifference">documentation</a>)
+to calculate the normalized difference between 1984 and 2011:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a multi-temporal normalized difference</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">normdiff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">multitemp</span><span class="p">.</span><span class="nx">normalizedDifference</span><span class="p">([</span><span class="s1">&#39;2011_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1984_B4&#39;</span><span class="p">]).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;normDiff&#39;</span><span class="p">);</span>
 </pre></div>
@@ -793,7 +795,7 @@ the two dates.</p>
 <p><br /> followed by the <code class="docutils literal notranslate"><span class="pre">Normalized</span> <span class="pre">Difference</span></code> layer:</p>
 <a class="reference internal image-reference" href="../../../_images/normalized_difference.png"><img alt="the normalized difference in NIR reflectance between 1984 and 2011" class="align-center" src="../../../_images/normalized_difference.png" style="width: 720px;" /></a>
 <p><br /> Toggle back and forth between the two images - you should notice that while the colors don’t change (remember that
-the sign is the same for both), the colors in the normalized difference image have been stretched to fill the color
+the sign is the same for both), the values in the normalized difference image have been stretched to fill the color
 range compared to the difference image.</p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
 <div class="sd-card-header question docutils">
@@ -849,8 +851,9 @@ the mountain, and small patches scattered around the rest of the image.</p>
 <p class="sd-card-text">Hopefully, it’s clear that I’ve deliberately set the threshold too high, which means that a lot of areas of genuine
 change have been excluded from the mask.</p>
 <p class="sd-card-text">Using the histogram of the normalized difference image, the descriptive statistics, and a bit of trial and error,
-try to improve on this result. The goal is to include as much of the vegetation regrowth that you can see
-north of the mountain as possible, while minimizing differences that are due to natural fluctuations in reflectance.</p>
+try to improve on this result.</p>
+<p class="sd-card-text">The goal is to include as much of the vegetation regrowth that you can see north of the mountain as possible, while
+minimizing differences that are due to natural fluctuations in reflectance.</p>
 </div>
 </div>
 <div class="admonition note">
@@ -864,9 +867,9 @@ task to export the shapefile to your drive.</p>
 <h2>part 3 - change vector analysis<a class="headerlink" href="#part-3-change-vector-analysis" title="Permalink to this heading">#</a></h2>
 <p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">03_change_vector_analysis.js</span></code> in the <strong>Script manager</strong>, or using
 this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F03_change_vector_analysis.js">direct link</a>.</p>
-<p>For this part of the practical, we’ll use the same images that we used in the first part of the practical – this time,
-using change vector analysis (CVA). While CVA can be used for any number of band differences, we’re going to stick to
-the differences in NIR and Red reflectance between the two images, similar to what we looked at with the
+<p>For this part of the practical, we’ll use the same images that we used in the first two parts of the practical – this
+time, using change vector analysis (CVA). While CVA can be used for any number of band differences, we’re going to stick
+to the differences in NIR and Red reflectance between the two images, similar to what we looked at with the
 multi-temporal false color composite.</p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
 <div class="sd-card-header question docutils">
@@ -890,8 +893,8 @@ the first image (assuming that they share band names). So, in this line of code:
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tm2011</span><span class="p">.</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">tm1984</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We would get back an image with the difference of all of the bands that <code class="docutils literal notranslate"><span class="pre">tm2011</span></code> and <code class="docutils literal notranslate"><span class="pre">tm1984</span></code> share in common.
-By selecting only <code class="docutils literal notranslate"><span class="pre">SR_B4</span></code> and <code class="docutils literal notranslate"><span class="pre">SR_B3</span></code>, however, we end up with just the difference in those two bands.</p>
+<p>We would get back an image with the difference of all of the bands that <code class="docutils literal notranslate"><span class="pre">tm2011</span></code> and <code class="docutils literal notranslate"><span class="pre">tm1984</span></code> share in common.</p>
+<p>By selecting only <code class="docutils literal notranslate"><span class="pre">SR_B4</span></code> and <code class="docutils literal notranslate"><span class="pre">SR_B3</span></code>, however, we end up with just the difference in those two bands.</p>
 </div>
 <p>Next, we calculate the magnitudes of the change vectors:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// compute the magnitude of the change vectors as the square root of the</span>

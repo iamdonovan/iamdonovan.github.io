@@ -611,9 +611,13 @@ All of the programming steps have been provided for you in a script, and your ta
 analyse and interpret the results.</p>
 <div class="section" id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
-<p><strong>Be sure to download all the data from the Practical 5 area on Blackboard before starting, or from the</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to download all the data from the Practical 5 area on Blackboard before starting, or from the
 <a class="reference external" href="https://drive.google.com/file/d/1v4ZqiDKD9_fgSoub1o-08e_GktBIWR72/view?usp=share_link">google drive link</a>,
-<strong>then extract the zip file. You should have the following files/folders available:</strong></p>
+then extract the zip file.</p>
+</div>
+<p>You should have the following files/folders available:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├─ area_uncertainty.py
 └─ LC08_L2SP_046028_20200823_20200905_02_T1/
     ├─ LC08_L2SP_046028_20200823_20200905_02_T1.vrt
@@ -628,6 +632,8 @@ analyse and interpret the results.</p>
     └─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B7.TIF
 </pre></div>
 </div>
+<p>We will be using these images later in the lab, for the <a class="reference internal" href="#week5-accuracy"><span class="std std-ref">accuracy assessment</span></a> portion of the
+practical.</p>
 <p>Once you have downloaded the files, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>, and log in if you need
 to. In the <strong>Script manager</strong> under <strong>Reader</strong>, find the <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository, and click on <code class="docutils literal notranslate"><span class="pre">week5</span></code> to expand the
 week 5 folder.</p>
@@ -641,7 +647,7 @@ order. For week 5, the scripts are:</p>
 <p>In the <strong>Script manager</strong>, open the script for part 1 by clicking on <code class="docutils literal notranslate"><span class="pre">week5/01_unsupervised.js</span></code>.</p>
 <p>Remember that you have access to all of the scripts in the repository as a <em>Reader</em>, but in order to save any changes
 you’ll need to save the script to your own repository. Again, the easiest way for you to do this is to replace
-“YOUR NAME HERE!” on line 1 with your name, then click <strong>Save</strong>.</p>
+<strong>“YOUR NAME HERE!”</strong> on line 1 with your name, then click <strong>Save</strong>.</p>
 <p>Save the script to your <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository as <code class="docutils literal notranslate"><span class="pre">week5/01_unsupervised.js</span></code> - just like last week, you should
 see a <code class="docutils literal notranslate"><span class="pre">week5</span></code> folder appear in the repository with a new script, <code class="docutils literal notranslate"><span class="pre">01_unsupervised.js</span></code>.</p>
 <p>As you work your way through the practical, remember to save each script in this way, so that any changes you make to
@@ -657,17 +663,23 @@ to no input to the classification routine. Instead, the classification algorithm
 pixels, based on their properties.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It’s important to note that the classes output by an unsupervised classification have no meaning, in the sense that
-they’re only groups of pixels based on the image data. After running an unsupervised classification, then, the next
-task is to interpret and identify what each of these classes represent.</p>
+<p>It’s important to note that the classes, or clusters, output by an unsupervised classification have no meaning, in
+the sense that they’re only groups of pixels based on the statistics of the image data.</p>
+<p>After running an unsupervised classification, then, the next task is to interpret and identify what each of these
+clusters represent.</p>
 </div>
 <p>The algorithm that we’ll use to cluster the image is an implementation of <em>k</em>-means<a class="footnote-reference brackets" href="#kmeans" id="id1">1</a> clustering called WEKA
 <em>k</em>-means<a class="footnote-reference brackets" href="#weka" id="id2">2</a>.</p>
 <p>The <strong>Image</strong> that we’re working with in this practical is the same August 2020 OLI image that we’ve seen before. In one
-band, this image has: 7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels - that’s a lot.</p>
+band, this image has:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels
+</pre></div>
+</div>
+<p>That’s a lot of pixels.</p>
 <p>To help improve performance of the clustering algorithm, and prevent <code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">Memory</span></code> errors when we run the script,
-we want to take a random sample of pixels, rather than attempting to run the clustering algorithm on the entire set of
-~400M pixels:</p>
+we want to take a random sample of 5000 pixels, rather than attempting to run the clustering algorithm on the entire set of
+~400M pixels.</p>
+<p>To do this, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.sample()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-sample">documentation</a>):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create sample points to run k-means clustering on</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">training</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">).</span><span class="nx">sample</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span>
@@ -681,6 +693,7 @@ we want to take a random sample of pixels, rather than attempting to run the clu
 <span class="kd">var</span><span class="w"> </span><span class="nx">clusterer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Clusterer</span><span class="p">.</span><span class="nx">wekaKMeans</span><span class="p">({</span><span class="nx">nClusters</span><span class="o">:</span><span class="w"> </span><span class="mf">16</span><span class="p">}).</span><span class="nx">train</span><span class="p">(</span><span class="nx">training</span><span class="p">);</span>
 </pre></div>
 </div>
+<p>The clustering algorithm then takes the input data and decides how best to group the input pixels.</p>
 <p>Remember that <em>k</em>-means requires that we specify the number of classes, <em>k</em> - the algorithm won’t decide for us how
 many classes to use. In the above example, we’re using 16 classes, specified using the argument <code class="docutils literal notranslate"><span class="pre">nClusters</span></code>.</p>
 <div class="admonition note">
@@ -694,17 +707,20 @@ which are designed to optimize the number of clusters based on the input data.</
 <p>Once we’ve trained the <strong>Clusterer</strong>, we have to actually apply it to the image:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// classify the image using the unsupervised classifier</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">unsupervised</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">cluster</span><span class="p">(</span><span class="nx">clusterer</span><span class="p">);</span><span class="w"> </span><span class="c1">// returns an image with a single band, &#39;cluster&#39;</span>
-<span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">));</span><span class="w"> </span><span class="c1">// add the cluster band to the image</span>
 </pre></div>
 </div>
 <p>This will assign a class (or cluster value) to each input based on the “rules” that the <strong>Clusterer</strong> has learned from
-the input data. We can then add the classification band to the original image, before adding the image to the <strong>Map</strong>:</p>
+the input data.</p>
+<p>We can then add the classification band to the original image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">));</span><span class="w"> </span><span class="c1">// add the cluster band to the image</span>
+</pre></div>
+</div>
+<p>Because the cluster values don’t have any actual meaning, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Image.randomVisualizer()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-randomvisualizer">documentation</a>) to create a
+random palette to view the image with:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">randomVisualizer</span><span class="p">(),</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="s1">&#39;clusters&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Because the cluster values don’t have any actual meaning, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Image.randomVisualizer()</span></code> to create a
-random palette to view the image with - the important thing here is to be able to see how different pixels are grouped
-together.</p>
 <p>When you run the script, you will see something like the artistic image shown below:</p>
 <a class="reference internal image-reference" href="../../../_images/unsupervised.png"><img alt="the unsupervised classification shown in the map window" class="align-center" src="../../../_images/unsupervised.png" style="width: 720px;" /></a>
 <p><br /> Here, we can pick out some of the features from the visible image - the mountain is primarily a teal color
@@ -764,7 +780,8 @@ single <strong>FeatureCollection</strong>, called <code class="docutils literal 
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>Samples the cluster values at each of the training points, which we can then plot in a chart to show the different
+<p>Uses <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-sampleregions">documentation</a>)
+to sample the cluster values at each of the training points, which we can then plot in a chart to show the different
 <code class="docutils literal notranslate"><span class="pre">landcover</span></code> values that each cluster has been assigned to:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a chart that plots the cluster value vs the landcover class value</span>
 <span class="c1">// for the training points</span>
@@ -783,9 +800,9 @@ single <strong>FeatureCollection</strong>, called <code class="docutils literal 
 </div>
 <a class="reference internal image-reference" href="../../../_images/kmeans_chart.png"><img alt="the k-means cluster values for different landcover classes" class="align-center" src="../../../_images/kmeans_chart.png" style="width: 720px;" /></a>
 <p>The x-axis of this chart shows the cluster value, and the y-axis shows the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> value. From this chart,
-you can see, for example, that cluster number 13 is identified as both <code class="docutils literal notranslate"><span class="pre">landcover</span></code> 0 (<code class="docutils literal notranslate"><span class="pre">water</span></code>) and 4 (<code class="docutils literal notranslate"><span class="pre">soil</span></code>). We
-also see that <code class="docutils literal notranslate"><span class="pre">landcover</span></code> 1 (forest) has been spread across a number of cluster values, as have <code class="docutils literal notranslate"><span class="pre">landcover</span></code> values
-2 through 4.</p>
+you can see, for example, that cluster number 13 is identified as both <code class="docutils literal notranslate"><span class="pre">landcover</span></code> 0 (<code class="docutils literal notranslate"><span class="pre">water</span></code>) and 4 (<code class="docutils literal notranslate"><span class="pre">soil</span></code>).</p>
+<p>We also see that <code class="docutils literal notranslate"><span class="pre">landcover</span></code> 1 (forest) has been spread across a number of cluster values, as have <code class="docutils literal notranslate"><span class="pre">landcover</span></code>
+values 2 through 4.</p>
 <p>This chart doesn’t tell us how many points belong to each; however, we can look at a confusion matrix of the landcover
 and cluster values to learn a bit more:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">print</span><span class="p">(</span><span class="nx">clusterPoints</span><span class="p">.</span><span class="nx">errorMatrix</span><span class="p">(</span><span class="s1">&#39;landcover&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cluster&#39;</span><span class="p">));</span>
@@ -971,8 +988,9 @@ we add the clustered <strong>Image</strong> to our original <strong>Image</stron
 </div>
 <p>This way, we can select pixels from that <strong>Image</strong> based on what cluster they belong to.</p>
 <p>Because of the number of pixels in the <strong>Image</strong> (remember: 7601 * 7331 pixels = 55.7M pixels),
-we can’t just plot all of the pixel values at once. Instead, we again take a random sample of pixels,
-this time using <code class="docutils literal notranslate"><span class="pre">ee.Image.stratifiedSample()</span></code>:</p>
+we can’t just plot all of the pixel values at once.</p>
+<p>Instead, we again take a random sample of pixels, this time using <code class="docutils literal notranslate"><span class="pre">ee.Image.stratifiedSample()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-stratifiedsample">documentation</a>):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B.&#39;</span><span class="p">]).</span><span class="nx">stratifiedSample</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">numPoints</span><span class="o">:</span><span class="w"> </span><span class="mf">300</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">classBand</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
@@ -986,8 +1004,8 @@ this time using <code class="docutils literal notranslate"><span class="pre">ee.
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The output of <code class="docutils literal notranslate"><span class="pre">ee.Image.stratifiedSample()</span></code> is a <strong>FeatureCollection</strong>. Because we are limited by GEE 5000
-elements for the <strong>Chart</strong>, we are limited to 5000 elements / 16 classes ~= 300 elements / class. To show more
-elements per class, we would need to reduce the number of classes.</p>
+elements for the <strong>Chart</strong>, we are limited to 5000 elements / 16 classes ~= 300 elements / class.</p>
+<p>To be able to show more elements per class, we would need to reduce the number of classes.</p>
 </div>
 <p>There are two examples shown in the script: a comparison of the NIR (OLI Band 5) and red (OLI Band 4), and a comparison
 of the green (OLI Band 3) and SWIR2 (OLI Band 7). The first example, NIR vs red, is shown below:</p>
@@ -1020,8 +1038,10 @@ reflectance.</p>
 <p>As stated above, the cluter values classes output by an unsupervised classification have no meaning - they’re only
 groups of pixels based on the image data. The next step for analyzing and using the output of the unsupervised
 classification would be to group different classes together based on the landcover type they represent
-(using, for example, the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/reclassify.htm">Reclassify</a>
-tool in ArcGIS). For now, we’ll move on to look at other methods of classification.</p>
+(using, for example, <code class="docutils literal notranslate"><span class="pre">ee.Image.remap()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-remap">documentation</a>)
+or the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/reclassify.htm">Reclassify</a> tool in
+ArcGIS).</p>
+<p>For now, though, we’ll move on to look at other methods of classification.</p>
 </div>
 <div class="section" id="part-2-pixel-based-classification">
 <h2>part 2 - pixel-based classification<a class="headerlink" href="#part-2-pixel-based-classification" title="Permalink to this heading">#</a></h2>
@@ -1029,8 +1049,8 @@ tool in ArcGIS). For now, we’ll move on to look at other methods of classifica
 this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek5%2F02_pixel.js">direct link</a>.</p>
 <p>In this part of the practical, we’re going to use a Random Forest<a class="footnote-reference brackets" href="#randforest" id="id3">3</a> classifier to classify the image.
 This is a <em>supervised</em> classification method, meaning that in order to train the classifier, we first have to provide
-labeled examples for the classifier to “learn” from.</p>
-<p>In the <strong>GeometryImports</strong> menu, you can toggle on each of the training point layers to view them on the <strong>Map</strong>:</p>
+<strong>labeled</strong> examples for the classifier to “learn” from.</p>
+<p>In the <strong>Geometry Imports</strong> menu, you can toggle on each of the training point layers to view them on the <strong>Map</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/training_points.png"><img alt="the different training points for the classifier, shown on the map" class="align-center" src="../../../_images/training_points.png" style="width: 720px;" /></a>
 <p><br /> At the beginning of the script, we combine these individual layers into a single <strong>FeatureCollection</strong> in order
 to use it for the classification:</p>
@@ -1051,8 +1071,8 @@ to use it for the classification:</p>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>Next, we split the input data into two “training” and “testing” partitions using a 70-30 split (i.e., 70% of the data
-will be used for training, 30% for testing):</p>
+<p>Next, we split the input data into two “training” and “testing” partitions using a 70-30 split (i.e., 70% of the input
+data will be used for training, 30% for testing):</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// split the training points into training, testing data</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">split</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.7</span><span class="p">;</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">withRandom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">training</span><span class="p">.</span><span class="nx">randomColumn</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">);</span>
@@ -1076,7 +1096,8 @@ number of <strong>Classifier</strong> algorithms implemented:</p>
 <span class="kd">var</span><span class="w"> </span><span class="nx">classifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Classifier</span><span class="p">.</span><span class="nx">smileRandomForest</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We use <code class="docutils literal notranslate"><span class="pre">ee.Classifier.train()</span></code>, along with the training data that we gathered earlier, to train the <strong>Classifier</strong>:</p>
+<p>We use <code class="docutils literal notranslate"><span class="pre">ee.Classifier.train()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-train">documentation</a>),
+along with the training data that we gathered earlier, to train the <strong>Classifier</strong>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// train the classifier using the training partition</span>
 <span class="nx">classifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">classifier</span><span class="p">.</span><span class="nx">train</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">features</span><span class="o">:</span><span class="w"> </span><span class="nx">trainingPartition</span><span class="p">,</span>
@@ -1085,8 +1106,9 @@ number of <strong>Classifier</strong> algorithms implemented:</p>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>Once we’ve trained the <strong>Classifier</strong>, we can classify the testing data to see how well the classifier does in
-classifying data that it hasn’t seen before:</p>
+<p>Once we’ve trained the <strong>Classifier</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.classify()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-classify">documentation</a>)
+to classify the testing partition to see how well the classifier does in classifying data that it hasn’t seen before:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// classify the testing data using our trained classifiers</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">testingPartition</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
 </pre></div>
@@ -1240,8 +1262,8 @@ the classified image.<a class="footnote-reference brackets" href="#congalton" id
 <p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
 </div>
 <div class="sd-card-body docutils">
-<p class="sd-card-text">Which of these classes have the most overlap, as indicated by the error matrix? Why do you think this might be?
-What are some ways that we could try to address this problem?</p>
+<p class="sd-card-text">Which of these classes have the most overlap, as indicated by the error matrix? Why do you think this might be?</p>
+<p class="sd-card-text">What are some ways that we could try to address this problem?</p>
 </div>
 </div>
 <p>Once we have trained the <strong>Classifier</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.classify()</span></code> to classify the image:</p>
@@ -1249,14 +1271,15 @@ What are some ways that we could try to address this problem?</p>
 <span class="kd">var</span><span class="w"> </span><span class="nx">classified</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
 
 <span class="kd">var</span><span class="w"> </span><span class="nx">classPalette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;013dd6&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;059e2a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2aff53&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;e3d4ae&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fffbf4&#39;</span><span class="p">];</span>
-
-<span class="c1">// add the classified image to the map</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">classified</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="nx">classPalette</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;classified&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>This creates a new <strong>Image</strong> with a single band, <code class="docutils literal notranslate"><span class="pre">classification</span></code>, where the pixel values are the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> values
-of each class from our training <strong>FeatureCollection</strong>, then adds it to the <strong>Map</strong> with the same color scheme as the
-training point layers:</p>
+of each class from our training <strong>FeatureCollection</strong>.</p>
+<p>We then add this image to the <strong>Map</strong> with the same color scheme as the training point layers:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the classified image to the map</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">classified</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="nx">classPalette</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;classified&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
 <a class="reference internal image-reference" href="../../../_images/classified_image.png"><img alt="the random forest classified image" class="align-center" src="../../../_images/classified_image.png" style="width: 720px;" /></a>
 <p><br /> Note that when you are zoomed out, the classification will look different due to the way that the image is
 re-sampled at lower resolutions (similar to how it works in ArcGIS).</p>
@@ -1435,8 +1458,8 @@ the clusters created using the chosen parameters (roughly 120 m spacing):</p>
 </div>
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Toggle the <code class="docutils literal notranslate"><span class="pre">segments</span></code> layer on, then zoom in to have a look around. How do the object boundaries you see relate
-to the image underneath? Do they agree? Are there areas where the boundaries vary significantly from what you can
-see in the underlying image?</p>
+to the image underneath? Do they agree?</p>
+<p class="sd-card-text">Are there any areas where the boundaries vary significantly from what you can see in the underlying image?</p>
 </div>
 </div>
 <p>This is something to keep in mind - the scale of our segmentation determines the size of the objects that we end up
@@ -1448,9 +1471,12 @@ classification.</p>
 Co-occurrence Matrix (GLCM; Haralick et al., 1973<a class="footnote-reference brackets" href="#glcm" id="id10">10</a>). The GLCM contains information about how frequently
 combinations of pixel values appear in a specified relationship in the image. We can use this, and the statistical
 metrics that we can extract from the GLCM, to analyze the texture of the image.</p>
-<p>Here, we’ll look at three examples: the Angular Second Moment (ASM), the local contrast, and the entropy. The ASM
-measures how many repeated pairs of values we see within each small window. The local contrast tells us how much
-variation we see in the small area, and the entropy measures the randomness of the values in each small window.</p>
+<p>Here, we’ll look at three examples in more detail:</p>
+<ul class="simple">
+<li><p>the <strong>Angular Second Momment</strong> (ASM), which measures how many repeated pairs of values we see within each small window;</p></li>
+<li><p>the <strong>local contrast</strong>, which tells us how much variation we see in each small window;</p></li>
+<li><p>and the <strong>entropy</strong>, which measures the randomness of the values in each small window.</p></li>
+</ul>
 <p>Before we compute the GLCM, we make a grayscale image from the NIR, Red, and Green bands, following
 Tassi and Vizzari (2020)<a class="footnote-reference brackets" href="#gray" id="id11">11</a>:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a grayscale image to run texture on, following Tassi and Vizzari (2020)</span>
@@ -1466,8 +1492,8 @@ Tassi and Vizzari (2020)<a class="footnote-reference brackets" href="#gray" id="
 <span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">gray</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">7500</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">17500</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;grayscale&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>this helps simplify the process somewhat - as we’ve seen in the lectures, there is often redundant information in
-nearby bands.</p>
+<p>this helps simplify the process somewhat - as we’ve seen in the lectures and previous practicals, there is often
+redundant information in neighboring bands.</p>
 <p>Once we’ve created this layer, we compute the GLCM and display the three images we’re interested in (the ASM, Contrast,
 and Entropy).</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the GLCM for the grayscale image</span>
@@ -1475,16 +1501,18 @@ and Entropy).</p>
 <span class="w">  </span><span class="p">.</span><span class="nx">reproject</span><span class="p">({</span><span class="nx">crs</span><span class="o">:</span><span class="w"> </span><span class="nx">gray</span><span class="p">.</span><span class="nx">projection</span><span class="p">(),</span><span class="w"> </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">});</span>
 
 <span class="nx">print</span><span class="p">(</span><span class="s1">&#39;GLCM Image&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">glcm</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_asm&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0281</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0354</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;ASM&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_contrast&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">3e5</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">5e6</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;Contrast&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
-<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_ent&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">3.391</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">3.577</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;Entropy&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The result of this is an image, <code class="docutils literal notranslate"><span class="pre">glcm</span></code>, that contains 18 variables for each band in the original image. For a full
 list of the variables, you can see the
 <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-glcmtexture">documentation</a>.</p>
-<p>Finally, have a look at the images that have been loaded in the map: the Angular Second Moment (ASM), the Contrast, and the Entropy.
-Take a look at the ASM image first:</p>
+<p>We then load the three bands we’re investigating into the <strong>Map</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_asm&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0281</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0354</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;ASM&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_contrast&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">3e5</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">5e6</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;Contrast&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_ent&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">3.391</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">3.577</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;Entropy&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Take a look at the ASM image first:</p>
 <a class="reference internal image-reference" href="../../../_images/asm.png"><img alt="an image showing the angular second moment in the grayscale image" class="align-center" src="../../../_images/asm.png" style="width: 720px;" /></a>
 <p><br /> Remember that this tells us something about the repeated pairs of values within the specified window (here, a
 window of size 2) - brighter colors indicate higher values (more repeated values), darker colors indicate lower values
@@ -1562,7 +1590,7 @@ using OBIA.</p>
 </pre></div>
 </div>
 <p>Shows the other main difference between the pixel-based classification and the object-based classification. Here, we’re
-using a statistical description of the pixel values that fall within each object (mean, median, standard deviation),
+using a statistical description of the pixel values that fall within each object (mean, median, and standard deviation),
 rather than the pixel values themselves.</p>
 <p>Other than that, the remaining steps are the same for the object-based classification. We’re using a random forest
 classification, splitting the training points into training and testing partitions, training the classifier, and then
@@ -1600,7 +1628,7 @@ click on the <strong>Tasks</strong> tab, then click <strong>Run</strong>.</p>
 <p>Once you have downloaded the classified image, you can move on to the final part of the practical below.</p>
 </div>
 <div class="section" id="part-4-accuracy-analysis">
-<h2>part 4 - accuracy analysis<a class="headerlink" href="#part-4-accuracy-analysis" title="Permalink to this heading">#</a></h2>
+<span id="week5-accuracy"></span><h2>part 4 - accuracy analysis<a class="headerlink" href="#part-4-accuracy-analysis" title="Permalink to this heading">#</a></h2>
 <p>For the final part of this practical, we’ll use one of the exported classified images to perform an additional
 accuracy analysis in ArcGIS.</p>
 <div class="admonition note">
@@ -1670,7 +1698,8 @@ for <code class="docutils literal notranslate"><span class="pre">forest</span></
 </tbody>
 </table>
 <p>and change the label as you did for water, then continue in this way until you have changed the colors and labels for
-all of the values. The end result should look something like this:</p>
+all of the values.</p>
+<p>The end result should look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/aa_classification.png"><img alt="the classified image, with an updated symbology to match the GEE symbology used earlier." class="align-center" src="../../../_images/aa_classification.png" style="width: 720px;" /></a>
 <p><br /> Now that we have the images added to the map, we can generate a number of random points to use for the accuracy
 analysis.</p>
@@ -1686,9 +1715,10 @@ and choose a <code class="docutils literal notranslate"><span class="pre">Strati
 <p>With stratified random sampling, the <strong>Create Accuracy Assessment Points</strong> tool will create random points within
 each class, with the number of points for each class determined by the proportion of the area taken up by that class.</p>
 <p>The default value of <strong>Number of Random Points</strong> is 500, which is what I will use here. Using this with the
-classified image ouptut from GEE, there were only 13 points classified as water, and only 10 points classified as
+classified image output from GEE, there were only 13 points classified as water, and only 10 points classified as
 snow. This is not really enough to get an accurate picture of the classification performance of these classes.</p>
-<p>For now, however, the default value will suffice.</p>
+<p>For now, however, the default value will suffice, but I recommend increasing the number of points if you want to do
+this for an assignment or your MSc project.</p>
 </div>
 <p>Click <strong>OK</strong>, and you should see the new layer added to the map. Right-click on the layer and select <strong>Attribute Table</strong>
 to show the attribute table for these points:</p>
@@ -1699,8 +1729,8 @@ a value of -1 for all points, indicating that it has not been entered.</p>
 <p>Our job now is to manually enter the class value for each point.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Technically, because this is an object-based classification, we should be looking at the image objects where each
-point is located, rather than the individual pixels.</p>
+<p>Technically, because this is an object-based classification, we should be looking at the <strong>image objects</strong> where
+each point is located, rather than the individual pixels.</p>
 <p>For the purposes of this exercise, it will be fine to use the pixels.</p>
 </div>
 <p>To get started, right-click on the first row of the table, then select <strong>Zoom To</strong> (you may want to zoom further
@@ -1712,8 +1742,8 @@ it is located in a forest, so I have entered a 1 in the <code class="docutils li
 <p class="admonition-title">Note</p>
 <p>Remember that this is only an example - your results will most likely be different!</p>
 </div>
-<p>Move on to the next point, and the next point, and so on, until you have manually entered the values for each point.
-In addition to the Landsat image, you can also use the ESRI World Imagery to help interpret each point, though keep in
+<p>Move on to the next point, and the next point, and so on, until you have manually entered the values for each point.</p>
+<p>In addition to the Landsat image, you can also use the ESRI World Imagery to help interpret each point, though keep in
 mind that those images may be out of date compared to the Landsat image.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -1869,7 +1899,7 @@ filename at line 77:</p>
 <p>Now, from the <strong>Start</strong> menu, find the <strong>ArcGIS</strong> folder, and click on <strong>Python Command Prompt</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/arcgis_python.png"><img alt="the ArcGIS python command prompt shown in the start menu" class="align-center" src="../../../_images/arcgis_python.png" style="width: 400px;" /></a>
 <p><br /> Navigate to the folder where <code class="docutils literal notranslate"><span class="pre">area_uncertainty.py</span></code> is kept using <code class="docutils literal notranslate"><span class="pre">cd</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">bob</span>\<span class="n">EGM702</span>\<span class="n">Practicals</span>\<span class="n">Week</span> <span class="mi">5</span>\
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\b</span>ob<span class="se">\E</span>GM702<span class="se">\P</span>racticals<span class="se">\W</span>eek5<span class="se">\</span>
 </pre></div>
 </div>
 <p>Then, run the script by typing <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">area_uncertainty.py</span></code> at the prompt. You should see the following output, or
@@ -1902,7 +1932,8 @@ nice weather. :)</p>
 classes. If you reduce the number of clusters to 8, do you see more or less overlap? What about for 10 clusters?</p></li>
 <li><p>Instead of using <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaKMeans()</span></code>, try one of the other clusterers available, such as
 <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaXMeans()</span></code>, which finds the “best” number of clusters for a given input image and range of
-number of clusters. Replace the code at line 42 with the following:</p>
+number of clusters.</p>
+<p>To do this, replace the code at line 42 with the following:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">clusterer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Clusterer</span><span class="p">.</span><span class="nx">wekaXMeans</span><span class="p">({</span><span class="nx">maxClusters</span><span class="o">:</span><span class="w"> </span><span class="mf">16</span><span class="p">}).</span><span class="nx">train</span><span class="p">(</span><span class="nx">training</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -1914,20 +1945,26 @@ number of clusters. Replace the code at line 42 with the following:</p>
 <ul class="simple">
 <li><p>Try varying the number of ‘trees’ used in the random forest classifier. How does this impact the estimated accuracy
 of the classification?</p></li>
-<li><p>Test how does adding additional bands such as the surface temperature or the NDVI affects the classification,
+<li><p>Test how adding additional bands such as the surface temperature or the NDVI affects the classification,
 by removing the comment (<code class="docutils literal notranslate"><span class="pre">//</span></code>) symbol from the beginning of lines 28-32. Try different combinations of the indices
-included - some additional bands may help more than others.</p></li>
+included - you may find that some additional bands help more than others.</p></li>
 </ul>
 </div>
 <div class="section" id="object-based-classification">
 <h3>object-based classification<a class="headerlink" href="#object-based-classification" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
+<ul>
 <li><p>Try varying the number of ‘trees’ used in the random forest classifier. How does this impact the estimated accuracy
 of the classification?</p></li>
-<li><p>Test how does adding additional bands such as the surface temperature or the NDVI affects the classification,
+<li><p>Test how adding additional bands such as the surface temperature or the NDVI affects the classification,
 by removing the comment (<code class="docutils literal notranslate"><span class="pre">//</span></code>) symbol from the beginning of lines 29-34. Try different combinations of the indices
-included - some additional bands may help more than others.</p></li>
-<li><p>You can also try adding different texture measures by</p></li>
+included - you may find that some additional bands help more than others.</p></li>
+<li><p>You can also try adding different texture measures by adding them to the image beginning at line 165. For example,
+to include the GLCM Correlation (<code class="docutils literal notranslate"><span class="pre">gray_corr</span></code> in our <code class="docutils literal notranslate"><span class="pre">glcm</span></code> image), you would add the following line of code:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_corr&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Remember to remove the semicolon (<code class="docutils literal notranslate"><span class="pre">;</span></code>) from line 164 if you have uncommented it!</p>
+</li>
 </ul>
 </div>
 </div>

@@ -604,7 +604,7 @@ you have no prior experience with programming, you will be able to complete this
 have been provided for you in a script, and your task will be to run each step in turn and analyse and interpret the results.</p>
 <p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id3" id="id1">1</a>). With it, users
 have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification,
-and computational power above what an average desktop user has access to.</p>
+and computational power far beyond what an average desktop user has access to.</p>
 <div class="section" id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using
@@ -669,9 +669,9 @@ Week 5, you don’t have to re-do them each time you re-open your browser window
 </pre></div>
 </div>
 <p>In Javascript (the programming language used in the code editor interface), comments (that is, statements that the
-computer won’t process) are denoted by <code class="docutils literal notranslate"><span class="pre">//</span></code> (two forward slashes) if they are a single line comment. Multi-line, or
-block, comments, start with <code class="docutils literal notranslate"><span class="pre">/*</span></code> and end with <code class="docutils literal notranslate"><span class="pre">*/</span></code> – anything in between these symbols will not be interpreted by
-the computer when the script is run. In the GEE code editor, comments are coloured <span class="green">green</span>.</p>
+computer won’t process) are denoted by <code class="docutils literal notranslate"><span class="pre">//</span></code> (two forward slashes) if they are a single line comment.</p>
+<p>Multi-line, or block, comments, start with <code class="docutils literal notranslate"><span class="pre">/*</span></code> and end with <code class="docutils literal notranslate"><span class="pre">*/</span></code> – anything in between these symbols will not be
+interpreted by the computer when the script is run. In the GEE code editor, comments are colored <span class="green">green</span>.</p>
 <p>The first line with actual code to pay attention to is on line 17:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">tools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;users/robertmcnabb/egm702:libraries/tools.js&#39;</span><span class="p">);</span>
 </pre></div>
@@ -710,7 +710,7 @@ by a GEE developer, which shows how you can set up your own “module”.</p>
 the nuts and bolts of programming in GEE.</p>
 <p>However, if you are interested in learning more about the coding side of things, you are welcome
 to check out the amazing new textbook, “Cloud-Based Remote Sensing with Google Earth Engine”, available
-for free online at <a class="reference external" href="https://www.eefabook.org/">https://www.eefabook.org/</a>.</p>
+<strong>for free</strong> online at <a class="reference external" href="https://www.eefabook.org/">https://www.eefabook.org/</a>.</p>
 </div>
 <p>The next set of lines will do the same thing as the first set, but this time using the Landsat 8 Collection 2 Top of
 Atmosphere (TOA) reflectance archive, rather than the Surface Reflectance products:</p>
@@ -765,14 +765,16 @@ vs. TOA reflectance). To check this, we can print the image names to the <strong
 <p>We want them to be true-colour composites, so we display them with OLI bands 4,3,2. and we apply a <em>gamma adjustment</em>
 to help brighten the image slightly.</p>
 <p>At this point, you can <em>run</em> the script, either by pressing <strong>CTRL + Enter</strong>, or by
-clicking <strong>Run</strong> at the top of the code editor panel. Once the script finishes running, you should see this:</p>
+clicking <strong>Run</strong> at the top of the code editor panel.</p>
+<p>Once the script finishes running, you should see this:</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_image.png"><img alt="the script after having added the image from step 1." class="align-center" src="../../../_images/loaded_image.png" style="width: 720px;" /></a>
 <p><br /> When you mouse over the <strong>Layers</strong> button in the upper right of the <strong>Map</strong> panel, you should see the two layer
-names (TOA Image and SR Image). If you click on the gear icon, you can open the visualization parameters for each image
-and adjust them. You can also adjust the transparency slider for the different layers displayed here, and by
-checking/unchecking the box next to the layer name, you can make either image visible/invisible.</p>
+names (<code class="docutils literal notranslate"><span class="pre">TOA</span> <span class="pre">Image</span></code> and <code class="docutils literal notranslate"><span class="pre">SR</span> <span class="pre">Image</span></code>):</p>
 <a class="reference internal image-reference" href="../../../_images/layer_parameters1.png"><img alt="the layer visualization settings" class="align-center" src="../../../_images/layer_parameters1.png" style="width: 400px;" /></a>
-<p><br /> In the <strong>Console</strong> panel, you should see the following:</p>
+<p><br /> If you click on the gear icon, you can open the visualization parameters for each image and adjust them. You can
+also adjust the transparency slider for the different layers displayed here, and by checking/unchecking the box next
+to the layer name, you can make either image visible/invisible.</p>
+<p>In the <strong>Console</strong> panel, you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/console1.png"><img alt="the output to the console after running Step 1." class="align-center" src="../../../_images/console1.png" style="width: 400px;" /></a>
 <p><br /> This shows that the 2 images are the same image, just different processing levels (<strong>T1_SR</strong> vs <strong>T1_TOA</strong>).
 Now, in the <strong>Map</strong> panel, turn off the SR Image to see the TOA Image underneath.</p>
@@ -784,11 +786,11 @@ Now, in the <strong>Map</strong> panel, turn off the SR Image to see the TOA Ima
 <p class="sd-card-text">Describe the difference in appearance that you notice between the two images. Which image appears more “blue”?</p>
 </div>
 </div>
-<p>Next, click on the <strong>Inspector</strong> tab, then click anywhere on the <strong>Map</strong> to get the pixel values for each image displayed
-on the map at that location:</p>
+<p>Next, click on the <strong>Inspector</strong> tab, then click anywhere on the <strong>Map</strong> to get the pixel values for each image
+displayed on the map at that location:</p>
 <a class="reference internal image-reference" href="../../../_images/inspector_list.png"><img alt="the gee window with the inspector tab active, showing a list of pixel values for a given location" class="align-center" src="../../../_images/inspector_list.png" style="width: 720px;" /></a>
 <p><br /> By default, the <strong>Inspector</strong> tool displays the values in each band as a list, but you can toggle to view a bar
-chart by clicking the chart icon (red outline above):</p>
+chart by clicking the chart icon (red outline in the above screenshot):</p>
 <a class="reference internal image-reference" href="../../../_images/inspector_chart.png"><img alt="the gee window with the inspector tab active, showing a bar chart of pixel values for a given location" class="align-center" src="../../../_images/inspector_chart.png" style="width: 720px;" /></a>
 <p><br /> Click on a few different locations and note down the differences between the two images in each band (note
 that the TOA image will be displayed first, then the SR image).</p>
@@ -897,7 +899,7 @@ and their names:</p>
 <p>For information about the band designations for the other Landsat sensors, see this page from the USGS:
 <a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites</a></p>
 </div>
-<p>Once you’ve looked around the area, move on to the next script.</p>
+<p>Once you’ve looked around the area, move on to the next part.</p>
 </div>
 <div class="section" id="part-2-band-maths-and-charts">
 <h2>part 2 - band maths and charts<a class="headerlink" href="#part-2-band-maths-and-charts" title="Permalink to this heading">#</a></h2>
@@ -905,7 +907,7 @@ and their names:</p>
 different DEMs available within GEE.</p>
 <p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">02_band_maths.js</span></code> in the <strong>Script manager</strong>, or using
 this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek3%2F02_band_maths.js">direct link</a>.</p>
-<p>We’ll start by adding the NASADEM, ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM:</p>
+<p>We’ll start by adding the NASADEM, the ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the AW3D30 (ALOS World DEM 30 m)</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">alos_dsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">(</span><span class="s2">&quot;JAXA/ALOS/AW3D30/V2_2&quot;</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="nx">boundary</span><span class="p">)</span><span class="w"> </span><span class="c1">// clip to the area around mt st helens</span>
@@ -989,7 +991,7 @@ look the same, or are there significant differences? In particular, think about 
 </ul>
 </div>
 </div>
-<p>The next block of code uses <code class="docutils literal notranslate"><span class="pre">tools.imgStats</span></code> to calculate various descriptive statistics for the DEMs: the
+<p>The next block of code uses <code class="docutils literal notranslate"><span class="pre">tools.imgStats()</span></code> to calculate various descriptive statistics for the DEMs: the
 maximum/minimum, mean, median, and standard deviation.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// calculate statistics</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">alos_stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">imgStats</span><span class="p">(</span><span class="nx">alos_dsm</span><span class="p">,</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;elevation&#39;</span><span class="p">);</span>
@@ -1101,7 +1103,7 @@ down below the chart to see these, but be sure to look at these before answering
 band or an image with a higher resolution to “sharpen”, or increase the resolution of, another image.</p>
 <p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">03_pan_sharpen.js</span></code> in the <strong>Script manager</strong>, or using
 this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek3%2F03_pan_sharpening.js">direct link</a>.</p>
-<p>The first bit of code that we haven’t seen before are at line 24:</p>
+<p>The first bit of code that we haven’t seen before is at line 24:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// we&#39;ll use surface reflectance bands 4, 3, and 2</span>
 <span class="kd">var</span><span class="w"> </span><span class="nx">bands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B2&#39;</span><span class="p">];</span>
 </pre></div>
@@ -1160,7 +1162,7 @@ pan-sharpened images for other kinds of analysis.</p>
 </pre></div>
 </div>
 <p>This block of code creates a task to export the pan-sharpened image to a raster called <strong>LC08_046028_20200823_pan.tif</strong>,
-using a CRS with [EPSG](<a class="reference external" href="https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset">https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset</a>) code 32610 (corresponding to
+using a CRS with <a class="reference external" href="https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset">EPSG</a> code 32610 (corresponding to
 WGS84 UTM Zone 10N). You should notice that the <strong>Tasks</strong> tab is highlighted:</p>
 <a class="reference internal image-reference" href="../../../_images/tasks.png"><img alt="the console showing the tasks tab highlighted" class="align-center" src="../../../_images/tasks.png" style="width: 400px;" /></a>
 <p><br /> When you click on it, you should see this:</p>
@@ -1171,7 +1173,10 @@ size of the image. You can click the ‘Refresh’ button to check the status to
 <p>Once the task has finished, you can download the file from your Google Drive, and use it in a GIS program such as
 QGIS:</p>
 <a class="reference internal image-reference" href="../../../_images/pan_qgis.png"><img alt="the exported display image loaded into qgis" class="align-center" src="../../../_images/pan_qgis.png" style="width: 720px;" /></a>
-<p><br /> This could make an excellent base image for a study area map that you might use in your presentation and/or report.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>This could make an excellent base image for a study area map that you might use in your presentation and/or report.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In the example above, I have exported the <em>visualization</em> image:</p>
@@ -1228,8 +1233,8 @@ green, and blue channels of the image; this means that we can interpret the imag
 <p class="sd-card-text"><span class="far fa-circle-question 1em;sd-color-light"></span> Question</p>
 </div>
 <div class="sd-card-body docutils">
-<p class="sd-card-text">Using the list of color examples above, see if you can identify what surface type corresponds to each example.
-Remember that there might be several different surface types that correspond to each color, so feel free to use
+<p class="sd-card-text">Using the list of color examples above, see if you can identify what surface type corresponds to each example.</p>
+<p class="sd-card-text">Remember that there might be several different surface types that correspond to each color, so feel free to use
 both the SR image and the background satellite image to help you.</p>
 </div>
 </div>
@@ -1238,20 +1243,19 @@ most of the “information” about the image is contained in the first principa
 decreases for each PC band. We can see this by looking at <code class="docutils literal notranslate"><span class="pre">pc7</span></code>:</p>
 <a class="reference internal image-reference" href="../../../_images/sensor_noise.png"><img alt="the 7th principal component displayed on the map" class="align-center" src="../../../_images/sensor_noise.png" style="width: 720px;" /></a>
 <p><br /> In this image, we can actually see residual sensor noise - the stripes are due to variations in the response of the
-detector arrays in the OLI sensor. In the original image, these variations are very minor (we typically can only see
-them over very dark pixels such as water), but due to the PCA transformation, the noise is enhanced in the final PC
-band.</p>
+detector arrays in the OLI sensor.</p>
+<p>In the original image, these variations are very minor (we typically can only see them over very dark pixels such as
+deep water), but due to the PCA transformation, the noise is enhanced in the final PC band.</p>
 <p>Now, look at <code class="docutils literal notranslate"><span class="pre">pc1</span></code> by deactivating the other layers in the <strong>Layer Menu</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/pc1.png"><img alt="the 1st principal component displayed on the map" class="align-center" src="../../../_images/pc1.png" style="width: 720px;" /></a>
 <p><br /> You should notice how the Columbia River stands out as a bright, white ribbon cutting through the middle of the
 image, as do a number of other lakes and reservoirs. You should also notice that the eastern (right) part of the image
 is quite a bit brighter than the western (left) part.</p>
-<p>One of the applications of PCA and decorrelation stretching that we discussed in this week’s
-lecture was for mineral mapping, since PCA helps accentuate the differences in reflectance of difference surfaces
-across all bands of the image. Zooming in on Mt St Helens, you should notice a difference between the North and South
-flanks of the volcano. If you flip back to the decorrelation stretch, you can see that there is quite a bit of
-variation in color on the slopes of the volcano itself, owing to the variation in minerals and rock types that make
-up the volcano.</p>
+<p>One of the applications of PCA and decorrelation stretching that we discussed in this week’s lecture was for mineral
+mapping, since PCA helps accentuate the differences in reflectance of difference surfaces across all bands of the image.</p>
+<p>Zooming in on Mt St Helens, you should notice a difference between the North and South flanks of the volcano. If you
+flip back to the decorrelation stretch, you can see that there is quite a bit of variation in color on the slopes of
+the volcano itself, owing to the variation in minerals and rock types that make up the volcano.</p>
 <p>You should also notice that the short, scrub vegetation that has begun to grow since the 1980 eruption looks quite dark
 in <code class="docutils literal notranslate"><span class="pre">pc1</span></code>, while the older forests that weren’t damaged as part of the eruption (or subsequently logged) appear
 brighter. In addition to mineral mapping, this shows that we can use PCA to help highlight differences in vegetation

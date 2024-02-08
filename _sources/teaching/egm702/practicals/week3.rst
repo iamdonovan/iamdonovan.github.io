@@ -13,7 +13,7 @@ have been provided for you in a script, and your task will be to run each step i
 
 GEE is "a cloud-based platform for planetary-scale geospatial analysis" (Gorelick et al., 2017\ [1]_). With it, users
 have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification,
-and computational power above what an average desktop user has access to.
+and computational power far beyond what an average desktop user has access to.
 
 getting started
 ---------------
@@ -106,9 +106,10 @@ Once you have saved the script, you should see something like the following in t
     */
 
 In Javascript (the programming language used in the code editor interface), comments (that is, statements that the
-computer won't process) are denoted by ``//`` (two forward slashes) if they are a single line comment. Multi-line, or
-block, comments, start with ``/*`` and end with ``*/`` – anything in between these symbols will not be interpreted by
-the computer when the script is run. In the GEE code editor, comments are coloured :green:`green`.
+computer won't process) are denoted by ``//`` (two forward slashes) if they are a single line comment.
+
+Multi-line, or block, comments, start with ``/*`` and end with ``*/`` – anything in between these symbols will not be
+interpreted by the computer when the script is run. In the GEE code editor, comments are colored :green:`green`.
 
 The first line with actual code to pay attention to is on line 17:
 
@@ -158,7 +159,7 @@ For more information about Landsat Collection 2 images, see this link: https://w
 
     However, if you are interested in learning more about the coding side of things, you are welcome
     to check out the amazing new textbook, "Cloud-Based Remote Sensing with Google Earth Engine", available
-    for free online at https://www.eefabook.org/.
+    **for free** online at https://www.eefabook.org/.
 
 The next set of lines will do the same thing as the first set, but this time using the Landsat 8 Collection 2 Top of
 Atmosphere (TOA) reflectance archive, rather than the Surface Reflectance products:
@@ -223,7 +224,9 @@ We want them to be true-colour composites, so we display them with OLI bands 4,3
 to help brighten the image slightly.
 
 At this point, you can *run* the script, either by pressing **CTRL + Enter**, or by
-clicking **Run** at the top of the code editor panel. Once the script finishes running, you should see this:
+clicking **Run** at the top of the code editor panel.
+
+Once the script finishes running, you should see this:
 
 .. image:: ../../../img/egm702/week3/loaded_image.png
     :width: 720
@@ -231,16 +234,18 @@ clicking **Run** at the top of the code editor panel. Once the script finishes r
     :alt: the script after having added the image from step 1.
 
 |br| When you mouse over the **Layers** button in the upper right of the **Map** panel, you should see the two layer
-names (TOA Image and SR Image). If you click on the gear icon, you can open the visualization parameters for each image
-and adjust them. You can also adjust the transparency slider for the different layers displayed here, and by
-checking/unchecking the box next to the layer name, you can make either image visible/invisible.
+names (``TOA Image`` and ``SR Image``):
 
 .. image:: ../../../img/egm702/week3/layer_parameters.png
     :width: 400
     :align: center
     :alt: the layer visualization settings
 
-|br| In the **Console** panel, you should see the following:
+|br| If you click on the gear icon, you can open the visualization parameters for each image and adjust them. You can
+also adjust the transparency slider for the different layers displayed here, and by checking/unchecking the box next
+to the layer name, you can make either image visible/invisible.
+
+In the **Console** panel, you should see the following:
 
 .. image:: ../../../img/egm702/week3/console1.png
     :width: 400
@@ -258,8 +263,9 @@ Now, in the **Map** panel, turn off the SR Image to see the TOA Image underneath
     ^^^
     Describe the difference in appearance that you notice between the two images. Which image appears more "blue"?
 
-Next, click on the **Inspector** tab, then click anywhere on the **Map** to get the pixel values for each image displayed
-on the map at that location:
+
+Next, click on the **Inspector** tab, then click anywhere on the **Map** to get the pixel values for each image
+displayed on the map at that location:
 
 .. image:: ../../../img/egm702/week3/inspector_list.png
     :width: 720
@@ -267,7 +273,7 @@ on the map at that location:
     :alt: the gee window with the inspector tab active, showing a list of pixel values for a given location
 
 |br| By default, the **Inspector** tool displays the values in each band as a list, but you can toggle to view a bar
-chart by clicking the chart icon (red outline above):
+chart by clicking the chart icon (red outline in the above screenshot):
 
 .. image:: ../../../img/egm702/week3/inspector_chart.png
     :width: 720
@@ -361,7 +367,7 @@ that the TOA image will be displayed first, then the SR image).
     For information about the band designations for the other Landsat sensors, see this page from the USGS:
     https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites
 
-Once you've looked around the area, move on to the next script.
+Once you've looked around the area, move on to the next part.
 
 
 part 2 - band maths and charts
@@ -372,7 +378,7 @@ different DEMs available within GEE.
 Open the script for this part of the practical by clicking on ``02_band_maths.js`` in the **Script manager**, or using
 this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek3%2F02_band_maths.js>`__.
 
-We'll start by adding the NASADEM, ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM:
+We'll start by adding the NASADEM, the ALOS World 3D – 30 m (AW3D30) DEM, and the SRTM:
 
 .. code-block:: javascript
 
@@ -459,7 +465,7 @@ not sure which layer you're seeing, you can always check the **Layers** menu.
     - Which DEM do you think was produced from the highest-resolution sensor? Why?
     - What surface(s) are represented by the different DEMs? Are they DTMs or DSMs? How can you tell?
 
-The next block of code uses ``tools.imgStats`` to calculate various descriptive statistics for the DEMs: the
+The next block of code uses ``tools.imgStats()`` to calculate various descriptive statistics for the DEMs: the
 maximum/minimum, mean, median, and standard deviation.
 
 .. code-block:: javascript
@@ -597,7 +603,7 @@ band or an image with a higher resolution to "sharpen", or increase the resoluti
 Open the script for this part of the practical by clicking on ``03_pan_sharpen.js`` in the **Script manager**, or using
 this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek3%2F03_pan_sharpening.js>`__.
 
-The first bit of code that we haven't seen before are at line 24:
+The first bit of code that we haven't seen before is at line 24:
 
 .. code-block:: javascript
 
@@ -674,7 +680,7 @@ Now, take a look at the final block of code in the script:
 
 
 This block of code creates a task to export the pan-sharpened image to a raster called **LC08_046028_20200823_pan.tif**,
-using a CRS with [EPSG](https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset) code 32610 (corresponding to
+using a CRS with `EPSG <https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset>`__ code 32610 (corresponding to
 WGS84 UTM Zone 10N). You should notice that the **Tasks** tab is highlighted:
 
 .. image:: ../../../img/egm702/week3/tasks.png
@@ -701,7 +707,9 @@ QGIS:
     :align: center
     :alt: the exported display image loaded into qgis
 
-|br| This could make an excellent base image for a study area map that you might use in your presentation and/or report.
+.. hint::
+
+    This could make an excellent base image for a study area map that you might use in your presentation and/or report.
 
 .. note::
 
@@ -775,6 +783,7 @@ and so on.
     :far:`circle-question;1em;sd-color-light` Question
     ^^^
     Using the list of color examples above, see if you can identify what surface type corresponds to each example.
+
     Remember that there might be several different surface types that correspond to each color, so feel free to use
     both the SR image and the background satellite image to help you.
 
@@ -788,9 +797,10 @@ decreases for each PC band. We can see this by looking at ``pc7``:
     :alt: the 7th principal component displayed on the map
 
 |br| In this image, we can actually see residual sensor noise - the stripes are due to variations in the response of the
-detector arrays in the OLI sensor. In the original image, these variations are very minor (we typically can only see
-them over very dark pixels such as water), but due to the PCA transformation, the noise is enhanced in the final PC
-band.
+detector arrays in the OLI sensor.
+
+In the original image, these variations are very minor (we typically can only see them over very dark pixels such as
+deep water), but due to the PCA transformation, the noise is enhanced in the final PC band.
 
 Now, look at ``pc1`` by deactivating the other layers in the **Layer Menu**:
 
@@ -803,12 +813,12 @@ Now, look at ``pc1`` by deactivating the other layers in the **Layer Menu**:
 image, as do a number of other lakes and reservoirs. You should also notice that the eastern (right) part of the image
 is quite a bit brighter than the western (left) part.
 
-One of the applications of PCA and decorrelation stretching that we discussed in this week's
-lecture was for mineral mapping, since PCA helps accentuate the differences in reflectance of difference surfaces
-across all bands of the image. Zooming in on Mt St Helens, you should notice a difference between the North and South
-flanks of the volcano. If you flip back to the decorrelation stretch, you can see that there is quite a bit of
-variation in color on the slopes of the volcano itself, owing to the variation in minerals and rock types that make
-up the volcano.
+One of the applications of PCA and decorrelation stretching that we discussed in this week's lecture was for mineral
+mapping, since PCA helps accentuate the differences in reflectance of difference surfaces across all bands of the image.
+
+Zooming in on Mt St Helens, you should notice a difference between the North and South flanks of the volcano. If you
+flip back to the decorrelation stretch, you can see that there is quite a bit of variation in color on the slopes of
+the volcano itself, owing to the variation in minerals and rock types that make up the volcano.
 
 You should also notice that the short, scrub vegetation that has begun to grow since the 1980 eruption looks quite dark
 in ``pc1``, while the older forests that weren't damaged as part of the eruption (or subsequently logged) appear
