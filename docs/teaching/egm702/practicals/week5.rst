@@ -9,9 +9,13 @@ analyse and interpret the results.
 getting started
 ---------------
 
-**Be sure to download all the data from the Practical 5 area on Blackboard before starting, or from the**
-`google drive link <https://drive.google.com/file/d/1v4ZqiDKD9_fgSoub1o-08e_GktBIWR72/view?usp=share_link>`__,
-**then extract the zip file. You should have the following files/folders available:**
+.. note::
+
+    Be sure to download all the data from the Practical 5 area on Blackboard before starting, or from the
+    `google drive link <https://drive.google.com/file/d/1v4ZqiDKD9_fgSoub1o-08e_GktBIWR72/view?usp=share_link>`__,
+    then extract the zip file.
+
+You should have the following files/folders available:
 
 .. code-block:: text
 
@@ -28,6 +32,9 @@ getting started
         ├─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B6.TIF
         └─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B7.TIF
 
+We will be using these images later in the lab, for the :ref:`accuracy assessment <week5 accuracy>` portion of the
+practical.
+
 Once you have downloaded the files, point your browser to https://code.earthengine.google.com, and log in if you need
 to. In the **Script manager** under **Reader**, find the ``egm702`` repository, and click on ``week5`` to expand the
 week 5 folder.
@@ -43,7 +50,7 @@ In the **Script manager**, open the script for part 1 by clicking on ``week5/01_
 
 Remember that you have access to all of the scripts in the repository as a *Reader*, but in order to save any changes
 you'll need to save the script to your own repository. Again, the easiest way for you to do this is to replace
-"YOUR NAME HERE!" on line 1 with your name, then click **Save**.
+**"YOUR NAME HERE!"** on line 1 with your name, then click **Save**.
 
 Save the script to your ``egm702`` repository as ``week5/01_unsupervised.js`` - just like last week, you should
 see a ``week5`` folder appear in the repository with a new script, ``01_unsupervised.js``.
@@ -64,19 +71,29 @@ pixels, based on their properties.
 
 .. note::
 
-    It’s important to note that the classes output by an unsupervised classification have no meaning, in the sense that
-    they’re only groups of pixels based on the image data. After running an unsupervised classification, then, the next
-    task is to interpret and identify what each of these classes represent.
+    It’s important to note that the classes, or clusters, output by an unsupervised classification have no meaning, in
+    the sense that they’re only groups of pixels based on the statistics of the image data.
+
+    After running an unsupervised classification, then, the next task is to interpret and identify what each of these
+    clusters represent.
 
 The algorithm that we'll use to cluster the image is an implementation of *k*-means\ [#kmeans]_ clustering called WEKA
 *k*-means\ [#weka]_.
 
 The **Image** that we're working with in this practical is the same August 2020 OLI image that we've seen before. In one
-band, this image has: 7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels - that's a lot.
+band, this image has:
+
+.. code-block:: text
+
+    7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels
+
+That's a lot of pixels.
 
 To help improve performance of the clustering algorithm, and prevent ``Out of Memory`` errors when we run the script,
-we want to take a random sample of pixels, rather than attempting to run the clustering algorithm on the entire set of
-~400M pixels:
+we want to take a random sample of 5000 pixels, rather than attempting to run the clustering algorithm on the entire set of
+~400M pixels.
+
+To do this, we use ``ee.Image.sample()`` (`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-sample>`__):
 
 .. code-block:: javascript
 
@@ -93,6 +110,8 @@ Once we have the training sample to work with, we have to actually train the **C
 
     // train the unsupervised clusterer with 16 classes
     var clusterer = ee.Clusterer.wekaKMeans({nClusters: 16}).train(training);
+
+The clustering algorithm then takes the input data and decides how best to group the input pixels.
 
 Remember that *k*-means requires that we specify the number of classes, *k* - the algorithm won't decide for us how
 many classes to use. In the above example, we're using 16 classes, specified using the argument ``nClusters``.
@@ -111,18 +130,23 @@ Once we've trained the **Clusterer**, we have to actually apply it to the image:
 
     // classify the image using the unsupervised classifier
     var unsupervised = img.cluster(clusterer); // returns an image with a single band, 'cluster'
-    img = img.addBands(unsupervised.select('cluster')); // add the cluster band to the image
 
 This will assign a class (or cluster value) to each input based on the "rules" that the **Clusterer** has learned from
-the input data. We can then add the classification band to the original image, before adding the image to the **Map**:
+the input data.
+
+We can then add the classification band to the original image:
+
+.. code-block:: javascript
+
+    img = img.addBands(unsupervised.select('cluster')); // add the cluster band to the image
+
+Because the cluster values don't have any actual meaning, we're using ``ee.Image.randomVisualizer()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-randomvisualizer>`__) to create a
+random palette to view the image with:
 
 .. code-block:: javascript
 
     Map.addLayer(unsupervised.randomVisualizer(), {}, 'clusters');
-
-Because the cluster values don't have any actual meaning, we're using ``ee.Image.randomVisualizer()`` to create a
-random palette to view the image with - the important thing here is to be able to see how different pixels are grouped
-together.
 
 When you run the script, you will see something like the artistic image shown below:
 
@@ -184,7 +208,8 @@ The following block of code:
       scale: 30
     });
 
-Samples the cluster values at each of the training points, which we can then plot in a chart to show the different
+Uses ``ee.Image.sampleRegions()`` (`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-sampleregions>`__)
+to sample the cluster values at each of the training points, which we can then plot in a chart to show the different
 ``landcover`` values that each cluster has been assigned to:
 
 .. code-block:: javascript
@@ -209,9 +234,10 @@ Samples the cluster values at each of the training points, which we can then plo
     :alt: the k-means cluster values for different landcover classes
 
 The x-axis of this chart shows the cluster value, and the y-axis shows the ``landcover`` value. From this chart,
-you can see, for example, that cluster number 13 is identified as both ``landcover`` 0 (``water``) and 4 (``soil``). We
-also see that ``landcover`` 1 (forest) has been spread across a number of cluster values, as have ``landcover`` values
-2 through 4.
+you can see, for example, that cluster number 13 is identified as both ``landcover`` 0 (``water``) and 4 (``soil``).
+
+We also see that ``landcover`` 1 (forest) has been spread across a number of cluster values, as have ``landcover``
+values 2 through 4.
 
 This chart doesn't tell us how many points belong to each; however, we can look at a confusion matrix of the landcover
 and cluster values to learn a bit more:
@@ -278,8 +304,10 @@ we add the clustered **Image** to our original **Image**:
 This way, we can select pixels from that **Image** based on what cluster they belong to.
 
 Because of the number of pixels in the **Image** (remember: 7601 * 7331 pixels = 55.7M pixels),
-we can't just plot all of the pixel values at once. Instead, we again take a random sample of pixels,
-this time using ``ee.Image.stratifiedSample()``:
+we can't just plot all of the pixel values at once.
+
+Instead, we again take a random sample of pixels, this time using ``ee.Image.stratifiedSample()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-stratifiedsample>`__):
 
 .. code-block:: javascript
 
@@ -296,8 +324,9 @@ This selects a random sample of (up to) 300 pixels from each cluster.
 .. note::
 
     The output of ``ee.Image.stratifiedSample()`` is a **FeatureCollection**. Because we are limited by GEE 5000
-    elements for the **Chart**, we are limited to 5000 elements / 16 classes ~= 300 elements / class. To show more
-    elements per class, we would need to reduce the number of classes.
+    elements for the **Chart**, we are limited to 5000 elements / 16 classes ~= 300 elements / class.
+
+    To be able to show more elements per class, we would need to reduce the number of classes.
 
 There are two examples shown in the script: a comparison of the NIR (OLI Band 5) and red (OLI Band 4), and a comparison
 of the green (OLI Band 3) and SWIR2 (OLI Band 7). The first example, NIR vs red, is shown below:
@@ -338,8 +367,11 @@ of the green (OLI Band 3) and SWIR2 (OLI Band 7). The first example, NIR vs red,
 As stated above, the cluter values classes output by an unsupervised classification have no meaning - they're only
 groups of pixels based on the image data. The next step for analyzing and using the output of the unsupervised
 classification would be to group different classes together based on the landcover type they represent
-(using, for example, the `Reclassify <https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/reclassify.htm>`__
-tool in ArcGIS). For now, we'll move on to look at other methods of classification.
+(using, for example, ``ee.Image.remap()`` (`documentation <https://developers.google.com/earth-engine/apidocs/ee-image-remap>`__)
+or the `Reclassify <https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/reclassify.htm>`__ tool in
+ArcGIS).
+
+For now, though, we'll move on to look at other methods of classification.
 
 part 2 - pixel-based classification
 ----------------------------------------
@@ -349,9 +381,9 @@ this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frober
 
 In this part of the practical, we're going to use a Random Forest\ [#randforest]_ classifier to classify the image.
 This is a *supervised* classification method, meaning that in order to train the classifier, we first have to provide
-labeled examples for the classifier to "learn" from.
+**labeled** examples for the classifier to "learn" from.
 
-In the **GeometryImports** menu, you can toggle on each of the training point layers to view them on the **Map**:
+In the **Geometry Imports** menu, you can toggle on each of the training point layers to view them on the **Map**:
 
 .. image:: ../../../img/egm702/week5/training_points.png
     :width: 720
@@ -381,8 +413,8 @@ Then, at line 61, we sample the pixel values from the input image for use in tra
       scale: 30
     });
 
-Next, we split the input data into two "training" and "testing" partitions using a 70-30 split (i.e., 70% of the data
-will be used for training, 30% for testing):
+Next, we split the input data into two "training" and "testing" partitions using a 70-30 split (i.e., 70% of the input
+data will be used for training, 30% for testing):
 
 .. code-block:: javascript
 
@@ -410,7 +442,8 @@ We'll be using ``smileRandomForest`` with 10 "trees":
     // initialize a random forest with 10 "trees"
     var classifier = ee.Classifier.smileRandomForest(10);
 
-We use ``ee.Classifier.train()``, along with the training data that we gathered earlier, to train the **Classifier**:
+We use ``ee.Classifier.train()`` (`documentation <https://developers.google.com/earth-engine/apidocs/ee-classifier-train>`__),
+along with the training data that we gathered earlier, to train the **Classifier**:
 
 .. code-block:: javascript
 
@@ -421,8 +454,9 @@ We use ``ee.Classifier.train()``, along with the training data that we gathered 
       inputProperties: bands
     });
 
-Once we've trained the **Classifier**, we can classify the testing data to see how well the classifier does in
-classifying data that it hasn't seen before:
+Once we've trained the **Classifier**, we use ``ee.FeatureCollection.classify()``
+(`documentation <https://developers.google.com/earth-engine/apidocs/ee-featurecollection-classify>`__)
+to classify the testing partition to see how well the classifier does in classifying data that it hasn't seen before:
 
 .. code-block:: javascript
 
@@ -532,6 +566,7 @@ the classified image.\ [#congalton]_
     :far:`circle-question` Question
     ^^^
     Which of these classes have the most overlap, as indicated by the error matrix? Why do you think this might be?
+
     What are some ways that we could try to address this problem?
 
 Once we have trained the **Classifier**, we use ``ee.Image.classify()`` to classify the image:
@@ -543,12 +578,16 @@ Once we have trained the **Classifier**, we use ``ee.Image.classify()`` to class
 
     var classPalette = ['013dd6', '059e2a', '2aff53', 'e3d4ae', 'fffbf4'];
 
+This creates a new **Image** with a single band, ``classification``, where the pixel values are the ``landcover`` values
+of each class from our training **FeatureCollection**.
+
+We then add this image to the **Map** with the same color scheme as the training point layers:
+
+.. code-block:: javascript
+
     // add the classified image to the map
     Map.addLayer(classified, {min: 0, max: 4, palette: classPalette}, 'classified', true);
 
-This creates a new **Image** with a single band, ``classification``, where the pixel values are the ``landcover`` values
-of each class from our training **FeatureCollection**, then adds it to the **Map** with the same color scheme as the
-training point layers:
 
 .. image:: ../../../img/egm702/week5/classified_image.png
     :width: 720
@@ -737,8 +776,9 @@ the clusters created using the chosen parameters (roughly 120 m spacing):
     :far:`circle-question` Question
     ^^^
     Toggle the ``segments`` layer on, then zoom in to have a look around. How do the object boundaries you see relate
-    to the image underneath? Do they agree? Are there areas where the boundaries vary significantly from what you can
-    see in the underlying image?
+    to the image underneath? Do they agree?
+
+    Are there any areas where the boundaries vary significantly from what you can see in the underlying image?
 
 This is something to keep in mind - the scale of our segmentation determines the size of the objects that we end up
 with. If we segment the image too coarsely, we may end up losing detail that we're interested in.
@@ -752,9 +792,11 @@ Co-occurrence Matrix (GLCM; Haralick et al., 1973\ [#glcm]_). The GLCM contains 
 combinations of pixel values appear in a specified relationship in the image. We can use this, and the statistical
 metrics that we can extract from the GLCM, to analyze the texture of the image.
 
-Here, we'll look at three examples: the Angular Second Moment (ASM), the local contrast, and the entropy. The ASM
-measures how many repeated pairs of values we see within each small window. The local contrast tells us how much
-variation we see in the small area, and the entropy measures the randomness of the values in each small window.
+Here, we'll look at three examples in more detail:
+
+- the **Angular Second Momment** (ASM), which measures how many repeated pairs of values we see within each small window;
+- the **local contrast**, which tells us how much variation we see in each small window;
+- and the **entropy**, which measures the randomness of the values in each small window.
 
 Before we compute the GLCM, we make a grayscale image from the NIR, Red, and Green bands, following
 Tassi and Vizzari (2020)\ [#gray]_:
@@ -773,8 +815,8 @@ Tassi and Vizzari (2020)\ [#gray]_:
 
     Map.addLayer(gray, {min: 7500, max: 17500}, 'grayscale', false);
 
-this helps simplify the process somewhat - as we've seen in the lectures, there is often redundant information in
-nearby bands.
+this helps simplify the process somewhat - as we've seen in the lectures and previous practicals, there is often
+redundant information in neighboring bands.
 
 Once we've created this layer, we compute the GLCM and display the three images we're interested in (the ASM, Contrast,
 and Entropy).
@@ -786,15 +828,19 @@ and Entropy).
       .reproject({crs: gray.projection(), scale: 30});
 
     print('GLCM Image', glcm);
-    Map.addLayer(glcm.select('gray_asm'), {min: 0.0281, max: 0.0354}, 'ASM', false);
-    Map.addLayer(glcm.select('gray_contrast'), {min: 3e5, max: 5e6}, 'Contrast', false);
-    Map.addLayer(glcm.select('gray_ent'), {min: 3.391, max: 3.577}, 'Entropy', false);
 
 The result of this is an image, ``glcm``, that contains 18 variables for each band in the original image. For a full
 list of the variables, you can see the
 `documentation <https://developers.google.com/earth-engine/apidocs/ee-image-glcmtexture>`__.
 
-Finally, have a look at the images that have been loaded in the map: the Angular Second Moment (ASM), the Contrast, and the Entropy.
+We then load the three bands we're investigating into the **Map**:
+
+.. code-block:: javascript
+
+    Map.addLayer(glcm.select('gray_asm'), {min: 0.0281, max: 0.0354}, 'ASM', false);
+    Map.addLayer(glcm.select('gray_contrast'), {min: 3e5, max: 5e6}, 'Contrast', false);
+    Map.addLayer(glcm.select('gray_ent'), {min: 3.391, max: 3.577}, 'Entropy', false);
+
 Take a look at the ASM image first:
 
 .. image:: ../../../img/egm702/week5/asm.png
@@ -896,7 +942,7 @@ This block of code:
     ]).float();
 
 Shows the other main difference between the pixel-based classification and the object-based classification. Here, we're
-using a statistical description of the pixel values that fall within each object (mean, median, standard deviation),
+using a statistical description of the pixel values that fall within each object (mean, median, and standard deviation),
 rather than the pixel values themselves.
 
 Other than that, the remaining steps are the same for the object-based classification. We're using a random forest
@@ -949,6 +995,8 @@ classified image to your google drive for further analysis in your GIS software 
 click on the **Tasks** tab, then click **Run**.
 
 Once you have downloaded the classified image, you can move on to the final part of the practical below.
+
+.. _week5 accuracy:
 
 part 4 - accuracy analysis
 ----------------------------
@@ -1019,7 +1067,9 @@ for ``forest`` from this table:
 +-----------------------+--------------+--------------+
 
 and change the label as you did for water, then continue in this way until you have changed the colors and labels for
-all of the values. The end result should look something like this:
+all of the values.
+
+The end result should look something like this:
 
 .. image:: ../../../img/egm702/week5/aa_classification.png
     :width: 720
@@ -1048,10 +1098,11 @@ and choose a ``Stratified random`` **Sampling Strategy**.
     each class, with the number of points for each class determined by the proportion of the area taken up by that class.
 
     The default value of **Number of Random Points** is 500, which is what I will use here. Using this with the
-    classified image ouptut from GEE, there were only 13 points classified as water, and only 10 points classified as
+    classified image output from GEE, there were only 13 points classified as water, and only 10 points classified as
     snow. This is not really enough to get an accurate picture of the classification performance of these classes.
 
-    For now, however, the default value will suffice.
+    For now, however, the default value will suffice, but I recommend increasing the number of points if you want to do
+    this for an assignment or your MSc project.
 
 Click **OK**, and you should see the new layer added to the map. Right-click on the layer and select **Attribute Table**
 to show the attribute table for these points:
@@ -1069,8 +1120,8 @@ Our job now is to manually enter the class value for each point.
 
 .. warning::
 
-    Technically, because this is an object-based classification, we should be looking at the image objects where each
-    point is located, rather than the individual pixels.
+    Technically, because this is an object-based classification, we should be looking at the **image objects** where
+    each point is located, rather than the individual pixels.
 
     For the purposes of this exercise, it will be fine to use the pixels.
 
@@ -1090,6 +1141,7 @@ it is located in a forest, so I have entered a 1 in the ``GrndTruth`` field for 
     Remember that this is only an example - your results will most likely be different!
 
 Move on to the next point, and the next point, and so on, until you have manually entered the values for each point.
+
 In addition to the Landsat image, you can also use the ESRI World Imagery to help interpret each point, though keep in
 mind that those images may be out of date compared to the Landsat image.
 
@@ -1203,9 +1255,9 @@ Now, from the **Start** menu, find the **ArcGIS** folder, and click on **Python 
 
 |br| Navigate to the folder where ``area_uncertainty.py`` is kept using ``cd``:
 
-.. code-block::
+.. code-block:: sh
 
-    cd C:\Users\bob\EGM702\Practicals\Week 5\
+    cd C:\Users\bob\EGM702\Practicals\Week5\
 
 Then, run the script by typing ``python area_uncertainty.py`` at the prompt. You should see the following output, or
 something very similar:
@@ -1243,7 +1295,9 @@ unsupervised classification
   classes. If you reduce the number of clusters to 8, do you see more or less overlap? What about for 10 clusters?
 - Instead of using ``ee.Clusterer.wekaKMeans()``, try one of the other clusterers available, such as
   ``ee.Clusterer.wekaXMeans()``, which finds the "best" number of clusters for a given input image and range of
-  number of clusters. Replace the code at line 42 with the following:
+  number of clusters.
+
+  To do this, replace the code at line 42 with the following:
 
   .. code-block:: javascript
 
@@ -1254,9 +1308,9 @@ pixel-based classification
 
 - Try varying the number of 'trees' used in the random forest classifier. How does this impact the estimated accuracy
   of the classification?
-- Test how does adding additional bands such as the surface temperature or the NDVI affects the classification,
+- Test how adding additional bands such as the surface temperature or the NDVI affects the classification,
   by removing the comment (``//``) symbol from the beginning of lines 28-32. Try different combinations of the indices
-  included - some additional bands may help more than others.
+  included - you may find that some additional bands help more than others.
 
 
 object-based classification
@@ -1264,10 +1318,17 @@ object-based classification
 
 - Try varying the number of 'trees' used in the random forest classifier. How does this impact the estimated accuracy
   of the classification?
-- Test how does adding additional bands such as the surface temperature or the NDVI affects the classification,
+- Test how adding additional bands such as the surface temperature or the NDVI affects the classification,
   by removing the comment (``//``) symbol from the beginning of lines 29-34. Try different combinations of the indices
-  included - some additional bands may help more than others.
-- You can also try adding different texture measures by
+  included - you may find that some additional bands help more than others.
+- You can also try adding different texture measures by adding them to the image beginning at line 165. For example,
+  to include the GLCM Correlation (``gray_corr`` in our ``glcm`` image), you would add the following line of code:
+
+  .. code-block:: javascript
+
+      .addBands(glcm.select('gray_corr'))
+
+  Remember to remove the semicolon (``;``) from line 164 if you have uncommented it!
 
 notes and references
 ----------------------
