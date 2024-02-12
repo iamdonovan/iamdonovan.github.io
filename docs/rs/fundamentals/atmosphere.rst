@@ -160,8 +160,8 @@ mie scattering
 ...............
 
 For slightly larger particles, Mie scattering is the dominant scattering mechanism. Mie scattering is stronger than
-Rayleigh scattering, in that less light passes through. The amount of scattering depends less on wavelength – rather
-than :math:`1/\lambda^4` it's only :math:`1/\lambda`:
+Rayleigh scattering, in that less light passes through. The amount of scattering depends less on wavelength than
+Rayleigh scattering: rather than being proportional to :math:`1/\lambda^4`, it's only :math:`1/\lambda`:
 
 .. math::
 
@@ -174,7 +174,7 @@ Mie scattering is caused mostly by smoke, pollution, or dust particles in the at
     :align: center
     :alt: a plush dog holding a coffee mug that says "this is fine", sitting on a fire escape under an orange sky in a world on fire
 
-    `@PettyCommaAngie <https://twitter.com/PettyCommaAngie>`__
+    *image credit*: `@PettyCommaAngie <https://twitter.com/PettyCommaAngie>`__
 
 I’m sure you’ve seen images from the different wildfires in California, Australia, or Siberia over the past few
 years. The darkened, orange sky you can see in these different photos is a result of Mie scattering:
