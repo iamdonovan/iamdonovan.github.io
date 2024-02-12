@@ -1,9 +1,11 @@
 fundamentals of remote sensing
 ===============================
 
-In this section, we'll learn about the fundamentals of remote sensing, starting with the basics of electromagnetic
-radiation, how it interacts with the earth's atmosphere and objects on the earth's surface, and finally how we can use
-electromagnetic radiation to identify objects using their spectral properties.
+Now that we've established the "what" part of remote sensing, we can start to look into the "how". Specifically, we'll
+start with the basics of electromagnetic radiation: what it is, how it interacts with the atmosphere, and how it
+interacts with the Earth's surface and the different objects that we would like to study. We'll also start to see how
+we can use electromagnetic radiation to identify objects using their spectral properties.
+
 
 .. toctree::
    :glob:
