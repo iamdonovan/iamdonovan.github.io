@@ -49,7 +49,7 @@ Before moving on to the :doc:`lectures` and :doc:`practicals<practicals/index>` 
 +---------+-----------------------+-------------------------------+
 | 4       |                       | :doc:`practicals/raster`      |
 |         |                       |                               |
-|         |                       | :doc:`practicals/sentinelsat` |
+|         |                       | :doc:`practicals/earthaccess` |
 +---------+-----------------------+-------------------------------+
 | 5       |                       | :doc:`practicals/zonalstats`  |
 +---------+-----------------------+-------------------------------+

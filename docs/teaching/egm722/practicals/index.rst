@@ -29,7 +29,7 @@ eventually work.
    vector
    folium
    raster
-   sentinelsat
+   earthaccess
    zonalstats
 
 
