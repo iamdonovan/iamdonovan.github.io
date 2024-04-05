@@ -92,8 +92,8 @@ uses a few different options for authentication (that is, confirming that you ar
 - "**netrc**": retrieve your username and password from a ``.netrc`` file.
 - "**environment**": retrieve username and password from *environment variables* ``$EARTHDATA_USERNAME`` and ``$EARTHDATA_PASSWORD``
 
-This way of authenticating helps avoid typing your username/password into a script or notebook, which is always a bad
-idea.
+This way of authenticating helps avoid typing your username/password into a script or notebook, which is **always**,
+**ALWAYS**, a bad idea.
 
 .. danger::
 
