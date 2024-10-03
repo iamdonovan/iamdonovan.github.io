@@ -691,7 +691,7 @@ on this area:
 a result of the heavy flooding of the Tittabawassee and Tobacco Rivers.
 
 After the dam failed, the floodwater overtopped the `Sanford Dam <https://en.wikipedia.org/wiki/Sanford_Lake>`__
-further downstream, causing extensive flooding along the Tittabawassee Rivers that can be seen in the 20 May Landsat
+further downstream, causing extensive flooding along the Tittabawassee River that can be seen in the 20 May Landsat
 image.
 
 The red features in the difference image, then, are a result of an *increase* in backscatter between the two SAR
@@ -773,6 +773,7 @@ If you are interested in additional practice, here are some suggestions:
   in water area (i.e., the flood extent)
 - Similar to how we used the dB images to map water extent, use the NDWI to create a water mask from the "Before" and
   "After" Landsat images, difference the resulting vector layers, and compare the results to the difference between the
-  SAR water masks.
+  SAR water masks. Remember that you will need to convert the landsat bands to TOA reflectance before calculating the
+  NDWI!
 - Extra credit: using a DEM and the estimated flood extents, calculate the flood depth and volume.
 
