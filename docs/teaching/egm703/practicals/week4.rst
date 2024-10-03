@@ -2,8 +2,9 @@ InSAR Processing
 =========================
 
 For this week's practical, we'll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look
-complex) image, through to a terrain-corrected interferogram that you can use to estimate surface displacement. In
-particular, by the end of this practical, you will be able to use SNAP to:
+complex) image, through to a terrain-corrected interferogram that you can use to estimate surface displacement.
+
+In particular, by the end of this practical, you will be able to use SNAP to:
 
 - co-register and stack a pair of SAR images
 - form an interferogram from a stacked pair of images
@@ -26,11 +27,12 @@ about the event.
 
 Before opening SNAP, download the zipped image file from the link on Blackboard. Because of the image size, this might
 take some time. Alternatively, you can go to the Alaska Satellite Facility's `Data Search <https://search.asf.alaska.edu/>`__,
-or `Copernicus Open Access Hub <https://scihub.copernicus.eu/>`__, to search for and download your own images. The
+or `Copernicus Broswer <https://browser.dataspace.copernicus.eu/>`__, to search for and download your own images. The
 granules being used in this example are:
+::
 
-`S1A_IW_SLC__1SDV_20190704T135158_20190704T135225_027968_032877_1C4D <https://scihub.copernicus.eu/dhus/odata/v1/Products('eb911c15-5271-4ed4-8482-77b069008d59')/$value>`__ (Open Access Hub login required)
-`S1A_IW_SLC__1SDV_20190716T135159_20190716T135226_028143_032DC3_512B <https://scihub.copernicus.eu/dhus/odata/v1/Products('a03650c6-1208-4bd5-9f44-280e2d4697c2')/$value>`__,
+    S1A_IW_SLC__1SDV_20190704T135158_20190704T135225_027968_032877_1C4D
+    S1A_IW_SLC__1SDV_20190716T135159_20190716T135226_028143_032DC3_512B
 
 but you are welcome to download and use an image pair of your choosing. If you do so, make sure to choose an
 interferometric wide swath (IW) scene, and download the single-look complex (SLC) format.
@@ -46,8 +48,10 @@ getting started
 To open the images, use the folder icon in the upper left-hand corner, or the drop-down menu (**File** >
 **Open Product**). Navigate to the **zipped** folders, select them, and click **OK**.
 
-To start with, we'll look at the VV Intensity image for sub-swath 2 (**Intensity_IW2_VV**) for the first image. To load
-the image, double-click it. It will take a minute to load, but you should eventually see something like this:
+For this practical, we'll use the VV Intensity image for sub-swath 2 (**Intensity_IW2_VV**) for both scenes.
+
+To load each image, double-click on it in the browser. It will take a minute to load, but you should eventually see
+something like this:
 
 .. image:: ../../../img/egm703/week4/initial_intensity_image.png
     :width: 600
@@ -167,9 +171,14 @@ that indicate high levels of coherence, and dark values (closer to 0) that indic
 
 |br|
 
-.. note::
+.. card::
+    :class-header: question
+    :class-card: question
 
-    Compare the coherence with the interferogram - how do they appear to line up?
+    :far:`circle-question` Question
+    ^^^
+
+    Compare the coherence with the interferogram - how do they appear to compare? Why do you think this is?
 
 topographic phase removal
 -------------------------
