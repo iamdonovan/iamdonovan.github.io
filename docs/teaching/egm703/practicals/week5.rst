@@ -277,15 +277,24 @@ Now, load the RGB composite from the second image (27 May):
     :align: center
     :alt: a Sentinel-1 RGB image of central Michigan, on 27 May 2020.
 
-|br| In this image, you should notice that the vast majority of the agricultural land in the image changed from
-primarily red colors in the 15 May image, to primarily blue colors in the 27 May image. What happened?
+|br|
 
-As noted above, between 17-20 May 2020,
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    In this image, you should notice that the vast majority of the agricultural land in the image changed from
+    primarily red colors in the 15 May image, to primarily blue colors in the 27 May image. What happened?
+
+As noted in the introduction, between 17-20 May 2020,
 `a record amount of rainfall <https://www.weather.gov/dtx/HistoricFlooding-May-17-20-2020>`_
 fell on the region, with some areas seeing more than 10 cm of rain during that time.
 
-The big change that we see in the second RGB image, then, is due to the change in soil moisture between the two
-images. In the second image, the soil in the fields is saturated, which has (a) caused a pronounced decrease in the
+The big change that we see in the second RGB image, then, is primarily due to the change in soil moisture between the
+two images. In the second image, the soil in the fields is saturated, which has (a) caused a pronounced decrease in the
 backscatter recorded by the sensor, and (b) created a "smoother" (in terms of the radar signal) surface, with surface
 scattering predominating over volume scattering.
 
@@ -322,9 +331,11 @@ change it so that the pixel values are stretched between 0 and 0.6, then click *
     :alt: a Sentinel-1 VV-polarized image of central Michigan on 15 May 2020, scaled to better fit the image.
 
 |br| That looks better. In this band, the vertical co-polarization band, remember that the signal that is sent and
-the signal that is received by the sensor is vertically polarized (hence, VV). In the other band, the VH band,
-the signal sent by the sensor is vertically polarized, but the signal received is horizontally polarized. As covered
-in lecture and the suggested readings, this "cross-polarization" can tell us a lot about the surface being observed.
+the signal that is received by the sensor is vertically polarized (hence, VV).
+
+In the other band, the VH band, the signal sent by the sensor is vertically polarized, but the signal received is
+horizontally polarized. As covered in lecture and the suggested readings, this "cross-polarization" can tell us a lot
+about the surface being observed.
 
 Next, add the VH band from the 15 May image to the **Map**. Just like with the VV band, you should look at the histogram
 to determine an appropriate min/max range to scale the image to:
@@ -345,9 +356,18 @@ to determine an appropriate min/max range to scale the image to:
     ^^^
 
     Have a look at the two images, and pay attention to the areas that you examined in the RGB images before. What
-    (if any) differences do you notice between the VV and VH bands? Using your interpretation of the surface types,
-    and your understanding of SAR images, can you explain some of these differences?
+    (if any) differences do you notice between the VV and VH bands?
 
+    Using your interpretation of the surface types, and your understanding of SAR images, can you explain some of
+    these differences?
+
+
+.. image:: ../../../img/egm703/week5/stop.jpg
+    :height: 500
+    :align: center
+    :alt: a stop sign, with arnold schwarzenegger standing in front of it with his hand raised
+
+|br|
 
 .. warning::
 
@@ -671,7 +691,7 @@ on this area:
 a result of the heavy flooding of the Tittabawassee and Tobacco Rivers.
 
 After the dam failed, the floodwater overtopped the `Sanford Dam <https://en.wikipedia.org/wiki/Sanford_Lake>`__
-further downstream, causing extensive flooding along the Tittabawassee Rivers that can be seen in the 20 May Landsat
+further downstream, causing extensive flooding along the Tittabawassee River that can be seen in the 20 May Landsat
 image.
 
 The red features in the difference image, then, are a result of an *increase* in backscatter between the two SAR
@@ -753,6 +773,7 @@ If you are interested in additional practice, here are some suggestions:
   in water area (i.e., the flood extent)
 - Similar to how we used the dB images to map water extent, use the NDWI to create a water mask from the "Before" and
   "After" Landsat images, difference the resulting vector layers, and compare the results to the difference between the
-  SAR water masks.
+  SAR water masks. Remember that you will need to convert the landsat bands to TOA reflectance before calculating the
+  NDWI!
 - Extra credit: using a DEM and the estimated flood extents, calculate the flood depth and volume.
 
