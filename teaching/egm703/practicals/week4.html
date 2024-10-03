@@ -606,8 +606,8 @@ document.write(`
   <div class="section" id="insar-processing">
 <h1>InSAR Processing<a class="headerlink" href="#insar-processing" title="Permalink to this heading">#</a></h1>
 <p>For this week’s practical, we’ll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look
-complex) image, through to a terrain-corrected interferogram that you can use to estimate surface displacement. In
-particular, by the end of this practical, you will be able to use SNAP to:</p>
+complex) image, through to a terrain-corrected interferogram that you can use to estimate surface displacement.</p>
+<p>In particular, by the end of this practical, you will be able to use SNAP to:</p>
 <ul class="simple">
 <li><p>co-register and stack a pair of SAR images</p></li>
 <li><p>form an interferogram from a stacked pair of images</p></li>
@@ -624,10 +624,12 @@ July 2019, before and after the 6 July 2019 <span class="math notranslate nohigh
 about the event.</p>
 <p>Before opening SNAP, download the zipped image file from the link on Blackboard. Because of the image size, this might
 take some time. Alternatively, you can go to the Alaska Satellite Facility’s <a class="reference external" href="https://search.asf.alaska.edu/">Data Search</a>,
-or <a class="reference external" href="https://scihub.copernicus.eu/">Copernicus Open Access Hub</a>, to search for and download your own images. The
+or <a class="reference external" href="https://browser.dataspace.copernicus.eu/">Copernicus Broswer</a>, to search for and download your own images. The
 granules being used in this example are:</p>
-<p><a class="reference external" href="https://scihub.copernicus.eu/dhus/odata/v1/Products('eb911c15-5271-4ed4-8482-77b069008d59')/$value">S1A_IW_SLC__1SDV_20190704T135158_20190704T135225_027968_032877_1C4D</a> (Open Access Hub login required)
-<a class="reference external" href="https://scihub.copernicus.eu/dhus/odata/v1/Products('a03650c6-1208-4bd5-9f44-280e2d4697c2')/$value">S1A_IW_SLC__1SDV_20190716T135159_20190716T135226_028143_032DC3_512B</a>,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">S1A_IW_SLC__1SDV_20190704T135158_20190704T135225_027968_032877_1C4D</span>
+<span class="n">S1A_IW_SLC__1SDV_20190716T135159_20190716T135226_028143_032DC3_512B</span>
+</pre></div>
+</div>
 <p>but you are welcome to download and use an image pair of your choosing. If you do so, make sure to choose an
 interferometric wide swath (IW) scene, and download the single-look complex (SLC) format.</p>
 <div class="section" id="getting-started">
@@ -639,8 +641,9 @@ different version of SNAP, there may be some slight differences.</p>
 </div>
 <p>To open the images, use the folder icon in the upper left-hand corner, or the drop-down menu (<strong>File</strong> &gt;
 <strong>Open Product</strong>). Navigate to the <strong>zipped</strong> folders, select them, and click <strong>OK</strong>.</p>
-<p>To start with, we’ll look at the VV Intensity image for sub-swath 2 (<strong>Intensity_IW2_VV</strong>) for the first image. To load
-the image, double-click it. It will take a minute to load, but you should eventually see something like this:</p>
+<p>For this practical, we’ll use the VV Intensity image for sub-swath 2 (<strong>Intensity_IW2_VV</strong>) for both scenes.</p>
+<p>To load each image, double-click on it in the browser. It will take a minute to load, but you should eventually see
+something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/initial_intensity_image.png"><img alt="VV intensity for sub-swath IW2 of the 4 July scene" class="align-center" src="../../../_images/initial_intensity_image.png" style="width: 600px;" /></a>
 <p><br /></p>
 </div>
@@ -716,9 +719,13 @@ overlapping areas have been merged. The demarcation lines are also gone, and we 
 that indicate high levels of coherence, and dark values (closer to 0) that indicate low values of coherence.</p>
 <a class="reference internal image-reference" href="../../../_images/coherence.png"><img alt="the coherence image" class="align-center" src="../../../_images/coherence.png" style="width: 600px;" /></a>
 <p><br /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Compare the coherence with the interferogram - how do they appear to line up?</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Compare the coherence with the interferogram - how do they appear to compare? Why do you think this is?</p>
+</div>
 </div>
 </div>
 <div class="section" id="topographic-phase-removal">
