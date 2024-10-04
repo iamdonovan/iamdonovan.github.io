@@ -58,7 +58,7 @@ what this looks like below. Note that some of the apparent lack of seasonality b
 the lower temporal resolution – Landsat acquisitions were often limited during this time, and so some years will only
 have a few available images.
 
-.. image:: ../../../img/egm702/week4/ndvi_timeseries.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/ndvi_timeseries.png
     :width: 720
     :align: center
     :alt: a time series of ndvi values for different polygons
@@ -110,7 +110,7 @@ re-run the script:
 To add your own polygons, or to edit the polygons that are already included in the script, you can use the digitizing
 tools located in the upper left-hand corner of the map panel:
 
-.. image:: ../../../img/egm702/week4/digitizing_tools.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/digitizing_tools.png
     :width: 720
     :align: center
     :alt: the digitizing tools panel highlighted
@@ -118,7 +118,7 @@ tools located in the upper left-hand corner of the map panel:
 |br| If you're adding your own polygon, be sure to start the polygon as a new layer (click on **+ new layer** at the
 bottom of the **Geometry Imports** panel):
 
-.. image:: ../../../img/egm702/week4/geometry_imports_panel.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/geometry_imports_panel.png
     :width: 720
     :align: center
     :alt: the geometry imports panel expanded
@@ -127,7 +127,7 @@ bottom of the **Geometry Imports** panel):
 you can use the Landsat images, as well as the background satellite images, to help you. From the **Geometry Imports**
 panel, click the gear icon next to your new layer to change the properties:
 
-.. image:: ../../../img/egm702/week4/configure_import1.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/configure_import1.png
     :width: 300
     :align: center
     :alt: the configure geometry import panel
@@ -135,7 +135,7 @@ panel, click the gear icon next to your new layer to change the properties:
 |br| Change the name to something other than ``geometry`` (or ``example``), then change it to **Import as** a
 ``Feature``, and click to add property to the feature. Call it ``label``, and add a value for the label.
 
-.. image:: ../../../img/egm702/week4/configure_import2.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/configure_import2.png
     :width: 300
     :align: center
     :alt: the configure geometry import panel
@@ -144,7 +144,7 @@ panel, click the gear icon next to your new layer to change the properties:
 single polygon – to add multiple polygons, you’ll need to create multiple features. You can then update the
 ``ndvi_patches`` variable (line 17) and re-run the script to update the chart:
 
-.. image:: ../../../img/egm702/week4/updated_ndvi_timeseries.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/updated_ndvi_timeseries.png
     :width: 720
     :align: center
     :alt: the ndvi time series with the new polygon layer added
