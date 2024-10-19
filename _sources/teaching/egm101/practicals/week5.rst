@@ -15,14 +15,15 @@ By the end of this practical, you should:
 getting started
 ----------------
 
-If you have not already, you should download the
-`Week 5 Data <https://www.metoffice.gov.uk/pub/data/weather/uk/climate/stationdata/armaghdata.txt>`__
-file to your OneDrive folder.
+**If you have not already, you should download the Week 5 Data file from Blackboard and save it to your OneDrive folder for EGM101.**
 
-.. note::
+.. hint::
 
-    I **strongly** recommend that you create a dedicated folder for your EGM101 material on your OneDrive. I also
-    recommend that you organize it in a way that will help you find things easily.
+    I **strongly** recommend that you create a dedicated folder for your EGM101 material on your OneDrive, so that you
+    can be sure that you have access to it on any of the computers on campus, or at home.
+
+    I also recommend that you organize your folders in a way that will help you find things easily, rather than just
+    dumping everything into a folder and hoping for the best.
 
     The folder structure outlined below is only a recommendation (you should use something that works best for you),
     but an organized folder structure with clearly-labeled, understandable file names (for example,
@@ -42,10 +43,12 @@ file to your OneDrive folder.
                 └─ Report
 
 
+Once you have downloaded the file, open **Excel** using either the **Start Menu** (**Start** > **Excel**) or the
+Desktop or Taskbar icons (if they exist).
+
+
 spreadsheet basics
 --------------------
-If you haven't already, open **Excel** using either the **Start Menu** (**Start** > **Excel**) or the Desktop or
-Taskbar icons (if they exist).
 
 When it opens, you should see the following (note that the layout and theme may differ):
 
@@ -55,13 +58,14 @@ When it opens, you should see the following (note that the layout and theme may 
     :alt: A blank Excel workbook, showing the Home panel on the ribbon in the upper part of the window.
 
 |br| A spreadsheet is a table of different *cells*, organized into *rows* and *columns*. In Excel, the columns are
-labelled alphabetically (A, B, C, ... Z, AA, AB, etc.), and the rows are labeled numerically (1, 2, 3, ... etc.). Cells
-are identified using their column and row - in the example above, the green outline is in cell A1, or the first column
-and first row.
+labelled alphabetically (A, B, C, ... Z, AA, AB, etc.), and the rows are labeled numerically (1, 2, 3, ... etc.).
 
-At the bottom of the window, you can also see a tab labeled "Sheet1", indicating that this is the first *sheet* (table)
-in the spreadsheet. Excel spreadsheets can contain multiple sheets - to add additional sheets, use the "+" symbol next
-to the sheet tabs. You can also switch between sheets using the tabs.
+Cells are identified using their column and row - in the example above, the green outline is in cell A1, or the first
+column and first row.
+
+At the bottom left of the window, you can also see a tab labeled "**Sheet1**", indicating that this is the first
+*sheet* (table) in the spreadsheet. Excel spreadsheets can contain multiple sheets - to add additional sheets, use
+the "**+**" symbol next to the sheet tabs. You can also switch between sheets using the tabs.
 
 importing data
 ---------------
@@ -70,13 +74,19 @@ For this week's practical, we will be working with meteorological observations f
 `Armagh Observatory <https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years>`__,
 provided by the `Met Office <https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data>`__.
 
+.. note::
+
+    The data on Blackboard are for 1853--2022. If you download the file directly from the Met Office, it will be up
+    to date through the current year - this means that your results for some parts of the exercises are going to look
+    different than what is shown here.
+
 Recall that a *variable* is any sort of characteristic of the members of a population - in essence, it's the thing that
 we're measuring and analyzing. In this practical, we're primarily going to be working with three different temperature
 variables:
 
-- ``Tmax``, the monthly maximum temperature recorded at the Armagh Observatory;
-- ``Tmean``, the monthly mean temperature recorded at the Armagh Observatory; and
-- ``Tmin``, the monthly minimum temperature recorded at the Armagh Observatory.
+- ``Tmax``, the monthly maximum temperature (in °C) recorded at the Armagh Observatory;
+- ``Tmean``, the monthly mean temperature (in °C) recorded at the Armagh Observatory; and
+- ``Tmin``, the monthly minimum temperature (in °C) recorded at the Armagh Observatory.
 
 The meteorological data provided by the Met Office date back to 1853, though the temperature records provided "only"
 go back to 1865. Before we get started, though, we need to **Import** the data into Excel.
@@ -114,14 +124,22 @@ If you scroll to the bottom of the window, you should see something like this:
     :align: center
     :alt: The second step of the Text Import Wizard, scrolled to the end of the file.
 
-|br| You can add separators around these characters by clicking on them:
+|br| You can add separators around these characters by clicking on them. When you click, you should see a new separator
+appear. If you have placed it in the wrong spot, click on it and drag it to where you want it to be:
 
 .. image:: img/week5/import2c.png
     :width: 400
     :align: center
     :alt: The second step of the Text Import Wizard, scrolled to the end of the file with an additional separator added.
 
-|br| Make sure that you add separators after each numeric entry - the final view should look something like this:
+|br| Make sure that you add separators after each numeric entry.
+
+.. hint::
+
+    Some of the entries have additional symbols after them to indicate missing data. You can add additional breaks to
+    put these into their own column for easy removal.
+
+The final view should look something like this:
 
 .. image:: img/week5/import2d.png
     :width: 400
@@ -181,10 +199,18 @@ Re-name the file as ``EGM101_Week5_Practical``, make sure to change the file typ
 .. warning::
 
     Be sure to double-check that you are saving this to your OneDrive folder, **not** the local disk. If you
-    save the file to the local disk, it will not be backed up, and you won't be able to access it unless you are
-    sitting at this exact same computer.
+    save the file to the local disk, **it will not be backed up**, and you won't be able to access it unless you are
+    sitting at this exact same computer. And tven then, there's no guarantee that the computer won't have been wiped
+    clean in the meantime.
 
-Once you've saved the file, you should see that the warning has gone away.
+Once you've saved the file, you should see that the warning about possible data loss at the top of the view has gone
+away:
+
+.. image:: img/week5/nowarning.png
+    :width: 720
+    :align: center
+    :alt: The Excel workbook with the data imported. The warning about possible data loss has gone away.
+
 
 formatting text
 ..................
@@ -199,12 +225,14 @@ the column headers - let's rename these to be something that's a bit easier to u
 
 |br| Here, I've changed ``yyyy`` to ``Year``, ``mm`` to ``Month``, and ``af`` to ``Air Frost``.
 
-Like in Word or other programs, we can also change the font to highlight text - go ahead and make the first row of
+Like in Word, we can also change the font to highlight text - go ahead and make the first row of
 text **Bold** by highlighting the cells and changing the text to bold (either using ``Ctrl + B`` on the keyboard,
 or by clicking on the "B" under the font name on the **Home** tab).
 
 Change the second row of text (the units) to italics in the same way: first highlight the cells, then press
-``Ctrl + I`` on the keyboard, or click on the "I" under the font name on the **Home** tab:
+``Ctrl + I`` on the keyboard, or click on the "I" under the font name on the **Home** tab.
+
+Your spreadsheet should now look like this:
 
 .. image:: img/week5/fancy_headers.png
     :width: 720
@@ -259,9 +287,11 @@ The next thing that we'll cover is adding and removing columns and rows to the s
 while the total monthly rain (``Rain``, column F) has data starting in January 1853, the other rows (minimum/maximum
 Temperature, days of Air Frost, and average hours of Sun) don't start until April 1865 (row 150).
 
-Because we are primarily interested in the temperature records here, we can remove rows where we have no data. To do
-this, first scroll back to the top of the spreadsheet. To delete an entire row, we first have to highlight the row
-in the table. To do this, click the row number in row 3 (left-most part of the window):
+Because we are primarily interested in the temperature records in this exercise, we can remove rows where we have no
+data. First, scroll back to the top of the spreadsheet. To delete an entire row, we first have to highlight
+the row in the table.
+
+To do this, click the row number in row 3 (left-most part of the window):
 
 .. image:: img/week5/highlight_row.png
     :width: 720
@@ -270,7 +300,9 @@ in the table. To do this, click the row number in row 3 (left-most part of the w
 
 |br| You should see that all of row 3 is now highlighted. To delete an individual row, you can right-click on the row
 number and select **Delete**. Rather than doing this individually, though, we can select multiple rows using the
-``Shift`` key. With row 3 highlighted, scroll down in the table until you see row 149. Hold down the ``Shift`` key and
+``Shift`` key.
+
+With row 3 highlighted, scroll down in the table until you see row 149. Hold down the ``Shift`` key and
 click on the row number for row 149. You should see that rows 3 - 149 are now highlighted:
 
 .. image:: img/week5/highlight_rows.png
@@ -286,9 +318,10 @@ the table shifts upwards:
     :align: center
     :alt: The workbook, showing that blank rows 3-149 have been deleted.
 
-|br| Click on any cell to remove the highlighting. The next thing we'll do is add a column to the table, to represent
-the monthly mean temperature. We'll add this column in between the maximum and minimum columns of the table. First,
-click on the column name for column D to highlight the column:
+|br| Click on any cell to remove the selection. The next thing we'll do is add a column to the table, to represent
+the monthly mean temperature. We'll add this column in between the maximum and minimum columns of the table.
+
+Click on the column name for column D to highlight the column:
 
 .. image:: img/week5/highlight_column.png
     :width: 720
@@ -337,11 +370,14 @@ cell using the actual data values for the maximum and minimum temperatures:
 
     T_{\rm mean} = \frac{14.8 + 5.5}{2} = 10.15
 
-However, there are a number of drawbacks to this. For one, we would have to manually enter each value, which (a) is
-time-consuming, (b) makes it significantly more difficult to change the values later on, (c) dramatically increases
-the chances of making an error (which would require us to change the values later on).
+However, there are a number of drawbacks to this. For one, we would have to manually enter each value. This:
 
-Instead, we can use **cell references** to input the formula. Click on cell D3, and type in the following:
+a) is time-consuming;
+b) makes it significantly more difficult to change the values later on;
+c) dramatically increases the chances of making an error (which would then require us to change the values later on).
+
+Instead, we can use **cell references** to input the formula. Click on cell D3, and type in the following (alternatively,
+copy and paste using the **copy** button in the block below):
 
 .. code-block:: text
 
@@ -356,16 +392,18 @@ Press ``Enter`` - you should see the following:
 
 |br| There are a few things to note here:
 
-#. The formula begins with "=" - this is **always** the case in excel, whether entering a simple formula or using a built-in function.
+#. The formula begins with "=" - this is **always** the case in Excel, whether entering a simple formula or using a built-in function.
 #. To refer to a cell, we use the column label (e.g., C), followed by the row label (e.g., 3).
 #. In the spreadsheet, we see the output of the formula (10.15), but in the formula bar, we see the formula entered.
 #. It's usually a good idea to use brackets in your formula, to ensure the correct order of operations (and to make the formula more readable).
 
 Rather than re-typing this formula in each row of column D, we can either copy + paste the formula, or by using the
-**fill handle**. To use the **fill handle**, make sure that you have highlighted cell D3 in the sheet. Next, hover
-your cursor over the lower right-hand corner of the green outline - when your cursor changes to a "+" symbol, left-click
-the mouse, then drag the cursor toward the bottom of the screen. You should see the green outline extend. Keep going
-until you've highlighted all the way to the bottom of the table (row 1904).
+**fill handle**. To use the **fill handle**, make sure that you have highlighted cell D3 in the sheet.
+
+Next, hover your cursor over the lower right-hand corner of the green outline - when your cursor changes to a "+"
+symbol, left-click the mouse, then drag the cursor toward the bottom of the screen. You should see the green outline
+extend. Keep going until you've highlighted all the way to the bottom of the table (row 1916 using the 2024 version
+of the data).
 
 When you release the mouse button, you should see that each row of column D is now filled with a value:
 
@@ -374,190 +412,19 @@ When you release the mouse button, you should see that each row of column D is n
     :align: center
     :alt: The workbook, that all values of column D have been filled with the formula above.
 
-|br| To check, click on cell D1904 - you should see the following in the formula bar:
+|br| To check, click on cell D1916 - you should see the following in the formula bar:
 
 .. code-block:: text
 
-    = (C1904 + E1904) / 2
+    = (C1904 + E1916) / 2
 
-We'll see more examples of filling cells in this way later on. For now, scroll back up to the top of the table.
+Excel has changed the formula for each to cell, based on the row number - we only had to type the formula one time, and
+the computer did the rest of the work for us.
 
-built-in functions
-....................
+We'll see more examples of filling cells in this way later on.
 
-Our next task will be to calculate descriptive statistics such as the mean, median, standard deviation, range, and
-inter-quartile range for each of our temperature *variables* (``Tmax``, ``Tmean``, and ``Tmin``).
-
-To start, create a small table to the right of where we have our data:
-
-.. image:: img/week5/average_table.png
-    :width: 720
-    :align: center
-    :alt: The workbook, with a space for showing descriptive statistics of the three temperature variables.
-
-|br| It doesn't need to be in the exact same location as shown above, but you should include columns for ``Tmax``,
-``Tmean``, and ``Tmin``, as well as rows for the mean, median, population and sample standard deviations, range, and
-inter-quartile range, as shown above.
-
-In the upper left cell of this table (K5 in the example above), insert the following formula:
-
-.. code-block:: text
-
-    = AVERAGE(C3:C1904)
-
-This uses the built-in `AVERAGE <https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6>`__
-function to calculate the *arithmetic mean* of the cells used as input. Here, we're telling Excel to use the values in
-all of the cells starting from C3 and ending at C1904. Note that the ``:`` in between C3 and C1904 is what Excel uses
-to denote a *range* of cells - this way, we don't have to explicitly type in C3, C4, C5, and so on.
-
-When you press enter, you should see the following:
-
-.. image:: img/week5/average_table.png
-    :width: 720
-    :align: center
-    :alt: The workbook, with a formula entered in cell K3 to compute the average maximum temperature.
-
-|br| As before, you should see that the cell displays the calculated value, while the formula bar displays the formula
-entered.
-
-Rather than typing the formula again to calculate the mean of ``Tmean`` and ``Tmin``, we can instead use **flash fill**
-like we did to fill out the ``Tmean`` column. To do this, click on the lower right corner of the green outline in cell
-K3, then drag the cursor over to cell M3:
-
-.. image:: img/week5/horizontal_fill.png
-    :width: 720
-    :align: center
-    :alt: The mean values of each temperature variable, filled using flash fill.
-
-|br| Next, we need to fill out the rest of the table. First, use the
-`MEDIAN <https://support.microsoft.com/en-us/office/median-function-d0916313-4753-414c-8537-ce85bdd967d2>`__
-function to calculate the median value of ``Tmax`` by inserting the following formula into cell K6:
-
-.. code-block:: text
-
-    = MEDIAN(C3:C1904)
-
-Next, use **flash fill** to copy this formula to ``Tmean`` and ``Tmin``, as you did above for the arithmetic mean.
-
-For the *standard deviation*, Excel has two functions: `STDEV.P <https://support.microsoft.com/en-us/office/stdev-p-function-6e917c05-31a0-496f-ade7-4f4e7462f285>`__
-and `STDEV.S <https://support.microsoft.com/en-us/office/stdev-s-function-7d69cf97-0c1f-4acf-be27-f3e83904cc23>`__,
-for the *population* and *sample* standard deviation, respectively. In cell K8, enter the following formula
-to calculate the *population* standard deviation:
-
-.. code-block:: text
-
-    = STDEV.P(C3:C1904)
-
-And in cell K9, enter the following to calculate the *sample* standard deviation:
-
-.. code-block:: text
-
-    = STDEV.S(C3:C1904)
-
-Again, use **flash fill** to fill out each row as you go along.
-
-Excel doesn't have dedicated functions for the *range* and *inter-quartile range*, but we can still calculate them
-using functions that Excel does have. Remember that the *range* is just the difference between the maximum and
-minimum values of a variable:
-
-.. math::
-
-    {\rm RANGE} = {\rm MAX} - {\rm MIN}
-
-We use the same equation here, using the `MAX <https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098>`__
-and `MIN <https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a70f-96f202dcc152>`__ functions:
-
-.. code-block:: text
-
-    = MAX(C3:C1904) - MIN(C3:C1904)
-
-Again, use **flash fill** to fill out this row.
-
-Finally, remember that the *inter-quartile range* is the difference between the third quartile, :math:`Q_3`, and the
-first quartile, :math:`Q_1`:
-
-.. math::
-
-    {\rm IQR} = Q_3 - Q_1
-
-Excel has two functions to calculate quartiles: `QUARTILE.INC <https://support.microsoft.com/en-us/office/quartile-inc-function-1bbacc80-5075-42f1-aed6-47d735c4819d>`__,
-for calculating the quartile *inclusive* of the endpoints, and
-`QUARTILE.EXC <https://support.microsoft.com/en-us/office/quartile-exc-function-5a355b7a-840b-4a01-b0f1-f538c2864cad>`__,
-for calculating the quartile *exclusive* of the endpoints. We'll use ``QUARTILE.INC`` here.
-
-Enter the following formula into cell K12:
-
-.. code-block:: text
-
-    = QUARTILE.INC(C3:C1904, 3) - QUARTILE.INC(C3:C1904, 1)
-
-Note that ``QUARTILE.INC`` takes two *arguments*: the first is the range of values to calculate the quartile over,
-and the second is which quartile to calculate. So, ``QUARTILE.INC(C3:C1904, 3)`` calculates :math:`Q_3` of the values
-in cells C3 through C1904, while ``QUARTILE.INC(C3:C1904, 1)`` calculates :math:`Q_1`.
-
-Once again, use **flash fill** to fill out the table. It should look something like this:
-
-.. image:: img/week5/filled_table.png
-    :width: 720
-    :align: center
-    :alt: The workbook, with the descriptive statistics for each temperature variable filled in.
-
-|br|
-
-formatting cells
-..................
-
-The final step we'll do in this part of the practical is *format* the cells, so that they show an appropriate number of
-*significant figures*. In the example above, you can see that the *mean* value is shown with 5 decimal places, despite
-the fact that the original data only has a single decimal place.
-
-Highlight all of the cells in this part of the table (columns K - M, rows 5 - 12), right-click, and select
-**Format Cells** to bring up the following window:
-
-.. image:: img/week5/format_cells.png
-    :width: 400
-    :align: center
-    :alt: the Format Cells dialogue window
-
-|br| Make sure that the **Number** category is selected, then change the number of decimal places to 2. Click **OK** to
-close the window. You should see that the cells in the table are now formatted to only show the first two decimal
-places:
-
-.. image:: img/week5/formatted_table.png
-    :width: 720
-    :align: center
-    :alt: the workbook, with the descriptive statistics formatted to only show two decimal places
-
-|br| Here, you should notice something about the *standard deviations*: to two decimal places, the *population* and
-*sample* standard deviations are the same. Remember that the difference between the *population* and *sample* standard
-deviation is that the denominator of the population standard deviation is :math:`n`, while for the sample standard
-deviation it is :math:`n-1`.
-
-For low values of :math:`n`, this can make a big difference; as :math:`n` gets very large, though, the difference is
-far less important. Here, where :math:`n\approx 2000`, the difference only shows up in the third decimal place.
-
-.. card::
-    :class-header: question
-    :class-card: question
-
-    :far:`circle-question` Question
-    ^^^
-
-    - Which temperature variable (``Tmax``, ``Tmean``, or ``Tmin``) has the largest range? What does this tell you about
-      extreme values?
-    - Look at the standard deviation values for each temperature variable. Which variable has more variation?
-
-
-monthly averages
--------------------
-
-conditional formulas and references
-.....................................
-
-Next up, we will use referencing to perform slightly more complicated calculations - specifically, we will
-calculate monthly- and annually-averaged values of our temperature variables, starting with monthly averages. For this
-part of the practical, we're going to calculate the *mean*, *standard deviation*, *median*, and *inter-quartile range*
-for each of our temperature variables.
+adding a new sheet
+...................
 
 .. warning::
 
@@ -575,13 +442,214 @@ the ``armaghdata`` tab. This will add a new sheet to the workbook:
     :align: center
     :alt: the workbook, with a new sheet added
 
-|br| Rather than the helpfully non-descriptive name ``Sheet1``, let's name this sheet ``monthly`` to indicate that this
-is the monthly data. To do this, right-click on the ``Sheet1`` tab, and select **Rename**. Type in the new name and
-press **Enter**.
+|br| Rather than the helpfully non-descriptive name ``Sheet1``, let's name this sheet ``summary`` to indicate that this
+is where we will include the table of summary statistics for our variables.
 
-Next, we can start adding row and column headers to this table. In the example below, I've grouped each **parameter**
-into a set of three columns, with spaces in between to help make it more readable. Once you've set up the column
-headers as shown below, type the names of months in cells B3 - B14, then enter a "1" in cell A3, and a "2" in cell A4:
+To do this, right-click on the ``Sheet1`` tab, and select **Rename**. Type in the new name and press **Enter**:
+
+.. image:: img/week5/blank_summary.png
+    :width: 720
+    :align: center
+    :alt: the workbook, with a new sheet added and renamed to "summary"
+
+
+built-in functions
+....................
+
+Our next task will be to calculate descriptive statistics such as the mean, median, standard deviation, range, and
+inter-quartile range for each of our temperature *variables* (``Tmax``, ``Tmean``, and ``Tmin``).
+
+To start, label columns B-D in the new sheet with the variable names, and label rows 2-9 with the different descriptive
+statistics that we will calculate:
+
+.. image:: img/week5/average_table.png
+    :width: 720
+    :align: center
+    :alt: The workbook, with a space for showing descriptive statistics of the three temperature variables.
+
+|br| In the upper left cell of this new table (``B2`` in the example above), insert the following formula:
+
+.. code-block:: text
+
+    = AVERAGE(armaghdata!C3:C1916)
+
+This uses the built-in `AVERAGE <https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6>`__
+function to calculate the *arithmetic mean* of the cells used as input.
+
+Unlike in the previous example, here we are referencing cells/values from another sheet in the same workbook using the
+sheet name (``armaghdata``). This tells Excel to take the values from cells C3 to C1916 from the ``armaghdata`` sheet,
+and calculate the arithmetic mean of those values.
+
+You should also note the ``:`` in between C3 and C1916 -- this is what Excel uses to denote a *range* of cells. This
+way, we don't have to explicitly type in C3, C4, C5, and so on, up to C1916.
+
+When you press enter, you should see the following:
+
+.. image:: img/week5/average_formula.png
+    :width: 720
+    :align: center
+    :alt: The workbook, with a formula entered in cell B2 to compute the average maximum temperature.
+
+|br| As before, you should see that the cell displays the calculated value, while the formula bar displays the formula
+entered.
+
+Rather than typing the formula again to calculate the mean of ``Tmean`` and ``Tmin``, we can instead use **flash fill**
+like we did to fill out the ``Tmean`` column. To do this, click on the lower right corner of the green outline in cell
+B2, then drag the cursor over to cell D2:
+
+.. image:: img/week5/horizontal_fill.png
+    :width: 720
+    :align: center
+    :alt: The mean values of each temperature variable, filled using flash fill.
+
+|br| Next, we need to fill out the rest of the table. First, use the
+`MEDIAN <https://support.microsoft.com/en-us/office/median-function-d0916313-4753-414c-8537-ce85bdd967d2>`__
+function to calculate the median value of ``Tmax`` by inserting the following formula into cell B3:
+
+.. code-block:: text
+
+    = MEDIAN(armaghdata!C3:C1916)
+
+Next, use **flash fill** to copy this formula to ``Tmean`` and ``Tmin``, as you did above for the arithmetic mean.
+
+For the *standard deviation*, Excel has two functions: `STDEV.P <https://support.microsoft.com/en-us/office/stdev-p-function-6e917c05-31a0-496f-ade7-4f4e7462f285>`__
+and `STDEV.S <https://support.microsoft.com/en-us/office/stdev-s-function-7d69cf97-0c1f-4acf-be27-f3e83904cc23>`__,
+for the *population* and *sample* standard deviation, respectively.
+
+In cell B5, enter the following formula to calculate the *population* standard deviation:
+
+.. code-block:: text
+
+    = STDEV.P(armaghdata!C3:C1916)
+
+And in cell B6, enter the following to calculate the *sample* standard deviation:
+
+.. code-block:: text
+
+    = STDEV.S(armaghdata!C3:C1916)
+
+Again, use **flash fill** to fill out each row as you go along.
+
+Excel doesn't have dedicated functions for the *range* and *inter-quartile range*, but we can still calculate them
+using functions that Excel does have. Remember that the *range* is just the difference between the maximum and
+minimum values of a variable:
+
+.. math::
+
+    {\rm RANGE} = {\rm MAX} - {\rm MIN}
+
+We use the same equation here, using the `MAX <https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098>`__
+and `MIN <https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a70f-96f202dcc152>`__ functions:
+
+.. code-block:: text
+
+    = MAX(armaghdata!C3:C1916) - MIN(armaghdata!C3:C1916)
+
+Again, use **flash fill** to fill out this row.
+
+Finally, remember that the *inter-quartile range* is the difference between the third quartile, :math:`Q_3`, and the
+first quartile, :math:`Q_1`:
+
+.. math::
+
+    {\rm IQR} = Q_3 - Q_1
+
+Excel has two functions to calculate quartiles: `QUARTILE.INC <https://support.microsoft.com/en-us/office/quartile-inc-function-1bbacc80-5075-42f1-aed6-47d735c4819d>`__,
+for calculating the quartile *inclusive* of the endpoints, and
+`QUARTILE.EXC <https://support.microsoft.com/en-us/office/quartile-exc-function-5a355b7a-840b-4a01-b0f1-f538c2864cad>`__,
+for calculating the quartile *exclusive* of the endpoints. We'll use ``QUARTILE.INC`` here.
+
+Enter the following formula into cell B9:
+
+.. code-block:: text
+
+    = QUARTILE.INC(armaghdata!C3:C1916, 3) - QUARTILE.INC(armaghdata!C3:C1916, 1)
+
+Note that ``QUARTILE.INC`` takes two *arguments*:
+
+- the first is the range of values to calculate the quartile over
+- the second is which quartile to calculate.
+
+So, ``QUARTILE.INC(armaghdata!C3:C1916, 3)`` calculates :math:`Q_3` of the values in cells C3 through C1916 of
+``armaghdata``, while ``QUARTILE.INC(armaghdata!C3:C1916, 1)`` calculates :math:`Q_1`.
+
+Once again, use **flash fill** to fill out the table. It should now look something like this:
+
+.. image:: img/week5/filled_table.png
+    :width: 720
+    :align: center
+    :alt: The workbook, with the descriptive statistics for each temperature variable filled in.
+
+|br|
+
+formatting cells
+..................
+
+The final step we'll do in this part of the practical is *format* the cells, so that they show an appropriate number of
+*significant figures*. In the example above, you can see that the *mean* value is shown with 5 decimal places, despite
+the fact that the original data only has a single decimal place.
+
+Highlight all of the cells with numbers in this sheet, right-click, and select **Format Cells** to bring up the
+following window:
+
+.. image:: img/week5/format_cells.png
+    :width: 400
+    :align: center
+    :alt: the Format Cells dialogue window
+
+|br| Make sure that the **Number** category is selected, then change the number of decimal places to 2. Click **OK** to
+close the window. You should see that the cells in the table are now formatted to only show the first two decimal
+places:
+
+.. image:: img/week5/formatted_table.png
+    :width: 720
+    :align: center
+    :alt: the workbook, with the descriptive statistics formatted to only show two decimal places
+
+|br| Here, you should notice something about the *standard deviations*: to two decimal places, the *population* and
+*sample* standard deviations are the same.
+
+Remember that the difference between the *population* and *sample* standard deviation is that the denominator of the
+population standard deviation is :math:`n`, while for the sample standard deviation it is :math:`n-1`.
+
+For low values of :math:`n`, this can make a big difference; as :math:`n` gets very large, though, the difference is
+far less important. Here, where :math:`n\approx 2000`, the difference only shows up in the third decimal place.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    - Which temperature variable (``Tmax``, ``Tmean``, or ``Tmin``) has the largest range? What does this tell you about
+      extreme values?
+    - Look at the standard deviation values for each temperature variable. Which variable has more variation? How does
+      this compare to what you see for the range and IQR?
+
+
+monthly averages
+-------------------
+
+conditional formulas
+.....................
+
+Next up, we will perform slightly more complicated calculations - specifically, we will calculate monthly- and
+annually-averaged values of our temperature variables, starting with monthly averages.
+
+Once again, add click on the ``+`` icon in the bottom left of the window to add a new sheet to the workbook, and
+rename it ``monthly``.
+
+Next, start adding row and column headers to this table. In the example below, I've grouped each **parameter**
+into a set of three columns, with spaces in between to help make it more readable:
+
+.. image:: img/week5/blank_monthly.png
+    :width: 720
+    :align: center
+    :alt: the workbook, with the monthly table set up and cells A3 and A4 highlighted.
+
+|br| Once you've set up the column headers as shown below, type the names of months in cells B3 - B14, then enter a "1"
+in cell A3, and a "2" in cell A4:
 
 .. image:: img/week5/monthly_fill.png
     :width: 720
@@ -608,12 +676,9 @@ pattern from the first two cells (1, 2, ...) and fill the remaining cells by con
 
 This formula uses the `AVERAGEIF <https://support.microsoft.com/en-us/office/averageif-function-faec8e2e-0dec-4308-af69-f5576d8ac642>`__
 function to average cells in some range, based on some criteria. Here, we're telling the function to average all of
-the values in cells C3:C1904 of the ``armaghdata`` sheet, but *only* where the value in cells B3:B1904
+the values in cells C3:C1916 of the ``armaghdata`` sheet, but *only* where the value in cells B3:B1916
 of the ``armaghdata`` sheet is equal to the value in cell A3 - in other words, we're only taking the average of the
-temperatures from rows where **Month** is equal to 1.
-
-The first thing to notice with this formula is that we can reference other sheets by using the label of the sheet
-(``armaghdata``), followed by ``!``, and the cell(s) that we want to reference in the other sheet.
+temperatures from rows where the **Month** is equal to 1.
 
 The second thing to notice is the use of the ``$`` in the formula above. Earlier, when we used this formula:
 
@@ -622,32 +687,36 @@ The second thing to notice is the use of the ``$`` in the formula above. Earlier
     = (C3 + E3) / 2
 
 And used **flash fill** to copy the formula to the other rows in column D, the row number changed - that is, the
-formula in row 1904 was:
+formula in row 1916 was:
 
 .. code-block:: text
 
-    = (C1904 + E1904) / 2
+    = (C1916 + E1916) / 2
 
-This is because Excel treats C3 (or E3, or C1904) as a *relative* reference. When we typed this formula into cell D3,
+This is because Excel treats C3 (or E3, or C1916) as a *relative* reference. When we typed this formula into cell D3,
 Excel interpreted C3 as "the cell in the same row, one column to the left", and E3 as "the cell in the same row,
 one column to the right." When you copy + paste a formula with relative references into another cell, the references
 change.
 
 The ``$`` tells Excel not to do this - it should instead keep the column or row constant, depending on where the ``$``
-is. With only one ``$``, we say this is a *mixed* reference - if it's before the column (``$A3``), then Excel will
-hold the column constant, but adjust the row. If it's before the row (``C$3:C$1904``), Excel will hold the row constant,
+is placed.
+
+With only one ``$``, we say this is a *mixed* reference - if it's before the column (``$A3``), then Excel will
+hold the column constant and adjust the row. If it's before the row (``C$3:C$1904``), Excel will hold the row constant,
 and adjust the column.
 
-If we have two ``$`` in the reference (e.g., ``$B$3``), Excel won't adjust the column or row - this is an *absolute*
-reference. To see this in practice, use **flash fill** to copy the formula to the other rows of column C (C3:C14) - you
-should see that the second reference changes from A3 in row 3, to A4 in row 4, and so on:
+If we have two ``$`` in the reference (e.g., ``$B$3``), Excel won't adjust the column or row at all - this is an
+*absolute* reference.
+
+To see how changing the reference type works in practice, use **flash fill** to copy the formula to the other rows
+of column C (C3:C14) - you should see that the second reference changes from A3 in row 3, to A4 in row 4, and so on:
 
 .. image:: img/week5/good_formula.png
     :width: 720
     :align: center
     :alt: the monthly table, with the monthly average for Tmax filled
 
-|br| The other references don't change, though, because the rows are held fixed. Now, with the entire column selected,
+|br| The other references don't change, because the rows are held fixed. Now, with the entire column selected,
 use **flash fill** to fill out the other two columns in this part of the table. You should see that the column in the
 third reference changes from column C to column E, depending on which column of this sheet we're looking at.
 
@@ -663,16 +732,26 @@ standard deviation
 Next, we want to calculate the standard deviation of temperatures for each month. Unfortunately, there is no
 ``STDEV.IF`` function like there is for ``AVERAGE``. Instead, we have to use
 `IF <https://support.microsoft.com/en-us/office/if-function-nested-formulas-and-avoiding-pitfalls-0b22ff44-f149-44ba-aeb5-4ef99da241c8>`__
-along with ``STDEV.S``. In cell G3, enter the following formula:
+along with ``STDEV.S``.
+
+In cell G3, enter the following formula:
 
 .. code-block:: text
 
-    = STDEV.S(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904))
+    = STDEV.S(IF(armaghdata!$B$3:$B$1916 = $A3, armaghdata!C$3:C$1916))
 
 Here, we have *nested* the ``IF`` function inside of the ``STDEV.S`` function, meaning that ``STDEV.S`` will perform
-a calculation on whatever the *output* of the ``IF`` function is. Just like we saw with ``AVERAGEIF``, ``IF`` will
-return whatever value is in cells C3 to C1904 of the ``armaghdata`` sheet, as long as the value in column B of the
-same row is equal to the value in A3 of this sheet.
+a calculation on whatever the *output* of the ``IF`` function is.
+
+The first argument of ``IF`` is the *condition* - if the condition is met for a particular row, then ``IF`` returns the
+corresponding value from the range in the second argument. Here, the condition is:
+
+.. code-block:: text
+
+    armaghdata!$B$3:$B$1916 = $A3
+
+Excel will compare the values in column B of the ``armaghdata`` sheet to the value in cell A3 of the current sheet (1).
+Wherever those values are equal to 1, ``IF`` passes the value in column C of the same row to ``STDEV.S``.
 
 Because we have fixed the column, but not the row, when you use **flash fill** to fill in the rest of the cells in
 the standard deviation part of the table, the formula should adjust based on the row, just as it did for ``AVERAGEIF``.
@@ -687,7 +766,7 @@ as we did for the standard deviation. Enter the following formula into cell K3:
 
 .. code-block:: text
 
-    = MEDIAN(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904))
+    = MEDIAN(IF(armaghdata!$B$3:$B$1916 = $A3, armaghdata!C$3:C$1916))
 
 Once you have entered the formula into cell K3, use **flash fill** to fill the remaining values in this part of the
 table, then format the cells to show only the first two decimal places.
@@ -696,12 +775,13 @@ inter-quartile range
 ^^^^^^^^^^^^^^^^^^^^^
 
 To calculate the monthly inter-quartile range values, we will use the ``QUARTILE.INC`` function nested with the ``IF``
-function. This formula is slightly more complicated, if only because it requires two nested functions. Enter the
-following formula into cell O3 (remembering that you can copy and paste):
+function. This formula is slightly more complicated, since it requires two nested functions.
+
+Enter the following formula into cell O3 (remembering that you can copy and paste):
 
 .. code-block:: text
 
-    = QUARTILE.INC(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904), 3) - QUARTILE.INC(IF(armaghdata!$B$3:$B$1904 = $A3, armaghdata!C$3:C$1904), 1)
+    = QUARTILE.INC(IF(armaghdata!$B$3:$B$1916 = $A3, armaghdata!C$3:C$1916), 3) - QUARTILE.INC(IF(armaghdata!$B$3:$B$1916 = $A3, armaghdata!C$3:C$1916), 1)
 
 Once you have entered the formula into cell O3, use **flash fill** to fill the remaining values in this part of the
 table, then format the cells to show only the first two decimal places.
@@ -736,39 +816,39 @@ annual averages
 Next, we'll calculate annual averages for our temperature variables. The procedure for calculating annual values works
 much the same as for the monthly data. First, we create a new sheet, then add data and formulas to the new sheet.
 
-To start, add a new sheet by clicking the "+" next to the ``monthly`` tab, then re-name the new sheet ``yearly``.
+To start, add a new sheet by clicking the "**+**" next to the ``monthly`` tab, then re-name the new sheet ``yearly``.
 
 Next, add the column headers to the new sheet. For this practical, we're only going to calculate annual means and
 medians, though you can use the same procedure we used in the previous section to calculate standard deviations,
 inter-quartile ranges, and so on.
 
 First, though, we have to input the years that we want to average over into the table. In cell A3, type "1866", and
-in cell A4, type "1867", then use **flash fill** to fill the remaining years up until 2022.
+in cell A4, type "1867", then use **flash fill** to fill the remaining years up until 2023.
 
 .. note::
 
     For now, we're only going to include years where we have 12 months of data - because the 1865 data doesn't start
-    until April, and the 2023 data ends in August, we'll exclude those years for this part of the analysis.
+    until April, and the 2024 data ends in September, we'll exclude those years for this part of the analysis.
 
 In cell B3, now, enter the following formula:
 
 .. code-block:: text
 
-    = AVERAGEIF(armaghdata!$A$3:$A$1904, $A3, armaghdata!C$3:C$1904)
+    = AVERAGEIF(armaghdata!$A$3:$A$1916, $A3, armaghdata!C$3:C$1916)
 
 You'll note that this is almost the exact same formula as we used for the monthly averages, with the change that
 we're averaging based on the *year* (column A in the ``armaghdata`` sheet) instead of the *month* (column B).
 
 Once you have entered the formula, use **flash fill** to fill the remaining cells in this part of the table (columns
-B to D, rows 3 to 158). Next, be sure to format the cells to only show the first two decimal places, as before.
+B to D, rows 3 to 160). Next, be sure to format the cells to only show the first two decimal places, as before.
 
 We can now do the same thing for the median values - in cell F3, enter the following formula:
 
 .. code-block:: text
 
-    = MEDIAN(IF(armaghdata!$A$3:$A$1904 = $A3, armaghdata!C$3:C$1904))
+    = MEDIAN(IF(armaghdata!$A$3:$A$1916 = $A3, armaghdata!C$3:C$1916))
 
-Next, use **flash fill** to fill the remaining part of this table (columns F to H, rows 3 to 158), then format the cells
+Next, use **flash fill** to fill the remaining part of this table (columns F to H, rows 3 to 160), then format the cells
 to only show the first two decimal places. Your table should look something like this:
 
 .. image:: img/week5/annual_finished.png
@@ -793,8 +873,9 @@ histograms
 ............
 
 We will start by looking at the distribution of monthly-averaged values in the form of a histogram. On the
-``armaghdata`` sheet, highlight column D by clicking on the column label. To add a chart, click on the **Insert**
-tab:
+``armaghdata`` sheet, highlight column D by clicking on the column label.
+
+To add a chart, first click on the **Insert** tab:
 
 .. image:: img/week5/histogram_highlight.png
     :width: 720
@@ -819,7 +900,7 @@ on any of the corners to expand it:
 
 |br| Before we are finished with our histogram, there are a few things that we need to do. First, remember that a
 chart should have a title or a caption that explains the chart. Click on "Chart Title", and change the title from
-"Chart Title" to "Distribution of monthly mean temperatures, 1865-2023".
+"Chart Title" to "Distribution of monthly mean temperatures, 1865-2024".
 
 Next, we need to add labels for the axes. When you click on the chart, you should notice icons appear along the right
 edge. Click on the "+" button to open a menu for adding chart elements:
@@ -830,8 +911,9 @@ edge. Click on the "+" button to open a menu for adding chart elements:
     :alt: the elements menu of the histogram chart
 
 |br| To add axis labels, click the checkbox next to **Axis titles** - you should see two labels appear along the vertical
-and horizontal axes. Change these to be "Frequency" or "Count" on the vertical axis, and "Temperature (°C)" on the
-horizontal axis:
+and horizontal axes.
+
+Change these to be "Frequency" or "Count" on the vertical axis, and "Temperature (°C)" on the horizontal axis:
 
 .. image:: img/week5/histogram_labelled.png
     :width: 720
@@ -840,8 +922,10 @@ horizontal axis:
 
 |br| Finally, we can increase the font size on the labels, to make them easier to read. To do this, highlight the text
 and increase the font size using the small window that pops up. Alternatively, you can select the text box, then change
-the font size using the **Home** menu. Increase the axis label font size to 14, the chart title font size to 20, and
-the vertical axis tick labels to size 12:
+the font size using the **Home** menu.
+
+Increase the axis label font size to 14, the chart title font size to 20, and the vertical axis tick labels to size 12.
+Your chart should now look something like this:
 
 .. image:: img/week5/histogram_finished.png
     :width: 720
@@ -919,10 +1003,16 @@ to B14 to use the month names as axis labels:
 
 |br| You should see that the labels in the chart have changed to "January, February, ..." from "1, 2, ...". Click **OK**
 in both of the windows that have been opened to return to the Workbook. The next thing we want to add are *error bars*,
-to show the variation of temperatures within each month. To do this, click on the **Chart Elements** button again, and
-select **Error bars**.
+to show the variation of temperatures within each month.
 
-This turns on the error bars, but we're interested in showing the *standard deviation* of the monthly observations,
+To do this, click on the **Chart Elements** button again, and select **Error bars**:
+
+.. image:: img/week5/error_bar_menu.png
+    :width: 720
+    :align: center
+    :alt: the workbook showing a menu to add elements to the chart, with "error bars" highlighted
+
+|br| This turns on the error bars, but we're interested in showing the *standard deviation* of the monthly observations,
 rather than the default. From the **Chart Elements** menu, click on the arrow next to **Error bars**, and select
 **More options...**. This should bring up the **Format Error Bars** panel on the right-hand side of the screen:
 
@@ -939,9 +1029,10 @@ to **Custom**, then click on **Specify Value**:
     :align: center
     :alt: the workbook showing the "format error bars" panel
 
-|br| Here, you can select the data ranges to use, or use a set value (currently set to ±1). Under **Positive Error Value**,
-select cells H3 to H14 (representing the monthly standard deviation of ``Tmean``). Do the same for the
-**Negative Error Value**:
+|br| Here, you can select the data ranges to use, or use a set value (currently set to ±1).
+
+Under **Positive Error Value**, select cells H3 to H14 (representing the monthly standard deviation of ``Tmean``). Do
+the same for the **Negative Error Value**:
 
 .. image:: img/week5/error_bars_custom.png
     :width: 720
@@ -949,24 +1040,23 @@ select cells H3 to H14 (representing the monthly standard deviation of ``Tmean``
     :alt: the workbook showing the "format error bars" panel and the "custom error bars" window
 
 |br| You can also change the formatting of the error bars to make them thicker and more visible
-(**Width** under **Fill & Line** (red box)):
+(**Width** under **Fill & Line**):
 
 .. image:: img/week5/thick_bars.png
     :width: 720
     :align: center
     :alt: the workbook with the bar chart, with the error bars set to a width of 2 pts
 
-|br| Next, we'll see how we can format the tick labels on the axis. Click on the vertical tick labels:
+|br| Next, we'll see how we can format the tick labels on the axis. Click on the vertical tick labels. Then, under the
+**Format Axis** panel on the right-hand side of the window, click on **Axis Options**, followed by **Number**, then
+change the number of decimal places to "0":
 
 .. image:: img/week5/format_axis.png
     :width: 720
     :align: center
     :alt: the workbook with the vertical axis selected and the "format axis" panel
 
-|br| Under the **Format Axis** panel on the right-hand side of the window, click on **Axis Options** (red box),
-followed by **Number**, then change the number of decimal places to "0".
-
-Note that under  **Axis Options**, you can also change the axis bounds, as well as the spacing between the ticks.
+|br| Note that under  **Axis Options**, you can also change the axis bounds, as well as the spacing between the ticks.
 For now, the default values are fine.
 
 To finish up the chart, change the chart title to "Average monthly temperature, 1865-2023", add axis labels, and
@@ -1004,7 +1094,7 @@ line charts
 ............
 
 For the final example of creating a chart using Excel, we'll create a line chart using the median annual temperature.
-Click on the ``yearly`` tab, then select all of the data in columns F through H and rows 2 through 158:
+Click on the ``yearly`` tab, then select all of the data in columns F through H and rows 2 through 160:
 
 .. image:: img/week5/line_select.png
     :width: 720
@@ -1012,7 +1102,9 @@ Click on the ``yearly`` tab, then select all of the data in columns F through H 
     :alt: the workbook, with the annual median temperature variables highlighted
 
 |br| Under the **Insert** tab, in the **Charts** section (red box above), click on **Insert Line or Area Chart** (white
-box above), and select **Line**. This will insert a line chart into the workbook:
+box above), and select **Line with Markers**.
+
+This will insert a line chart into the workbook:
 
 .. image:: img/week5/line_insert.png
     :width: 720
@@ -1020,13 +1112,14 @@ box above), and select **Line**. This will insert a line chart into the workbook
     :alt: the workbook, with a line graph showing the annual median values of the three temperature variables
 
 |br| As before, you can move and re-size the chart object. At the moment, the x-axis data is just the row number,
-starting counting from 1. We would like to plot the median temperature as a function of year, so we need to add the
+starting counting from 1. We would like to plot the median temperature vs. the year, so we need to add the
 correct labels to the chart.
 
 As you did for the bar chart, click on the **Chart Filters** button along the right side of the chart, then click
-on **Select Data** to bring up the **Select Data Source** dialogue. Under **Horizontal (Category) Axis Labels**, click
-on **Edit** to select the cells containing the axis labels, then select cells A3 to A158 (alternatively, type the
-range into the formula bar in the **Axis Labels** window):
+on **Select Data** to bring up the **Select Data Source** dialogue.
+
+Under **Horizontal (Category) Axis Labels**, click on **Edit** to select the cells containing the axis labels, then
+select cells A3 to A160 (alternatively, type the range into the formula bar in the **Axis Labels** window):
 
 .. image:: img/week5/line_add_labels.png
     :width: 720
@@ -1034,31 +1127,40 @@ range into the formula bar in the **Axis Labels** window):
     :alt: the workbook, with the "Axis Labels" dialogue window open
 
 |br| Click **OK** - you should see that the labels have changed from ``1, 7, ..., 151`` to ``1866, 1869, ..., 2019``.
-This is quite crowded, and we can change the labels so that only every 10th value is shown. To do this, click on the
-horizontal axis labels to highlight them. On the **Format Axis** panel, click on **Axis Options** (red box below).
+This is quite crowded, and we can change the labels so that only every 10th value is shown.
+
+To do this, click on the horizontal axis labels to highlight them. On the **Format Axis** panel, click on
+**Axis Options**.
 
 Under **Tick Marks**, change the **Interval between marks** to be 10, and the **Major type** to be ``Cross`` - this
-places a tick on the horizontal axis every 10 data points, which can help with reading the graph. Under **Labels**,
-select **Specify interval unit**, and type ``10`` in the box - you should see that the labels change from
-``1866, 1869, ..., 2019`` to ``1866, 1876, ..., 2016``:
+places a tick on the horizontal axis every 10 data points, which can help with reading the graph.
+
+Under **Labels**, select **Specify interval unit**, and type ``10`` in the box - you should see that the labels change
+from ``1866, 1869, ..., 2019`` to ``1866, 1876, ..., 2016``:
 
 .. image:: img/week5/line_change_intervals.png
     :width: 720
     :align: center
     :alt: the workbook, with the "Format Axis" panel showing on the right-hand side of the window
 
-|br| To finish up the graph, add a chart title and axis titles, and remove the decimal points from the vertical axis
-labels. Finally, increase the font size of each of the chart elements. Your final chart should look something like this:
+|br| To finish up the graph, add a chart title and axis titles as you have before, and remove the decimal points from
+the vertical axis labels. Finally, increase the font size of each of the chart elements.
+
+Your final chart should look something like this:
 
 .. image:: img/week5/line_finished.png
     :width: 720
     :align: center
     :alt: the workbook, with a line graph showing the median annual temperature for each year between 1866 and 2021.
 
-|br| At this point, you have finished the exercises in the practical. Have a look back at the questions in the text,
-and see how many of them you can answer. Keep in mind that some of these questions will most likely be part of the
-assessment for this part of the module - it would be a good idea to write down your thoughts/answers now so that you
-have an easier time answering the questions on the assessment.
+|br| At this point, you have finished the exercises in this practical. Have a look back at the questions in the text,
+and see how many of them you can answer.
+
+.. hint::
+
+    Keep in mind that some of the questions included in the practical will most likely be part of the assessment for
+    this part of the module, so it's probably a good idea to write down your thoughts/answers now. That way, you have
+    an easier time answering the questions on the assessment.
 
 If you would like extra practice with Excel, have a look at the "next steps" section below for some suggestions on
 additional exercises you could try.
@@ -1066,7 +1168,10 @@ additional exercises you could try.
 next steps
 -------------
 
-- Add Rain to the analysis above, but instead of calculating the annual mean, calculate the annual total (sum).
+- Calculate descriptive statistics, monthly descriptive statistics, and annual total values for Rain. To calculate the
+  annual total, you will use the
+  `SUM <https://support.microsoft.com/en-us/office/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89>`__ function
+  instead of ``AVERAGE``.
 
 .. card::
     :class-header: question
@@ -1074,16 +1179,16 @@ next steps
 
     :far:`circle-question` Question
     ^^^
-    - what month(s) tend to be the rainiest in Armagh?
+    - based on your results, what month(s) tend to be the rainiest in Armagh?
     - looking at the annual plot, has the total rainfall been consistent over time? can you pick out years where
-      the rainfall has been much heavier (or lower) than others? How does this compare with the temperature?
+      the rainfall has been much heavier (or lower) than others? How does this compare with the temperature? Do warmer
+      years tend to have more rainfall, or less?
 
 - Instead of looking at the annually-averaged values of temperature, we can instead look at the difference between each
   annually-averaged value and a long-term average - something called an
   `anomaly <https://www.ncei.noaa.gov/access/monitoring/dyk/anomalies-vs-temperature>`__. To do this, you subtract
   the long-term average value from each value, then plot the result. Can you create a graph that looks like the one
   below?
-
 
 .. card::
     :class-header: question
@@ -1098,8 +1203,4 @@ next steps
         :width: 720
         :align: center
         :alt: a plot of annual mean temperature anomalies, relative to 1951-1980
-
-notes
---------
-
 
