@@ -416,7 +416,7 @@ When you release the mouse button, you should see that each row of column D is n
 
 .. code-block:: text
 
-    = (C1904 + E1916) / 2
+    = (C1916 + E1916) / 2
 
 Excel has changed the formula for each to cell, based on the row number - we only had to type the formula one time, and
 the computer did the rest of the work for us.
@@ -672,7 +672,7 @@ pattern from the first two cells (1, 2, ...) and fill the remaining cells by con
 
 .. code-block:: text
 
-    = AVERAGEIF(armaghdata!$B$3:$B$1904, $A3, armaghdata!C$3:C$1904)
+    = AVERAGEIF(armaghdata!$B$3:$B$1916, $A3, armaghdata!C$3:C$1916)
 
 This formula uses the `AVERAGEIF <https://support.microsoft.com/en-us/office/averageif-function-faec8e2e-0dec-4308-af69-f5576d8ac642>`__
 function to average cells in some range, based on some criteria. Here, we're telling the function to average all of
@@ -702,7 +702,7 @@ The ``$`` tells Excel not to do this - it should instead keep the column or row 
 is placed.
 
 With only one ``$``, we say this is a *mixed* reference - if it's before the column (``$A3``), then Excel will
-hold the column constant and adjust the row. If it's before the row (``C$3:C$1904``), Excel will hold the row constant,
+hold the column constant and adjust the row. If it's before the row (``C$3:C$1916``), Excel will hold the row constant,
 and adjust the column.
 
 If we have two ``$`` in the reference (e.g., ``$B$3``), Excel won't adjust the column or row at all - this is an
