@@ -45,6 +45,27 @@ publications
 If you are unable to access any of these via the doi links below (or if the links are somehow broken), please contact
 me and I will send you a copy.\ [1]_
 
+.. _pubs2024:
+
+2024
+^^^^
+
+.. rst-class:: ref
+
+    Davies, B., **R. McNabb**, J. Bendle, J. Carrivick, J. Ely, T. Holt, B. Markle, C. McNeil, L. Nicholson,
+    and M. Pelto, (2024). Accelerating glacier volume loss on Juneau Icefield driven by hypsometry and
+    melt-accelerating feedbacks. *Nature Communications* 15(**1**), 5099.
+    doi: `10.1038/s41467-024-49269-y <https://doi.org/10.1038/s41467-024-49269-y>`__
+
+    Piermattei, L., Zemp, M., Sommer, C., Brun, F., Braun, M.H., Andreassen, L.M., Belart, J.M.C., Berthier, E.,
+    Bhattacharya, A., Boehm Vock, L., Bolch, T., Dehecq, A., Dussaillant, I., Falaschi, D., Florentine, C., Floricioiu,
+    D., Ginzler, C., Guillet, G., Hugonnet, R., Huss, M., Kääb, A., King, O., Klug, C., Knuth, F., Krieger, L.,
+    La Frenierre, J., **McNabb, R.**, McNeil, C., Prinz, R., Sass, L., Seehaus, T., Shean, D., Treichler, D., Wendt, A.,
+    and R. Yang (2024). Observing glacier elevation changes from spaceborne optical and radar sensors – an
+    inter-comparison experiment using ASTER and TanDEM-X data. *The Cryosphere* 18, 3195–3230.
+    doi: `10.5194/tc-18-3195-2024 <https://doi.org/10.5194/tc-18-3195-2024>`__
+
+
 .. _pubs2023:
 
 2023
@@ -66,7 +87,7 @@ me and I will send you a copy.\ [1]_
 
     Lauzon, B., L. Copland, W. Van Wychen, W. Kochtitzky, and **R. McNabb** (2023b). Evolution of the dynamics of
     Airdrop Glacier, western Axel Heiberg Island, over a seven decade long advance. *Arctic Science*,
-    doi: ` <https://doi.org/>`__
+    doi: `10.1139/AS-2022-0045 <https://doi.org/10.1139/AS-2022-0045>`__
 
     Rounce, D. R., R. Hock, F. Maussion, R. Hugonnet, W. Kochtitzky, M. Huss, E. Berthier, D. Brinkerhoff, L. Compagno,
     L. Copland, D. Farinotti, B. Menounos, and **R. McNabb** (2023). Global glacier change in the 21st century: Every increase

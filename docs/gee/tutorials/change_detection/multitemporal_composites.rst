@@ -1,4 +1,0 @@
-multi-temporal color composites
-================================
-
-

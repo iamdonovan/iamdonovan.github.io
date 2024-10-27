@@ -1,9 +1,13 @@
 dem processing using micmac
 ====================================
 
-**Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the**
-`google drive link <https://drive.google.com/uc?id=1rwu32Wms_jvrmzkMRckD8kwcgl98qn4k&export=download>`__,
-**then extract the zip file. You should have the following files/folders available:**
+.. note::
+
+    Be sure to download all the data from the Practical 1 area on Blackboard before starting, or from the
+    `google drive link <https://drive.google.com/uc?id=1rwu32Wms_jvrmzkMRckD8kwcgl98qn4k&export=download>`__,
+    then extract the ``.zip`` file.
+
+You should have the following files/folders available in the extracted ``.zip`` file:
 
 .. code-block:: text
 
@@ -23,9 +27,10 @@ dem processing using micmac
         └─ MeasuresCamera.xml
 
 In this practical, we're going to work on processing a digital elevation model (DEM) and orthophotos using a collection
-of aerial photos acquired in 1984 over Mt St Helens, a volcano in Washington state, USA. During the 1980s and early
-1990s, the volcano erupted several times, including an eruption in May 1980 that collapsed the entire north face of
-the mountain.
+of aerial photos acquired in 1984 over Mt St Helens, a volcano in Washington state, USA.
+
+During the 1980s and early 1990s, the volcano erupted several times, including an eruption in May 1980 that collapsed
+the entire north face of the mountain.
 
 .. note::
     The instructions/images below assume that you are using MicMac in a Windows environment; the commands will be the
@@ -37,9 +42,11 @@ getting started
 To get started, open the Windows command prompt, either by using the search bar, or **Start** > **Windows System** >
 **Command Prompt**.
 
-To change folders from the command line, you will use the `cd` command. When you open the command prompt, you should
-be in your **home** folder (for me, this is **C:\\Users\\bob**). At the command prompt, navigate to the folder where
-you have saved the data above (for me, this is **C:\\Data\\MtStHelens**) by typing `cd` followed by the directory name
+To change folders from the command line, you will use the ``cd`` command. When you open the command prompt, you should
+be in your **home** folder (for me, this is **C:\\Users\\bob**).
+
+At the command prompt, navigate to the folder where you have saved the data above (for me, this is
+**C:\\Data\\MtStHelens**) by typing ``cd`` followed by the directory name
 (**note the space between the command and the directory**):
 
 .. code-block:: text
@@ -74,8 +81,9 @@ To see the contents of the directory, use the ``dir`` command. You should see so
 
 |br| We're going to run each of the processing steps in MicMac using the command line interface. If you are curious
 about what a particular command or input parameter does, you can always type ``-help`` after the command, and
-information about how to use the command will be printed to the screen. For example, for the first command we will use,
-you can type the following at the command prompt:
+information about how to use the command will be printed to the screen.
+
+For example, for the first command we will use, you can type the following at the command prompt:
 
 .. code-block:: text
 
@@ -86,9 +94,7 @@ This will open the following window:
 .. image:: ../../../img/egm702/week1/saisie_help.png
     :width: 400
     :align: center
-    :alt: the saisieappuis help window
-
-|br|
+    :alt: the saisieappuis help window, detailing the arguments for the command
 
 .. note::
     In a MacOS/linux environment, the help message may just display to the terminal window, rather than opening a
@@ -101,10 +107,11 @@ resampling the images
 ---------------------
 
 The first thing we have to do is make sure the images are re-sampled to a consistent geometry. To do this in MicMac,
-we use the ``SaisieAppuisInitQT`` command. We'll start with the first image, **AR5840034159994.tif**. To begin, type
-the following (or copy & paste) at the command prompt (note the lack of space in
-**MeasuresIm-AR5840034159994.tif.xml**). You may also have to re-type the quotation marks, as the command prompt may
-not recognize them:
+we use the ``SaisieAppuisInitQT`` command.
+
+We'll start with the first image, **AR5840034159994.tif**. To begin, type the following (or copy & paste) at the
+command prompt (note the lack of space in **MeasuresIm-AR5840034159994.tif.xml**). You may also have to re-type the
+quotation marks, as the command prompt may not recognize them:
 
 .. code-block:: text
 
@@ -118,8 +125,11 @@ This will open the window shown below:
     :alt: the saisie window
 
 |br| You'll need to set the locations of each of the fiducial marks in the image (there are 8 in total). They are
-numbered as you can see in the image above, with **P1** located in the lower left corner of the image. You can pan
-around the viewer by pressing the centre wheel on your mouse, or zoom in/out using the scroll wheel on your mouse.
+numbered as you can see in the image above, with **P1** located in the lower left corner of the image.
+
+You can pan around the viewer by pressing the center wheel on your mouse, or zoom in/out using the scroll wheel on
+your mouse.
+
 Zoom in on the **P1** mark, then click on **P1** in the table on the right side of the frame, and finally click on the
 dot in the center of the fiducial mark:
 
@@ -128,19 +138,29 @@ dot in the center of the fiducial mark:
     :align: center
     :alt: a fiducial marker
 
-|br| You want to get as close to the middle of the dot as possible. You might notice that this isn't easy for **P6**,
-which is partly obscured - just do the best that you can. When you're satisfied you have the right point, continue for
-the remainder of the points, then select **File** > **Exit**.
+|br| You want to get as close to the middle of the dot as possible. Once you have done this for **P1**, repeat this
+process for each of the other markers, **P2** through **P8**.
 
-To input the points for the next image (**AR5840034159995.tif**), you'll need to change both the input filename and the
-output filename in the command:
+You might notice that this isn't easy for **P6**, which is partly obscured - just do the best that you can. When you
+have finished inputting all of the points, select **File** > **Exit** to close the window and save the point locations
+to a file.
+
+To input the points for the next image (**AR5840034159995.tif**), you'll need to change **both** the input filename and
+the output filename in the command:
 
 .. code-block:: text
 
     mm3d SaisieAppuisInitQT "AR5840034159995.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159995.tif.xml
 
-Once that's done, repeat this for the remaining images in the directory. You'll notice that micmac has created two
-MeasuresIm files for each image, one with an extension **-S2D.xml**, and the other with an extension **-S3D.xml**.
+Once you have finished the process for **AR5840034159995.tif**, repeat this for the remaining images in the directory.
+
+When you have finished, use the ``dir`` command (or open the folder in **Windows Explorer**).
+
+You should notice that MicMac has created two **MeasuresIm** files for each image:
+
+- one with an extension **-S2D.xml**,
+- one with an extension **-S3D.xml**.
+
 You'll need to move each of the **S2D.xml** files:
 
 - MeasuresIm-AR5840034159994.tif-S2D.xml
@@ -150,8 +170,8 @@ You'll need to move each of the **S2D.xml** files:
 - MeasuresIm-AR5840034159998.tif-S2D.xml
 - MeasuresIm-AR5840034159999.tif-S2D.xml
 
-into the **Ori-InterneScan** directory, being sure to remove the **-S2D** from each name. **Ori-InterneScan/** should now
-look like this:
+into the **Ori-InterneScan** directory, being sure to remove the **-S2D** from each name. The contents of
+**Ori-InterneScan/** should now look like this:
 
 .. image:: ../../../img/egm702/week1/ori-internescan_dir.png
     :width: 600
@@ -159,34 +179,43 @@ look like this:
     :alt: the contents of the ori-internescan directory
 
 |br| At this point, you can delete the **S3D** files – the program creates them, but we don't actually need them.
-Next up, re-sample the images using the fiducial marks you have identified, so that each image has the same geometry:
+
+The next step is to re-sample the images using the fiducial marks you have identified, so that each image has the same
+geometry:
 
 .. code-block:: text
 
     mm3d ReSampFid "AR.*tif" 0.05
 
 This will re-sample each of the images to a resolution of 50 microns (i.e., 1 pixel = 0.05 mm). If you're worried about
-space, you can re-sample to 100 microns if need be (change 0.05 to 0.1 in the command above). Note that this will lower
-the final resolution of your DEM and orthophoto, though, from about 4 meters to 8 meters.
+space on your disk, you can re-sample to 100 microns if need be (change 0.05 to 0.1 in the command above).
+
+Note that this will lower the final resolution of your DEM and orthophoto, though, from about 4 meters to 8 meters.
 
 If the command runs correctly, you should see the names of each image printed out, along with the residuals (in # of
 pixels) and the amount of time it took to re-sample each image:
 
-**resamp output**
+.. image:: ../../../img/egm702/week1/resamp.png
+    :width: 600
+    :align: center
+    :alt: the output of ReSampFid, showing the residuals for each image transformation.
 
-As long as the residuals are small (<2 pixels or so), you can continue. If not, you'll need to adjust your fiducial
-mark selection, and run ``ReSampFid`` again. When you have successfully re-sampled the images, create a new directory
-called **OrigImg** and move the original image files into it:
+|br| As long as the residuals are small (<2 pixels or so), you can continue. If not, you'll need to adjust your fiducial
+mark selection, and run ``ReSampFid`` again.
+
+When you have successfully re-sampled the images, create a new directory called **OrigImg** and move the original
+image files into it:
 
 .. code-block:: text
 
     mkdir OrigImg
     move AR*.tif OrigImg
 
-Note that the wildcard, or asterisk (\*), symbol tells the computer to move anything that matches the pattern
+Note that the wildcard, or asterisk (``*``), symbol tells the computer to move anything that matches the pattern
 ``AR(something).tif`` into the directory **OrigImg** – so it should move all of the scanned images.
 
 .. note::
+
     When running ``ReSampFid``, you might get an error message like this:
 
     .. code-block:: text
@@ -200,7 +229,7 @@ Note that the wildcard, or asterisk (\*), symbol tells the computer to move anyt
         --------------------------------------------------------
 
     This indicates that you have defined the image points for an image in more than one file, and it most often happens
-    when you accidentally re-use the ouput filename for multiple ``SaisieAppuisInitQT`` commands, e.g.:
+    when you accidentally re-use the output filename for multiple ``SaisieAppuisInitQT`` commands, e.g.:
 
     .. code-block:: text
 
@@ -208,29 +237,41 @@ Note that the wildcard, or asterisk (\*), symbol tells the computer to move anyt
         mm3d SaisieAppuisInitQT "AR5840034159995.tif" NONE id_fiducial.txt MeasuresIm-AR5840034159994.tif.xml
 
     To fix this, you'll need to go through each MeasuresIm file and ensure that there is only one set of ``<NameIm>``
-    tags, and that the image named within the tag matches the MeasuresIm filename (i.e., check that you only have
-    ``<NamePt>AR5840034159994.tif</NamePt>`` in **MeasuresIm-AR5840034159994.tif.xml**,
-    ``<NamePt>AR5840034159995.tif</NamePt>`` in **MeasuresIm-AR5840034159995.tif.xml**, and so on.
+    tags, and that the image named within the tag matches the MeasuresIm filename. For example, check that you only have
+
+    - ``<NamePt>AR5840034159994.tif</NamePt>`` in **MeasuresIm-AR5840034159994.tif.xml**,
+    - ``<NamePt>AR5840034159995.tif</NamePt>`` in **MeasuresIm-AR5840034159995.tif.xml**,
+
+    and so on.
 
 
 computing the relative orientation
 ----------------------------------
 
-The next step is to find tie points to help compute the relative orientation of the images. First, run ``Tapioca``:
+The next step is to find tie points to help compute the relative orientation of the images. To do this, we use the
+``Tapioca`` command:
 
 .. code-block:: text
 
     mm3d Tapioca MulScale "OIS.*tif" 400 1200
 
-This will compute tie points at two resolutions to help speed things up. Once this completes, you can filter the tie
-points, to make sure that they don't include things like the fiducial marks or any writing on the image frame:
+This will compute tie points at two resolutions:
+
+- first, images that are approximately 400x400 pixels
+- second, images that are approximately 1200x1200 pixels
+
+This helps to speed up the matching, because MicMac will only do the higher-resolution matching for images that have
+matches at the lower resolution.
+
+Once this completes, you can filter the tie points, to make sure that they don't include things like the fiducial marks
+or any writing on the image frame:
 
 .. code-block:: text
 
     mm3d HomolFilterMasq "OIS.*tif" GlobalMasq=filtre.tif
 
-If the provided **filtre.tif** doesn't work, you can watch the video `here <https://youtu.be/xOHEkKiiRnM>`__ to make
-your own.
+If the provided **filtre.tif** file doesn't work, click the link to watch `this video <https://youtu.be/xOHEkKiiRnM>`__
+to see how to make your own.
 
 After this, you can compute the relative orientation using ``Tapas``:
 
@@ -239,7 +280,9 @@ After this, you can compute the relative orientation using ``Tapas``:
     mm3d Tapas RadialBasic "OIS.*tif" Out=Relative SH=HomolMasqFiltered LibFoc=0
 
 For these images, the estimated focal length is 302.26 mm, based on the value recorded by the camera at the time of
-acquisition. At this stage, we will keep the focal length fixed (``LibFoc=0``) to this value (which is stored in
+acquisition.
+
+At this stage, we keep the focal length fixed (``LibFoc=0``) to this value (which is stored in
 **MicMac-LocalChantierDescripteur.xml**). This will calibrate the relative orientation using a basic radial distortion
 camera model (``RadialBasic``).
 
@@ -247,8 +290,8 @@ If you continue to use MicMac for your own projects, you might need to change th
 camera model used – you can check out the `MicMac Wiki <https://micmac.ensg.eu/index.php/Accueil>`__ to see the other
 camera models available.
 
-Tapas is run iteratively, meaning that it will go through several steps before finishing the calculation. The output
-should look something like this (note that you may need to scroll up a bit):
+``Tapas`` is run iteratively, meaning that it will go through several steps before finishing the calculation. The output
+should look something like this (note that you may need to scroll up a bit in the command prompt window):
 
 .. image:: ../../../img/egm702/week1/tapas.png
     :width: 600
@@ -266,12 +309,14 @@ should look something like this (note that you may need to scroll up a bit):
     RES:[OIS-Reech_AR5840034159998.tif][C] ER2 0.677032 Nn 99.7247 Of 10897 Mul 4329 Mul-NN 4320 Time 0.333
     RES:[OIS-Reech_AR5840034159999.tif][C] ER2 0.697072 Nn 99.7558 Of 4914 Mul 929 Mul-NN 927 Time 0.14
 
-This shows the total residual (in pixels) for all of the tie points found in each image, excluding outliers (**ER2**),
-as well as the percentage of tie points out of the total number of tie points in each image (**Nn XX of XX**) that were
-correct within the maximum acceptable error before a point is considered an outlier.
+This shows:
 
-It also shows how many points are seen in > 2 images (**Mul**), and the number of points that were properly located
-(**Mul-NN**), as well as the time it took to do the calculation.
+- **ER2**: the total residual (in pixels) for all of the tie points found in each image, excluding outliers;
+- **Nn XX of XX**: the percentage of tie points out of the total number of tie points in each image (**Nn XX of XX**)
+  that were correct within the maximum acceptable error before a point is considered an outlier;
+- **Mul**: the number of points seen in more than 2 images;
+- **Mul-NN**: the number of points seen in more than 2 images that were properly located;
+- **Time**: the time it took to do the calculation.
 
 Below that, we see information about the set of images as a whole:
 
@@ -285,20 +330,21 @@ Below that, we see information about the set of images as a whole:
     | |  Worst, Res 0.697072 for OIS-Reech_AR5840034159999.tif,  Perc 99.6733 for OIS-Reech_AR5840034159995.tif
     | |  Cond , Aver 9.23336 Max 58.0925 Prop>100 0
 
-This says that 99.709% of all tie points (49342 points) were "Ok" - that is, using the calibrated camera model and
+This says that 99.709% of all tie points (49342 points) were "Ok". In other words, using the calibrated camera model and
 orientation, the location of each point agreed with the predicted location within the maximum allowed error. Only
-0.290991% of points (140 points) had an invalid residual.
+0.290991% of points (144 points) had an invalid residual.
 
 Below this, we see the total residual for all points in all images was 0.671665 - this indicates that the cameras are
 generally well-calibrated, and the images are well-placed. If the residual is very high, you might need to re-do the
 earlier steps of placing the fiducial markers, resampling the images, and finding the tie points.
 
-You can also see that the "Worst" residual was 0.697072 for image **OIS-Reech_AR5840034159999.tif** - if the residual
-for an individual image is high, this is a hint as to which image might need to be re-done.
+You can also see that the "Worst" residual was 0.697072 for image **OIS-Reech_AR5840034159999.tif**. if the residual
+for an individual image is much higher than the others, this might be a hint that you need to correct the re-sampling
+step for that image.
 
-Now, let's visualize the relative orientation using ``AperiCloud`` and **MeshLab** (or **CloudCompare**). First, run
-this command:
-
+Once ``Tapas`` has finished, we can visualize the relative orientation using ``AperiCloud`` and **MeshLab** (or
+**CloudCompare**). First, run this command:
+s
 .. code-block:: text
 
     mm3d AperiCloud "OIS.*tif" Relative SH=HomolMasqFiltered
@@ -330,9 +376,10 @@ To do this, we need to find a number of Ground Control Points (GCPs), which will
 orientation of the cameras, and compute the 3-dimensional location for each pixel in the images.
 
 To help save some time, and because finding GCPs in 30+ year old aerial photos can be difficult, I've provided a number
-of GCPs that you should be able to find in the images. In your folder, you should have a file, **GCPs.txt**, which
-contains the name and *x*, *y*, and *z* location for the GCPs. To make the file usable by MicMac,
-you need to convert it:
+of GCPs that you should be able to find in the images.
+
+In your folder, you should have a file, **GCPs.txt**, which contains the name and *x*, *y*, and *z* location for the
+GCPs. To make the file usable by MicMac, you first need to convert it:
 
 .. code-block:: text
 
@@ -342,8 +389,12 @@ This will create a file, **GCPs.xml**, which MicMac will read to do the calibrat
 have to find the image locations for each of the GCPs. **GCPs.txt** has 33 different points, picked from US Dept of
 Agriculture
 `National Agriculture Imagery Program (NAIP) orthophotos <https://www.fsa.usda.gov/programs-and-services/aerial-photography/imagery-programs/naip-imagery/>`__,
-which are provided in the directory NAIP_Images. Rather than trying to find each point individually, we can first use
-MicMac to estimate where each of the points should be. First, run the following command:
+which are provided in the directory **NAIP_Images**.
+
+Rather than trying to find each point individually, we can first use MicMac to estimate where each of the points
+should be.
+
+First, run the following command:
 
 .. code-block:: text
 
@@ -360,10 +411,12 @@ This will open the window shown below:
 Imagery into either **QGIS** or **ArcGIS**. You can add the images individually, or you can add them all at once using
 the Virtual Raster (**mtsthelens.vrt**), which should work for either software.
 
-To display **GCPs.txt** in QGIS, you can add them as a **Delimited Text Layer**. Choose **Custom Delimiter** under
-**File Format**, and set the delimiter to `Space`. Under **Record and Fields Options**, set the
-**Number of header lines to discard** as ``2``, and uncheck **First record has field names**. Set ``field_2`` to be
-the **X field**, and ``field_3`` to be the **Y field**. Finally, set the **Geometry CRS** to be
+To display **GCPs.txt** in QGIS, you can add them as a **Delimited Text Layer**.
+
+Choose **Custom Delimiter** under **File Format**, and set the delimiter to `Space`. Under **Record and Fields Options**,
+set the **Number of header lines to discard** as ``2``, and uncheck **First record has field names**.
+
+Set ``field_2`` to be the **X field**, and ``field_3`` to be the **Y field**. Finally, set the **Geometry CRS** to be
 ``EPSG:32610 – WGS84/UTM zone 10N``, as shown below, then click **Add**:
 
 .. image:: ../../../img/egm702/week1/qgis_import.png
@@ -389,17 +442,20 @@ above) as labels, so that you know which point is which on the map.
         name,x,y,z
 
     To be on the safe side, I recommend copying the file **GCPs.txt** to **GCPs.csv** before making these changes, as
-    you will need the original txt file later on in the practical.
+    you will need the original **.txt** file later on in the practical.
 
 .. note::
 
     You may notice that the air photos are rotated relative to the ground, as they were acquired while flying South-North. 
-    You may find it helpful to rotate your map so that North is to the right (i.e., a 270° rotation), so that what you see 
-    on the map has the same orientation as the air photos.
+
+    You may find it helpful to rotate your map so that North is to the right (i.e., a 270° rotation), so that what you
+    see on the map has the same orientation as the air photos.
 
 We'll start by inputting **GCP0**. This GCP is the junction of two forest roads to the southwest of the mountain
-(but in the upper left of image **9996**, in the far upper left of image **9997**, and in the upper center of image
-**9995**). Open image **9995** using the following command:
+(in the upper left of image **9996**, in the far upper left of image **9997**, and in the upper center of image
+**9995**).
+
+Open image **9995** using the following command:
 
 .. code-block:: text
 
@@ -413,7 +469,9 @@ then zoom in toward the upper middle of the image **9995**. The junction should 
     :alt: the first GCP
 
 |br| As with the fiducial marks, click the point name in the table on the right (**GCP0**), then click on its location
-in the image. Close the window (**File** > **Exit**). Next, open image **9996**:
+in the image. When you have done this, close the window (**File** > **Exit**).
+
+Next, open image **9996**:
 
 .. code-block:: text
 
@@ -421,8 +479,9 @@ in the image. Close the window (**File** > **Exit**). Next, open image **9996**:
 
 You should see that the point **GCP0** is now displayed in **9996**, but it's not quite in the correct location, and
 it's yellow rather than green. Zoom in on the marker, then hold down the **CTRL** button and click and drag the marker
-to the correct location. When you're satisfied with its location, right-click and select ``Validate`` – it should turn
-green.
+to the correct location.
+
+When you're satisfied with its location, right-click and select ``Validate`` – it should turn green.
 
 To start with, we'll only put in a few of the GCPs. I recommend doing **GCP6** next – you should be able to find it in
 images **9996**, **9997**, and **9998**. It should look something like this:
@@ -432,8 +491,8 @@ images **9996**, **9997**, and **9998**. It should look something like this:
     :align: center
     :alt: the second GCP
 
-|br| Close the window, and open up image **9997**. Here, you should be able to find both **GPC0** and **GCP6**, as well
-as **GCP13** in the lower right corner of the image:
+|br| Now, close the window and open up image **9997**. You should be able to find both **GPC0** and **GCP6**, as well
+as **GCP13** in the lower right corner of the image (shown in blue in the image below):
 
 .. image:: ../../../img/egm702/week1/image9997.png
     :width: 600
@@ -441,8 +500,7 @@ as **GCP13** in the lower right corner of the image:
     :alt: image 9997 showing 2 GCPs located
 
 |br| Continue on to images **9998** and **9999**. Once you have put in these GCPs (**GCP0**, **GCP6** and **GCP13**),
-you can run the ``GCPBascule`` command to make a rough estimate of where the remaining GCPs should fall in each of
-the images:
+run the ``GCPBascule`` command to make a rough estimate of where the remaining GCPs should fall in each of the images:
 
 .. code-block:: text
 
@@ -466,7 +524,9 @@ those points - the rest will look like what we see for **GCP5**:
     NOT OK (UPL) FOR GCP5 , Reason NoPb
 
 What this shows that **GCP5** is not used ("NOT OK"), with the reason given that there are no points to work with
-(``NoPb``). Below that, you can see the output for **GCP6**:
+(``NoPb``).
+
+Below that, you can see the output for **GCP6**:
 
 .. code-block:: text
 
@@ -483,8 +543,8 @@ Starting from the bottom:
 
     ErrMax = 0.011786 pixels, For Im=OIS-Reech_AR5840034159996.tif,  Point=GCP6
 
-This says that the estimated maximum error (``ErrMax``) is 0.011786 pixels, and that's the measurement taken from image
-**OIS-Reech_AR5840034159996.tif**.
+This says that the estimated maximum error (``ErrMax``) is 0.011786 pixels, and that corresponds to the measurement
+taken from image **OIS-Reech_AR5840034159996.tif**.
 
 The line before that:
 
@@ -493,16 +553,18 @@ The line before that:
     ErrMoy 0.0844219 pixels  Nb measures=3
 
 Says that the average pixel error (``ErrMoy``) is 0.0844219 pixels, and that there are 3 images where GCP6 has been
-input (``Nb measures=3``). On the second line:
+input (``Nb measures=3``). Now look at the second line:
 
 .. code-block:: text
 
     --NamePt GCP6 Ec Estim-Ter [-4.50946,2.33578,-2.32917]           Dist =5.58714 ground units
 
-This tells us that for this point (**GCP6**), the difference between the best estimate and the "true" location
-(``Estim-Ter``) is -4.50946 ground units (meters) in the *x* direction, 2.33578 m in the *y* direction, and -2.32917 m
-in the *z* direction, for a total distance (:math:`\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}z^2}`) of 5.58714 m.
-The total distance (**Dist**) is then 5.58714 "ground units" - since we're working with UTM points, this would be meters.
+This tells us that for this point (**GCP6**):
+
+- the difference between the best estimate and the "true" location (``Estim-Ter``) is -4.50946 ground units (meters) in
+  the *x* direction, 2.33578 m in the *y* direction, and -2.32917 m in the *z* direction,
+- the total total distance (:math:`\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}z^2}`) is 5.58714 ground units. Because
+  we are working with UTM coordinates, these are in meters.
 
 Below that line:
 
@@ -510,10 +572,12 @@ Below that line:
 
     Ecart Estim-Faisceaux 0.00155021 Ter-Faisceau [4.50878,-2.33578,2.32778] D= 5.58601
 
-This tells us that the difference between the position estimated from the "true" location and the bundle adjustment
-(``Ter-Faisceau``) is 4.50878 ground units (meters) in the *x* direction, -2.33578 m in the *y* direction, and
-2.32778 m in the *z* direction, for a total distance (:math:`\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}y^2}`)
-of 5.58601 m.
+This tells us that:
+
+- the difference between the position estimated from the "true" location and the bundle adjustment
+  (``Ter-Faisceau``) is 4.50878 ground units (meters) in the *x* direction, -2.33578 m in the *y* direction, and
+  2.32778 m in the *z* direction
+- the total distance (:math:`\sqrt{{\Delta}x^2 + {\Delta}y^2 + {\Delta}y^2}`) is 5.58601 m.
 
 Finally, at the very bottom, we see the following:
 
@@ -523,13 +587,16 @@ Finally, at the very bottom, we see the following:
    ||     Value=0.505585 for Cam=OIS-Reech_AR584003415997.tif and Pt=GCP0 ; MoyErr=0.244851
    ======================================================================
 
-This gives us the summary for the entire set of GCPs and images. Here, we can see that the maximum error is 0.505585
-pixels for **GCP0** in image **OIS-Reech_AR5840034159997.tif**, and the average error for all points in all images
-(**MoyErr**) is 0.244851 pixels.
+This gives us the summary for the entire set of GCPs and images:
+
+- the maximum error is 0.505585 pixels for **GCP0** in image **OIS-Reech_AR5840034159997.tif**;
+- the average error for all points in all images (**MoyErr**) is 0.244851 pixels.
 
 As long as your errors aren't very large (both **ErrMax** and **MoyErr** < 2 pixels or so), you can move on to the
-next steps. If you have large (residual) errors, you'll need to carefully check the locations of your GCPs. By reading
-the report for each GCP, you can see which image has the largest residual for each point, and try to correct the points
+next steps.
+
+If you have large (residual) errors, you'll need to carefully check the locations of your GCPs. By reading
+the report for each GCP, you can see which image has the largest residual for each point. Try to correct the points
 to improve the overall residual.
 
 The next step is to run ``SaisieAppuisPredicQT``:
@@ -539,10 +606,27 @@ The next step is to run ``SaisieAppuisPredicQT``:
     mm3d SaisieAppuisPredicQT "OIS-Reech_AR584003415999[4-7].tif" TerrainInit GCPs.xml MeasuresFinales.xml
 
 This will place markers at their approximate locations in the images, making it easier to find the control points in
-the image. Note that the parameter ``"OIS-Reech_AR584003415999[4-7].tif"`` will open 4 images (**9994**, **9995**,
-**9996**, and **9997**), which can be memory-intensive. If need be, you can proceed one image at a time, or by only
-opening 2 images (e.g., replace ``"OIS-Reech_AR584003415999[4-7].tif"`` with ``"OIS-Reech_AR584003415999[4-5].tif"``
-to only open images **9994** and **9995**).
+the image. Note that this:
+
+.. code-block:: text
+
+    "OIS-Reech_AR584003415999[4-7].tif"
+
+will open 4 images (**9994**, **9995**, **9996**, and **9997**), which can be memory-intensive.
+
+If need be, you can proceed one image at a time, or by only opening 2 images. For example, replace this:
+
+.. code-block:: text
+
+    "OIS-Reech_AR584003415999[4-7].tif"
+
+with this:
+
+.. code-block:: text
+
+    "OIS-Reech_AR584003415999[4-5].tif"
+
+to only open images **9994** and **9995**.
 
 The window should now look something like this (note that the image order may be different – if you look just above the
 table on the right-hand side, you can see which image is which by hovering over them):
@@ -553,9 +637,11 @@ table on the right-hand side, you can see which image is which by hovering over 
     :alt: the saisiepredict window, showing 4 images plus predicted gcp locations
 
 |br| From here, locate and validate as many of the points as you can – it's not strictly necessary to do all of them,
-but it can help to improve the final results. I recommend trying to do at least a few of the ones at higher elevations,
-for reasons that should be clear from the lectures. Remember to check the orthoimages provided to be sure you're
-finding the right points – don't just accept the estimated locations.
+but it can help to improve the final results.
+
+I recommend trying to do at least a few of the ones at higher elevations, for reasons that should be clear from the
+lectures. Remember to check the orthoimages provided to be sure you're finding the right points – don't just accept
+the estimated locations.
 
 Once you've accepted points from the first four images (**9994**-**9997**), you'll need to exit Saisie (**File** >
 **Exit**), and re-run the command to input points to the remaining images:
@@ -584,18 +670,20 @@ adjustment and refine the camera calibration even further:
 
     mm3d Campari "OIS.*tif" TerrainBrut TerrainFinal GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2] SH=HomolMasqFiltered AllFree=1
 
-This will take the orientation estimated in ``Ori-TerrainBrut`` [we drop the ``Ori-`` when entering the command], and
-create a new orientation directory, ``Ori-TerrainFinal``. The numerical values in the GCP option (``5`` and ``2`` in
-``GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2]``) are the estimate of the GCP accuracy in world coordinates (first number)
-and in pixels (second number).
+This will take the orientation estimated in ``Ori-TerrainBrut`` (we drop the ``Ori-`` when entering the command), and
+create a new orientation directory, ``Ori-TerrainFinal``.
+
+The numerical values in the GCP option (``5`` and ``2`` in ``GCP=[GCPs.xml,5,MeasuresFinales-S2D.xml,2]``) are the
+estimate of the GCP accuracy in world coordinates (first number) and in pixels (second number).
 
 For now, I recommend keeping them at these default values, but feel free to experiment after you've gotten the hang of
 it somewhat.
 
 The ``SH=HomolMasqFiltered`` flag tells ``Campari`` to use the tie points found in ``HomolMasqFiltered`` - if you
-haven't done the ``HomolFilterMasq`` step, leave this flag out. Finally, the ``AllFree=1`` flag means that we're also
-refining the camera calibration (focal length, principal point location, radial distortion), in addition to resolving
-the camera orientations.
+haven't done the ``HomolFilterMasq`` step, leave this flag out.
+
+Finally, the ``AllFree=1`` flag means that we're also refining the camera calibration (focal length, principal point
+location, radial distortion), in addition to resolving the camera orientations.
 
 The output for ``Campari`` is iterative, meaning that it will go through several steps. At the end of the output, you
 should see something like this (note that you may need to scroll up):
@@ -605,7 +693,7 @@ should see something like this (note that you may need to scroll up):
     :align: center
     :alt: the output of campari
 
-|br| The information for each GCP looks fairly similar to the output for ``GCPBascule``. Taking the output for
+|br| The information for each GCP looks similar to the output for ``GCPBascule``. Taking the output for
 **GCP6** again:
 
 .. code-block:: text
@@ -617,11 +705,14 @@ should see something like this (note that you may need to scroll up):
           ErrMoy 0.595718 pixels  Nb measures=3
          ErrMax = 0.871427 pixels, For Im=OIS-Reech_AR5840034159997.tif,  Point=GCP6    
 
-We can see that the maximum error (**ErrMax**) of 0.871427 pixels is found in image **OIS-Reech_AR5840034159997.tif**,
-and the average pixel error of 3 measurements is 0.595718 pixels. The difference between the initial estimate and the
-"true" location (in *x*, *y*, *z*) is -3.47157 m, -1.35434 m, -0.48158 m, for a total distance of 3.75739 m. The
-difference between the "true" location and the predicted location after the bundle adjustment (again in *x*, *y*, *z*)
-is 4.1262 m, 1.5956 m, 5.36046 m, for a total distance of 6.95026 m.
+We can see that:
+
+- the maximum error (**ErrMax**) of 0.871427 pixels is found in image **OIS-Reech_AR5840034159997.tif**, and the
+  average pixel error of 3 measurements is 0.595718 pixels;
+- the difference between the initial estimate and the "true" location (in *x*, *y*, *z*) is -3.47157 m, -1.35434 m,
+  and -0.48158 m, for a total distance of 3.75739 m;
+- the difference between the "true" location and the predicted location after the bundle adjustment (again in *x*, *y*,
+  *z*) is 4.1262 m, 1.5956 m, 5.36046 m, for a total distance of 6.95026 m.
 
 As with ``GCPBascule``, we can see the maximum error for all points in all images:
 
@@ -646,13 +737,16 @@ The next block of output:
     RES:[OIS-Reech_AR5840034159998.tif][C] ER2 0.737522 Nn 99.7247 Of 10897 Mul 4329 Mul-NN 4321 Time 0.338
     RES:[OIS-Reech_AR5840034159999.tif][C] ER2 0.732468 Nn 99.7965 Of 4914 Mul 929 Mul-NN 928 Time 0.145
 
-Looks very similar to the output from ``Tapas``. Each line tells us the total residual (in pixels) for all of the tie
-points found in each image (**ER2**), as well as the percentage of tie points out of the total number of tie points in
-each image (**Nn XX of XX**) that were correct within the maximum acceptable error before a point is considered an
-outlier. It also shows how many points are seen in > 2 images (**Mul**), and the number of points that were properly
-located (**Mul-NN**), as well as the time it took to do the calculation.
+Looks very similar to the output from ``Tapas``. Each line tells us:
 
-As long as the residual for each image is fairly low (< 2 or so), and the percentage is reasonably close to 100, you
+- **ER2**: the total residual (in pixels) for all of the tie points found in each image;
+- **Nn XX of XX**: the percentage of tie points out of the total number of tie points in each image that were correct
+  within the maximum acceptable error before a point is considered an outlier;
+- **Mul**: how many tie points are seen in more than 2 images;
+- **Mul-NN**: and the number of these points that were properly located;
+- **Time**: the time it took to do the calculation.
+
+As long as the residual for each image is low (< 2 or so), and the percentage is reasonably close to 100, you
 should be able to continue to the next step and get usable, if not perfect, results.
 
 And finally, we can see the stats for the whole block of images:
@@ -696,8 +790,10 @@ create the individual orthophotos:
 
 This will create two folders, **MEC-Malt** and **Ortho-MEC-Malt**. In **MEC-Malt**, you will find the DEM
 (**Z_Num9_DeZoom1_STD-MALT.tif**), as well as the correlation image (**Correl_STD-MALT_Num_8.tif**) and the image mask
-(**AutoMask_STD-MALT_Num_8.tif**). This will also take some time, depending on your computer – on my laptop, it takes
-around 10-15 minutes for this set of images.
+(**AutoMask_STD-MALT_Num_8.tif**).
+
+This will also take some time, depending on your computer – on my laptop, it takes around 10-15 minutes for this set of
+images.
 
 At the end, you can load the final DEM (**Z_Num9_DeZoom1-STD-MALT.tif**) into **QGIS** or **ArcGIS**. The image below
 shows a comparison between my results (hillshade, red profile line) and the Shuttle Radar Topography Mission (SRTM)
@@ -723,7 +819,7 @@ cleaning up the outputs
 The final step (for now) is to clean up the output DEM and Orthophoto, masking out the parts of the DEM raster that
 aren't covered by the images.
 
-First, cd into **MEC-Malt**:
+First, use ``cd`` to navigate into **MEC-Malt**:
 
 .. code-block:: text
 

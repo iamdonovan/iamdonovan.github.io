@@ -7,6 +7,14 @@ adding and exporting images
 
 .. role:: green
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A01_getting_started%2F01_adding_exporting_images.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``01_getting_started/01_adding_exporting_images.js`` under the **Reader** section.
+
+
 This tutorial is designed to get you started looking at satellite images using Google Earth Engine. 
 By the end of the tutorial, you will be able to:
 
@@ -18,7 +26,7 @@ By the end of the tutorial, you will be able to:
 To begin, point your browser to https://code.earthengine.google.com. If you are not already logged in, log in using your GEE account. You should see something like this:
 
 .. image:: img/adding_exporting/annotated_window.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the GEE console with annotations
 
@@ -163,7 +171,7 @@ to set the basemap to use satellite imagery, rather than the default basemap.
 Once you run the script (click **Run**, or press **CTRL + Enter**), you should see the following:
 
 .. image:: img/adding_exporting/script_run.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the gee console after running the example script
 
@@ -223,7 +231,7 @@ Now that we've added an image to the **Map**, we can zoom around the map (scroll
 to examine it further:
 
 .. image:: img/adding_exporting/zoomed_in.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the map after zooming in
 
@@ -234,7 +242,7 @@ Click on the **Inspector** tab, then click on the map window somewhere in the la
 in the **Inspector** tab (note that it probably won't be exactly the same):
 
 .. image:: img/adding_exporting/inspector_tab.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the inspector tab showing the list view
 
@@ -251,7 +259,7 @@ You can also click on the chart symbol next to the layer name:
 |br| To swap between the list and chart views:
 
 .. image:: img/adding_exporting/inspector_plot.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the inspector tab showing the chart view
 
@@ -259,7 +267,7 @@ You can also click on the chart symbol next to the layer name:
 the chart as an SVG or PNG file, or the data as a comma-separated variable (CSV) file:
 
 .. image:: img/adding_exporting/inspector_graph.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the inspector tab showing the chart view
 
@@ -302,7 +310,7 @@ to export the image to Google Drive.
 When you click **RUN**, you will see the following dialogue:
 
 .. image:: img/adding_exporting/export.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the map after zooming in
 

@@ -1,11 +1,20 @@
 unsupervised classification
 =============================
 
+.. tip::
+
+    The script for this tutorial can be found via this `direct link <https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fgee_tutorials%3A02_image_classification%2F01_unsupervised.js>`__.
+
+    Alternatively, if you have already added the repository, you can open the script from the **Code Editor**, by
+    navigating to ``02_image_classification/01_unsupervised.js`` under the **Reader** section.
+
+
+
 For this tutorial, we're going to use a 15 February 2022 Landsat 9 image covering `Harrat Khaybar <https://en.wikipedia.org/wiki/Harrat_Khaybar>`__,
 a volcanic field in Saudi Arabia:
 
 .. image:: img/unsupervised/harrat_khaybar.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: closeup of Harrat Khaybar, the study area for this tutorial.
 
@@ -91,7 +100,7 @@ to provide a random palette to display the image (like we did for the :doc:`../g
 This should produce the following artistic image in the **Map**:
 
 .. image:: img/unsupervised/clustered_results.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the clustered image added to the map window
 
@@ -325,5 +334,5 @@ references and notes
 
 .. [2] For a (brief) overview of *k*-means clustering, the wikipedia page is a good place to start: https://en.wikipedia.org/wiki/K-means_clustering
 
-.. [3] Arthur, D. and S. Vassilvitskii (2007). in: *Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms, SODA ’07*. pp. 1027–1035. doi: `10.5555/1283383.1283494 <https://doi.org/10.5555/1283383.1283494>__`
+.. [3] Arthur, D. and S. Vassilvitskii (2007). in: *Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms, SODA ’07*. pp. 1027–1035. doi: `10.5555/1283383.1283494 <https://doi.org/10.5555/1283383.1283494>`__
 

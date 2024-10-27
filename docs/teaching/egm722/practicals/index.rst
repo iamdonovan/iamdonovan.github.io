@@ -22,14 +22,15 @@ eventually work.
    :hidden:
    :maxdepth: 1
 
-   week1
+   pythonintro
    debugging
-   week2
-   week3
+   cartopy
+   conflicts
+   vector
    folium
-   week4
-   sentinelsat
-   week5
+   raster
+   earthaccess
+   zonalstats
 
 
 .. |binder| image:: https://mybinder.org/badge_logo.svg

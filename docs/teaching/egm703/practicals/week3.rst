@@ -11,7 +11,7 @@ be able to use SNAP to:
 - Convert the :math:`\sigma^0` values to decibels (dB)
 
 The image we'll be using is a Sentinel-1B interferometric wide swath (IW) scene, acquired 24 September 2021 showing the
-Lena River Delta, Russia (seen here in 27 July 2000 Landsat-7 ETM+ image):
+Lena River Delta, Russia (seen here in a 27 July 2000 Landsat-7 ETM+ image):
 
 .. image:: ../../../img/egm703/week3/lena_browse.png
     :width: 600
@@ -20,13 +20,17 @@ Lena River Delta, Russia (seen here in 27 July 2000 Landsat-7 ETM+ image):
 
 |br| Before opening SNAP, download the zipped image file from Blackboard, then unzip the image file. Because of the
 image size, this might take some time. Alternatively, you can go to
-`Copernicus Open Access Hub <https://scihub.copernicus.eu/>`__ to search for and download your own image.
-The granule being used in this example is:
+`Copernicus Broswer <https://browser.dataspace.copernicus.eu/>`__ or
+`Alaska Satellite Facility (ASF) Data Search <https://search.asf.alaska.edu/#/>`__ to search for and download your
+own image.
 
-`S1B_IW_SLC__1SDV_20210924T221923_20210924T221952_028846_03714B_B4BD <https://scihub.copernicus.eu/dhus/odata/v1/Products('9729b3f9-b191-4f6f-a9bd-c2e159ca268c')/$value>`__ (Open Access Hub login required),
+The granule being used in this example is a scene acquired on 24 September 2021:
+::
+
+    S1B_IW_SLC__1SDV_20210924T221923_20210924T221952_028846_03714B_B4BD
 
 but you are welcome to download and use an image of your choosing. If you do so, make sure to choose an interferometric
-wide swath (IW) scene, and download the single-look complex (SLC) format.
+wide swath (IW) scene, and download the Level 1 single-look complex (SLC) format.
 
 .. note::
 
@@ -63,18 +67,24 @@ To get started, you should first open SNAP - the window should look something li
 
 .. note::
 
-    **Open Access Hub**: Navigate to the **zipped** folder, select it, and click **OK**.
+    **If you downloaded your own file**:
+
+    Navigate to the **zipped** folder, select it, and click **OK**.
 
 .. note::
 
-    **Blackboard**: Navigate to the folder where you have extracted the data, then select
+    **If you downloaded the file from Blackboard**:
+
+    Navigate to the folder where you have extracted the data, then select
     ``S1B_IW_SLC__1SDV_20210924T221923_20210924T221952_028846_03714B_B4BD_split.dim``. Click **OK**.
 
-You should see the image loaded in the panel on the upper left. On the bottom left, you might also see a glob with an
+You should see the image loaded in the panel on the upper left. On the bottom left, you might also see a globe with an
 outline showing the location of the scene. If you don't, you can select the **World View** tab. Other tabs in this
-panel include **Navigation** for navigating the image once we've loaded it; **Colour Manipulation** for changing how
-the image is displayed in the main window, and **Uncertainty Visualisation**, for showing the uncertainty information
-associated with a given band or image.
+panel include:
+
+- **Navigation**, for navigating the image once we've loaded it;
+- **Colour Manipulation** for changing how the image is displayed in the main window;
+- **Uncertainty Visualisation**, for showing the uncertainty information associated with a given band or image.
 
 We can also open a **Quicklook** image by clicking the arrow next to our scene name, followed by the arrow next to the
 **Quicklooks** folder, then double-clicking on **Quicklook**:
@@ -84,13 +94,16 @@ We can also open a **Quicklook** image by clicking the arrow next to our scene n
     :align: center
     :alt: the image quicklook view
 
-|br| To visualize one of our bands, we can open the **Bands** folder, then selecting the band we want to see. The
+|br| To visualize one of our bands, we can open the **Bands** folder, then selecting the band we want to see. Remember
+that the
 `Interferometric Wide Swath <https://sentinels.copernicus.eu/web/sentinel/user-guides/sentinel-1-sar/acquisition-modes/interferometric-wide-swath>`__
 mode captures three sub-swaths using a technique that helps reduce some of the issues related to previous designs.
-The SLC data (single-look complex) data have 18 total bands to choose from: real, imaginary, and intensity images for
-two different polarimetry modes (VV and VH) for each sub-swath (3 bands * 2 modes * 3 sub-swaths = 18). The GRD
-(ground-range detected) images have had the different *bursts* and *sub-swaths* merged, so that there are only 4 bands
-(amplitude and intensity for each of VV and VH images).
+
+The SLC data (single-look complex) data thus have 18 total bands to choose from: real, imaginary, and intensity images
+for two different polarimetry modes (VV and VH) for each sub-swath (3 bands * 2 modes * 3 sub-swaths = 18).
+
+The GRD (ground-range detected) images have had the different *bursts* and *sub-swaths* merged, so that there are only
+4 bands (amplitude and intensity for each of VV and VH images).
 
 To start with, we'll look at the VH Intensity image for sub-swath 1 (**Intensity_IW1_VH**). To load the image,
 double-click it. It will take a minute to load, but you should eventually see something like this:
@@ -102,7 +115,7 @@ double-click it. It will take a minute to load, but you should eventually see so
 
 |br| There are a number of things that we can see here. First is that the image is not geocoded - the pixels
 correspond to the range and azimuth direction of the sensor, rather than ground coordinates. The next thing we can see
-is that there's quite a bit of speckle in the image - it appears noisy, or with a salt-and-pepper pattern.
+is that there's quite a bit of speckle in the image - it appears noisy, or with a salt-and-pepper pattern:
 
 .. image:: ../../../img/egm703/week3/speckle.png
     :width: 600
@@ -220,9 +233,10 @@ but for visualizing and interpreting an image, it can help to reduce the noise.
 |br| Under **Radar**, select **Speckle Filtering** > **Single Product Speckle Filter**. We'll use *Lee Sigma* in this
 example, but there are a number of different algorithms available -
 `this <https://earth.esa.int/documents/653194/656796/Speckle_Filtering.pdf>`__ document provides a good overview with
-references for some of the different algorithms implemented. Under **Processing Parameters**, make sure to select both
-source bands - for now, leave the other parameters as-is, but feel free to experiment with different combinations after
-you've made it through the remaining steps.
+references for some of the different algorithms implemented.
+
+Under **Processing Parameters**, make sure to select both source bands - for now, leave the other parameters as-is,
+but feel free to experiment with different combinations after you've made it through the remaining steps.
 
 .. image:: ../../../img/egm703/week3/speckle2.png
     :width: 400
@@ -238,13 +252,16 @@ you've made it through the remaining steps.
 
 |br| Notice the difference in the apparent noise level, compared to the original image. At the zoomed-out level, we can
 see quite a bit more detail in the filtered image. If we zoom in, we should see that this is true on smaller scales, as
-well. Note that this process isn't perfect - there's still some texture in the image, for example.
+well. Note that this process isn't perfect - there's still some texture in the image, since the speckle filtering hasn't
+completely removed the speckle effects.
 
 geocoding
 ---------
 
-Next, we need to geocode (terrain-correct) the image, in order to be able to use it in a GIS software or other
-satellite images. Under **Radar**, select **Geometric** > **Terrain Correction** > **Range-Doppler Terrain Correction**.
+Next, we need to geocode (terrain-correct) the image, in order to be able to use it in a GIS software or compare to other
+satellite images.
+
+Under **Radar**, select **Geometric** > **Terrain Correction** > **Range-Doppler Terrain Correction**.
 Under **Processing Parameters**, be sure to select both source bands:
 
 .. image:: ../../../img/egm703/week3/tc_dialogue.png
@@ -266,14 +283,22 @@ Make sure to also turn off the ``Mask out areas without elevation`` option, as w
 the image that are at sea level, even though they're masked out in the DEM.
 
 When the process has finished (this will probably take some time!), open the terrain-corrected VH :math:`\sigma^0` -
-it should look quite a bit different than what we've been seeing:
+it should look quite a bit different than what we've seen previously:
 
 .. image:: ../../../img/egm703/week3/geocoded.png
     :width: 600
     :align: center
     :alt: the geocoded image
 
-|br|
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Why do you think the shape of the image has changed so dramatically? If you're not sure, be sure to post in the
+    Discussion on Blackboard!
 
 convert to dB
 -------------
@@ -305,7 +330,11 @@ This will bring up the export dialogue:
     :alt: the subset export dialogue
 
 |br| Here, I'm choosing to export the dB images separately - first the VH band and then the VV band - in part because
-of how large the images are (~2 GB per band!). If space is a concern, you can also select a spatial subset.
+of how large the images are (~2 GB per band!).
+
+.. note::
+
+    If storage space is a concern, you can also select a spatial subset.
 
 At this point, we're done with SNAP. There are a number of other tools/features in the software, including for
 processing other SAR datasets such as ERS, ENVISAT, or ALOS-PALSAR. The software also supports processing and analysis
@@ -315,7 +344,7 @@ interferometric SAR (InSAR) applications.
 questions
 ---------
 
-Now that you've procssed and exported both images, you can load them into a GIS software of your choice. I would
+Now that you've processed and exported both images, you can load them into a GIS software of your choice. I would
 recommend adding a basemap (for example, the ESRI Basemap) or an optical image (e.g., Sentinel-2, Landsat), to help
 with some of the interpretation. Think about the following questions - if you need help or want to discuss, be sure to
 post it on Blackboard:
@@ -326,4 +355,5 @@ post it on Blackboard:
    discussed that would cause these areas to be brighter than other areas?
 3. What differences do you notice between the VH and VV polarization? Can you explain why, for example, you might
    expect more scattering in VV polarization than in VH polarization for water?
+4. What kind of ocean conditions do you were present on 24 September 2021? Why do you think this?
 
