@@ -24,15 +24,10 @@ getting started
 .. warning::
 
     If you have not yet completed all the steps from the Week 6 practical, you should stop here and make sure that you
-    finish them.
+    finish them before moving on.
 
 To get started, open SPSS using either the **Start** menu (**Start** > **IBM SPSS Statistics** >
 **IBM SPSS Statistics**), double-click the desktop icon (if it exists), or click on the taskbar icon (if it exists).
-
-.. note::
-
-    If you are working on the lab computer, you will need to download the **.sav** and **.spv** files that you
-    worked with last week so that you can start from where you left off.
 
 When SPSS launches, you should see the normal welcome screen:
 
@@ -66,7 +61,7 @@ where you have saved it:
 
 |br|
 
-.. note::
+.. tip::
 
     If at any point you accidentally close the **Viewer** window, this is one way that you can re-open it.
 
@@ -79,7 +74,7 @@ the amount of time that has passed between different dates and times, or to do o
 time.
 
 `SPSS is no exception <https://www.ibm.com/docs/en/spss-statistics/28.0.0?topic=wizard-dates-times-in-spss-statistics>`__,
-so if we want to be able to make plots of variables over time, we will need to convert our ``Year``/``Month`` variables
+so if we want to be able to make plots of variable values over time, we will need to convert our ``Year``/``Month`` variables
 into a **Date** variable.
 
 From the **Transform** menu, select **Date and Time Wizard**. This will open the following dialog:
@@ -130,10 +125,12 @@ scatter plots in spss
 
 We can create a scatter plot in SPSS in the same way that we created histograms and bar charts last week. The
 instructions below will show this using the **Chart Builder**, but you can also use
-the **Legacy Dialogs** (**Graphs** > **Legacy Dialogs** > **Scatter/Dot**).
+the **Legacy Dialogs** (**Graphs** > **Scatter/Dot**).
 
-To start, open the **Chart Builder** (**Graphs** > **Chart Builder**). Under **Gallery** in the lower left corner,
-select **Scatter/Dot**, then select **Scatter Plot** by double-clicking on the icon (red outline):
+To start, open the **Chart Builder** (**Graphs** > **Chart Builder**).
+
+Under **Gallery** in the lower left corner, select **Scatter/Dot**, then select **Scatter Plot** by double-clicking on
+the icon (red outline):
 
 .. image:: img/week7/chart_builder_scatter.png
     :width: 720
@@ -189,16 +186,18 @@ calculating correlation in spss
 Remember that scatter plots can give us a visual representation of the relationship between two variables, and we
 can even estimate the direction and strength of the (linear) relationship based on the scatter of the points.
 
-But that's not the only method we have - we can also calculate the correlation between variables. First, open the
-**Bivariate Correlations** dialog ("bivariate" meaning "two variables") from the **Analyze** menu (**Analyze** >
-**Correlate** > **Bivariate**:
+As we have covered in the lectures, visual inspection is not the only method we have - we can also calculate the
+correlation between variables.
+
+First, open the **Bivariate Correlations** dialog ("bivariate" meaning "two variables") from the **Analyze** menu
+(**Analyze** > **Correlate** > **Bivariate**):
 
 .. image:: img/week7/correlations.png
     :width: 400
     :align: center
     :alt: the "bivariate correlations" dialog
 
-|br| As you can see, SPSS has three methods for estimating correlation available in this dialog, two of which we have
+|br| As you can see, SPSS offers three methods for estimating correlation available in this dialog, two of which we have
 covered in the lectures:
 
 - Pearson's correlation coefficient
@@ -208,7 +207,7 @@ covered in the lectures:
 Kendall's tau-b rank correlation is a method for estimating correlation when you have many tied ranks in your data -
 we're not going to explore it in detail here, but you can read more about it through the link above.
 
-In the dialog, add ``Sun`` and ``Tmax`` to the list of **Variables** and select both **Pearson** and **Spearman**
+In the dialog, add ``Sun`` and ``Tmean`` to the list of **Variables** and select both **Pearson** and **Spearman**
 correlation coefficients.
 
 At the bottom of the window, de-select **Flag significant correlations** - we'll discuss "significant" correlations
@@ -241,9 +240,7 @@ we will see the correlations for each variable in a single column:
 
     Compare the correlation values for each season.
 
-    - What differences between the two correlation measures do you notice? Remember that Pearson's correlation assesses
-      the linear relationship only, while Spearman's assesses the monotonic relationship, so large (> 0.3 or so)
-      differences may mean that the relationship is not entirely linear.
+    - What differences between the two correlation measures do you notice?\ [1]_
     - Do any seasons have a negative correlation between hours of sun and mean temperature? If so, can you think of
       a reason why that might happen?
 
@@ -290,14 +287,14 @@ click **OK** to run the regression. You should see a number of tables and graphs
     :far:`circle-question` Question
     ^^^
 
-    Of the seasons, which slope is the largest? How do the correlation coefficients that we calculated earlier compare
-    to the slopes of the regression line?
+    Look at each of the four graphs. Of the four seasons, which slope is the largest (in absolute value)? How do the
+    correlation coefficients that we calculated earlier compare to the slopes of the regression line?
 
 
 reading the model summary
 ..............................
 
-Now look at the **Model Summary and Parameter Estimates** table:
+Now look at the **Model Summary and Parameter Estimates** table\ [2]_:
 
 .. image:: img/week7/regression_table.png
     :width: 500
@@ -319,11 +316,11 @@ Now look at the **Model Summary and Parameter Estimates** table:
     :far:`circle-question` Question
     ^^^
 
-    In your own words, what does the :math:`R^2` value for Spring tell us about the linear relationship between hours
-    of sun and monthly mean temperature for Spring months?
+    **In your own words**, what does the :math:`R^2` value for Spring tell us about the linear relationship between
+    hours of sun and monthly mean temperature for Spring months? What about for the other months?
 
 
-In the **Parameter Estimates** section, we have:
+In the **Parameter Estimates** section of the table, we have:
 
 - **Constant**, the estimate of the intercept of the linear model (:math:`\beta` in the lecture notes)
 - **b1**, the estimate of the slope of the linear model (:math:`\alpha` in the lecture notes)
@@ -336,6 +333,37 @@ In the **Parameter Estimates** section, we have:
     .. math::
 
         {\rm Temperature} = 0.007 * {\rm Hours\ of\ Sun} + 13.724
+
+    This means that for every unit increase of ``Sun``, ``Tmean`` increases by 0.007°C. At 0 hours of Sun, the value
+    of ``Tmean`` is equal to 13.724°C.
+
+
+comparing slopes
+----------------
+
+Re-do the previous analysis, but this time use ``Tmax`` instead of ``Tmean``.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    In which season do you see the **largest difference** between the estimated :math:`R^2` value (**R squared** in the
+    **Model Summary and Parameter Estimates** table)? Why do you think this might be the case?
+
+    Remember to think about what the :math:`R^2` value represents!
+
+.. hint::
+
+    To help you answer this question, you could open a new **Excel** spreadsheet, enter the values of **b1** from each
+    table, and use a formula to calculate the difference between them:
+
+    .. image:: img/week7/compare_seasonal_r2.png
+        :width: 500
+        :align: center
+        :alt: an excel workbook, set up to compare differences in R² value for Tmax and Tmean by season
 
 
 .. warning::
@@ -364,3 +392,14 @@ steps outlined above.
       might be the case?
     - Do all of the months in a season show the same relationship? What effect do you think this might have on the
       overall relationship for each season?
+
+
+notes
+-----
+
+.. [1] Remember: Pearson's correlation assesses the linear relationship only, while Spearman's assesses the monotonic
+       relationship. so large (> 0.3 or so) differences may mean that the relationship is not entirely linear.
+
+.. [2] As always, the values that you see might be slightly different to the values shown in these screenshots, but the
+       general pattern should match. If you aren't sure, ask your classmates or an instructor to check.
+
