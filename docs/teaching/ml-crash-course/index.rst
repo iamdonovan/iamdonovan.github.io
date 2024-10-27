@@ -49,6 +49,18 @@ Before moving on to the :doc:`practicals<exercises/index>` below, be sure to vis
 +---------+--------------------------------+-----------------------------------+
 | 4       | measuring model performance    | :doc:`exercises/performance`      |
 +---------+--------------------------------+-----------------------------------+
+| 5       | support vector machine         |                                   |
++---------+--------------------------------+-----------------------------------+
+| 6       | neural networks                |                                   |
++---------+--------------------------------+-----------------------------------+
+| 7       | ethics in ml/ai                |                                   |
++---------+--------------------------------+-----------------------------------+
+| 8       | generative ai                  |                                   |
++---------+--------------------------------+-----------------------------------+
+| 9       | unsupervised learning          |                                   |
++---------+--------------------------------+-----------------------------------+
+| 10      | deep learning                  |                                   |
++---------+--------------------------------+-----------------------------------+
 
 exercise solutions
 -------------------
@@ -80,4 +92,8 @@ notebook file that contains example solutions for each of the exercise questions
 
 |br| Remember that as we have discussed in the workshop, these solutions are not the only possible solutions to the
 questions - there are potentially many different ways to answer the questions!
+
+
+notes
+------
 
