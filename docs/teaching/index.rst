@@ -23,5 +23,6 @@ working on delivering/developing your own modules, please feel free to use and a
    unis/index
    python-programming/index
    r-programming/index
+   ml-crash-course/index
    hpc-intro/index
    dissertation/index
