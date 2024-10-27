@@ -588,7 +588,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-model-summary">reading the model summary</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-slopes">comparing slopes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
 </ul>
             </nav>
         </div>
@@ -619,15 +621,10 @@ Week 6, where we introduce topics like correlation and regression.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you have not yet completed all the steps from the Week 6 practical, you should stop here and make sure that you
-finish them.</p>
+finish them before moving on.</p>
 </div>
 <p>To get started, open SPSS using either the <strong>Start</strong> menu (<strong>Start</strong> &gt; <strong>IBM SPSS Statistics</strong> &gt;
 <strong>IBM SPSS Statistics</strong>), double-click the desktop icon (if it exists), or click on the taskbar icon (if it exists).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are working on the lab computer, you will need to download the <strong>.sav</strong> and <strong>.spv</strong> files that you
-worked with last week so that you can start from where you left off.</p>
-</div>
 <p>When SPSS launches, you should see the normal welcome screen:</p>
 <a class="reference internal image-reference" href="../../../_images/spss_welcome.png"><img alt="the SPSS Welcome screen" class="align-center" src="../../../_images/spss_welcome.png" style="width: 720px;" /></a>
 <p><br /> To open your previous files, you may need to click on the <strong>Recent Files</strong> tab. Then, click on
@@ -639,8 +636,8 @@ worked with last week so that you can start from where you left off.</p>
 where you have saved it:</p>
 <a class="reference internal image-reference" href="../../../_images/opened_viewer.png"><img alt="the ArmaghData.spv file re-opened in SPSS." class="align-center" src="../../../_images/opened_viewer.png" style="width: 720px;" /></a>
 <p><br /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>If at any point you accidentally close the <strong>Viewer</strong> window, this is one way that you can re-open it.</p>
 </div>
 </div>
@@ -650,7 +647,7 @@ where you have saved it:</p>
 the amount of time that has passed between different dates and times, or to do other calculations involving dates and
 time.</p>
 <p><a class="reference external" href="https://www.ibm.com/docs/en/spss-statistics/28.0.0?topic=wizard-dates-times-in-spss-statistics">SPSS is no exception</a>,
-so if we want to be able to make plots of variables over time, we will need to convert our <code class="docutils literal notranslate"><span class="pre">Year</span></code>/<code class="docutils literal notranslate"><span class="pre">Month</span></code> variables
+so if we want to be able to make plots of variable values over time, we will need to convert our <code class="docutils literal notranslate"><span class="pre">Year</span></code>/<code class="docutils literal notranslate"><span class="pre">Month</span></code> variables
 into a <strong>Date</strong> variable.</p>
 <p>From the <strong>Transform</strong> menu, select <strong>Date and Time Wizard</strong>. This will open the following dialog:</p>
 <a class="reference internal image-reference" href="../../../_images/date_time_wizard.png"><img alt="the date and time wizard dialog" class="align-center" src="../../../_images/date_time_wizard.png" style="width: 400px;" /></a>
@@ -678,9 +675,10 @@ how to do this, you can refer to <a class="reference internal" href="week6.html#
 </div>
 <p>We can create a scatter plot in SPSS in the same way that we created histograms and bar charts last week. The
 instructions below will show this using the <strong>Chart Builder</strong>, but you can also use
-the <strong>Legacy Dialogs</strong> (<strong>Graphs</strong> &gt; <strong>Legacy Dialogs</strong> &gt; <strong>Scatter/Dot</strong>).</p>
-<p>To start, open the <strong>Chart Builder</strong> (<strong>Graphs</strong> &gt; <strong>Chart Builder</strong>). Under <strong>Gallery</strong> in the lower left corner,
-select <strong>Scatter/Dot</strong>, then select <strong>Scatter Plot</strong> by double-clicking on the icon (red outline):</p>
+the <strong>Legacy Dialogs</strong> (<strong>Graphs</strong> &gt; <strong>Scatter/Dot</strong>).</p>
+<p>To start, open the <strong>Chart Builder</strong> (<strong>Graphs</strong> &gt; <strong>Chart Builder</strong>).</p>
+<p>Under <strong>Gallery</strong> in the lower left corner, select <strong>Scatter/Dot</strong>, then select <strong>Scatter Plot</strong> by double-clicking on
+the icon (red outline):</p>
 <a class="reference internal image-reference" href="../../../_images/chart_builder_scatter.png"><img alt="the &quot;chart builder&quot; dialog, with &quot;scatter plot&quot; highlighted in a red outline." class="align-center" src="../../../_images/chart_builder_scatter.png" style="width: 720px;" /></a>
 <p><br /> In this part of the practical, we’re going to look at the relationship between the number of hours of sun in a
 given month (the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable) and the monthly mean temperature (<code class="docutils literal notranslate"><span class="pre">Tmean</span></code>), using <code class="docutils literal notranslate"><span class="pre">Sun</span></code> as the <em>explanatory</em>
@@ -717,11 +715,12 @@ previous steps.</p>
 <h2>calculating correlation in spss<a class="headerlink" href="#calculating-correlation-in-spss" title="Permalink to this heading">#</a></h2>
 <p>Remember that scatter plots can give us a visual representation of the relationship between two variables, and we
 can even estimate the direction and strength of the (linear) relationship based on the scatter of the points.</p>
-<p>But that’s not the only method we have - we can also calculate the correlation between variables. First, open the
-<strong>Bivariate Correlations</strong> dialog (“bivariate” meaning “two variables”) from the <strong>Analyze</strong> menu (<strong>Analyze</strong> &gt;
-<strong>Correlate</strong> &gt; <strong>Bivariate</strong>:</p>
+<p>As we have covered in the lectures, visual inspection is not the only method we have - we can also calculate the
+correlation between variables.</p>
+<p>First, open the <strong>Bivariate Correlations</strong> dialog (“bivariate” meaning “two variables”) from the <strong>Analyze</strong> menu
+(<strong>Analyze</strong> &gt; <strong>Correlate</strong> &gt; <strong>Bivariate</strong>):</p>
 <a class="reference internal image-reference" href="../../../_images/correlations.png"><img alt="the &quot;bivariate correlations&quot; dialog" class="align-center" src="../../../_images/correlations.png" style="width: 400px;" /></a>
-<p><br /> As you can see, SPSS has three methods for estimating correlation available in this dialog, two of which we have
+<p><br /> As you can see, SPSS offers three methods for estimating correlation available in this dialog, two of which we have
 covered in the lectures:</p>
 <ul class="simple">
 <li><p>Pearson’s correlation coefficient</p></li>
@@ -730,7 +729,7 @@ covered in the lectures:</p>
 </ul>
 <p>Kendall’s tau-b rank correlation is a method for estimating correlation when you have many tied ranks in your data -
 we’re not going to explore it in detail here, but you can read more about it through the link above.</p>
-<p>In the dialog, add <code class="docutils literal notranslate"><span class="pre">Sun</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> to the list of <strong>Variables</strong> and select both <strong>Pearson</strong> and <strong>Spearman</strong>
+<p>In the dialog, add <code class="docutils literal notranslate"><span class="pre">Sun</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> to the list of <strong>Variables</strong> and select both <strong>Pearson</strong> and <strong>Spearman</strong>
 correlation coefficients.</p>
 <p>At the bottom of the window, de-select <strong>Flag significant correlations</strong> - we’ll discuss “significant” correlations
 more in next week’s lecture and practicals.</p>
@@ -748,9 +747,7 @@ we will see the correlations for each variable in a single column:</p>
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Compare the correlation values for each season.</p>
 <ul class="simple">
-<li><p class="sd-card-text">What differences between the two correlation measures do you notice? Remember that Pearson’s correlation assesses
-the linear relationship only, while Spearman’s assesses the monotonic relationship, so large (&gt; 0.3 or so)
-differences may mean that the relationship is not entirely linear.</p></li>
+<li><p class="sd-card-text">What differences between the two correlation measures do you notice?<a class="footnote-reference brackets" href="#id3" id="id1">1</a></p></li>
 <li><p class="sd-card-text">Do any seasons have a negative correlation between hours of sun and mean temperature? If so, can you think of
 a reason why that might happen?</p></li>
 </ul>
@@ -779,13 +776,13 @@ click <strong>OK</strong> to run the regression. You should see a number of tabl
 <p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
 </div>
 <div class="sd-card-body docutils">
-<p class="sd-card-text">Of the seasons, which slope is the largest? How do the correlation coefficients that we calculated earlier compare
-to the slopes of the regression line?</p>
+<p class="sd-card-text">Look at each of the four graphs. Of the four seasons, which slope is the largest (in absolute value)? How do the
+correlation coefficients that we calculated earlier compare to the slopes of the regression line?</p>
 </div>
 </div>
 <div class="section" id="reading-the-model-summary">
 <h3>reading the model summary<a class="headerlink" href="#reading-the-model-summary" title="Permalink to this heading">#</a></h3>
-<p>Now look at the <strong>Model Summary and Parameter Estimates</strong> table:</p>
+<p>Now look at the <strong>Model Summary and Parameter Estimates</strong> table<a class="footnote-reference brackets" href="#id4" id="id2">2</a>:</p>
 <a class="reference internal image-reference" href="../../../_images/regression_table.png"><img alt="the &quot;model summary and parameter estimates&quot; table." class="align-center" src="../../../_images/regression_table.png" style="width: 500px;" /></a>
 <p><br /> This table has the following columns in the <strong>Model Summary</strong> section:</p>
 <ul class="simple">
@@ -800,11 +797,11 @@ to the slopes of the regression line?</p>
 <p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
 </div>
 <div class="sd-card-body docutils">
-<p class="sd-card-text">In your own words, what does the <span class="math notranslate nohighlight">\(R^2\)</span> value for Spring tell us about the linear relationship between hours
-of sun and monthly mean temperature for Spring months?</p>
+<p class="sd-card-text"><strong>In your own words</strong>, what does the <span class="math notranslate nohighlight">\(R^2\)</span> value for Spring tell us about the linear relationship between
+hours of sun and monthly mean temperature for Spring months? What about for the other months?</p>
 </div>
 </div>
-<p>In the <strong>Parameter Estimates</strong> section, we have:</p>
+<p>In the <strong>Parameter Estimates</strong> section of the table, we have:</p>
 <ul class="simple">
 <li><p><strong>Constant</strong>, the estimate of the intercept of the linear model (<span class="math notranslate nohighlight">\(\beta\)</span> in the lecture notes)</p></li>
 <li><p><strong>b1</strong>, the estimate of the slope of the linear model (<span class="math notranslate nohighlight">\(\alpha\)</span> in the lecture notes)</p></li>
@@ -815,6 +812,29 @@ of sun and monthly mean temperature for Spring months?</p>
 temperature for <strong>Summer</strong> would be:</p>
 <div class="math notranslate nohighlight">
 \[{\rm Temperature} = 0.007 * {\rm Hours\ of\ Sun} + 13.724\]</div>
+<p>This means that for every unit increase of <code class="docutils literal notranslate"><span class="pre">Sun</span></code>, <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> increases by 0.007°C. At 0 hours of Sun, the value
+of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> is equal to 13.724°C.</p>
+</div>
+</div>
+</div>
+<div class="section" id="comparing-slopes">
+<h2>comparing slopes<a class="headerlink" href="#comparing-slopes" title="Permalink to this heading">#</a></h2>
+<p>Re-do the previous analysis, but this time use <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">In which season do you see the <strong>largest difference</strong> between the estimated <span class="math notranslate nohighlight">\(R^2\)</span> value (<strong>R squared</strong> in the
+<strong>Model Summary and Parameter Estimates</strong> table)? Why do you think this might be the case?</p>
+<p class="sd-card-text">Remember to think about what the <span class="math notranslate nohighlight">\(R^2\)</span> value represents!</p>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>To help you answer this question, you could open a new <strong>Excel</strong> spreadsheet, enter the values of <strong>b1</strong> from each
+table, and use a formula to calculate the difference between them:</p>
+<a class="reference internal image-reference" href="../../../_images/compare_seasonal_r2.png"><img alt="an excel workbook, set up to compare differences in R² value for Tmax and Tmean by season" class="align-center" src="../../../_images/compare_seasonal_r2.png" style="width: 500px;" /></a>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -822,7 +842,6 @@ temperature for <strong>Summer</strong> would be:</p>
 <strong>BEFORE</strong> leaving the computer lab.</p>
 <p>If you do not, you will lose your work, and you will need to re-complete the steps of this practical to be able to
 answer the questions on the assessment!</p>
-</div>
 </div>
 </div>
 <div class="section" id="next-steps">
@@ -842,6 +861,19 @@ overall relationship for each season?</p></li>
 </ul>
 </div>
 </div>
+</div>
+<div class="section" id="notes">
+<h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Remember: Pearson’s correlation assesses the linear relationship only, while Spearman’s assesses the monotonic
+relationship. so large (&gt; 0.3 or so) differences may mean that the relationship is not entirely linear.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>As always, the values that you see might be slightly different to the values shown in these screenshots, but the
+general pattern should match. If you aren’t sure, ask your classmates or an instructor to check.</p>
+</dd>
+</dl>
 </div>
 </div>
 
@@ -897,7 +929,9 @@ overall relationship for each season?</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-model-summary">reading the model summary</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-slopes">comparing slopes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
 </ul>
   </nav></div>
 
