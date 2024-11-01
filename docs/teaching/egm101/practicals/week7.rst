@@ -66,6 +66,116 @@ where you have saved it:
     If at any point you accidentally close the **Viewer** window, this is one way that you can re-open it.
 
 
+creating a box plot
+--------------------
+
+Open the **Boxplot** dialog by selecting it from the **Graphs** menu (**Graphs** > **Boxplot**). You should see the following:
+
+.. img/week7/boxplot_dialog.png
+	:width: 300
+	:align: center
+	:alt: the boxplot dialog, showing "simple" boxplot selected
+
+
+|br| Ensure that **Simple** boxplot is selected (the default), and that **Data in chart are** is set to **Summaries for groups of cases**. Click **Define** to bring up the
+definition dialog:
+
+.. img/week7/define_boxplot.png
+	:width: 500
+	:align: center
+	:alt: the blank "define simple boxplot" dialog, with no variables added yet
+
+|br| As before, we need to tell SPSS what variables to use for the plot. The **Variable** that we are going to be plotting is **Monthly total precipitation, in mm**, while the **Category Axis** should be **Month recorded**. Select each of these in turn and add them to the correct fields. The dialog should now look like this:
+
+.. img/week7/boxplot_selected.png
+	:width: 500
+	:align: center
+	:alt: the "define simple boxplot" dialog, with the variable and category axis variables added
+
+|br| Now, click on **Options** to bring up the options dialog:
+
+.. img/week7/boxplot_options.png
+	:width: 300
+	:align: center
+	:alt: the "options" dialog for the simple boxplot. Most of the options are grayed out.
+
+|br| Unlike with the bar chart, we don't have very many options to change here. The variable that we are plotting here (**Rain**) doesn't have very many missing values, but in the future you might want to select **Display groups defined by missing values**, which will display a report about missing values. Click **Continue**, then click **OK** to finish creating the boxplot.
+
+You should see the following in your **Data Viewer** window:
+
+.. img/week7/boxplot_labelled.png
+	:width: 720
+	:align: center
+	:alt: the spss data viewer window. A boxplot showing the distribution of rainfall by month is shown, with outliers labelled by case number.
+
+|br|
+
+.. tip::
+
+    As you have done previously, re-name this from "Explore" to something more recognizable so that you can easily
+    find it in your outputs. In the example above, I have chosen "Monthly Precipitation Boxplot".
+
+SPSS has output two items here - the boxplot, and the **Case Processing Summary**. This summary breaks down the number of values by case, so that you can see what percentage of each group is missing/invalid values. As a general rule, it's a good idea to check this and make sure you don't have an unexpectedly high percentage of missing values.
+
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+	What month(s) have missing values? What percentage of the total does this represent?
+
+
+By default, SPSS labels the outliers by **case number** - this way, we can go back into the **Data Editor** to view each outlier. This looks a bit messy on the plot, so we can turn it off using the **Chart Editor**.
+
+To open the **Chart Editor** for a chart, just double-click on it in the **Data Viewer**. You should see the following window open up:
+
+.. img/week7/boxplot_editor.png
+	:width: 600
+	:align: center
+	:alt: the chart editor window for the boxplot
+
+|br| As you might imagine, there are a number of options that we can change using the **Chart Editor**, including changing the orientation of the boxplot (so the boxes are horizontal rather than vertical). For now, we're only going to turn off the data labels, but feel free to have a look at the different menus to see what options might be available.
+
+To turn off the data labels, click on the **Elements** menu:
+
+.. img/week7/boxplot_editor_elements.png
+	:width: 600
+	:align: center
+	:alt: the chart editor window for the boxplot, with the elements menu shown
+
+|br| Click on **Hide Data Labels** to turn off the case number label for the outliers, then close the **Chart Editor**. In the **Data Viewer** window, you should see that the labels have been removed:
+
+.. img/week7/boxplot.png
+	:width: 720
+	:align: center
+	:alt: the spss data viewer window. A boxplot showing the distribution of rainfall by month is shown, with outliers no longer labelled by case number.
+
+|br|
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+	Look at the box plot that you have just created and compare it with the bar chart that you created last week. Which of these two plots conveys more information
+	about the distribution of monthly rainfall? Why do you think this? Use these two graphs to try to answer the following questions:
+
+	- Which month appears to have the least variability?
+	- Which month(s) appear to be the most/least symmetrical?
+	- Which month(s) had the lowest recorded rainfall?
+
+Once you are confident that you can understand and answer the questions above, move on to the next steps.
+
+.. tip::
+
+	Remember to save your **.spv** and **.sav** files!
+
+
 creating a date variable
 -------------------------
 
