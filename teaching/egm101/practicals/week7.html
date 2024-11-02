@@ -594,6 +594,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-box-plot">creating a box plot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-date-variable">creating a date variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plots-in-spss">scatter plots in spss</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-correlation-in-spss">calculating correlation in spss</a></li>
@@ -633,8 +634,8 @@ Week 6, where we introduce topics like correlation and regression.</p>
 <span id="egm101-spss-open"></span><h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you have not yet completed all the steps from the Week 6 practical, you should stop here and make sure that you
-finish them before moving on.</p>
+<p>No, seriously. If you have not yet completed all the steps from the Week 6 practical, you should stop here and
+make sure that you finish them before moving on.</p>
 </div>
 <p>To get started, open SPSS using either the <strong>Start</strong> menu (<strong>Start</strong> &gt; <strong>IBM SPSS Statistics</strong> &gt;
 <strong>IBM SPSS Statistics</strong>), double-click the desktop icon (if it exists), or click on the taskbar icon (if it exists).</p>
@@ -654,6 +655,91 @@ where you have saved it:</p>
 <p>If at any point you accidentally close the <strong>Viewer</strong> window, this is one way that you can re-open it.</p>
 </div>
 </div>
+<div class="section" id="creating-a-box-plot">
+<h2>creating a box plot<a class="headerlink" href="#creating-a-box-plot" title="Permalink to this heading">#</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Before starting this section, make sure that you have removed any splits from your dataset!</p>
+<p>As a reminder: Select <strong>Split File</strong> from the <strong>Data</strong> menu (<strong>Data</strong> &gt; <strong>Split File</strong>), then make sure that you
+select <strong>Analyze all cases, do not create groups</strong>.</p>
+</div>
+<p>Open the <strong>Boxplot</strong> dialog by selecting it from the <strong>Graphs</strong> menu (<strong>Graphs</strong> &gt; <strong>Boxplot</strong>). You should see the
+following:</p>
+<a class="reference internal image-reference" href="../../../_images/boxplot_dialog.png"><img alt="the boxplot dialog, showing &quot;simple&quot; boxplot selected" class="align-center" src="../../../_images/boxplot_dialog.png" style="width: 200px;" /></a>
+<p><br /> Ensure that <strong>Simple</strong> boxplot is selected (the default), and that <strong>Data in chart are</strong> is set to
+<strong>Summaries for groups of cases</strong>. Click <strong>Define</strong> to bring up the definition dialog:</p>
+<a class="reference internal image-reference" href="../../../_images/define_boxplot.png"><img alt="the blank &quot;define simple boxplot&quot; dialog, with no variables added yet" class="align-center" src="../../../_images/define_boxplot.png" style="width: 500px;" /></a>
+<p><br /> As before, we need to tell SPSS what variables to use for the plot. The <strong>Variable</strong> that we are going to be
+plotting is <strong>Monthly total precipitation, in mm</strong>, while the <strong>Category Axis</strong> should be <strong>Month recorded</strong>. Select
+each of these in turn and add them to the correct fields.</p>
+<p>The dialog should now look like this:</p>
+<a class="reference internal image-reference" href="../../../_images/boxplot_selected.png"><img alt="the &quot;define simple boxplot&quot; dialog, with the variable and category axis variables added" class="align-center" src="../../../_images/boxplot_selected.png" style="width: 500px;" /></a>
+<p><br /> Now, click on <strong>Options</strong> to bring up the options dialog:</p>
+<a class="reference internal image-reference" href="../../../_images/boxplot_options.png"><img alt="the &quot;options&quot; dialog for the simple boxplot. Most of the options are grayed out." class="align-center" src="../../../_images/boxplot_options.png" style="width: 300px;" /></a>
+<p><br /> Unlike with the bar chart, we don’t have very many options to change here. The variable that we are plotting here
+(<code class="docutils literal notranslate"><span class="pre">Rain</span></code>) doesn’t have very many missing values, but in the future you might want to select
+<strong>Display groups defined by missing values</strong>, which will display a report about missing values.</p>
+<p>Click <strong>Continue</strong>, then click <strong>OK</strong> to finish creating the boxplot. You should see the following in your
+<strong>Data Viewer</strong> window:</p>
+<a class="reference internal image-reference" href="../../../_images/boxplot_labelled.png"><img alt="the spss data viewer window. A boxplot showing the distribution of rainfall by month is shown, with outliers labelled by case number." class="align-center" src="../../../_images/boxplot_labelled.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>As you have done previously, re-name this from “Explore” to something more recognizable so that you can easily
+find it in your outputs. In the example above, I have chosen “Monthly Precipitation Boxplot”.</p>
+</div>
+<p>SPSS has output two items here - the boxplot, and the <strong>Case Processing Summary</strong>. This summary breaks down the number
+of values by case, so that you can see what percentage of each group is missing/invalid values. As a general rule, it’s
+a good idea to check this and make sure you don’t have an unexpectedly high percentage of missing values, or an uneven
+number of observations for each group.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text">What month(s) have missing values?</p></li>
+<li><p class="sd-card-text">What percentage of the total does this represent?</p></li>
+<li><p class="sd-card-text">Do you think that this will make a substantial difference for calculating the boxplot for each month? Why or why
+not?</p></li>
+</ul>
+</div>
+</div>
+<p>By default, SPSS labels the outliers by <strong>case number</strong> - this way, we can go back into the <strong>Data Editor</strong> to view
+each outlier. This looks a bit messy on the plot, so we can turn it off using the <strong>Chart Editor</strong>.</p>
+<p>To open the <strong>Chart Editor</strong> for a chart, just double-click on it in the <strong>Data Viewer</strong>. You should see the following
+window open up:</p>
+<a class="reference internal image-reference" href="../../../_images/boxplot_editor.png"><img alt="the chart editor window for the boxplot" class="align-center" src="../../../_images/boxplot_editor.png" style="width: 600px;" /></a>
+<p><br /> As you might imagine, there are a number of options that we can change using the <strong>Chart Editor</strong>, including
+changing the orientation of the boxplot (so the boxes are horizontal rather than vertical). For now, we’re only going
+to turn off the data labels, but feel free to have a look at the different menus to see what options might be available.</p>
+<p>To turn off the data labels, click on the <strong>Elements</strong> menu:</p>
+<a class="reference internal image-reference" href="../../../_images/boxplot_editor_elements.png"><img alt="the chart editor window for the boxplot, with the elements menu shown" class="align-center" src="../../../_images/boxplot_editor_elements.png" style="width: 600px;" /></a>
+<p><br /> Click on <strong>Hide Data Labels</strong> to turn off the case number label for the outliers, then close the <strong>Chart Editor</strong>.
+In the <strong>Data Viewer</strong> window, you should see that the labels have been removed:</p>
+<a class="reference internal image-reference" href="../../../_images/boxplot.png"><img alt="the spss data viewer window. A boxplot showing the distribution of rainfall by month is shown, with outliers no longer labelled by case number." class="align-center" src="../../../_images/boxplot.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Look at the box plot that you have just created and compare it with the bar chart that you created last week. Which
+of these two plots conveys more information about the distribution of monthly rainfall? Why do you think this? Use
+these two graphs to try to answer the following questions:</p>
+<ul class="simple">
+<li><p class="sd-card-text">Which month appears to have the least variability?</p></li>
+<li><p class="sd-card-text">Which month(s) appear to be the most/least symmetrical?</p></li>
+<li><p class="sd-card-text">Which month(s) had the lowest recorded rainfall?</p></li>
+</ul>
+</div>
+</div>
+<p>Once you are confident that you can understand and answer the questions above, move on to the next steps.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Remember to save your <strong>.spv</strong> and <strong>.sav</strong> files!</p>
+</div>
+</div>
 <div class="section" id="creating-a-date-variable">
 <h2>creating a date variable<a class="headerlink" href="#creating-a-date-variable" title="Permalink to this heading">#</a></h2>
 <p>Most software programs that you will encounter have a special way of handling dates, to make it possible to compute
@@ -668,35 +754,39 @@ into a <strong>Date</strong> variable.</p>
 <a class="reference internal image-reference" href="../../../_images/date_time_wizard1.png"><img alt="the first step of the date and time wizard dialog" class="align-center" src="../../../_images/date_time_wizard1.png" style="width: 400px;" /></a>
 <p><br /> In this step, we tell SPSS what variables correspond to what parts of the <strong>Date</strong> variable we want to calculate.
 Note that we don’t have to fill all of these out - because we only have <strong>Month</strong> and <strong>Year</strong> variables, those are
-what we need to set. So, highlight <code class="docutils literal notranslate"><span class="pre">Year</span></code> in the <strong>Variables</strong> box, then click the arrow button next to <strong>Year</strong>. Do
+what we need to set.</p>
+<p>Highlight <code class="docutils literal notranslate"><span class="pre">Year</span></code> in the <strong>Variables</strong> box, then click the arrow button next to <strong>Year</strong>. Do
 the same for <code class="docutils literal notranslate"><span class="pre">Month</span></code>, so that the dialog looks like this:</p>
 <a class="reference internal image-reference" href="../../../_images/date_time_wizard2.png"><img alt="the first step of the date and time wizard dialog, with &quot;year&quot; and &quot;month&quot; variables set." class="align-center" src="../../../_images/date_time_wizard2.png" style="width: 400px;" /></a>
-<p><br /> Now, click <strong>Next</strong>. This is where we set the name and label of the new variable (<code class="docutils literal notranslate"><span class="pre">Date</span></code> and
-“Date measurement was recorded”), and select the <strong>Output Format</strong> - how we want the date to be displayed.</p>
+<p><br /> Now, click <strong>Next</strong>. This is where we set the name and label of the new variable and select the <strong>Output Format</strong>
+- how we want the date to be displayed.</p>
+<p>Name the new variable <code class="docutils literal notranslate"><span class="pre">Date</span></code> and add an appropriate label (e.g., “Date measurement was recorded”).</p>
 <p>Select the <strong>yyyy/mm/dd</strong> format - when we create the new variable, the first value should look like <strong>1853/01/01/</strong>,
 for 01 January 1853. Click <strong>Finish</strong> to create the new variable:</p>
 <a class="reference internal image-reference" href="../../../_images/date_time_wizard3.png"><img alt="the final step of the date and time wizard dialog, with the variable name, format, and label selected." class="align-center" src="../../../_images/date_time_wizard3.png" style="width: 400px;" /></a>
 <p><br /> If you like, you can re-arrange the variable order in the <strong>Variable View</strong> tab of the <strong>Data Editor</strong>
-window so that the <code class="docutils literal notranslate"><span class="pre">Date</span></code> variable is at the top. If not, move on to the next section.</p>
+window so that the <code class="docutils literal notranslate"><span class="pre">Date</span></code> variable is at the top. To do this, click on the number next to the variable you want to
+move, then drag the variable to the new position while holding down the mouse button.</p>
+<p>Once you are happy with the order of the variables, move on to the next steps.</p>
 </div>
 <div class="section" id="scatter-plots-in-spss">
 <h2>scatter plots in spss<a class="headerlink" href="#scatter-plots-in-spss" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For this section, make sure that you have <strong>Split</strong> the file based on meteorological season. If you aren’t sure
-how to do this, you can refer to <a class="reference internal" href="week6.html#egm101-split"><span class="std std-ref">last week’s</span></a> practical for a refresher.</p>
+<p>For the next few sections, make sure that you have <strong>Split</strong> the file based on meteorological season. If you aren’t
+sure how to do this, you can refer to <a class="reference internal" href="week6.html#egm101-split"><span class="std std-ref">last week’s</span></a> practical for a refresher.</p>
 </div>
-<p>We can create a scatter plot in SPSS in the same way that we created histograms and bar charts last week. The
-instructions below will show this using the <strong>Chart Builder</strong>, but you can also use
-the <strong>Legacy Dialogs</strong> (<strong>Graphs</strong> &gt; <strong>Scatter/Dot</strong>).</p>
+<p>We can create a scatter plot in SPSS in the same way that we created histograms, bar charts, and boxplots. The
+instructions below will show this using the <strong>Chart Builder</strong>, but you can also use the <strong>Dialog</strong> (<strong>Graphs</strong> &gt;
+<strong>Scatter/Dot</strong>).</p>
 <p>To start, open the <strong>Chart Builder</strong> (<strong>Graphs</strong> &gt; <strong>Chart Builder</strong>).</p>
 <p>Under <strong>Gallery</strong> in the lower left corner, select <strong>Scatter/Dot</strong>, then select <strong>Scatter Plot</strong> by double-clicking on
 the icon (red outline):</p>
 <a class="reference internal image-reference" href="../../../_images/chart_builder_scatter.png"><img alt="the &quot;chart builder&quot; dialog, with &quot;scatter plot&quot; highlighted in a red outline." class="align-center" src="../../../_images/chart_builder_scatter.png" style="width: 720px;" /></a>
 <p><br /> In this part of the practical, we’re going to look at the relationship between the number of hours of sun in a
-given month (the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable) and the monthly mean temperature (<code class="docutils literal notranslate"><span class="pre">Tmean</span></code>), using <code class="docutils literal notranslate"><span class="pre">Sun</span></code> as the <em>explanatory</em>
-variable, and <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> as the <em>response</em> variable.</p>
-<p>To do this, click and drag the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable to the <strong>X-Axis?</strong> box, and the <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> variable to the <strong>Y-Axis?</strong>
+given month (the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable) and the monthly minimum temperature (<code class="docutils literal notranslate"><span class="pre">Tmin</span></code>), using <code class="docutils literal notranslate"><span class="pre">Sun</span></code> as the <em>explanatory</em>
+variable, and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code> as the <em>response</em> variable.</p>
+<p>To do this, click and drag the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable to the <strong>X-Axis?</strong> box, and the <code class="docutils literal notranslate"><span class="pre">Tmin</span></code> variable to the <strong>Y-Axis?</strong>
 box:</p>
 <a class="reference internal image-reference" href="../../../_images/chart_builder_scatter1.png"><img alt="the &quot;chart builder&quot; dialog, with the two variables added to the chart." class="align-center" src="../../../_images/chart_builder_scatter1.png" style="width: 720px;" /></a>
 <p><br /> Click <strong>OK</strong>, and you should see four scatter plots created in the <strong>Viewer</strong> window.</p>
@@ -714,8 +804,9 @@ previous steps.</p>
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Describe the four different relationships that you see.</p>
 <ul class="simple">
-<li><p class="sd-card-text">Of the four, which season seems to have the strongest relationship between hours of sun and mean temperature?</p></li>
-<li><p class="sd-card-text">Are there any seasons where you see a <em>negative</em> relationship between hours of sun and mean temperature?</p></li>
+<li><p class="sd-card-text">Of the four, which season seems to have the strongest relationship between hours of sun and minimum temperature?</p></li>
+<li><p class="sd-card-text">Are there any seasons where you see a <em>negative</em> relationship between hours of sun and minimum temperature?</p></li>
+<li><p class="sd-card-text">Can you think of a physical explanation for why you see these relationships?</p></li>
 </ul>
 </div>
 </div>
@@ -740,9 +831,9 @@ covered in the lectures:</p>
 <li><p><a class="reference external" href="https://www.statisticshowto.com/kendalls-tau/">Kendall’s tau-b rank correlation</a></p></li>
 <li><p>Spearman’s rank correlation</p></li>
 </ul>
-<p>Kendall’s tau-b rank correlation is a method for estimating correlation when you have many tied ranks in your data -
-we’re not going to explore it in detail here, but you can read more about it through the link above.</p>
-<p>In the dialog, add <code class="docutils literal notranslate"><span class="pre">Sun</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> to the list of <strong>Variables</strong> and select both <strong>Pearson</strong> and <strong>Spearman</strong>
+<p>Kendall’s <span class="math notranslate nohighlight">\(\tau b\)</span> rank correlation is a method for estimating correlation when you have many tied ranks in your
+data - we’re not going to explore it in detail here, but you can read more about it through the link above.</p>
+<p>In the dialog, add <code class="docutils literal notranslate"><span class="pre">Sun</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code> to the list of <strong>Variables</strong> and select both <strong>Pearson</strong> and <strong>Spearman</strong>
 correlation coefficients.</p>
 <p>At the bottom of the window, de-select <strong>Flag significant correlations</strong> - we’ll discuss “significant” correlations
 more in next week’s lecture and practicals.</p>
@@ -760,28 +851,31 @@ we will see the correlations for each variable in a single column:</p>
 <div class="sd-card-body docutils">
 <p class="sd-card-text">Compare the correlation values for each season.</p>
 <ul class="simple">
+<li><p class="sd-card-text">Do the correlation measures that you see here match the expectations that you had, based on the scatter plots?
+Why or why not?</p></li>
 <li><p class="sd-card-text">What differences between the two correlation measures do you notice?<a class="footnote-reference brackets" href="#id3" id="id1">1</a></p></li>
-<li><p class="sd-card-text">Do any seasons have a negative correlation between hours of sun and mean temperature? If so, can you think of
-a reason why that might happen?</p></li>
+<li><p class="sd-card-text">Do any seasons have a negative correlation between hours of sun and minimum temperature? If so, can you think of
+a physical explanation for why that might happen?</p></li>
 </ul>
 </div>
 </div>
 </div>
 <div class="section" id="regression-in-spss">
 <h2>regression in spss<a class="headerlink" href="#regression-in-spss" title="Permalink to this heading">#</a></h2>
-<p>Now that we’ve calculated the correlation between these two variables, we’ll see how we can use SPSS to do linear
-regression.</p>
+<p>Now that we’ve made scatter plots and calculated the correlation between these two variables, we’ll see how we can use
+SPSS to do linear regression, to estimate the (linear) relationship between them.</p>
 <p>To begin, open the <strong>Curve Estimation</strong> dialog (<strong>Analyze</strong> &gt; <strong>Regression</strong> &gt; <strong>Curve Estimation</strong>):</p>
 <a class="reference internal image-reference" href="../../../_images/curve_estimate.png"><img alt="the &quot;curve estimation&quot; dialog." class="align-center" src="../../../_images/curve_estimate.png" style="width: 500px;" /></a>
 <p><br /> As you can see in this dialog, SPSS allows you to use a wide range of models to estimate the relationships between
 two variables, including quite a few that we’ve mentioned in the lectures. For now, we’ll stick to the <strong>Linear</strong> model,
 but in the future you may work with data that exhibit some other form of relationship.</p>
-<p>Add the <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> variable to the <strong>Dependent(s)</strong> field, and then add the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable to the <strong>Independent</strong>
+<p>Add the <code class="docutils literal notranslate"><span class="pre">Tmin</span></code> variable to the <strong>Dependent(s)</strong> field, and then add the <code class="docutils literal notranslate"><span class="pre">Sun</span></code> variable to the <strong>Independent</strong>
 field:</p>
-<a class="reference internal image-reference" href="../../../_images/curve_estimate2.png"><img alt="the &quot;curve estimation&quot; dialog, with the sun and tmean variables added" class="align-center" src="../../../_images/curve_estimate2.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/curve_estimate2.png"><img alt="the &quot;curve estimation&quot; dialog, with the sun and tmin variables added" class="align-center" src="../../../_images/curve_estimate2.png" style="width: 500px;" /></a>
 <p><br /> This will find the “best-fit” line using monthly hours of sun as the explanatory (<em>independent</em>) variable, and
-the monthly mean temperature as the response (<em>dependent</em>) variable. Make sure that <strong>Plot models</strong> is checked, then
-click <strong>OK</strong> to run the regression. You should see a number of tables and graphs added to the <strong>Viewer</strong> window:</p>
+the monthly minimum temperature as the response (<em>dependent</em>) variable. Make sure that <strong>Plot models</strong> is checked, then
+click <strong>OK</strong> to run the regression.</p>
+<p>You should see a number of tables and graphs added to the <strong>Viewer</strong> window:</p>
 <a class="reference internal image-reference" href="../../../_images/regressions.png"><img alt="the &quot;data viewer&quot; window, with the regression output added." class="align-center" src="../../../_images/regressions.png" style="width: 720px;" /></a>
 <p><br /></p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
@@ -811,7 +905,7 @@ correlation coefficients that we calculated earlier compare to the slopes of the
 </div>
 <div class="sd-card-body docutils">
 <p class="sd-card-text"><strong>In your own words</strong>, what does the <span class="math notranslate nohighlight">\(R^2\)</span> value for Spring tell us about the linear relationship between
-hours of sun and monthly mean temperature for Spring months? What about for the other months?</p>
+hours of sun and monthly minimum temperature for Spring months? What about for the other months?</p>
 </div>
 </div>
 <p>In the <strong>Parameter Estimates</strong> section of the table, we have:</p>
@@ -821,18 +915,19 @@ hours of sun and monthly mean temperature for Spring months? What about for the 
 </ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>Putting this all together, the equation for the relationship between monthly hours of sun and the monthly mean
-temperature for <strong>Summer</strong> would be:</p>
+<p>Putting this all together using the example table above, the equation for the relationship between monthly hours of
+sun and the monthly mean temperature (<code class="docutils literal notranslate"><span class="pre">Tmean</span></code>) for <strong>Summer</strong> would be:</p>
 <div class="math notranslate nohighlight">
 \[{\rm Temperature} = 0.007 * {\rm Hours\ of\ Sun} + 13.724\]</div>
-<p>This means that for every unit increase of <code class="docutils literal notranslate"><span class="pre">Sun</span></code>, <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> increases by 0.007°C. At 0 hours of Sun, the value
-of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> is equal to 13.724°C.</p>
+<p>This means that for every unit increase of <code class="docutils literal notranslate"><span class="pre">Sun</span></code>, the predicted value of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> <em>increases</em> by 0.007°C. At 0
+hours of Sun, the predicted value of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> is 13.724°C.</p>
 </div>
 </div>
 </div>
 <div class="section" id="comparing-slopes">
 <h2>comparing slopes<a class="headerlink" href="#comparing-slopes" title="Permalink to this heading">#</a></h2>
-<p>Re-do the previous analysis, but this time use <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>.</p>
+<p>Re-do the previous regression analysis, but this time use <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>. Use the resulting table, along
+with your results from <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>, to answer the following questions.</p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
 <div class="sd-card-header question docutils">
 <p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
@@ -843,11 +938,20 @@ of <code class="docutils literal notranslate"><span class="pre">Tmean</span></co
 <p class="sd-card-text">Remember to think about what the <span class="math notranslate nohighlight">\(R^2\)</span> value represents!</p>
 </div>
 </div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">In which season(s) do you see the <strong>largest difference</strong> between the estimated slope values? Are there any
+relationships that have an opposing sign (in other words, one is negative and one is positive)?</p>
+</div>
+</div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>To help you answer this question, you could open a new <strong>Excel</strong> spreadsheet, enter the values of <strong>b1</strong> from each
-table, and use a formula to calculate the difference between them:</p>
-<a class="reference internal image-reference" href="../../../_images/compare_seasonal_r2.png"><img alt="an excel workbook, set up to compare differences in R² value for Tmax and Tmean by season" class="align-center" src="../../../_images/compare_seasonal_r2.png" style="width: 500px;" /></a>
+<p>To help you answer these questions, you could open a new <strong>Excel</strong> spreadsheet, enter the values of <strong>b1</strong> from
+each table, and use a formula to calculate the difference between them:</p>
+<a class="reference internal image-reference" href="../../../_images/compare_seasonal_r2.png"><img alt="an excel workbook, set up to compare differences in R² value for Tmax and Tmean by season" class="align-center" src="../../../_images/compare_seasonal_r2.png" style="width: 600px;" /></a>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -883,8 +987,8 @@ overall relationship for each season?</p></li>
 relationship. so large (&gt; 0.3 or so) differences may mean that the relationship is not entirely linear.</p>
 </dd>
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>As always, the values that you see might be slightly different to the values shown in these screenshots, but the
-general pattern should match. If you aren’t sure, ask your classmates or an instructor to check.</p>
+<dd><p>As always, the values that you see might be different to the values shown in these screenshots. The
+example here shows monthly mean temperature (<code class="docutils literal notranslate"><span class="pre">Tmean</span></code>) rather than the minimum temperature (<code class="docutils literal notranslate"><span class="pre">Tmin</span></code>).</p>
 </dd>
 </dl>
 </div>
@@ -935,6 +1039,7 @@ general pattern should match. If you aren’t sure, ask your classmates or an in
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-box-plot">creating a box plot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-date-variable">creating a date variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plots-in-spss">scatter plots in spss</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-correlation-in-spss">calculating correlation in spss</a></li>
