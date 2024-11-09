@@ -13,16 +13,18 @@ getting started
 
 .. warning::
 
-    If you have not yet completed all the steps from the Week 7 practical, you should stop here and make sure that you
-    finish them before moving forward.
+    If you have not yet completed all the steps from the Week 6 and Week 7 practicals, you should stop here and make
+    sure that you finish them before moving forward.
 
 To get started, open SPSS and re-open the ``ArmaghData.sav`` and ``ArmaghData.spv`` files that you have been working
-with over the past two weeks. If you are not sure how to do this, have a look at the instructions
-:ref:`from last week <egm101 spss open>` as a refresher.
+with over the past two weeks.
+
+If you are not sure how to do this, have a look at the instructions :ref:`from last week <egm101 spss open>` as a
+refresher.
 
 
-splitting the data
--------------------
+re-coding values
+-----------------
 
 Our goal in today's practical is to make comparisons of the differences in monthly mean temperature between three
 different time periods: 1871-1920, 1921-1970, and 1971-2020.
@@ -37,10 +39,11 @@ To begin, open the **Recode into different variables** dialog (**Transform** > *
     :align: center
     :alt: the "recode into different variables" dialog
 
-
-|br| We want to recode the ``Year`` variable into a new variable, ``Period``, which corresponds to one of the time
+|br| We want to recode the ``Year`` variable into a new variable, ``Period``, which corresponds to one of the three time
 periods that we're looking at. To do this, select the ``Year`` variable from the list of variables, type "Period" into
-the **Name** field, and add a **Label**. Then, click **Change** to apply the new variable:
+the **Name** field, and add a **Label**.
+
+Click **Change** to apply the new variable:
 
 .. image:: img/week8/recode2.png
     :width: 400
@@ -65,7 +68,8 @@ value of zero:
     :alt: the "recode into different variables: old and new values" dialog, with the recode values set
 
 |br| Click **OK**. You should see the new variable created in the **Data Editor** window. Under the **Variable View**
-tab, add labels for each value of period, like you did previously for the ``Month`` and ``Season`` variables.
+tab, add **Value Labels** for each value of ``Period``, like you did previously for the ``Month`` and ``Season``
+variables.
 
 You should also change the **Width** and **Decimals** for the ``Period`` variable to be 2 and 0, respectively, and make
 sure that the **Measure** is set to **Nominal**:
@@ -80,20 +84,22 @@ sure that the **Measure** is set to **Nominal**:
 aggregating data
 -----------------
 
-Before we proceed, we have to deal with one other issue: our temperature variables have something called
-"serial correlation" - that is, they are not completely independent. The reason for this is that the temperature
-fluctuates throughout the year, according to a pattern: we generally have cooler temperatures in the winter,
-temperatures increase through the spring into the summer, and then temperatures decreases through the autumn into
-the winter:
+Before we proceed, we will deal with one other issue: our temperature variables have something called
+"serial correlation" - that is, they are not completely independent.
+
+The reason for this is that the temperature fluctuates throughout the year, according to a pattern: we generally have
+cooler temperatures in the winter, temperatures increase through the spring into the summer, and then temperatures
+decreases through the autumn into the winter:
 
 .. image:: img/week8/MonthlyMax.png
     :width: 500
     :align: center
     :alt: the seasonal pattern of monthly maximum temperature
 
-|br| To help mitigate this, we will **Aggregate** the data - that is, average values together (or take their sum) based on
-some grouping variable. Because we are interested in looking at changes over a number of years, we'll look at the
-annual average.
+|br| One way that we can help mitigate this is to **Aggregate** the data - that is, average values together (or take
+their sum) based on some grouping variable.
+
+Because we are interested in looking at changes over a number of years, we'll look at the annual average.
 
 To proceed, select **Aggregate** from the **Data** menu:
 
@@ -102,12 +108,13 @@ To proceed, select **Aggregate** from the **Data** menu:
     :align: center
     :alt: the "aggregate data" dialog
 
-|br| The variable that we want to use for grouping goes in the **Break Variable(s)** field - because we want to aggregate
-using the ``Year`` variable, it should go here. The **Aggregated Variables** are all of the variables that we want to
-calculate annual averages for.
+|br| The variable that we want to use for grouping goes in the **Break Variable(s)** field - because we want to
+aggregate using the ``Year`` variable, it should go here.
+
+The **Aggregated Variables** are all of the variables that we want to calculate annual averages for.
 
 In this practical, we will only look at the monthly mean temperature, but you can add each of the meteorological
-variables here, except for ``AirFrost``, in case you are interested in additional practice later on:
+variables here, except for ``AirFrost``\ [1]_, in case you are interested in additional practice later on:
 
 .. image:: img/week8/aggregate2.png
     :width: 400
@@ -115,8 +122,15 @@ variables here, except for ``AirFrost``, in case you are interested in additiona
     :alt: the "aggregate data" dialog, set to aggregate variables based on the year recorded
 
 |br| Leave the other choices as they are, then click **OK**. You should see that your new variables are added to the
-**Variable View** in the **Data Editor** window. Remember to add **Labels** for the new variables, too, to help you
-distinguish these annually-averaged variables from the originals.
+**Variable View** in the **Data Editor** window:
+
+.. image:: img/week8/aggregated_variables.png
+    :width: 720
+    :align: center
+    :alt: the variable view of the data editor window, showing the new aggregated variables
+
+|br| Remember to add **Labels** for the new variables, too, to help you distinguish these annually averaged variables
+from the originals.
 
 .. warning::
 
@@ -140,7 +154,7 @@ enter the following formula into the condition field:
 
 |br| This way, we only consider cases from the three time periods we are interested in studying: 1871-1920, 1921-1970,
 and 1971-2020. By selecting only a single month (June), we also ensure that we are dealing with a single value
-per year.\ [1]_
+per year.\ [2]_
 
 Click **Continue**, then click **OK** in the **Select Cases** dialog to apply the selection.
 
@@ -192,11 +206,13 @@ histogram changes to show three panels:
     ^^^
 
     Look at the three histograms. What do you notice about the distribution of the three periods (1871-1920, 1921-1970,
-    and 1971-2020)? Pay attention to the position of the peak of the normal curve (the *mean* value), but also the
+    and 1971-2020)?
+
+    Pay attention to the position of the peak of the normal curve (the *mean* value), but also the
     width of the peak (the *standard deviation*), as well as whether the data appear to be skewed in a particular
     direction.
 
-    What can you say about the different time periods?
+    What can you say about the distribution of mean temperature across the different time periods?
 
 .. tip::
 
@@ -205,8 +221,9 @@ histogram changes to show three panels:
 one-way anova
 --------------
 
-From the plot of the histograms for each time period, it looks like the mean temperature is different in each time
-period - not only that, but it is increasing over time.
+From the plot of the histograms for each time period, it looks like the mean of the annual temperatures is different in
+each time period. Not only that, but the mean annual temperature is increasing over time: 1921-1970 was warmer than
+1871-1920, and 1971-2020 was warmer than 1921-1970.
 
 As discussed in this week's lecture, one-way analysis of variance (**ANOVA**) is a technique that can help us determine
 whether there are *significant* differences in the means of three or more categories or groups of variables.
@@ -231,7 +248,7 @@ whether there are *significant* differences in the means of three or more catego
     Formulate the null and alternative hypotheses for this test.
 
 To perform a One-way ANOVA test in SPSS, select **One-Way ANOVA** from the **Analyze** menu (**Analyze** >
-**Compare Means** > **One-Way ANOVA**):
+**Compare Means and Proportions** > **One-Way ANOVA**):
 
 .. image:: img/week8/oneway_anova1.png
     :width: 500
@@ -278,7 +295,7 @@ at least one pair of groups - that is, they do not all appear to have the same p
 
 Remember that ANOVA only tells us whether there is a difference between at least one pair of groups - it doesn't tell
 us what the difference is, or even which groups. For that, we need to do additional tests, called *post hoc*
-tests.\ [2]_
+tests.\ [3]_
 
 independent samples *t*-test
 ------------------------------
@@ -356,7 +373,9 @@ distributed.
     ^^^
 
     Look at the **Descriptives** table that you just created - what values of **Kurtosis** and **Skewness** do you see?
-    What do these values tell you about how normal each distribution is?
+
+    What do these values tell you about how normal each distribution is? Which of the three time periods comes closest
+    to a normal distribution?
 
 In addition to measures like kurtosis and skewness, we can also use SPSS to create Q-Q plots, which will plot the
 distribution of quantiles of our data against the theoretical quantiles that we would expect from a normal distribution
@@ -425,8 +444,8 @@ the *t*-test
     **Analyze all cases, do not create groups** in the **Split File** dialog.
 
 To perform the independent samples *t*-test, open the **Independent-Samples T Test** dialog (**Analyze** >
-**Compare Means** > **Independent-Samples T Test**). Add ``Tmean_mean`` as the **Test Variable**, and ``Period`` as
-the **Grouping Variable**, and uncheck **Estimate effect sizes**.
+**Compare Means and Proportions** > **Independent-Samples T Test**). Add ``Tmean_mean`` as the **Test Variable**, and
+``Period`` as the **Grouping Variable**, and uncheck **Estimate effect sizes**.
 
 .. image:: img/week8/independent1.png
     :width: 400
@@ -479,9 +498,9 @@ The remaining columns give us the results of the test:
 From this table, we can see that at the :math:`\alpha = 0.05` level of significance, there is a significant difference
 between the mean values of the annually averaged values of the monthly mean temperature between 1871-1920 and 1971-2020.
 
-The estimate of the difference, at least in the table shown above, is -0.631°C, meaning that 1971-2020 was 0.631°C
-warmer than 1871-1920 (the difference is calculated by subtracting the estimate of the second group from the estimate
-of the first group).
+The estimate of the difference, at least in the table shown above, is -0.631°C, meaning that on average, 1971-2020 was
+0.631°C warmer than 1871-1920 (the difference is calculated by subtracting the estimate of the second group from the
+estimate of the first group).
 
 .. card::
     :class-header: question
@@ -500,9 +519,11 @@ of the first group).
     ^^^
 
     Using the estimates of the difference of the means and the standard error of the difference, write the 95%
-    confidence interval as :math:`\Delta_\mu\pm\sigma`, where :math:`\Delta_\mu` is the estimate of the difference
-    between the means, and :math:`\sigma` is the multiple of the standard error of the difference used for the 95%
-    confidence interval.
+    confidence interval as :math:`\Delta\mu\pm\beta`, where:
+
+    - :math:`\Delta\mu` is the estimate of the difference between the means
+    - :math:`\beta = \alpha * \sigma` is the multiple of the standard error of the difference (:math:`\sigma`)
+      used for the 95% confidence interval.
 
 .. tip::
 
@@ -636,7 +657,7 @@ next steps
 
 This is the end of the Quantitative Skills portion of EGM101. Once you have completed each of the practicals and
 answered each of the questions found within the instructions, you should be ready to complete the assessment questions
-posted on Blackboard.\ [3]_
+posted on Blackboard.\ [4]_
 
 If you are looking for additional practice, try the following suggestions:
 
@@ -669,14 +690,17 @@ If you are looking for additional practice, try the following suggestions:
 notes
 ------
 
-.. [1] The choice of June here is entirely arbitrary - because SPSS has assigned an aggregated value to each case,
-    choosing any single month will work.
+.. [1] Because most months have a value of 0 for ``AirFrost``, it would make more sense to take the sum of this variable
+    instead of the mean.
 
-.. [2] In what follows, we'll select a single pair of periods to compare. To correctly compare the means of more than
+.. [2] The choice of June here is entirely arbitrary - because SPSS has assigned the same aggregated value to each case
+    within a year, choosing any single month will work.
+
+.. [3] In what follows, we'll select a single pair of periods to compare. To correctly compare the means of more than
     two groups, however, we need to adjust the *p*-value to account for the fact that we're doing multiple comparisons.
     One way to do this is using the **Post Hoc** button on the right-hand side of the dialog - in
     `this dialog <https://www.ibm.com/docs/en/spss-statistics/saas?topic=anova-one-way-post-hoc-tests>`__, you can
     select the different tests to use to account for multiple comparisons.
 
-.. [3] This is because, as is hopefully now clear, the questions on the assessment are drawn almost exclusively from
+.. [4] This is because, as is hopefully now clear, the questions on the assessment are drawn almost exclusively from
     the questions I have asked throughout each of the four practicals.
