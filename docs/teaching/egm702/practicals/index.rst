@@ -5,7 +5,6 @@ practicals
    :glob:
    :maxdepth: 1
 
-   setup
    week1
    week2/index
    week3/index

@@ -7,6 +7,7 @@ EGM702: photogrammetry and advanced image analysis
    :maxdepth: 1
 
    lectures
+   setup/index
    practicals/index
    resources
 
