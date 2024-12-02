@@ -1,5 +1,5 @@
-software setup
-==============
+micmac and cloudcompare
+========================
 
 For Practical 1, we’ll be using an open-source photogrammetry software package, `MicMac <https://>`__. If you would
 like to visualise the point clouds, you can also install the free software packages MeshLab or CloudCompare. All of
@@ -102,15 +102,6 @@ scroll up to see it):
 - the location where you have extracted the contents of ``micmac_win.zip``.
 
 Send these along to the instructor or post them in the Discussion Board.
-
-meshlab
--------
-
-To install MeshLab in order to visualize point clouds during Practical 1, you can go here:
-`<https://www.meshlab.net/#download>`__.
-
-From there, you can download the binary for the operating system of your choice (e.g., **win64** for a Windows 64-bit
-operating system) and follow the instructions for the installer.
 
 cloudcompare
 ------------
