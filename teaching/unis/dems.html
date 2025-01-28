@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>dem differencing and geodetic mass balance &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -128,9 +129,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../index.html">
+  
   
   
   
@@ -552,6 +555,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -561,6 +565,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -607,13 +612,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="dem-differencing-and-geodetic-mass-balance">
+  <section id="dem-differencing-and-geodetic-mass-balance">
 <h1>dem differencing and geodetic mass balance<a class="headerlink" href="#dem-differencing-and-geodetic-mass-balance" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This practical was written for use in ArcMap 10.* - the tool names should be broadly similar in ArcGIS Pro.</p>
 </div>
-<div class="section" id="data-and-setting-up">
+<section id="data-and-setting-up">
 <h2>data and setting up<a class="headerlink" href="#data-and-setting-up" title="Permalink to this heading">#</a></h2>
 <p>Create a folder in your home directory called <strong>dem_differencing</strong>. Inside of this folder, create another folder called
 <strong>temp_files</strong>. As we go through the steps of this exercise, we’ll be creating lots of files, and it’s a good idea to
@@ -622,8 +627,8 @@ keep things organized.</p>
 Excel spreadsheet (<strong>DEM_Co-Registration_Tool.xls</strong>) to your home directory. Start Arcmap.</p>
 <p>Today, we’ll return to our excursion area of Tunabreen and Von Postbreen. Load in the two DEMs provided, the stable
 ground mask, and the glacier outlines. Save the map document to your DEM differencing folder, using an appropriate name.</p>
-</div>
-<div class="section" id="differencing-without-co-registration">
+</section>
+<section id="differencing-without-co-registration">
 <h2>differencing without co-registration<a class="headerlink" href="#differencing-without-co-registration" title="Permalink to this heading">#</a></h2>
 <p>First off, we’ll difference the two DEMs without first co-registering them, just to see the errors that can be
 introduced by using un-registered DEMs. We also will use this information to calculate the offsets in the two datasets.
@@ -635,8 +640,8 @@ Open the <strong>Raster Calculator</strong>, and insert the following formula in
 easier to interpret, and look at the results. You should notice a pattern in the difference map similar to what we saw
 in lecture - the shifts in the DEM cause apparent elevation changes on stable ground. Our aim is to remove these errors
 by co-registering the DEMs so that they more accurately line up.</p>
-</div>
-<div class="section" id="co-registration">
+</section>
+<section id="co-registration">
 <h2>co-registration<a class="headerlink" href="#co-registration" title="Permalink to this heading">#</a></h2>
 <p>To co-register the DEMs, we have to generate a slope and aspect raster for the primary DEM (<strong>ArcticDEM_Svalbard.tif</strong>).
 Do this, saving the results to your temporary folder.</p>
@@ -679,8 +684,8 @@ making sure to also subtract the ∆z value output by the co-registration tool.<
 <p>You should now see less of a pattern off of the glacier areas, but there may still be some differences - it can take a
 few iterations to find a good solution to the co-registration. If you are satisfied with the DEM, go ahead and stop
 here, but feel free to continue refining the co-registration.</p>
-</div>
-<div class="section" id="geodetic-mass-balances">
+</section>
+<section id="geodetic-mass-balances">
 <h2>geodetic mass balances<a class="headerlink" href="#geodetic-mass-balances" title="Permalink to this heading">#</a></h2>
 <p>Once you are satisfied that your DEMs are co-registered properly, we can calculate the geodetic mass balance for each
 of the glaciers in our study area. To do this, we use the <strong>Zonal Statistics as Table</strong> tool.</p>
@@ -705,8 +710,8 @@ Adjust the formula accordingly, and click <strong>OK</strong>.</p>
 </ul>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -717,7 +722,7 @@ Adjust the formula accordingly, and click <strong>OK</strong>.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="optical.html"
@@ -777,6 +782,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -803,8 +809,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

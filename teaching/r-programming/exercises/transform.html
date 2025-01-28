@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>transforming data &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -128,9 +129,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -552,6 +555,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -561,6 +565,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -619,7 +624,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="transforming-data">
+  <section id="transforming-data">
 <h1>transforming data<a class="headerlink" href="#transforming-data" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -638,7 +643,7 @@ sorting rows, and grouping and summarizing data. Mostly, we will be
 using functions from the <code class="docutils literal notranslate"><span class="pre">dplyr</span></code> package, which is designed for data
 manipulation (again, read this as “analyzing” or “working with”, not
 “fabricating”!).</p>
-<div class="section" id="data">
+<section id="data">
 <h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
 <p>The data used in this exercise are the historic meteorological
 observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
@@ -660,8 +665,8 @@ following to make the data slightly easier to work with:</p>
 <p>If you wish to use your own data (and there are loads of stations
 available!), please feel free. For the best experience, you will likely
 need to repeat the steps indicated above.</p>
-</div>
-<div class="section" id="loading-libraries">
+</section>
+<section id="loading-libraries">
 <h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this heading">#</a></h2>
 <p>As before, we load the libraries that we will use in the exercise at the
 beginning. We will be using three libraries:</p>
@@ -675,8 +680,8 @@ beginning. We will be using three libraries:</p>
 <span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w"> </span><span class="c1"># this loads the functions, etc. needed for us to work with the data</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="loading-the-data">
+</section>
+<section id="loading-the-data">
 <h2>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h2>
 <p>In this exercise, we’re going to see a number of different ways that we
 can work with data tables. Before we get to this, however, we need to
@@ -754,8 +759,8 @@ combined table:</p>
 <p>Note that this is one advantage of using clear, consistent naming and
 formatting for data files - we can easily write a loop to load multiple
 files, instead of having to write individual paths.</p>
-</div>
-<div class="section" id="using-filter-to-select-rows">
+</section>
+<section id="using-filter-to-select-rows">
 <h2>using filter() to select rows<a class="headerlink" href="#using-filter-to-select-rows" title="Permalink to this heading">#</a></h2>
 <p>Now that we have a single table, we can also look at ways that we can
 select rows from the table. We have alread seen an example of this - for
@@ -814,8 +819,8 @@ and <code class="docutils literal notranslate"><span class="pre">rain</span></co
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nf">filter</span><span class="p">(</span><span class="n">tmax</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">rain</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="c1"># use filter to select rows where tmax &gt; 20 and rain &gt; 100</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-arrange-to-sort-rows">
+</section>
+<section id="using-arrange-to-sort-rows">
 <h2>using arrange() to sort rows<a class="headerlink" href="#using-arrange-to-sort-rows" title="Permalink to this heading">#</a></h2>
 <p>Sometimes, we might want to sort our data according to the value of
 different variables. For example, we can sort the observations by
@@ -835,8 +840,8 @@ sorting by <code class="docutils literal notranslate"><span class="pre">season</
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nf">arrange</span><span class="p">(</span><span class="n">season</span><span class="p">,</span><span class="w"> </span><span class="nf">desc</span><span class="p">(</span><span class="n">rain</span><span class="p">))</span><span class="w"> </span><span class="c1"># sort by season, then rainfall in descending order</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-distinct-to-find-unique-rows">
+</section>
+<section id="using-distinct-to-find-unique-rows">
 <h2>using distinct() to find unique rows<a class="headerlink" href="#using-distinct-to-find-unique-rows" title="Permalink to this heading">#</a></h2>
 <p>To find unique rows in the dataset, we can use <code class="docutils literal notranslate"><span class="pre">distinct()</span></code>
 (<a class="reference external" href="https://dplyr.tidyverse.org/reference/distinct.html">documentation</a>).
@@ -858,8 +863,8 @@ while filtering for unique rows:</p>
 <p>Note that the distinct values found above are all from the first year of
 each dataset - this is because <code class="docutils literal notranslate"><span class="pre">distinct()</span></code> discards all but the first
 occurrence of a unique row.</p>
-</div>
-<div class="section" id="counting-occurrences-with-count">
+</section>
+<section id="counting-occurrences-with-count">
 <h2>counting occurrences with count()<a class="headerlink" href="#counting-occurrences-with-count" title="Permalink to this heading">#</a></h2>
 <p>If we want to count the number times a particular value occurs in the
 table, we can use <code class="docutils literal notranslate"><span class="pre">count()</span></code>
@@ -876,8 +881,8 @@ number of unique occurrences of <code class="docutils literal notranslate"><span
 Outer Hebrides, has far more months with heavy rainfall (278) than any
 other station in our dataset; by contrast, Oxford has only recorded 12
 such months between 1853 and 2022.</p>
-</div>
-<div class="section" id="adding-variables-to-the-table-using-mutate">
+</section>
+<section id="adding-variables-to-the-table-using-mutate">
 <h2>adding variables to the table using mutate()<a class="headerlink" href="#adding-variables-to-the-table-using-mutate" title="Permalink to this heading">#</a></h2>
 <p>In a previous exercise, we saw how we can use <strong>R</strong>’s built-in
 functionality to add variables to a data frame:</p>
@@ -919,8 +924,8 @@ previously:</p>
 table; in addition to specifying where to put them using <code class="docutils literal notranslate"><span class="pre">.before</span></code> and
 <code class="docutils literal notranslate"><span class="pre">.after</span></code>, we will also see how we can re-arrange the variables in the
 table later on.</p>
-</div>
-<div class="section" id="using-select-to-select-columns">
+</section>
+<section id="using-select-to-select-columns">
 <h2>using select() to select columns<a class="headerlink" href="#using-select-to-select-columns" title="Permalink to this heading">#</a></h2>
 <p>Sometimes, we might want to select a single variable, or a handful of
 variables from a table - we can do this using <code class="docutils literal notranslate"><span class="pre">select()</span></code>
@@ -944,8 +949,8 @@ the <code class="docutils literal notranslate"><span class="pre">is.numeric()</s
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="nf">where</span><span class="p">(</span><span class="n">is.numeric</span><span class="p">))</span><span class="w"> </span><span class="c1"># select only numeric variables</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-rename-to-rename-columns">
+</section>
+<section id="using-rename-to-rename-columns">
 <h2>using rename() to rename columns<a class="headerlink" href="#using-rename-to-rename-columns" title="Permalink to this heading">#</a></h2>
 <p>Often, we may also want to rename variables to make them easier to
 read/understand. For example, the <code class="docutils literal notranslate"><span class="pre">yyyy</span></code>, <code class="docutils literal notranslate"><span class="pre">mm</span></code>, and <code class="docutils literal notranslate"><span class="pre">af</span></code> variables
@@ -958,8 +963,8 @@ rename them to more clear names, such as <code class="docutils literal notransla
 <span class="nf">print</span><span class="p">(</span><span class="n">station_data</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-relocate-to-move-columns">
+</section>
+<section id="using-relocate-to-move-columns">
 <h2>using relocate() to move columns<a class="headerlink" href="#using-relocate-to-move-columns" title="Permalink to this heading">#</a></h2>
 <p>With <code class="docutils literal notranslate"><span class="pre">mutate()</span></code>, we saw how we can specify where to put new variables,
 using the <code class="docutils literal notranslate"><span class="pre">.before</span></code> and <code class="docutils literal notranslate"><span class="pre">.after</span></code> arguments. If we aren’t creating
@@ -988,8 +993,8 @@ operator, and assigns it to the object on the <em>right-hand</em> side.</p>
 “sentences” with multiple function calls, it can make sense to use
 <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> at the end, rather than the beginning - the end result will be
 the same.</p>
-</div>
-<div class="section" id="saving-data-to-a-file">
+</section>
+<section id="saving-data-to-a-file">
 <h2>saving data to a file<a class="headerlink" href="#saving-data-to-a-file" title="Permalink to this heading">#</a></h2>
 <p>Finally, let’s save our cleaned, re-arranged dataset to a file, using
 <code class="docutils literal notranslate"><span class="pre">write_csv()</span></code>
@@ -1008,8 +1013,8 @@ use a <strong>comma-separated variable</strong> (<strong>.csv</strong>) file for
 are a number of different format options available - for more
 information, check the
 <a class="reference external" href="https://readr.tidyverse.org/reference/write_delim.html">documentation</a>.</p>
-</div>
-<div class="section" id="grouping-data">
+</section>
+<section id="grouping-data">
 <h2>grouping data<a class="headerlink" href="#grouping-data" title="Permalink to this heading">#</a></h2>
 <p>Next, we’ll see how we can use different tools to aggregate and
 summarize our data, starting with <code class="docutils literal notranslate"><span class="pre">group_by()</span></code>
@@ -1084,8 +1089,8 @@ labels.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggsave</span><span class="p">(</span><span class="s">&#39;seasonal_rain_distribution.png&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">plot</span><span class="o">=</span><span class="n">rain_plot</span><span class="p">)</span><span class="w"> </span><span class="c1"># save the plot to a file</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="slicing-the-dataset">
+</section>
+<section id="slicing-the-dataset">
 <h2>slicing the dataset<a class="headerlink" href="#slicing-the-dataset" title="Permalink to this heading">#</a></h2>
 <p>We’ll finish up by looking at a few functions that we can use to <em>slice</em>
 a dataset - that is, extract specific rows from a group. For example, we
@@ -1125,8 +1130,8 @@ value, we can use <code class="docutils literal notranslate"><span class="pre">s
 <span class="w">    </span><span class="nf">slice_sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="c1"># take a random sample of 5 rows from each season</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-ungroup-to-remove-groups">
+</section>
+<section id="using-ungroup-to-remove-groups">
 <h2>using ungroup() to remove groups<a class="headerlink" href="#using-ungroup-to-remove-groups" title="Permalink to this heading">#</a></h2>
 <p>Sometimes, we want to group data using <code class="docutils literal notranslate"><span class="pre">group_by()</span></code> to do some kind of
 calculations, but then we want to get rid of the groups - for example,
@@ -1149,8 +1154,8 @@ to remove the grouping:</p>
 <span class="w">    </span><span class="nf">slice_max</span><span class="p">(</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="c1"># select the 5 rows with the highest value of tmax</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="exercise-and-next-steps">
+</section>
+<section id="exercise-and-next-steps">
 <h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this exercise. To practice your skills, create a notebook
 file that does the following:</p>
@@ -1195,8 +1200,8 @@ the following:</p>
 just downloaded (e.g., <code class="docutils literal notranslate"><span class="pre">durhamdata.txt</span></code>). This will convert the
 <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file into a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file, using the steps outlined at the top
 of the exercise.</p>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -1207,7 +1212,7 @@ of the exercise.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="plotting.html"
@@ -1279,6 +1284,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -1305,8 +1311,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

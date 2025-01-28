@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>navigating on the command line &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -128,9 +129,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -552,6 +555,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -561,6 +565,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -614,11 +619,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="navigating-on-the-command-line">
+  <section id="navigating-on-the-command-line">
 <h1>navigating on the command line<a class="headerlink" href="#navigating-on-the-command-line" title="Permalink to this heading">#</a></h1>
 <p>Now that we’ve had chance to use the shell a bit, let’s see how we can use it to interact with, and navigate, the
 filesystem.</p>
-<div class="section" id="the-filesystem">
+<section id="the-filesystem">
 <h2>the filesystem<a class="headerlink" href="#the-filesystem" title="Permalink to this heading">#</a></h2>
 <p>We should probably start, however, by discussing what “the filesystem” actually means. In effect, it’s how the operating
 system stores and retrieves data. Most operating systems have a <strong>hierarchical directory structure</strong> - that is, the
@@ -629,8 +634,8 @@ directory is <code class="docutils literal notranslate"><span class="pre">/</spa
 <p><br /> The Windows filesystem is similar, but with one major difference: on Windows, different storage devices have their
 own “tree” (e.g., <code class="docutils literal notranslate"><span class="pre">C:\</span></code>, <code class="docutils literal notranslate"><span class="pre">D:\</span></code>, and so on). On Unix-like systems, there is a single “tree”, and each storage device
 is <strong>mounted</strong> (attached) to the tree at a different location.</p>
-</div>
-<div class="section" id="where-am-i">
+</section>
+<section id="where-am-i">
 <h2>where am i?<a class="headerlink" href="#where-am-i" title="Permalink to this heading">#</a></h2>
 <p>When we are working in the shell, we are always in a single directory: the <strong>current working directory</strong>. To find out
 what that directory is, we can use the <code class="docutils literal notranslate"><span class="pre">pwd</span></code> (“print working directory”) command:</p>
@@ -652,8 +657,8 @@ systems, this directory is usually located here:</p>
 <p>In OSX, your home directory is usually located at <code class="docutils literal notranslate"><span class="pre">/Users/&lt;your</span> <span class="pre">username&gt;</span></code>. In Windows 10 and 11, it is located at
 <code class="docutils literal notranslate"><span class="pre">C:\Users\&lt;your</span> <span class="pre">username&gt;</span></code>.</p>
 </div>
-</div>
-<div class="section" id="navigating-the-filesystem">
+</section>
+<section id="navigating-the-filesystem">
 <h2>navigating the filesystem<a class="headerlink" href="#navigating-the-filesystem" title="Permalink to this heading">#</a></h2>
 <p>To change the working directory in the shell, we use the <code class="docutils literal notranslate"><span class="pre">cd</span></code> (“change directory”) command, along with the
 <strong>pathname</strong> of the directory we want to move to. For example, to change from our home directory to <code class="docutils literal notranslate"><span class="pre">Documents</span></code>, we
@@ -669,12 +674,12 @@ the following:</p>
 </pre></div>
 </div>
 <p>you should see that you are returned to your home directory (feel free to check this using <code class="docutils literal notranslate"><span class="pre">pwd</span></code>).</p>
-</div>
-<div class="section" id="pathnames">
+</section>
+<section id="pathnames">
 <h2>pathnames<a class="headerlink" href="#pathnames" title="Permalink to this heading">#</a></h2>
 <p>When working with pathnames, there are two ways that we can specify them: as <strong>absolute</strong> pathnames, or as <strong>relative</strong>
 pathnames.</p>
-<div class="section" id="absolute-pathnames">
+<section id="absolute-pathnames">
 <h3>absolute pathnames<a class="headerlink" href="#absolute-pathnames" title="Permalink to this heading">#</a></h3>
 <p><strong>Absolute</strong> pathnames start with the <strong>root</strong> directory (remember, on Unix-like filesystems, this is <code class="docutils literal notranslate"><span class="pre">/</span></code>) and follow
 the tree through every branch until it reaches the specified file or directory. For example, the absolute path to
@@ -689,8 +694,8 @@ specifying the absolute pathname to our home directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/home/bob
 </pre></div>
 </div>
-</div>
-<div class="section" id="relative-pathnames">
+</section>
+<section id="relative-pathnames">
 <h3>relative pathnames<a class="headerlink" href="#relative-pathnames" title="Permalink to this heading">#</a></h3>
 <p><strong>Relative pathnames</strong>, on the other hand, start in the current working directory. This brings us to two important
 notations that are used to represent relative positions in the file tree: <cite>.</cite> and <cite>..</cite>.</p>
@@ -702,9 +707,9 @@ do so by specifying the pathname to our home directory, relative to the <code cl
 </pre></div>
 </div>
 <p>As before, you should see that this has returned you to your home directory, which you can check using <code class="docutils literal notranslate"><span class="pre">pwd</span></code>.</p>
-</div>
-</div>
-<div class="section" id="creating-a-new-directory">
+</section>
+</section>
+<section id="creating-a-new-directory">
 <h2>creating a new directory<a class="headerlink" href="#creating-a-new-directory" title="Permalink to this heading">#</a></h2>
 <p>Now that we know a bit more about how to navigate the filesystem from the command line, we can create a new directory,
 using the <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> command.</p>
@@ -724,8 +729,8 @@ what to call the directory.</p>
 <p>Now, use <code class="docutils literal notranslate"><span class="pre">ls</span></code> to list the contents of the current directory - you should see your new directory, foo, listed along
 with the previous contents:</p>
 <a class="reference internal image-reference" href="../../../_images/new_dir.png"><img alt="the output of mkdir foo and ls, showing the new directory created" class="align-center" src="../../../_images/new_dir.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="file-and-path-names">
+</section>
+<section id="file-and-path-names">
 <h2>file and path names<a class="headerlink" href="#file-and-path-names" title="Permalink to this heading">#</a></h2>
 <p>Before we move on to using the shell to work with files, we’ll focus on a few different rules for file and directory
 names.</p>
@@ -754,8 +759,8 @@ dashes (<code class="docutils literal notranslate"><span class="pre">-</span></c
 <p><br /> As you can see, this command has created three new directories: <strong>my</strong>, <strong>new</strong>, and <strong>folder</strong>. Because
 <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> allows for multiple inputs, it sees each “word” in the directory name as a separate directory.</p>
 <p>In the long run, it is safer and much less unpredictable to use underscores or dashes to represent spaces.</p>
-</div>
-<div class="section" id="notes">
+</section>
+<section id="notes">
 <h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -764,8 +769,8 @@ difficult to manage, because you always have to be on the lookout for rogue spac
 unnoticed. As with capes, it is better to be safe than sorry.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -776,7 +781,7 @@ unnoticed. As with capes, it is better to be safe than sorry.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="shell.html"
@@ -843,6 +848,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -869,8 +875,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>change vector analysis &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -129,9 +130,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -553,6 +556,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -562,6 +566,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -609,7 +614,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="change-vector-analysis">
+  <section id="change-vector-analysis">
 <h1>change vector analysis<a class="headerlink" href="#change-vector-analysis" title="Permalink to this heading">#</a></h1>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -621,7 +626,7 @@ navigating to <code class="docutils literal notranslate"><span class="pre">03_ch
 using change vector analysis (CVA). While CVA can be used for any number of band differences, we’re going to stick to
 the differences in NIR and Red reflectance between the two images. Sticking with only two bands helps us visualize the
 changes in two dimensions - once we start adding more bands (dimensions), it becomes more difficult to visualize.</p>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Because we are working with sensors that have different band names, we must first re-name the bands so that when we
 subtract them, the correct bands are paired together. First, we do this for the <code class="docutils literal notranslate"><span class="pre">before</span></code> image, using both
@@ -644,8 +649,8 @@ the relevant bands from the <code class="docutils literal notranslate"><span cla
 <span class="nx">after</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">after</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;SR_B[2-7]&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="calculating-change-vectors">
+</section>
+<section id="calculating-change-vectors">
 <h2>calculating change vectors<a class="headerlink" href="#calculating-change-vectors" title="Permalink to this heading">#</a></h2>
 <p>The rest of this script is used to calculate the magnitudes and angles of the change vectors, starting with the
 difference between the 1986 and 2022 images:</p>
@@ -706,8 +711,8 @@ mask the reclassified image so that only “large enough” changes (magnitude <
 <span class="nx">angleReclass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">angleReclass</span><span class="p">.</span><span class="nx">updateMask</span><span class="p">(</span><span class="nx">magnitude</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="mf">0.06</span><span class="p">));</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="interpreting-changes">
+</section>
+<section id="interpreting-changes">
 <h2>interpreting changes<a class="headerlink" href="#interpreting-changes" title="Permalink to this heading">#</a></h2>
 <p>Run the script, then toggle the <code class="docutils literal notranslate"><span class="pre">reclass</span> <span class="pre">angle</span></code> layer on:</p>
 <a class="reference internal image-reference" href="../../../_images/angle_reclass.png"><img alt="the reclassified angle image" class="align-center" src="../../../_images/angle_reclass.png" style="width: 720px;" /></a>
@@ -736,8 +741,8 @@ by looking at the reclassified angle map is the broad direction of the change; w
 to explain what we see in terms of the physical changes that have taken place.</p>
 </div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>In the <code class="docutils literal notranslate"><span class="pre">03_change_vector_analysis.js</span></code> script, try changing the number of classes from 4 to 8 by copying and pasting
 the following code at the end of the script, then re-running the script:</p>
@@ -770,8 +775,8 @@ reflectance; angle class 3 represents smaller decreases in red reflectance, whil
 decreases. Using the angle change map and the original false color composites, what kind of changes are you able
 to discern here?</p></li>
 </ul>
-</div>
-<div class="section" id="notes-and-references">
+</section>
+<section id="notes-and-references">
 <h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
@@ -780,8 +785,8 @@ because the output of <code class="docutils literal notranslate"><span class="pr
 <span class="math notranslate nohighlight">\(+\pi\)</span> (180 <span class="math notranslate nohighlight">\(^\circ\)</span>).</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -792,7 +797,7 @@ because the output of <code class="docutils literal notranslate"><span class="pr
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="repeat_classification.html"
@@ -853,6 +858,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -879,8 +885,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

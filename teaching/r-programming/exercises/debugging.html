@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>debugging code &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -128,9 +129,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -552,6 +555,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -561,6 +565,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -611,11 +616,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="debugging-code">
+  <section id="debugging-code">
 <h1>debugging code<a class="headerlink" href="#debugging-code" title="Permalink to this heading">#</a></h1>
 <p>In this exercise, we’ll get some practice running a “buggy” script and interpreting/fixing the errors that we find. We
 will also continue using <strong>git</strong> to keep track of and save our fixes.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To begin, open an <strong>Anaconda Command Prompt</strong> with your <code class="docutils literal notranslate"><span class="pre">intro-to-r</span></code> environment active, then launch <strong>JupyterLab</strong>.</p>
 <p>In the file browser along the left-hand side of the window, navigate to the guessing game script (in the <strong>02.r-intro</strong>
@@ -624,8 +629,8 @@ folder). Open the script (<strong>guessing_game.r</strong>) by double-clicking i
 <p><br /> Next, open a <strong>Terminal</strong> from the <strong>Launcher</strong>. If you click on the tab, you can drag it to re-arrange the
 panels - place it in the lower half of the window, so that it looks like this:</p>
 <a class="reference internal image-reference" href="../../../_images/new_terminal.png"><img alt="the guessing game script with a terminal tab opened on the bottom half of the window" class="align-center" src="../../../_images/new_terminal.png" style="width: 720px;" /></a>
-</div>
-<div class="section" id="creating-a-new-branch">
+</section>
+<section id="creating-a-new-branch">
 <h2>creating a new branch<a class="headerlink" href="#creating-a-new-branch" title="Permalink to this heading">#</a></h2>
 <p>Now, open a second terminal next to the first by clicking the <strong>+</strong> button, then selecting <strong>Terminal</strong> from the
 <strong>Launcher</strong>.</p>
@@ -639,8 +644,8 @@ things are working as they should be, we can <strong>merge</strong> the branch b
 </div>
 <p>This uses <strong>git checkout</strong> to create a new <strong>branch</strong> (the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag) called <code class="docutils literal notranslate"><span class="pre">debug</span></code>. As we fix the errors in the
 script, we will commit the changes to this branch.</p>
-</div>
-<div class="section" id="running-the-script">
+</section>
+<section id="running-the-script">
 <h2>running the script<a class="headerlink" href="#running-the-script" title="Permalink to this heading">#</a></h2>
 <p>In the first terminal window that you opened, launch <strong>R</strong> by typing <code class="docutils literal notranslate"><span class="pre">R</span></code> at the prompt and pressing <strong>Enter</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/r_open.png"><img alt="the guessing game script opened, with two terminal panels opened on the lower half of the window" class="align-center" src="../../../_images/r_open.png" style="width: 720px;" /></a>
@@ -660,8 +665,8 @@ or URL for the file to read from.</p>
 <div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">source</span><span class="p">(</span><span class="s">&#39;guessing_game.r&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="error-messages">
+</section>
+<section id="error-messages">
 <h2>error messages<a class="headerlink" href="#error-messages" title="Permalink to this heading">#</a></h2>
 <p>When you run the script, you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/first_error.png"><img alt="the R terminal with an error message after running the script" class="align-center" src="../../../_images/first_error.png" style="width: 720px;" /></a>
@@ -675,8 +680,8 @@ executes this statement, it looks for a function called <code class="docutils li
 returns an error message.</p>
 <p>We can easily fix this error by correcting the spelling of the function name. Later, we’ll see some examples of error
 messages that aren’t necessarily so easily corrected.</p>
-</div>
-<div class="section" id="using-git-diff-to-view-changes">
+</section>
+<section id="using-git-diff-to-view-changes">
 <h2>using git diff to view changes<a class="headerlink" href="#using-git-diff-to-view-changes" title="Permalink to this heading">#</a></h2>
 <p>Now that you have corrected the error at line 3, <strong>save</strong> the file (<strong>CTRL</strong> + <strong>S</strong>) to update the file on the disk.
 We also want to use <strong>git</strong> to keep track of this fix. To do this, open the other terminal tab, then enter the
@@ -701,8 +706,8 @@ tell us the changes for <em>all</em> files in the repository; we can also choose
 </div>
 <p>has been added in its place. Later, we’ll also see how we can use <strong>git diff</strong> to compare versions of a file across
 two different branches, to see what changes (if any) have been made.</p>
-</div>
-<div class="section" id="committing-changes">
+</section>
+<section id="committing-changes">
 <h2>committing changes<a class="headerlink" href="#committing-changes" title="Permalink to this heading">#</a></h2>
 <p>For now, though, we want to <strong>commit</strong> these changes so that <strong>git</strong> saves a snapshot of our progress. To do this,
 remember that we first have to <strong>add</strong> to “stage” it, then <strong>commit</strong> the file to take the snapshot. In the terminal,
@@ -723,8 +728,8 @@ the change:</p>
 the <em>commit hash</em> (the unique identifier for the commit; in the screenshot below, it is <code class="docutils literal notranslate"><span class="pre">2d84d6d</span></code>).</p>
 <p>When you type <strong>git status</strong> in the terminal, you should now see that there are no changes to commit:</p>
 <a class="reference internal image-reference" href="../../../_images/commit1.png"><img alt="the git terminal showing that the changes to guessing_game.r have been committed" class="align-center" src="../../../_images/commit1.png" style="width: 720px;" /></a>
-</div>
-<div class="section" id="semantic-errors">
+</section>
+<section id="semantic-errors">
 <h2>semantic errors<a class="headerlink" href="#semantic-errors" title="Permalink to this heading">#</a></h2>
 <p>Now that you have fixed the first error, return to the <strong>R</strong> terminal, then re-run the script. You should see that the
 script now runs with no errors:</p>
@@ -753,8 +758,8 @@ and <strong>commit</strong> the change with an appropriate commit message.</p>
 <p>When you run the script again, you should notice that you are able to enter a guess at the command line, but you should
 also notice an additional pair of semantic errors. Once you have identified these and fixed them, test out the script -
 does it work correctly? If so, move on to the next section.</p>
-</div>
-<div class="section" id="merging-branches">
+</section>
+<section id="merging-branches">
 <h2>merging branches<a class="headerlink" href="#merging-branches" title="Permalink to this heading">#</a></h2>
 <p>Now that we have successfully squashed the bugs present in the script, we are ready to <strong>merge</strong> the fix into our
 <strong>main</strong> branch.</p>
@@ -778,8 +783,8 @@ can use <strong>git merge</strong> (<a class="reference external" href="https://
 <p>You can also use <strong>git push</strong> to send these changes to your remote (GitHub) repository, which ensures that you have
 backed up a copy to a remote location.</p>
 <p>That’s all for this exercise - in the next session, we’ll take a look at how we can use <strong>ggplot2</strong> to display data.</p>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -790,7 +795,7 @@ backed up a copy to a remote location.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="rintro.html"
@@ -854,6 +859,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -880,8 +886,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

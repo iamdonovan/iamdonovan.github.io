@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>SAR image processing &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -129,9 +130,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -553,6 +556,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -562,6 +566,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -612,7 +617,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="sar-image-processing">
+  <section id="sar-image-processing">
 <h1>SAR image processing<a class="headerlink" href="#sar-image-processing" title="Permalink to this heading">#</a></h1>
 <p>For this week’s practical, we’ll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look
 complex) image, through to a calibrated, terrain-corrected image. In particular, by the end of this practical, you will
@@ -646,7 +651,7 @@ range).</p>
 <p>Because we’ll need to work with SLC images for interferometry, I thought it would be best to use the SLC images
 here, which require some additional processing steps.</p>
 </div>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -705,8 +710,8 @@ signal. We will work with these a bit more next week - for now, you can go ahead
 <a class="reference internal image-reference" href="../../../_images/i_iw1_VH.png"><img alt="subswath 1 VH i band" class="align-center" src="../../../_images/i_iw1_VH.png" style="width: 600px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/q_iw1_VH.png"><img alt="subswath 1 VH q band" class="align-center" src="../../../_images/q_iw1_VH.png" style="width: 600px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="splitting-the-data">
+</section>
+<section id="splitting-the-data">
 <h2>splitting the data<a class="headerlink" href="#splitting-the-data" title="Permalink to this heading">#</a></h2>
 <p>We’ll start by splitting the data, to only work with a single sub-swath. Under <strong>Radar</strong>, select <strong>Sentinel-1 TOPS</strong>
 &gt; <strong>S1 TOPS Split</strong>:</p>
@@ -720,8 +725,8 @@ filled in), then click <strong>Processing Parameters</strong>:</p>
 <strong>Intensity_IW2_VH</strong> band for the split image - it should look something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/split_intensity.png"><img alt="subswath 2 VH intensity" class="align-center" src="../../../_images/split_intensity.png" style="width: 600px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="calibrating-the-data">
+</section>
+<section id="calibrating-the-data">
 <h2>calibrating the data<a class="headerlink" href="#calibrating-the-data" title="Permalink to this heading">#</a></h2>
 <p>Next, we’ll calibrate the data, so that we can eventually compare the image to other scenes. Under <strong>Radar</strong>,
 select <strong>Radiometric</strong> &gt; <strong>Calibrate</strong>:</p>
@@ -733,8 +738,8 @@ select <strong>Radiometric</strong> &gt; <strong>Calibrate</strong>:</p>
 These are the calibrated, normalized radar cross-section values - in effect, the amount of energy reflected back to the
 sensor by the ground. Without this step, comparing images acquired at different times or incidence angles becomes more
 difficult - it’s similar to comparing optical images that haven’t been atmospherically corrected.</p>
-</div>
-<div class="section" id="debursting-the-data">
+</section>
+<section id="debursting-the-data">
 <h2>debursting the data<a class="headerlink" href="#debursting-the-data" title="Permalink to this heading">#</a></h2>
 <p>Next, we need to combine the bursts, to get rid of the demarcation lines that we can see in the image:</p>
 <a class="reference internal image-reference" href="../../../_images/demarcation.png"><img alt="the calibrated image, showing the different bursts and demarcation lines" class="align-center" src="../../../_images/demarcation.png" style="width: 600px;" /></a>
@@ -746,8 +751,8 @@ select both polarisations, then click <strong>Run</strong>:</p>
 overlapping areas have been merged. The demarcation lines are also gone, and we have a single image:</p>
 <a class="reference internal image-reference" href="../../../_images/deburst_image.png"><img alt="the deburst image with VH polarization" class="align-center" src="../../../_images/deburst_image.png" style="width: 600px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="speckle-reduction">
+</section>
+<section id="speckle-reduction">
 <h2>speckle reduction<a class="headerlink" href="#speckle-reduction" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve combined each of the bursts, we can move on to speckle filtering and geometric correction. Speckle
 filtering is an optional step - we don’t necessarily have to do it (and for some applications we don’t want to do it),
@@ -765,8 +770,8 @@ but feel free to experiment with different combinations after you’ve made it t
 see quite a bit more detail in the filtered image. If we zoom in, we should see that this is true on smaller scales, as
 well. Note that this process isn’t perfect - there’s still some texture in the image, since the speckle filtering hasn’t
 completely removed the speckle effects.</p>
-</div>
-<div class="section" id="geocoding">
+</section>
+<section id="geocoding">
 <h2>geocoding<a class="headerlink" href="#geocoding" title="Permalink to this heading">#</a></h2>
 <p>Next, we need to geocode (terrain-correct) the image, in order to be able to use it in a GIS software or compare to other
 satellite images.</p>
@@ -796,8 +801,8 @@ it should look quite a bit different than what we’ve seen previously:</p>
 Discussion on Blackboard!</p>
 </div>
 </div>
-</div>
-<div class="section" id="convert-to-db">
+</section>
+<section id="convert-to-db">
 <h2>convert to dB<a class="headerlink" href="#convert-to-db" title="Permalink to this heading">#</a></h2>
 <p>Finally, we’ll convert the values from linear to log (decibel) values - this will help to increase the contrast in
 darker regions, helping interpretation. Right-click on the first image band, then select <strong>Linear to/from dB</strong>. This
@@ -820,8 +825,8 @@ of how large the images are (~2 GB per band!).</p>
 processing other SAR datasets such as ERS, ENVISAT, or ALOS-PALSAR. The software also supports processing and analysis
 of other Sentinel datasets, including Sentinel-2 and Sentinel-3. Next week, we’ll see how we can use the SNAP for
 interferometric SAR (InSAR) applications.</p>
-</div>
-<div class="section" id="questions">
+</section>
+<section id="questions">
 <h2>questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <p>Now that you’ve processed and exported both images, you can load them into a GIS software of your choice. I would
 recommend adding a basemap (for example, the ESRI Basemap) or an optical image (e.g., Sentinel-2, Landsat), to help
@@ -836,8 +841,8 @@ discussed that would cause these areas to be brighter than other areas?</p></li>
 expect more scattering in VV polarization than in VH polarization for water?</p></li>
 <li><p>What kind of ocean conditions do you were present on 24 September 2021? Why do you think this?</p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -848,7 +853,7 @@ expect more scattering in VV polarization than in VH polarization for water?</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="week2.html"
@@ -912,6 +917,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -938,8 +944,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

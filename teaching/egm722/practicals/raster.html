@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>raster data using rasterio &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -128,9 +129,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -552,6 +555,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -561,6 +565,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -617,7 +622,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="raster-data-using-rasterio">
+  <section id="raster-data-using-rasterio">
 <h1>raster data using rasterio<a class="headerlink" href="#raster-data-using-rasterio" title="Permalink to this heading">#</a></h1>
 <p>In this practical, you’ll gain some more experience working with raster data in python using rasterio and numpy. We
 will also learn about opening and closing files using python, as well as using <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> to add more
@@ -625,7 +630,7 @@ flexibility to our function definitions.</p>
 <p>The practical this week is provided as a Jupyter Notebook, which you can use to interactively work through the
 different steps of the practical. An exercise, introduced at the end of the Notebook file, can be completed using the
 file <strong>assignment_script.py</strong>.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p><a class="reference internal" href="vector.html"><span class="doc">Last week</span></a>, we saw how we can use the command-line interface (CLI) of <strong>git</strong> to merge two branches (in this case,
 <code class="docutils literal notranslate"><span class="pre">week3</span></code> into <code class="docutils literal notranslate"><span class="pre">main</span></code>). This week, we’re going to see how to do this on GitHub, using a <strong>Pull Request</strong>.</p>
@@ -688,19 +693,19 @@ the practical exercise.</p>
 <p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to
 follow the instructions above to open the notebook and run it on your own computer!</p>
 </div>
-</div>
+</section>
 <hr class="docutils" />
-<div class="section" id="james-garner">
+<section id="james-garner">
 <h2>James Garner<a class="headerlink" href="#james-garner" title="Permalink to this heading">#</a></h2>
-<div class="section" id="overview">
+<section id="overview">
 <h3>overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
 <p>Up to now, you have gained some experience working with basic features
 of python, used cartopy and matplotlib to create a map, and explored
 using shapely and geopandas to work with vector data. In this week’s
 practical, we’ll be looking at working with raster data using rasterio
 and numpy.</p>
-</div>
-<div class="section" id="objectives">
+</section>
+<section id="objectives">
 <h3>objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Learn about opening and viewing raster data using rasterio and
@@ -709,13 +714,13 @@ cartopy</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code> to unpack arguments in a function</p></li>
 <li><p>Use rasterio to reproject raster data</p></li>
 </ul>
-</div>
-<div class="section" id="data-provided">
+</section>
+<section id="data-provided">
 <h3>data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
 <p>In the <strong>data_files</strong> folder, you should have the following files: -
 NI_mosaic.tif</p>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h3>getting started<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>In this practical, we’ll be working with <strong>raster data</strong>. As a quick
 refresher, raster data are gridded datasets that contain anything from
@@ -795,8 +800,8 @@ following form:</p>
 <li><p><em>h</em></p></li>
 <li><p><em>i</em></p></li>
 </ul>
-</div>
-<div class="section" id="loading-the-data">
+</section>
+<section id="loading-the-data">
 <h3>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h3>
 <p>To load the data, we use the <code class="docutils literal notranslate"><span class="pre">.read()</span></code> method
 (<a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.io.html#rasterio.io.DatasetReader.read">documentation</a>)
@@ -858,8 +863,8 @@ vector dataset).</p>
 <span class="n">subset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="p">((</span><span class="n">top</span><span class="p">,</span> <span class="n">bot</span><span class="p">),</span> <span class="p">(</span><span class="n">lft</span><span class="p">,</span> <span class="n">rgt</span><span class="p">)))</span> <span class="c1"># format is (top, bottom), (left, right)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="the-with-statement">
+</section>
+<section id="the-with-statement">
 <h3>the with statement<a class="headerlink" href="#the-with-statement" title="Permalink to this heading">#</a></h3>
 <p>Run the cell below to show the current status of our <strong>DatasetReader</strong>
 object:</p>
@@ -924,8 +929,8 @@ after opening it this time:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="c1"># show the current status of the dataset object</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="displaying-raster-data-using-matplotlib-and-cartopy">
+</section>
+<section id="displaying-raster-data-using-matplotlib-and-cartopy">
 <h3>displaying raster data using matplotlib and cartopy<a class="headerlink" href="#displaying-raster-data-using-matplotlib-and-cartopy" title="Permalink to this heading">#</a></h3>
 <p>Now that we’ve loaded our image, we can use <code class="docutils literal notranslate"><span class="pre">cartopy</span></code> and
 <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to display it, just like we did for mapping vector data
@@ -1186,8 +1191,8 @@ for <code class="docutils literal notranslate"><span class="pre">max</span></cod
 <img alt="../../../_images/Raster_51_0.png" src="../../../_images/Raster_51_0.png" />
 <p>That looks much better - we can now see the image, it has good contrast,
 and the image is displayed in the correct location on the map.</p>
-</div>
-<div class="section" id="functions-with-args-and-kwargs">
+</section>
+<section id="functions-with-args-and-kwargs">
 <h3>functions with *args and **kwargs<a class="headerlink" href="#functions-with-args-and-kwargs" title="Permalink to this heading">#</a></h3>
 <p>At the moment, however, our function has a lot of extra
 parameters/arguments:</p>
@@ -1255,8 +1260,8 @@ exercise to refresh your memory</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write your code here!</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="reprojecting-rasters-using-rasterio">
+</section>
+<section id="reprojecting-rasters-using-rasterio">
 <h3>reprojecting rasters using rasterio<a class="headerlink" href="#reprojecting-rasters-using-rasterio" title="Permalink to this heading">#</a></h3>
 <p>Fortunately, our image was provided in a geographic format that matches
 what we’ve been working with (WGS84 UTM Zone 29N). But, what if we need
@@ -1342,8 +1347,8 @@ accordingly.</p>
                 <span class="n">resampling</span><span class="o">=</span><span class="n">rio</span><span class="o">.</span><span class="n">warp</span><span class="o">.</span><span class="n">Resampling</span><span class="o">.</span><span class="n">nearest</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h3>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h3>
 <p>For some additional practice with the concepts covered in this
 practical, use the <code class="docutils literal notranslate"><span class="pre">assignment_script.py</span></code> file in the Week4 folder to
@@ -1360,12 +1365,12 @@ help point you in the right direction.</p>
 <p>I’ll provide my example next week, but try to think about the different
 steps involved and how you might solve this, using some of the examples
 provided in previous weeks. Good luck!</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../../_images/example_map.png"><img alt="Example map for Week 4 assignment" src="../../../_images/example_map.png" style="width: 720px;" /></a>
-</div>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
+</section>
 
 
                 </article>
@@ -1376,7 +1381,7 @@ provided in previous weeks. Good luck!</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="folium.html"
@@ -1446,6 +1451,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -1472,8 +1478,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

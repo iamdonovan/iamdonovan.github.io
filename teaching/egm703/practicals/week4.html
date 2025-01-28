@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>InSAR Processing &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -129,9 +130,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -553,6 +556,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -562,6 +566,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -616,7 +621,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="insar-processing">
+  <section id="insar-processing">
 <h1>InSAR Processing<a class="headerlink" href="#insar-processing" title="Permalink to this heading">#</a></h1>
 <p>For this week’s practical, we’ll learn the steps of processing a SAR image from a focused, Level-1 SLC (single-look
 complex) image, through to a terrain-corrected interferogram that you can use to estimate surface displacement.</p>
@@ -645,7 +650,7 @@ granules being used in this example are:</p>
 </div>
 <p>but you are welcome to download and use an image pair of your choosing. If you do so, make sure to choose an
 interferometric wide swath (IW) scene, and download the single-look complex (SLC) format.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -659,8 +664,8 @@ different version of SNAP, there may be some slight differences.</p>
 something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/initial_intensity_image.png"><img alt="VV intensity for sub-swath IW2 of the 4 July scene" class="align-center" src="../../../_images/initial_intensity_image.png" style="width: 600px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="co-registering-the-images">
+</section>
+<section id="co-registering-the-images">
 <h2>co-registering the images<a class="headerlink" href="#co-registering-the-images" title="Permalink to this heading">#</a></h2>
 <p>To ensure that our SAR images are properly aligned, we have to co-register them. Normally, we select one image to be
 the “<a class="reference external" href="https://comet.nerc.ac.uk/about-comet/insar-terminology/">primary</a>” image, with the remaining “secondary”
@@ -695,8 +700,8 @@ DEM, but for some areas, <strong>especially at high latitudes</strong>, the SRTM
 <p>Once this step has completed, you should see a new product in the <strong>Product Explorer</strong> - it should have the suffix
 <code class="docutils literal notranslate"><span class="pre">Orb_Stack</span></code>, indicating that the precise orbit information has been applied (<code class="docutils literal notranslate"><span class="pre">Orb</span></code>), and that the images have been
 co-registered into a single stack (<code class="docutils literal notranslate"><span class="pre">Stack</span></code>).</p>
-</div>
-<div class="section" id="interferogram-formation">
+</section>
+<section id="interferogram-formation">
 <h2>interferogram formation<a class="headerlink" href="#interferogram-formation" title="Permalink to this heading">#</a></h2>
 <p>Now that we have the images stacked, we can generate an interferogram by multiplying the primary image with the complex
 conjugate of the secondary image. Under <strong>Radar</strong>, select <strong>Interferometric</strong> &gt; <strong>Products</strong> &gt;
@@ -715,8 +720,8 @@ like this:</p>
 a nice fringe pattern as a result of the earthquake, though it does have some noise, as well as the topographic signal.
 In the remaining steps, we’ll visualize and remove these different signals, so that we’re left with the interference
 pattern caused by the earthquake itself.</p>
-</div>
-<div class="section" id="debursting">
+</section>
+<section id="debursting">
 <h2>debursting<a class="headerlink" href="#debursting" title="Permalink to this heading">#</a></h2>
 <p>Just like we did in Week 3, under <strong>Radar</strong>, select <strong>Sentinel-1 TOPS</strong> &gt; <strong>S-1 TOPS Deburst</strong>, and select the
 interferogram image (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg</span></code>).</p>
@@ -725,8 +730,8 @@ overlapping areas have been merged. The demarcation lines are also gone, and we 
 <a class="reference internal image-reference" href="../../../_images/deburst_interferogram.png"><img alt="the deburst interferogram" class="align-center" src="../../../_images/deburst_interferogram.png" style="width: 600px;" /></a>
 <p><br /> Note that this interferogram has multiple signals: the deformation, the topographic phase, and
 (a small amount of) noise.</p>
-</div>
-<div class="section" id="coherence">
+</section>
+<section id="coherence">
 <h2>coherence<a class="headerlink" href="#coherence" title="Permalink to this heading">#</a></h2>
 <p>Open up the coherence band (<strong>coh_IW2_VV_04Jul2019_16Jul2019</strong>). You should be able to see bright values (closer to 1)
 that indicate high levels of coherence, and dark values (closer to 0) that indicate low values of coherence.</p>
@@ -740,8 +745,8 @@ that indicate high levels of coherence, and dark values (closer to 0) that indic
 <p class="sd-card-text">Compare the coherence with the interferogram - how do they appear to compare? Why do you think this is?</p>
 </div>
 </div>
-</div>
-<div class="section" id="topographic-phase-removal">
+</section>
+<section id="topographic-phase-removal">
 <h2>topographic phase removal<a class="headerlink" href="#topographic-phase-removal" title="Permalink to this heading">#</a></h2>
 <p>Select <strong>Radar</strong> &gt; <strong>Interferometric</strong> &gt; <strong>Products</strong> &gt; <strong>Topographic Phase Removal</strong>. Under <strong>I/O Parameters</strong>, make
 sure to select the deburst interferogram (<code class="docutils literal notranslate"><span class="pre">S1A_IW_SLC__1SDV_20190704T135158...Orb_Stack_ifg_deb</span></code>):</p>
@@ -761,8 +766,8 @@ topographic influence, though there are a few places where we can still see some
 <p><br /> If you selected <strong>Output topographic phase band</strong>, you can also have a look at the topographic phase:</p>
 <a class="reference internal image-reference" href="../../../_images/topo_phase.png"><img alt="the topographic phase" class="align-center" src="../../../_images/topo_phase.png" style="width: 600px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="multi-looking">
+</section>
+<section id="multi-looking">
 <h2>multi-looking<a class="headerlink" href="#multi-looking" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve corrected the topographic phase, we can also work on cleaning up the noise in the phase. We’ll do this
 in two parts: first, we’ll <em>multilook</em> the image, or average over the azimuth (and range) direction. This helps to cut
@@ -776,8 +781,8 @@ down on some of the random noise, though we do lose some spatial resolution in t
 enter <code class="docutils literal notranslate"><span class="pre">2</span></code> - this will give us an approximately 28 m pixel size in the final interferogram:</p>
 <a class="reference internal image-reference" href="../../../_images/multilooking2.png"><img alt="the multi-looking dialogue 2" class="align-center" src="../../../_images/multilooking2.png" style="width: 400px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="filtering">
+</section>
+<section id="filtering">
 <h2>filtering<a class="headerlink" href="#filtering" title="Permalink to this heading">#</a></h2>
 <p>The next step we’ll need to do is filtering the interferometric phase. If you zoom in on the phase image, you should
 see that, while the fringe pattern is pretty clear, there’s still a degree of noise in the left. Under <strong>Radar</strong>,
@@ -790,8 +795,8 @@ account both the local phase noise and fringe rate<a class="footnote-reference b
 interferogram:</p>
 <a class="reference internal image-reference" href="../../../_images/filtered_multilook.png"><img alt="the filtered, multi-looked interferogram" class="align-center" src="../../../_images/filtered_multilook.png" style="width: 600px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="geocoding-and-exporting-interferogram">
+</section>
+<section id="geocoding-and-exporting-interferogram">
 <h2>geocoding and exporting interferogram<a class="headerlink" href="#geocoding-and-exporting-interferogram" title="Permalink to this heading">#</a></h2>
 <p>The last step is to geocode the interferogram and export the result. Select <strong>Radar</strong> &gt; <strong>Geometric</strong> &gt;
 <strong>Terrain Correction</strong>. Under <strong>I/O Parameters</strong>, select the <code class="docutils literal notranslate"><span class="pre">Phase_ifg_VV_04Jul2019_16Jul2019</span></code> and
@@ -802,8 +807,8 @@ selected source bands.</p>
 <p><br /> When the process finishes, you should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/geocoded_ifg.png"><img alt="the terrain-corrected, geocoded interferogram" class="align-center" src="../../../_images/geocoded_ifg.png" style="width: 600px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="exporting-the-image-s">
+</section>
+<section id="exporting-the-image-s">
 <h2>exporting the image(s)<a class="headerlink" href="#exporting-the-image-s" title="Permalink to this heading">#</a></h2>
 <p>Under <strong>File</strong> &gt; <strong>Export</strong>, select <strong>GeoTIFF/BigTIFF</strong>. From the <strong>Export Product</strong> window, select <strong>Subset</strong>,
 then <strong>Band Subset</strong>. Select only the phase image, then <strong>OK</strong>:</p>
@@ -815,8 +820,8 @@ and coherence bands straight.</p>
 used the Google Maps basemap as a background):</p>
 <a class="reference internal image-reference" href="../../../_images/exported_ifg.png"><img alt="the exported image, loaded in QGIS" class="align-center" src="../../../_images/exported_ifg.png" style="width: 600px;" /></a>
 <p><br /></p>
-</div>
-<div class="section" id="questions">
+</section>
+<section id="questions">
 <h2>questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>One thing that we can often tell from an interferogram like this is the orientation of the fault that ruptured -
@@ -828,8 +833,8 @@ middle of the interference pattern? Why might this be?</p></li>
 <li><p>In the NE part of image, we can see what appear to be mountains/canyons in the interference pattern - can you think
 of an explanation for what might cause this?</p></li>
 </ol>
-</div>
-<div class="section" id="references">
+</section>
+<section id="references">
 <h2>references<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -838,8 +843,8 @@ of an explanation for what might cause this?</p></li>
 doi: <a class="reference external" href="https://doi.org/10.1029/1998GL900033">10.1029/1998GL900033</a></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -850,7 +855,7 @@ doi: <a class="reference external" href="https://doi.org/10.1029/1998GL900033">1
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="week3.html"
@@ -918,6 +923,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -944,8 +950,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

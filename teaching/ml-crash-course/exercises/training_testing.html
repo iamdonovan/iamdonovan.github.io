@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>training, testing, and validation &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -129,9 +130,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -553,6 +556,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -562,6 +566,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -622,7 +627,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="training-testing-and-validation">
+  <section id="training-testing-and-validation">
 <h1>training, testing, and validation<a class="headerlink" href="#training-testing-and-validation" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -646,7 +651,7 @@ partitions</p></li>
 <p>We’ll look at all of this while also introducing <strong>support vector
 machine</strong> (SVM) classification, a type of learning model that seeks to
 classify data into one of two (or sometimes more) categories.</p>
-<div class="section" id="data">
+<section id="data">
 <h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
 <p>The goal for this exercise will be to see if we can determine whether a
 location is rainier or drier than average, based on other meteorological
@@ -658,8 +663,8 @@ Office</a>,
 combined with climated averages from between 1971-2000 obtained from
 <a class="reference external" href="https://data.gov.ie/dataset/met-eireann-1971-2000-climate-averages">Met
 Éireann</a>.</p>
-</div>
-<div class="section" id="importing-libraries">
+</section>
+<section id="importing-libraries">
 <h2>importing libraries<a class="headerlink" href="#importing-libraries" title="Permalink to this heading">#</a></h2>
 <p>Before getting started, we will import the libraries (packages) that we
 will use in the exercise:</p>
@@ -727,8 +732,8 @@ actually <em>can</em> separate rainy/dry locations using these two features:</p>
 separating the two groups, but it’s made more difficult by noise: the
 two groups are not nicely separated. That’s okay, because we will
 discuss a few techniques to help deal with noise in our input data.</p>
-</div>
-<div class="section" id="preparing-the-data-standardizing">
+</section>
+<section id="preparing-the-data-standardizing">
 <h2>preparing the data: standardizing<a class="headerlink" href="#preparing-the-data-standardizing" title="Permalink to this heading">#</a></h2>
 <p>Have a look at the values of <code class="docutils literal notranslate"><span class="pre">sun</span></code> on the y axis (90 to 150 hours), vs
 the values of <code class="docutils literal notranslate"><span class="pre">tmin</span></code> on the x axis (3 to 8 °C). Like we saw in the
@@ -804,8 +809,8 @@ just scaled differently:</p>
 </pre></div>
 </div>
 <img alt="../../../_images/training_testing_19_1.png" src="../../../_images/training_testing_19_1.png" />
-</div>
-<div class="section" id="preparing-the-data-splitting-partitioning">
+</section>
+<section id="preparing-the-data-splitting-partitioning">
 <h2>preparing the data: splitting/partitioning<a class="headerlink" href="#preparing-the-data-splitting-partitioning" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve standardized our features and converted our text labels
 into numbers, we are nearly ready to train the classifier. I say nearly
@@ -876,8 +881,8 @@ challenging time training and evaluating our model:</p>
 </pre></div>
 </div>
 <img alt="../../../_images/training_testing_23_0.png" src="../../../_images/training_testing_23_0.png" />
-</div>
-<div class="section" id="support-vector-machine">
+</section>
+<section id="support-vector-machine">
 <h2>support vector machine<a class="headerlink" href="#support-vector-machine" title="Permalink to this heading">#</a></h2>
 <p>Now that we have partitioned our dataset, we’re ready to train our
 model. In this exercise, we’ll explore using support vector machine
@@ -907,7 +912,7 @@ by minimizing <span class="math notranslate nohighlight">\(\lVert\mathbf{w}\rVer
 distance between the two planes. We’ll stick to two dimensions for now
 because it’s easier to visualize - in this case, what we’re trying to
 find is a line that separates the two classes.</p>
-<div class="section" id="hinge-loss">
+<section id="hinge-loss">
 <h3>hinge loss<a class="headerlink" href="#hinge-loss" title="Permalink to this heading">#</a></h3>
 <p>As we can see above, there is no line that will cleanly separate these
 two classes - in this case, we use something called the <strong>hinge loss</strong>
@@ -928,8 +933,8 @@ we place less emphasis on misclassification; decreasing the value of
 <span class="math notranslate nohighlight">\(C\)</span> means that we have a smaller margin size. We will come back to
 this more in later exercises, when we talk about something called
 <strong>regularization</strong>.</p>
-</div>
-<div class="section" id="using-scikit-learn">
+</section>
+<section id="using-scikit-learn">
 <h3>using scikit-learn<a class="headerlink" href="#using-scikit-learn" title="Permalink to this heading">#</a></h3>
 <p>To do this using <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, we need to first create an object of
 the <strong>class</strong> corresponding to our machine learning algorithm - in this
@@ -996,9 +1001,9 @@ individual circles) is that the majority of the points lie on the
 correct side of the line, even if there are a number of “rainy” points
 that would be classified as dry using the classifier, and a few “dry”
 points that would be classified as rainy.</p>
-</div>
-</div>
-<div class="section" id="checking-the-results">
+</section>
+</section>
+<section id="checking-the-results">
 <h2>checking the results<a class="headerlink" href="#checking-the-results" title="Permalink to this heading">#</a></h2>
 <p>We’ll cover formal ways to assess model performance more in the next
 exercise, but for now we can look at the <strong>mean accuracy</strong> using
@@ -1015,8 +1020,8 @@ it’s a bit lower at 80%:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linear_clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="c1"># get the mean accuracy for the testing data</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="generalization">
+</section>
+<section id="generalization">
 <h2>generalization<a class="headerlink" href="#generalization" title="Permalink to this heading">#</a></h2>
 <p>Ideally, we would like to see our model perform about the same on both
 the training data and the testing/validation data. When this is the
@@ -1048,8 +1053,8 @@ or increase the number of training examples that we have.</p>
 <p>As we continue through the rest of this workshop, I will try to
 highlight examples of problems where the model is overfit or underfit,
 and illustrate potential solutions to these problems.</p>
-</div>
-<div class="section" id="the-kernel-trick">
+</section>
+<section id="the-kernel-trick">
 <h2>the “kernel trick”<a class="headerlink" href="#the-kernel-trick" title="Permalink to this heading">#</a></h2>
 <p>Very often with real datasets, we will be unable to find a “clean” split
 between classes - we will either have <strong>noise</strong> in our input data, or we
@@ -1072,7 +1077,7 @@ higher-dimensional space.</p>
 <p>We will not go into the mathematical details of how this all works here
 - instead, we will look at some examples of different <strong>kernel
 functions</strong>, and see how this impacts the classifier training.</p>
-<div class="section" id="radial-basis-function-kernel">
+<section id="radial-basis-function-kernel">
 <h3>radial basis function kernel<a class="headerlink" href="#radial-basis-function-kernel" title="Permalink to this heading">#</a></h3>
 <p>One of the most common kernel functions in practice is the <strong>radial
 basis function</strong> (<strong>RBF</strong>) kernel - indeed, this is actually the default
@@ -1128,8 +1133,8 @@ training data.</p>
 <p>With additional training data, we might be able to improve performance
 in both training and testing; for now, though, we’ll leave this and look
 at a different kernel example.</p>
-</div>
-<div class="section" id="polynomial-kernels">
+</section>
+<section id="polynomial-kernels">
 <h3>polynomial kernels<a class="headerlink" href="#polynomial-kernels" title="Permalink to this heading">#</a></h3>
 <p>The next kernel we will look at is the <strong>polynomial kernel</strong>, which has
 the form:</p>
@@ -1177,8 +1182,8 @@ both the linear and RBF kernels, though not by much. The testing data:</p>
 <p>show a similar result as the RBF kernel - the model has overfit the
 training data, and as a result, the accuracy using the testing data is
 quite poor.</p>
-</div>
-<div class="section" id="the-sigmoid-kernel">
+</section>
+<section id="the-sigmoid-kernel">
 <h3>the sigmoid kernel<a class="headerlink" href="#the-sigmoid-kernel" title="Permalink to this heading">#</a></h3>
 <p>The final kernel function that we will look at is the <strong>sigmoid</strong> kernel
 function, which has the form:</p>
@@ -1226,9 +1231,9 @@ with our data, both in terms of training and testing. It turns out that
 despite their simplicity, linear models can be a very good choice for
 generalizing - especially when we don’t have a strong reason to assume
 that our model needs to be more complex.</p>
-</div>
-</div>
-<div class="section" id="next-steps">
+</section>
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this exercise. For additional practice, try at least one
 of the suggestions below</p>
@@ -1247,8 +1252,8 @@ the kernel function used?</p></li>
 <code class="docutils literal notranslate"><span class="pre">tmin</span></code>, <code class="docutils literal notranslate"><span class="pre">tmax</span></code> + <code class="docutils literal notranslate"><span class="pre">tmin</span></code>, etc.). Are there kernel functions for
 which this is better or worse?</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -1259,7 +1264,7 @@ which this is better or worse?</p></li>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="regression.html"
@@ -1333,6 +1338,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -1359,8 +1365,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

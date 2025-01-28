@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>introduction to google earth engine &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -128,9 +129,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -552,6 +555,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -561,6 +565,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -610,7 +615,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="introduction-to-google-earth-engine">
+  <section id="introduction-to-google-earth-engine">
 <h1>introduction to google earth engine<a class="headerlink" href="#introduction-to-google-earth-engine" title="Permalink to this heading">#</a></h1>
 <style> .green {color:green} </style><p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) for remote sensing analysis. Even if
 you have no prior experience with programming, you will be able to complete this practical. All of the programming steps
@@ -618,7 +623,7 @@ have been provided for you in a script, and your task will be to run each step i
 <p>GEE is “a cloud-based platform for planetary-scale geospatial analysis” (Gorelick et al., 2017<a class="footnote-reference brackets" href="#id3" id="id1">1</a>). With it, users
 have access to a number of tools, including entire satellite archives, machine-learning algorithms for classification,
 and computational power far beyond what an average desktop user has access to.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>. If you are not already logged in, log in using
 your GEE account. You should see something like this:</p>
@@ -656,8 +661,8 @@ to update the script names appropriately). This way, you have a record of any ch
 <p>Perhaps most importantly, it will mean that when you add training samples for the classification exercises in
 Week 5, you don’t have to re-do them each time you re-open your browser window.</p>
 </div>
-</div>
-<div class="section" id="part-1-finding-and-inspecting-images">
+</section>
+<section id="part-1-finding-and-inspecting-images">
 <h2>part 1 - finding and inspecting images<a class="headerlink" href="#part-1-finding-and-inspecting-images" title="Permalink to this heading">#</a></h2>
 <p>Once you have saved the script, you should see something like the following in the code editor:</p>
 <a class="reference internal image-reference" href="../../../_images/loaded_saved_script.png"><img alt="the gee window after loading and saving the script" class="align-center" src="../../../_images/loaded_saved_script.png" style="width: 720px;" /></a>
@@ -913,8 +918,8 @@ and their names:</p>
 <a class="reference external" href="https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites">https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites</a></p>
 </div>
 <p>Once you’ve looked around the area, move on to the next part.</p>
-</div>
-<div class="section" id="part-2-band-maths-and-charts">
+</section>
+<section id="part-2-band-maths-and-charts">
 <h2>part 2 - band maths and charts<a class="headerlink" href="#part-2-band-maths-and-charts" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve seen a little of how we can search, add, display, and examine images, let’s take a look at some of the
 different DEMs available within GEE.</p>
@@ -1109,8 +1114,8 @@ down below the chart to see these, but be sure to look at these before answering
 <p class="sd-card-text">is the standard deviation an appropriate metric to describe the variation in the data? <strong>Why or why not?</strong></p>
 </div>
 </div>
-</div>
-<div class="section" id="part-3-pan-sharpening">
+</section>
+<section id="part-3-pan-sharpening">
 <h2>part 3 - pan-sharpening<a class="headerlink" href="#part-3-pan-sharpening" title="Permalink to this heading">#</a></h2>
 <p>For the third part of this week’s practical, we’ll look at one method of <em>pan-sharpening</em> - that is, using a
 band or an image with a higher resolution to “sharpen”, or increase the resolution of, another image.</p>
@@ -1201,8 +1206,8 @@ values supplied to <code class="docutils literal notranslate"><span class="pre">
 <p>If you would rather export the pan-sharpened image with the original values, simply remove
 <code class="docutils literal notranslate"><span class="pre">.visualize({min:0.005,</span> <span class="pre">max:0.4,</span> <span class="pre">gamma:1.5})</span></code> from the script and re-run it.</p>
 </div>
-</div>
-<div class="section" id="part-4-pca">
+</section>
+<section id="part-4-pca">
 <h2>part 4 - pca<a class="headerlink" href="#part-4-pca" title="Permalink to this heading">#</a></h2>
 <p>In the final part of this week’s practical, we’ll have a look at principal component analysis (PCA), and see how the
 different bands of the PCA image compare to the original image bands. As we discussed in the lecture, PCA can help
@@ -1285,8 +1290,8 @@ copy and paste the following code snippet to the bottom of the script, then re-r
 <span class="p">});</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>Make sure that as you work through the practical, you understand and can answer the questions being asked. If you’re
 not sure, ask on the discussion board on blackboard.</p>
@@ -1296,8 +1301,8 @@ not sure, ask on the discussion board on blackboard.</p>
 <a class="reference external" href="https://www.dnr.wa.gov/publications/lm_hcp_west_oldgrowth_guide_enviro_hires.pdf">figure 3</a> (page 3) from this
 pamphlet, can you identify which color(s) of the decorrelation stretch correspond to which tree species?</p></li>
 </ul>
-</div>
-<div class="section" id="notes-and-references">
+</section>
+<section id="notes-and-references">
 <h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -1311,8 +1316,8 @@ methods. <em>ISPRS J. Photogramm. Rem. Sens.</em> 64, 398–406.
 doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2009.02.003">10.1016/j.isprsjprs.2009.02.003</a></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -1323,7 +1328,7 @@ doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.200
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="week2.html"
@@ -1386,6 +1391,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -1412,8 +1418,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

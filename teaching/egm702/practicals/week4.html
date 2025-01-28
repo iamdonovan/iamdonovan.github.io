@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>change detection in earth engine &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -129,9 +130,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -553,6 +556,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -562,6 +566,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -611,13 +616,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="change-detection-in-earth-engine">
+  <section id="change-detection-in-earth-engine">
 <h1>change detection in earth engine<a class="headerlink" href="#change-detection-in-earth-engine" title="Permalink to this heading">#</a></h1>
 <p>In this practical, we’ll build on <a class="reference internal" href="week3.html"><span class="doc">week 3</span></a>’s introduction to GEE and image analysis by seeing ways that
 we can use GEE for change detection and analysis. Just like last week, you should be able to do finish the practical
 even if you have no prior experience with programming. All of the programming steps have been provided for you in a
 collection of scripts, and your task will be to run each script and analyze/interpret the results.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To begin, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>, and log in if you need to. In the
 <strong>Script manager</strong> under <strong>Reader</strong>, find the <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository, and click on <code class="docutils literal notranslate"><span class="pre">week4</span></code> to expand the week 4
@@ -638,8 +643,8 @@ you’ll need to save the script to your own repository. Again, the easiest way 
 see a <code class="docutils literal notranslate"><span class="pre">week4</span></code> folder appear in the repository with a new script, <code class="docutils literal notranslate"><span class="pre">01_visual_analysis.js</span></code>.</p>
 <p>As you work your way through the practical, remember to save each script in this way, so that any changes you make to
 the scripts are saved in your repository.</p>
-</div>
-<div class="section" id="part-1-visual-analysis">
+</section>
+<section id="part-1-visual-analysis">
 <h2>part 1 - visual analysis<a class="headerlink" href="#part-1-visual-analysis" title="Permalink to this heading">#</a></h2>
 <p>In the first part of this practical, we’ll see how we can analyze change visually by comparing:</p>
 <ul class="simple">
@@ -759,8 +764,8 @@ interpret/explain these difference?</p>
 <p>Visually inspecting images for differences can be an excellent way to <em>identify</em> changes, because our eyes can be quite
 sensitive to subtle differences in appearance between images. However, it is not always the most effective/efficient way
 to <em>quantify</em> changes - for this, we’ll look at other methods.</p>
-</div>
-<div class="section" id="part-2-band-maths-and-thresholding">
+</section>
+<section id="part-2-band-maths-and-thresholding">
 <h2>part 2 - band maths and thresholding<a class="headerlink" href="#part-2-band-maths-and-thresholding" title="Permalink to this heading">#</a></h2>
 <p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">02_thresholding.js</span></code> in the <strong>Script manager</strong>, or using
 this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F02_thresholding.js">direct link</a>.</p>
@@ -875,8 +880,8 @@ minimizing differences that are due to natural fluctuations in reflectance.</p>
 minimizing areas where not much change appears to have happened, be sure to click on the <strong>Tasks</strong> tab and run the
 task to export the shapefile to your drive.</p>
 </div>
-</div>
-<div class="section" id="part-3-change-vector-analysis">
+</section>
+<section id="part-3-change-vector-analysis">
 <h2>part 3 - change vector analysis<a class="headerlink" href="#part-3-change-vector-analysis" title="Permalink to this heading">#</a></h2>
 <p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">03_change_vector_analysis.js</span></code> in the <strong>Script manager</strong>, or using
 this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F03_change_vector_analysis.js">direct link</a>.</p>
@@ -976,8 +981,8 @@ by looking at the reclassified angle map is the broad direction of the change; w
 to explain what we see in terms of the physical changes that have taken place.</p>
 </div>
 </div>
-</div>
-<div class="section" id="part-4-time-series">
+</section>
+<section id="part-4-time-series">
 <h2>part 4 - time series<a class="headerlink" href="#part-4-time-series" title="Permalink to this heading">#</a></h2>
 <p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">04_time_series.js</span></code> in the <strong>Script manager</strong>, or using
 this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek4%2F04_time_series.js">direct link</a>.</p>
@@ -1081,8 +1086,8 @@ single polygon – to add multiple polygons, you’ll need to create multiple fe
 help you decide areas to look further into.</p>
 <p>This is the end of this Practical – next week, we’ll look into using Earth Engine to do some more advanced classification
 techniques, and run an accuracy analysis on the results.</p>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>In the <code class="docutils literal notranslate"><span class="pre">03_change_vector_analysis.js</span></code> script, try changing the number of classes from 4 to 8 by copying and pasting
 the following code at the end of the script, then re-running the script:</p>
@@ -1115,8 +1120,8 @@ reflectance; angle class 3 represents smaller decreases in red reflectance, whil
 decreases. Using the angle change map and the original false color composites, what kind of changes are you able
 to discern here?</p></li>
 </ul>
-</div>
-<div class="section" id="notes-and-references">
+</section>
+<section id="notes-and-references">
 <h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -1133,8 +1138,8 @@ because the output of <code class="docutils literal notranslate"><span class="pr
 <span class="math notranslate nohighlight">\(+\pi\)</span> (180 <span class="math notranslate nohighlight">\(^\circ\)</span>).</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -1145,7 +1150,7 @@ because the output of <code class="docutils literal notranslate"><span class="pr
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="week3.html"
@@ -1208,6 +1213,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -1234,8 +1240,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

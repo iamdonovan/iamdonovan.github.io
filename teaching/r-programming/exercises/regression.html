@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>linear regression using R &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -129,9 +130,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -553,6 +556,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -562,6 +566,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -616,7 +621,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="linear-regression-using-r">
+  <section id="linear-regression-using-r">
 <h1>linear regression using <strong>R</strong><a class="headerlink" href="#linear-regression-using-r" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -633,7 +638,7 @@ through them online</p></li>
 linear regression. We’ll also see how we can calculate the correlation
 between two variables, and get some additional practice working with
 grouped data.</p>
-<div class="section" id="data">
+<section id="data">
 <h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
 <p>The data used in this exercise are the historic meteorological
 observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
@@ -643,8 +648,8 @@ Observatory (1855-2000), and Stornoway Airport (1873-present),
 downloaded from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">UK Met
 Office</a>
 that we used in previous exercises.</p>
-</div>
-<div class="section" id="getting-started">
+</section>
+<section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>First, we’ll use <code class="docutils literal notranslate"><span class="pre">library()</span></code> to load the <code class="docutils literal notranslate"><span class="pre">tidyverse</span></code> package:</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
@@ -654,8 +659,8 @@ that we used in previous exercises.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read_csv</span><span class="p">(</span><span class="nf">file.path</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;combined_stations.csv&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="plotting-relationships">
+</section>
+<section id="plotting-relationships">
 <h2>plotting relationships<a class="headerlink" href="#plotting-relationships" title="Permalink to this heading">#</a></h2>
 <p>Before jumping into correlation and regreesion, let’s have a look at the
 data we’re investigating. In the cell below, write some lines of code to
@@ -677,8 +682,8 @@ shapes for each season. Be sure to assign the plot to an object called
 <p>What kind of relationship is there between <code class="docutils literal notranslate"><span class="pre">tmax</span></code> and <code class="docutils literal notranslate"><span class="pre">rain</span></code>? Does
 it depend on the season? How strong is the relationship, and what does
 this mean for the slope of each regression line?</p>
-</div>
-<div class="section" id="calculating-correlation">
+</section>
+<section id="calculating-correlation">
 <h2>calculating correlation<a class="headerlink" href="#calculating-correlation" title="Permalink to this heading">#</a></h2>
 <p>The next thing we’ll look at is how to calculate the <em>correlation</em>
 between two variables, using <code class="docutils literal notranslate"><span class="pre">cor()</span></code>
@@ -686,7 +691,7 @@ between two variables, using <code class="docutils literal notranslate"><span cl
 calculating the covariance for all values of a variable, then use some
 of the tools we’ve seen previously to calculate the correlation based on
 different grouping variables.</p>
-<div class="section" id="for-an-entire-dataset">
+<section id="for-an-entire-dataset">
 <h3>for an entire dataset<a class="headerlink" href="#for-an-entire-dataset" title="Permalink to this heading">#</a></h3>
 <p>The basic use of <code class="docutils literal notranslate"><span class="pre">cor()</span></code> to calculate the correlation between two
 variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> is <code class="docutils literal notranslate"><span class="pre">cor(x,</span> <span class="pre">y)</span></code>. To calculate the correlation
@@ -698,8 +703,8 @@ words, we only want to use complete observations (<code class="docutils literal 
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">cor</span><span class="p">(</span><span class="n">station_data</span><span class="o">$</span><span class="n">rain</span><span class="p">,</span><span class="w"> </span><span class="n">station_data</span><span class="o">$</span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="o">=</span><span class="s">&#39;complete.obs&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1"># calculate pearson&#39;s r for rain and tmax</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="by-groups">
+</section>
+<section id="by-groups">
 <h3>by groups<a class="headerlink" href="#by-groups" title="Permalink to this heading">#</a></h3>
 <p>We’re more interested in calculating the correlation for different
 groups - as you can see from the plots above, the relationship between
@@ -723,9 +728,9 @@ calculate Spearman’s rho and Kendall’s tau coefficient:</p>
 <span class="n">corr_table</span><span class="w"> </span><span class="c1"># show the table</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="simple-linear-regression">
+</section>
+</section>
+<section id="simple-linear-regression">
 <h2>simple linear regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this heading">#</a></h2>
 <p>We’ll start by fitting a linear model for spring. To prepare the data,
 write a line of code below that selects only the spring observations,
@@ -781,8 +786,8 @@ the <strong>matrix</strong>:</p>
 <span class="n">spring_lm_coefs</span><span class="p">[</span><span class="s">&quot;(Intercept)&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Estimate&quot;</span><span class="p">]</span><span class="w"> </span><span class="c1"># get the estimate of the intercept</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="multiple-linear-regression">
+</section>
+<section id="multiple-linear-regression">
 <h2>multiple linear regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this heading">#</a></h2>
 <p>Now, let’s try to fit a linear model of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> with two variables:
 <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">sun</span></code>. Remember that multiple linear regression tries to
@@ -806,8 +811,8 @@ before:</p>
 <span class="n">spring_mlm_coefs</span><span class="p">[</span><span class="s">&quot;rain&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Estimate&quot;</span><span class="p">]</span><span class="w"> </span><span class="c1"># get the slope of the rain variable</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="bonus-linear-regression-with-groups">
+</section>
+<section id="bonus-linear-regression-with-groups">
 <h2>bonus: linear regression with groups<a class="headerlink" href="#bonus-linear-regression-with-groups" title="Permalink to this heading">#</a></h2>
 <p>As a final exercise, let’s see how we can combine some of the tools
 we’ve used in the workshop so far, along with a few new ones, to fit
@@ -864,8 +869,8 @@ object:</p>
 <span class="nf">coef</span><span class="p">(</span><span class="n">model_summary</span><span class="o">$</span><span class="n">autumn</span><span class="p">)</span><span class="w"> </span><span class="c1"># get the coefficients of the autumn linear model</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="exercise-and-next-steps">
+</section>
+<section id="exercise-and-next-steps">
 <h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this exercise, and for the exercises of this workshop.
 The next sessions are BYOD (“bring your own data”) sessions where you
@@ -885,8 +890,8 @@ as a function of <code class="docutils literal notranslate"><span class="pre">tm
 winter. Which of these variables has the strongest effect on
 <code class="docutils literal notranslate"><span class="pre">air_frost</span></code>?</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -897,7 +902,7 @@ winter. Which of these variables has the strongest effect on
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="stats.html"
@@ -965,6 +970,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -991,8 +997,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>input/output &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -128,9 +129,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -552,6 +555,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -561,6 +565,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -610,7 +615,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="input-output">
+  <section id="input-output">
 <h1>input/output<a class="headerlink" href="#input-output" title="Permalink to this heading">#</a></h1>
 <p>In this exercise, we’re going to use a collection of historic meteorological observations,
 downloaded from the <a class="reference external" href="https://www.metoffice.gov.uk/research/climate/maps-and-data/historic-station-data">UK Met
@@ -619,7 +624,7 @@ Office</a>.</p>
 techniques.</p>
 <p>To follow along, make sure to first
 <a class="reference external" href="https://drive.google.com/file/d/1vIUezydekYo7DHmep5-qqn2jnuaVLS8W/view?usp=sharing">download</a> the data file.</p>
-<div class="section" id="sample-data">
+<section id="sample-data">
 <h2>sample data<a class="headerlink" href="#sample-data" title="Permalink to this heading">#</a></h2>
 <p>Once you have downloaded the file, use the shell to navigate to the directory containing the file, then use the
 following command to extract the contents of the file:</p>
@@ -644,8 +649,8 @@ interested in the number of lines in the file (assuming that 1 line = 1 observat
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wc<span class="w"> </span>-l<span class="w"> </span>armagh.txt
 </pre></div>
 </div>
-</div>
-<div class="section" id="pipes-and-filters">
+</section>
+<section id="pipes-and-filters">
 <h2>pipes and filters<a class="headerlink" href="#pipes-and-filters" title="Permalink to this heading">#</a></h2>
 <p>We can also use a <strong>wildcard expression</strong> to pass all of the filenames matching a given pattern to <code class="docutils literal notranslate"><span class="pre">wc</span></code>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wc<span class="w"> </span>*.txt
@@ -733,8 +738,8 @@ For example, we can pass the output of <code class="docutils literal notranslate
 <p class="sd-card-text">Can you think of a way to do this, using the techniques introduced above?</p>
 </div>
 </div>
-</div>
-<div class="section" id="grep-and-regular-expressions">
+</section>
+<section id="grep-and-regular-expressions">
 <h2>grep and regular expressions<a class="headerlink" href="#grep-and-regular-expressions" title="Permalink to this heading">#</a></h2>
 <p>First, let’s take a closer look at our files. To see the first few lines of a file, we can use the <code class="docutils literal notranslate"><span class="pre">head</span></code> command:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span>armagh.txt
@@ -785,8 +790,8 @@ match the pattern:</p>
 files.</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">grep</span></code> only shows us how many lines match (or don’t match) the pattern, but we want to easily count the number
 of lines that match the pattern, so we need at least one more step to reach this part of our goal.</p>
-</div>
-<div class="section" id="redirecting-output">
+</section>
+<section id="redirecting-output">
 <h2>redirecting output<a class="headerlink" href="#redirecting-output" title="Permalink to this heading">#</a></h2>
 <p>Now that we have seen how we can use the <strong>pipe</strong> operator (<code class="docutils literal notranslate"><span class="pre">|</span></code>) to pass the output of a command to another command,
 let’s see how we can <strong>redirect</strong> the output of a command from the screen to a file, using <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. Similar to <code class="docutils literal notranslate"><span class="pre">|</span></code>,
@@ -821,8 +826,8 @@ the file.</p>
 </div>
 <p>If <code class="docutils literal notranslate"><span class="pre">file</span></code> does not already exist, it will be created.</p>
 </div>
-</div>
-<div class="section" id="reading-input">
+</section>
+<section id="reading-input">
 <h2>reading input<a class="headerlink" href="#reading-input" title="Permalink to this heading">#</a></h2>
 <p>In addition to redirecting the output of a command to a file, we can also redirect input from a file to a command
 using <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>:</p>
@@ -851,8 +856,8 @@ output of <code class="docutils literal notranslate"><span class="pre">ls</span>
 <p>and we would get the same result - the important thing is that the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> operators come <em>after</em> all of the
 other options and arguments to the command (in the case, <code class="docutils literal notranslate"><span class="pre">sort</span></code>).</p>
 </div>
-</div>
-<div class="section" id="next-steps">
+</section>
+<section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>We’re still only part of the way to our goal, however - we have seen how we can split the original files into <strong>.data</strong>
 and <strong>.head</strong> files using <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, and how we can use <code class="docutils literal notranslate"><span class="pre">wc</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>, and <code class="docutils literal notranslate"><span class="pre">sort</span></code> to figure out which files
@@ -860,8 +865,8 @@ have the most lines.</p>
 <p>There’s another piece missing: we need to split multiple files. In the next lesson, we’ll look at how to do this, and
 how we can combine all of these different commands into a single program (a “script”) so that we can repeat this
 process whenever we update or add to our data.</p>
-</div>
-<div class="section" id="notes">
+</section>
+<section id="notes">
 <h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -874,8 +879,8 @@ process whenever we update or add to our data.</p>
 <dd><p>note that this is just for illustration, since by default <code class="docutils literal notranslate"><span class="pre">ls</span></code> will sort file names alphabetically.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -886,7 +891,7 @@ process whenever we update or add to our data.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="files.html"
@@ -949,6 +954,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -975,8 +981,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>working with pandas dataframes &#8212; space cameras and glaciers</title>
   
   
@@ -18,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -33,13 +34,13 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -128,9 +129,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
+  
   
   
   
@@ -552,6 +555,7 @@
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -561,6 +565,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -617,7 +622,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="section" id="working-with-pandas-dataframes">
+  <section id="working-with-pandas-dataframes">
 <h1>working with pandas dataframes<a class="headerlink" href="#working-with-pandas-dataframes" title="Permalink to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -635,7 +640,7 @@ combining tables, creating and re-arranging variables, selecting and
 sorting rows, and grouping and summarizing data. Mostly, we will be
 working with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, which is designed for data manipulation (again,
 read this as “analyzing” or “working with”, not “fabricating”!).</p>
-<div class="section" id="data">
+<section id="data">
 <h2>data<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
 <p>The data used in this exercise are the historic meteorological
 observations from the <a class="reference external" href="https://www.metoffice.gov.uk/weather/learn-about/how-forecasts-are-made/observations/recording-observations-for-over-100-years">Armagh
@@ -662,8 +667,8 @@ a terminal:</p>
 <p>This will create a new file, <code class="docutils literal notranslate"><span class="pre">{station}data.csv</span></code>, that has converted +
 cleaned the data into a CSV format that can easily be read by
 <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
-</div>
-<div class="section" id="loading-libraries">
+</section>
+<section id="loading-libraries">
 <h2>loading libraries<a class="headerlink" href="#loading-libraries" title="Permalink to this heading">#</a></h2>
 <p>As before, we load the libraries that we will use in the exercise at the
 beginning. We will be using three libraries: -
@@ -755,8 +760,8 @@ combined table:</p>
 <p>Note that this is one advantage of using clear, consistent naming and
 formatting for data files - we can easily write a loop to load multiple
 files, instead of having to write individual paths.</p>
-</div>
-<div class="section" id="selecting-rows-using-expressions">
+</section>
+<section id="selecting-rows-using-expressions">
 <h2>selecting rows using expressions<a class="headerlink" href="#selecting-rows-using-expressions" title="Permalink to this heading">#</a></h2>
 <p>Now that we have a single table, we can also look at ways that we can
 select rows from the table. For a <em>very</em> in-depth overview of how
@@ -793,8 +798,8 @@ with <code class="docutils literal notranslate"><span class="pre">&#64;</span></
 <span class="n">station_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;tmax &gt; @min_temp &amp; rain &gt; 100&#39;</span><span class="p">)</span> <span class="c1"># reference the new variable in the query</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-sort-values-to-sort-rows">
+</section>
+<section id="using-sort-values-to-sort-rows">
 <h2>using sort_values to sort rows<a class="headerlink" href="#using-sort-values-to-sort-rows" title="Permalink to this heading">#</a></h2>
 <p>Sometimes, we might want to sort our data according to the value of
 different variables. For example, we can sort the observations by
@@ -813,8 +818,8 @@ we can set the <code class="docutils literal notranslate"><span class="pre">asce
 they are not numbers, they are not sorted as being greater than or less
 than other values, so <code class="docutils literal notranslate"><span class="pre">pandas</span></code> moves them to the end by default (to
 put them at the beginning, we can use the <code class="docutils literal notranslate"><span class="pre">na_position</span></code> argument).</p>
-</div>
-<div class="section" id="find-unique-values">
+</section>
+<section id="find-unique-values">
 <h2>find unique values<a class="headerlink" href="#find-unique-values" title="Permalink to this heading">#</a></h2>
 <p>To find unique rows in a <strong>Series</strong> (column), we can use <code class="docutils literal notranslate"><span class="pre">.unique()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.unique.html">documentation</a>).
@@ -837,8 +842,8 @@ are unique/duplicated:</p>
 <p>Note that the distinct values found above are all from the first year of
 each dataset - this is because <code class="docutils literal notranslate"><span class="pre">.drop_duplicates()</span></code> discards all but
 the first occurrence of a unique row.</p>
-</div>
-<div class="section" id="counting-occurrences">
+</section>
+<section id="counting-occurrences">
 <h2>counting occurrences<a class="headerlink" href="#counting-occurrences" title="Permalink to this heading">#</a></h2>
 <p>If we want to count the number of non-NaN values in a table, we can use
 <code class="docutils literal notranslate"><span class="pre">.count()</span></code>
@@ -881,8 +886,8 @@ As far as python is concerned, there is no difference between this:</p>
 <p>But, the former can be easier to read/understand what is being done. You
 will likely see code written in both styles, but I will try to break
 things into different lines when it makes sense.</p>
-</div>
-<div class="section" id="adding-columns-to-the-table">
+</section>
+<section id="adding-columns-to-the-table">
 <h2>adding columns to the table<a class="headerlink" href="#adding-columns-to-the-table" title="Permalink to this heading">#</a></h2>
 <p>In a previous exercise, we saw how we can add a variable/column to a
 <strong>DataFrame</strong> using the output of a function:</p>
@@ -938,8 +943,8 @@ month number):</p>
 <span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># show the first 12 rows of the table</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="re-naming-columns">
+</section>
+<section id="re-naming-columns">
 <h2>re-naming columns<a class="headerlink" href="#re-naming-columns" title="Permalink to this heading">#</a></h2>
 <p>Often, we may also want to rename variables to make them easier to
 read/understand. For example, the <code class="docutils literal notranslate"><span class="pre">yyyy</span></code>, <code class="docutils literal notranslate"><span class="pre">mm</span></code>, and <code class="docutils literal notranslate"><span class="pre">af</span></code> variables
@@ -967,8 +972,8 @@ to a new variable in order to use it; for example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_df</span> <span class="o">=</span> <span class="n">old_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;old_name&#39;</span><span class="p">:</span> <span class="s1">&#39;new_name&#39;</span><span class="p">})</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="selecting-columns">
+</section>
+<section id="selecting-columns">
 <h2>selecting columns<a class="headerlink" href="#selecting-columns" title="Permalink to this heading">#</a></h2>
 <p>Selecting columns from a <strong>DataFrame</strong> works similarly to selecting
 rows. We can use square brackets (<code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>) along with the name
@@ -995,8 +1000,8 @@ to select columns:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">filter</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">])</span> <span class="c1"># select the date and rain columns using filter()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="re-arranging-columns-using-reindex">
+</section>
+<section id="re-arranging-columns-using-reindex">
 <h2>re-arranging columns using reindex()<a class="headerlink" href="#re-arranging-columns-using-reindex" title="Permalink to this heading">#</a></h2>
 <p>We might also want to re-arrange the order of columns - there are a
 number of different ways to do this, but we’ll have a look at using
@@ -1011,8 +1016,8 @@ want to see them. We then pass this to <code class="docutils literal notranslate
 <span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the first 5 rows of the dataframe</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="saving-data-to-a-file">
+</section>
+<section id="saving-data-to-a-file">
 <h2>saving data to a file<a class="headerlink" href="#saving-data-to-a-file" title="Permalink to this heading">#</a></h2>
 <p>Now that we have combined the different data files, added some new
 columns to our data, and re-named and re-arranged the columns, we should
@@ -1029,8 +1034,8 @@ file to; we also set the <code class="docutils literal notranslate"><span class=
 <p>Now, we’ll be able to load this file when we want to do further
 analysis, rather than needing to re-run the steps to load each file,
 combine the tables, create new variables, and so on.</p>
-</div>
-<div class="section" id="grouping-data">
+</section>
+<section id="grouping-data">
 <h2>grouping data<a class="headerlink" href="#grouping-data" title="Permalink to this heading">#</a></h2>
 <p>Next, we’ll see how we can use different tools to aggregate and
 summarize our data, starting with <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>
@@ -1102,8 +1107,8 @@ labels:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;seasonal_rain_distribution.svg&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="slicing">
+</section>
+<section id="slicing">
 <h2>slicing<a class="headerlink" href="#slicing" title="Permalink to this heading">#</a></h2>
 <p>We’ll finish up by looking at a few functions that we can use to <em>slice</em>
 a dataset - that is, extract specific rows from a group. For example, we
@@ -1151,8 +1156,8 @@ On a grouped <strong>DataFrame</strong>, we get a random sample from each group:
     <span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="exercise-and-next-steps">
+</section>
+<section id="exercise-and-next-steps">
 <h2>exercise and next steps<a class="headerlink" href="#exercise-and-next-steps" title="Permalink to this heading">#</a></h2>
 <p>That’s all for this exercise. To practice your skills, create a notebook
 file that does the following:</p>
@@ -1195,8 +1200,8 @@ file.</p>
 <p>In your new notebook file, remember to add this new data to your
 existing dataset (and re-save the file!), then repeat the analyis
 questions above.</p>
-</div>
-</div>
+</section>
+</section>
 
 
                 </article>
@@ -1207,7 +1212,7 @@ questions above.</p>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="plotting.html"
@@ -1277,6 +1282,7 @@ By Bob McNabb
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
@@ -1303,8 +1309,8 @@ By Bob McNabb
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
