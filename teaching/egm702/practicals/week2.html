@@ -599,11 +599,15 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">dem differencing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-the-landsat-images">preparing the landsat images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-hillshades-and-shaded-relief">adding hillshades and shaded relief</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">dem differencing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-estimation">accuracy estimation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-nodata-values">filling nodata values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-elevation-and-volume-changes">estimating elevation and volume changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment">assignment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
 </ul>
             </nav>
         </div>
@@ -627,17 +631,21 @@ then extract the zip file.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├─ 1979_shapes.*
 ├─ 1984_shapes.*
 ├─ ALPSMLC30_N046W123_DSM.tif
-├─ MtStHelens_Aug1984_10m_Z.tif
+├─ MtStHelens_Sep1984_10m_Z.tif
 ├─ MtStHelens_Jul1979_10m_Z.tif
-├─ LM02_L1TP_049028_19790719_20180419_01_T2.tif
-└─ LT05_L1TP_046028_19840804_20161004_01_T1.tif
+├─ LM02_L1TP_049028_19790719_20200906_02_T2/
+└─ LT05_L1TP_046028_19840804_20200918_02_T1/
 </pre></div>
 </div>
 <p>You should also still have the NAIP images we used in Week 1. In this practical, we’re going to work on analysing the
-provided digital elevation models (DEMs) – their accuracy, and the spatial autocorrelation between the two air photo
-DEMs (<strong>MtStHelens_Aug1984_10m_Z.tif</strong> and <strong>MtStHelens_Jul1979_10m_Z.tif</strong>).</p>
-<p>We will also do some different calculations, including estimating the volume/mass of the mountain that collapsed,
-estimating changes in lake volume, or estimating the average height of trees that were knocked over by the blast.</p>
+provided digital elevation models (DEMs) – specifically, their relative accuracy, and the spatial autocorrelation
+between two air photo DEMs:</p>
+<ul class="simple">
+<li><p><strong>MtStHelens_Sep1984_10m_Z.tif</strong>, based on images acquired 18 September 1984;</p></li>
+<li><p><strong>MtStHelens_Jul1979_10m_Z.tif</strong>, based on images acquired 15 July 1979.</p></li>
+</ul>
+<p>We will also estimate the changes in lake volume that occurred as a result of the eruption, using the difference in
+elevation between the two dems.</p>
 <p>If you aren’t familiar with the 1980 eruptions of Mt St Helens, here are some links that show some of the details:</p>
 <ul class="simple">
 <li><p>1980 Eruption of Mt St Helens [<a class="reference external" href="https://www.arcgis.com/apps/Cascade/index.html?appid=f5c8638734254e20bd1d4a6db68aec05">ArcGIS Online</a>]</p></li>
@@ -653,19 +661,95 @@ Week 2 folder – if so, do that now.</p>
 <li><p>1979_shapes</p></li>
 <li><p>1984_shapes</p></li>
 <li><p>MtStHelens_Jul1979_10m_Z.tif</p></li>
-<li><p>MtStHelens_Aug1984_10m_Z.tif</p></li>
+<li><p>MtStHelens_Sep1984_10m_Z.tif</p></li>
 <li><p>ALPSMLC30_N046W123_DSM.tif</p></li>
-<li><p>LM02_L1TP_049028_19790719_20180419_01_T2.tif</p></li>
-<li><p>LT05_L1TP_046028_19840804_20161004_01_T1.tif</p></li>
 </ul>
 <p>Change the Map coordinate system from WGS84 geographic coordinates to WGS84 UTM Zone 10N.</p>
+</section>
+<section id="preparing-the-landsat-images">
+<h2>preparing the landsat images<a class="headerlink" href="#preparing-the-landsat-images" title="Permalink to this heading">#</a></h2>
 <p>Hopefully, you are already familiar with Landsat data from previous modules (the <strong>LM02</strong> file is a Landsat 2 MSS scene,
 and the <strong>LT05</strong> file is a Landsat 5 TM scene), but if not you can have a look at the
 <a class="reference external" href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-satellite-missions">USGS Landsat missions</a> page.</p>
-<p>Change the display of both images to be a false-color infrared composite. For the MSS scene, this means setting the
-<strong>Red channel</strong> to be <strong>Band_3</strong> (MSS Band 6), the <strong>Green channel</strong> to be <strong>Band_2</strong> (MSS Band 5), and the
-<strong>Blue channel</strong> to be <strong>Band_1</strong> (MSS Band 4).</p>
-<p>For the TM scene, this means setting Red, Green, Blue to be <strong>Band_4</strong>, <strong>Band_3</strong>, and <strong>Band_2</strong>, respectively.</p>
+<p>These are Landsat Collection 2, Level 1 images - this means that they have not been corrected to surface reflectance
+values. We won’t do that here, but we will convert the raw DN values to top-of-atmosphere reflectance values, and we
+will make a composite of the different bands to make an RGB image.</p>
+<p>First, let’s load the Landsat 5 TM near-infrared (NIR) band, <strong>LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/loaded_tm_b4.png"><img alt="the arcgis map with the black and white landsat band 4 image loaded" class="align-center" src="../../../_images/loaded_tm_b4.png" style="width: 760px;" /></a>
+<p><br /> You should see that ArcGIS Pro has set the color range for this image from 9 to 255. The images that are in each
+Landsat folder are stored as 8-bit unsigned integer (integer values from 0 to 255) digital numbers. Landsat Collection
+2 images are calibrated such that these numbers can be converted to either radiance (units of Watts per square meter
+per steradian per micrometer, <span class="math notranslate nohighlight">\(\rm W\ m^{-2}\ srad^{-1}\ {\mu}m^{-1}\)</span>) or reflectance (unitless, values typically
+between 0 and 1) values, using the provided metadata.</p>
+<p>The equation that we use to convert from the raw values to top-of-atmosphere reflectance is:</p>
+<div class="math notranslate nohighlight">
+\[\rho_\lambda = \frac{M_\rho Q_{\rm cal} + A_\rho}{\sin\theta_{\rm SE}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(M_\rho\)</span> is a multiplicative rescaling factor, <span class="math notranslate nohighlight">\(Q_{\rm cal}\)</span> is the raw value, <span class="math notranslate nohighlight">\(M_\rho\)</span> is an
+additive rescaling factor, and <span class="math notranslate nohighlight">\(\theta_{\rm SE}\)</span> is the solar elevation angle. These values can be found in the
+<strong>MTL.txt</strong> file provided with the Landsat image, where they are called <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_MULT_BAND_X</span></code>,
+<code class="docutils literal notranslate"><span class="pre">REFLECTANCE_ADD_BAND_X</span></code>, and <code class="docutils literal notranslate"><span class="pre">SUN_ELEVATION</span></code>, respectively.<a class="footnote-reference brackets" href="#id3" id="id1">1</a></p>
+<p>To find these values, we need to open the <strong>MTL.txt</strong> file in the Landsat 5 folder
+(<strong>LT05_L1TP_046028_19840804_20200918_02_T1</strong>) and look for each of the parameter names. Open this file in a
+<em>text</em> editor (e.g., Notepad, Notepad++, <strong>NOT MS WORD</strong>). You should be able to find the <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_MULT_BAND_4</span></code>
+value on line 208:</p>
+<a class="reference internal image-reference" href="../../../_images/landsat_metadata.png"><img alt="the landsat metadata file opened in notepad, showing the values for each of the metadata parameters" class="align-center" src="../../../_images/landsat_metadata.png" style="width: 500px;" /></a>
+<p><br /> and the <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_ADD_BAND_4</span></code> value should be on line 214. Finally, the <code class="docutils literal notranslate"><span class="pre">SUN_ELEVATION</span></code> angle value should
+be on line 64.</p>
+<p>To do the conversion, we will use the <strong>Raster Calculator</strong> tool. Click on the <strong>Geoprocessing</strong> tab in the lower
+right-hand corner of the window, then enter “raster calculator” in the search bar and press <strong>Enter</strong>. You should be
+able to open up the <strong>Raster Calculator</strong> tool from the <strong>Spatial Analyst</strong> toolbox.</p>
+<p>Next, we need to enter</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(2.7416E-03 * &quot;LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF&quot; - 0.007467) / Sin((3.1415926 / 180) * 53.03707434)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have added a conversion from degrees to radians (3.1415926 / 180), because the <code class="docutils literal notranslate"><span class="pre">Sin()</span></code> function requires
+values of radians, rather than degrees.</p>
+</div>
+<p>Save the output to your project geodatabase as <code class="docutils literal notranslate"><span class="pre">tm5_band4_toa</span></code>, then press <strong>Run</strong>. You should see the new raster
+layer load, with values scaled from -0.005 to 0.691:</p>
+<a class="reference internal image-reference" href="../../../_images/converted_tm_b4.png"><img alt="the arcgis map with the converted black and white landsat band 4 image loaded" class="align-center" src="../../../_images/converted_tm_b4.png" style="width: 760px;" /></a>
+<p><br /> Once the raster has loaded and the values seem correct, you can remove the original band 4 layer
+(<strong>LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF</strong>) from the map.</p>
+<p>You will now need to repeat these steps for the other two bands we will use, Landsat 5 TM Band 3 (visible red), and
+Band 2 (visible green). Save these to the geodatabase as <code class="docutils literal notranslate"><span class="pre">tm5_band3_toa</span></code> and <code class="docutils literal notranslate"><span class="pre">tm5_band2_toa</span></code>, respectively.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remember to update the values of <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_MULT_BAND_X</span></code> and <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_ADD_BAND_X</span></code> for each band - they
+will not be the same!</p>
+</div>
+<p>Once you have converted each of these images to top-of-atmosphere reflectance values, we can use <strong>Composite Bands</strong> to
+create a 3-band raster from the individual bands, so that the image displays as a false-color composite.</p>
+<p>To open the <strong>Composite Bands</strong> tool, click on the <strong>Geoprocessing</strong> tab and enter “composite bands” in the search bar,
+then select <strong>Composite Bands</strong> from the <strong>Data Management</strong> toolbox.</p>
+<p>Add each of the three top-of-atmosphere bands to the raster by clicking the arrow next to <strong>Input Rasters</strong> and
+selecting them, then press <strong>Add</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/composite_bands.png"><img alt="the composite bands tool, with the band 4, 3, and 2 toa bands loaded in order" class="align-center" src="../../../_images/composite_bands.png" style="width: 400px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that you have the correct order!</p>
+</div>
+<p>Save the file to the same folder as the rest of your data files as <strong>LT05_L1TP_046028_19840804_20200918_02_T1.tif</strong>,
+then press <strong>Run</strong>. You should see the color composite image appear on the map:</p>
+<a class="reference internal image-reference" href="../../../_images/composited.png"><img alt="the false color composite image loaded in the map window" class="align-center" src="../../../_images/composited.png" style="width: 760px;" /></a>
+<p><br /> Now, you will need to repeat this process for the MSS image (<strong>LM02_L1TP_049028_19790719_20200906_02_T2</strong>),
+using bands 6, 5, and 4 - these are the MSS bands that correspond the closest to TM bands 4, 3, and 2.</p>
+<p>Once you have converted and composited both Landsat images, re-arrange the drawing order as follows:</p>
+<ul class="simple">
+<li><p>1979_shapes</p></li>
+<li><p>1984_shapes</p></li>
+<li><p>MtStHelens_Jul1979_10m_Z.tif</p></li>
+<li><p>MtStHelens_Sep1984_10m_Z.tif</p></li>
+<li><p>ALPSMLC30_N046W123_DSM.tif</p></li>
+<li><p>LM02_L1TP_049028_19790719_20200906_02_T2.tif</p></li>
+<li><p>LT05_L1TP_046028_19840804_20200918_02_T1.tif</p></li>
+</ul>
+<p>then move on to the next step.</p>
+</section>
+<section id="adding-hillshades-and-shaded-relief">
+<h2>adding hillshades and shaded relief<a class="headerlink" href="#adding-hillshades-and-shaded-relief" title="Permalink to this heading">#</a></h2>
 <p>Next, we’re going to add hillshades of our DEMs to the map. You may notice that it’s not easy to interpret the DEM when
 it’s displayed in the default way – for one thing, the upper part of the volcano is washed out, while some of the
 lower-lying areas are quite dark. By adding a hillshade, we can make it easier to see a large range of elevations.</p>
@@ -704,13 +788,13 @@ acquisition. In the remainder of the practical, we will work on quantifying thes
 <p>If you haven’t done so already, this is a good place to save your map.</p>
 </div>
 </section>
-<section id="id1">
-<h2>dem differencing<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<section id="id2">
+<h2>dem differencing<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>The next step is to actually difference the two DEMs (in this case, the 1979 and the 1984 DEMs).</p>
 <p>From the <strong>Geoprocessing</strong> tab, enter “raster calculator” in the search bar and press <strong>Enter</strong>, then open the
 <strong>Raster Calculator</strong> tool from the <strong>Spatial Analyst</strong> toolbox.</p>
 <p>To subtract the 1979 DEM from the 1984 DEM, enter the following expression into the field:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;1984 Elevation\MtStHelens_Aug1984_10m_Z.tif&quot; - &quot;1979 Elevation\MtStHelens_Jul1979_10m_Z.tif&quot;
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;1984 Elevation\MtStHelens_Sep1984_10m_Z.tif&quot; - &quot;1979 Elevation\MtStHelens_Jul1979_10m_Z.tif&quot;
 </pre></div>
 </div>
 <p>Save the difference raster as <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>, and press <strong>Run</strong>:</p>
@@ -928,34 +1012,54 @@ meters, of each of the lakes.</p>
 <a class="reference internal image-reference" href="../../../_images/calculate_field.png"><img alt="the calculate field dialog" class="align-center" src="../../../_images/calculate_field.png" style="width: 300px;" /></a>
 <p><br /> Note that for one of the lakes, this is actually the lake volume, as it did not exist prior to the eruption. This
 is only a partial volume for another lake, as it wasn’t fully captured in the 1984 air photo acquisition.</p>
-<p>Now, you can repeat this exercise to estimate:</p>
+</section>
+<section id="assignment">
+<h2>assignment<a class="headerlink" href="#assignment" title="Permalink to this heading">#</a></h2>
+<p>For your presentation, you should present one of the following case studies:</p>
 <ol class="arabic simple">
-<li><p>the average height of the trees that were knocked down during the eruption blast in 1980;</p></li>
-<li><p>the total volume and mass change of the mountain as a result of the eruption;</p></li>
-<li><p>the thickest deposit of landslide/pyroclastic material.</p></li>
+<li><p>Lake volume changes around Mt St Helens, 1979 - 1984 - 2008;</p></li>
+<li><p>Average height of trees knocked down during the 1980 eruption;</p></li>
+<li><p>Total volume and mass change of the mountain as a result of the eruption;</p></li>
+<li><p>Analysis of the landslide deposits;</p></li>
+<li><p>Some other elevation change (e.g., glacier changes, lava dome growth).</p></li>
 </ol>
 <p>To do this, you’ll first need to digitize the outlines of these different features, then use the
 <strong>Zonal Statistics as Table</strong> tool to find the statistics for each of these areas.</p>
-<p>You are welcome to try all three of these exercises if you like, but you should at least try one of them – this will
-form part of the investigation that you will present for Assessment Part 1, as well as part of the report you will
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Make sure that you describe your process for how you produced these outlines!</p>
+</div>
+<p>You are welcome to try all three of these exercises if you like, but you should do at least one of them – this will
+form the investigation that you will present for Assessment Part 1a, as well as part of the report you will
 submit for Assessment Part 2.</p>
 <p>To do the digitizing, I recommend using a combination of the elevation difference raster and the Landsat images to
 guide you. You can also use the NAIP images provided in the Week 1 practical, the ESRI Basemap imagery, or even
 download your own Landsat or Sentinel-2 images.</p>
+<p>In addition, I have provided a number of DEMs from various sources in the Practical folder on Blackboard. You are of
+course welcome to use these, but be sure that you include the necessary information about the datasets in your
+presentation!</p>
 </section>
 <section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
-<p>I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the ca. 2008 ALOS/PRISM DEM. You
-can check out the tutorial provided here: <a class="github reference external" href="https://github.com/iamdonovan/dem-coregistration">iamdonovan/dem-coregistration</a> to learn more about how I’ve
+<p>I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the
+<a class="reference external" href="https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM">Copernicus 30 m Global DEM</a>.
+You can check out the tutorial provided here: <a class="github reference external" href="https://github.com/iamdonovan/dem-coregistration">iamdonovan/dem-coregistration</a> to learn more about how I’ve
 done this, and how you can co-register your own DEMs, either for your project, or for future work.</p>
-<p>If you click on the <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/dem-coregistration/master"><img alt="binder" src="https://mybinder.org/badge_logo.svg" /></a> link at the top of the <code class="docutils literal notranslate"><span class="pre">README</span></code> on the github page aboeve, you can also try out the
+<p>If you click on the <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/dem-coregistration/master"><img alt="binder" src="https://mybinder.org/badge_logo.svg" /></a> link at the top of the <code class="docutils literal notranslate"><span class="pre">README</span></code> on the github page above, you can also try out the
 tutorial online, without having to download and set it up yourself:</p>
 <a class="reference internal image-reference" href="../../../_images/coregistration_tutorial.png"><img alt="the dem coregistration tutorial with the binder link highlighted." class="align-center" src="../../../_images/coregistration_tutorial.png" style="width: 720px;" /></a>
-<p><br /> You can also, if you like, repeat many of these steps to see the changes that have taken place at Mt St Helens
-since 1984.</p>
-<p>The lava dome in the middle of the caldera has continued to grow, and a glacier has even grown since the 1980 eruption.
-Logging activity has also continued in the areas around the mountain, which we can see in the satellite images, as well
-as the derived DEMs.</p>
+<p><br /> If you are already familiar with python, you can also use the <a class="reference external" href="https://xdem.readthedocs.io/en/stable/">xDEM package</a>
+for DEM analysis, including multiple different co-registration options.</p>
+</section>
+<section id="notes-and-references">
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>This is actually the scene center solar elevation angle. To be completely thorough, we would first calculate
+the per-pixel solar elevation angle. We’re not going to do this for this tutorial, but you can find more
+information about how to do this <a class="reference external" href="https://www.usgs.gov/land-resources/nli/landsat/solar-illumination-and-sensor-viewing-angle-coefficient-files">here</a>.</p>
+</dd>
+</dl>
 </section>
 </section>
 
@@ -1004,11 +1108,15 @@ as the derived DEMs.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">dem differencing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-the-landsat-images">preparing the landsat images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-hillshades-and-shaded-relief">adding hillshades and shaded relief</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">dem differencing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-estimation">accuracy estimation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-nodata-values">filling nodata values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-elevation-and-volume-changes">estimating elevation and volume changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment">assignment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
 </ul>
   </nav></div>
 

@@ -14,17 +14,20 @@ You should have the following files/folders available in the extracted ``.zip`` 
     ├─ 1979_shapes.*
     ├─ 1984_shapes.*
     ├─ ALPSMLC30_N046W123_DSM.tif
-    ├─ MtStHelens_Aug1984_10m_Z.tif
+    ├─ MtStHelens_Sep1984_10m_Z.tif
     ├─ MtStHelens_Jul1979_10m_Z.tif
-    ├─ LM02_L1TP_049028_19790719_20180419_01_T2.tif
-    └─ LT05_L1TP_046028_19840804_20161004_01_T1.tif
+    ├─ LM02_L1TP_049028_19790719_20200906_02_T2/
+    └─ LT05_L1TP_046028_19840804_20200918_02_T1/
 
 You should also still have the NAIP images we used in Week 1. In this practical, we're going to work on analysing the
-provided digital elevation models (DEMs) – their accuracy, and the spatial autocorrelation between the two air photo
-DEMs (**MtStHelens_Aug1984_10m_Z.tif** and **MtStHelens_Jul1979_10m_Z.tif**).
+provided digital elevation models (DEMs) – specifically, their relative accuracy, and the spatial autocorrelation
+between two air photo DEMs:
 
-We will also do some different calculations, including estimating the volume/mass of the mountain that collapsed,
-estimating changes in lake volume, or estimating the average height of trees that were knocked over by the blast.
+- **MtStHelens_Sep1984_10m_Z.tif**, based on images acquired 18 September 1984;
+- **MtStHelens_Jul1979_10m_Z.tif**, based on images acquired 15 July 1979.
+
+We will also estimate the changes in lake volume that occurred as a result of the eruption, using the difference in
+elevation between the two dems.
 
 If you aren't familiar with the 1980 eruptions of Mt St Helens, here are some links that show some of the details:
 
@@ -43,22 +46,138 @@ Import the provided data into the map, re-arranging the drawing order as follows
 - 1979_shapes
 - 1984_shapes
 - MtStHelens_Jul1979_10m_Z.tif
-- MtStHelens_Aug1984_10m_Z.tif
+- MtStHelens_Sep1984_10m_Z.tif
 - ALPSMLC30_N046W123_DSM.tif
-- LM02_L1TP_049028_19790719_20180419_01_T2.tif
-- LT05_L1TP_046028_19840804_20161004_01_T1.tif
 
 Change the Map coordinate system from WGS84 geographic coordinates to WGS84 UTM Zone 10N.
+
+preparing the landsat images
+----------------------------
 
 Hopefully, you are already familiar with Landsat data from previous modules (the **LM02** file is a Landsat 2 MSS scene,
 and the **LT05** file is a Landsat 5 TM scene), but if not you can have a look at the
 `USGS Landsat missions <https://www.usgs.gov/core-science-systems/nli/landsat/landsat-satellite-missions>`__ page.
 
-Change the display of both images to be a false-color infrared composite. For the MSS scene, this means setting the
-**Red channel** to be **Band_3** (MSS Band 6), the **Green channel** to be **Band_2** (MSS Band 5), and the
-**Blue channel** to be **Band_1** (MSS Band 4).
+These are Landsat Collection 2, Level 1 images - this means that they have not been corrected to surface reflectance
+values. We won't do that here, but we will convert the raw DN values to top-of-atmosphere reflectance values, and we
+will make a composite of the different bands to make an RGB image.
 
-For the TM scene, this means setting Red, Green, Blue to be **Band_4**, **Band_3**, and **Band_2**, respectively.
+First, let's load the Landsat 5 TM near-infrared (NIR) band, **LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF**:
+
+.. image:: ../../../img/egm702/week2/loaded_tm_b4.png
+    :width: 760
+    :align: center
+    :alt: the arcgis map with the black and white landsat band 4 image loaded
+
+|br| You should see that ArcGIS Pro has set the color range for this image from 9 to 255. The images that are in each
+Landsat folder are stored as 8-bit unsigned integer (integer values from 0 to 255) digital numbers. Landsat Collection
+2 images are calibrated such that these numbers can be converted to either radiance (units of Watts per square meter
+per steradian per micrometer, :math:`\rm W\ m^{-2}\ srad^{-1}\ {\mu}m^{-1}`) or reflectance (unitless, values typically
+between 0 and 1) values, using the provided metadata.
+
+The equation that we use to convert from the raw values to top-of-atmosphere reflectance is:
+
+.. math::
+
+    \rho_\lambda = \frac{M_\rho Q_{\rm cal} + A_\rho}{\sin\theta_{\rm SE}}
+
+where :math:`M_\rho` is a multiplicative rescaling factor, :math:`Q_{\rm cal}` is the raw value, :math:`M_\rho` is an
+additive rescaling factor, and :math:`\theta_{\rm SE}` is the solar elevation angle. These values can be found in the
+**MTL.txt** file provided with the Landsat image, where they are called ``REFLECTANCE_MULT_BAND_X``,
+``REFLECTANCE_ADD_BAND_X``, and ``SUN_ELEVATION``, respectively.\ [1]_
+
+To find these values, we need to open the **MTL.txt** file in the Landsat 5 folder
+(**LT05_L1TP_046028_19840804_20200918_02_T1**) and look for each of the parameter names. Open this file in a
+*text* editor (e.g., Notepad, Notepad++, **NOT MS WORD**). You should be able to find the ``REFLECTANCE_MULT_BAND_4``
+value on line 208:
+
+.. image:: ../../../img/egm702/week2/landsat_metadata.png
+    :width: 500
+    :align: center
+    :alt: the landsat metadata file opened in notepad, showing the values for each of the metadata parameters
+
+|br| and the ``REFLECTANCE_ADD_BAND_4`` value should be on line 214. Finally, the ``SUN_ELEVATION`` angle value should
+be on line 64.
+
+To do the conversion, we will use the **Raster Calculator** tool. Click on the **Geoprocessing** tab in the lower
+right-hand corner of the window, then enter "raster calculator" in the search bar and press **Enter**. You should be
+able to open up the **Raster Calculator** tool from the **Spatial Analyst** toolbox.
+
+Next, we need to enter
+
+.. code-block:: text
+
+    (2.7416E-03 * "LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF" - 0.007467) / Sin((3.1415926 / 180) * 53.03707434)
+
+.. note::
+
+    We have added a conversion from degrees to radians (3.1415926 / 180), because the ``Sin()`` function requires
+    values of radians, rather than degrees.
+
+Save the output to your project geodatabase as ``tm5_band4_toa``, then press **Run**. You should see the new raster
+layer load, with values scaled from -0.005 to 0.691:
+
+.. image:: ../../../img/egm702/week2/converted_tm_b4.png
+    :width: 760
+    :align: center
+    :alt: the arcgis map with the converted black and white landsat band 4 image loaded
+
+|br| Once the raster has loaded and the values seem correct, you can remove the original band 4 layer
+(**LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF**) from the map.
+
+You will now need to repeat these steps for the other two bands we will use, Landsat 5 TM Band 3 (visible red), and
+Band 2 (visible green). Save these to the geodatabase as ``tm5_band3_toa`` and ``tm5_band2_toa``, respectively.
+
+.. warning::
+
+    Remember to update the values of ``REFLECTANCE_MULT_BAND_X`` and ``REFLECTANCE_ADD_BAND_X`` for each band - they
+    will not be the same!
+
+Once you have converted each of these images to top-of-atmosphere reflectance values, we can use **Composite Bands** to
+create a 3-band raster from the individual bands, so that the image displays as a false-color composite.
+
+To open the **Composite Bands** tool, click on the **Geoprocessing** tab and enter "composite bands" in the search bar,
+then select **Composite Bands** from the **Data Management** toolbox.
+
+Add each of the three top-of-atmosphere bands to the raster by clicking the arrow next to **Input Rasters** and
+selecting them, then press **Add**:
+
+.. image:: ../../../img/egm702/week2/composite_bands.png
+    :width: 400
+    :align: center
+    :alt: the composite bands tool, with the band 4, 3, and 2 toa bands loaded in order
+
+|br|
+
+.. note::
+
+    Make sure that you have the correct order!
+
+Save the file to the same folder as the rest of your data files as **LT05_L1TP_046028_19840804_20200918_02_T1.tif**,
+then press **Run**. You should see the color composite image appear on the map:
+
+.. image:: ../../../img/egm702/week2/composited.png
+    :width: 760
+    :align: center
+    :alt: the false color composite image loaded in the map window
+
+|br| Now, you will need to repeat this process for the MSS image (**LM02_L1TP_049028_19790719_20200906_02_T2**),
+using bands 6, 5, and 4 - these are the MSS bands that correspond the closest to TM bands 4, 3, and 2.
+
+Once you have converted and composited both Landsat images, re-arrange the drawing order as follows:
+
+- 1979_shapes
+- 1984_shapes
+- MtStHelens_Jul1979_10m_Z.tif
+- MtStHelens_Sep1984_10m_Z.tif
+- ALPSMLC30_N046W123_DSM.tif
+- LM02_L1TP_049028_19790719_20200906_02_T2.tif
+- LT05_L1TP_046028_19840804_20200918_02_T1.tif
+
+then move on to the next step.
+
+adding hillshades and shaded relief
+-----------------------------------
 
 Next, we're going to add hillshades of our DEMs to the map. You may notice that it's not easy to interpret the DEM when
 it's displayed in the default way – for one thing, the upper part of the volcano is washed out, while some of the
@@ -148,7 +267,7 @@ To subtract the 1979 DEM from the 1984 DEM, enter the following expression into 
 
 .. code-block:: text
 
-    "1984 Elevation\MtStHelens_Aug1984_10m_Z.tif" - "1979 Elevation\MtStHelens_Jul1979_10m_Z.tif"
+    "1984 Elevation\MtStHelens_Sep1984_10m_Z.tif" - "1979 Elevation\MtStHelens_Jul1979_10m_Z.tif"
 
 Save the difference raster as ``MtStHelens_1984_1979_dZ.tif``, and press **Run**:
 
@@ -561,32 +680,45 @@ Make sure that your new field is of type **Float**, then press **OK**:
 |br| Note that for one of the lakes, this is actually the lake volume, as it did not exist prior to the eruption. This
 is only a partial volume for another lake, as it wasn't fully captured in the 1984 air photo acquisition.
 
-Now, you can repeat this exercise to estimate:
+assignment
+----------
 
-1. the average height of the trees that were knocked down during the eruption blast in 1980;
-2. the total volume and mass change of the mountain as a result of the eruption;
-3. the thickest deposit of landslide/pyroclastic material.
+For your presentation, you should present one of the following case studies:
+
+1. Lake volume changes around Mt St Helens, 1979 - 1984 - 2008;
+2. Average height of trees knocked down during the 1980 eruption;
+3. Total volume and mass change of the mountain as a result of the eruption;
+4. Analysis of the landslide deposits;
+5. Some other elevation change (e.g., glacier changes, lava dome growth).
 
 To do this, you'll first need to digitize the outlines of these different features, then use the
 **Zonal Statistics as Table** tool to find the statistics for each of these areas.
 
-You are welcome to try all three of these exercises if you like, but you should at least try one of them – this will
-form part of the investigation that you will present for Assessment Part 1, as well as part of the report you will
+.. tip::
+
+    Make sure that you describe your process for how you produced these outlines!
+
+You are welcome to try all three of these exercises if you like, but you should do at least one of them – this will
+form the investigation that you will present for Assessment Part 1a, as well as part of the report you will
 submit for Assessment Part 2.
 
 To do the digitizing, I recommend using a combination of the elevation difference raster and the Landsat images to
 guide you. You can also use the NAIP images provided in the Week 1 practical, the ESRI Basemap imagery, or even
 download your own Landsat or Sentinel-2 images.
 
+In addition, I have provided a number of DEMs from various sources in the Practical folder on Blackboard. You are of
+course welcome to use these, but be sure that you include the necessary information about the datasets in your
+presentation!
 
 next steps
 ----------
 
-I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the ca. 2008 ALOS/PRISM DEM. You
-can check out the tutorial provided here: https://github.com/iamdonovan/dem-coregistration to learn more about how I've
+I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the
+`Copernicus 30 m Global DEM <https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM>`__.
+You can check out the tutorial provided here: https://github.com/iamdonovan/dem-coregistration to learn more about how I've
 done this, and how you can co-register your own DEMs, either for your project, or for future work.
 
-If you click on the |binder| link at the top of the ``README`` on the github page aboeve, you can also try out the
+If you click on the |binder| link at the top of the ``README`` on the github page above, you can also try out the
 tutorial online, without having to download and set it up yourself:
 
 .. image:: ../../../img/egm702/week2/coregistration_tutorial.png
@@ -594,13 +726,15 @@ tutorial online, without having to download and set it up yourself:
     :align: center
     :alt: the dem coregistration tutorial with the binder link highlighted.
 
-|br| You can also, if you like, repeat many of these steps to see the changes that have taken place at Mt St Helens
-since 1984.
-
-The lava dome in the middle of the caldera has continued to grow, and a glacier has even grown since the 1980 eruption.
-Logging activity has also continued in the areas around the mountain, which we can see in the satellite images, as well
-as the derived DEMs.
+|br| If you are already familiar with python, you can also use the `xDEM package <https://xdem.readthedocs.io/en/stable/>`__
+for DEM analysis, including multiple different co-registration options.
 
 .. |binder| image:: https://mybinder.org/badge_logo.svg
      :target: https://mybinder.org/v2/gh/iamdonovan/dem-coregistration/master
 
+notes and references
+--------------------
+
+.. [1] This is actually the scene center solar elevation angle. To be completely thorough, we would first calculate
+       the per-pixel solar elevation angle. We're not going to do this for this tutorial, but you can find more
+       information about how to do this `here <https://www.usgs.gov/land-resources/nli/landsat/solar-illumination-and-sensor-viewing-angle-coefficient-files>`__.
