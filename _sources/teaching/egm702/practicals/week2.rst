@@ -87,9 +87,10 @@ additive rescaling factor, and :math:`\theta_{\rm SE}` is the solar elevation an
 ``REFLECTANCE_ADD_BAND_X``, and ``SUN_ELEVATION``, respectively.\ [1]_
 
 To find these values, we need to open the **MTL.txt** file in the Landsat 5 folder
-(**LT05_L1TP_046028_19840804_20200918_02_T1**) and look for each of the parameter names. Open this file in a
-*text* editor (e.g., Notepad, Notepad++, **NOT MS WORD**). You should be able to find the ``REFLECTANCE_MULT_BAND_4``
-value on line 208:
+(**LT05_L1TP_046028_19840804_20200918_02_T1**) and look for each of the parameter names.\ [2]_
+
+Open this file in a *text* editor (e.g., Notepad, Notepad++, **NOT MS WORD**). You should be able to find the
+``REFLECTANCE_MULT_BAND_4`` value on line 208:
 
 .. image:: ../../../img/egm702/week2/landsat_metadata.png
     :width: 500
@@ -738,3 +739,14 @@ notes and references
 .. [1] This is actually the scene center solar elevation angle. To be completely thorough, we would first calculate
        the per-pixel solar elevation angle. We're not going to do this for this tutorial, but you can find more
        information about how to do this `here <https://www.usgs.gov/land-resources/nli/landsat/solar-illumination-and-sensor-viewing-angle-coefficient-files>`__.
+
+.. [2] Alternatively, you can open a command prompt, navigate to the folder where you have stored your practical data,
+       and use the ``FINDSTR`` command
+       (`documentation <https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr>`__)
+       to search the text file. For example, to find the reflectance multiplier for band 4, you would run the following
+       command:
+
+       .. code-block:: text
+
+            findstr "REFLECTANCE_MULT_BAND_4" LT05_L1TP_046028_19840804_20161004_01_T1\LT05_L1TP_046028_19840804_20161004_01_T1_MTL.txt
+
