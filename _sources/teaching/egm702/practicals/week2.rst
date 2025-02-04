@@ -81,9 +81,9 @@ The equation that we use to convert from the raw values to top-of-atmosphere ref
 
     \rho_\lambda = \frac{M_\rho Q_{\rm cal} + A_\rho}{\sin\theta_{\rm SE}}
 
-where :math:`M_\rho` is a multiplicative rescaling factor, :math:`Q_{\rm cal}` is the raw value, :math:`M_\rho` is an
-additive rescaling factor, and :math:`\theta_{\rm SE}` is the solar elevation angle. These values can be found in the
-**MTL.txt** file provided with the Landsat image, where they are called ``REFLECTANCE_MULT_BAND_X``,
+where :math:`M_\rho` is a multiplicative rescaling factor, :math:`Q_{\rm cal}` is the raw value, :math:`A_\rho` is an
+additive rescaling factor, and :math:`\theta_{\rm SE}` is the solar elevation angle. These parameter values can be found
+in the **MTL.txt** file provided with the Landsat image, where they are called ``REFLECTANCE_MULT_BAND_X``,
 ``REFLECTANCE_ADD_BAND_X``, and ``SUN_ELEVATION``, respectively.\ [1]_
 
 To find these values, we need to open the **MTL.txt** file in the Landsat 5 folder
