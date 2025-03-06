@@ -45,6 +45,16 @@ publications
 If you are unable to access any of these via the doi links below (or if the links are somehow broken), please contact
 me and I will send you a copy.\ [1]_
 
+.. _pubs2025:
+
+2025
+^^^^
+
+.. rst-class:: ref
+
+    The GlaMBIE Team (2025). Community estimate of global glacier mass changes from 2000 to 2023. *Nature*.
+    doi: `10.1038/s41586-024-08545-z <https://doi.org/10.1038/s41586-024-08545-z>`__
+
 .. _pubs2024:
 
 2024

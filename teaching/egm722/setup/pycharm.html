@@ -636,18 +636,20 @@ get set up.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Many of the instructions and screenshots shown here are for PyCharm CE 2021.3.3, running on Ubuntu Linux 18.04.6.</p>
+<p>Many of the instructions and screenshots shown here are for PyCharm CE 2024.3.4, running on Windows 11, though
+there may be other versions/operating systems shown.</p>
 <p>As such, there may be some slight differences in appearance or menu options between what is shown here
 and the version you download.</p>
 </div>
 <section id="downloading-and-installing">
 <h2>downloading and installing<a class="headerlink" href="#downloading-and-installing" title="Permalink to this heading">#</a></h2>
-<p>To download PyCharm CE, point your browser to <a class="reference external" href="https://www.jetbrains.com/pycharm/download/">https://www.jetbrains.com/pycharm/download/</a> and select the version
-for your current operating system (Windows, MacOS, or linux).</p>
+<p>To download PyCharm CE, point your browser to <a class="reference external" href="https://www.jetbrains.com/pycharm/download/other.html">https://www.jetbrains.com/pycharm/download/other.html</a> and select the
+version for your current operating system (Windows, MacOS, or linux). Most likely, this will be the one that says
+<strong>Windows (exe)</strong>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Be sure to download the <strong>Community Edition</strong>, which is free. If you download the other version, you will need to
-purchase a license once the free trial expires after 30 days.</p>
+<p>Be sure to download the <strong>Community Edition</strong>, which is free. If you download the professional version, you will
+need to purchase a license once the free trial expires after 30 days.</p>
 </div>
 <p>Once you have downloaded the installer, follow the instructions in the installation wizard. Once the installation has
 completed, open PyCharm CE.</p>
@@ -659,33 +661,28 @@ completed, open PyCharm CE.</p>
 <p><br /> Select <strong>Create New Project</strong>, which will open the following window:</p>
 <a class="reference internal image-reference" href="../../../_images/new_project_blank.png"><img alt="the new project creation window" class="align-center" src="../../../_images/new_project_blank.png" style="width: 600px;" /></a>
 <p><br /> For the location, choose the folder where you have cloned the <code class="docutils literal notranslate"><span class="pre">egm722</span></code> repository by clicking on the folder icon
-and selecting the folder from the tree (in this example, the folder is located in
-<code class="docutils literal notranslate"><span class="pre">/home/bob/Documents/teaching/ulster/egm722/2022/workbooks</span></code>).</p>
-<p>You should also set up a python interpreter for the project - this will enable you to use some of the autocomplete
+and selecting the folder from the tree (in this example, the folder is located in <code class="docutils literal notranslate"><span class="pre">C:\Users\{username}\egm722</span></code>):</p>
+<a class="reference internal image-reference" href="../../../_images/new_project_path.png"><img alt="the new project creation window with the path to the egm722 folder selected" class="align-center" src="../../../_images/new_project_path.png" style="width: 600px;" /></a>
+<p><br /> You should also set up a python interpreter for the project - this will enable you to use some of the autocomplete
 tools when writing code, run scripts within PyCharm, as well as making use of the debugging tools.</p>
 <p>Because you have already set up a conda environment<a class="footnote-reference brackets" href="#id4" id="id1">1</a>, you can choose this interpreter. Next to
-<strong>Previously configured interpreter</strong>, click on the <code class="docutils literal notranslate"><span class="pre">...</span></code> button. In the <strong>Add Python Interpreter</strong> window
-that opens up, select <strong>Conda Environment</strong>, and then <strong>Existing environment</strong> - you should see something
-like the following:</p>
-<a class="reference internal image-reference" href="../../../_images/add_interpreter.png"><img alt="adding an existing conda environment" class="align-center" src="../../../_images/add_interpreter.png" style="width: 600px;" /></a>
-<p><br /> You’ll need to provide the path to the python interpreter that is part of your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> conda environment - on
-most computers, relative to where you’ve installed Anaconda, this will be<a class="footnote-reference brackets" href="#id5" id="id2">2</a>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/Anaconda3/envs/egm722/bin/python
-</pre></div>
-</div>
-<p>(or, if you’re on Windows, <code class="docutils literal notranslate"><span class="pre">python.exe</span></code>). You will also need to supply the path to the <code class="docutils literal notranslate"><span class="pre">conda</span></code> executable
-(program) that’s installed on your computer - again, on most computers, relative to where you’ve installed
-Anaconda, this will be:</p>
+<strong>Interpreter type</strong>, click on <strong>Custom environment</strong>.</p>
+<p>Next to <strong>Environment</strong>, click on <strong>Select existing</strong>, and choose <strong>Conda</strong> for <strong>Type</strong>, then select your
+newly-created egm722 environment:</p>
+<a class="reference internal image-reference" href="../../../_images/new_project_interpreter.png"><img alt="the new project creation window with the path to the egm722 folder and interpreter selected" class="align-center" src="../../../_images/new_project_interpreter.png" style="width: 600px;" /></a>
+<p><br /> You may need to input the path to the <strong>conda</strong> program. On most computers, relative to where you’ve installed
+Anaconda, this will be<a class="footnote-reference brackets" href="#id5" id="id2">2</a>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/Anaconda3/bin/conda
 </pre></div>
 </div>
-<p>(or, if you’re on Windows, <code class="docutils literal notranslate"><span class="pre">conda.exe</span></code>). You can also click the <strong>Make available to all projects</strong> checkbox,
-which will help you more easily add this interpreter to other new projects. Click <strong>OK</strong> to return to the previous
-window.</p>
+<p>or:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/Anaconda3/condabin/conda.bat
+</pre></div>
+</div>
 <p>Once you’ve set the path to the project, and set up the python interpreter, click <strong>Create</strong>. The following window
 should pop up:</p>
 <a class="reference internal image-reference" href="../../../_images/not_empty.png"><img alt="a dialog window warning you that the folder is not empty" class="align-center" src="../../../_images/not_empty.png" style="width: 400px;" /></a>
-<p><br /> Select <strong>Create from Existing Sources</strong>.</p>
+<p><br /> Select <strong>Create from Existing Sources</strong> to finish creating your new project.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is the end of the “setup” steps - the rest of the sections of this page provide some more information about
@@ -727,7 +724,8 @@ type. To create a new python script, it would be: right-click &gt; <strong>New</
 <p><br /> In the list of current changes, we can see that one file has been affected: <code class="docutils literal notranslate"><span class="pre">new_script.py</span></code>.</p>
 <p>Before we press <strong>Commit</strong>, we should first write a commit message, which we can do in the lower box of the panel:</p>
 <a class="reference internal image-reference" href="../../../_images/commit_message1.png"><img alt="the pycharm interface with the commit message written" class="align-center" src="../../../_images/commit_message1.png" style="width: 720px;" /></a>
-<p><br /> Press <strong>Commit</strong>, and you should see the filename change from green to white.</p>
+<p><br /> Select the file(s) that you want to commit, then press <strong>Commit</strong>. You should see the filename change from green
+to white.</p>
 <p>Now, when you make changes to the file, the color will change again, this time to blue:</p>
 <a class="reference internal image-reference" href="../../../_images/changes.png"><img alt="the pycharm interface showing the file name change from white to green, indicating uncommitted changes" class="align-center" src="../../../_images/changes.png" style="width: 720px;" /></a>
 <p><br /> This indicates that we have unstaged and uncommitted changes to the file<a class="footnote-reference brackets" href="#id6" id="id3">3</a>. We don’t need to commit every small
@@ -740,17 +738,21 @@ the module.</p>
 <p>Along the bottom of the PyCharm window, you should see a number of tabs, including one that says <strong>Terminal</strong>. Click
 this to open a <strong>Terminal</strong> (<strong>Command Prompt</strong>):</p>
 <a class="reference internal image-reference" href="../../../_images/terminal.png"><img alt="the pycharm interface with the terminal window open" class="align-center" src="../../../_images/terminal.png" style="width: 720px;" /></a>
-<p><br /> You can use this in the same way that you would the “normal” <strong>Command Prompt</strong>. If you have configured an
-interpreter for your project, it should open as an <strong>Anaconda Command Prompt</strong> with that environment activated,
-meaning that you can use it to run scripts in that environment:</p>
+<p><br /> You can use this in the same way that you would the “normal” <strong>Command Prompt</strong>.</p>
+<p>If you have configured an interpreter for your project, it may open as an <strong>Anaconda Command Prompt</strong> with that
+environment activated. If not, you can run the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>egm722
+</pre></div>
+</div>
+<p>To activate the environment. You can then use the <strong>Terminal</strong> to run scripts in that environment:</p>
 <a class="reference internal image-reference" href="../../../_images/run_script.png"><img alt="the pycharm interface with the terminal window open, and a script having exited in error" class="align-center" src="../../../_images/run_script.png" style="width: 720px;" /></a>
 </section>
 <section id="python-console">
 <h3>python console<a class="headerlink" href="#python-console" title="Permalink to this heading">#</a></h3>
-<p>Next to the <strong>Terminal</strong> tab, you should also see a <strong>Python Console</strong> tab:</p>
+<p>Above the <strong>Terminal</strong> tab, you should also see a <strong>Python Console</strong> tab:</p>
 <a class="reference internal image-reference" href="../../../_images/python_console.png"><img alt="the pycharm interface with the python console window open" class="align-center" src="../../../_images/python_console.png" style="width: 720px;" /></a>
-<p><br /> This opens an <strong>iPython</strong> (<strong>i</strong>nteractive <strong>Python</strong>) terminal, which you can use in the same way that you
-would use the cells of a <strong>jupyter</strong> notebook:</p>
+<p><br /> This opens an <strong>iPython</strong> (<strong>i</strong>nteractive <strong>Python</strong>) console, which you can use in the same way that you
+would use the cells of a <strong>jupyter</strong> notebook (or a python interpreter):</p>
 <a class="reference internal image-reference" href="../../../_images/console_output.png"><img alt="the pycharm interface with the python console window open, and the statement 2 + 2 (output 4)" class="align-center" src="../../../_images/console_output.png" style="width: 720px;" /></a>
 </section>
 <section id="more-resources">
@@ -794,11 +796,12 @@ lower right-hand side of the window:</p>
 <a class="reference internal image-reference" href="../../../_images/interpreter_menu.png"><img alt="the interpreter menu" class="align-center" src="../../../_images/interpreter_menu.png" style="width: 300px;" /></a>
 <p><br /> Select <strong>Interpreter Settings</strong>, which will open the Interpreter Settings window:</p>
 <a class="reference internal image-reference" href="../../../_images/interpreter_settings.png"><img alt="the interpreter settings window" class="align-center" src="../../../_images/interpreter_settings.png" style="width: 600px;" /></a>
-<p><br /> To change the interpreter, you can select a different one from the drop menu, or by clicking the gear icon and
-selecting <strong>Show all</strong>. This will bring up the following window (note that your list will not be the same as this one):</p>
-<a class="reference internal image-reference" href="../../../_images/interpreters_list.png"><img alt="a list of all of the available interpreters" class="align-center" src="../../../_images/interpreters_list.png" style="width: 400px;" /></a>
-<p><br /> Select the desired interpreter from this list. If you don’t see it there, you’ll need to add it using the steps
-outlined above.</p>
+<p><br /> To change the interpreter, you can select a different one from the drop menu. If you don’t see the interpreter you
+want, scroll to the bottom of the menu and select <strong>Show all</strong>. This will bring up the following window
+(note that your list will not be the same as this one):</p>
+<a class="reference internal image-reference" href="../../../_images/interpreters_list.png"><img alt="a list of all of the available interpreters" class="align-center" src="../../../_images/interpreters_list.png" style="width: 500px;" /></a>
+<p><br /> Select the desired interpreter from this list. If you don’t see it there, you can click the <strong>+</strong> button to add
+the new interpreter, following the steps outlined <a class="reference internal" href="#adding-interpreter"><span class="std std-ref">above</span></a>.</p>
 </section>
 <section id="notes-and-references">
 <h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>

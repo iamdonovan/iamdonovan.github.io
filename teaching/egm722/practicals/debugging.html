@@ -598,13 +598,15 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-script">the script</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-branch">creating a new branch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pycharm-setup">pycharm setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-script">running a script</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-error-message">the error message</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commiting-changes">commiting changes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-debugging-tools">the debugging tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-errors">semantic errors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finishing-up">finishing up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-and-pruning">merging and pruning</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
 </ul>
             </nav>
@@ -643,10 +645,37 @@ and prompt the user to enter a new guess. This process should repeat, until the 
 running as expected. Our task in this exercise is to use PyCharm’s debugging tools to correct (<em>debug</em>) these error,
 so that the script functions as intended.</p>
 </section>
-<section id="setup">
-<h2>setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
-<p>Before getting started with the exercise, there’s one final bit of setup needed. PyCharm provides a number of options
-for running scripts - the instructions below will show you how you can do this using the <strong>Run</strong> tool.</p>
+<section id="creating-a-new-branch">
+<h2>creating a new branch<a class="headerlink" href="#creating-a-new-branch" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The instructions below show you how to create a new branch using <strong>GitHub Desktop</strong>, but you can also do this
+using IDEs such as <strong>PyCharm</strong> or <strong>VSCode</strong>, or using the git command-line interface.</p>
+</div>
+<p>Before we get started editing the script, let’s first create a new branch to work on. Remember that this enables us
+to make changes to our code (i.e., create new features or fix existing code) without affecting the code that is
+currently being used by others.</p>
+<p>To do this, open <strong>GitHub Desktop</strong>. If you haven’t already, add your egm722 repository from the <strong>File</strong> menu
+(<strong>File</strong> &gt; <strong>Add Local Repository</strong>):</p>
+<a class="reference internal image-reference" href="../../../_images/add_repository.png"><img alt="the add local repository dialog in github desktop" class="align-center" src="../../../_images/add_repository.png" style="width: 400px;" /></a>
+<p><br /> Click <strong>Choose</strong> to navigate to where you have cloned your repository. Once you have selected the folder,
+click <strong>Add repository</strong> to finish adding the repository. You should see something like this:</p>
+<a class="reference internal image-reference" href="../../../_images/fresh_repository.png"><img alt="the egm722 repository opened in github desktop" class="align-center" src="../../../_images/fresh_repository.png" style="width: 600px;" /></a>
+<p><br /> You should be on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch, visible in the upper center of the screen. You can click on
+<strong>Current branch</strong> to switch branches:</p>
+<a class="reference internal image-reference" href="../../../_images/github_branches.png"><img alt="the list of available branches in the current repository" class="align-center" src="../../../_images/github_branches.png" style="width: 600px;" /></a>
+<p><br /> Click on <strong>New branch</strong> to add a new branch to your repository:</p>
+<a class="reference internal image-reference" href="../../../_images/create_branch.png"><img alt="the create branch dialog in github desktop" class="align-center" src="../../../_images/create_branch.png" style="width: 600px;" /></a>
+<p><br /> Call the new branch <code class="docutils literal notranslate"><span class="pre">debug</span></code>, then click <strong>Create branch</strong> to create the new branch. You should now see that
+in addition to creating the branch, <strong>GitHub Desktop</strong> has automatically switched you to the new branch:</p>
+<a class="reference internal image-reference" href="../../../_images/debug_branch.png"><img alt="github desktop, showing the newly-created debug branch" class="align-center" src="../../../_images/debug_branch.png" style="width: 600px;" /></a>
+<p><br /> Now, as we work on debugging the script during the exercise, we won’t affect the code on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch
+until we are satisified that things are working as they should be.</p>
+</section>
+<section id="pycharm-setup">
+<h2>pycharm setup<a class="headerlink" href="#pycharm-setup" title="Permalink to this heading">#</a></h2>
+<p>There’s one final bit of setup needed. PyCharm provides a number of options for running scripts - the instructions
+below will show you how you can do this using the <strong>Run</strong> tool.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Again, this assumes that you have set up PyCharm according to the <a class="reference internal" href="../setup/pycharm.html"><span class="doc">instructions</span></a>, including
@@ -657,16 +686,18 @@ you’ve configured a python interpreter already, following the instructions in 
 or <a class="reference internal" href="../setup/pycharm.html#adding-interpreter"><span class="std std-ref">adding an interpreter</span></a>.</p>
 <p>In the upper right-hand corner of the PyCharm window, you should see this:</p>
 <a class="reference internal image-reference" href="../../../_images/buttons.png"><img alt="the run script and debugging tool buttons" class="align-center" src="../../../_images/buttons.png" style="width: 300px;" /></a>
-<p><br /> Click on <strong>Add Configuration…</strong> to open the <strong>Run/Debug Configurations</strong> window, then click the <strong>+</strong> icon in the
-upper left to add a new configuration:</p>
+<p><br /> Click <strong>Current File</strong>, then select <strong>Edit Configurations…</strong> from the drop-down menu. This will open the
+<strong>Run/Debug Configurations</strong> window:</p>
 <a class="reference internal image-reference" href="../../../_images/new_configuration.png"><img alt="selecting a new python configuration" class="align-center" src="../../../_images/new_configuration.png" style="width: 720px;" /></a>
-<p><br /> select <strong>Python</strong>:</p>
+<p><br /> Click the <strong>+</strong> icon in the upper left to add a new configuration, and select <strong>Python</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/empty_configuration.png"><img alt="a new python configuration" class="align-center" src="../../../_images/empty_configuration.png" style="width: 720px;" /></a>
 <p><br /> Call this new configuration <code class="docutils literal notranslate"><span class="pre">debug_exercise</span></code>, and set the <strong>Script path</strong> to be the path to
-<strong>debugging_exercise.py</strong> in the <strong>Week1</strong> folder of your EGM722 repository. Finally, make sure that the
-<strong>Python interpreter</strong> is set to your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment, then click <strong>OK</strong> to finish the configuration.</p>
-<p>You should see that the buttons in the upper right of the window have changed:</p>
-<a class="reference internal image-reference" href="../../../_images/new_buttons.png"><img alt="the run script and debugging tool buttons with a configuration selected" class="align-center" src="../../../_images/new_buttons.png" style="width: 400px;" /></a>
+<strong>debugging_exercise.py</strong> in the <strong>Week1</strong> folder of your EGM722 repository.</p>
+<p>Finally, make sure that the <strong>Python interpreter</strong> is set to your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment, then click <strong>OK</strong> to finish
+the configuration:</p>
+<a class="reference internal image-reference" href="../../../_images/debug_configuration.png"><img alt="a new python configuration with the parameters filled out to run the debug_exercise script." class="align-center" src="../../../_images/debug_configuration.png" style="width: 720px;" /></a>
+<p><br /> You should see that the buttons in the upper right of the window have changed:</p>
+<a class="reference internal image-reference" href="../../../_images/new_buttons.png"><img alt="the run script and debugging tool buttons with a configuration selected" class="align-center" src="../../../_images/new_buttons.png" style="width: 300px;" /></a>
 </section>
 <section id="running-a-script">
 <h2>running a script<a class="headerlink" href="#running-a-script" title="Permalink to this heading">#</a></h2>
@@ -676,7 +707,7 @@ you should see that the <strong>Run Panel</strong> opens at the bottom of the wi
 <p><br /> This is where anything printed to the screen by your script will show, including all error messages. In fact, you
 should see an error message already:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Traceback<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>last<span class="o">)</span>:
-<span class="w">  </span>File<span class="w"> </span><span class="o">(</span><span class="s2">&quot;C:/Users/e16006469/egm722/bobtheburner/Week1/debugging_exercise.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;
+<span class="w">  </span>File<span class="w"> </span><span class="o">(</span><span class="s2">&quot;C:/Users/{username}/github/egm722/Week1/debugging_exercise.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;
 <span class="w">    </span><span class="nv">rand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>random.randint<span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="m">100</span><span class="o">)</span>
 NameError:<span class="w"> </span>name<span class="w"> </span><span class="s1">&#39;random&#39;</span><span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>defined
 
@@ -698,7 +729,7 @@ has errors, we’ll use the debugging tools in order to fix those errors.</p>
 <h2>the error message<a class="headerlink" href="#the-error-message" title="Permalink to this heading">#</a></h2>
 <p>First, though, let’s have another look at the error message:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Traceback<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>last<span class="o">)</span>:
-<span class="w">  </span>File<span class="w"> </span><span class="o">(</span><span class="s2">&quot;C:/Users/e16006469/egm722/bobtheburner/Week1/debugging_exercise.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;
+<span class="w">  </span>File<span class="w"> </span><span class="o">(</span><span class="s2">&quot;C:/Users/{username}/github/egm722/Week1/debugging_exercise.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;
 <span class="w">    </span><span class="nv">rand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>random.randint<span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="m">100</span><span class="o">)</span>
 NameError:<span class="w"> </span>name<span class="w"> </span><span class="s1">&#39;random&#39;</span><span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>defined
 
@@ -755,7 +786,7 @@ to the file:</p>
 <p>Once you’ve committed this fix, run the script again. You should see that there’s now an error in a different spot:</p>
 <a class="reference internal image-reference" href="../../../_images/new_error.png"><img alt="a new error appears! progress!" class="align-center" src="../../../_images/new_error.png" style="width: 720px;" /></a>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="p">(</span><span class="s2">&quot;C:/Users/e16006469/egm722/bobtheburner/Week1/debugging_exercise.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">10</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="p">(</span><span class="s2">&quot;C:/Users/</span><span class="si">{username}</span><span class="s2">/github/egm722/Week1/debugging_exercise.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">10</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
     <span class="k">if</span> <span class="n">guess</span> <span class="o">&gt;</span> <span class="n">rand</span><span class="p">:</span>  <span class="c1"># if the guess is too high, tell the user.</span>
 <span class="ne">TypeError</span><span class="p">:</span> <span class="s1">&#39;&gt;&#39;</span> <span class="ow">not</span> <span class="n">supported</span> <span class="n">between</span> <span class="n">instances</span> <span class="n">of</span> <span class="s1">&#39;str&#39;</span> <span class="ow">and</span> <span class="s1">&#39;int&#39;</span>
 
@@ -778,16 +809,29 @@ part of the <strong>Debugging Panel</strong>:</p>
 <a class="reference internal image-reference" href="../../../_images/debug_buttons.png"><img alt="the debugging buttons" class="align-center" src="../../../_images/debug_buttons.png" style="width: 300px;" /></a>
 <p><br /> From left to right, the buttons here are:</p>
 <ul class="simple">
-<li><p><strong>Show Execution Point</strong> - this highlights where in the code you currently are</p></li>
+<li><p><strong>Rerun {name}</strong> - re-run the debug configuration that is currently running</p></li>
+<li><p><strong>Stop {name}</strong> - stop the debug configuration that is currently running</p></li>
+<li><p><strong>Resume Program</strong> - continue running the debug configuration</p></li>
+<li><p><strong>Pause Program</strong> - pause the debug configuration that is currently running</p></li>
 <li><p><strong>Step Over</strong> - this runs the current line without stepping into any method or function calls, moving right to the
 next line in the current script</p></li>
 <li><p><strong>Step Into</strong> - this will actually step into any method or function calls, allowing you to examine what’s happening
 inside of those functions</p></li>
 <li><p><strong>Step Into My Code</strong> - this works the same as <strong>Step Into</strong>, but it won’t step into methods/functions that have been
 imported</p></li>
-<li><p><strong>Force Step Into</strong> (currently grayed out) - steps into the method/function even if it’s skipped by <strong>Step Into</strong></p></li>
 <li><p><strong>Step Out</strong> - steps out of the current method/function and back to where the method/function was called.</p></li>
+<li><p><strong>View Breakpoints</strong> - opens a dialog where you can view the current breakpoints and tell the debugger what to do
+with each of them.</p></li>
+<li><p><strong>Mute Breakpoints</strong> - ignores breakpoints while running the script</p></li>
+</ul>
+<p>And, under the <strong>More</strong> menu (three vertical dots):</p>
+<ul class="simple">
+<li><p><strong>Force Step Over</strong> - steps over the current line of code even if there are method calls in this line</p></li>
+<li><p><strong>Smart Step Into</strong> - enables you to select which of the different method calls in a single line you want to use</p></li>
 <li><p><strong>Run to Cursor</strong> - will run the program until it reaches where the cursor is currently placed</p></li>
+<li><p><strong>Force Run to Cursor</strong> - continues running the program until it reaches the current cursor position, ignoring
+breakpoints</p></li>
+<li><p><strong>Show Execution Point</strong> - this highlights where in the code you currently are</p></li>
 <li><p><strong>Evaluate Expression</strong> - you can use this to calculate values of expressions or code fragments, using the variables
 and methods that have currently been declared.</p></li>
 </ul>
@@ -818,6 +862,8 @@ want to treat it like a number, we need to tell python to do so.</p>
 expects that the argument provided to it is numeric.</p>
 </div>
 <p>Once you’ve fixed this error, save the script (<strong>CTRL + S</strong>), and press the red <strong>Stop</strong> button to stop the debugger.</p>
+<p>In <strong>GitHub Desktop</strong>, make sure to <strong>add</strong> and <strong>commit</strong> this change with an appropriate commit message before you
+continue to the next section.</p>
 </section>
 <section id="semantic-errors">
 <h2>semantic errors<a class="headerlink" href="#semantic-errors" title="Permalink to this heading">#</a></h2>
@@ -830,11 +876,11 @@ immediately obvious.</p>
 should help us narrow down what’s wrong.</p>
 <p>Run the debugger again, and pay attention to the value of the number you’re meant to guess (<code class="docutils literal notranslate"><span class="pre">rand</span></code>), as well as the
 response when you enter your guess:</p>
-<a class="reference internal image-reference" href="../../../_images/console_message.png"><img alt="the final changes tracked in github desktop" class="align-center" src="../../../_images/console_message.png" style="width: 720px;" /></a>
-<p><br /> In the window below, I’ve entered a guess of 10, and the response from the program
-is <code class="docutils literal notranslate"><span class="pre">'Too</span> <span class="pre">high.</span> <span class="pre">Guess</span> <span class="pre">again.'</span></code>. Now, this should mean that <code class="docutils literal notranslate"><span class="pre">guess</span> <span class="pre">&gt;</span> <span class="pre">rand</span></code>, but have a look at the values displayed
-in the <strong>debugger</strong>:</p>
-<a class="reference internal image-reference" href="../../../_images/debug_values.png"><img alt="the final changes tracked in github desktop" class="align-center" src="../../../_images/debug_values.png" style="width: 720px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/console_message.png"><img alt="the output of the guessing game program in the pycharm debugger" class="align-center" src="../../../_images/console_message.png" style="width: 720px;" /></a>
+<p><br /> In the window above, you can see that I’ve entered a guess of 10, and the response from the program
+is <code class="docutils literal notranslate"><span class="pre">'Too</span> <span class="pre">high.</span> <span class="pre">Guess</span> <span class="pre">again.'</span></code>.</p>
+<p>Now, this should mean that <code class="docutils literal notranslate"><span class="pre">guess</span> <span class="pre">&gt;</span> <span class="pre">rand</span></code>, but have a look at the values displayed in the <strong>debugger</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/debug_values.png"><img alt="the values of the variables used in the guessing game program" class="align-center" src="../../../_images/debug_values.png" style="width: 720px;" /></a>
 <p><br /> Here, we see that <code class="docutils literal notranslate"><span class="pre">guess</span></code> has a value of 10, as expected, but <code class="docutils literal notranslate"><span class="pre">rand</span></code> has a value of 53. So, there are two
 problems here.</p>
 <p>First, the instructions to the user were to guess a number between 1 and 20, and 53 is decidedly outside of that
@@ -865,18 +911,59 @@ with no further bugs?</p>
 <h2>finishing up<a class="headerlink" href="#finishing-up" title="Permalink to this heading">#</a></h2>
 <p>Once you’ve identified and fixed the bugs, head back to <strong>GitHub Desktop</strong>. You should see the changes you’ve made have
 been tracked:</p>
-<a class="reference internal image-reference" href="../../../_images/final_changes.png"><img alt="the final changes tracked in github desktop" class="align-center" src="../../../_images/final_changes.png" style="width: 720px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/final_changes.png"><img alt="the final changes tracked in github desktop" class="align-center" src="../../../_images/final_changes.png" style="width: 600px;" /></a>
 <p><br /> This time, because we’ve made a number of changes, we’ll write a longer commit description, at least for practice.
 Add a brief commit message, such as “fix guessing game script”, then add a longer description of the changes:</p>
-<a class="reference internal image-reference" href="../../../_images/commit_message.png"><img alt="an example commit message and description in github desktop" class="align-center" src="../../../_images/commit_message.png" style="width: 720px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/commit_message.png"><img alt="an example commit message and description in github desktop" class="align-center" src="../../../_images/commit_message.png" style="width: 600px;" /></a>
 <p><br /> Finally, press the <strong>Commit to debug</strong> button to <strong>commit</strong> the changes.</p>
+</section>
+<section id="merging-and-pruning">
+<h2>merging and pruning<a class="headerlink" href="#merging-and-pruning" title="Permalink to this heading">#</a></h2>
+<p>Finally, we are ready to <strong>merge</strong> our changes into the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. In <strong>GitHub Desktop</strong>, let’s first check over
+what changes we have made by clicking on the <strong>History</strong> tab in the upper left corner of the window:</p>
+<a class="reference internal image-reference" href="../../../_images/branch_history.png"><img alt="the debug branch history in github desktop" class="align-center" src="../../../_images/branch_history.png" style="width: 600px;" /></a>
+<p><br /> Along the side of the window, you can see all of the different changes that make up the history of the <code class="docutils literal notranslate"><span class="pre">debug</span></code>
+branch - you should see that the most recent few changes have been made by you over the course of this exercise.</p>
+<p>From here, you can see details about what changes have been made to what files, just like you have been able to see as
+you have been making changes to the script during the exercise.</p>
+<p>To <strong>merge</strong> these changes into the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch, we first need to switch back to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. To do this,
+click on the <strong>Current branch</strong> button in the upper center of the window, and select <code class="docutils literal notranslate"><span class="pre">main</span></code>. You should now see that
+your current branch has changed, as has the history:</p>
+<a class="reference internal image-reference" href="../../../_images/main_branch.png"><img alt="an example commit message and description in github desktop" class="align-center" src="../../../_images/main_branch.png" style="width: 600px;" /></a>
+<p><br /> Click this button again to bring up the list of available branches, and select
+<strong>Choose a branch to merge into main</strong> at the bottom of the screen.</p>
+<p>This will bring up the <strong>merge</strong> dialog:</p>
+<a class="reference internal image-reference" href="../../../_images/merge_branch.png"><img alt="the merge branch selection dialog in github desktop" class="align-center" src="../../../_images/merge_branch.png" style="width: 600px;" /></a>
+<p><br /> Select your <code class="docutils literal notranslate"><span class="pre">debug</span></code> branch:</p>
+<a class="reference internal image-reference" href="../../../_images/merge_debug.png"><img alt="the merge branch selection dialog in github desktop" class="align-center" src="../../../_images/merge_debug.png" style="width: 600px;" /></a>
+<p><br /> You can click directly on <strong>Create a merge commit</strong> to merge the changes; for more complicated merging, you can
+also click the arrow to select the following options:</p>
+<ul class="simple">
+<li><p><strong>create a merge commit</strong> - this will merge all of the changes from <code class="docutils literal notranslate"><span class="pre">debug</span></code> into <code class="docutils literal notranslate"><span class="pre">main</span></code> by placing them onto the
+end of the current history;</p></li>
+<li><p><strong>squash and merge</strong> - turn all of the changes from <code class="docutils literal notranslate"><span class="pre">debug</span></code> into a single commit;</p></li>
+<li><p><strong>rebase</strong> - modifies the history of commits into something more linear.</p></li>
+</ul>
+<p>For now, we will stick with creating a merge commit (the default option). Once you have clicked on this option, you
+should see that your changes have been merged, and you are ready to <strong>push</strong> your changes to the remote repository
+(i.e., your repository on GitHub):</p>
+<a class="reference internal image-reference" href="../../../_images/debug_merged.png"><img alt="the changes from the debug branch merged into the main branch" class="align-center" src="../../../_images/debug_merged.png" style="width: 600px;" /></a>
+<p><br /> Once you have pushed the changes to the origin repository, you are finished with the exercise, and you can
+“prune” the <code class="docutils literal notranslate"><span class="pre">debug</span></code> branch. To do this, open the list of branches again, then right-click on the <code class="docutils literal notranslate"><span class="pre">debug</span></code> branch
+and select <strong>Delete</strong>.</p>
 </section>
 <section id="next-steps">
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <p>As some additional practice, see if you can add a new feature to the program that keeps track of the number
 of guesses the user has made, and prints out the total number of guesses once the user has correctly guessed the number.</p>
-<p>Once you’ve made these changes, and are satisfied that they’re working properly, remember to use <strong>GitHub Desktop</strong>
-to <strong>commit</strong> the changes.</p>
+<p>Make sure that while you are doing this, you are working on a <em>new</em> branch - call this branch <code class="docutils literal notranslate"><span class="pre">tracker</span></code>.</p>
+<p>Once you have implemented the changes and are satisfied that they’re working properly, remember to do the following:</p>
+<ul class="simple">
+<li><p>use <strong>GitHub Desktop</strong> to <strong>commit</strong> the changes</p></li>
+<li><p><strong>merge</strong> the changes into your <code class="docutils literal notranslate"><span class="pre">main</span></code> branch</p></li>
+<li><p><strong>push</strong> the changes to your remote repository</p></li>
+<li><p>“prune” the <code class="docutils literal notranslate"><span class="pre">tracker</span></code> branch by deleting it.</p></li>
+</ul>
 </section>
 </section>
 
@@ -925,13 +1012,15 @@ to <strong>commit</strong> the changes.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-script">the script</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-branch">creating a new branch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pycharm-setup">pycharm setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-script">running a script</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-error-message">the error message</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commiting-changes">commiting changes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-debugging-tools">the debugging tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-errors">semantic errors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finishing-up">finishing up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-and-pruning">merging and pruning</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
 </ul>
   </nav></div>
