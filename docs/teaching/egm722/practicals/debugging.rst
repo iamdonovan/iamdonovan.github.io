@@ -30,11 +30,65 @@ Unfortunately, as you will see, the script provided has a number of *bugs*, or e
 running as expected. Our task in this exercise is to use PyCharm's debugging tools to correct (*debug*) these error,
 so that the script functions as intended.
 
-setup
--------
+creating a new branch
+---------------------
 
-Before getting started with the exercise, there's one final bit of setup needed. PyCharm provides a number of options
-for running scripts - the instructions below will show you how you can do this using the **Run** tool.
+.. note::
+
+    The instructions below show you how to create a new branch using **GitHub Desktop**, but you can also do this
+    using IDEs such as **PyCharm** or **VSCode**, or using the git command-line interface.
+
+Before we get started editing the script, let's first create a new branch to work on. Remember that this enables us
+to make changes to our code (i.e., create new features or fix existing code) without affecting the code that is
+currently being used by others.
+
+To do this, open **GitHub Desktop**. If you haven't already, add your egm722 repository from the **File** menu
+(**File** > **Add Local Repository**):
+
+.. image:: ../../../img/egm722/debug/add_repository.png
+    :width: 400
+    :align: center
+    :alt: the add local repository dialog in github desktop
+
+|br| Click **Choose** to navigate to where you have cloned your repository. Once you have selected the folder,
+click **Add repository** to finish adding the repository. You should see something like this:
+
+.. image:: ../../../img/egm722/debug/fresh_repository.png
+    :width: 600
+    :align: center
+    :alt: the egm722 repository opened in github desktop
+
+|br| You should be on the ``main`` branch, visible in the upper center of the screen. You can click on
+**Current branch** to switch branches:
+
+.. image:: ../../../img/egm722/debug/github_branches.png
+    :width: 600
+    :align: center
+    :alt: the list of available branches in the current repository
+
+|br| Click on **New branch** to add a new branch to your repository:
+
+.. image:: ../../../img/egm722/debug/create_branch.png
+    :width: 600
+    :align: center
+    :alt: the create branch dialog in github desktop
+
+|br| Call the new branch ``debug``, then click **Create branch** to create the new branch. You should now see that
+in addition to creating the branch, **GitHub Desktop** has automatically switched you to the new branch:
+
+.. image:: ../../../img/egm722/debug/debug_branch.png
+    :width: 600
+    :align: center
+    :alt: github desktop, showing the newly-created debug branch
+
+|br| Now, as we work on debugging the script during the exercise, we won't affect the code on the ``main`` branch
+until we are satisified that things are working as they should be.
+
+pycharm setup
+-------------
+
+There's one final bit of setup needed. PyCharm provides a number of options for running scripts - the instructions
+below will show you how you can do this using the **Run** tool.
 
 .. note::
 
@@ -52,15 +106,15 @@ In the upper right-hand corner of the PyCharm window, you should see this:
     :align: center
     :alt: the run script and debugging tool buttons
 
-|br| Click on **Add Configuration...** to open the **Run/Debug Configurations** window, then click the **+** icon in the
-upper left to add a new configuration:
+|br| Click **Current File**, then select **Edit Configurations...** from the drop-down menu. This will open the
+**Run/Debug Configurations** window:
 
 .. image:: ../../../img/egm722/debug/new_configuration.png
     :width: 720
     :align: center
     :alt: selecting a new python configuration
 
-|br| select **Python**:
+|br| Click the **+** icon in the upper left to add a new configuration, and select **Python**:
 
 .. image:: ../../../img/egm722/debug/empty_configuration.png
     :width: 720
@@ -68,13 +122,20 @@ upper left to add a new configuration:
     :alt: a new python configuration
 
 |br| Call this new configuration ``debug_exercise``, and set the **Script path** to be the path to
-**debugging_exercise.py** in the **Week1** folder of your EGM722 repository. Finally, make sure that the
-**Python interpreter** is set to your ``egm722`` environment, then click **OK** to finish the configuration.
+**debugging_exercise.py** in the **Week1** folder of your EGM722 repository.
 
-You should see that the buttons in the upper right of the window have changed:
+Finally, make sure that the **Python interpreter** is set to your ``egm722`` environment, then click **OK** to finish
+the configuration:
+
+.. image:: ../../../img/egm722/debug/debug_configuration.png
+    :width: 720
+    :align: center
+    :alt: a new python configuration with the parameters filled out to run the debug_exercise script.
+
+|br| You should see that the buttons in the upper right of the window have changed:
 
 .. image:: ../../../img/egm722/debug/new_buttons.png
-    :width: 400
+    :width: 300
     :align: center
     :alt: the run script and debugging tool buttons with a configuration selected
 
@@ -95,7 +156,7 @@ should see an error message already:
 .. code-block:: sh
 
     Traceback (most recent call last):
-      File ("C:/Users/e16006469/egm722/bobtheburner/Week1/debugging_exercise.py", line 4, in <module>
+      File ("C:/Users/{username}/github/egm722/Week1/debugging_exercise.py", line 4, in <module>
         rand = random.randint(1, 100)
     NameError: name 'random' is not defined
 
@@ -123,7 +184,7 @@ First, though, let's have another look at the error message:
 .. code-block:: sh
 
     Traceback (most recent call last):
-      File ("C:/Users/e16006469/egm722/bobtheburner/Week1/debugging_exercise.py", line 4, in <module>
+      File ("C:/Users/{username}/github/egm722/Week1/debugging_exercise.py", line 4, in <module>
         rand = random.randint(1, 100)
     NameError: name 'random' is not defined
 
@@ -224,7 +285,7 @@ Once you've committed this fix, run the script again. You should see that there'
 .. code-block:: python
 
     Traceback (most recent call last):
-      File ("C:/Users/e16006469/egm722/bobtheburner/Week1/debugging_exercise.py", line 10, in <module>
+      File ("C:/Users/{username}/github/egm722/Week1/debugging_exercise.py", line 10, in <module>
         if guess > rand:  # if the guess is too high, tell the user.
     TypeError: '>' not supported between instances of 'str' and 'int'
 
@@ -263,16 +324,29 @@ part of the **Debugging Panel**:
 
 |br| From left to right, the buttons here are:
 
-- **Show Execution Point** - this highlights where in the code you currently are
+- **Rerun {name}** - re-run the debug configuration that is currently running
+- **Stop {name}** - stop the debug configuration that is currently running
+- **Resume Program** - continue running the debug configuration
+- **Pause Program** - pause the debug configuration that is currently running
 - **Step Over** - this runs the current line without stepping into any method or function calls, moving right to the
   next line in the current script
 - **Step Into** - this will actually step into any method or function calls, allowing you to examine what's happening
   inside of those functions
 - **Step Into My Code** - this works the same as **Step Into**, but it won't step into methods/functions that have been
   imported
-- **Force Step Into** (currently grayed out) - steps into the method/function even if it's skipped by **Step Into**
 - **Step Out** - steps out of the current method/function and back to where the method/function was called.
+- **View Breakpoints** - opens a dialog where you can view the current breakpoints and tell the debugger what to do
+  with each of them.
+- **Mute Breakpoints** - ignores breakpoints while running the script
+
+And, under the **More** menu (three vertical dots):
+
+- **Force Step Over** - steps over the current line of code even if there are method calls in this line
+- **Smart Step Into** - enables you to select which of the different method calls in a single line you want to use
 - **Run to Cursor** - will run the program until it reaches where the cursor is currently placed
+- **Force Run to Cursor** - continues running the program until it reaches the current cursor position, ignoring
+  breakpoints
+- **Show Execution Point** - this highlights where in the code you currently are
 - **Evaluate Expression** - you can use this to calculate values of expressions or code fragments, using the variables
   and methods that have currently been declared.
 
@@ -325,6 +399,9 @@ To fix this error, we can use ``int()`` to try to convert what the user types fr
 
 Once you've fixed this error, save the script (**CTRL + S**), and press the red **Stop** button to stop the debugger.
 
+In **GitHub Desktop**, make sure to **add** and **commit** this change with an appropriate commit message before you
+continue to the next section.
+
 semantic errors
 ----------------
 
@@ -344,16 +421,17 @@ response when you enter your guess:
 .. image:: ../../../img/egm722/debug/console_message.png
     :width: 720
     :align: center
-    :alt: the final changes tracked in github desktop
+    :alt: the output of the guessing game program in the pycharm debugger
 
-|br| In the window below, I've entered a guess of 10, and the response from the program
-is ``'Too high. Guess again.'``. Now, this should mean that ``guess > rand``, but have a look at the values displayed
-in the **debugger**:
+|br| In the window above, you can see that I've entered a guess of 10, and the response from the program
+is ``'Too high. Guess again.'``.
+
+Now, this should mean that ``guess > rand``, but have a look at the values displayed in the **debugger**:
 
 .. image:: ../../../img/egm722/debug/debug_values.png
     :width: 720
     :align: center
-    :alt: the final changes tracked in github desktop
+    :alt: the values of the variables used in the guessing game program
 
 |br| Here, we see that ``guess`` has a value of 10, as expected, but ``rand`` has a value of 53. So, there are two
 problems here.
@@ -396,7 +474,7 @@ Once you've identified and fixed the bugs, head back to **GitHub Desktop**. You 
 been tracked:
 
 .. image:: ../../../img/egm722/debug/final_changes.png
-    :width: 720
+    :width: 600
     :align: center
     :alt: the final changes tracked in github desktop
 
@@ -404,11 +482,75 @@ been tracked:
 Add a brief commit message, such as "fix guessing game script", then add a longer description of the changes:
 
 .. image:: ../../../img/egm722/debug/commit_message.png
-    :width: 720
+    :width: 600
     :align: center
     :alt: an example commit message and description in github desktop
 
 |br| Finally, press the **Commit to debug** button to **commit** the changes.
+
+merging and pruning
+-------------------
+
+Finally, we are ready to **merge** our changes into the ``main`` branch. In **GitHub Desktop**, let's first check over
+what changes we have made by clicking on the **History** tab in the upper left corner of the window:
+
+.. image:: ../../../img/egm722/debug/branch_history.png
+    :width: 600
+    :align: center
+    :alt: the debug branch history in github desktop
+
+|br| Along the side of the window, you can see all of the different changes that make up the history of the ``debug``
+branch - you should see that the most recent few changes have been made by you over the course of this exercise.
+
+From here, you can see details about what changes have been made to what files, just like you have been able to see as
+you have been making changes to the script during the exercise.
+
+To **merge** these changes into the ``main`` branch, we first need to switch back to the ``main`` branch. To do this,
+click on the **Current branch** button in the upper center of the window, and select ``main``. You should now see that
+your current branch has changed, as has the history:
+
+.. image:: ../../../img/egm722/debug/main_branch.png
+    :width: 600
+    :align: center
+    :alt: an example commit message and description in github desktop
+
+|br| Click this button again to bring up the list of available branches, and select
+**Choose a branch to merge into main** at the bottom of the screen.
+
+This will bring up the **merge** dialog:
+
+.. image:: ../../../img/egm722/debug/merge_branch.png
+    :width: 600
+    :align: center
+    :alt: the merge branch selection dialog in github desktop
+
+|br| Select your ``debug`` branch:
+
+.. image:: ../../../img/egm722/debug/merge_debug.png
+    :width: 600
+    :align: center
+    :alt: the merge branch selection dialog in github desktop
+
+|br| You can click directly on **Create a merge commit** to merge the changes; for more complicated merging, you can
+also click the arrow to select the following options:
+
+- **create a merge commit** - this will merge all of the changes from ``debug`` into ``main`` by placing them onto the
+  end of the current history;
+- **squash and merge** - turn all of the changes from ``debug`` into a single commit;
+- **rebase** - modifies the history of commits into something more linear.
+
+For now, we will stick with creating a merge commit (the default option). Once you have clicked on this option, you
+should see that your changes have been merged, and you are ready to **push** your changes to the remote repository
+(i.e., your repository on GitHub):
+
+.. image:: ../../../img/egm722/debug/debug_merged.png
+    :width: 600
+    :align: center
+    :alt: the changes from the debug branch merged into the main branch
+
+|br| Once you have pushed the changes to the origin repository, you are finished with the exercise, and you can
+"prune" the ``debug`` branch. To do this, open the list of branches again, then right-click on the ``debug`` branch
+and select **Delete**.
 
 next steps
 -----------
@@ -416,6 +558,12 @@ next steps
 As some additional practice, see if you can add a new feature to the program that keeps track of the number
 of guesses the user has made, and prints out the total number of guesses once the user has correctly guessed the number.
 
-Once you've made these changes, and are satisfied that they're working properly, remember to use **GitHub Desktop**
-to **commit** the changes.
+Make sure that while you are doing this, you are working on a *new* branch - call this branch ``tracker``.
+
+Once you have implemented the changes and are satisfied that they're working properly, remember to do the following:
+
+- use **GitHub Desktop** to **commit** the changes
+- **merge** the changes into your ``main`` branch
+- **push** the changes to your remote repository
+- "prune" the ``tracker`` branch by deleting it.
 
