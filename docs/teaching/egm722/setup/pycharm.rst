@@ -220,15 +220,15 @@ To activate the environment. You can then use the **Terminal** to run scripts in
 python console
 ................
 
-Next to the **Terminal** tab, you should also see a **Python Console** tab:
+Above the **Terminal** tab, you should also see a **Python Console** tab:
 
 .. image:: ../../../img/egm722/setup/pycharm/python_console.png
     :width: 720
     :align: center
     :alt: the pycharm interface with the python console window open
 
-|br| This opens an **iPython** (**i**\ nteractive **Python**) terminal, which you can use in the same way that you
-would use the cells of a **jupyter** notebook:
+|br| This opens an **iPython** (**i**\ nteractive **Python**) console, which you can use in the same way that you
+would use the cells of a **jupyter** notebook (or a python interpreter):
 
 .. image:: ../../../img/egm722/setup/pycharm/console_output.png
     :width: 720
