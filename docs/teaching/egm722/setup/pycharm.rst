@@ -14,7 +14,8 @@ pycharm
 
 .. warning::
 
-    Many of the instructions and screenshots shown here are for PyCharm CE 2021.3.3, running on Ubuntu Linux 18.04.6.
+    Many of the instructions and screenshots shown here are for PyCharm CE 2024.3.4, running on Windows 11, though
+    there may be other versions/operating systems shown.
 
     As such, there may be some slight differences in appearance or menu options between what is shown here
     and the version you download.
@@ -23,13 +24,14 @@ pycharm
 downloading and installing
 ---------------------------
 
-To download PyCharm CE, point your browser to https://www.jetbrains.com/pycharm/download/ and select the version
-for your current operating system (Windows, MacOS, or linux).
+To download PyCharm CE, point your browser to https://www.jetbrains.com/pycharm/download/other.html and select the
+version for your current operating system (Windows, MacOS, or linux). Most likely, this will be the one that says
+**Windows (exe)**.
 
 .. warning::
 
-    Be sure to download the **Community Edition**, which is free. If you download the other version, you will need to
-    purchase a license once the free trial expires after 30 days.
+    Be sure to download the **Community Edition**, which is free. If you download the professional version, you will
+    need to purchase a license once the free trial expires after 30 days.
 
 Once you have downloaded the installer, follow the instructions in the installation wizard. Once the installation has
 completed, open PyCharm CE.
@@ -54,40 +56,39 @@ When you first open PyCharm, you should see a screen similar to the following:
     :alt: the new project creation window
 
 |br| For the location, choose the folder where you have cloned the ``egm722`` repository by clicking on the folder icon
-and selecting the folder from the tree (in this example, the folder is located in
-``/home/bob/Documents/teaching/ulster/egm722/2022/workbooks``).
+and selecting the folder from the tree (in this example, the folder is located in ``C:\Users\{username}\egm722``):
 
-You should also set up a python interpreter for the project - this will enable you to use some of the autocomplete
+.. image:: ../../../img/egm722/setup/pycharm/new_project_path.png
+    :width: 600
+    :align: center
+    :alt: the new project creation window with the path to the egm722 folder selected
+
+|br| You should also set up a python interpreter for the project - this will enable you to use some of the autocomplete
 tools when writing code, run scripts within PyCharm, as well as making use of the debugging tools.
 
 Because you have already set up a conda environment\ [1]_, you can choose this interpreter. Next to
-**Previously configured interpreter**, click on the ``...`` button. In the **Add Python Interpreter** window
-that opens up, select **Conda Environment**, and then **Existing environment** - you should see something
-like the following:
+**Interpreter type**, click on **Custom environment**.
 
-.. image:: ../../../img/egm722/setup/pycharm/add_interpreter.png
+Next to **Environment**, click on **Select existing**, and choose **Conda** for **Type**, then select your
+newly-created egm722 environment:
+
+.. image:: ../../../img/egm722/setup/pycharm/new_project_interpreter.png
     :width: 600
     :align: center
-    :alt: adding an existing conda environment
+    :alt: the new project creation window with the path to the egm722 folder and interpreter selected
 
-|br| You'll need to provide the path to the python interpreter that is part of your ``egm722`` conda environment - on
-most computers, relative to where you've installed Anaconda, this will be\ [2]_:
-
-.. code-block:: sh
-
-    ~/Anaconda3/envs/egm722/bin/python
-
-(or, if you're on Windows, ``python.exe``). You will also need to supply the path to the ``conda`` executable
-(program) that's installed on your computer - again, on most computers, relative to where you've installed
-Anaconda, this will be:
+|br| You may need to input the path to the **conda** program. On most computers, relative to where you've installed
+Anaconda, this will be\ [2]_:
 
 .. code-block:: sh
 
     ~/Anaconda3/bin/conda
 
-(or, if you're on Windows, ``conda.exe``). You can also click the **Make available to all projects** checkbox,
-which will help you more easily add this interpreter to other new projects. Click **OK** to return to the previous
-window.
+or:
+
+.. code-block:: sh
+
+    ~/Anaconda3/condabin/conda.bat
 
 Once you've set the path to the project, and set up the python interpreter, click **Create**. The following window
 should pop up:
@@ -97,7 +98,7 @@ should pop up:
     :align: center
     :alt: a dialog window warning you that the folder is not empty
 
-|br| Select **Create from Existing Sources**.
+|br| Select **Create from Existing Sources** to finish creating your new project.
 
 .. note::
 
@@ -174,7 +175,8 @@ Before we press **Commit**, we should first write a commit message, which we can
     :align: center
     :alt: the pycharm interface with the commit message written
 
-|br| Press **Commit**, and you should see the filename change from green to white.
+|br| Select the file(s) that you want to commit, then press **Commit**. You should see the filename change from green
+to white.
 
 Now, when you make changes to the file, the color will change again, this time to blue:
 
@@ -199,9 +201,16 @@ this to open a **Terminal** (**Command Prompt**):
     :align: center
     :alt: the pycharm interface with the terminal window open
 
-|br| You can use this in the same way that you would the "normal" **Command Prompt**. If you have configured an
-interpreter for your project, it should open as an **Anaconda Command Prompt** with that environment activated,
-meaning that you can use it to run scripts in that environment:
+|br| You can use this in the same way that you would the "normal" **Command Prompt**.
+
+If you have configured an interpreter for your project, it may open as an **Anaconda Command Prompt** with that
+environment activated. If not, you can run the following:
+
+.. code-block:: sh
+
+    conda activate egm722
+
+To activate the environment. You can then use the **Terminal** to run scripts in that environment:
 
 .. image:: ../../../img/egm722/setup/pycharm/run_script.png
     :width: 720
@@ -211,15 +220,15 @@ meaning that you can use it to run scripts in that environment:
 python console
 ................
 
-Next to the **Terminal** tab, you should also see a **Python Console** tab:
+Above the **Terminal** tab, you should also see a **Python Console** tab:
 
 .. image:: ../../../img/egm722/setup/pycharm/python_console.png
     :width: 720
     :align: center
     :alt: the pycharm interface with the python console window open
 
-|br| This opens an **iPython** (**i**\ nteractive **Python**) terminal, which you can use in the same way that you
-would use the cells of a **jupyter** notebook:
+|br| This opens an **iPython** (**i**\ nteractive **Python**) console, which you can use in the same way that you
+would use the cells of a **jupyter** notebook (or a python interpreter):
 
 .. image:: ../../../img/egm722/setup/pycharm/console_output.png
     :width: 720
@@ -295,16 +304,17 @@ lower right-hand side of the window:
     :align: center
     :alt: the interpreter settings window
 
-|br| To change the interpreter, you can select a different one from the drop menu, or by clicking the gear icon and
-selecting **Show all**. This will bring up the following window (note that your list will not be the same as this one):
+|br| To change the interpreter, you can select a different one from the drop menu. If you don't see the interpreter you
+want, scroll to the bottom of the menu and select **Show all**. This will bring up the following window
+(note that your list will not be the same as this one):
 
 .. image:: ../../../img/egm722/setup/pycharm/interpreters_list.png
-    :width: 400
+    :width: 500
     :align: center
     :alt: a list of all of the available interpreters
 
-|br| Select the desired interpreter from this list. If you don't see it there, you'll need to add it using the steps
-outlined above.
+|br| Select the desired interpreter from this list. If you don't see it there, you can click the **+** button to add
+the new interpreter, following the steps outlined :ref:`above <adding interpreter>`.
 
 notes and references
 -----------------------
