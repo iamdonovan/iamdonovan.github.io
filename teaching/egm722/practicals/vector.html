@@ -815,12 +815,12 @@ In <code class="docutils literal notranslate"><span class="pre">shapely</span></
 <strong>MultiLineString</strong>, or <strong>MultiPolygon</strong> objects.</p>
 <p>To get started, run the following cell to import <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> and
 <code class="docutils literal notranslate"><span class="pre">shapely</span></code>.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this lets us use the figures interactively</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># this lets us use the figures interactively
+%matplotlib inline
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span>
+import pandas as pd
+import geopandas as gpd
+from shapely.geometry import Point, LineString, Polygon
 </pre></div>
 </div>
 </section>
@@ -831,12 +831,12 @@ In <code class="docutils literal notranslate"><span class="pre">shapely</span></
 <p>As we saw in Week 1, to create a <strong>Point</strong>, we pass x, y (and
 optionally, z) coordinates to the <strong>Point</strong> class constructor
 (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/reference/shapely.Point.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">)</span> <span class="c1"># creates a 2d point with coordinates -6.677, 55.150</span>
-<span class="n">pt2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">6.658</span><span class="p">,</span> <span class="mf">55.213</span><span class="p">)</span> <span class="c1"># creates a 2d point with coordinates -6.658, 55.213</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pt = Point(-6.677, 55.150) # creates a 2d point with coordinates -6.677, 55.150
+pt2 = Point(-6.658, 55.213) # creates a 2d point with coordinates -6.658, 55.213
 
-<span class="n">pt3d</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mf">86.925278</span><span class="p">,</span> <span class="mf">27.988056</span><span class="p">,</span> <span class="mf">8848.86</span><span class="p">)</span> <span class="c1"># creates a 3d point</span>
+pt3d = Point(86.925278, 27.988056, 8848.86) # creates a 3d point
 
-<span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="c1"># print a well-known text (WKT) representation of the Point object</span>
+print(pt) # print a well-known text (WKT) representation of the Point object
 </pre></div>
 </div>
 <p>The last line, <code class="docutils literal notranslate"><span class="pre">print(pt)</span></code>, prints a
@@ -853,7 +853,7 @@ particular function, we can use the built-in function <code class="docutils lite
 jupyter notebooks/ipython, the <code class="docutils literal notranslate"><span class="pre">?</span></code> operator).</p>
 <p>As an example, let’s use the built-in function <code class="docutils literal notranslate"><span class="pre">dir()</span></code> to look at the
 methods and attributes associated with the <strong>Point</strong> class:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="c1"># show the attributes and methods associated with the pt object</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dir(pt) # show the attributes and methods associated with the pt object
 </pre></div>
 </div>
 <p>Here, in addition to the <strong>speciall</strong> or <strong>magic</strong> methods (denoted with
@@ -861,7 +861,7 @@ two underscores, __, at the beginning and end of the method name),
 there are a number of methods that we might find useful, including
 <code class="docutils literal notranslate"><span class="pre">.distance()</span></code>.</p>
 <p>To see what this method does, we can use <code class="docutils literal notranslate"><span class="pre">help(Point.distance)</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(pt.distance)
 </pre></div>
 </div>
 <p>So, <code class="docutils literal notranslate"><span class="pre">.distance()</span></code> provides the distance from the <strong>Point</strong> object to
@@ -874,7 +874,7 @@ exercise.</p>
 <p>Use the cell below, along with the output of dir(pt) above, to work out
 how we can access the x, y coordinates of a Point object. Can you see
 more than one way to do this? If so, are there differences between them?</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># write your method to access the x,y coordinates of pt here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># write your method to access the x,y coordinates of pt here
 </pre></div>
 </div>
 <p>One of the common operations we might want to do with a <strong>Point</strong> object
@@ -882,7 +882,7 @@ is to create a <strong>buffer</strong> around the point. In the list of associat
 methods and attributes of Point objects above, you should see there is a
 method called <code class="docutils literal notranslate"><span class="pre">.buffer()</span></code>.</p>
 <p>A look at the help for this method:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">buffer</span><span class="p">)</span> <span class="c1"># show the help for pt.buffer</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(pt.buffer) # show the help for pt.buffer
 </pre></div>
 </div>
 <p>shows that <code class="docutils literal notranslate"><span class="pre">buffer</span></code> takes a <strong>positional parameter</strong> of <em>distance</em>, as
@@ -893,8 +893,8 @@ conversion between coordinate systems or units.</p>
 <p>Note that the object returned by buffer is a <strong>Polygon</strong>, rather than a
 point - this makes sense, as the buffer is a two-dimensional surface
 around the point location:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt_buffer</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span> <span class="c1"># buffer the point by 0.001 in the same coordinates</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pt_buffer</span><span class="p">))</span> <span class="c1"># show the type of the buffer</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pt_buffer = pt.buffer(0.001) # buffer the point by 0.001 in the same coordinates
+print(type(pt_buffer)) # show the type of the buffer
 </pre></div>
 </div>
 </section>
@@ -904,17 +904,17 @@ around the point location:</p>
 (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/reference/shapely.LineString.html">documentation</a>)
 takes either a list of <strong>Point</strong> objects, or a list of coordinate
 <strong>tuples</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([</span><span class="n">pt</span><span class="p">,</span> <span class="n">pt2</span><span class="p">])</span> <span class="c1"># method one of creating a LineString, using a list of Point objects</span>
-<span class="n">line2</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.658</span><span class="p">,</span> <span class="mf">55.213</span><span class="p">)])</span> <span class="c1"># method two, using a list of coordinate tuples</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>line1 = LineString([pt, pt2]) # method one of creating a LineString, using a list of Point objects
+line2 = LineString([(-6.677, 55.150), (-6.658, 55.213)]) # method two, using a list of coordinate tuples
 
-<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="p">)</span> <span class="c1"># show the first line</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span> <span class="c1"># show the second line</span>
+print(line1) # show the first line
+print(line2) # show the second line
 </pre></div>
 </div>
 <p>As we can see from the output above, these two <strong>LineString</strong>s have
 the same coordinates. We can also use the <code class="docutils literal notranslate"><span class="pre">.equals()</span></code> method to check
 that the two objects are the same geometry:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span> <span class="c1"># check to see if these are the same geometry</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>line1.equals(line2) # check to see if these are the same geometry
 </pre></div>
 </div>
 <p>The coordinates of a <strong>LineString</strong> are stored as a <strong>tuple</strong> in an
@@ -929,44 +929,44 @@ variables, we can access them using their respective indices:</p>
 which assigns values from a <strong>tuple</strong> on the right-hand side of the
 assignment to a comma-separated grouping of variables on the left-hand
 side:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">xy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x, y = line1.xy
 
-<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+print(x)
+print(y)
 </pre></div>
 </div>
 <p><strong>LineString</strong> objects have a number of the same methods that <strong>Point</strong>
 objects do, including <code class="docutils literal notranslate"><span class="pre">.buffer()</span></code> and <code class="docutils literal notranslate"><span class="pre">.distance()</span></code>.</p>
 <p><strong>LineString</strong> objects also have a <code class="docutils literal notranslate"><span class="pre">.length</span></code> attribute (just like with
 <code class="docutils literal notranslate"><span class="pre">.distance()</span></code>, it is <strong>unitless</strong>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(line1.length)
 </pre></div>
 </div>
 <p><strong>LineString</strong> objects have a <code class="docutils literal notranslate"><span class="pre">.centroid</span></code> attribute, corresponding to
 the midpoint of the <strong>LineString</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">center</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">centroid</span> <span class="c1"># get the midpoint of the line</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>center = line1.centroid # get the midpoint of the line
+print(center)
 </pre></div>
 </div>
 <p>The last two methods of <strong>LineString</strong> objects that we will explore for
 now are <code class="docutils literal notranslate"><span class="pre">.project()</span></code> and <code class="docutils literal notranslate"><span class="pre">.interpolate()</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">project</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(line1.project)
 </pre></div>
 </div>
 <p>So <code class="docutils literal notranslate"><span class="pre">.project()</span></code> returns the distance along the <strong>LineString</strong> that
 comes closest to the <strong>Point</strong> (or other geometry object).</p>
 <p><code class="docutils literal notranslate"><span class="pre">.interpolate()</span></code>, on the other hand, does something a bit different:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">interpolate</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(line1.interpolate)
 </pre></div>
 </div>
 <p>it returns the point along the line at a specified distance; the
 distance can be in the units of the <strong>LineString</strong>’s coordinates
 (<code class="docutils literal notranslate"><span class="pre">normalized=False</span></code>), or it can be as a fraction of the total length
 of the <strong>LineString</strong> (<code class="docutils literal notranslate"><span class="pre">normalized=True</span></code>).</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">center</span><span class="p">)</span> <span class="o">/</span> <span class="n">line1</span><span class="o">.</span><span class="n">length</span> <span class="c1"># check to see how far along the line our centerpoint is</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>line1.project(center) / line1.length # check to see how far along the line our centerpoint is
 
-<span class="nb">print</span><span class="p">(</span><span class="n">center</span><span class="p">)</span> <span class="c1"># print the WKT representation of the center point</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="c1"># print the WKT representation of the point 50% along the line</span>
+print(center) # print the WKT representation of the center point
+print(line1.interpolate(0.5, normalized=True)) # print the WKT representation of the point 50% along the line
 </pre></div>
 </div>
 </section>
@@ -977,16 +977,16 @@ of the <strong>LineString</strong> (<code class="docutils literal notranslate"><
 a <strong>Polygon</strong> object
 (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/reference/shapely.Polygon.html">documentation</a>)
 using a list of coordinate pairs, or a list of <strong>Point</strong> objects:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly1</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.658</span><span class="p">,</span> <span class="mf">55.213</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.722</span><span class="p">,</span> <span class="mf">55.189</span><span class="p">)])</span>
-<span class="n">poly2</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([</span><span class="n">pt</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">6.722</span><span class="p">,</span> <span class="mf">55.189</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>poly1 = Polygon([(-6.677, 55.150), (-6.658, 55.213), (-6.722, 55.189)])
+poly2 = Polygon([pt, pt2, Point(-6.722, 55.189)])
 
-<span class="nb">print</span><span class="p">(</span><span class="n">poly1</span><span class="p">)</span> <span class="c1"># print a wkt representation of the polygon</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">poly2</span><span class="p">)</span>
+print(poly1) # print a wkt representation of the polygon
+print(poly2)
 </pre></div>
 </div>
 <p>and, just like we saw with <strong>LineString</strong> objects, we can use
 <code class="docutils literal notranslate"><span class="pre">.equals()</span></code> to check that these two geometries are the same:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly1</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">poly2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>poly1.equals(poly2)
 </pre></div>
 </div>
 <p>Note that even though we only passed three <strong>Point</strong> objects (or
@@ -998,10 +998,10 @@ potentially has two sets of coordinates - the <em>Shell</em>, or <em>exterior</e
 and <em>holes</em>, or <em>interiors</em>. To create a <strong>Polygon</strong> with a hole in it,
 we can pass a list of coordinates that describe the <code class="docutils literal notranslate"><span class="pre">shell</span></code>, and a
 second that describes the <code class="docutils literal notranslate"><span class="pre">holes</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">polygon_with_hole</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">shell</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mf">6.677</span><span class="p">,</span> <span class="mf">55.150</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.658</span><span class="p">,</span> <span class="mf">55.213</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.722</span><span class="p">,</span> <span class="mf">55.189</span><span class="p">)],</span>
-                            <span class="n">holes</span><span class="o">=</span><span class="p">[[(</span><span class="o">-</span><span class="mf">6.684</span><span class="p">,</span> <span class="mf">55.168</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.704</span><span class="p">,</span> <span class="mf">55.187</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.672</span><span class="p">,</span> <span class="mf">55.196</span><span class="p">)]])</span> <span class="c1"># note the double brackets</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>polygon_with_hole = Polygon(shell=[(-6.677, 55.150), (-6.658, 55.213), (-6.722, 55.189)],
+                            holes=[[(-6.684, 55.168), (-6.704, 55.187), (-6.672, 55.196)]]) # note the double brackets
 
-<span class="nb">print</span><span class="p">(</span><span class="n">polygon_with_hole</span><span class="p">)</span>
+print(polygon_with_hole)
 </pre></div>
 </div>
 <p>Note the double brackets in the <code class="docutils literal notranslate"><span class="pre">holes</span></code> keyword argument:</p>
@@ -1020,9 +1020,9 @@ last coordinates are the same), and the <code class="docutils literal notranslat
 <strong>InteriorRingSequence</strong> (basically, a collection of <strong>LinearRing</strong>s
 that have to obey <a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#polygons">additional
 rules</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">exterior</span><span class="p">)</span> <span class="c1"># this is a single LinearRing</span>
-<span class="k">for</span> <span class="n">lr</span> <span class="ow">in</span> <span class="n">polygon_with_hole</span><span class="o">.</span><span class="n">interiors</span><span class="p">:</span> <span class="c1"># this is potentially multiple LinearRing objects</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">lr</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(polygon_with_hole.exterior) # this is a single LinearRing
+for lr in polygon_with_hole.interiors: # this is potentially multiple LinearRing objects
+    print(lr)
 </pre></div>
 </div>
 <p><strong>Polygon</strong> objects have nonzero <code class="docutils literal notranslate"><span class="pre">.area</span></code> and non-zero <code class="docutils literal notranslate"><span class="pre">.length</span></code>
@@ -1032,12 +1032,12 @@ and <strong>LineString</strong> objects, these are <em>unitless</em>.</p>
 the geometry using <em>either</em> the minimum bounding box parallel to the
 coordinate axes (the <code class="docutils literal notranslate"><span class="pre">.envelope</span></code> attribute), or a rotated minimum
 bounding box (the <code class="docutils literal notranslate"><span class="pre">.minimum_rotated_rectangle</span></code> attribute):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;perimeter: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">length</span><span class="p">)</span> <span class="c1"># print the perimeter</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;area: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="c1"># print the area</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;centroid: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span> <span class="c1"># get the centerpoint of the rectangle</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bounding coordinates: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span> <span class="c1"># get the minimum x, minimum y, maximum x, maximum y coordinates</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bounding box: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">envelope</span><span class="p">)</span> <span class="c1"># get the minimum bounding rectangle of the polygon, parallel to the coordinate axes</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;rotated bounding box: &#39;</span><span class="p">,</span> <span class="n">poly1</span><span class="o">.</span><span class="n">minimum_rotated_rectangle</span><span class="p">)</span> <span class="c1"># get the smallest possible rectangle that covers the polygon</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;perimeter: &#39;, poly1.length) # print the perimeter
+print(&#39;area: &#39;, poly1.area) # print the area
+print(&#39;centroid: &#39;, poly1.centroid) # get the centerpoint of the rectangle
+print(&#39;bounding coordinates: &#39;, poly1.bounds) # get the minimum x, minimum y, maximum x, maximum y coordinates
+print(&#39;bounding box: &#39;, poly1.envelope) # get the minimum bounding rectangle of the polygon, parallel to the coordinate axes
+print(&#39;rotated bounding box: &#39;, poly1.minimum_rotated_rectangle) # get the smallest possible rectangle that covers the polygon
 </pre></div>
 </div>
 <p>There are a number of additional methods that we will cover more as we
@@ -1053,21 +1053,21 @@ following code shows how we can use the <code class="docutils literal notranslat
 (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.contains">documentation</a>)
 of a shapely geometry object to see whether another geometry object is
 located fully within the object:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
-<span class="n">pt1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">pt2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>poly = Polygon([(0, 0), (2, 0), (2, 3), (0, 3)])
+pt1 = Point(0, -0.1)
+pt2 = Point(1, 1)
 
-<span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">pt1</span><span class="p">))</span> <span class="c1"># should return False, because pt1 is not within the polygon</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">pt2</span><span class="p">))</span> <span class="c1"># should return True, because pt2 is within the polygon</span>
+print(poly.contains(pt1)) # should return False, because pt1 is not within the polygon
+print(poly.contains(pt2)) # should return True, because pt2 is within the polygon
 </pre></div>
 </div>
 <p>We can also check to see whether two geometry objects intersect each
 other using the <code class="docutils literal notranslate"><span class="pre">.intersects()</span></code> method
 (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#object.intersects">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
-<span class="n">line2</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>line1 = LineString([(0, 0), (1, 1)])
+line2 = LineString([(0, 1), (1, 0)])
 
-<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">line2</span><span class="p">))</span> <span class="c1"># intersects() returns True if the geometries touch/intersect/overlap, False otherwise</span>
+print(line1.intersects(line2)) # intersects() returns True if the geometries touch/intersect/overlap, False otherwise
 </pre></div>
 </div>
 <p>To actually get the intersection of the two geometries, we use the
@@ -1075,12 +1075,12 @@ other using the <code class="docutils literal notranslate"><span class="pre">.in
 intersection (whether this is a <strong>Point</strong>, a <strong>LineString</strong>, a
 <strong>Polygon</strong>, or a mixed collection of geometries depends on the
 geometries and how they intersect):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line1</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
-<span class="n">line2</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
-<span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>line1 = LineString([(0, 0), (1, 1)])
+line2 = LineString([(0, 1), (1, 0)])
+poly = Polygon([(0, 0), (2, 0), (2, 3), (0, 3)])
 
-<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">line2</span><span class="p">))</span> <span class="c1"># if the lines intersect, this will be the Point(s) of intersection</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">line1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">poly</span><span class="p">))</span> <span class="c1"># if the line intersects a polygon, the result may be a line or a point</span>
+print(line1.intersection(line2)) # if the lines intersect, this will be the Point(s) of intersection
+print(line1.intersection(poly)) # if the line intersects a polygon, the result may be a line or a point
 </pre></div>
 </div>
 <p>There are a number of other methods provided by <code class="docutils literal notranslate"><span class="pre">shapely</span></code> that we can
@@ -1105,9 +1105,9 @@ system to another.</p>
 and use <code class="docutils literal notranslate"><span class="pre">.head()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html">documentation</a>)
 to show the first 5 rows of the <strong>GeoDataFrame</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data_files/NI_roads.shp&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>roads = gpd.read_file(&#39;data_files/NI_roads.shp&#39;)
 
-<span class="n">roads</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the first five rows of the table</span>
+roads.head() # show the first five rows of the table
 </pre></div>
 </div>
 <p>So this dataset has three columns: <strong>SURVEY</strong>, <strong>Road_class</strong>, and
@@ -1122,7 +1122,7 @@ motorway are represented in the dataset - i.e., the sum of the length of
 all of the <strong>LineString</strong> objects that have the attribute <code class="docutils literal notranslate"><span class="pre">MOTORWAY</span></code>.</p>
 <p>First, though, let’s check what the coordinate reference system (CRS) of
 our <strong>GeoDataFrame</strong> is, using the <code class="docutils literal notranslate"><span class="pre">crs</span></code> attribute:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads</span><span class="o">.</span><span class="n">crs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>roads.crs
 </pre></div>
 </div>
 <p>So this dataset has a <em>Geographic</em> coordinate reference system,
@@ -1145,7 +1145,7 @@ Object Notation (JSON), and PROJ string (i.e.,
 <p>For example, to see the JSON representation of the CRS, we would use the
 <code class="docutils literal notranslate"><span class="pre">.to_json()</span></code> method
 (<a class="reference external" href="https://pyproj4.github.io/pyproj/stable/api/crs/crs.html#pyproj.crs.CRS.to_json">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span> <span class="c1"># show the representation of the CRS in JSON format</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>roads.crs.to_json() # show the representation of the CRS in JSON format
 </pre></div>
 </div>
 <p>Because this is a <em>Geographic</em> CRS, the length information provided by
@@ -1154,7 +1154,7 @@ sense for us. This means that we first have to convert the
 <strong>GeoDataFrame</strong> to a <em>projected</em> CRS.</p>
 <p>To do this, we can use the method <code class="docutils literal notranslate"><span class="pre">to_crs()</span></code>
 (<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_crs.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">roads</span><span class="o">.</span><span class="n">to_crs</span><span class="p">)</span> <span class="c1"># show the help for the .to_crs() method</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(roads.to_crs) # show the help for the .to_crs() method
 </pre></div>
 </div>
 <p>So, to transform the <strong>GeoDataFrame</strong> to a different CRS, we have to
@@ -1170,9 +1170,9 @@ with.</p>
 registry</a>, or using an internet
 search, look up the EPSG code for the Irish Transverse Mercator CRS and
 enter it in the method call below:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads_itm</span> <span class="o">=</span> <span class="n">roads</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="n">XX</span><span class="p">)</span> <span class="c1"># replace XX with the correct EPSG code for Irish Transverse Mercator</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>roads_itm = roads.to_crs(epsg=XX) # replace XX with the correct EPSG code for Irish Transverse Mercator
 
-<span class="n">roads_itm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+roads_itm.head()
 </pre></div>
 </div>
 <p>Note that only the <strong>geometry</strong> column has changed - instead of
@@ -1190,7 +1190,7 @@ of the features that correspond to Motorways and sum the lengths. We saw
 an example of this in Practical 1 - we can slice the <strong>GeoDataFrame</strong>
 with a conditional statement (<code class="docutils literal notranslate"><span class="pre">'Road_class'</span> <span class="pre">==</span> <span class="pre">'MOTORWAY'</span></code>) to select
 only those rows where the road type is <code class="docutils literal notranslate"><span class="pre">MOTORWAY</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads_itm</span><span class="p">[</span><span class="n">roads_itm</span><span class="p">[</span><span class="s1">&#39;Road_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MOTORWAY&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>roads_itm[roads_itm[&#39;Road_class&#39;] == &#39;MOTORWAY&#39;]
 </pre></div>
 </div>
 <p>But first, we might want to add a column to our <strong>GeoDataFrame</strong> that
@@ -1198,7 +1198,7 @@ contains the <code class="docutils literal notranslate"><span class="pre">.lengt
 would be to <em>iterate</em> over the rows of the <strong>GeoDataFrame</strong> using the
 <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iterrows.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">roads_itm</span><span class="o">.</span><span class="n">iterrows</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(roads_itm.iterrows)
 </pre></div>
 </div>
 <p>Because <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> returns an <strong>iterator</strong> of (<strong>index</strong>,
@@ -1226,19 +1226,19 @@ array</strong> to index the <strong>GeoDataFrame</strong>.</p>
 <p>assigns the <code class="docutils literal notranslate"><span class="pre">length</span></code> property of the row’s geometry to a new column,
 <code class="docutils literal notranslate"><span class="pre">Length</span></code>, at the index. Putting it all together, our loop looks like
 this:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">roads_itm</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1"># iterate over each row in the GeoDataFrame</span>
-    <span class="n">roads_itm</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">length</span> <span class="c1"># assign the row&#39;s geometry length to a new column, Length</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for ind, row in roads_itm.iterrows(): # iterate over each row in the GeoDataFrame
+    roads_itm.loc[ind, &#39;Length&#39;] = row[&#39;geometry&#39;].length # assign the row&#39;s geometry length to a new column, Length
 
-<span class="n">roads_itm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the updated GeoDataFrame to see the changes</span>
+roads_itm.head() # show the updated GeoDataFrame to see the changes
 </pre></div>
 </div>
 <p>Finally, we can subset our <strong>GeoDataFrame</strong> to select only <code class="docutils literal notranslate"><span class="pre">MOTORWAY</span></code>
 features, and sum their length using the <code class="docutils literal notranslate"><span class="pre">.sum()</span></code> method
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.sum.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_roads</span> <span class="o">=</span> <span class="n">roads_itm</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">sum_motorway</span> <span class="o">=</span> <span class="n">roads_itm</span><span class="p">[</span><span class="n">roads_itm</span><span class="p">[</span><span class="s1">&#39;Road_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MOTORWAY&#39;</span><span class="p">][</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sum_roads</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> total m of roads&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sum_motorway</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> total m of motorway&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sum_roads = roads_itm[&#39;Length&#39;].sum()
+sum_motorway = roads_itm[roads_itm[&#39;Road_class&#39;] == &#39;MOTORWAY&#39;][&#39;Length&#39;].sum()
+print(f&#39;{sum_roads:.2f} total m of roads&#39;)
+print(f&#39;{sum_motorway:.2f} total m of motorway&#39;)
 </pre></div>
 </div>
 <p>In the cell above, look at the <code class="docutils literal notranslate"><span class="pre">print</span></code> function argument:</p>
@@ -1271,7 +1271,7 @@ etc., exactly like we can on a <strong>DataFrame</strong>, <strong>GeoDataFrame<
 <p>If we want to summarize our dataset by <code class="docutils literal notranslate"><span class="pre">Road_class</span></code> and use <code class="docutils literal notranslate"><span class="pre">.sum()</span></code>
 to find the total length of each type of roadway, then, it would like
 this:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roads_itm</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Road_class&#39;</span><span class="p">])[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span> <span class="c1"># convert to km</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>roads_itm.groupby([&#39;Road_class&#39;])[&#39;Length&#39;].sum() / 1000 # convert to km
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> returns a <strong>GeoDataFrame</strong>, which we can then index to
@@ -1299,16 +1299,16 @@ folder, and test whether the CRS of the <code class="docutils literal notranslat
 the same as the CRS of the <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code> <strong>GeoDataFrame</strong>.</p>
 <p>If, when you first load the shapefile, the test below returns False,
 write a line of code that will ensure that the test returns True.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data_files/Counties.shp&#39;</span><span class="p">)</span> <span class="c1"># load the Counties shapefile</span>
-<span class="c1"># your line of code might go here.</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">counties</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">roads_itm</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span> <span class="c1"># test if the crs is the same for roads_itm and counties.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>counties = gpd.read_file(&#39;data_files/Counties.shp&#39;) # load the Counties shapefile
+# your line of code might go here.
+print(counties.crs == roads_itm.crs) # test if the crs is the same for roads_itm and counties.
 </pre></div>
 </div>
 <p>Now that the two <strong>GeoDataFrame</strong> objects have the same CRS, we can
 proceed with the spatial join using <code class="docutils literal notranslate"><span class="pre">gpd.sjoin()</span></code>
 (<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.sjoin.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">join</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">counties</span><span class="p">,</span> <span class="n">roads_itm</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">lsuffix</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">rsuffix</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span> <span class="c1"># perform the spatial join</span>
-<span class="n">join</span> <span class="c1"># show the joined table</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>join = gpd.sjoin(counties, roads_itm, how=&#39;inner&#39;, lsuffix=&#39;left&#39;, rsuffix=&#39;right&#39;) # perform the spatial join
+join # show the joined table
 </pre></div>
 </div>
 <p>Now, we can see that our table has additional columns - we have the
@@ -1321,9 +1321,9 @@ and <code class="docutils literal notranslate"><span class="pre">Length</span></
 <strong>GeoDataFrame</strong> using <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>; this time, we’ll use both the
 <code class="docutils literal notranslate"><span class="pre">CountyName</span></code> and <code class="docutils literal notranslate"><span class="pre">Road_class</span></code> properties to see the total length of
 roads by each county, and by the type of road:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group_county_road</span> <span class="o">=</span> <span class="n">join</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;CountyName&#39;</span><span class="p">,</span> <span class="s1">&#39;Road_class&#39;</span><span class="p">])</span> <span class="c1"># group by county name, then road class</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>group_county_road = join.groupby([&#39;CountyName&#39;, &#39;Road_class&#39;]) # group by county name, then road class
 
-<span class="n">group_county_road</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span> <span class="c1"># show the total number of km for each category</span>
+group_county_road[&#39;Length&#39;].sum() / 1000 # show the total number of km for each category
 </pre></div>
 </div>
 <p>From this, we can quickly see that County Antrim has the most motorway
@@ -1335,13 +1335,13 @@ the “right” table that overlaps multiple features in the “left” table
 will be, in effect, double-counted. We can confirm this by calculating
 the total length of roads in the joined table and comparing it to the
 total length of roads in the original dataset:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">join_total</span> <span class="o">=</span> <span class="n">join</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># find the total length of roads in the join GeoDataFrame</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>join_total = join[&#39;Length&#39;].sum() # find the total length of roads in the join GeoDataFrame
 
-<span class="c1"># check that the total length of roads is the same between both GeoDataFrames</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total length of roads from original file: </span><span class="si">{</span><span class="n">sum_roads</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total length of roads from spatial join: </span><span class="si">{</span><span class="n">join_total</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Absolute difference in road length: </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">sum_roads</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">join_total</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1"> km&#39;</span><span class="p">)</span> <span class="c1"># calculate the absolute difference as a percentage</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Absolute difference in road length: </span><span class="si">{</span><span class="p">(</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">sum_roads</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">join_total</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sum_roads</span><span class="p">)</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span> <span class="c1"># calculate the absolute difference as a percentage</span>
+# check that the total length of roads is the same between both GeoDataFrames
+print(f&#39;Total length of roads from original file: {sum_roads:.2f}&#39;)
+print(f&#39;Total length of roads from spatial join: {join_total:.2f}&#39;)
+print(f&#39;Absolute difference in road length: {abs(sum_roads - join_total) / 1000:0.2f} km&#39;) # calculate the absolute difference as a percentage
+print(f&#39;Absolute difference in road length: {(100 * abs(sum_roads - join_total) / sum_roads):0.2f}%&#39;) # calculate the absolute difference as a percentage
 </pre></div>
 </div>
 <p>And indeed, we can see that the total length of roads in the spatial
@@ -1354,9 +1354,9 @@ number of unique road features, which we can find using a combination of
 (<a class="reference external" href="https://docs.python.org/3/library/functions.html#len">documentation</a>)
 and <code class="docutils literal notranslate"><span class="pre">.unique()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.unique.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">not_unique</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">join</span><span class="o">.</span><span class="n">index_right</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span> <span class="c1"># get the difference between the number of objects in the table and the unique objects in the table</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>not_unique = len(join.index) - len(join.index_right.unique()) # get the difference between the number of objects in the table and the unique objects in the table
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="n">not_unique</span><span class="si">}</span><span class="s1"> duplicated objects in the joined table.&#39;</span><span class="p">)</span>
+print(f&#39;There are {not_unique} duplicated objects in the joined table.&#39;)
 </pre></div>
 </div>
 <p>Obviously, we don’t want to double-count roads - to get around this, we
@@ -1364,7 +1364,7 @@ can use the <code class="docutils literal notranslate"><span class="pre">gpd.cli
 (<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.clip.html">documentation</a>)
 to clip the features of <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code> to each of the county boundaries
 in the <code class="docutils literal notranslate"><span class="pre">counties</span></code> <strong>GeoDataFrame</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">gpd</span><span class="o">.</span><span class="n">clip</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(gpd.clip)
 </pre></div>
 </div>
 <p>Note that we have to do this for each of county, because -
@@ -1373,13 +1373,13 @@ there are multiple <strong>Polygon</strong> objects.</p>
 <p>Using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to loop over the <code class="docutils literal notranslate"><span class="pre">counties</span></code> <strong>GeoDataFrame</strong>,
 then, we can clip <code class="docutils literal notranslate"><span class="pre">roads_itm</span></code> to each county, and combine the results
 in another <strong>GeoDataFrame</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clipped</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># initialize an empty list</span>
-<span class="k">for</span> <span class="n">county</span> <span class="ow">in</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span> <span class="c1"># iterate over unique values of county</span>
-    <span class="n">tmp_clip</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">roads_itm</span><span class="p">,</span> <span class="n">counties</span><span class="p">[</span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">county</span><span class="p">])</span> <span class="c1"># clip the roads by county border</span>
-    <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tmp_clip</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">tmp_clip</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">length</span> <span class="c1"># remember to update the length for any clipped roads</span>
-        <span class="n">tmp_clip</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;CountyName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">county</span> <span class="c1"># set the county name for each road feature</span>
-    <span class="n">clipped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_clip</span><span class="p">)</span> <span class="c1"># add the clipped GeoDataFrame to the list</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>clipped = [] # initialize an empty list
+for county in counties[&#39;CountyName&#39;].unique(): # iterate over unique values of county
+    tmp_clip = gpd.clip(roads_itm, counties[counties[&#39;CountyName&#39;] == county]) # clip the roads by county border
+    for ind, row in tmp_clip.iterrows():
+        tmp_clip.loc[ind, &#39;Length&#39;] = row[&#39;geometry&#39;].length # remember to update the length for any clipped roads
+        tmp_clip.loc[ind, &#39;CountyName&#39;] = county # set the county name for each road feature
+    clipped.append(tmp_clip) # add the clipped GeoDataFrame to the list
 </pre></div>
 </div>
 <p>Note that this step will likely take some time, as we are iterating over
@@ -1394,21 +1394,21 @@ that <code class="docutils literal notranslate"><span class="pre">pandas</span><
 a new index, rather than keeping the original index. Because in this
 case our index values only correspond to the row number, we don’t need
 to keep track of this in the new table.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clipped_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">clipped</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="c1"># create a geodataframe from the combined county geodataframes</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>clipped_gdf = gpd.GeoDataFrame(pd.concat(clipped, ignore_index=True)) # create a geodataframe from the combined county geodataframes
 
-<span class="n">clipped_gdf</span> <span class="c1"># show the new, combined geodataframe</span>
+clipped_gdf # show the new, combined geodataframe
 </pre></div>
 </div>
 <p>Now, we can compare the total length of the clipped roads with the total
 length of roads from the original dataset:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pandas has a function, concat, which will combine (concatenate) a list of DataFrames (or GeoDataFrames)</span>
-<span class="c1"># we can then create a GeoDataFrame from the combined DataFrame, as the combined DataFrame will have a geometry column.</span>
-<span class="n">clip_total</span> <span class="o">=</span> <span class="n">clipped_gdf</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># pandas has a function, concat, which will combine (concatenate) a list of DataFrames (or GeoDataFrames)
+# we can then create a GeoDataFrame from the combined DataFrame, as the combined DataFrame will have a geometry column.
+clip_total = clipped_gdf[&#39;Length&#39;].sum()
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total length of roads from original file: </span><span class="si">{</span><span class="n">sum_roads</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> m&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total length of roads from clipped join: </span><span class="si">{</span><span class="n">clip_total</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> m&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Absolute difference in road length: </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">sum_roads</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">clip_total</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1"> km&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Absolute difference in road length: </span><span class="si">{</span><span class="p">(</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">sum_roads</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">clip_total</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sum_roads</span><span class="p">)</span><span class="si">:</span><span class="s1">0.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+print(f&#39;Total length of roads from original file: {sum_roads:.2f} m&#39;)
+print(f&#39;Total length of roads from clipped join: {clip_total:.2f} m&#39;)
+print(f&#39;Absolute difference in road length: {abs(sum_roads - clip_total) / 1000:0.2f} km&#39;)
+print(f&#39;Absolute difference in road length: {(100 * abs(sum_roads - clip_total) / sum_roads):0.2f}%&#39;)
 </pre></div>
 </div>
 <p>So we don’t have perfect overlap. This is because there isn’t perfect
@@ -1425,7 +1425,7 @@ join.</p>
 <p>To wrap up, write a line or two of code in the cell below that will
 summarize the <code class="docutils literal notranslate"><span class="pre">clipped_gdf</span></code> GeoDataFrame by county and road type.
 Which county has the most Motorways? The most roads in total?</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code goes here!</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># your code goes here!
 </pre></div>
 </div>
 </section>
@@ -1557,7 +1557,7 @@ By Bob McNabb
 
   <p class="copyright">
     
-      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
       <br/>
     
   </p>

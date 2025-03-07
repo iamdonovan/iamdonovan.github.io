@@ -679,9 +679,9 @@ for working with filesystem paths;</p>
 <p>As before, we’re going to <em>alias</em> <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">pd</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>
 as <code class="docutils literal notranslate"><span class="pre">sns</span></code>. We only want the <code class="docutils literal notranslate"><span class="pre">Path</span></code> <strong>sub-package</strong> from <code class="docutils literal notranslate"><span class="pre">pathlib</span></code>,
 so we use <code class="docutils literal notranslate"><span class="pre">from</span></code> to specify this:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import seaborn as sns
+from pathlib import Path
 </pre></div>
 </div>
 <p>In this exercise, we’re going to see a number of different ways that we
@@ -707,20 +707,20 @@ the current working directory). To get to <strong>armaghdata.csv</strong> from t
 current directory, we have to go up a directory level (<code class="docutils literal notranslate"><span class="pre">..</span></code>), before
 entering the <strong>03.plotting</strong> directory, and the <strong>data</strong> directory after
 that:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;03.plotting&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;armaghdata.csv&#39;</span><span class="p">))</span> <span class="c1"># use file.path to construct a path to the data file</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data = pd.read_csv(Path(&#39;..&#39;, &#39;03.plotting&#39;, &#39;data&#39;, &#39;armaghdata.csv&#39;)) # use file.path to construct a path to the data file
 </pre></div>
 </div>
 <p>Next, we want to make sure that we can keep track of which observation
 comes from which station - so, we should add a <code class="docutils literal notranslate"><span class="pre">station</span></code> variable to
 the table, and make sure to specify that these observations all come
 from the Armagh Observatory:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;armagh&#39;</span> <span class="c1"># add the station name as a column</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data[&#39;station&#39;] = &#39;armagh&#39; # add the station name as a column
 </pre></div>
 </div>
 <p>Now, we can set up a loop to load the other 3 stations data. First, we
 can create a <strong>list</strong> of station names:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list of station names</span>
-<span class="n">new_stations</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;oxford&#39;</span><span class="p">,</span> <span class="s1">&#39;southampton&#39;</span><span class="p">,</span> <span class="s1">&#39;stornoway&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># create a list of station names
+new_stations = [&#39;oxford&#39;, &#39;southampton&#39;, &#39;stornoway&#39;]
 </pre></div>
 </div>
 <p>Now that we have the vector of station names, we can construct the
@@ -747,14 +747,14 @@ combined table:</p>
 </pre></div>
 </div>
 <p>Each time through the <strong>for</strong> loop, the value of <code class="docutils literal notranslate"><span class="pre">station</span></code> is updated:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">new_stations</span><span class="p">:</span>
-    <span class="n">fn_data</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">station</span><span class="si">}</span><span class="s2">data.csv&quot;</span><span class="p">)</span> <span class="c1"># create the filename for each csv file, using file.path and paste</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fn_data</span><span class="p">)</span> <span class="c1"># read the csv</span>
-    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station</span> <span class="c1"># add the station to the table</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for station in new_stations:
+    fn_data = Path(&#39;data&#39;, f&quot;{station}data.csv&quot;) # create the filename for each csv file, using file.path and paste
+    data = pd.read_csv(fn_data) # read the csv
+    data[&#39;station&#39;] = station # add the station to the table
 
-    <span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">station_data</span><span class="p">,</span> <span class="n">data</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># combine the new data with the current data table</span>
+    station_data = pd.concat([station_data, data], ignore_index=True) # combine the new data with the current data table
 
-<span class="nb">print</span><span class="p">(</span><span class="n">station_data</span><span class="p">)</span> <span class="c1"># show the data</span>
+print(station_data) # show the data
 </pre></div>
 </div>
 <p>Note that this is one advantage of using clear, consistent naming and
@@ -770,32 +770,32 @@ indexing and slicing works with <code class="docutils literal notranslate"><span
 <p>We have alread seen an example of this - for example, we could select
 all observations where the monthly maximum temperature (<code class="docutils literal notranslate"><span class="pre">tmax</span></code>) is
 greater than 20°C by using <code class="docutils literal notranslate"><span class="pre">.loc</span></code> and a conditional statement:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.loc[station_data[&#39;tmax&#39;] &gt; 20]
 </pre></div>
 </div>
 <p>If we want to use multiple conditions - for example, all observations
 where the monthly maximum temperature is greater than 20°C, and the
 monthly rainfall is grater than 100 mm, we can’t simply use the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>
 operator with the two statements:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span> <span class="o">&amp;</span> <span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">]</span> <span class="c1"># this won&#39;t work to combine conditions</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.loc[station_data[&#39;tmax&#39;] &gt; 20 &amp; station_data[&#39;rain&#39;] &gt; 100] # this won&#39;t work to combine conditions
 </pre></div>
 </div>
 <p>Instead, we have to surround each condition with parentheses first:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)]</span> <span class="c1"># this will work to select tmax &gt; 20 and rain &gt; 100</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.loc[(station_data[&#39;tmax&#39;] &gt; 20) &amp; (station_data[&#39;rain&#39;] &gt; 100)] # this will work to select tmax &gt; 20 and rain &gt; 100
 </pre></div>
 </div>
 <p>Alternatively, we can also use the <code class="docutils literal notranslate"><span class="pre">.query()</span></code> method
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.query.html">documentation</a>),
 which allows us to write slightly more natural expressions. The
 selection above using <code class="docutils literal notranslate"><span class="pre">.query()</span></code> looks like this:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;tmax &gt; 20 &amp; rain &gt; 100&#39;</span><span class="p">)</span> <span class="c1"># use query to select rows where tmax &gt; 20 and rain &gt; 100</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.query(&#39;tmax &gt; 20 &amp; rain &gt; 100&#39;) # use query to select rows where tmax &gt; 20 and rain &gt; 100
 </pre></div>
 </div>
 <p>We can also use variables in the query - we just need to prefix them
 with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">min_temp</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># create a new variable with a value of 20</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>min_temp = 20 # create a new variable with a value of 20
 
-<span class="n">station_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;tmax &gt; @min_temp &amp; rain &gt; 100&#39;</span><span class="p">)</span> <span class="c1"># reference the new variable in the query</span>
+station_data.query(&#39;tmax &gt; @min_temp &amp; rain &gt; 100&#39;) # reference the new variable in the query
 </pre></div>
 </div>
 </section>
@@ -805,13 +805,13 @@ with <code class="docutils literal notranslate"><span class="pre">&#64;</span></
 different variables. For example, we can sort the observations by
 rainfall, from smallest to largest values, using <code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span> <span class="c1"># sort by rainfall, from smallest to largest values</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.sort_values(&#39;rain&#39;) # sort by rainfall, from smallest to largest values
 </pre></div>
 </div>
 <p>By default, the values are sorted in <em>ascending</em> order (from smallest to
 largest, or from A to Z for characters). If we want to see the reverse,
 we can set the <code class="docutils literal notranslate"><span class="pre">ascending</span></code> keyword argument to <code class="docutils literal notranslate"><span class="pre">False</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># sort by rainfall, from largest to smallest values</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.sort_values(&#39;rain&#39;, ascending=False) # sort by rainfall, from largest to smallest values
 </pre></div>
 </div>
 <p>Note that in both cases, <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values come at the bottom - because
@@ -824,7 +824,7 @@ put them at the beginning, we can use the <code class="docutils literal notransl
 <p>To find unique rows in a <strong>Series</strong> (column), we can use <code class="docutils literal notranslate"><span class="pre">.unique()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.unique.html">documentation</a>).
 For example, we can find the unique values of the <code class="docutils literal notranslate"><span class="pre">station</span></code> variable:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c1"># find unique values of station</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data[&#39;station&#39;].unique() # find unique values of station
 </pre></div>
 </div>
 <p>We can also <code class="docutils literal notranslate"><span class="pre">.drop_duplicates()</span></code>
@@ -832,11 +832,11 @@ For example, we can find the unique values of the <code class="docutils literal 
 to find only unique rows in a <strong>DataFrame</strong>. With the <code class="docutils literal notranslate"><span class="pre">subset</span></code>
 argument, we can choose which columns to use in determining whether rows
 are unique/duplicated:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> <span class="c1"># find rows based on unique values of station</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.drop_duplicates(subset=&#39;station&#39;) # find rows based on unique values of station
 </pre></div>
 </div>
 <p>We can also use it to find combinations of variables:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;mm&#39;</span><span class="p">])</span> <span class="c1"># find rows with unique station/month pairs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.drop_duplicates(subset=[&#39;station&#39;, &#39;mm&#39;]) # find rows with unique station/month pairs
 </pre></div>
 </div>
 <p>Note that the distinct values found above are all from the first year of
@@ -848,7 +848,7 @@ the first occurrence of a unique row.</p>
 <p>If we want to count the number of non-NaN values in a table, we can use
 <code class="docutils literal notranslate"><span class="pre">.count()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.count.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="c1"># count the number of non-nan values in each column</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.count() # count the number of non-nan values in each column
 </pre></div>
 </div>
 <p>If we want to find the frequency of each distinct row in a
@@ -862,9 +862,9 @@ rainfall greater than 150 mm in a month by first using <code class="docutils lit
 select all rows where <code class="docutils literal notranslate"><span class="pre">rain</span></code> is greater than 150, then use
 <code class="docutils literal notranslate"><span class="pre">value_counts()</span></code> with the <code class="docutils literal notranslate"><span class="pre">subset</span></code> argument to count the number of
 unique occurrences of <code class="docutils literal notranslate"><span class="pre">station</span></code> in the resulting table:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
-    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;rain &gt; 150&#39;</span><span class="p">)</span> \
-    <span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data \
+    .query(&#39;rain &gt; 150&#39;) \
+    .value_counts(subset=&#39;station&#39;)
 </pre></div>
 </div>
 <p>From this, we can quickly see that Stornoway Airport, located in the
@@ -891,7 +891,7 @@ things into different lines when it makes sense.</p>
 <h2>adding columns to the table<a class="headerlink" href="#adding-columns-to-the-table" title="Permalink to this heading">#</a></h2>
 <p>In a previous exercise, we saw how we can add a variable/column to a
 <strong>DataFrame</strong> using the output of a function:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">({</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;yyyy&#39;</span><span class="p">],</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">],</span> <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data[&#39;date&#39;] = pd.to_datetime({&#39;year&#39;: station_data[&#39;yyyy&#39;], &#39;month&#39;: station_data[&#39;mm&#39;], &#39;day&#39;: 1})
 </pre></div>
 </div>
 <p>And, we saw how we could assign values to a column based on the values
@@ -910,14 +910,14 @@ way, by using some of the features of the language.</p>
 (<a class="reference external" href="https://docs.python.org/3/library/functions.html#func-range">documentation</a>)
 to get a list of numbers from 1 to 12, corresponding to the months of
 the year:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">months</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="c1"># get a list of numbers from 1 to 12</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>months = range(1, 13) # get a list of numbers from 1 to 12
 </pre></div>
 </div>
 <p>Next, we’ll use list multiplication and addition to create a list of the
 season names for each month:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seasons</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;winter&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;spring&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;summer&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;autumn&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;winter&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>seasons = [&#39;winter&#39;] * 2 + [&#39;spring&#39;] * 3 + [&#39;summer&#39;] * 3 + [&#39;autumn&#39;] * 3 + [&#39;winter&#39;]
 
-<span class="n">seasons</span> <span class="c1"># show the list of season names for each month</span>
+seasons # show the list of season names for each month
 </pre></div>
 </div>
 <p>We could, of course, have written this out explicitly:</p>
@@ -931,16 +931,16 @@ them, to simplify this (and also to remind you of these properties of
 <p>Next, we can create a <strong>dict()</strong> using <code class="docutils literal notranslate"><span class="pre">zip()</span></code>
 (<a class="reference external" href="https://docs.python.org/3/library/functions.html#zip">documentation</a>)
 to create pairs of month number/season name values:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">months</span><span class="p">,</span> <span class="n">seasons</span><span class="p">))</span> <span class="c1"># create a dict() of month/season pairs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dict(zip(months, seasons)) # create a dict() of month/season pairs
 </pre></div>
 </div>
 <p>Finally, we will use <code class="docutils literal notranslate"><span class="pre">.map()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.map.html">documentation</a>)
 to assign season names to each row, based on the value of <code class="docutils literal notranslate"><span class="pre">mm</span></code> (the
 month number):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">months</span><span class="p">,</span> <span class="n">seasons</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data[&#39;season&#39;] = station_data[&#39;mm&#39;].map(dict(zip(months, seasons)))
 
-<span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># show the first 12 rows of the table</span>
+station_data.head(n=12) # show the first 12 rows of the table
 </pre></div>
 </div>
 </section>
@@ -957,11 +957,11 @@ rename them to more clear names, such as <code class="docutils literal notransla
 want this change to happen “in place”, meaning that it should update the
 column names of the existing <strong>DataFrame</strong>, rather than returning a new
 <strong>DataFrame</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;yyyy&#39;</span><span class="p">:</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;mm&#39;</span><span class="p">:</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;af&#39;</span><span class="p">:</span> <span class="s1">&#39;air_frost&#39;</span><span class="p">},</span> <span class="c1"># rename columns using old/new name pairs</span>
-                    <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span> <span class="c1"># update the values of this dataframe, not return a new one</span>
-                   <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.rename(columns={&#39;yyyy&#39;: &#39;year&#39;, &#39;mm&#39;: &#39;month&#39;, &#39;af&#39;: &#39;air_frost&#39;}, # rename columns using old/new name pairs
+                    inplace=True # update the values of this dataframe, not return a new one
+                   )
 
-<span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># show the first 5 rows of the dataframe</span>
+station_data.head(n=5) # show the first 5 rows of the dataframe
 </pre></div>
 </div>
 <p>Many of the methods that we are working with in this exercise have an
@@ -978,12 +978,12 @@ to a new variable in order to use it; for example:</p>
 <p>Selecting columns from a <strong>DataFrame</strong> works similarly to selecting
 rows. We can use square brackets (<code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>) along with the name
 of the column (as a <strong>str</strong>ing) to select a single column:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="c1"># select the rain column</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data[&#39;rain&#39;] # select the rain column
 </pre></div>
 </div>
 <p>If we want to select multiple columns, we can use a <strong>list</strong> of column
 names inside of the square brackets:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]]</span> <span class="c1"># select the date, rain, station, and season columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data[[&#39;date&#39;, &#39;rain&#39;, &#39;station&#39;, &#39;season&#39;]] # select the date, rain, station, and season columns
 </pre></div>
 </div>
 <p>Note that the order of the output will be the same as the order of the
@@ -991,13 +991,13 @@ input - so, this is one way that we can also re-arrange columns.</p>
 <p>You can also select a <em>slice</em> of columns using the <code class="docutils literal notranslate"><span class="pre">:</span></code> operator. Note
 that unlike how we have seen this used before, when used to select
 columns (or rows) from a <strong>DataFrame</strong> using labels, <code class="docutils literal notranslate"><span class="pre">:</span></code> is inclusive:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="c1"># select all columns from year to rain (inclusive)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.loc[:, &#39;year&#39;:&#39;rain&#39;] # select all columns from year to rain (inclusive)
 </pre></div>
 </div>
 <p>Finally, we can also use <code class="docutils literal notranslate"><span class="pre">.filter()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.filter.html">documentation</a>)
 to select columns:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">filter</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">])</span> <span class="c1"># select the date and rain columns using filter()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.filter([&#39;date&#39;, &#39;rain&#39;]) # select the date and rain columns using filter()
 </pre></div>
 </div>
 </section>
@@ -1010,10 +1010,10 @@ number of different ways to do this, but we’ll have a look at using
 <p>First, we can create a <strong>list</strong> of the column names, in the order we
 want to see them. We then pass this to <code class="docutils literal notranslate"><span class="pre">.reindex()</span></code>, using the
 <code class="docutils literal notranslate"><span class="pre">columns</span></code> argument:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="s1">&#39;tmin&#39;</span><span class="p">,</span> <span class="s1">&#39;air_frost&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="s1">&#39;sun&#39;</span><span class="p">]</span>
-<span class="n">station_data</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">new_order</span><span class="p">)</span> <span class="c1"># change the order of the columns and assign the output to the same variable</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>new_order = [&#39;date&#39;, &#39;year&#39;, &#39;month&#39;, &#39;season&#39;, &#39;station&#39;, &#39;tmax&#39;, &#39;tmin&#39;, &#39;air_frost&#39;, &#39;rain&#39;, &#39;sun&#39;]
+station_data = station_data.reindex(columns=new_order) # change the order of the columns and assign the output to the same variable
 
-<span class="n">station_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the first 5 rows of the dataframe</span>
+station_data.head() # show the first 5 rows of the dataframe
 </pre></div>
 </div>
 </section>
@@ -1028,7 +1028,7 @@ formatting options.</p>
 <p>Once again, we will use <code class="docutils literal notranslate"><span class="pre">Path</span></code> to create a path object to write the
 file to; we also set the <code class="docutils literal notranslate"><span class="pre">index</span></code> argument to <code class="docutils literal notranslate"><span class="pre">False</span></code> so that
 <code class="docutils literal notranslate"><span class="pre">pandas</span></code> doesn’t write the row numbers to the file:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;combined_stations.csv&#39;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.to_csv(Path(&#39;data&#39;, &#39;combined_stations.csv&#39;), index=False)
 </pre></div>
 </div>
 <p>Now, we’ll be able to load this file when we want to do further
@@ -1041,7 +1041,7 @@ combine the tables, create new variables, and so on.</p>
 summarize our data, starting with <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html">documentation</a>).
 To start, we’ll group the data by <code class="docutils literal notranslate"><span class="pre">station</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> <span class="c1"># group the data by station</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.groupby(&#39;station&#39;) # group the data by station
 </pre></div>
 </div>
 <p>Here, we don’t see anything special - just that the output of
@@ -1054,9 +1054,9 @@ for each column, based on the applied groupings.</p>
 to calculate the mean value of each column (specifying
 <code class="docutils literal notranslate"><span class="pre">numeric_only=True</span></code> to make sure that we only get a result for numeric
 columns):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> \
-    <span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># specify numeric_only=True to avoid warning messages</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data \
+    .groupby(&#39;station&#39;) \
+    .mean(numeric_only=True) # specify numeric_only=True to avoid warning messages
 </pre></div>
 </div>
 <p>Note that by default, <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> drops <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values - if we want
@@ -1067,14 +1067,14 @@ plotting exercise) to create a plot that shows the distribution of
 rainfall by season, separated by station. First, we want to create a
 plot that shows the density distribution of rainfall for each season,
 using <code class="docutils literal notranslate"><span class="pre">sns.FacetGrid()</span></code> to create a single panel for each station:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">station_data</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create a 2x2 grid with a panel for each station</span>
-<span class="n">g</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># plot the density of rainfall</span>
-<span class="n">g</span><span class="o">.</span><span class="n">add_legend</span><span class="p">()</span> <span class="c1"># add a legend</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>g = sns.FacetGrid(data=station_data, col=&#39;station&#39;, hue=&#39;season&#39;, col_wrap=2) # create a 2x2 grid with a panel for each station
+g.map_dataframe(sns.kdeplot, x=&#39;rain&#39;, fill=True) # plot the density of rainfall
+g.add_legend() # add a legend
 </pre></div>
 </div>
 <p>Next, we can use <code class="docutils literal notranslate"><span class="pre">group_by()</span></code> to calculate the mean rainfall for each
 station, and assign this to a new variable, <code class="docutils literal notranslate"><span class="pre">mean_values</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_values</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mean_values = station_data.groupby(&#39;station&#39;)[&#39;rain&#39;].mean()
 </pre></div>
 </div>
 <p>Now, we’ll iterate over axis and mean value pairs to plot a vertical
@@ -1085,26 +1085,26 @@ plotting packages, is built on top of <code class="docutils literal notranslate"
 <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> objects inherit from correpsonding <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> objects.</p>
 <p>First, though, we’ll make sure that we’re plotting in the correct panel
 by using the <code class="docutils literal notranslate"><span class="pre">axes_dict</span></code> <em>attribute</em> of our <strong>FacetGrid</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">axes_dict</span> <span class="c1"># show the dict of key/value pairs for the facetgrid</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>g.axes_dict # show the dict of key/value pairs for the facetgrid
 </pre></div>
 </div>
 <p>We can iterate over the <code class="docutils literal notranslate"><span class="pre">index</span></code> of <code class="docutils literal notranslate"><span class="pre">mean_values</span></code> (which corresponds
 to each station), then use the <code class="docutils literal notranslate"><span class="pre">axes_dict</span></code> to plot a vertical line
 corresponding to each mean value:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">mean_values</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> <span class="c1"># iterate over station names</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">axes_dict</span><span class="p">[</span><span class="n">station</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">mean_values</span><span class="p">[</span><span class="n">station</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span> <span class="c1"># plot a vertical line at the mean rain value for each station</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for station in mean_values.index: # iterate over station names
+    g.axes_dict[station].axvline(x=mean_values[station], color=&#39;k&#39;, linestyle=&#39;--&#39;) # plot a vertical line at the mean rain value for each station
 
-<span class="n">g</span><span class="o">.</span><span class="n">fig</span> <span class="c1"># show the updated figure</span>
+g.fig # show the updated figure
 </pre></div>
 </div>
 <p>In the next panel, write some lines of code to change the axes labels
 and increase the font size for the tick labels, axis labels, and panel
 labels:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># your code goes here!</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># your code goes here!
 </pre></div>
 </div>
 <p>Now that you have finished the plot, be sure to save it to a file:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;seasonal_rain_distribution.svg&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>g.fig.savefig(&#39;seasonal_rain_distribution.svg&#39;)
 </pre></div>
 </div>
 </section>
@@ -1116,44 +1116,44 @@ can use <code class="docutils literal notranslate"><span class="pre">.loc</span>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.idxmax.html">documentation</a>)
 to get the row corresponding to the maximum value of <code class="docutils literal notranslate"><span class="pre">rain</span></code> (for the
 minimum, we would use <code class="docutils literal notranslate"><span class="pre">.idxmin()</span></code>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span> <span class="c1"># use idxmax to find the index of the maxmimum value</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.loc[station_data[&#39;rain&#39;].idxmax()] # use idxmax to find the index of the maxmimum value
 </pre></div>
 </div>
 <p>We can also make use of <code class="docutils literal notranslate"><span class="pre">.head()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html">documentation</a>),
 along with <code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code>, to select <code class="docutils literal notranslate"><span class="pre">n</span></code> rows corresponding to the
 maximum value of one or more variables:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
-    <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data \
+    .sort_values(&#39;rain&#39;, ascending=False) \
+    .head(n=5)
 </pre></div>
 </div>
 <p>Alternatively, we can use <code class="docutils literal notranslate"><span class="pre">.tail()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.tail.html">documentation</a>),
 which returns the last <code class="docutils literal notranslate"><span class="pre">n</span></code> rows of the <strong>DataFrame</strong> (note, however,
 that this may give us <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span> \
-    <span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data \
+    .sort_values(&#39;rain&#39;) \
+    .tail(n=5)
 </pre></div>
 </div>
 <p>Let’s say that we wanted to find the month with the most rain from each
 of the stations. To do this, we can first sort <code class="docutils literal notranslate"><span class="pre">rain</span></code> in descending
 order, then group based on <code class="docutils literal notranslate"><span class="pre">station</span></code>, before using <code class="docutils literal notranslate"><span class="pre">.head()</span></code> to
 select the first row for each value of <code class="docutils literal notranslate"><span class="pre">station</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> \
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> \
-    <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data \
+    .sort_values(&#39;rain&#39;, ascending=False) \
+    .groupby(&#39;station&#39;) \
+    .head(n=1)
 </pre></div>
 </div>
 <p>Finally, we can select a random sample from a <strong>DataFrame</strong> using
 <code class="docutils literal notranslate"><span class="pre">.sample()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sample.html">documentation</a>).
 On a grouped <strong>DataFrame</strong>, we get a random sample from each group:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">station_data</span> \
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span> \
-    <span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sample = station_data \
+    .groupby(&#39;station&#39;) \
+    .sample(5)
 </pre></div>
 </div>
 </section>
@@ -1285,7 +1285,7 @@ By Bob McNabb
 
   <p class="copyright">
     
-      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
       <br/>
     
   </p>

@@ -668,16 +668,16 @@ file;</p></li>
 <p>Remember that to do this, we use the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement, followed by
 the name of the package. We can also use <code class="docutils literal notranslate"><span class="pre">from</span></code> to import part of a
 package, and we can <em>alias</em> the package name using <code class="docutils literal notranslate"><span class="pre">as</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
+from sklearn import linear_model
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 </pre></div>
 </div>
 <p>Next, let’s read in the first dataset that we will use for the exercise,
 using <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/armaghdata.csv&#39;</span><span class="p">)</span> <span class="c1"># read the data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data = pd.read_csv(&#39;data/armaghdata.csv&#39;) # read the data
 </pre></div>
 </div>
 <p>For this exercise, we’re going to look at the relationship between
@@ -685,10 +685,10 @@ monthly hours of sun and the monthly maximum temperature. Before we
 begin with linear regression, we can use the<code class="docutils literal notranslate"><span class="pre">.plot.scatter()</span></code> method
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.scatter.html">documentation</a>
 with our <strong>DataFrame</strong> to show a scatter plot of these two variables:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;sun&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data.plot.scatter(&#39;sun&#39;, &#39;tmax&#39;)
 </pre></div>
 </div>
-<img alt="../../../_images/regression_5_1.png" src="../../../_images/regression_5_1.png" />
+<img alt="../../../_images/regression_5_11.png" src="../../../_images/regression_5_11.png" />
 <p>From this plot, we can see that there is an <em>approximately</em> linear
 relationship between these two variables - at least, enough so that we
 can use it to help us ease into some of the core concepts of machine
@@ -716,8 +716,8 @@ Extending this to multiple features (variables), the form looks like:</p>
 <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> for linear regression, we first create a
 <strong>LinearRegression</strong> object
 (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># instantiate a LinearRegression object</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># instantiate a LinearRegression object
+model = linear_model.LinearRegression()
 </pre></div>
 </div>
 <p>Next, we can prepare our data. For fitting data with <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>,
@@ -737,24 +737,24 @@ to get the values of each <strong>Series</strong> as an array, before using the
 (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.reshape.html">documentation</a>)
 on the resulting <code class="docutils literal notranslate"><span class="pre">numpy</span></code> <strong>ndarray</strong> to reshape the array so that it
 is the correct shape:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># drop all rows where either sun or tmax is NaN</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sun&#39;</span><span class="p">,</span> <span class="s1">&#39;tmax&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;any&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># drop all rows where either sun or tmax is NaN
+data = data.dropna(subset=[&#39;sun&#39;, &#39;tmax&#39;], how=&#39;any&#39;)
 
-<span class="n">sun</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;sun&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># reshape so data are N x 1</span>
-<span class="n">tmax</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># reshape so data are N x 1</span>
+sun = data[&#39;sun&#39;].to_numpy().reshape(-1, 1) # reshape so data are N x 1
+tmax = data[&#39;tmax&#39;].to_numpy().reshape(-1, 1) # reshape so data are N x 1
 </pre></div>
 </div>
 <p>Now that we have the data prepared, we can use the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method
 (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.fit">documentation</a>)
 of the <strong>LinearRegression</strong> object to calculate the parameters of the
 linear model:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">)</span> <span class="c1"># fit the linear model to our data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model.fit(sun, tmax) # fit the linear model to our data
 </pre></div>
 </div>
 <p>The value of the weight(s) (slope) is stored in the <code class="docutils literal notranslate"><span class="pre">.coef_</span></code> attribute
 of the <strong>LinearRegression</strong> object, and the value of the bias
 (intercept) is stored in the <code class="docutils literal notranslate"><span class="pre">.intercept_</span></code> attribute:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span> <span class="c1"># show the coefficient(s) and intercept for the linear model</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model.coef_, model.intercept_ # show the coefficient(s) and intercept for the linear model
 </pre></div>
 </div>
 <p>From the above, we can see the weight for the <code class="docutils literal notranslate"><span class="pre">sun</span></code> feature is
@@ -764,17 +764,17 @@ predicted value of the model for new features, we can use the
 (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.predict">documentation</a>).
 And, using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, we can show the fitted model alongside the
 data:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># create an array of 5 values from 0 to 300, spaced evenly</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>xx = np.linspace(0, 300, 5) # create an array of 5 values from 0 to 300, spaced evenly
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># create a figure with a single axis</span>
+fig, ax = plt.subplots(1, 1) # create a figure with a single axis
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="s1">&#39;k.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="c1"># plot tmax vs sun as black dots with a label &#39;data&#39;</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;linear fit&#39;</span><span class="p">)</span> <span class="c1"># plot the regression line as a red dashed line with label &#39;linear fit&#39;</span>
+ax.plot(sun, tmax, &#39;k.&#39;, label=&#39;data&#39;) # plot tmax vs sun as black dots with a label &#39;data&#39;
+ax.plot(xx, model.predict(xx.reshape(-1, 1)), &#39;r--&#39;, label=&#39;linear fit&#39;) # plot the regression line as a red dashed line with label &#39;linear fit&#39;
 
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> <span class="c1"># show the legend</span>
+ax.legend() # show the legend
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;hours of sun&#39;</span><span class="p">)</span> <span class="c1"># set the xlabel of the axis</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;monthly maximum temperature (°C)&#39;</span><span class="p">)</span> <span class="c1"># set the ylabel of the axis</span>
+ax.set_xlabel(&#39;hours of sun&#39;) # set the xlabel of the axis
+ax.set_ylabel(&#39;monthly maximum temperature (°C)&#39;) # set the ylabel of the axis
 </pre></div>
 </div>
 <img alt="../../../_images/regression_15_1.png" src="../../../_images/regression_15_1.png" />
@@ -791,22 +791,22 @@ and the regression line to be as small as possible, on average.</p>
 <code class="docutils literal notranslate"><span class="pre">.predict()</span></code> method
 (<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression.predict">documentation</a>)
 to get the predicted value for each feature value:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use the fitted parameters to get the predicted values at the input x data</span>
-<span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sun</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># use the fitted parameters to get the predicted values at the input x data
+predicted = model.predict(sun)
 </pre></div>
 </div>
 <p>Now, we can plot the value of loss for each input feature value, as a
 function of the predicted value:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calculate loss as difference between observed, predicted values</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">tmax</span> <span class="o">-</span> <span class="n">predicted</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># calculate loss as difference between observed, predicted values
+loss = tmax - predicted
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># create a new figure and axis</span>
+fig, ax = plt.subplots(1, 1) # create a new figure and axis
 
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="n">loss</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">xmax</span><span class="o">=</span><span class="n">loss</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span> <span class="c1"># plot a horizontal line at loss = 0</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">predicted</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span> <span class="c1"># plot the loss as a function of the predicted value</span>
+ax.axhline(y=0, xmin=loss.min(), xmax=loss.max(), color=&#39;k&#39;, linestyle=&#39;--&#39;) # plot a horizontal line at loss = 0
+ax.plot(predicted, loss, &#39;o&#39;) # plot the loss as a function of the predicted value
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;predicted value&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;loss&#39;</span><span class="p">)</span>
+ax.set_xlabel(&#39;predicted value&#39;)
+ax.set_ylabel(&#39;loss&#39;)
 </pre></div>
 </div>
 <img alt="../../../_images/regression_19_1.png" src="../../../_images/regression_19_1.png" />
@@ -829,8 +829,8 @@ error</strong> (<strong>MSE</strong>), is calculated as:</p>
 \[MSE = \frac{1}{N} \sum_i (y_i - \hat{y}_i)^2\]</div>
 <p>We can calculate and print the value of this loss using the code in the
 cell below:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">average_loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">loss</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># calculate the mean of the squared loss</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MSE: </span><span class="si">{</span><span class="n">average_loss</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># print the value of the average loss</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>average_loss = (loss**2).mean() # calculate the mean of the squared loss
+print(f&#39;MSE: {average_loss:.4f}&#39;) # print the value of the average loss
 </pre></div>
 </div>
 </section>
@@ -881,50 +881,50 @@ to find.</p>
 <p>First, we’ll define a function, <code class="docutils literal notranslate"><span class="pre">update_parameters()</span></code>, that calculates
 the new value of <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span> based on the learning rate and
 partial derivatives of the loss function:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_parameters</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
-    <span class="n">dl_dw</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">xdata</span> <span class="o">*</span> <span class="p">(</span><span class="n">ydata</span> <span class="o">-</span> <span class="p">(</span><span class="n">weight</span> <span class="o">*</span> <span class="n">xdata</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># calculate the partial derivative of l wrt w</span>
-    <span class="n">dl_db</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">ydata</span> <span class="o">-</span> <span class="p">(</span><span class="n">weight</span> <span class="o">*</span> <span class="n">xdata</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># calculate the partial derivative of l wrt b</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def update_parameters(xdata, ydata, weight, bias, learning_rate):
+    dl_dw = (-2 * xdata * (ydata - (weight * xdata + bias))).mean() # calculate the partial derivative of l wrt w
+    dl_db = (-2 * (ydata - (weight * xdata + bias))).mean() # calculate the partial derivative of l wrt b
 
-    <span class="n">weight</span> <span class="o">-=</span> <span class="n">dl_dw</span> <span class="o">*</span> <span class="n">learning_rate</span> <span class="c1"># subtract dl/dw * learning_rate from w</span>
-    <span class="n">bias</span> <span class="o">-=</span> <span class="n">dl_db</span> <span class="o">*</span> <span class="n">learning_rate</span> <span class="c1"># subtract dl/db * learning_rate from b</span>
+    weight -= dl_dw * learning_rate # subtract dl/dw * learning_rate from w
+    bias -= dl_db * learning_rate # subtract dl/db * learning_rate from b
 
-    <span class="k">return</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="c1"># return the updated values of w and b</span>
+    return weight, bias # return the updated values of w and b
 </pre></div>
 </div>
 <p>We can also define a function, <code class="docutils literal notranslate"><span class="pre">predict()</span></code>, to help us calculate
 <span class="math notranslate nohighlight">\(\hat{y}\)</span> for a given value of <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">xdata</span> <span class="o">+</span> <span class="n">bias</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def predict(xdata, weight, bias):
+    return weight * xdata + bias
 </pre></div>
 </div>
 <p>along with the loss function, which calculates the mean squared error
 for the given values of <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">):</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">ydata</span> <span class="o">-</span> <span class="n">predict</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
-    <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># return the mean of the loss</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def avg_loss(xdata, ydata, weight, bias):
+    loss = (ydata - predict(xdata, weight, bias))**2
+    return loss.mean() # return the mean of the loss
 </pre></div>
 </div>
 <p>We also want to see how the average loss, weight, and bias values
 change, so we can define a function to plot these in a three-panel
 figure:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_training_results</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="c1"># create a three panel figure</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_training_results(df):
+    fig, axs = plt.subplots(1, 3, figsize=(10, 3)) # create a three panel figure
 
-    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;avg_loss&#39;</span><span class="p">])</span> <span class="c1"># plot avg loss vs epoch in the first panel</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;average loss&#39;</span><span class="p">)</span>
+    axs[0].plot(df[&#39;epoch&#39;], df[&#39;avg_loss&#39;]) # plot avg loss vs epoch in the first panel
+    axs[0].set_ylabel(&#39;average loss&#39;)
 
-    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span> <span class="c1"># plot weight vs epoch in the second panel</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">)</span>
+    axs[1].plot(df[&#39;epoch&#39;], df[&#39;weight&#39;]) # plot weight vs epoch in the second panel
+    axs[1].set_ylabel(&#39;weight&#39;)
 
-    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bias&#39;</span><span class="p">])</span> <span class="c1"># plot bias vs epoch in the third panel</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;bias&#39;</span><span class="p">)</span>
+    axs[2].plot(df[&#39;epoch&#39;], df[&#39;bias&#39;]) # plot bias vs epoch in the third panel
+    axs[2].set_ylabel(&#39;bias&#39;)
 
-    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
+    for ax in axs:
+        ax.set_xlabel(&#39;epoch&#39;)
 
-    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span> <span class="c1"># ensure that the panels and labels don&#39;t overlap</span>
+    fig.tight_layout() # ensure that the panels and labels don&#39;t overlap
 
-    <span class="k">return</span> <span class="n">ax</span>
+    return ax
 </pre></div>
 </div>
 <p>And finally, we can write a function, <code class="docutils literal notranslate"><span class="pre">train()</span></code>, to get to the “best”
@@ -932,27 +932,27 @@ values of <span class="math notranslate nohighlight">\(w\)</span> and <span clas
 <p>In this example, I am saving the values to a <strong>DataFrame</strong> every 10
 epochs to help cut down on the number of values. At the end, I also
 create a plot showing the loss value as a function of the epoch:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def train(xdata, ydata, weight, bias, learning_rate, epochs, plot=True):
+    df = pd.DataFrame()
 
-    <span class="k">for</span> <span class="n">ee</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
-        <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">update_parameters</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
+    for ee in range(epochs):
+        weight, bias = update_parameters(xdata, ydata, weight, bias, learning_rate)
 
-        <span class="k">if</span> <span class="n">ee</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bias</span>
-            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;avg_loss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
+        if ee % 10 == 0:
+            df.loc[ee, &#39;weight&#39;] = weight
+            df.loc[ee, &#39;bias&#39;] = bias
+            df.loc[ee, &#39;avg_loss&#39;] = avg_loss(xdata, ydata, weight, bias)
 
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bias</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;avg_loss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
+    df.loc[ee, &#39;weight&#39;] = weight
+    df.loc[ee, &#39;bias&#39;] = bias
+    df.loc[ee, &#39;avg_loss&#39;] = avg_loss(xdata, ydata, weight, bias)
 
-    <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="c1"># plot the value of the average loss for each epoch</span>
-    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
-        <span class="n">plot_training_results</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    df.reset_index(names=[&#39;epoch&#39;], inplace=True)
+    # plot the value of the average loss for each epoch
+    if plot:
+        plot_training_results(df)
 
-    <span class="k">return</span> <span class="n">df</span>
+    return df
 </pre></div>
 </div>
 <p>Now that we have defined the functions that we need in order to train
@@ -962,10 +962,10 @@ model for 10,000 epochs, with a very small learning rate
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.tail.html">documentation</a>)
 to view the parameter values and the average loss for the model at the
 final step:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train the model</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="mf">6.34</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">5e-8</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># train the model
+output = train(sun, tmax, weight=0, bias=6.34, learning_rate=5e-8, epochs=10000)
 
-<span class="n">output</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+output.tail(n=1)
 </pre></div>
 </div>
 <img alt="../../../_images/regression_33_1.png" src="../../../_images/regression_33_1.png" />
@@ -984,26 +984,26 @@ for the weight and bias?</p>
 there are large changes in slope for the first 1000 or so epochs, before
 the line more or less “settles in” to the values we would expect from
 ordinary least squares regression:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(1, 1)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+ax.plot(sun, tmax, &#39;.&#39;)
 
-<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">351</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+xx = np.arange(0, 351, 50)
 
-<span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">predict</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">],</span> <span class="n">bias</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;epoch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">]))</span>
+for ind in [0, 10, 50, 100, 1000]:
+    ax.plot(xx, predict(xx, weight=output.loc[ind, &#39;weight&#39;], bias=output.loc[ind, &#39;bias&#39;]), label=&#39;epoch {}&#39;.format(output.loc[ind, &#39;epoch&#39;]))
 
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+ax.legend()
 </pre></div>
 </div>
 <img alt="../../../_images/regression_35_1.png" src="../../../_images/regression_35_1.png" />
 <p>Now let’s try a slightly larger size - <span class="math notranslate nohighlight">\(7.46 \times 10^{-5}\)</span>.
 Here, we see something very interesting with the values of <span class="math notranslate nohighlight">\(w\)</span> and
 <span class="math notranslate nohighlight">\(b\)</span> over time:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train the model with a slightly higher learning rate</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="mf">6.34</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">7.46e-5</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># train the model with a slightly higher learning rate
+output = train(sun, tmax, weight=0, bias=6.34, learning_rate=7.46e-5, epochs=10000)
 
-<span class="n">output</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+output.tail(n=1)
 </pre></div>
 </div>
 <img alt="../../../_images/regression_37_1.png" src="../../../_images/regression_37_1.png" />
@@ -1016,10 +1016,10 @@ the smaller time step. Now, try increasing the learning rate from
 happens?</p>
 <p>Now let’s see what happens when we change the starting point - that is,
 the initial guess for <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train the model</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># train the model
+output = train(sun, tmax, weight=0, bias=0, learning_rate=1e-7, epochs=10000)
 
-<span class="n">output</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+output.tail(n=1)
 </pre></div>
 </div>
 <img alt="../../../_images/regression_39_1.png" src="../../../_images/regression_39_1.png" />
@@ -1029,16 +1029,16 @@ has barely changed from the initial guess, and the value for <span class="math n
 has converged toward a less than optimal value. Not only that, but the
 average loss is much higher than we calculated for the optimal values of
 <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(1, 1)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+ax.plot(sun, tmax, &#39;.&#39;)
 
-<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">351</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+xx = np.arange(0, 351, 50)
 
-<span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">predict</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">],</span> <span class="n">bias</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;epoch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">]))</span>
+for ind in [0, 10, 50, 100, 1000]:
+    ax.plot(xx, predict(xx, weight=output.loc[ind, &#39;weight&#39;], bias=output.loc[ind, &#39;bias&#39;]), label=&#39;epoch {}&#39;.format(output.loc[ind, &#39;epoch&#39;]))
 
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+ax.legend()
 </pre></div>
 </div>
 <img alt="../../../_images/regression_41_1.png" src="../../../_images/regression_41_1.png" />
@@ -1053,57 +1053,57 @@ values, then make a contour plot of the loss surface using
 <code class="docutils literal notranslate"><span class="pre">.contour()</span></code>
 (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.contour.html">documentation</a>).
 We’ll also make a plot that shows cross-sections of the loss surface:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_loss_surface</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">biases</span><span class="p">,</span> <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_loss_surface(weights, biases, xdata, ydata):
+    fig, ax = plt.subplots(1, 1)
 
-    <span class="n">loss_surf</span> <span class="o">=</span> <span class="p">[]</span>
+    loss_surf = []
 
-    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">biases</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">:</span>
-            <span class="n">loss_surf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="c1">#</span>
+    for b in biases:
+        for w in weights:
+            loss_surf.append(avg_loss(xdata, ydata, w, b)) #
 
-    <span class="n">loss_surf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">loss_surf</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">biases</span><span class="p">))</span> <span class="c1"># reshape so that the array is rectangular</span>
-    <span class="n">W</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">biases</span><span class="p">)</span> <span class="c1"># get a grid of weight and bias values</span>
+    loss_surf = np.array(loss_surf).reshape(len(weights), len(biases)) # reshape so that the array is rectangular
+    W, B = np.meshgrid(weights, biases) # get a grid of weight and bias values
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">loss_surf</span><span class="p">)</span> <span class="c1"># plot contours of the loss surface</span>
+    ax.contour(W, B, loss_surf) # plot contours of the loss surface
 
-    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+    return fig, ax
 
 
-<span class="k">def</span> <span class="nf">plot_cross_sections</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">biases</span><span class="p">,</span> <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-    <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">axs</span>
+def plot_cross_sections(weights, biases, xdata, ydata):
+    fig, axs = plt.subplots(1, 2, figsize=(8, 4))
+    ax1, ax2 = axs
 
-    <span class="n">losses_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">])</span>
-    <span class="n">losses_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">biases</span><span class="p">])</span>
+    losses_w = np.array([avg_loss(xdata, ydata, w, 0) for w in weights])
+    losses_b = np.array([avg_loss(xdata, ydata, 0, b) for b in biases])
 
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">losses_w</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;average loss, $l$&#39;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$w$&#39;</span><span class="p">)</span>
+    ax1.plot(weights, losses_w, &#39;k&#39;)
+    ax1.plot(0, avg_loss(xdata, ydata, 0, 0), &#39;ro&#39;)
+    ax1.set_ylabel(&#39;average loss, $l$&#39;)
+    ax1.set_xlabel(&#39;$w$&#39;)
 
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">biases</span><span class="p">,</span> <span class="n">losses_b</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$b$&#39;</span><span class="p">)</span>
+    ax2.plot(biases, losses_b, &#39;k&#39;)
+    ax2.plot(0, avg_loss(xdata, ydata, 0, 0), &#39;ro&#39;)
+    ax2.set_xlabel(&#39;$b$&#39;)
 
-    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span>
+    return fig, axs
 </pre></div>
 </div>
 <p>Now, let’s look at the loss surface for values of <span class="math notranslate nohighlight">\(w\)</span> that range
 between -0.2 and 0.2, and values of <span class="math notranslate nohighlight">\(b\)</span> that range between -5 and
 25:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_loss_surface</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="c1"># 100 values between -0.2 and 0.2</span>
-                            <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="c1"># 100 values between -5 and 25</span>
-                            <span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plot_loss_surface(np.linspace(-0.2, 0.2, 100), # 100 values between -0.2 and 0.2
+                            np.linspace(-5, 25, 100), # 100 values between -5 and 25
+                            sun, tmax)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;minimum value&#39;</span><span class="p">)</span>
-<span class="c1"># ax.plot(output.weight.values[::10], output.bias.values[::10], &#39;b.&#39;, label=&#39;calculated values&#39;)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;starting point&#39;</span><span class="p">)</span>
+ax.plot(model.coef_, model.intercept_, &#39;rx&#39;, label=&#39;minimum value&#39;)
+# ax.plot(output.weight.values[::10], output.bias.values[::10], &#39;b.&#39;, label=&#39;calculated values&#39;)
+ax.plot(0, 0, &#39;ro&#39;, label=&#39;starting point&#39;)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$w$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$b$&#39;</span><span class="p">)</span>
+ax.set_xlabel(&#39;$w$&#39;)
+ax.set_ylabel(&#39;$b$&#39;)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+ax.legend()
 </pre></div>
 </div>
 <img alt="../../../_images/regression_45_1.png" src="../../../_images/regression_45_1.png" />
@@ -1111,7 +1111,7 @@ between -0.2 and 0.2, and values of <span class="math notranslate nohighlight">\
 values is much, much smaller than the range of <span class="math notranslate nohighlight">\(b\)</span> values. Now,
 let’s look at a cross section of the surface through our starting point,
 holding both <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constant:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plot_cross_sections</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axs = plot_cross_sections(np.linspace(-0.2, 0.2, 100), np.linspace(-5, 25, 100), sun, tmax)
 </pre></div>
 </div>
 <img alt="../../../_images/regression_47_0.png" src="../../../_images/regression_47_0.png" />
@@ -1141,26 +1141,26 @@ by the range of the dataset (sometimes also called <strong>normalization</strong
 <div class="math notranslate nohighlight">
 \[x_s = \frac{x - \bar{x}}{x_{\rm max} - x_{\rm min}}\]</div>
 <p>First, we’ll <em>normalize</em> the values of <code class="docutils literal notranslate"><span class="pre">sun</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sun_scaled</span> <span class="o">=</span> <span class="p">(</span><span class="n">sun</span> <span class="o">-</span> <span class="n">sun</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">sun</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">sun</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
-<span class="n">tmax_scaled</span> <span class="o">=</span> <span class="p">(</span><span class="n">tmax</span> <span class="o">-</span> <span class="n">tmax</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">tmax</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">tmax</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sun_scaled = (sun - sun.mean()) / (sun.max() - sun.min())
+tmax_scaled = (tmax - tmax.mean()) / (tmax.max() - tmax.min())
 </pre></div>
 </div>
 <p>Now, let’s look at the shape of the loss surface using the scaled
 values:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_s</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">model_s</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">sun_scaled</span><span class="p">,</span> <span class="n">tmax_scaled</span><span class="p">)</span> <span class="c1"># fit the scaled data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model_s = linear_model.LinearRegression()
+model_s.fit(sun_scaled, tmax_scaled) # fit the scaled data
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_loss_surface</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="c1"># 100 values between -0.2 and 0.2</span>
-                            <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="c1"># 100 values between -5 and 25</span>
-                            <span class="n">sun_scaled</span><span class="p">,</span> <span class="n">tmax_scaled</span><span class="p">)</span>
+fig, ax = plot_loss_surface(np.linspace(-1, 1, 100), # 100 values between -0.2 and 0.2
+                            np.linspace(-1, 1, 100), # 100 values between -5 and 25
+                            sun_scaled, tmax_scaled)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model_s</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">model_s</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;minimum value&#39;</span><span class="p">)</span> <span class="c1"># plot the parameters calculated by scaling the data</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;starting point&#39;</span><span class="p">)</span> <span class="c1"># plot the starting point</span>
+ax.plot(model_s.coef_, model_s.intercept_, &#39;rx&#39;, label=&#39;minimum value&#39;) # plot the parameters calculated by scaling the data
+ax.plot(0, 0, &#39;ro&#39;, label=&#39;starting point&#39;) # plot the starting point
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$w_s$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$b_s$&#39;</span><span class="p">)</span>
+ax.set_xlabel(&#39;$w_s$&#39;)
+ax.set_ylabel(&#39;$b_s$&#39;)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+ax.legend()
 </pre></div>
 </div>
 <img alt="../../../_images/regression_51_1.png" src="../../../_images/regression_51_1.png" />
@@ -1169,7 +1169,7 @@ surface in the <span class="math notranslate nohighlight">\(b_s\)</span> directi
 surface in the <span class="math notranslate nohighlight">\(w_s\)</span> direction, but <span class="math notranslate nohighlight">\(w_s\)</span> and <span class="math notranslate nohighlight">\(b_s\)</span>
 are at least the same order of magnitude.</p>
 <p>Looking at the cross-section of values, we can see the same:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plot_cross_sections</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">sun_scaled</span><span class="p">,</span> <span class="n">tmax_scaled</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axs = plot_cross_sections(np.linspace(-1, 1, 100), np.linspace(-1, 1, 100), sun_scaled, tmax_scaled)
 </pre></div>
 </div>
 <img alt="../../../_images/regression_53_0.png" src="../../../_images/regression_53_0.png" />
@@ -1197,49 +1197,49 @@ changes. First, we have added the option to scale the data using the
 <code class="docutils literal notranslate"><span class="pre">scale</span></code> argument (by default, <code class="docutils literal notranslate"><span class="pre">scale=False</span></code>). If we scale the data,
 we make sure to record the un-scaled values of <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(b\)</span>,
 using the equations above:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def train(xdata, ydata, weight, bias, learning_rate, epochs, plot=True, scale=False):
+    df = pd.DataFrame()
 
-    <span class="k">if</span> <span class="n">scale</span><span class="p">:</span>
-        <span class="n">xx</span> <span class="o">=</span> <span class="p">(</span><span class="n">xdata</span> <span class="o">-</span> <span class="n">xdata</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
-        <span class="n">yy</span> <span class="o">=</span> <span class="p">(</span><span class="n">ydata</span> <span class="o">-</span> <span class="n">ydata</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">ydata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">ydata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">xx</span> <span class="o">=</span> <span class="n">xdata</span>
-        <span class="n">yy</span> <span class="o">=</span> <span class="n">ydata</span>
+    if scale:
+        xx = (xdata - xdata.mean()) / (xdata.max() - xdata.min())
+        yy = (ydata - ydata.mean()) / (ydata.max() - ydata.min())
+    else:
+        xx = xdata
+        yy = ydata
 
-    <span class="k">for</span> <span class="n">ee</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
-        <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="n">update_parameters</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
+    for ee in range(epochs):
+        weight, bias = update_parameters(xx, yy, weight, bias, learning_rate)
 
-        <span class="k">if</span> <span class="n">ee</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">scale</span><span class="p">:</span> <span class="c1"># un-scale the values of weight and bias when we record them to the table</span>
-                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="p">(</span><span class="n">ydata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">ydata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
-                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bias</span> <span class="o">*</span> <span class="p">(</span><span class="n">ydata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">ydata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">+</span> <span class="n">ydata</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">ydata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">ydata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">*</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">xdata</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
-                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bias</span>
+        if ee % 10 == 0:
+            if scale: # un-scale the values of weight and bias when we record them to the table
+                df.loc[ee, &#39;weight&#39;] = weight * (ydata.max() - ydata.min()) / (xdata.max() - xdata.min())
+                df.loc[ee, &#39;bias&#39;] = bias * (ydata.max() - ydata.min()) + ydata.mean() - (ydata.max() - ydata.min()) / (xdata.max() - xdata.min()) * weight * xdata.mean()
+            else:
+                df.loc[ee, &#39;weight&#39;] = weight
+                df.loc[ee, &#39;bias&#39;] = bias
 
-            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;avg_loss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">])</span>
+            df.loc[ee, &#39;avg_loss&#39;] = avg_loss(xdata, ydata, df.loc[ee, &#39;weight&#39;], df.loc[ee, &#39;bias&#39;])
 
-    <span class="k">if</span> <span class="n">scale</span><span class="p">:</span> <span class="c1"># un-scale the values of weight and bias when we record them to the table</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="p">(</span><span class="n">ydata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">ydata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bias</span> <span class="o">*</span> <span class="p">(</span><span class="n">ydata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">ydata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">+</span> <span class="n">ydata</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">ydata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">ydata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">*</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">xdata</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bias</span>
+    if scale: # un-scale the values of weight and bias when we record them to the table
+        df.loc[ee, &#39;weight&#39;] = weight * (ydata.max() - ydata.min()) / (xdata.max() - xdata.min())
+        df.loc[ee, &#39;bias&#39;] = bias * (ydata.max() - ydata.min()) + ydata.mean() - (ydata.max() - ydata.min()) / (xdata.max() - xdata.min()) * weight * xdata.mean()
+    else:
+        df.loc[ee, &#39;weight&#39;] = weight
+        df.loc[ee, &#39;bias&#39;] = bias
 
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;avg_loss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg_loss</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ee</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">])</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    df.loc[ee, &#39;avg_loss&#39;] = avg_loss(xdata, ydata, df.loc[ee, &#39;weight&#39;], df.loc[ee, &#39;bias&#39;])
+    df.reset_index(names=[&#39;epoch&#39;], inplace=True)
 
-    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
-        <span class="n">plot_training_results</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    if plot:
+        plot_training_results(df)
 
-    <span class="k">return</span> <span class="n">df</span>
+    return df
 </pre></div>
 </div>
 <p>Now, let’s see how well this works by using a learning rate of 0.1, and
 training the model for only 1000 epochs:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">output</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>output = train(sun, tmax, weight=0, bias=0, learning_rate=0.1, epochs=1000, scale=True)
+output.tail(n=1)
 </pre></div>
 </div>
 <img alt="../../../_images/regression_57_1.png" src="../../../_images/regression_57_1.png" />
@@ -1254,18 +1254,18 @@ a few different intermediate epochs, along with the linear fit
 calculated using <code class="docutils literal notranslate"><span class="pre">LinearRegression.fit()</span></code> - as before, we should see
 that there’s rapid improvement followed by slow improvement, but the end
 result is almost indistinguishable from the “true” solution:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(1, 1)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sun</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+ax.plot(sun, tmax, &#39;.&#39;)
 
-<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">351</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+xx = np.arange(0, 351, 50)
 
-<span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">predict</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">],</span> <span class="n">bias</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;epoch </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="s1">&#39;epoch&#39;</span><span class="p">]))</span>
+for ind in [0, 10, 100]:
+    ax.plot(xx, predict(xx, weight=output.loc[ind, &#39;weight&#39;], bias=output.loc[ind, &#39;bias&#39;]), label=&#39;epoch {}&#39;.format(output.loc[ind, &#39;epoch&#39;]))
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ols linear fit&#39;</span><span class="p">)</span>
+ax.plot(xx, model.predict(xx.reshape(-1, 1)), &#39;k--&#39;, label=&#39;ols linear fit&#39;)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+ax.legend()
 </pre></div>
 </div>
 <img alt="../../../_images/regression_59_1.png" src="../../../_images/regression_59_1.png" />
@@ -1377,7 +1377,7 @@ By Bob McNabb
 
   <p class="copyright">
     
-      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
       <br/>
     
   </p>

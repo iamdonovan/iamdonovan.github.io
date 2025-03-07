@@ -38,6 +38,15 @@ creating a new branch
     The instructions below show you how to create a new branch using **GitHub Desktop**, but you can also do this
     using IDEs such as **PyCharm** or **VSCode**, or using the git command-line interface.
 
+    In the git command-line interface, the command to run to create a new branch, ``debug``, would be:
+
+    .. code-block:: sh
+
+        git checkout -b debug
+
+    Of course, make sure that you are (a) on your ``main`` branch, and (b) in your repository directory, when
+    you run this command.
+
 Before we get started editing the script, let's first create a new branch to work on. Remember that this enables us
 to make changes to our code (i.e., create new features or fix existing code) without affecting the code that is
 currently being used by others.

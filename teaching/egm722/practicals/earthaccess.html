@@ -786,12 +786,12 @@ used in Week 2.</p>
 <h3>getting started<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>To get started, run the following cell to import the packages that we’ll
 use in the practical.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">earthaccess</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">rasterio</span> <span class="k">as</span> <span class="nn">rio</span>
-<span class="kn">import</span> <span class="nn">rasterio.merge</span>
-<span class="kn">import</span> <span class="nn">shapely</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
+import earthaccess
+import geopandas as gpd
+import rasterio as rio
+import rasterio.merge
+import shapely
 </pre></div>
 </div>
 </section>
@@ -806,17 +806,17 @@ data, which can be used for the search, and to help filter and refine
 our search results.</p>
 <p>First, we’ll load the data using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, making sure to transform
 from the original CRS to WGS84 latitude/longitude (<code class="docutils literal notranslate"><span class="pre">epsg=4326</span></code>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../Week2/data_files/Counties.shp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>counties = gpd.read_file(&#39;../Week2/data_files/Counties.shp&#39;).to_crs(epsg=4326)
 </pre></div>
 </div>
 <p>Next, we’ll use the <code class="docutils literal notranslate"><span class="pre">geopandas.GeoSeries.unary_union</span></code> attribute
 (<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.unary_union.html">documentation</a>)
 to get a combination of all of the County outlines in a single geometry
 feature:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets a single polygon (or multipolygon) composed of the individual polygons</span>
-<span class="n">outline</span> <span class="o">=</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unary_union</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># gets a single polygon (or multipolygon) composed of the individual polygons
+outline = counties[&#39;geometry&#39;].unary_union
 
-<span class="n">outline</span> <span class="c1"># note that in a jupyter notebook, this actually displays the polygon.</span>
+outline # note that in a jupyter notebook, this actually displays the polygon.
 </pre></div>
 </div>
 <img alt="../../../_images/EarthAccess_5_0.svg" src="../../../_images/EarthAccess_5_0.svg" /><p><br /> In the output of the cell above, we can see that the <code class="docutils literal notranslate"><span class="pre">outline</span></code> shape
@@ -830,12 +830,12 @@ that we can pass a <em>bounding box</em> argument, in the form of a <strong>tupl
 corresponding to the lower left longitude (minimum x), lower left
 latitude (minimum y), upper right longitude (maximum x), and upper right
 latitude (maximum y) values:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">earthaccess</span><span class="o">.</span><span class="n">search_data</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(earthaccess.search_data)
 </pre></div>
 </div>
 <p>To get these values from our outlines, we can use the <code class="docutils literal notranslate"><span class="pre">.bounds</span></code>
 attribute of our <strong>Polygon</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outline</span><span class="o">.</span><span class="n">bounds</span> <span class="c1"># get the min x, min y, max x, max y values of the polygon</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>outline.bounds # get the min x, min y, max x, max y values of the polygon
 </pre></div>
 </div>
 <p>However, we can also pass a <code class="docutils literal notranslate"><span class="pre">polygon</span></code> argument. Rather than pass the
@@ -843,10 +843,10 @@ outline (a very complicated geometric object), though, we’ll look at one
 additional attribute of a <code class="docutils literal notranslate"><span class="pre">shapely</span></code> <strong>Polygon</strong> that we can use to get
 a bounding box of the geometry - the <code class="docutils literal notranslate"><span class="pre">minimum_rotated_rectangle</span></code>
 (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/reference/shapely.minimum_rotated_rectangle.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># gets the minimum rotated rectangle that covers the outline</span>
-<span class="n">search_area</span> <span class="o">=</span> <span class="n">outline</span><span class="o">.</span><span class="n">minimum_rotated_rectangle</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># gets the minimum rotated rectangle that covers the outline
+search_area = outline.minimum_rotated_rectangle
 
-<span class="n">search_area</span> <span class="c1"># again, in a jupyter notebook, this displays the polygon</span>
+search_area # again, in a jupyter notebook, this displays the polygon
 </pre></div>
 </div>
 <img alt="../../../_images/EarthAccess_11_0.svg" src="../../../_images/EarthAccess_11_0.svg" /><p><br /> You can see above that this gives a boundary box of the polygon, but
@@ -859,9 +859,9 @@ still making sure to cover the entire area of interest.</p>
 oriented counter-clockwise. To do this, we can use
 <code class="docutils literal notranslate"><span class="pre">shapely.geometry.polygon.orient()</span></code>
 (<a class="reference external" href="https://shapely.readthedocs.io/en/stable/manual.html#shapely.geometry.polygon.orient">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">search_area</span> <span class="o">=</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">orient</span><span class="p">(</span><span class="n">search_area</span><span class="p">,</span> <span class="n">sign</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># a sign of 1 means oriented counter-clockwise</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>search_area = shapely.geometry.polygon.orient(search_area, sign=1) # a sign of 1 means oriented counter-clockwise
 
-<span class="n">search_area</span> <span class="c1"># this doesn&#39;t actually change the geometry, just the order of the vertices</span>
+search_area # this doesn&#39;t actually change the geometry, just the order of the vertices
 </pre></div>
 </div>
 <img alt="../../../_images/EarthAccess_13_0.svg" src="../../../_images/EarthAccess_13_0.svg" /><p><br /> That’s all we need to be able to search for images that intersect with a
@@ -874,7 +874,7 @@ the search.</p>
 <h4>connecting to the api<a class="headerlink" href="#connecting-to-the-api" title="Permalink to this heading">#</a></h4>
 <p>To connect to the API, we first call <code class="docutils literal notranslate"><span class="pre">earthaccess.login()</span></code>
 (<a class="reference external" href="https://earthaccess.readthedocs.io/en/latest/user-reference/api/api/#earthaccess.api.login">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">earthaccess</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;netrc&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>earthaccess.login(strategy=&#39;netrc&#39;)
 </pre></div>
 </div>
 <p>From the API reference for <code class="docutils literal notranslate"><span class="pre">earthaccess</span></code> linked above, we can see that
@@ -903,20 +903,20 @@ Ireland and have to do with elevation - we can use <code class="docutils literal
 <code class="docutils literal notranslate"><span class="pre">keyword</span></code>, then pass <code class="docutils literal notranslate"><span class="pre">search_area.exterior.coords</span></code> (the list of
 coordinates that describe the exterior of the polygon) as the
 <code class="docutils literal notranslate"><span class="pre">polygon</span></code> argument:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="n">earthaccess</span><span class="o">.</span><span class="n">search_datasets</span><span class="p">(</span>
-    <span class="n">keyword</span><span class="o">=</span><span class="s1">&#39;elevation&#39;</span><span class="p">,</span> <span class="c1"># search for datasets that match the keyword &#39;elevation&#39;</span>
-    <span class="n">polygon</span><span class="o">=</span><span class="n">search_area</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span> <span class="c1"># search for datasets that intersect Northern Ireland</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>datasets = earthaccess.search_datasets(
+    keyword=&#39;elevation&#39;, # search for datasets that match the keyword &#39;elevation&#39;
+    polygon=search_area.exterior.coords # search for datasets that intersect Northern Ireland
+)
 </pre></div>
 </div>
 <p>Hopefully, you can see that there are 501 (!) datasets that fit the
 “elevation” keyword that we used to search from. Note that we are not
 limited to a single keyword - for example, we could also specify that we
 want elevation datasets derived from ASTER:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="n">earthaccess</span><span class="o">.</span><span class="n">search_datasets</span><span class="p">(</span>
-    <span class="n">keyword</span><span class="o">=</span><span class="s1">&#39;aster elevation&#39;</span><span class="p">,</span> <span class="c1"># search for datasets that match the keyword &#39;aster elevation&#39;</span>
-    <span class="n">polygon</span><span class="o">=</span><span class="n">search_area</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span> <span class="c1"># search for datasets that intersect Northern Ireland</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>datasets = earthaccess.search_datasets(
+    keyword=&#39;aster elevation&#39;, # search for datasets that match the keyword &#39;aster elevation&#39;
+    polygon=search_area.exterior.coords # search for datasets that intersect Northern Ireland
+)
 </pre></div>
 </div>
 <p>Each of the datasets included in the <code class="docutils literal notranslate"><span class="pre">datasets</span></code> <strong>list</strong> returned by
@@ -929,8 +929,8 @@ including metadata specified by the unified metadata model (UMM).</p>
 (<a class="reference external" href="https://earthaccess.readthedocs.io/en/latest/user-reference/collections/collections/#earthaccess.results.DataCollection.get_umm">documentation</a>).
 For example, to get the full name of the dataset (the “<a class="reference external" href="https://cmr.earthdata.nasa.gov/search/site/docs/search/api.html#c-entry-title">entry
 title</a>”):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># get the first result</span>
-<span class="n">dataset</span><span class="o">.</span><span class="n">get_umm</span><span class="p">(</span><span class="s1">&#39;EntryTitle&#39;</span><span class="p">)</span> <span class="c1"># fill this in with the metadata field that you want</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dataset = datasets[0] # get the first result
+dataset.get_umm(&#39;EntryTitle&#39;) # fill this in with the metadata field that you want
 </pre></div>
 </div>
 <p>As you can see above, the first entry returned by our dataset query is
@@ -945,9 +945,9 @@ likely receive an error - NASA CMR does not permit searches across all
 collections (datasets) in order to provide fast responses. In the cell
 below, add the correct argument to <code class="docutils literal notranslate"><span class="pre">.get_umm()</span></code> to get the short name
 of the dataset to use in the next section:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_name</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_umm</span><span class="p">()</span> <span class="c1"># fill in the following with the correct field name to return the short name of the dataset</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ds_name = dataset.get_umm() # fill in the following with the correct field name to return the short name of the dataset
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset short name: </span><span class="si">{</span><span class="n">ds_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+print(f&quot;Dataset short name: {ds_name}&quot;)
 </pre></div>
 </div>
 </section>
@@ -969,11 +969,11 @@ Catalog</a></p></li>
 <a class="reference external" href="https://earthaccess.readthedocs.io/en/latest/user-reference/granules/granules-query/">GranuleQuery</a>
 API reference for additional keywords to use, based on the listed
 methods for the <strong>GranuleQuery</strong> class.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">earthaccess</span><span class="o">.</span><span class="n">search_data</span><span class="p">(</span>
-    <span class="n">short_name</span><span class="o">=</span><span class="n">ds_name</span><span class="p">,</span> <span class="c1"># search for ASTER GDEM v3 granules</span>
-    <span class="n">polygon</span><span class="o">=</span><span class="n">search_area</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="c1"># search for images that intersect our search_area</span>
-    <span class="n">count</span><span class="o">=</span><span class="mi">10</span> <span class="c1"># only show the first 10 results</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>results = earthaccess.search_data(
+    short_name=ds_name, # search for ASTER GDEM v3 granules
+    polygon=search_area.exterior.coords, # search for images that intersect our search_area
+    count=10 # only show the first 10 results
+)
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Granules</span> <span class="n">found</span><span class="p">:</span> <span class="mi">8</span>
@@ -984,7 +984,7 @@ methods for the <strong>GranuleQuery</strong> class.</p>
 criteria. You should see that <code class="docutils literal notranslate"><span class="pre">.search_data()</span></code> tells us the total
 number of Granules found (8). To see how many granules we have in
 <code class="docutils literal notranslate"><span class="pre">results</span></code>, remember that we can also use <code class="docutils literal notranslate"><span class="pre">len()</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="c1"># show the length of the results list</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>len(results) # show the length of the results list
 </pre></div>
 </div>
 <p>You should hopefully see that the search has returned 5 results.</p>
@@ -994,8 +994,8 @@ and <code class="docutils literal notranslate"><span class="pre">iter()</span></
 (<a class="reference external" href="https://docs.python.org/3/library/functions.html#iter">documentation</a>),
 which returns the first item that was entered into the <strong>list</strong> (we can
 also just use the index, as we have seen previously):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">granule</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">results</span><span class="p">))</span> <span class="c1"># get the &quot;first&quot; item from the list</span>
-<span class="n">granule</span> <span class="c1"># show the first item</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>granule = next(iter(results)) # get the &quot;first&quot; item from the list
+granule # show the first item
 </pre></div>
 </div>
     <div id="1208282a-4df2-46f9-aa8f-261b6eb02795" style="height: 0px; display: none">
@@ -1053,7 +1053,7 @@ exist; however, we’ll create a directory using <code class="docutils literal n
 anyway as a reminder of how to do it.</p>
 <p>To avoid a <code class="docutils literal notranslate"><span class="pre">FileExistsError</span></code> from being raised if the directory
 already exists, we use the <code class="docutils literal notranslate"><span class="pre">exist_ok=True</span></code> argument:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">ds_name</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># create a new folder to download the granules to</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>os.makedirs(ds_name, exist_ok=True) # create a new folder to download the granules to
 </pre></div>
 </div>
 <p>Now that we have created a folder to save our data to, we can use
@@ -1069,7 +1069,7 @@ the downloaded results.</p>
 <p><code class="docutils literal notranslate"><span class="pre">earthaccess.download()</span></code> returns a <strong>list</strong> of the filenames that were
 downloaded - we’ll use this in the next section to mosaic the DEM tiles
 together into a single file.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloaded_files</span> <span class="o">=</span> <span class="n">earthaccess</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">ds_name</span><span class="p">)</span> <span class="c1"># download each of the granules to the aster_gdem directory</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>downloaded_files = earthaccess.download(results, ds_name) # download each of the granules to the aster_gdem directory
 </pre></div>
 </div>
 <p>Note that if the files have already been downloaded,
@@ -1080,9 +1080,9 @@ create the tile) and <code class="docutils literal notranslate"><span class="pre
 are only interested in the DEM files, so we can use list comprehension
 to filter our list of filenames to return only the files that match
 <code class="docutils literal notranslate"><span class="pre">*dem.tif</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dem_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">downloaded_files</span> <span class="k">if</span> <span class="s1">&#39;dem.tif&#39;</span> <span class="ow">in</span> <span class="n">fn</span><span class="p">]</span> <span class="c1"># use list comprehension to select only filenames that match &#39;*dem.tif&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dem_files = [fn for fn in downloaded_files if &#39;dem.tif&#39; in fn] # use list comprehension to select only filenames that match &#39;*dem.tif&#39;
 
-<span class="nb">print</span><span class="p">(</span><span class="n">dem_files</span><span class="p">)</span> <span class="c1"># confirm that this has worked</span>
+print(dem_files) # confirm that this has worked
 </pre></div>
 </div>
 </section>
@@ -1093,19 +1093,19 @@ individual DEM granules, we can use <code class="docutils literal notranslate"><
 (<a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.merge.html#rasterio.merge.merge">documentation</a>)
 to mosaic the individual granules into a single raster that covers the
 whole of Northern Ireland, and visualize the results.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rio</span><span class="o">.</span><span class="n">merge</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dem_files</span><span class="p">,</span> <span class="n">dst_path</span><span class="o">=</span><span class="s1">&#39;ASTDTM_Mosaic.tif&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rio.merge.merge(dem_files, dst_path=&#39;ASTDTM_Mosaic.tif&#39;)
 </pre></div>
 </div>
 <p>Now, let’s use <code class="docutils literal notranslate"><span class="pre">cartopy</span></code> to plot the mosaicked DEM on a map. First,
 we’ll import <code class="docutils literal notranslate"><span class="pre">cartopy.crs</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code>, then use
 <code class="docutils literal notranslate"><span class="pre">rio.open()</span></code> to load the DEM:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import cartopy.crs as ccrs
+import matplotlib.pyplot as plt
 
-<span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;ASTDTM_Mosaic.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataset</span><span class="p">:</span>
-    <span class="n">dem</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="n">crs</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">crs</span>
-    <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">bounds</span>
+with rio.open(&#39;ASTDTM_Mosaic.tif&#39;) as dataset:
+    dem = dataset.read()
+    crs = dataset.crs
+    xmin, ymin, xmax, ymax = dataset.bounds
 </pre></div>
 </div>
 <p>The cell below should be mostly familiar - we first use
@@ -1126,11 +1126,11 @@ to add a high-resolution (global) coastline in red.</p>
 and white elevation map of Northern Ireland (as well as adjacent areas
 of the Republic of Ireland and Scotland), with coastlines plotted
 overtop the DEM in red:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">epsg</span><span class="p">(</span><span class="mi">2157</span><span class="p">)))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dem</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span> <span class="c1"># display band 0 as a grayscale image, stretched between 0 and 400</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="c1"># plot coastlines on the map</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(1, 1, subplot_kw=dict(projection=ccrs.epsg(2157)))
+ax.imshow(dem[0], cmap=&#39;gray&#39;, vmin=0, vmax=400, transform=ccrs.PlateCarree(), extent=[xmin, xmax, ymin, ymax]) # display band 0 as a grayscale image, stretched between 0 and 400
+ax.coastlines(color=&#39;r&#39;) # plot coastlines on the map
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">([</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span> <span class="c1"># set the extent to the image extent</span>
+ax.set_extent([xmin, xmax, ymin, ymax], crs=ccrs.PlateCarree()) # set the extent to the image extent
 </pre></div>
 </div>
 <img alt="a black and white elevation map of Northern Ireland, with coastlines shown in red." src="../../../_images/EarthAccess_41_0.png" />
@@ -1274,7 +1274,7 @@ By Bob McNabb
 
   <p class="copyright">
     
-      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
       <br/>
     
   </p>

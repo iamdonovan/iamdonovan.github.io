@@ -707,14 +707,14 @@ LCM2015_Aggregate_100m.tif - NI_DEM.tif</p>
 to working with both raster and vector data in python, as well as a few
 different python and programming concepts. To get started, run the cell
 below.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">rasterio</span> <span class="k">as</span> <span class="nn">rio</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">rasterstats</span>
+import numpy as np
+import rasterio as rio
+import pandas as pd
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import rasterstats
 </pre></div>
 </div>
 </section>
@@ -788,11 +788,11 @@ has this range of possible values, we only use 10 (11) of them:</p>
 names, in the order shown in the table above. Then, we’ll use
 <code class="docutils literal notranslate"><span class="pre">range()</span></code> to create a list of values from 1 to 10, corresponding to
 the raster value of each landcover class.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the landcover class names in a list</span>
-<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Broadleaf woodland&#39;</span><span class="p">,</span> <span class="s1">&#39;Coniferous woodland&#39;</span><span class="p">,</span> <span class="s1">&#39;Arable&#39;</span><span class="p">,</span> <span class="s1">&#39;Improved grassland&#39;</span><span class="p">,</span> <span class="s1">&#39;Semi-natural grassland&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;Mountain, heath, bog&#39;</span><span class="p">,</span> <span class="s1">&#39;Saltwater&#39;</span><span class="p">,</span> <span class="s1">&#39;Freshwater&#39;</span><span class="p">,</span> <span class="s1">&#39;Coastal&#39;</span><span class="p">,</span> <span class="s1">&#39;Built-up areas and gardens&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># define the landcover class names in a list
+names = [&#39;Broadleaf woodland&#39;, &#39;Coniferous woodland&#39;, &#39;Arable&#39;, &#39;Improved grassland&#39;, &#39;Semi-natural grassland&#39;,
+         &#39;Mountain, heath, bog&#39;, &#39;Saltwater&#39;, &#39;Freshwater&#39;, &#39;Coastal&#39;, &#39;Built-up areas and gardens&#39;]
 
-<span class="n">values</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="c1"># get numbers from 1-10, corresponding to the landcover values</span>
+values = range(1, 11) # get numbers from 1-10, corresponding to the landcover values
 </pre></div>
 </div>
 <p>Next, we’ll use a combination of the <code class="docutils literal notranslate"><span class="pre">zip()</span></code> built-in function
@@ -801,7 +801,7 @@ along with <code class="docutils literal notranslate"><span class="pre">dict()</
 (<a class="reference external" href="https://docs.python.org/3/library/functions.html#func-dict">documentation</a>),
 to create a <strong>dict</strong> object of <strong>key</strong>/<strong>value</strong> pairs that maps each
 raster value (the <strong>key</strong>) to a class name (the <strong>value</strong>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">landcover_names</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">names</span><span class="p">))</span> <span class="c1"># create a dict of landcover value/name pairs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>landcover_names = dict(zip(values, names)) # create a dict of landcover value/name pairs
 </pre></div>
 </div>
 <p>We’ll use this later on, when we want to make our outputs more
@@ -811,36 +811,36 @@ the entire country, and of each county individually, that is covered by
 each of these different landcovers.</p>
 <p>To start, we’ll load the <code class="docutils literal notranslate"><span class="pre">LCM2015_Aggregate_100m.tif</span></code> raster, as well
 as the counties shapefile from Week 2:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># open the land cover raster and read the data</span>
-<span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/LCM2015_Aggregate_100m.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataset</span><span class="p">:</span>
-    <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">bounds</span>
-    <span class="n">crs</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">crs</span>
-    <span class="n">landcover</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">affine_tfm</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">transform</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># open the land cover raster and read the data
+with rio.open(&#39;data_files/LCM2015_Aggregate_100m.tif&#39;) as dataset:
+    xmin, ymin, xmax, ymax = dataset.bounds
+    crs = dataset.crs
+    landcover = dataset.read(1)
+    affine_tfm = dataset.transform
 
-<span class="c1"># now, load the county dataset from the week 2 folder</span>
-<span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../Week2/data_files/Counties.shp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="p">)</span>
+# now, load the county dataset from the week 2 folder
+counties = gpd.read_file(&#39;../Week2/data_files/Counties.shp&#39;).to_crs(crs)
 </pre></div>
 </div>
 <p>Next, we’ll define a function that takes an array, and returns a
 <strong>dict</strong> object containing the count (number of pixels) for each of the
 unique values in the array:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">count_unique</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">nodata</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Count the unique elements of an array.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def count_unique(array, names, nodata=0):
+    &#39;&#39;&#39;
+    Count the unique elements of an array.
 
-<span class="sd">    :param array: Input array</span>
-<span class="sd">    :param names: a dict of key/value pairs that map raster values to a name</span>
-<span class="sd">    :param nodata: nodata value to ignore in the counting</span>
+    :param array: Input array
+    :param names: a dict of key/value pairs that map raster values to a name
+    :param nodata: nodata value to ignore in the counting
 
-<span class="sd">    :returns count_dict: a dictionary of unique values and counts</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">count_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span> <span class="c1"># create the output dict</span>
-    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">array</span><span class="p">):</span> <span class="c1"># iterate over the unique values for the raster</span>
-        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">nodata</span><span class="p">:</span> <span class="c1"># if the value is equal to our nodata value, move on to the next one</span>
-            <span class="k">continue</span>
-        <span class="n">count_dict</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">val</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">array</span> <span class="o">==</span> <span class="n">val</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">count_dict</span> <span class="c1"># return the now-populated output dict</span>
+    :returns count_dict: a dictionary of unique values and counts
+    &#39;&#39;&#39;
+    count_dict = dict() # create the output dict
+    for val in np.unique(array): # iterate over the unique values for the raster
+        if val == nodata: # if the value is equal to our nodata value, move on to the next one
+            continue
+        count_dict[names[val]] = np.count_nonzero(array == val)
+    return count_dict # return the now-populated output dict
 </pre></div>
 </div>
 <p>Here, we have three input parameters: the first, <code class="docutils literal notranslate"><span class="pre">array</span></code>, is our array
@@ -877,25 +877,25 @@ then assign this to our dictionary with a key that is a <strong>str</strong>
 representation of the value, before returning our <code class="docutils literal notranslate"><span class="pre">count_dict</span></code>
 variable at the end of the function.</p>
 <p>Run the cell below to run the function on our <code class="docutils literal notranslate"><span class="pre">landcover</span></code> raster:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">landcover_count</span> <span class="o">=</span> <span class="n">count_unique</span><span class="p">(</span><span class="n">landcover</span><span class="p">,</span> <span class="n">landcover_names</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">landcover_count</span><span class="p">)</span> <span class="c1"># show the results</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>landcover_count = count_unique(landcover, landcover_names)
+print(landcover_count) # show the results
 </pre></div>
 </div>
 <p>Exercise: can you work out the percentage area of Northern Ireland that
 is covered by each of the 10 landcover classes?</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># start by using count_unique to get the number of pixels corresponding to each landcover class</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># start by using count_unique to get the number of pixels corresponding to each landcover class
 
-<span class="c1"># now, get the total number of pixels in the image that aren&#39;t nodata</span>
-<span class="c1"># hint: use np.count_nonzero()</span>
+# now, get the total number of pixels in the image that aren&#39;t nodata
+# hint: use np.count_nonzero()
 
-<span class="c1"># now, iterate over the dictionary items to express the number of pixels as a percentage of the total pixels</span>
+# now, iterate over the dictionary items to express the number of pixels as a percentage of the total pixels
 </pre></div>
 </div>
 <p>Now, let’s have a look at the help for <code class="docutils literal notranslate"><span class="pre">rasterstats.gen_zonal_stats()</span></code>
 (<a class="reference external" href="https://pythonhosted.org/rasterstats/rasterstats.html#rasterstats.gen_zonal_stats">documentation</a>),
 which will tell us how we can use <code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> to get zonal
 statistics for a raster and vector geometry:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">rasterstats</span><span class="o">.</span><span class="n">gen_zonal_stats</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(rasterstats.gen_zonal_stats)
 </pre></div>
 </div>
 <p>In the output of the cell above, you should see the usage for
@@ -911,16 +911,16 @@ as above (counting unique pixel values).</p>
 to count the number of pixels with each land cover value that fall
 within a specific area defined by each of the features in the
 <code class="docutils literal notranslate"><span class="pre">counties</span></code> dataset:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_stats</span> <span class="o">=</span> <span class="n">rasterstats</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span><span class="n">counties</span><span class="p">,</span> <span class="c1"># the shapefile to use</span>
-                                       <span class="n">landcover</span><span class="p">,</span> <span class="c1"># the raster to use - here, we&#39;re using the numpy array loaded using rasterio</span>
-                                       <span class="n">affine</span><span class="o">=</span><span class="n">affine_tfm</span><span class="p">,</span> <span class="c1"># the geotransform for the raster</span>
-                                       <span class="n">categorical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># whether the data are categorical</span>
-                                       <span class="n">category_map</span><span class="o">=</span><span class="n">landcover_names</span><span class="p">,</span>
-                                       <span class="n">nodata</span><span class="o">=</span><span class="mi">0</span> <span class="c1"># the nodata value for the raster</span>
-                                      <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>county_stats = rasterstats.zonal_stats(counties, # the shapefile to use
+                                       landcover, # the raster to use - here, we&#39;re using the numpy array loaded using rasterio
+                                       affine=affine_tfm, # the geotransform for the raster
+                                       categorical=True, # whether the data are categorical
+                                       category_map=landcover_names,
+                                       nodata=0 # the nodata value for the raster
+                                      )
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">county_stats</span><span class="p">))</span> <span class="c1"># county_stats is a list of dict objects</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">county_stats</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># shows the landcover use for county tyrone (index 0 in counties geodataframe)</span>
+print(type(county_stats)) # county_stats is a list of dict objects
+print(county_stats[0]) # shows the landcover use for county tyrone (index 0 in counties geodataframe)
 </pre></div>
 </div>
 </section>
@@ -930,10 +930,10 @@ within a specific area defined by each of the features in the
 discussing this powerful and useful function in a bit more detail.</p>
 <p>In Python 3, <code class="docutils literal notranslate"><span class="pre">zip()</span></code> returns a <strong>zip</strong> object that combines elements
 from each of the iterable objects passed as arguments:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = [1, 2, 3, 4]
+y = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+print(zip(x, y))
 </pre></div>
 </div>
 <p>We have seen something similar with <strong>iterator</strong> objects before - for
@@ -941,45 +941,45 @@ example, the output of <code class="docutils literal notranslate"><span class="p
 we can <em>iterate</em> over the items of the <strong>iterator</strong> object, or we can
 use something like <code class="docutils literal notranslate"><span class="pre">list()</span></code> to convert the <strong>iterator</strong> into another
 type of object:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(list(zip(x, y)))
 </pre></div>
 </div>
 <p>And, as we saw above, we can also pass the output of <code class="docutils literal notranslate"><span class="pre">zip()</span></code> to
 <code class="docutils literal notranslate"><span class="pre">dict()</span></code>, to create a <strong>dict</strong> of <strong>key</strong>/<strong>value</strong> pairs - this is an
 efficient way to create a <strong>dict</strong> object from two <strong>list</strong> objects of
 different items:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(dict(zip(x, y)))
 </pre></div>
 </div>
 <p>One thing to keep in mind, though, is that with <code class="docutils literal notranslate"><span class="pre">zip(x,</span> <span class="pre">y)</span></code>, each of
 the elements of <code class="docutils literal notranslate"><span class="pre">x</span></code> is paired with the corresponding element from
 <code class="docutils literal notranslate"><span class="pre">y</span></code>. If <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are different lengths, <code class="docutils literal notranslate"><span class="pre">zip(x,</span> <span class="pre">y)</span></code> will only
 use up to the shorter of the two:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = [1, 2, 3]
 
-<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+list(zip(x, y))
 </pre></div>
 </div>
 <p>As a final example, we can also use <code class="docutils literal notranslate"><span class="pre">zip()</span></code> to combine more than two
 iterables - we’re not limited to a single pair of iterables:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]</span>
-<span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;ii&#39;</span><span class="p">,</span> <span class="s1">&#39;iii&#39;</span><span class="p">,</span> <span class="s1">&#39;iv&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>x = [1, 2, 3, 4]
+y = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
+z = [&#39;i&#39;, &#39;ii&#39;, &#39;iii&#39;, &#39;iv&#39;]
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)))</span>
+print(list(zip(x, y, z)))
 </pre></div>
 </div>
 <p>Now, let’s use <code class="docutils literal notranslate"><span class="pre">zip()</span></code> to create a <strong>dict</strong> that returns the landcover
 stats for each county, given the county name.</p>
 <p>First, we can use a <em>list comprehension</em> to get a list of the county
 names, formatted using <code class="docutils literal notranslate"><span class="pre">str.title()</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]]</span> <span class="c1"># use str.title() because we&#39;re not shouting</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>names = [n.title() for n in counties[&#39;CountyName&#39;]] # use str.title() because we&#39;re not shouting
 </pre></div>
 </div>
 <p>Now, we use <code class="docutils literal notranslate"><span class="pre">dict()</span></code> and <code class="docutils literal notranslate"><span class="pre">zip()</span></code> to create the <strong>dict</strong> object of
 landcover stats by county:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">county_stats</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">county_dict</span><span class="p">[</span><span class="s1">&#39;Tyrone&#39;</span><span class="p">])</span> <span class="c1"># should be the same output as before</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>county_dict = dict(zip(names, county_stats))
+print(county_dict[&#39;Tyrone&#39;]) # should be the same output as before
 </pre></div>
 </div>
 </section>
@@ -989,24 +989,24 @@ landcover stats by county:</p>
 <code class="docutils literal notranslate"><span class="pre">counties</span></code> table. We’ll start by using creating a <strong>dict</strong> that takes
 the full landcover class name, and shortens it so that it can be used as
 a column header:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">short_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;broadleaf&#39;</span><span class="p">,</span> <span class="s1">&#39;coniferous&#39;</span><span class="p">,</span> <span class="s1">&#39;arable&#39;</span><span class="p">,</span> <span class="s1">&#39;imp_grass&#39;</span><span class="p">,</span> <span class="s1">&#39;nat_grass&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;mountain&#39;</span><span class="p">,</span> <span class="s1">&#39;saltwater&#39;</span><span class="p">,</span> <span class="s1">&#39;freshwater&#39;</span><span class="p">,</span> <span class="s1">&#39;coastal&#39;</span><span class="p">,</span> <span class="s1">&#39;built_up&#39;</span><span class="p">]</span>
-<span class="n">short_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">landcover_names</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">short_names</span><span class="p">))</span> <span class="c1"># use dict and zip with the full names</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>short_names = [&#39;broadleaf&#39;, &#39;coniferous&#39;, &#39;arable&#39;, &#39;imp_grass&#39;, &#39;nat_grass&#39;,
+               &#39;mountain&#39;, &#39;saltwater&#39;, &#39;freshwater&#39;, &#39;coastal&#39;, &#39;built_up&#39;]
+short_dict = dict(zip(landcover_names.values(), short_names)) # use dict and zip with the full names
 </pre></div>
 </div>
 <p>Now, we can use this to populate the data table with new columns for
 each landcover class:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">counties</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1"># use iterrows to iterate over the rows of the table</span>
-    <span class="n">county_data</span> <span class="o">=</span> <span class="n">county_dict</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()]</span> <span class="c1"># get the landcover data for this county</span>
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">landcover_names</span><span class="o">.</span><span class="n">values</span><span class="p">():</span> <span class="c1"># iterate over each of the landcover class names</span>
-        <span class="n">counties</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">short_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]]</span> <span class="o">=</span> <span class="n">county_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="c1"># add the landcover count to a new column</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for ind, row in counties.iterrows(): # use iterrows to iterate over the rows of the table
+    county_data = county_dict[row[&#39;CountyName&#39;].title()] # get the landcover data for this county
+    for name in landcover_names.values(): # iterate over each of the landcover class names
+        counties.loc[ind, short_dict[name]] = county_data[name] # add the landcover count to a new column
 </pre></div>
 </div>
 <p>What happened here?</p>
 <p>From the error message above, we can see that there is no entry for
 <code class="docutils literal notranslate"><span class="pre">Saltwater</span></code> in the data for this county (Tyrone):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">())</span> <span class="c1"># show the county name that caused the error</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saltwater&#39;</span> <span class="ow">in</span> <span class="n">county_dict</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="c1"># is Saltwater a valid key for this county?</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(row[&#39;CountyName&#39;].title()) # show the county name that caused the error
+print(&#39;Saltwater&#39; in county_dict[row[&#39;CountyName&#39;].title()].keys()) # is Saltwater a valid key for this county?
 </pre></div>
 </div>
 <p>Because <code class="docutils literal notranslate"><span class="pre">Saltwater</span></code> is not in the list of <strong>key</strong> values for this
@@ -1021,13 +1021,13 @@ check that the landcover class is present in the <strong>dict</strong> before tr
 to access it. This would check whether the value of <code class="docutils literal notranslate"><span class="pre">name</span></code> is a
 <strong>key</strong> of <code class="docutils literal notranslate"><span class="pre">county_data</span></code> - if it isn’t, then it will add a value of 0
 to the table for that column:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">counties</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1"># use iterrows to iterate over the rows of the table</span>
-    <span class="n">county_data</span> <span class="o">=</span> <span class="n">county_dict</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()]</span> <span class="c1"># get the landcover data for this county</span>
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">landcover_names</span><span class="o">.</span><span class="n">values</span><span class="p">():</span> <span class="c1"># iterate over each of the landcover class names</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">county_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span> <span class="c1"># check that name is a key of county_data</span>
-            <span class="n">counties</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">short_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]]</span> <span class="o">=</span> <span class="n">county_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="c1"># add the landcover count to a new column</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">counties</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">short_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># if name is not present, value should be 0.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for ind, row in counties.iterrows(): # use iterrows to iterate over the rows of the table
+    county_data = county_dict[row[&#39;CountyName&#39;].title()] # get the landcover data for this county
+    for name in landcover_names.values(): # iterate over each of the landcover class names
+        if name in county_data.keys(): # check that name is a key of county_data
+            counties.loc[ind, short_dict[name]] = county_data[name] # add the landcover count to a new column
+        else:
+            counties.loc[ind, short_dict[name]] = 0 # if name is not present, value should be 0.
 </pre></div>
 </div>
 <p>Another option is to use a <code class="docutils literal notranslate"><span class="pre">`try</span></code> …
@@ -1046,15 +1046,15 @@ interrupt a program. In our specific case, we only want the interpreter
 to ignore <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> exceptions - if there are other problems, we
 still need to know about those.</p>
 <p>In our example, the <code class="docutils literal notranslate"><span class="pre">try</span></code> … <code class="docutils literal notranslate"><span class="pre">except</span></code> block looks like this:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">counties</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1"># use iterrows to iterate over the rows of the table</span>
-    <span class="n">county_data</span> <span class="o">=</span> <span class="n">county_dict</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()]</span> <span class="c1"># get the landcover data for this county</span>
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">landcover_names</span><span class="o">.</span><span class="n">values</span><span class="p">():</span> <span class="c1"># iterate over each of the landcover class names</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">counties</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">short_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]]</span> <span class="o">=</span> <span class="n">county_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="c1"># add the landcover count to a new column</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span> <span class="c1"># we can ignore KeyErrors, because this just means the landcover class has a value of 0</span>
-            <span class="n">counties</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">short_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># if name is not present, value should be 0.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for ind, row in counties.iterrows(): # use iterrows to iterate over the rows of the table
+    county_data = county_dict[row[&#39;CountyName&#39;].title()] # get the landcover data for this county
+    for name in landcover_names.values(): # iterate over each of the landcover class names
+        try:
+            counties.loc[ind, short_dict[name]] = county_data[name] # add the landcover count to a new column
+        except KeyError: # we can ignore KeyErrors, because this just means the landcover class has a value of 0
+            counties.loc[ind, short_dict[name]] = 0 # if name is not present, value should be 0.
 
-<span class="n">counties</span> <span class="c1"># just to show the table in the output below</span>
+counties # just to show the table in the output below
 </pre></div>
 </div>
 <p>Now, we can see that the table has had an additional 10 columns added
@@ -1063,9 +1063,9 @@ number of pixels in each county that are classified as that landcover
 class.</p>
 <p>As one final step, let’s update the table so that the value corresponds
 to the percentage of each county’s area covered by each landcover class:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">counties</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1"># iterate over the rows of the table</span>
-    <span class="n">counties</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">short_names</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">row</span><span class="p">[</span><span class="n">short_names</span><span class="p">]</span> <span class="o">/</span> <span class="n">row</span><span class="p">[</span><span class="n">short_names</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">counties</span> <span class="c1"># just to show the table in the output below</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for ind, row in counties.iterrows(): # iterate over the rows of the table
+    counties.loc[ind, short_names] = 100 * row[short_names] / row[short_names].sum()
+counties # just to show the table in the output below
 </pre></div>
 </div>
 <p>In the above, you can see that we’ve <em>indexed</em> the table using the list
@@ -1077,15 +1077,15 @@ Does this make sense, given what you know about Northern Ireland?</p>
 the total area (in square km) covered by each landcover class, rather
 than the number of pixels or the percent area of each county.</p>
 <p>As a small hint, you should only need to change a single line:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">counties</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1"># use iterrows to iterate over the rows of the table</span>
-    <span class="n">county_data</span> <span class="o">=</span> <span class="n">county_dict</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()]</span> <span class="c1"># get the landcover data for this county</span>
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">landcover_names</span><span class="o">.</span><span class="n">values</span><span class="p">():</span> <span class="c1"># iterate over each of the landcover class names</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">counties</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">short_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]]</span> <span class="o">=</span> <span class="n">county_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="c1"># add the landcover count to a new column</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">counties</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="n">short_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># if name is not present, value should be 0.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for ind, row in counties.iterrows(): # use iterrows to iterate over the rows of the table
+    county_data = county_dict[row[&#39;CountyName&#39;].title()] # get the landcover data for this county
+    for name in landcover_names.values(): # iterate over each of the landcover class names
+        try:
+            counties.loc[ind, short_dict[name]] = county_data[name] # add the landcover count to a new column
+        except KeyError:
+            counties.loc[ind, short_dict[name]] = 0 # if name is not present, value should be 0.
 
-<span class="n">counties</span> <span class="c1"># just to show the table in the output below</span>
+counties # just to show the table in the output below
 </pre></div>
 </div>
 </section>
@@ -1097,13 +1097,13 @@ might want to <em>rasterize</em> our vector data - for example, in order to
 mask our raster data, or to be able to select pixels. To do this, we can
 use the <code class="docutils literal notranslate"><span class="pre">rasterio.features</span></code> module
 (<a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.features.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rasterio.features</span> <span class="c1"># we have imported rasterio as rio, so this will be rio.features (and rasterio.features)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import rasterio.features # we have imported rasterio as rio, so this will be rio.features (and rasterio.features)
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">rasterio.features</span></code>has a number of different methods, but the one we
 are interested in here is <code class="docutils literal notranslate"><span class="pre">rasterize()</span></code>
 (<a class="reference external" href="https://rasterio.readthedocs.io/en/latest/api/rasterio.features.html#rasterio.features.rasterize">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">rio</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">rasterize</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>help(rio.features.rasterize)
 </pre></div>
 </div>
 <p>Here, we pass an <strong>iterable</strong> object (<strong>list</strong>, <strong>tuple</strong>, <strong>array</strong>,
@@ -1113,11 +1113,11 @@ overlaps. If we don’t provide a <code class="docutils literal notranslate"><sp
 <code class="docutils literal notranslate"><span class="pre">default_value</span></code> or the <code class="docutils literal notranslate"><span class="pre">fill</span></code> value.</p>
 <p>So, to create a rasterized version of our county outlines, we could do
 the following:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shapes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">],</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;COUNTY_ID&#39;</span><span class="p">]))</span> <span class="c1"># get a list of geometry, value pairs</span>
-<span class="n">county_mask</span> <span class="o">=</span> <span class="n">rio</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">rasterize</span><span class="p">(</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span> <span class="c1"># the list of geometry/value pairs</span>
-                                     <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="c1"># the value to use for cells not covered by any geometry</span>
-                                     <span class="n">out_shape</span><span class="o">=</span><span class="n">landcover</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="c1"># the shape of the new raster</span>
-                                     <span class="n">transform</span><span class="o">=</span><span class="n">affine_tfm</span><span class="p">)</span> <span class="c1"># the geotransform of the new raster</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>shapes = list(zip(counties[&#39;geometry&#39;], counties[&#39;COUNTY_ID&#39;])) # get a list of geometry, value pairs
+county_mask = rio.features.rasterize(shapes=shapes, # the list of geometry/value pairs
+                                     fill=0, # the value to use for cells not covered by any geometry
+                                     out_shape=landcover.shape, # the shape of the new raster
+                                     transform=affine_tfm) # the geotransform of the new raster
 </pre></div>
 </div>
 <p>The first line uses <code class="docutils literal notranslate"><span class="pre">zip()</span></code> and <code class="docutils literal notranslate"><span class="pre">list()</span></code> to create a list of
@@ -1133,9 +1133,9 @@ use the <code class="docutils literal notranslate"><span class="pre">shape</span
 we expect.</p>
 <p>The cell below will display the <code class="docutils literal notranslate"><span class="pre">county_mask</span></code> raster in a
 <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> <strong>Figure</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">county_mask</span><span class="p">)</span> <span class="c1"># visualize the rasterized output</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span> <span class="c1"># show a colorbar</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(1, 1)
+im = ax.imshow(county_mask) # visualize the rasterized output
+fig.colorbar(im) # show a colorbar
 </pre></div>
 </div>
 <img alt="../../../_images/ZonalStats_53_1.png" src="../../../_images/ZonalStats_53_1.png" />
@@ -1160,8 +1160,8 @@ boolean indexing.</p>
 <p>To start, we’ll open our dem raster - note that this raster has the same
 georeferencing information as our landcover raster, so we don’t have to
 load all of that information, just the raster band:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data_files/NI_DEM.tif&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataset</span><span class="p">:</span>
-    <span class="n">dem</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>with rio.open(&#39;data_files/NI_DEM.tif&#39;) as dataset:
+    dem = dataset.read(1)
 </pre></div>
 </div>
 <p>From the previous section, we have an array with values corresponding
@@ -1174,10 +1174,10 @@ Antrim (<code class="docutils literal notranslate"><span class="pre">COUNTY_ID=1
 </pre></div>
 </div>
 <p>Let’s see what this mask looks like:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_antrim</span> <span class="o">=</span> <span class="n">county_mask</span> <span class="o">==</span> <span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>county_antrim = county_mask == 1
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">county_antrim</span><span class="p">)</span> <span class="c1"># visualize the rasterized output</span>
+fig, ax = plt.subplots(1, 1)
+ax.imshow(county_antrim) # visualize the rasterized output
 </pre></div>
 </div>
 <img alt="../../../_images/ZonalStats_57_1.png" src="../../../_images/ZonalStats_57_1.png" />
@@ -1188,17 +1188,17 @@ or
 If we wanted to create a mask corresponding to both County Antrim
 (<code class="docutils literal notranslate"><span class="pre">county_mask</span> <span class="pre">==</span> <span class="pre">3</span></code>) and County Down (<code class="docutils literal notranslate"><span class="pre">county_mask</span> <span class="pre">==</span> <span class="pre">1</span></code>), we could
 do the following:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">antrim_and_down</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">county_mask</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="n">county_mask</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>antrim_and_down = np.logical_or(county_mask == 3, county_mask == 1)
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">antrim_and_down</span><span class="p">)</span>
+fig, ax = plt.subplots(1, 1)
+ax.imshow(antrim_and_down)
 </pre></div>
 </div>
 <img alt="../../../_images/ZonalStats_59_1.png" src="../../../_images/ZonalStats_59_1.png" />
 <p>We could then find the mean elevation of these two counties by indexing,
 or selecting, pixels from <code class="docutils literal notranslate"><span class="pre">dem</span></code> using our mask:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad_elevation</span> <span class="o">=</span> <span class="n">dem</span><span class="p">[</span><span class="n">antrim_and_down</span><span class="p">]</span> <span class="c1"># index the array using the antrim_and_down mask</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean elevation: </span><span class="si">{:.2f}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ad_elevation</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ad_elevation = dem[antrim_and_down] # index the array using the antrim_and_down mask
+print(&#39;Mean elevation: {:.2f} m&#39;.format(ad_elevation.mean()))
 </pre></div>
 </div>
 <p>Now let’s say we wanted to investigate the two types of woodland we
@@ -1206,8 +1206,8 @@ have, broadleaf and conifer. One thing we might want to look at is the
 area-elevation distribution of each type. To do this, we first have to
 select the pixels from the DEM that correspond to the broadleaf
 woodlands, and all of the pixels corresponding to conifer woodlands:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">broad_els</span> <span class="o">=</span> <span class="n">dem</span><span class="p">[</span><span class="n">landcover</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># get all dem values where landcover = 1</span>
-<span class="n">conif_els</span> <span class="o">=</span> <span class="n">dem</span><span class="p">[</span><span class="n">landcover</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># get all dem values where landcover = 2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>broad_els = dem[landcover == 1] # get all dem values where landcover = 1
+conif_els = dem[landcover == 2] # get all dem values where landcover = 2
 </pre></div>
 </div>
 <p>Now, we have two different arrays, <code class="docutils literal notranslate"><span class="pre">broad_els</span></code> and <code class="docutils literal notranslate"><span class="pre">conif_els</span></code>, each
@@ -1225,30 +1225,30 @@ bin. We’ll use <code class="docutils literal notranslate"><span class="pre">nu
 (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html">documentation</a>)
 to generate an <strong>array</strong> of elevation bins ranging from 0 to 600 meters,
 spaced by 5 meters:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">el_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># create an array of values ranging from 0 to 600, spaced by 5.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>el_bins = np.arange(0, 600, 5) # create an array of values ranging from 0 to 600, spaced by 5.
 
-<span class="n">broad_count</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">broad_els</span><span class="p">,</span> <span class="n">el_bins</span><span class="p">)</span> <span class="c1"># bin the broadleaf elevations using the elevation bins</span>
-<span class="n">conif_count</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">conif_els</span><span class="p">,</span> <span class="n">el_bins</span><span class="p">)</span> <span class="c1"># bin the conifer elevations using the elevation bins</span>
+broad_count, _ = np.histogram(broad_els, el_bins) # bin the broadleaf elevations using the elevation bins
+conif_count, _ = np.histogram(conif_els, el_bins) # bin the conifer elevations using the elevation bins
 
-<span class="n">broad_area</span> <span class="o">=</span> <span class="n">broad_count</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">100</span> <span class="c1"># convert the pixel counts to an area by multipling by the pixel size in x, y</span>
-<span class="n">conif_area</span> <span class="o">=</span> <span class="n">conif_count</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">100</span>
+broad_area = broad_count * 100 * 100 # convert the pixel counts to an area by multipling by the pixel size in x, y
+conif_area = conif_count * 100 * 100
 </pre></div>
 </div>
 <p>Finally, we can plot the area-elevation distribution for each land cover
 type using <code class="docutils literal notranslate"><span class="pre">plt.bar()</span></code>
 (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.bar.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span> <span class="c1"># create a new figure and axes object</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(1, 1, figsize=(8, 8)) # create a new figure and axes object
 
-<span class="c1"># plot the area-elevation distributions using matplotlib.pyplot.bar(), converting from sq m to sq km:</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">el_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">broad_area</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;edge&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Broadleaf Woodland&#39;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">el_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">conif_area</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;edge&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Conifer Woodland&#39;</span><span class="p">)</span>
+# plot the area-elevation distributions using matplotlib.pyplot.bar(), converting from sq m to sq km:
+_ = ax.bar(el_bins[:-1], broad_area / 1e6, align=&#39;edge&#39;, width=5, alpha=0.8, label=&#39;Broadleaf Woodland&#39;)
+_ = ax.bar(el_bins[:-1], conif_area / 1e6, align=&#39;edge&#39;, width=5, alpha=0.8, label=&#39;Conifer Woodland&#39;)
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">)</span> <span class="c1"># set the x limits of the plot</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span> <span class="c1"># set the y limits of the plot</span>
+ax.set_xlim(0, 550) # set the x limits of the plot
+ax.set_ylim(0, 30) # set the y limits of the plot
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Elevation (m)&#39;</span><span class="p">)</span> <span class="c1"># add an x label</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Area (km$^2$)&#39;</span><span class="p">)</span> <span class="c1"># add a y label</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> <span class="c1"># add a legend</span>
+ax.set_xlabel(&#39;Elevation (m)&#39;) # add an x label
+ax.set_ylabel(&#39;Area (km$^2$)&#39;) # add a y label
+ax.legend() # add a legend
 </pre></div>
 </div>
 <img alt="../../../_images/ZonalStats_67_1.png" src="../../../_images/ZonalStats_67_1.png" />
@@ -1264,8 +1264,8 @@ statistics for each of these samples using <code class="docutils literal notrans
 <code class="docutils literal notranslate"><span class="pre">np.std()</span></code>
 (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.std.html">documentation</a>),
 and so on:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Broadleaf mean elevation: </span><span class="si">{:.2f}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">broad_els</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Broadleaf median elevation: </span><span class="si">{:.2f}</span><span class="s1"> m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">broad_els</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Broadleaf mean elevation: {:.2f} m&#39;.format(np.mean(broad_els)))
+print(&#39;Broadleaf median elevation: {:.2f} m&#39;.format(np.median(broad_els)))
 </pre></div>
 </div>
 <p>Of the 10 different landcover types shown here, which one has the
@@ -1274,13 +1274,13 @@ values?</p>
 <p>Starting from the initial code in the cell below, create a <strong>DataFrame</strong>
 of descriptive statistics of the elevation for each landcover type,
 which will help you answer this question.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a new pandas DataFrame with 6 columns</span>
-<span class="n">landcover_els</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;std. dev&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># create a new pandas DataFrame with 6 columns
+landcover_els = pd.DataFrame(columns=[&#39;name&#39;, &#39;mean&#39;, &#39;median&#39;, &#39;std. dev&#39;, &#39;max&#39;, &#39;min&#39;, &#39;range&#39;])
 
-<span class="n">landcover_els</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">short_names</span> <span class="c1"># add the short names to the &#39;name&#39; column</span>
+landcover_els[&#39;name&#39;] = short_names # add the short names to the &#39;name&#39; column
 
-<span class="c1"># now, write a loop that will populate the table with descriptive statistics about the elevation</span>
-<span class="c1"># of each landcover class</span>
+# now, write a loop that will populate the table with descriptive statistics about the elevation
+# of each landcover class
 </pre></div>
 </div>
 </section>
@@ -1385,7 +1385,7 @@ By Bob McNabb
 
   <p class="copyright">
     
-      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
       <br/>
     
   </p>

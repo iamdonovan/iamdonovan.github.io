@@ -687,8 +687,8 @@ file;</p></li>
 <p>To do this, we use the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement, followed by the name of the
 package. Remember that we can also <em>alias</em> the package name using
 <code class="docutils literal notranslate"><span class="pre">as</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> <span class="c1"># import pandas, but alias it as pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span> <span class="c1"># import seaborn, but alias it as sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd # import pandas, but alias it as pd
+import seaborn as sns # import seaborn, but alias it as sns
 </pre></div>
 </div>
 </section>
@@ -696,7 +696,7 @@ package. Remember that we can also <em>alias</em> the package name using
 <h2>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h2>
 <p>Now, we’re ready to load the data file, using <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/armaghdata.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>armagh = pd.read_csv(&#39;data/armaghdata.csv&#39;)
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> has a number of functions for reading data from files,
@@ -709,7 +709,7 @@ Note that in order to read Excel files, you will need to install
 <p>To view a summary of the <strong>DataFrame</strong>, we can use the <code class="docutils literal notranslate"><span class="pre">.head()</span></code>
 method
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># show the first 10 rows of the dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>armagh.head(n=10) # show the first 10 rows of the dataframe
 </pre></div>
 </div>
 <p>We can also see that only the <code class="docutils literal notranslate"><span class="pre">rain</span></code> variable has values back to 1853
@@ -730,19 +730,19 @@ The argument that we will use for this function is a <strong>dict</strong> objec
 with key/value pairs corresponding to <strong>year</strong>, <strong>month</strong>, and <strong>day</strong>.
 Because we don’t have a <strong>day</strong> column in the <strong>DataFrame</strong>, we will
 just default to a value of 1:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">({</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;yyyy&#39;</span><span class="p">],</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">],</span> <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1"># format datetime objects using the yyyy and mm columns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pd.to_datetime({&#39;year&#39;: armagh[&#39;yyyy&#39;], &#39;month&#39;: armagh[&#39;mm&#39;], &#39;day&#39;: 1}) # format datetime objects using the yyyy and mm columns
 </pre></div>
 </div>
 <p>Now, we can add this to the <strong>DataFrame</strong> as a column called <code class="docutils literal notranslate"><span class="pre">date</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">({</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;yyyy&#39;</span><span class="p">],</span> <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">],</span> <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1"># add the datetime series to the dataframe with the name &#39;date&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>armagh[&#39;date&#39;] = pd.to_datetime({&#39;year&#39;: armagh[&#39;yyyy&#39;], &#39;month&#39;: armagh[&#39;mm&#39;], &#39;day&#39;: 1}) # add the datetime series to the dataframe with the name &#39;date&#39;
 
-<span class="n">armagh</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># show the first 10 rows of the table</span>
+armagh.head(n=10) # show the first 10 rows of the table
 </pre></div>
 </div>
 <p>we can also check the data type of the new column - we should see that
 it is <code class="docutils literal notranslate"><span class="pre">datetime64[ns]</span></code>, corresponding to a 64-bit <strong>datetime</strong> object
 with units of nanoseconds:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">.</span><span class="n">dtypes</span> <span class="c1"># see the data type of each column</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>armagh.dtypes # see the data type of each column
 </pre></div>
 </div>
 </section>
@@ -766,7 +766,7 @@ February).</p>
 <p>First, let’s remember how we can select rows from a table using a
 <strong>conditional</strong> statement. For example, if we want to select all rows
 where the value in the <code class="docutils literal notranslate"><span class="pre">mm</span></code> column is 1, 2, or 12, we could write:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">12</span><span class="p">)]</span> <span class="c1"># select rows where month is &lt; 3 or == 12</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>armagh.loc[(armagh[&#39;mm&#39;] &lt; 3) | (armagh[&#39;mm&#39;] == 12)] # select rows where month is &lt; 3 or == 12
 </pre></div>
 </div>
 <p>As you can see, this selects a total of 510 rows from the table,
@@ -778,18 +778,18 @@ two conditional statements: it returns <code class="docutils literal notranslate
 compactly, using the <code class="docutils literal notranslate"><span class="pre">.isin()</span></code> method
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.isin.html">documentation</a>)
 and a <strong>list</strong> (or other sequence) of the values to compare:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">])]</span> <span class="c1"># select from the table based on whether values are in [1, 2, 12]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>armagh.loc[armagh[&#39;mm&#39;].isin([1, 2, 12])] # select from the table based on whether values are in [1, 2, 12]
 </pre></div>
 </div>
 <p>We can then write 4 separate statements to assign these values to the
 <strong>DataFrame</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># initialize an empty string column</span>
-<span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">]),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;winter&#39;</span> <span class="c1"># if month is 1, 2, or 12, set season to winter</span>
-<span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;spring&#39;</span> <span class="c1"># if month is 3, 4, or 5, set season to spring</span>
-<span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;summer&#39;</span> <span class="c1"># if month is 6, 7, or 8, set season to summer</span>
-<span class="n">armagh</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">armagh</span><span class="p">[</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;autumn&#39;</span> <span class="c1"># if month is 9, 10, or 11, set season to autumn</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>armagh[&#39;season&#39;] = &#39;&#39; # initialize an empty string column
+armagh.loc[armagh[&#39;mm&#39;].isin([1, 2, 12]), &#39;season&#39;] = &#39;winter&#39; # if month is 1, 2, or 12, set season to winter
+armagh.loc[armagh[&#39;mm&#39;].isin(range(3, 6)), &#39;season&#39;] = &#39;spring&#39; # if month is 3, 4, or 5, set season to spring
+armagh.loc[armagh[&#39;mm&#39;].isin(range(6, 9)), &#39;season&#39;] = &#39;summer&#39; # if month is 6, 7, or 8, set season to summer
+armagh.loc[armagh[&#39;mm&#39;].isin(range(9, 12)), &#39;season&#39;] = &#39;autumn&#39; # if month is 9, 10, or 11, set season to autumn
 
-<span class="n">armagh</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># show the first year of data, to check that we have set the values properly</span>
+armagh.head(n=12) # show the first year of data, to check that we have set the values properly
 </pre></div>
 </div>
 </section>
@@ -808,7 +808,7 @@ using our data, starting with a simple scatter plot using
 plot along the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axes. The following will plot <code class="docutils literal notranslate"><span class="pre">tmax</span></code>
 (monthly maximum temperature) vs <code class="docutils literal notranslate"><span class="pre">date</span></code> - in other words, a time
 series of monthly maximum temperature:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">)</span> <span class="c1"># create a simple scatter plot of tmax vs date, using the armagh dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.scatterplot(data=armagh, x=&quot;date&quot;, y=&quot;tmax&quot;) # create a simple scatter plot of tmax vs date, using the armagh dataframe
 </pre></div>
 </div>
 <img alt="../../../_images/plotting_19_1.png" src="../../../_images/plotting_19_1.png" />
@@ -835,10 +835,10 @@ create a histogram using <code class="docutils literal notranslate"><span class=
 (<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.histplot.html">documentation</a>),
 we need to specify the <code class="docutils literal notranslate"><span class="pre">x</span></code> variable. We’ll continue using <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, so
 this will be a histogram of the values of <code class="docutils literal notranslate"><span class="pre">tmax</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># plot a histogram of tmax, using the armagh dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.histplot(data=armagh, x=&#39;tmax&#39;) # plot a histogram of tmax, using the armagh dataframe
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_21_1.png" src="../../../_images/plotting_21_1.png" />
+<img alt="../../../_images/plotting_21_11.png" src="../../../_images/plotting_21_11.png" />
 <p>By default, <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> calculates the bin width (and therefore number
 of bins) based on the sample size and variance of the variable. We can
 also specify the number of bins to use (using the <code class="docutils literal notranslate"><span class="pre">bins</span></code> argument),
@@ -846,10 +846,10 @@ the width of the bins to use (using the <code class="docutils literal notranslat
 the edges of the bins (by passing a sequence of bin edges using the
 <code class="docutils literal notranslate"><span class="pre">bins</span></code> argument).</p>
 <p>Here’, let’s see how the plot changes by specifying using 30 bins:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># plot a histogram of tmax, using the armagh dataframe and 30 bins</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.histplot(data=armagh, x=&#39;tmax&#39;, bins=30) # plot a histogram of tmax, using the armagh dataframe and 30 bins
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_23_1.png" src="../../../_images/plotting_23_1.png" />
+<img alt="../../../_images/plotting_23_11.png" src="../../../_images/plotting_23_11.png" />
 <p>In the plot above, you can see how <code class="docutils literal notranslate"><span class="pre">tmax</span></code> is distributed, with several
 apparent peaks around 8°C, 14°C, and 18°C. Presumably, these would be
 peaks that roughly correspond to winter, spring/autumn, and summer,
@@ -858,10 +858,10 @@ is correct.</p>
 <p>To do this, we can use the <code class="docutils literal notranslate"><span class="pre">hue</span></code> keyword argument to
 <code class="docutils literal notranslate"><span class="pre">sns.histplot()</span></code>, which will group the values based on the variable
 passed (in this case, <code class="docutils literal notranslate"><span class="pre">season</span></code>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># show the distribution of tmax, broken down by season</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.histplot(data=armagh, x=&quot;tmax&quot;, hue=&quot;season&quot;, bins=30) # show the distribution of tmax, broken down by season
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_25_1.png" src="../../../_images/plotting_25_1.png" />
+<img alt="../../../_images/plotting_25_11.png" src="../../../_images/plotting_25_11.png" />
 <p>With this plot, we can see how the total distribution of the dataset is
 made up of each group - as we had suspected, the peaks on either side
 primarily correspond to winter (blue) and summer (green), while the peak
@@ -879,17 +879,17 @@ adding up to 1.</p></li>
 </ul>
 <p>In the cell below, add an argument to <code class="docutils literal notranslate"><span class="pre">histplot</span></code> to show the
 histograms stacked on top of each other:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;tmax&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># remember to add the right keyword argument!</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.histplot(data=armagh, x=&quot;tmax&quot;, hue=&quot;season&quot;, bins=30) # remember to add the right keyword argument!
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_27_1.png" src="../../../_images/plotting_27_1.png" />
+<img alt="../../../_images/plotting_27_11.png" src="../../../_images/plotting_27_11.png" />
 </section>
 <section id="example-density-plot">
 <h3>example: density plot<a class="headerlink" href="#example-density-plot" title="Permalink to this heading">#</a></h3>
 <p>We can also plot the density distribution of the data, a smoothed
 version of the histogram, using <code class="docutils literal notranslate"><span class="pre">sns.kdeplot()</span></code>
 (<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.kdeplot.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># plot the density distribution of the data, colored by season, filled in</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.kdeplot(data=armagh, x=&#39;tmax&#39;, hue=&#39;season&#39;, fill=True) # plot the density distribution of the data, colored by season, filled in
 </pre></div>
 </div>
 </section>
@@ -897,16 +897,16 @@ version of the histogram, using <code class="docutils literal notranslate"><span
 <h3>example: box plots<a class="headerlink" href="#example-box-plots" title="Permalink to this heading">#</a></h3>
 <p>To make a box plot, we can use <code class="docutils literal notranslate"><span class="pre">sns.boxplot()</span></code>
 (<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.boxplot.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span> <span class="c1"># create a vertical box plot of rain, grouped by season</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.boxplot(data=armagh, x=&#39;season&#39;, y=&#39;rain&#39;) # create a vertical box plot of rain, grouped by season
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_31_1.png" src="../../../_images/plotting_31_1.png" />
+<img alt="../../../_images/plotting_31_11.png" src="../../../_images/plotting_31_11.png" />
 <p>To swap the orientation of the boxes, we can change the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>
 mapping:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span> <span class="c1"># create a horizontal box plot of rain, grouped by season</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.boxplot(data=armagh, x=&#39;rain&#39;, y=&#39;season&#39;) # create a horizontal box plot of rain, grouped by season
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_33_1.png" src="../../../_images/plotting_33_1.png" />
+<img alt="../../../_images/plotting_33_11.png" src="../../../_images/plotting_33_11.png" />
 </section>
 </section>
 <section id="figure-level-vs-axes-level-functions">
@@ -924,10 +924,10 @@ figure-level plots, which create their own <strong>Figure</strong> object before
 drawing the plot. To see a simple example of this, let’s draw a scatter
 plot using <code class="docutils literal notranslate"><span class="pre">sns.relplot()</span></code>
 (<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.relplot.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># use relplot to show a scatterplot of tmax vs date</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.relplot(data=armagh, kind=&#39;scatter&#39;, x=&#39;date&#39;, y=&#39;tmax&#39;) # use relplot to show a scatterplot of tmax vs date
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_35_1.png" src="../../../_images/plotting_35_1.png" />
+<img alt="../../../_images/plotting_35_11.png" src="../../../_images/plotting_35_11.png" />
 <p>You should notice that the plot looks exactly the same as the scatter
 plot we created using <code class="docutils literal notranslate"><span class="pre">sns.scatterplot()</span></code>. But, the actual output of
 the function is different - this time, it’s:</p>
@@ -941,17 +941,17 @@ rather than an <strong>Axes</strong> - a multi-plot grid that can be used to sho
 conditional relationships. To see how this works in a more complicated
 case, let’s plot the relationship between <code class="docutils literal notranslate"><span class="pre">rain</span></code> and <code class="docutils literal notranslate"><span class="pre">tmax</span></code>, and use
 the <code class="docutils literal notranslate"><span class="pre">col</span></code> argument to create a separate panel for each season:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create a 2x2 grid of panels, one for each value of season</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.relplot(data=armagh, kind=&#39;scatter&#39;, x=&#39;rain&#39;, y=&#39;tmax&#39;, col=&#39;season&#39;, col_wrap=2) # create a 2x2 grid of panels, one for each value of season
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_37_1.png" src="../../../_images/plotting_37_1.png" />
+<img alt="../../../_images/plotting_37_11.png" src="../../../_images/plotting_37_11.png" />
 <p>we can also use the <code class="docutils literal notranslate"><span class="pre">hue</span></code> argument to assign a color based on a
 variable. Note that this will also place a <strong>Legend</strong> outside of the
 plot, explaining what each color/symbol combination means:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">relplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span> <span class="c1"># create a 2x2 grid of panels, one for each value of season</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.relplot(data=armagh, kind=&#39;scatter&#39;, x=&#39;rain&#39;, y=&#39;tmax&#39;, col=&#39;season&#39;, col_wrap=2, hue=&#39;season&#39;) # create a 2x2 grid of panels, one for each value of season
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_39_1.png" src="../../../_images/plotting_39_1.png" />
+<img alt="../../../_images/plotting_39_11.png" src="../../../_images/plotting_39_11.png" />
 <p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code> plot types are organized into three different “modules”,
 based on what type of data they are meant to show:</p>
 <ul class="simple">
@@ -984,10 +984,10 @@ presentation.</p>
 season, we can use <code class="docutils literal notranslate"><span class="pre">sns.lmplot()</span></code>
 (<a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.lmplot.html">documentation</a>)
 - this will plot the scatter plot, plus the regression lines:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.lmplot(data=armagh, x=&#39;rain&#39;, y=&#39;tmax&#39;, hue=&#39;season&#39;)
 </pre></div>
 </div>
-<img alt="../../../_images/plotting_41_1.png" src="../../../_images/plotting_41_1.png" />
+<img alt="../../../_images/plotting_41_11.png" src="../../../_images/plotting_41_11.png" />
 <p>Up to now, we’ve just been showing the output of the different plotting
 calls directly by running each cell. In a script, however, this wouldn’t
 work - we want to assign the output to a new <strong>object</strong>, which we can
@@ -995,7 +995,7 @@ then use in the script (including, ultimately, by saving the plot to a
 file).</p>
 <p>We do this exactly the same way as we have previously, using the <code class="docutils literal notranslate"><span class="pre">=</span></code>
 operator:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">armagh</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rain_tmax_plot = sns.lmplot(data=armagh, x=&#39;rain&#39;, y=&#39;tmax&#39;, hue=&#39;season&#39;)
 </pre></div>
 </div>
 <img alt="../../../_images/plotting_43_0.png" src="../../../_images/plotting_43_0.png" />
@@ -1007,13 +1007,13 @@ they inherit a number of attributes from the <code class="docutils literal notra
 are built on.</p>
 <p>For example, the <code class="docutils literal notranslate"><span class="pre">rain_tmax_plot</span></code> object we have created is a
 <strong>seaborn.axisgrid.FacetGrid</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">rain_tmax_plot</span><span class="p">)</span> <span class="c1"># show the type of rain_tmax_plot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>type(rain_tmax_plot) # show the type of rain_tmax_plot
 </pre></div>
 </div>
 <p>This <strong>class</strong> has an attribute, <code class="docutils literal notranslate"><span class="pre">ax</span></code>, which is a
 <strong>matplotlib.axes.Axes</strong>
 (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span> <span class="c1"># show the type of rain_tmax_plot.ax</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>type(rain_tmax_plot.ax) # show the type of rain_tmax_plot.ax
 </pre></div>
 </div>
 <p>To change the properties of the axes, then, we can use the relevant
@@ -1024,10 +1024,10 @@ and <code class="docutils literal notranslate"><span class="pre">.set_ylabel()</
 will change the text and properties of the x and y axis labels,
 respectively, and we can use the <code class="docutils literal notranslate"><span class="pre">fontsize</span></code> argument to set the size
 of the text:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;monthly rainfall (mm)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span> <span class="c1"># set the x axis label</span>
-<span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;monthly maximum temperature (°C)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span> <span class="c1"># set the y axis label</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rain_tmax_plot.ax.set_xlabel(&#39;monthly rainfall (mm)&#39;, fontsize=14) # set the x axis label
+rain_tmax_plot.ax.set_ylabel(&#39;monthly maximum temperature (°C)&#39;, fontsize=14) # set the y axis label
 
-<span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span> <span class="c1"># show the figure again</span>
+rain_tmax_plot.fig # show the figure again
 </pre></div>
 </div>
 <img alt="../../../_images/plotting_49_0.png" src="../../../_images/plotting_49_0.png" />
@@ -1037,10 +1037,10 @@ and <code class="docutils literal notranslate"><span class="pre">.set_yticks()</
 (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_yticks.html">documentation</a>)
 to change the location, text, and properties of the ticks on the x and y
 axis, respectively:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># change the xtick label font size</span>
-<span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="c1"># change the xtick label font size</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rain_tmax_plot.ax.set_xticks(range(0, 250, 50), labels=range(0, 250, 50), fontsize=12) # change the xtick label font size
+rain_tmax_plot.ax.set_yticks(range(5, 25, 5), labels=range(5, 25, 5), fontsize=12) # change the xtick label font size
 
-<span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span> <span class="c1"># show the figure again</span>
+rain_tmax_plot.fig # show the figure again
 </pre></div>
 </div>
 <img alt="../../../_images/plotting_51_0.png" src="../../../_images/plotting_51_0.png" />
@@ -1052,13 +1052,13 @@ axis, respectively:</p>
 have guessed, this is a <strong>matplotlib.figure.Figure</strong> object
 (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure">documentation</a>)
 - effectively, the canvas where <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> draws the plot:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span><span class="p">)</span> <span class="c1"># show the type of rain_tmax_plot.fig</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>type(rain_tmax_plot.fig) # show the type of rain_tmax_plot.fig
 </pre></div>
 </div>
 <p>To save our figure to a file, we can use <code class="docutils literal notranslate"><span class="pre">.savefig()</span></code>
 (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.savefig">documentation</a>)
 as an SVG (scalable vector graphics) file:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rain_tmax_plot</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;rain_tmax_plot.svg&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span> <span class="c1"># save the figure cropped close to the axes</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rain_tmax_plot.fig.savefig(&#39;rain_tmax_plot.svg&#39;, bbox_inches=&#39;tight&#39;) # save the figure cropped close to the axes
 </pre></div>
 </div>
 </section>
@@ -1168,7 +1168,7 @@ By Bob McNabb
 
   <p class="copyright">
     
-      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
       <br/>
     
   </p>

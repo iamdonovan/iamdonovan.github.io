@@ -687,20 +687,20 @@ locations of all Bus and Rail stations in Northern Ireland, from
 <h3>getting started<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>To get started, run the following cell to import the packages we’ll use
 in the exercise.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">folium</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import geopandas as gpd
+import folium
 </pre></div>
 </div>
 <p>Next, we’ll load the Wards dataset using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, just like what
 we saw in the previous exercise:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wards</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;data_files/NI_Wards.shp&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wards = gpd.read_file(&#39;data_files/NI_Wards.shp&#39;)
 </pre></div>
 </div>
 <p>Remember that we can use <code class="docutils literal notranslate"><span class="pre">.head()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html">documentation</a>)
 to see a preview of the data:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wards</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wards.head()
 </pre></div>
 </div>
 <p>To create an interactive map from the <strong>GeoDataFrame</strong>, we use
@@ -713,7 +713,7 @@ object.</p>
 set the color using the viridis colormap from <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> (<a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">more
 about
 colormaps</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">wards</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="s1">&#39;Population&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>m = wards.explore(&#39;Population&#39;, cmap=&#39;viridis&#39;)
 </pre></div>
 </div>
 <p>As you can see, this adds a color scale/legend to the upper right-hand
@@ -742,14 +742,14 @@ and even saving the map to an html file that we can share with others.</p>
 </div>
 <p>Here, we’ll see how we can use a different method to acheive the same
 goal.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data_files/Airports.csv&#39;</span><span class="p">)</span> <span class="c1"># read the csv data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = pd.read_csv(&#39;data_files/Airports.csv&#39;) # read the csv data
 
-<span class="c1"># create a new geodataframe</span>
-<span class="n">airports</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;website&#39;</span><span class="p">]],</span> <span class="c1"># use the csv data, but only the name/website columns</span>
-                            <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]),</span> <span class="c1"># set the geometry using points_from_xy</span>
-                            <span class="n">crs</span><span class="o">=</span><span class="s1">&#39;epsg:4326&#39;</span><span class="p">)</span> <span class="c1"># set the CRS using a text representation of the EPSG code for WGS84 lat/lon</span>
+# create a new geodataframe
+airports = gpd.GeoDataFrame(df[[&#39;name&#39;, &#39;website&#39;]], # use the csv data, but only the name/website columns
+                            geometry=gpd.points_from_xy(df[&#39;lon&#39;], df[&#39;lat&#39;]), # set the geometry using points_from_xy
+                            crs=&#39;epsg:4326&#39;) # set the CRS using a text representation of the EPSG code for WGS84 lat/lon
 
-<span class="n">airports</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># show the new geodataframe</span>
+airports.head() # show the new geodataframe
 </pre></div>
 </div>
 <p>Here, we’ve used the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> and <code class="docutils literal notranslate"><span class="pre">crs</span></code> arguments of
@@ -780,13 +780,13 @@ object. Since we already have a map object in place, we can pass this as
 an argument to add additional data to the map.</p>
 <p>We also have a few additional arguments here - we’ll say more about what
 those do after the jump.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add the airport points to the existing map</span>
-<span class="n">airports</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span>
-                 <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="c1"># add the markers to the same map we just created</span>
-                 <span class="n">marker_type</span><span class="o">=</span><span class="s1">&#39;marker&#39;</span><span class="p">,</span> <span class="c1"># use a marker for the points, instead of a circle</span>
-                 <span class="n">popup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># show the information as a popup when we click on the marker</span>
-                 <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># don&#39;t show a separate legend for the point layer</span>
-                <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># add the airport points to the existing map
+airports.explore(&#39;name&#39;,
+                 m=m, # add the markers to the same map we just created
+                 marker_type=&#39;marker&#39;, # use a marker for the points, instead of a circle
+                 popup=True, # show the information as a popup when we click on the marker
+                 legend=False, # don&#39;t show a separate legend for the point layer
+                )
 </pre></div>
 </div>
 <p>As you can see, the default color for the <strong>Marker</strong> style is blue with
@@ -802,8 +802,8 @@ data that don’t have spatial information - in that case, we’ll need to
 <em>join</em> the tables based on some shared attribute.</p>
 <p>To see how this works, we can first load the information about public
 transportation for each electoral ward using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transport</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data_files/transport_data.csv&#39;</span><span class="p">)</span>
-<span class="n">transport</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>transport = pd.read_csv(&#39;data_files/transport_data.csv&#39;)
+transport.head()
 </pre></div>
 </div>
 <p>Note that this dataset doesn’t have any geospatial information, not even
@@ -813,8 +813,8 @@ which matches the Ward Code attributes from the <code class="docutils literal no
 <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame.merge()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">documentation</a>)
 to perform a <em>join</em> operation.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">wards</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">transport</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Ward Code&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Ward Code&#39;</span><span class="p">)</span>
-<span class="n">merged</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>merged = wards.merge(transport, left_on=&#39;Ward Code&#39;, right_on=&#39;Ward Code&#39;)
+merged.head()
 </pre></div>
 </div>
 <p>To join the two tables, we use the <code class="docutils literal notranslate"><span class="pre">left_on</span></code> and <code class="docutils literal notranslate"><span class="pre">right_on</span></code>
@@ -866,29 +866,29 @@ glyphicons. I’ve creatively chosen the <code class="docutils literal notransla
 from the background a bit, but feel free to make your own adjustments to
 this style.</p>
 <p>Run the cell below to create the new map:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">merged</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">,</span> <span class="c1"># show the Distance column</span>
-                   <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> <span class="c1"># use the &#39;plasma&#39; colormap from matplotlib</span>
-                   <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;caption&#39;</span><span class="p">:</span> <span class="s1">&#39;Distance to nearest bus/rail station in km&#39;</span><span class="p">}</span> <span class="c1"># set the caption to a longer explanation</span>
-                  <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>m = merged.explore(&#39;Distance&#39;, # show the Distance column
+                   cmap=&#39;plasma&#39;, # use the &#39;plasma&#39; colormap from matplotlib
+                   legend_kwds={&#39;caption&#39;: &#39;Distance to nearest bus/rail station in km&#39;} # set the caption to a longer explanation
+                  )
 
-<span class="n">airport_args</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="c1"># add the markers to the same map we just created</span>
-    <span class="s1">&#39;marker_type&#39;</span><span class="p">:</span> <span class="s1">&#39;marker&#39;</span><span class="p">,</span> <span class="c1"># use a marker for the points, instead of a circle</span>
-    <span class="s1">&#39;popup&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="c1"># show the information as a popup when we click on the marker</span>
-    <span class="s1">&#39;legend&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="c1"># don&#39;t show a separate legend for the point layer</span>
-    <span class="s1">&#39;marker_kwds&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="n">folium</span><span class="o">.</span><span class="n">Icon</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;plane&#39;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;fa&#39;</span><span class="p">)}</span> <span class="c1"># make the markers red with a plane icon from FA</span>
-<span class="p">}</span>
+airport_args = {
+    &#39;m&#39;: m, # add the markers to the same map we just created
+    &#39;marker_type&#39;: &#39;marker&#39;, # use a marker for the points, instead of a circle
+    &#39;popup&#39;: True, # show the information as a popup when we click on the marker
+    &#39;legend&#39;: False, # don&#39;t show a separate legend for the point layer
+    &#39;marker_kwds&#39;: {&#39;icon&#39;: folium.Icon(color=&#39;red&#39;, icon=&#39;plane&#39;, prefix=&#39;fa&#39;)} # make the markers red with a plane icon from FA
+}
 
-<span class="c1"># use the airport_args with the ** unpacking operator - more on this next week!</span>
-<span class="n">airports</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">airport_args</span><span class="p">)</span>
+# use the airport_args with the ** unpacking operator - more on this next week!
+airports.explore(&#39;name&#39;, **airport_args)
 
-<span class="n">m</span> <span class="c1"># show the map</span>
+m # show the map
 </pre></div>
 </div>
 <p>The last thing we might want to do is save the map to an html file, so
 that we can <a class="reference external" href="https://iamdonovan.github.io/teaching/egm722/practicals/folium.html">share it
 online</a>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;NI_Transport.html&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>m.save(&#39;NI_Transport.html&#39;)
 </pre></div>
 </div>
 </section>
@@ -994,7 +994,7 @@ By Bob McNabb
 
   <p class="copyright">
     
-      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
       <br/>
     
   </p>

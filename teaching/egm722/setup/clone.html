@@ -618,6 +618,36 @@ document.write(`
 <strong>git</strong> command-line interface.</p>
 <p>Choose <strong>ONE</strong> of the two ways to clone the repository - you do not need to clone it twice.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Windows has something called <a class="reference external" href="https://learn.microsoft.com/en-us/defender-endpoint/controlled-folders#what-is-controlled-folder-access">controlled folder access</a>,
+which protects sensitive folders from being changed by unknown/untrusted programs. This means that if you clone
+your repository to one of these folders (for example, anything on <strong>OneDrive</strong>), you may be unable to run the
+notebooks and scripts for the module.</p>
+<p>For example, you might see an extremely vague error message such as the following:</p>
+<a class="reference internal image-reference" href="../../../_images/onedrive_error.png"><img alt="a jupyter lab error message that says &quot;File Load Error for PythonIntro.ipynb; Unhandled error&quot;" class="align-center" src="../../../_images/onedrive_error.png" style="width: 720px;" /></a>
+<p><br /> This (most likely) means that <strong>jupyter</strong> is unable to write to the repository directory.</p>
+<p>You can still clone your repository to a OneDrive folder, but you will need admin rights to your machine to be able
+to complete the different exercises.</p>
+<p>If you do not have admin rights to your machine, you will need to ask your IT service desk for help, or you will
+need to clone the repository to a directory outside of OneDrive (note that this means outside of folders like
+<strong>~/Documents</strong>, as well!).</p>
+<p>In order to give the specific installation of python from your new <strong>conda</strong> environment permission to write to
+OneDrive folders - this step will need to be completed after you have cloned the repository, and after you have
+<a class="reference internal" href="environment.html"><span class="doc">created your conda environment</span></a>.</p>
+<p>To do this, search for “controlled folder access” in the Windows search bar, then click on “Allow an app through
+Controlled folder access”. After entering your admin credentials, click on <strong>Add an allowed app</strong>, followed by
+<strong>Browse all apps</strong>.</p>
+<p>Now, navigate to the folder where your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment has been created and select <strong>python.exe</strong>.</p>
+<p>Most likely, this is something like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>~/Anaconda3/envs/egm722/python.exe
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">~</span></code> is your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory (e.g., <code class="docutils literal notranslate"><span class="pre">C:\Users\{username}</span></code>). Click <strong>Open</strong> to allow this version of
+<strong>python</strong> to write to controlled folders.</p>
+<p>Note that this <strong>only</strong> applies to this version of <strong>python</strong>. If you create another environment, you will need to
+repeat these steps to allow that version of <strong>python</strong> through controlled folder access.</p>
+</div>
 <section id="github-desktop">
 <h2>github desktop<a class="headerlink" href="#github-desktop" title="Permalink to this heading">#</a></h2>
 <p>Once you have <a class="reference internal" href="fork.html"><span class="doc">forked</span></a> the repository, you can <strong>clone</strong> (download) your fork to your computer. This will
@@ -730,7 +760,7 @@ By Bob McNabb
 
   <p class="copyright">
     
-      © Copyright 2024, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
       <br/>
     
   </p>
