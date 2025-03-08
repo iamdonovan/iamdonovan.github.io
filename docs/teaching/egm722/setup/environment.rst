@@ -124,6 +124,11 @@ Once you have the conda environment set up, you are ready to move on to configur
 anaconda command prompt
 ---------------------------
 
+.. note::
+
+    You only need to do this if you are using a **Windows** machine. On MacOS or Linux, you can open a **Terminal**
+    rather than the **Anaconda Command Prompt**.
+
 From the **Start** menu, open the **Anaconda Command Prompt**:
 
 .. image:: ../../../img/egm722/setup/environment/anaconda_prompt.png
