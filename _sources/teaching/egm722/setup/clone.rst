@@ -8,52 +8,6 @@ cloning the repository
 
     Choose **ONE** of the two ways to clone the repository - you do not need to clone it twice.
 
-.. warning::
-
-    Windows has something called `controlled folder access <https://learn.microsoft.com/en-us/defender-endpoint/controlled-folders#what-is-controlled-folder-access>`__,
-    which protects sensitive folders from being changed by unknown/untrusted programs. This means that if you clone
-    your repository to one of these folders (for example, anything on **OneDrive**), you may be unable to run the
-    notebooks and scripts for the module.
-
-    For example, you might see an extremely vague error message such as the following:
-
-    .. image:: ../../../img/egm722/setup/clone/onedrive_error.png
-        :width: 720
-        :align: center
-        :alt: a jupyter lab error message that says "File Load Error for PythonIntro.ipynb; Unhandled error"
-
-    |br| This (most likely) means that **jupyter** is unable to write to the repository directory.
-
-    You can still clone your repository to a OneDrive folder, but you will need admin rights to your machine to be able
-    to complete the different exercises.
-
-    If you do not have admin rights to your machine, you will need to ask your IT service desk for help, or you will
-    need to clone the repository to a directory outside of OneDrive (note that this means outside of folders like
-    **~/Documents**, as well!).
-
-    In order to give the specific installation of python from your new **conda** environment permission to write to
-    OneDrive folders - this step will need to be completed after you have cloned the repository, and after you have
-    :doc:`created your conda environment <environment>`.
-
-    To do this, search for "controlled folder access" in the Windows search bar, then click on "Allow an app through
-    Controlled folder access". After entering your admin credentials, click on **Add an allowed app**, followed by
-    **Browse all apps**.
-
-    Now, navigate to the folder where your ``egm722`` environment has been created and select **python.exe**.
-
-    Most likely, this is something like:
-
-    .. code-block:: text
-
-        ~/Anaconda3/envs/egm722/python.exe
-
-    where ``~`` is your ``home`` directory (e.g., ``C:\Users\{username}``). Click **Open** to allow this version of
-    **python** to write to controlled folders.
-
-    Note that this **only** applies to this version of **python**. If you create another environment, you will need to
-    repeat these steps to allow that version of **python** through controlled folder access.
-
-
 github desktop
 ---------------
 

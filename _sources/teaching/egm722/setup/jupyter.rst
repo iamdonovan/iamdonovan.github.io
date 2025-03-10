@@ -120,7 +120,22 @@ If you are using Windows, we need to change the **Terminal** from the default (*
 
     If you have not already done so, please complete the steps in the section :ref:`jupyter config` above.
 
-Open the original config file in **Notepad++** or a similar text editor (it should be located at
+First, open your **Comand Prompt** and type the following command:
+
+.. code-block:: sh
+
+    where cmd.exe
+
+This should print out something like the following:
+
+.. code-block:: sh
+
+    C:\Windows\System32\cmd.exe
+
+Make sure to keep this window open while you move on to the next step - you will need to copy this path into your
+config file to finish setting up the terminal.
+
+Now, open the original config file in **Notepad++** or a similar text editor (it should be located at
 ``%HOME%\.jupyter\jupyter_lab_config.py``), and search for ``c.ServerApp.terminado_settings`` (for me, this is at
 line 1062):
 
@@ -129,11 +144,16 @@ line 1062):
     :align: center
     :alt: the jupyter config file, showing the terminal setting
 
-|br| Inside of the curly brackets, add the following text:
+|br| Uncomment this line by removing the ``#`` symbol and the space at the beginning of the line. Then, inside of the
+curly brackets on this line, add the following text:
 
 .. code-block:: python
 
-    'shell_command': [r'C:\WINDOWS\System32\cmd.exe']
+    'shell_command': [r'{cmd_path}']
+
+Making sure to replace ``{cmd_path}`` with the path to **cmd.exe** output by ``where cmd.exe``.
+
+For example, if your **cmd.exe** is located at **C:\\WINDOWS\\System32\\cmd.exe**, your file should now look like this:
 
 .. image:: ../../r-programming/setup/img/jupyter_settings_updated.png
     :width: 600
@@ -141,12 +161,6 @@ line 1062):
     :alt: the jupyter config file, showing the updated terminal setting
 
 |br|
-
-.. note::
-
-    **CMD.exe** is, by default, located at ``%windir%\system32\cmd.exe``. To double-check that your ``%windir%``
-    location is, in fact, ``C:\WINDOWS``, you can type ``echo %windir%`` at the command prompt, and use the location
-    printed out from that command.
 
 Once you have changed the file, save the changes, then close it. Now, launch **JupyterLab** from the command prompt
 (again, making sure that your ``egm722`` environment is active):

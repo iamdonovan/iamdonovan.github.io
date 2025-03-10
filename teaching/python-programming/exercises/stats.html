@@ -667,16 +667,16 @@ that we’ll use;</p></li>
 <li><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html">pathlib</a>, for
 working with filesystem paths.</p></li>
 </ul>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
-import seaborn as sns
-import pingouin as pg
-from pathlib import Path
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">pingouin</span> <span class="k">as</span> <span class="nn">pg</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 </pre></div>
 </div>
 <p>Next, we’ll use <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> to load the combined station data.
 We’ll also use the <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> argument to tell <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to read
 the <code class="docutils literal notranslate"><span class="pre">date</span></code> column as a date:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data = pd.read_csv(Path(&#39;data&#39;, &#39;combined_stations.csv&#39;), parse_dates=[&#39;date&#39;])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;combined_stations.csv&#39;</span><span class="p">),</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
@@ -691,7 +691,7 @@ have seen a little bit of this already, using <code class="docutils literal notr
 <p>First, we’ll have a look at <code class="docutils literal notranslate"><span class="pre">.describe()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html">documentation</a>),
 which provides a summary of each of the (numeric) columns in the table:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.describe()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In the output above, we can see the count (<strong>count</strong>) minimum (<strong>min</strong>),
@@ -714,7 +714,7 @@ in turn.</p>
 (<a class="reference external" href="https://purrr.tidyverse.org/reference/map.html">documentation</a>).
 First, <code class="docutils literal notranslate"><span class="pre">split()</span></code> divides the table into separate tables based on some
 grouping:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.groupby(&#39;station&#39;).describe()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>On its own, this output isn’t all that readable - the summary statistics
@@ -722,13 +722,13 @@ are put into individual columns, which means that the table is very
 wide. Let’s see how we can re-arrange this so that we have a <code class="docutils literal notranslate"><span class="pre">dict()</span></code>
 of <strong>DataFrames</strong>, one for each station. First, we’ll assign the output
 of <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> to a variable, <code class="docutils literal notranslate"><span class="pre">group_summary</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>group_summary = station_data.groupby(&#39;station&#39;).describe()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group_summary</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Next, we’ll iterate over the stations to work with each row of the table
 in turn. First, though, let’s look at how the column names are
 organized:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>group_summary.columns # show the column names
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group_summary</span><span class="o">.</span><span class="n">columns</span> <span class="c1"># show the column names</span>
 </pre></div>
 </div>
 <p>This is an example of a <strong>MultiIndex</strong>
@@ -763,28 +763,28 @@ comprehension.</p>
 <p>Once we have reshaped the row (the <strong>Series</strong>) into a <strong>DataFrame</strong>, we
 assign the column names, before using <code class="docutils literal notranslate"><span class="pre">.append()</span></code> to add the reshaped
 table to a <strong>list</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>stations = group_summary.index.unique() # get the unique values of station from the table
-columns = group_summary.columns.unique(level=0) # get the unique names of the columns from the first level (level 0)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stations</span> <span class="o">=</span> <span class="n">group_summary</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c1"># get the unique values of station from the table</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="n">group_summary</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># get the unique names of the columns from the first level (level 0)</span>
 
-combined_stats = [] # initialize an empty list
+<span class="n">combined_stats</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># initialize an empty list</span>
 
-for station in stations:
-    this_summary = group_summary.loc[station] # get the row corresponding to this station
+<span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">stations</span><span class="p">:</span>
+    <span class="n">this_summary</span> <span class="o">=</span> <span class="n">group_summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station</span><span class="p">]</span> <span class="c1"># get the row corresponding to this station</span>
 
-    reshaped = pd.concat([this_summary[ind] for ind in columns], axis=1) # use list comprehension to reshape the table
-    reshaped.columns = columns # set the column names
-    combined_stats.append(reshaped) # add the reshaped table to the list
+    <span class="n">reshaped</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">this_summary</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># use list comprehension to reshape the table</span>
+    <span class="n">reshaped</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span> <span class="c1"># set the column names</span>
+    <span class="n">combined_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reshaped</span><span class="p">)</span> <span class="c1"># add the reshaped table to the list</span>
 </pre></div>
 </div>
 <p>Finally, we’ll use the built-in function <code class="docutils literal notranslate"><span class="pre">zip()</span></code> to get pairs of
 station names (from <code class="docutils literal notranslate"><span class="pre">station</span></code>) and <strong>DataFrame</strong>s (from
 <code class="docutils literal notranslate"><span class="pre">combined_stats</span></code>), then pass this to <code class="docutils literal notranslate"><span class="pre">dict()</span></code> to create a dictionary
 of station name/<strong>DataFrame</strong> key/value pairs:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary_dict = dict(zip(stations, combined_stats)) # create a dict of station name, dataframe pairs
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">stations</span><span class="p">,</span> <span class="n">combined_stats</span><span class="p">))</span> <span class="c1"># create a dict of station name, dataframe pairs</span>
 </pre></div>
 </div>
 <p>To check that this worked, let’s look at the summary data for Oxford:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>summary_dict[&#39;oxford&#39;] # show the summary data for oxford
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_dict</span><span class="p">[</span><span class="s1">&#39;oxford&#39;</span><span class="p">]</span> <span class="c1"># show the summary data for oxford</span>
 </pre></div>
 </div>
 </section>
@@ -796,29 +796,29 @@ statistics, or use the values of descriptive statistics in our code.
 seen <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.mean.html">documentation</a>),
 for calculating the arithmetic mean of each column of a <strong>DataFrame</strong>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.mean(numeric_only=True) # calculate the mean for each numeric column
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># calculate the mean for each numeric column</span>
 </pre></div>
 </div>
 <p><strong>Series</strong> objects (columns/rows) also have <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.mean.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data[&#39;rain&#39;].mean() # calculate the mean of the rain column
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># calculate the mean of the rain column</span>
 </pre></div>
 </div>
 <p>We can calculate the median of the columns of a <strong>DataFrame</strong> (or a
 <strong>Series</strong>) using <code class="docutils literal notranslate"><span class="pre">.median()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.median.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.median(numeric_only=True) # calculate the median of each numeric column
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># calculate the median of each numeric column</span>
 </pre></div>
 </div>
 <p>To calculate the variance of the columns of a <strong>DataFrame</strong> (or a
 <strong>Series</strong>), use <code class="docutils literal notranslate"><span class="pre">.var()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.var.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.var(numeric_only=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and for the standard deviation, <code class="docutils literal notranslate"><span class="pre">.std()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.std.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.std(numeric_only=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> doesn’t have a built-in function for the inter-quartile range
@@ -826,13 +826,13 @@ for calculating the arithmetic mean of each column of a <strong>DataFrame</stron
 (<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.quantile.html">documentation</a>)
 to calculte the 3rd quantile and the 1st quantile and subtracting the
 outputs:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.quantile(0.75, numeric_only=True) - station_data.quantile(0.25, numeric_only=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-</span> <span class="n">station_data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Finally, we can also calculate the sum of each column of a <strong>DataFrame</strong>
 (or a <strong>Series</strong>) using <code class="docutils literal notranslate"><span class="pre">.sum()</span></code>
 (<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.sum(numeric_only=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>These are far from the only methods available, but they are some of the
@@ -845,7 +845,7 @@ under <strong>Methods</strong>.</p>
 <p>As we have seen, the output of <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> is a special type of
 <strong>DataFrame</strong>, and it inherits almost all of the methods for calculating
 summary statistics:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>station_data.groupby(&#39;station&#39;).mean(numeric_only=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -869,9 +869,9 @@ able to find what you need with a quick internet search.</p>
 <h3>independent samples student’s <em>t</em>-test<a class="headerlink" href="#independent-samples-students-t-test" title="Permalink to this heading">#</a></h3>
 <p>For a start, let’s test the hypothesis that Stornoway Airport gets more
 rain than Armagh. If we first have a look at a box plot:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>selected = station_data.loc[station_data[&#39;station&#39;].isin([&#39;stornoway&#39;, &#39;armagh&#39;])] # select stornoway airport and armagh data
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;stornoway&#39;</span><span class="p">,</span> <span class="s1">&#39;armagh&#39;</span><span class="p">])]</span> <span class="c1"># select stornoway airport and armagh data</span>
 
-sns.boxplot(data=selected, x=&#39;station&#39;, y=&#39;rain&#39;)
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selected</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;rain&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="../../../_images/stats_35_1.png" src="../../../_images/stats_35_1.png" />
@@ -879,13 +879,13 @@ sns.boxplot(data=selected, x=&#39;station&#39;, y=&#39;rain&#39;)
 Armagh.</p>
 <p>To run Student’s <em>t</em>-test using <code class="docutils literal notranslate"><span class="pre">pingouin</span></code>, we use <code class="docutils literal notranslate"><span class="pre">pg.ttest()</span></code>
 (<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.ttest.html">documentation</a>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>armagh_rain = selected.loc[selected[&#39;station&#39;] == &#39;armagh&#39;, &#39;rain&#39;].dropna().sample(n=30) # take a sample of 30 rain observations from armagh
-stornoway_rain = selected.loc[selected[&#39;station&#39;] == &#39;stornoway&#39;, &#39;rain&#39;].dropna().sample(n=30) # take a sample of 30 rain observations from stornoway
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">armagh_rain</span> <span class="o">=</span> <span class="n">selected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">selected</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;armagh&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># take a sample of 30 rain observations from armagh</span>
+<span class="n">stornoway_rain</span> <span class="o">=</span> <span class="n">selected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">selected</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;stornoway&#39;</span><span class="p">,</span> <span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># take a sample of 30 rain observations from stornoway</span>
 
-# test whether stornoway_rain.mean() &gt; armagh_rain.mean() at the 99% confidence level
-rain_comp = pg.ttest(stornoway_rain, armagh_rain, alternative=&#39;greater&#39;, confidence=0.99)
+<span class="c1"># test whether stornoway_rain.mean() &gt; armagh_rain.mean() at the 99% confidence level</span>
+<span class="n">rain_comp</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">ttest</span><span class="p">(</span><span class="n">stornoway_rain</span><span class="p">,</span> <span class="n">armagh_rain</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
 
-rain_comp # show the results dataframe
+<span class="n">rain_comp</span> <span class="c1"># show the results dataframe</span>
 </pre></div>
 </div>
 <p>The output of <code class="docutils literal notranslate"><span class="pre">pg.ttest()</span></code> is a <strong>DataFrame</strong> that gives us the
@@ -907,24 +907,24 @@ provides a good estimate of the mean of all summer temperatures measured
 at Oxford.</p>
 <p>First, we’ll select all of the summer values of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> recorded at
 Oxford, then calculate the mean value of these temperatures:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>oxford_summer_tmax = station_data.query(&#39;station == &quot;oxford&quot; &amp; season == &quot;summer&quot;&#39;)[&#39;tmax&#39;]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oxford_summer_tmax</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;station == &quot;oxford&quot; &amp; season == &quot;summer&quot;&#39;</span><span class="p">)[</span><span class="s1">&#39;tmax&#39;</span><span class="p">]</span>
 
-print(f&quot;Oxford Mean Summer Tmax: {oxford_summer_tmax.mean():.1f}&quot;)
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Oxford Mean Summer Tmax: </span><span class="si">{</span><span class="n">oxford_summer_tmax</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>So the mean summer temperature measured in Oxford between 1853-2022 is
 21.1°C - now, let’s take a random sample of 30 temperatures using
 <code class="docutils literal notranslate"><span class="pre">.sample()</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sample_tmax = oxford_summer_tmax.sample(n=30) # select a random sample of 30 values
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_tmax</span> <span class="o">=</span> <span class="n">oxford_summer_tmax</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># select a random sample of 30 values</span>
 </pre></div>
 </div>
 <p>Once again, we use <code class="docutils literal notranslate"><span class="pre">pg.ttest()</span></code> to conduct the test. Because
 <code class="docutils literal notranslate"><span class="pre">oxford_summer_tmax</span></code> is a single value, the function knows that this
 is a one-sample test:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># test whether sample_tmax.mean() is not equal to oxford_summer_tmax at the 95% confidence level
-tmax_comp = pg.ttest(sample_tmax, oxford_summer_tmax, alternative=&#39;two-sided&#39;, confidence=0.95)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test whether sample_tmax.mean() is not equal to oxford_summer_tmax at the 95% confidence level</span>
+<span class="n">tmax_comp</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">ttest</span><span class="p">(</span><span class="n">sample_tmax</span><span class="p">,</span> <span class="n">oxford_summer_tmax</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;two-sided&#39;</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
 
-tmax_comp # show the results dataframe
+<span class="n">tmax_comp</span> <span class="c1"># show the results dataframe</span>
 </pre></div>
 </div>
 <p>Based on this, we can’t conclude that our sample mean is significantly
@@ -941,8 +941,8 @@ Let’s start by looking at the Wilcoxon Rank Sum test, which is analogous
 to the independent sample <em>t</em>-test. For this, we’ll use the same data
 that we did before, again testing whether Stornoway Airport gets more
 rainfall, on average, than Armagh:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># test whether mean(stornoway.rain) &gt; mean(armagh.rain)
-pg.wilcoxon(stornoway_rain, armagh_rain, alternative=&#39;greater&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test whether mean(stornoway.rain) &gt; mean(armagh.rain)</span>
+<span class="n">pg</span><span class="o">.</span><span class="n">wilcoxon</span><span class="p">(</span><span class="n">stornoway_rain</span><span class="p">,</span> <span class="n">armagh_rain</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;greater&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The output table has the following columns:</p>
@@ -964,9 +964,9 @@ variance test. In this example, we’ll only look at data from Armagh,
 Oxford, and Stornoway Airport, because the Southampton time series ends
 in 1999. We’ll first calculate the annually-averaged values of the
 meteorological variables, using <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>annual_average = station_data.loc[station_data[&#39;station&#39;].isin([&#39;armagh&#39;, &#39;oxford&#39;, &#39;stornoway&#39;])] \
-    .groupby(&#39;year&#39;) \
-    .mean(numeric_only=True)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annual_average</span> <span class="o">=</span> <span class="n">station_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">station_data</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;armagh&#39;</span><span class="p">,</span> <span class="s1">&#39;oxford&#39;</span><span class="p">,</span> <span class="s1">&#39;stornoway&#39;</span><span class="p">])]</span> \
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Then, we’ll add a new variable, <code class="docutils literal notranslate"><span class="pre">period</span></code>, to divide the observations
@@ -976,19 +976,19 @@ do this, we first have to define the labels (<code class="docutils literal notra
 boundaries (<code class="docutils literal notranslate"><span class="pre">bins</span></code>). Then, we use <code class="docutils literal notranslate"><span class="pre">.dropna()</span></code> to remove any rows
 where <code class="docutils literal notranslate"><span class="pre">period</span></code> has a <code class="docutils literal notranslate"><span class="pre">NaN</span></code> value (i.e., is outside of the range
 1871-2020):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>periods = [&#39;1871-1920&#39;, &#39;1921-1970&#39;, &#39;1971-2020&#39;] # make a list of period names
-bins = [1870, 1920, 1970, 2020] # make a list of period boundaries - must be 1 longer than the names
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">periods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1871-1920&#39;</span><span class="p">,</span> <span class="s1">&#39;1921-1970&#39;</span><span class="p">,</span> <span class="s1">&#39;1971-2020&#39;</span><span class="p">]</span> <span class="c1"># make a list of period names</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1870</span><span class="p">,</span> <span class="mi">1920</span><span class="p">,</span> <span class="mi">1970</span><span class="p">,</span> <span class="mi">2020</span><span class="p">]</span> <span class="c1"># make a list of period boundaries - must be 1 longer than the names</span>
 
-annual_average[&#39;period&#39;] = pd.cut(annual_average.index, bins, labels=periods) # assign a value to period, using the boundaries and labels above
+<span class="n">annual_average</span><span class="p">[</span><span class="s1">&#39;period&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">annual_average</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">periods</span><span class="p">)</span> <span class="c1"># assign a value to period, using the boundaries and labels above</span>
 
-annual_average.dropna(subset=[&#39;period&#39;], inplace=True) # drop any rows where period is NaN
+<span class="n">annual_average</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;period&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># drop any rows where period is NaN</span>
 
-annual_average # show the dataframe
+<span class="n">annual_average</span> <span class="c1"># show the dataframe</span>
 </pre></div>
 </div>
 <p>Before running the test, let’s make a box plot that shows the
 distribution of <code class="docutils literal notranslate"><span class="pre">tmax</span></code> values among the three periods:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.boxplot(data=annual_average, x=&#39;period&#39;, y=&#39;tmax&#39;) # make a box plot of tmax, grouped by period
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">annual_average</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">)</span> <span class="c1"># make a box plot of tmax, grouped by period</span>
 </pre></div>
 </div>
 <img alt="../../../_images/stats_51_1.png" src="../../../_images/stats_51_1.png" />
@@ -1002,9 +1002,9 @@ Using this, we can pass our <code class="docutils literal notranslate"><span cla
 <code class="docutils literal notranslate"><span class="pre">data</span></code> argument, and specify <code class="docutils literal notranslate"><span class="pre">tmax</span></code> as the dependent variable
 (<code class="docutils literal notranslate"><span class="pre">dv</span></code>), and <code class="docutils literal notranslate"><span class="pre">period</span></code> as the grouping variable (<code class="docutils literal notranslate"><span class="pre">between</span></code>). We’ll
 also look at the detailed test output (<code class="docutils literal notranslate"><span class="pre">detailed=True</span></code>):</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>aov = pg.anova(dv=&#39;tmax&#39;, between=&#39;period&#39;, data=annual_average, detailed=True) # run one-way anova for differences of tmax between periods
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aov</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">anova</span><span class="p">(</span><span class="n">dv</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">between</span><span class="o">=</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">annual_average</span><span class="p">,</span> <span class="n">detailed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># run one-way anova for differences of tmax between periods</span>
 
-aov.round(3) # round the output to 3 decimal places
+<span class="n">aov</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># round the output to 3 decimal places</span>
 </pre></div>
 </div>
 <p>The table output has the following columns across two rows:</p>
@@ -1025,9 +1025,9 @@ would need to run an additional test. As one example, we can use
 (<a class="reference external" href="https://pingouin-stats.org/build/html/generated/pingouin.pairwise_tukey.html">documentation</a>)
 to compute “Tukey’s Honest Significant Difference” between each pair of
 groups:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tmax_mc = pg.pairwise_tukey(dv=&#39;tmax&#39;, between=&#39;period&#39;, data=annual_average) # run the pairwise tukey HSD post-hoc test
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmax_mc</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">pairwise_tukey</span><span class="p">(</span><span class="n">dv</span><span class="o">=</span><span class="s1">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">between</span><span class="o">=</span><span class="s1">&#39;period&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">annual_average</span><span class="p">)</span> <span class="c1"># run the pairwise tukey HSD post-hoc test</span>
 
-tmax_mc.round(3) # round the output to 3 decimal places
+<span class="n">tmax_mc</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># round the output to 3 decimal places</span>
 </pre></div>
 </div>
 <p>From this, we can see the estimated difference in the means for each

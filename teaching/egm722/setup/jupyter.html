@@ -691,22 +691,29 @@ move on to installing <a class="reference internal" href="pycharm.html"><span cl
 <p class="admonition-title">Warning</p>
 <p>If you have not already done so, please complete the steps in the section <a class="reference internal" href="#jupyter-config"><span class="std std-ref">generating a config file</span></a> above.</p>
 </div>
-<p>Open the original config file in <strong>Notepad++</strong> or a similar text editor (it should be located at
+<p>First, open your <strong>Comand Prompt</strong> and type the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>where<span class="w"> </span>cmd.exe
+</pre></div>
+</div>
+<p>This should print out something like the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\c</span>md.exe
+</pre></div>
+</div>
+<p>Make sure to keep this window open while you move on to the next step - you will need to copy this path into your
+config file to finish setting up the terminal.</p>
+<p>Now, open the original config file in <strong>Notepad++</strong> or a similar text editor (it should be located at
 <code class="docutils literal notranslate"><span class="pre">%HOME%\.jupyter\jupyter_lab_config.py</span></code>), and search for <code class="docutils literal notranslate"><span class="pre">c.ServerApp.terminado_settings</span></code> (for me, this is at
 line 1062):</p>
 <a class="reference internal image-reference" href="../../../_images/jupyter_settings.png"><img alt="the jupyter config file, showing the terminal setting" class="align-center" src="../../../_images/jupyter_settings.png" style="width: 600px;" /></a>
-<p><br /> Inside of the curly brackets, add the following text:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;shell_command&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;C:\WINDOWS\System32\cmd.exe&#39;</span><span class="p">]</span>
+<p><br /> Uncomment this line by removing the <code class="docutils literal notranslate"><span class="pre">#</span></code> symbol and the space at the beginning of the line. Then, inside of the
+curly brackets on this line, add the following text:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;shell_command&#39;</span><span class="p">:</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;</span><span class="si">{cmd_path}</span><span class="s1">&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>Making sure to replace <code class="docutils literal notranslate"><span class="pre">{cmd_path}</span></code> with the path to <strong>cmd.exe</strong> output by <code class="docutils literal notranslate"><span class="pre">where</span> <span class="pre">cmd.exe</span></code>.</p>
+<p>For example, if your <strong>cmd.exe</strong> is located at <strong>C:\WINDOWS\System32\cmd.exe</strong>, your file should now look like this:</p>
 <a class="reference internal image-reference" href="../../../_images/jupyter_settings_updated.png"><img alt="the jupyter config file, showing the updated terminal setting" class="align-center" src="../../../_images/jupyter_settings_updated.png" style="width: 600px;" /></a>
 <p><br /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>CMD.exe</strong> is, by default, located at <code class="docutils literal notranslate"><span class="pre">%windir%\system32\cmd.exe</span></code>. To double-check that your <code class="docutils literal notranslate"><span class="pre">%windir%</span></code>
-location is, in fact, <code class="docutils literal notranslate"><span class="pre">C:\WINDOWS</span></code>, you can type <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">%windir%</span></code> at the command prompt, and use the location
-printed out from that command.</p>
-</div>
 <p>Once you have changed the file, save the changes, then close it. Now, launch <strong>JupyterLab</strong> from the command prompt
 (again, making sure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is active):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>jupyter lab
