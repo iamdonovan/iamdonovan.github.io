@@ -203,6 +203,44 @@ this to open a **Terminal** (**Command Prompt**):
 
 |br| You can use this in the same way that you would the "normal" **Command Prompt**.
 
+.. note::
+
+    If you instead see a **Powershell** terminal:
+
+    .. image:: ../../../img/egm722/setup/pycharm/powershell.png
+        :width: 720
+        :align: center
+        :alt: the pycharm interface with the terminal window open showing a powershell terminal
+
+    Open up the **Settings** window (**File** > **Settings**), then click on **Tools** > **Terminal**:
+
+    .. image:: ../../../img/egm722/setup/pycharm/terminal_settings.png
+        :width: 600
+        :align: center
+        :alt: the terminal settings window in pycharm
+
+    Replace the current **Shell path** with:
+
+    .. code-block:: text
+
+        cmd.exe /K {conda_prefix}\Scripts\activate.bat {conda_prefix}
+
+    where ``{conda_prefix}`` is the folder where you have installed **conda**.
+
+    If you don't know where this is, you can check by entering the following command in the **Command Prompt**:
+
+    .. code-block:: text
+
+        echo %CONDA_PREFIX_1%
+
+    Once you have done this, close the current terminal by clicking the ``X`` next to **Local**. Next, re-open the
+    **Terminal** tab - you should see an **Anaconda Command Prompt**:
+
+    .. image:: ../../../img/egm722/setup/pycharm/terminal.png
+        :width: 720
+        :align: center
+        :alt: the pycharm interface with the terminal window open
+
 If you have configured an interpreter for your project, it may open as an **Anaconda Command Prompt** with that
 environment activated. If not, you can run the following:
 
