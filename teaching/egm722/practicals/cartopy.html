@@ -598,6 +598,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synching-forks">synching forks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-branches">merging branches</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-script">running the script</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ryan-gosling">Ryan Gosling</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">objectives</a></li>
@@ -632,13 +634,13 @@ and experiment with the different parameters used to make the map.</p>
 <section id="getting-started">
 <h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
 <p>To get started with this week’s practical, first head to the your GitHub repository (<code class="samp docutils literal notranslate"><span class="pre">https://github.com/&lt;</span><em><span class="pre">your_username</span></em><span class="pre">&gt;/egm722</span></code>).
-You should notice that this repository has 5 branches – you can click on the <strong>branch</strong> button to see all of the branches
+You should notice that this repository has 7 branches – you can click on the <strong>branch</strong> button to see all of the branches
 available for a particular repository:</p>
 <a class="reference internal image-reference" href="../../../_images/github.png"><img alt="the github repository" class="align-center" src="../../../_images/github.png" style="width: 720px;" /></a>
 <p><br /> You should be able to see that the available branches are <code class="docutils literal notranslate"><span class="pre">main</span></code>, the default <strong>branch</strong> that we used in last
-week’s practical, and branches for weeks 2 through 5.</p>
-<p>If you open up the folder where you’ve <strong>cloned</strong> your repository, you should only see the <strong>Week1</strong> folder - no
-<strong>Week2</strong>, <strong>Week3</strong>, and so on:</p>
+week’s practical, branches for weeks 2 through 5, and a <code class="docutils literal notranslate"><span class="pre">recipe</span></code> and <code class="docutils literal notranslate"><span class="pre">conflict-recipe</span></code> branch (more on these later).</p>
+<p>In <strong>Windows Explorer</strong> (or <strong>Finder</strong>), open up the folder where you’ve <strong>cloned</strong> your repository. You should
+currently see just the <strong>Week1</strong> folder - no <strong>Week2</strong>, <strong>Week3</strong>, and so on:</p>
 <a class="reference internal image-reference" href="../../../_images/week1_folder.png"><img alt="the repository folder showing only Week 1 materials" class="align-center" src="../../../_images/week1_folder.png" style="width: 600px;" /></a>
 <p><br /> We want to be able to work with each of the weeks at the same time, without having to switch branches each time.
 To do this, we’ll need to add each week’s folder to the main branch.</p>
@@ -646,9 +648,40 @@ To do this, we’ll need to add each week’s folder to the main branch.</p>
 use <strong>GitHub Desktop</strong> to do this. In the coming weeks, we’ll also introduce other options such as the command-line
 interface or
 <a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">Pull Requests</a>.</p>
+</section>
+<section id="synching-forks">
+<h2>synching forks<a class="headerlink" href="#synching-forks" title="Permalink to this heading">#</a></h2>
+<p>Before we merge the <code class="docutils literal notranslate"><span class="pre">week2</span></code> branch, however, let’s first check that there aren’t any recent changes to the original
+repository that we need to include in our fork.</p>
+<p>Back on GitHub, switch to the <code class="docutils literal notranslate"><span class="pre">week2</span></code> branch by clicking the drop-down menu that currently says <code class="docutils literal notranslate"><span class="pre">main</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/branch_menu.png"><img alt="the github repository, with the branch menu highlighted in red" class="align-center" src="../../../_images/branch_menu.png" style="width: 720px;" /></a>
+<p><br /> and selecting the <code class="docutils literal notranslate"><span class="pre">week2</span></code> branch. You should see the page now looks like this:</p>
+<a class="reference internal image-reference" href="../../../_images/fork_behind.png"><img alt="the github repository, showing that the week2 branch is behind the upstream repository" class="align-center" src="../../../_images/fork_behind.png" style="width: 720px;" /></a>
+<p><br /> If you see the message “This branch is <strong>X</strong> commits behind <code class="docutils literal notranslate"><span class="pre">iamdonovan/egm722:week2</span></code>.”, you will need to sync
+the fork so that you incorporate the recent changes to the original repository (<code class="docutils literal notranslate"><span class="pre">iamdonovan/egm722</span></code>).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you see the message “This branch is up to date with <code class="docutils literal notranslate"><span class="pre">iamdonovan/egm722</span></code>.”, you should still read through the
+instructions below, just in case you encounter this in the future.</p>
+</div>
+<p>To sync the fork, first click on <strong>Sync fork</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/sync_fork.png"><img alt="the github repository, with the sync fork menu active" class="align-center" src="../../../_images/sync_fork.png" style="width: 720px;" /></a>
+<p><br /> Then click on <strong>Update branch</strong>.</p>
+<p>After a moment, you should see that the message changes:</p>
+<a class="reference internal image-reference" href="../../../_images/fork_updated.png"><img alt="the github repository, showing that the week2 branch is now up to date" class="align-center" src="../../../_images/fork_updated.png" style="width: 720px;" /></a>
+<p><br /> In the coming weeks, we will see other ways that we can check whether there are changes from the upstream
+repository that need to be synced. For now, we can continue on to merging these changes into our <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.</p>
+</section>
+<section id="merging-branches">
+<h2>merging branches<a class="headerlink" href="#merging-branches" title="Permalink to this heading">#</a></h2>
 <p>For now, open up <strong>GitHub Desktop</strong>. You should see something like this:</p>
 <a class="reference internal image-reference" href="../../../_images/desktop1.png"><img alt="the github desktop window" class="align-center" src="../../../_images/desktop1.png" style="width: 600px;" /></a>
-<p><br /> Click the button that shows the current branch (<strong>main</strong>) – you should see the following:</p>
+<p><br /> Before moving on, let’s first make sure to <strong>fetch</strong> any changes from our remote repository. To do this, click on
+the <strong>Fetch origin</strong> button:</p>
+<a class="reference internal image-reference" href="../../../_images/fetch_origin.png"><img alt="the github desktop window, with the fetch origin button highlighted" class="align-center" src="../../../_images/fetch_origin.png" style="width: 600px;" /></a>
+<p><br /> After a few moments, you should see that the wheel icon stops spinning, indicating that your remote changes have
+been fetched.</p>
+<p>Now, click the button that shows the current branch (<strong>main</strong>) – you should see the following:</p>
 <a class="reference internal image-reference" href="../../../_images/desktop_branches.png" id="desktop-branches"><img alt="the github desktop window" class="align-center" id="desktop-branches" src="../../../_images/desktop_branches.png" style="width: 600px;" /></a>
 <p><br /> In addition to your <strong>local</strong> <code class="docutils literal notranslate"><span class="pre">main</span></code> branch, you should also see <strong>upstream</strong> versions of each of the branches
 (<code class="docutils literal notranslate"><span class="pre">main</span></code>, <code class="docutils literal notranslate"><span class="pre">week2</span></code>–<code class="docutils literal notranslate"><span class="pre">week5</span></code>), as well as <strong>origin</strong> versions.</p>
@@ -1360,6 +1393,8 @@ and 10 km, instead of at 10 km.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synching-forks">synching forks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-branches">merging branches</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-script">running the script</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ryan-gosling">Ryan Gosling</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">objectives</a></li>
