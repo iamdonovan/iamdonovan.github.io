@@ -225,7 +225,12 @@ this to open a **Terminal** (**Command Prompt**):
 
         cmd.exe /K {conda_prefix}\Scripts\activate.bat {conda_prefix}
 
-    where ``{conda_prefix}`` is the folder where you have installed **conda**.
+    where ``{conda_prefix}`` is the folder where you have installed **conda**. For example, if you have installed
+    **conda** at **C:\\Users\\bob\\anaconda3\\**, this should look like:
+
+    .. code-block:: text
+
+        cmd.exe /K C:\Users\bob\anaconda3\Scripts\activate.bat C:\Users\bob\anaconda3
 
     If you don't know where this is, you can check by entering the following command in the **Command Prompt**:
 
