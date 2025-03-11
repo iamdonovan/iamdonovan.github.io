@@ -14,7 +14,7 @@ getting started
 ---------------
 
 To get started with this week's practical, first head to the your GitHub repository (:samp:`https://github.com/<{your_username}>/egm722`).
-You should notice that this repository has 5 branches – you can click on the **branch** button to see all of the branches
+You should notice that this repository has 7 branches – you can click on the **branch** button to see all of the branches
 available for a particular repository:
 
 .. image:: ../../../img/egm722/week2/github.png
@@ -23,10 +23,10 @@ available for a particular repository:
     :alt: the github repository
 
 |br| You should be able to see that the available branches are ``main``, the default **branch** that we used in last
-week's practical, and branches for weeks 2 through 5.
+week's practical, branches for weeks 2 through 5, and a ``recipe`` and ``conflict-recipe`` branch (more on these later).
 
-If you open up the folder where you've **cloned** your repository, you should only see the **Week1** folder - no
-**Week2**, **Week3**, and so on:
+In **Windows Explorer** (or **Finder**), open up the folder where you've **cloned** your repository. You should
+currently see just the **Week1** folder - no **Week2**, **Week3**, and so on:
 
 .. image:: ../../../img/egm722/week2/week1_folder.png
     :width: 600
@@ -41,6 +41,56 @@ use **GitHub Desktop** to do this. In the coming weeks, we'll also introduce oth
 interface or
 `Pull Requests <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests>`_.
 
+synching forks
+--------------
+
+Before we merge the ``week2`` branch, however, let's first check that there aren't any recent changes to the original
+repository that we need to include in our fork.
+
+Back on GitHub, switch to the ``week2`` branch by clicking the drop-down menu that currently says ``main``:
+
+.. image:: ../../../img/egm722/week2/branch_menu.png
+    :width: 720
+    :align: center
+    :alt: the github repository, with the branch menu highlighted in red
+
+|br| and selecting the ``week2`` branch. You should see the page now looks like this:
+
+.. image:: ../../../img/egm722/week2/fork_behind.png
+    :width: 720
+    :align: center
+    :alt: the github repository, showing that the week2 branch is behind the upstream repository
+
+|br| If you see the message "This branch is **X** commits behind ``iamdonovan/egm722:week2``.", you will need to sync
+the fork so that you incorporate the recent changes to the original repository (``iamdonovan/egm722``).
+
+.. tip::
+
+    If you see the message "This branch is up to date with ``iamdonovan/egm722``.", you should still read through the
+    instructions below, just in case you encounter this in the future.
+
+To sync the fork, first click on **Sync fork**:
+
+.. image:: ../../../img/egm722/week2/sync_fork.png
+    :width: 720
+    :align: center
+    :alt: the github repository, with the sync fork menu active
+
+|br| Then click on **Update branch**.
+
+After a moment, you should see that the message changes:
+
+.. image:: ../../../img/egm722/week2/fork_updated.png
+    :width: 720
+    :align: center
+    :alt: the github repository, showing that the week2 branch is now up to date
+
+|br| In the coming weeks, we will see other ways that we can check whether there are changes from the upstream
+repository that need to be synced. For now, we can continue on to merging these changes into our ``main`` branch.
+
+merging branches
+----------------
+
 For now, open up **GitHub Desktop**. You should see something like this:
 
 .. image:: ../../../img/egm722/week2/desktop1.png
@@ -48,7 +98,18 @@ For now, open up **GitHub Desktop**. You should see something like this:
     :align: center
     :alt: the github desktop window
 
-|br| Click the button that shows the current branch (**main**) – you should see the following:
+|br| Before moving on, let's first make sure to **fetch** any changes from our remote repository. To do this, click on
+the **Fetch origin** button:
+
+.. image:: ../../../img/egm722/week2/fetch_origin.png
+    :width: 600
+    :align: center
+    :alt: the github desktop window, with the fetch origin button highlighted
+
+|br| After a few moments, you should see that the wheel icon stops spinning, indicating that your remote changes have
+been fetched.
+
+Now, click the button that shows the current branch (**main**) – you should see the following:
 
 .. _desktop branches:
 
