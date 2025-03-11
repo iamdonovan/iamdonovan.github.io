@@ -739,6 +739,29 @@ the module.</p>
 this to open a <strong>Terminal</strong> (<strong>Command Prompt</strong>):</p>
 <a class="reference internal image-reference" href="../../../_images/terminal.png"><img alt="the pycharm interface with the terminal window open" class="align-center" src="../../../_images/terminal.png" style="width: 720px;" /></a>
 <p><br /> You can use this in the same way that you would the “normal” <strong>Command Prompt</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you instead see a <strong>Powershell</strong> terminal:</p>
+<a class="reference internal image-reference" href="../../../_images/powershell.png"><img alt="the pycharm interface with the terminal window open showing a powershell terminal" class="align-center" src="../../../_images/powershell.png" style="width: 720px;" /></a>
+<p>Open up the <strong>Settings</strong> window (<strong>File</strong> &gt; <strong>Settings</strong>), then click on <strong>Tools</strong> &gt; <strong>Terminal</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/terminal_settings.png"><img alt="the terminal settings window in pycharm" class="align-center" src="../../../_images/terminal_settings.png" style="width: 600px;" /></a>
+<p>Replace the current <strong>Shell path</strong> with:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cmd.exe /K {conda_prefix}\Scripts\activate.bat {conda_prefix}
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">{conda_prefix}</span></code> is the folder where you have installed <strong>conda</strong>. For example, if you have installed
+<strong>conda</strong> at <strong>C:\Users\bob\anaconda3\</strong>, this should look like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cmd.exe /K C:\Users\bob\anaconda3\Scripts\activate.bat C:\Users\bob\anaconda3
+</pre></div>
+</div>
+<p>If you don’t know where this is, you can check by entering the following command in the <strong>Command Prompt</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>echo %CONDA_PREFIX_1%
+</pre></div>
+</div>
+<p>Once you have done this, close the current terminal by clicking the <code class="docutils literal notranslate"><span class="pre">X</span></code> next to <strong>Local</strong>. Next, re-open the
+<strong>Terminal</strong> tab - you should see an <strong>Anaconda Command Prompt</strong>:</p>
+<a class="reference internal image-reference" href="../../../_images/terminal.png"><img alt="the pycharm interface with the terminal window open" class="align-center" src="../../../_images/terminal.png" style="width: 720px;" /></a>
+</div>
 <p>If you have configured an interpreter for your project, it may open as an <strong>Anaconda Command Prompt</strong> with that
 environment activated. If not, you can run the following:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>egm722
