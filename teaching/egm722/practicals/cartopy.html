@@ -730,7 +730,14 @@ You should now see that your <code class="docutils literal notranslate"><span cl
 <a class="reference internal image-reference" href="../../../_images/github_merged.png"><img alt="the github repository showing the merged files" class="align-center" src="../../../_images/github_merged.png" style="width: 720px;" /></a>
 <p><br /> You can also confirm the changes in your <strong>local</strong> folder:</p>
 <a class="reference internal image-reference" href="../../../_images/merged.png"><img alt="the repository folder showing the merged materials" class="align-center" src="../../../_images/merged.png" style="width: 600px;" /></a>
-<p><br /> At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the
+<p><br /> As a final step, you can “prune” this branch by deleting it. From the <strong>branch</strong> menu, right-click on <code class="docutils literal notranslate"><span class="pre">week2</span></code>
+and select <strong>Delete</strong>. You should see a message like the following:</p>
+<a class="reference internal image-reference" href="../../../_images/delete_branch.png"><img alt="a message asking you to confirm deleting the selected branch" class="align-center" src="../../../_images/delete_branch.png" style="width: 400px;" /></a>
+<p><br /> Check the box next to <strong>Yes, delete this branch on the remote</strong>, then click <strong>Delete</strong> to remove the branch. You
+should see that the branch is no longer present in the <strong>branch</strong> menu.</p>
+<p>You can also confirm that the branch has been removed from your remote repository by visiting
+<code class="docutils literal notranslate"><span class="pre">https://github.com/{username}/egm722/branches/all</span></code>.</p>
+<p>At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the
 same initial steps as last week.</p>
 </section>
 <section id="running-the-script">
@@ -815,7 +822,7 @@ option 4)</p></li>
 the other options (usually 5 or 4).</p></li>
 </ol>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this lets us use the figures interactively</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">matplotlib</span> widget
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
@@ -829,32 +836,73 @@ the other options (usually 5 or 4).</p></li>
 </pre></div>
 </div>
 <p>Let’s also define a few helper functions that we’ll use later on. For
-now, don’t worry too much about what each individual line does - we’ll
-go over these in a bit more depth as we go. Remember also that if you
-get stuck, you can get help in a few ways:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate matplotlib handles to create a legend of each of the features we put in our map.</span>
-<span class="k">def</span> <span class="nf">generate_handles</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">edge</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+now, don’t worry too much about what each individual line of code does -
+we’ll go over these in a bit more depth as we go.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_handles</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">edge</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate matplotlib patch handles to create a legend of each of the features in the map.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    labels : list(str)</span>
+<span class="sd">        the text labels of the features to add to the legend</span>
+
+<span class="sd">    colors : list(matplotlib color)</span>
+<span class="sd">        the colors used for each of the features included in the map.</span>
+
+<span class="sd">    edge : matplotlib color (default: &#39;k&#39;)</span>
+<span class="sd">        the color to use for the edge of the legend patches.</span>
+
+<span class="sd">    alpha : float (default: 1.0)</span>
+<span class="sd">        the alpha value to use for the legend patches.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    handles : list(matplotlib.patches.Rectangle)</span>
+<span class="sd">        the list of legend patches to pass to ax.legend()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lc</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>  <span class="c1"># get the length of the color list</span>
     <span class="n">handles</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># create an empty list</span>
     <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)):</span> <span class="c1"># for each label and color pair that we&#39;re given, make an empty box to pass to our legend</span>
         <span class="n">handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mpatches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">ii</span> <span class="o">%</span> <span class="n">lc</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">edge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">handles</span>
 
-<span class="c1"># create a scale bar of length 20 km in the upper right corner of the map</span>
 <span class="c1"># adapted this question: https://stackoverflow.com/q/32333870</span>
 <span class="c1"># answered by SO user Siyh: https://stackoverflow.com/a/35705477</span>
-<span class="k">def</span> <span class="nf">scale_bar</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">)):</span>
+<span class="k">def</span> <span class="nf">scale_bar</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="p">(</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a scale bar in a cartopy GeoAxes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    ax : cartopy.mpl.geoaxes.GeoAxes</span>
+<span class="sd">        the cartopy GeoAxes to add the scalebar to.</span>
+
+<span class="sd">    length : int, float (default 20)</span>
+<span class="sd">        the length of the scalebar, in km</span>
+
+<span class="sd">    location : tuple(float, float) (default (0.92, 0.95))</span>
+<span class="sd">        the location of the center right corner of the scalebar, in fractions of the axis.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ax : cartopy.mpl.geoaxes.GeoAxes</span>
+<span class="sd">        the cartopy GeoAxes object</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_extent</span><span class="p">()</span> <span class="c1"># get the current extent of the axis</span>
-    <span class="n">sbx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">*</span> <span class="n">location</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># get the lower left x coordinate of the scale bar</span>
-    <span class="n">sby</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">+</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">*</span> <span class="n">location</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># get the lower left y coordinate of the scale bar</span>
+    <span class="n">sbx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">*</span> <span class="n">location</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># get the right x coordinate of the scale bar</span>
+    <span class="n">sby</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">+</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">*</span> <span class="n">location</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># get the right y coordinate of the scale bar</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">sbx</span><span class="p">,</span> <span class="n">sbx</span> <span class="o">-</span> <span class="mi">20000</span><span class="p">],</span> <span class="p">[</span><span class="n">sby</span><span class="p">,</span> <span class="n">sby</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">)</span> <span class="c1"># plot a thick black line, 20 km long</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">sbx</span><span class="p">,</span> <span class="n">sbx</span> <span class="o">-</span> <span class="mi">10000</span><span class="p">],</span> <span class="p">[</span><span class="n">sby</span><span class="p">,</span> <span class="n">sby</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">)</span> <span class="c1"># plot a smaller black line from 0 to 10 km long</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">sbx</span><span class="o">-</span><span class="mi">10000</span><span class="p">,</span> <span class="n">sbx</span> <span class="o">-</span> <span class="mi">20000</span><span class="p">],</span> <span class="p">[</span><span class="n">sby</span><span class="p">,</span> <span class="n">sby</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">)</span> <span class="c1"># plot a white line from 10 to 20 km</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">sbx</span><span class="p">,</span> <span class="n">sbx</span><span class="o">-</span><span class="n">length</span><span class="o">*</span><span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="n">sby</span><span class="p">,</span> <span class="n">sby</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">)</span> <span class="c1"># plot a thick black line</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">sbx</span><span class="o">-</span><span class="p">(</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="n">sbx</span><span class="o">-</span><span class="n">length</span><span class="o">*</span><span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="n">sby</span><span class="p">,</span> <span class="n">sby</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">)</span> <span class="c1"># plot a white line from 0 to halfway</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sbx</span><span class="p">,</span> <span class="n">sby</span><span class="o">-</span><span class="mi">5000</span><span class="p">,</span> <span class="s1">&#39;20 km&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> <span class="c1"># add a label at 20 km</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sbx</span><span class="o">-</span><span class="mi">12500</span><span class="p">,</span> <span class="n">sby</span><span class="o">-</span><span class="mi">5000</span><span class="p">,</span> <span class="s1">&#39;10 km&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> <span class="c1"># add a label at 10 km</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sbx</span><span class="o">-</span><span class="mi">24500</span><span class="p">,</span> <span class="n">sby</span><span class="o">-</span><span class="mi">5000</span><span class="p">,</span> <span class="s1">&#39;0 km&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> <span class="c1"># add a label at 0 km</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sbx</span><span class="p">,</span> <span class="n">sby</span><span class="o">-</span><span class="p">(</span><span class="n">length</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">length</span><span class="si">}</span><span class="s2"> km&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span> <span class="c1"># add a label at the right side</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sbx</span><span class="o">-</span><span class="p">(</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="n">sby</span><span class="o">-</span><span class="p">(</span><span class="n">length</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> km&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span> <span class="c1"># add a label in the center</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sbx</span><span class="o">-</span><span class="n">length</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="n">sby</span><span class="o">-</span><span class="p">(</span><span class="n">length</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;0 km&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">projection</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span> <span class="c1"># add a label at the left side</span>
 
     <span class="k">return</span> <span class="n">ax</span>
 </pre></div>
@@ -956,26 +1004,25 @@ making plots and graphs, and
 <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/">cartopy</a>, a package
 designed for making maps and representing geopatial data.</p>
 <p>First, let’s look at the coordinate reference system (CRS) for
-<code class="docutils literal notranslate"><span class="pre">counties</span></code>, the outlines of each of the six counties of Northern
-Ireland:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span><span class="o">.</span><span class="n">crs</span> <span class="c1"># show the CRS of the counties dataset</span>
+<code class="docutils literal notranslate"><span class="pre">outline</span></code>, the outline of Northern Ireland:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outline</span><span class="o">.</span><span class="n">crs</span> <span class="c1"># show the CRS of the outline dataset</span>
 </pre></div>
 </div>
-<p>Here, we can see that the county outlines are geographic coordinates,
-corresponding to WGS84 Latitude/Longitude. Now, let’s look at the CRS
-for <code class="docutils literal notranslate"><span class="pre">water</span></code>, corresponding to the lake outlines:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">water</span><span class="o">.</span><span class="n">crs</span>
+<p>Here, we can see that the outline is in UTM coordinates (WGS84 UTM Zone
+29N, to be exact). Now, let’s look at the CRS for <code class="docutils literal notranslate"><span class="pre">water</span></code>,
+corresponding to the lake outlines:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">water</span><span class="o">.</span><span class="n">crs</span> <span class="c1"># show the CRS of the water dataset</span>
 </pre></div>
 </div>
 <p>Here, we can see the CRS is different - the coordinates of <code class="docutils literal notranslate"><span class="pre">water</span></code> are
-in Irish Transverse Mercator, which are very different to WGS84
-Latitude/Longitude.</p>
+in Irish Transverse Mercator, which are similar to, but not quite the
+same as, WGS84 UTM Zone 29N easting/northing coordinates.</p>
 <p>To correctly plot our geospatial data, then, we need to have some way
 for <code class="docutils literal notranslate"><span class="pre">cartopy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to “translate” and plot the
 coordinates stored within the shapefile data - this way, even if our
-data are represented in different coordinates (e.g., WGS84
-Latitude/Longitude or Irish Transverse Mecractor), they will show up in
-the correct places on the map.</p>
+data are represented in different coordinates (e.g., WGS84 UTM Zone 29N
+or Irish Transverse Mecractor), they will show up in the correct places
+on the map.</p>
 <p>To do this, we need to create a <code class="docutils literal notranslate"><span class="pre">cartopy</span></code> <strong>CRS</strong>, a representation of
 the spatial reference system that we will use to plot our data inside of
 our map. Here, we’re using <code class="docutils literal notranslate"><span class="pre">ccrs.UTM()</span></code>
@@ -1017,14 +1064,24 @@ to create an empty <strong>Axes</strong> on the current <strong>Figure</strong>.
 to set the <strong>Axes</strong>’ projection to be our UTM Zone - this way, we can
 be sure that the data that we pass to the <strong>Axes</strong> in order to plot are
 shown in the correct location:</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myFig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># create a figure of size 8x8 (representing the page size in inches)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># create a figure of size 8x8 (representing the page size in inches)</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">ni_utm</span><span class="p">)</span>  <span class="c1"># create an axes object in the figure, using a UTM projection,</span>
 <span class="c1"># where we can actually plot our data.</span>
 </pre></div>
 </div>
-<img alt="../../../_images/Cartopy_27_0.png" src="../../../_images/Cartopy_27_0.png" />
 <p>As you can see, the <strong>Axes</strong> starts off blank - we haven’t added
 anything to it yet.</p>
+<p>Because we are using the <strong>widget</strong> option for <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> (cf. the
+first cell you ran up above):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">widget</span>
+</pre></div>
+</div>
+<p>you can see how the original <strong>Figure</strong> object updates as we continue
+through the rest of the steps of the practical by scrolling back up to
+this point after adding new objects/features to the map.</p>
+<p>However, I have also added <code class="docutils literal notranslate"><span class="pre">fig</span></code> statements in most of the cells where
+we add something to the map, so that you can see the updates as they are
+made without having to scroll all the way back up the page.</p>
 </section>
 <section id="adding-data-to-the-map">
 <h3>adding data to the map<a class="headerlink" href="#adding-data-to-the-map" title="Permalink to this heading">#</a></h3>
@@ -1045,11 +1102,8 @@ and <code class="docutils literal notranslate"><span class="pre">outline.crs</sp
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first, we just add the outline of Northern Ireland using cartopy&#39;s ShapelyFeature</span>
 <span class="n">outline_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">outline</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">],</span> <span class="n">ni_utm</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">outline_feature</span><span class="p">)</span> <span class="c1"># add the features we&#39;ve created to the map.</span>
-
-<span class="n">myFig</span>
 </pre></div>
 </div>
-<img alt="../../../_images/Cartopy_29_0.png" src="../../../_images/Cartopy_29_0.png" />
 <p>The other arguments that we pass to <code class="docutils literal notranslate"><span class="pre">ShapelyFeature</span></code> tell
 <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> how to draw the features - in this case, with an edge
 color (<code class="docutils literal notranslate"><span class="pre">edgecolor</span></code>) of black (<code class="docutils literal notranslate"><span class="pre">'k'</span></code>) and a face color
@@ -1070,10 +1124,9 @@ below, we’re setting the extent with a 5 km buffer around each edge:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">([</span><span class="n">xmin</span><span class="o">-</span><span class="mi">5000</span><span class="p">,</span> <span class="n">xmax</span><span class="o">+</span><span class="mi">5000</span><span class="p">,</span> <span class="n">ymin</span><span class="o">-</span><span class="mi">5000</span><span class="p">,</span> <span class="n">ymax</span><span class="o">+</span><span class="mi">5000</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">ni_utm</span><span class="p">)</span> <span class="c1"># because total_bounds gives output as xmin, ymin, xmax, ymax,</span>
 <span class="c1"># but set_extent takes xmin, xmax, ymin, ymax, we re-order the coordinates here.</span>
 
-<span class="n">myFig</span> <span class="c1">## re-draw the figure (only for the notebook)</span>
+<span class="n">fig</span> <span class="c1">## re-draw the figure so you don&#39;t have to scroll back up</span>
 </pre></div>
 </div>
-<img alt="../../../_images/Cartopy_31_0.png" src="../../../_images/Cartopy_31_0.png" />
 <p>This is a fine start to our map, but a bit boring. For one thing, we
 might want to set different colors for the different county outlines,
 rather than having them all be the same color. To do this, we’ll first
@@ -1097,12 +1150,21 @@ results.</p>
 </div>
 <p>Now that you’ve found the number of colors you need to choose, you can
 use the image below to make a list of the colors. There are other ways
-to select colors using matplotlib, including using RGB values, but
-that’s for another day. If you’re interested in learning more, you can
-check out the documentation
+to select colors using matplotlib, including using RGB values or Hex
+codes, but that’s for another day. If you’re interested in learning
+more, you can check out the documentation
 <a class="reference external" href="https://matplotlib.org/stable/api/colors_api.html">here</a>.</p>
-<p><img alt="title" src="../../../_images/named_colors.png" />
-<a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">source</a></p>
+<a class="reference internal image-reference" href="../../../_images/named_colors.png"><img alt="a list of named colors in matplotlib" class="align-center" src="../../../_images/named_colors.png" style="width: 720px;" /></a>
+<p><a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">source</a></p>
+<p>You can also go to to <a class="reference external" href="https://colorbrewer2.org">ColorBrewer</a>, which
+will help you make sure that your color palette is colorblind-friendly,
+print-friendly, and photocopy-friendly. Other helpful websites for
+checking color accessibility or generating color palettes include
+<a class="reference external" href="https://www.color-blindness.com/coblis-color-blindness-simulator/">Coblis</a>,
+<a class="reference external" href="https://www.learnui.design/tools/data-color-picker.html">Learn UI
+Design</a>, or
+<a class="reference external" href="https://davidmathlogic.com/colorblind/">Coloring for
+Colorblindness</a>.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pick colors for the individual county boundaries - make sure to add enough for each of the counties</span>
 <span class="c1"># to add a color, enclose the name above (e.g., violet) with single (or double) quotes: &#39;violet&#39;</span>
 <span class="c1"># remember that each colors should be separated by a comma</span>
@@ -1125,10 +1187,9 @@ check out the documentation
                           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span> <span class="c1"># set the alpha (transparency) to be 0.25 (out of 1)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span> <span class="c1"># once we have created the feature, we have to add it to the map using ax.add_feature()</span>
 
-<span class="n">myFig</span> <span class="c1"># to show the updated figure</span>
+<span class="n">fig</span> <span class="c1"># to show the updated figure</span>
 </pre></div>
 </div>
-<img alt="../../../_images/Cartopy_35_1.png" src="../../../_images/Cartopy_35_1.png" />
 <p>In the code above, note this line:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ccrs</span><span class="o">.</span><span class="n">CRS</span><span class="p">(</span><span class="n">counties</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span> <span class="c1"># second argument is the CRS</span>
 </pre></div>
@@ -1150,10 +1211,9 @@ the same symbology, we add them with a single use of <strong>ShapelyFeature</str
                             <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># set the outline width to be 1 pt</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">water_feat</span><span class="p">)</span> <span class="c1"># add the collection of features to the map</span>
 
-<span class="n">myFig</span> <span class="c1"># to show the updated figure</span>
+<span class="n">fig</span> <span class="c1"># to show the updated figure</span>
 </pre></div>
 </div>
-<img alt="../../../_images/Cartopy_37_0.png" src="../../../_images/Cartopy_37_0.png" />
 <p>To add the rivers dataset to the map, we can again use
 <code class="docutils literal notranslate"><span class="pre">ShapelyFeature()</span></code>, with <code class="docutils literal notranslate"><span class="pre">ccrs.CRS(rivers.crs)</span></code> as the CRS argument.
 Note that because these are <strong>LineString</strong> objects, not <strong>Polygon</strong>s,
@@ -1164,10 +1224,9 @@ we don’t set the <code class="docutils literal notranslate"><span class="pre">
                             <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span> <span class="c1"># set the linewidth to be 0.2 pt</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">river_feat</span><span class="p">)</span> <span class="c1"># add the collection of features to the map</span>
 
-<span class="n">myFig</span> <span class="c1"># to show the updated figure</span>
+<span class="n">fig</span> <span class="c1"># to show the updated figure</span>
 </pre></div>
 </div>
-<img alt="../../../_images/Cartopy_39_0.png" src="../../../_images/Cartopy_39_0.png" />
 <p>Before we add the <code class="docutils literal notranslate"><span class="pre">towns</span></code> data to the map, let’s take a look at the
 CRS attribute for this dataset:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">towns</span><span class="o">.</span><span class="n">crs</span>
@@ -1193,10 +1252,9 @@ of size 6 (<code class="docutils literal notranslate"><span class="pre">ms=6</sp
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ShapelyFeature creates a polygon, so for point data we can just use ax.plot()</span>
 <span class="n">town_handle</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">towns</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">towns</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.5&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span> <span class="c1"># towns is in UTM Zone 29N, so we can use ni_utm</span>
 
-<span class="n">myFig</span> <span class="c1"># to show the updated figure</span>
+<span class="n">fig</span> <span class="c1"># to show the updated figure</span>
 </pre></div>
 </div>
-<img alt="../../../_images/Cartopy_43_1.png" src="../../../_images/Cartopy_43_1.png" />
 </section>
 <section id="adding-labels-and-legends">
 <h3>adding labels and legends<a class="headerlink" href="#adding-labels-and-legends" title="Permalink to this heading">#</a></h3>
@@ -1205,12 +1263,21 @@ we’ve displayed lakes, rivers, and towns, it might be good to have a
 legend to keep everything straight.</p>
 <p>To do this, we get handles for each of the county boundaries, using the
 colors we defined earlier. Here, we’re using our helper function
-<code class="docutils literal notranslate"><span class="pre">generate_handles()</span></code>, defined at the beginning of the exercise. This
-function returns a <strong>list</strong> of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> handles (i.e., the
+<code class="docutils literal notranslate"><span class="pre">generate_handles()</span></code>, defined at the beginning of the exercise.</p>
+<p>The function as defined above has a <em>docstring</em> that can be used to view
+information about how to use the function through our normal “help”
+routines (for example, the <code class="docutils literal notranslate"><span class="pre">?</span></code> operator in jupyter/ipython):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">generate_handles</span><span class="p">)</span> <span class="c1"># show the help for our generate_handles function</span>
+</pre></div>
+</div>
+<p>This function returns a <strong>list</strong> of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> handles (i.e., the
 identifier that <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> uses for the different objects in the
-figure), given a <strong>list</strong> of labels and colors. We will use these
-handles to create the <strong>legend</strong> for our map, which explains what the
-different symbols and colors mean.</p>
+figure) given a <strong>list</strong> of labels and colors, which we can then pass to
+<code class="docutils literal notranslate"><span class="pre">ax.legend()</span></code>
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html#">documentation</a>)
+in order to generate a legend for our map, which explains what the
+different symbols and colors mean. We also have optional arguments to
+change the edge color and the transparency of the patches, if we want.</p>
 <p>The cell below will generate <strong>list</strong>s of handles for the counties,
 water bodies, and rivers:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate a list of handles for the county datasets</span>
@@ -1267,7 +1334,7 @@ size, or other parameters:</p>
 <span class="n">leg</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legend&#39;</span><span class="p">,</span> <span class="n">title_fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
                  <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">myFig</span> <span class="c1"># to show the updated figure</span>
+<span class="n">fig</span> <span class="c1"># to show the updated figure</span>
 </pre></div>
 </div>
 <p>Now that we have a legend, let’s go ahead and add grid lines to our plot
@@ -1290,7 +1357,7 @@ or at the documentation linked above.</p>
 <span class="n">gridlines</span><span class="o">.</span><span class="n">left_labels</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># turn off the left-side labels</span>
 <span class="n">gridlines</span><span class="o">.</span><span class="n">bottom_labels</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># turn off the bottom labels</span>
 
-<span class="n">myFig</span> <span class="c1"># to show the updated figure</span>
+<span class="n">fig</span> <span class="c1"># to show the updated figure</span>
 </pre></div>
 </div>
 <p>Now, let’s add text labels for each of our individual towns. For each of
@@ -1304,7 +1371,7 @@ your questions on Blackboard.</p>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span> <span class="c1"># get the x,y location for each town</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;TOWN_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span> <span class="c1"># use plt.text to place a label at x,y</span>
 
-<span class="n">myFig</span> <span class="c1"># to show the updated figure</span>
+<span class="n">fig</span> <span class="c1"># to show the updated figure</span>
 </pre></div>
 </div>
 <p>Last but not least, let’s add a scale bar to the plot. The
@@ -1313,7 +1380,7 @@ with divisions at 10 and 20 km, with a location in the upper right
 corner as default:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scale_bar</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span> <span class="c1"># place a scale bar in the upper right corner of the map window</span>
 
-<span class="n">myFig</span> <span class="c1"># to show the updated figure</span>
+<span class="n">fig</span> <span class="c1"># to show the updated figure</span>
 </pre></div>
 </div>
 <p>Finally, we’ll save our figure using <code class="docutils literal notranslate"><span class="pre">.savefig()</span></code>
@@ -1322,7 +1389,7 @@ corner as default:</p>
 file called <code class="docutils literal notranslate"><span class="pre">map.png</span></code>, with no border around the outside of the map,
 and with a resolution of 300 dots per inch. As always, feel free to
 experiment with or change these parameters.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">myFig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;map.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;map.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -1334,12 +1401,12 @@ here (though perhaps with different colors). For some additional
 practice, try at least one of the following:</p>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">towns</span></code> dataset has an attribute, <strong>STATUS</strong>, that describes
-whether the feature represents a “Town” (e.g., Coleraine), or a
-“City” (e.g., Belfast). Modify the script to plot all of the
-<strong>Towns</strong> with one marker (e.g., the gray square used above), and
-plot all of the <strong>Cities</strong> with a different marker, then add each of
-these to the legend. For more information on the available markers
-and colors for matplotlib, see the
+whether the feature represents a “Town” (e.g., Coleraine), or a “City”
+(e.g., Belfast). Modify the script to plot all of the <strong>Towns</strong> with
+one marker (e.g., the gray square used above), and plot all of the
+<strong>Cities</strong> with a different marker, then add each of these to the
+legend. For more information on the available markers and colors for
+matplotlib, see the
 <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html">documentation</a>.</p></li>
 <li><p>Try to modify the <code class="docutils literal notranslate"><span class="pre">scale_bar()</span></code> function to have divisions at 1, 5,
 and 10 km, instead of at 10 km.</p></li>
