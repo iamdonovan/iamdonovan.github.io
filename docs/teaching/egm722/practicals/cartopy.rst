@@ -202,7 +202,21 @@ You should now see that your ``main`` branch has both the **Week1** and **Week2*
     :align: center
     :alt: the repository folder showing the merged materials
 
-|br| At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the
+|br| As a final step, you can "prune" this branch by deleting it. From the **branch** menu, right-click on ``week2``
+and select **Delete**. You should see a message like the following:
+
+.. image:: ../../../img/egm722/week2/delete_branch.png
+    :width: 400
+    :align: center
+    :alt: a message asking you to confirm deleting the selected branch
+
+|br| Check the box next to **Yes, delete this branch on the remote**, then click **Delete** to remove the branch. You
+should see that the branch is no longer present in the **branch** menu.
+
+You can also confirm that the branch has been removed from your remote repository by visiting
+``https://github.com/{username}/egm722/branches/all``.
+
+At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the
 same initial steps as last week.
 
 running the script
