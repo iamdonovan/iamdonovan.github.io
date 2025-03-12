@@ -146,12 +146,33 @@ If you see the following output:
     :align: center
     :alt: pulling the upstream changes into the current branch
 
-|br| This indicates that there's been no change to the **upstream** branch that isn't already in our **origin** branch,
-so we can safely merge the **local** ``main`` and ``week3`` branches.
+|br| This indicates that there's been no change to the **upstream** branch that isn't already in our **origin** branch.
 
-You may also see output that indicates there is XXX
+You may also see output that indicates there are changes to the **upstream** branch that aren't present in our
+**origin** (or **local**) branch:
 
-Now, switch back to the ``main`` branch:
+.. image:: ../../../img/egm722/week3/fast_forward.png
+    :width: 600
+    :align: center
+    :alt: pulling the upstream changes into the current branch with a fast-forward merge
+
+|br| As long as you don't have any conflicts between the two branches, you should see that **git** does a
+"fast-forward" merge - that is, **git** will just update the **local** branch by moving it forward in the shared
+history between the **upstream** and **local** versions.
+
+.. note::
+
+    If you do see a message indicating conflicts between different versions of your branches:
+
+    .. image:: ../../../img/egm722/week3/divergent.png
+        :width: 600
+        :align: center
+        :alt: a message indicating that the two branches have a divergent history and can't be easily merged
+
+    |br| You will need to resolve those conflicts in a similar way to what you did :doc:`last week <conflicts>` before
+    you are able to move forward - it's probably best to ask for some help on blackboard here.
+
+As long as there are no changes (or git was able to fast-forward), though, let's switch back to the ``main`` branch:
 
 .. code-block:: text
 
@@ -163,7 +184,7 @@ And enter the following command:
 
     git merge week3
 
-You should now see the following output in the window:
+You should now see the following output in the window (again, what you see may differ slightly):
 
 .. image:: ../../../img/egm722/week3/updates.png
     :width: 600
@@ -181,13 +202,35 @@ You should also see Weeks 1--3 in your repository folder:
     :align: center
     :alt: the repository folder after merging week3 into main
 
-|br| The last thing to do now is to **push** these changes to your GitHub repository:
+|br| Just as we saw last week, now that we have merged our ``week3`` branch into ``main``, we can **prune** (delete)
+it. The command line syntax for this is:
+
+.. code-block:: text
+
+    git branch -d <name>
+
+Where ``<name>`` is the name of the branch we want to delete. If ``<name>`` has not been fully integrated into our
+current branch, you may see a warning like the following:
+
+.. image:: ../../../img/egm722/week3/delete_warning.png
+    :width: 600
+    :align: center
+    :alt: a warning that the branch has not been fully merged into the current branch
+
+|br| Otherwise, you should see a message like this:
+
+.. image:: ../../../img/egm722/week3/branch_deleted.png
+    :width: 600
+    :align: center
+    :alt: a message indicating that the branch has been deleted
+
+|br| Once you have deleted the Finally, let's **push** these changes to your GitHub repository:
 
 .. code-block:: text
 
     git push
 
-You can confirm that the changes are now on your remote repository by heading over to GitHub:
+As before, you can confirm that the changes are now on your remote repository by heading over to GitHub:
 
 .. image:: ../../../img/egm722/week3/week3_remote.png
     :width: 720
