@@ -5,14 +5,15 @@ In this practical, you’ll gain some more experience working with vector data i
 data types available in the shapely package, and how we can use the geopandas package to perform different vector data
 operations and analyses.
 
-The practical this week is provided as a Jupyter Notebook, where you can interactively work through the different steps of
-plotting the data. There is a second file, **exercise_script.py**, which you can modify to perform additional analyses, based on what
-you’ve learned in the Jupyter Notebook and the mapping exercise in Practical 2.
+The practicals this week are provided as Jupyter Notebooks, where you can interactively work through the different
+steps of plotting the data. There is another file, **exercise_script.py**, which you can modify to perform
+additional analyses, based on what you’ve learned in the Jupyter Notebook and the mapping exercise in Practical 2.
 
 .. note::
 
-    In the main folder, you should also see an example script, **week3_example.py**. Be sure to try out the exercise, and see
-    if you can't figure out a solution on your own, before having a look at the (one of many possible) solution offered there.
+    You should also see an example script, **examples/week3_example.py**. Be sure to try out the exercise and see
+    if you can't figure out a solution on your own, before having a look at the (one of many possible) solution
+    offered there.
 
 getting started
 ---------------
@@ -38,7 +39,14 @@ Followed by ``dir``. You should then see something similar to the following:
     :align: center
     :alt: the dir of the main branch
 
-|br| Switch to the ``week3`` branch by typing:
+|br| Here, you can see a list of the different files in the directory, similar to what you can see in
+**Windows Explorer**.
+
+.. note::
+
+    On Mac OS, the command to show the files in the directory is **ls**.
+
+Switch to the ``week3`` branch by typing:
 
 .. code-block:: text
 
@@ -63,20 +71,21 @@ and pressing **Enter**.
 
     What this is telling you is that you *either* have to explicitly specify **which** remote branch
     you want to check out (e.g., ``origin`` or ``upstream``), **or** you should set your 
-    ``defaultRemote`` option using ``git config``:
+    ``defaultRemote`` option using ``git config`` by running the following command:
 
     .. code-block:: text
 
         git config --global checkout.defaultRemote origin
 
-Next, type ``dir`` and press **Enter** again. You should now see this:
+Next, type ``dir`` and press **Enter** again. You should now see this - the files in the current directory have changed,
+because **git** has updated the working directory when we switched branches:
 
 .. image:: ../../../img/egm722/week3/week3_dir.png
     :width: 600
     :align: center
     :alt: the dir of the week3 branch
 
-|br| To merge the ``week3`` branch of our repository into ``main``, we'll use **git** from the command line.
+|br| To **merge** the ``week3`` branch of our repository into ``main``, we'll use **git** from the command line.
 
 Remember that at the :ref:`start<desktop branches>` of last week's practical, we discussed the difference between
 **local**, **origin**, and **upstream** branches: 
@@ -121,7 +130,7 @@ This will list the **remote** repositories, and their nicknames. You should see 
     configuration.
 
     You can check that this worked by typing ``git remote -v`` again - you should now see two lines
-    for the **upstream** repository, as above.
+    for the **upstream** repository, along with two lines for the **origin** repository.
 
 Now, we can tell **git** to specifically **pull** the **upstream** version of a particular branch:
 
@@ -157,19 +166,19 @@ You may also see output that indicates there are changes to the **upstream** bra
     :alt: pulling the upstream changes into the current branch with a fast-forward merge
 
 |br| As long as you don't have any conflicts between the two branches, you should see that **git** does a
-"fast-forward" merge - that is, **git** will just update the **local** branch by moving it forward in the shared
-history between the **upstream** and **local** versions.
+"fast-forward" merge, as shown above - that is, **git** will just update the **local** branch by moving it forward in
+the shared history between the **upstream** and **local** versions.
 
 .. note::
 
     If you do see a message indicating conflicts between different versions of your branches:
 
     .. image:: ../../../img/egm722/week3/divergent.png
-        :width: 600
+        :width: 720
         :align: center
         :alt: a message indicating that the two branches have a divergent history and can't be easily merged
 
-    |br| You will need to resolve those conflicts in a similar way to what you did :doc:`last week <conflicts>` before
+    You will need to resolve those conflicts in a similar way to what you did :doc:`last week <conflicts>` before
     you are able to move forward - it's probably best to ask for some help on blackboard here.
 
 As long as there are no changes (or git was able to fast-forward), though, let's switch back to the ``main`` branch:
@@ -265,21 +274,22 @@ one coordinate reference system to another.
 objectives
 ^^^^^^^^^^^
 
--  Gain experience working with different vector data types using
-   shapely
--  Use geopandas to re-project vector datasets from one coordinate
-   reference system to another
--  Summarize features using the groupby method of a GeoDataFrame
--  Learn how to perform different vector data operations using geopandas
-   and shapely
+- Gain experience working with different vector data types using shapely
+- Use geopandas to re-project vector datasets from one coordinate
+  reference system to another
+- Learn about and used **vectorized** operations
+- Summarize features using the groupby method of a GeoDataFrame
+- Learn how to perform different vector data operations using geopandas
+  and shapely
 
 data provided
 ^^^^^^^^^^^^^^
 
-In the data_files folder, you should have the following: -
-**NI_roads.shp**, a shapefile of roads in Northern Ireland -
-**Counties.shp**, a shapefile of county outlines for Northern Ireland -
-**NI_Wards.shp**, a shapefile of electoral wards for Northern Ireland
+In the data_files folder, you should have the following:
+
+- **NI_roads.shp**, a shapefile of roads in Northern Ireland
+- **Counties.shp**, a shapefile of county outlines for Northern Ireland
+- **NI_Wards.shp**, a shapefile of electoral wards for Northern Ireland
 
 getting started
 ^^^^^^^^^^^^^^^^
@@ -288,17 +298,17 @@ In this practical, we’ll be working with vector data. As a quick
 refresher, the three main types of vector data that we will work with
 are:
 
--  **Point**: point data represent a single point in space. For our
-   purposes, points are either two-dimensional (x, y) or
-   three-dimensional (x, y, z). In ``shapely``, the corresponding
-   **class** of data is a **Point**.
--  **Line**: lines are a sequence of at least two points that are joined
-   together. In ``shapely``, the corresponding **class** of data is
-   known as a **LineString**.
--  **Polygon**: polygons are a sequence of at least three points that
-   are connected to form a **ring**, as well as any additional rings
-   that represent holes in the polygon. In ``shapely``, the
-   corresponding **class** of data is a **Polygon**.
+- **Point**: point data represent a single point in space. For our
+  purposes, points are either two-dimensional (x, y) or
+  three-dimensional (x, y, z). In ``shapely``, the corresponding
+  **class** of data is a **Point**.
+- **Line**: lines are a sequence of at least two points that are joined
+  together. In ``shapely``, the corresponding **class** of data is known
+  as a **LineString**.
+- **Polygon**: polygons are a sequence of at least three points that are
+  connected to form a **ring**, as well as any additional rings that
+  represent holes in the polygon. In ``shapely``, the corresponding
+  **class** of data is a **Polygon**.
 
 We can also have **Collections** of vector data, where each feature
 represents a collection of **Point**, **Line**, or **Polygon** objects.
@@ -310,7 +320,7 @@ To get started, run the following cell to import ``geopandas`` and
 
 .. code:: ipython3
 
-    # this lets us use the figures interactively
+    # this lets us show the figures, but not interactively
     %matplotlib inline
 
     import pandas as pd
@@ -357,7 +367,7 @@ methods and attributes associated with the **Point** class:
 
     dir(pt) # show the attributes and methods associated with the pt object
 
-Here, in addition to the **speciall** or **magic** methods (denoted with
+Here, in addition to the **special** or **magic** methods (denoted with
 two underscores, \_\_, at the beginning and end of the method name),
 there are a number of methods that we might find useful, including
 ``.distance()``.
@@ -543,6 +553,13 @@ second that describes the ``holes``:
                                 holes=[[(-6.684, 55.168), (-6.704, 55.187), (-6.672, 55.196)]]) # note the double brackets
 
     print(polygon_with_hole)
+
+And, within a jupyter notebook, we can even see what a\ ``shapely``
+geometry looks like by running a cell with the name of the object:
+
+.. code:: ipython3
+
+    polygon_with_hole # displays the geometry object within the notebook
 
 Note the double brackets in the ``holes`` keyword argument:
 
@@ -760,8 +777,8 @@ geographic coordinates (e.g., (-6.21243, 54.48706)), the points in each
 **LineString** object, the units will be in the same units as our CRS
 (meters).
 
-summarizing data using geopandas
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+vector operations and summarizing data using geopandas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 So that’s the first part of our problem solved - our coordinates are in
 meters, and the lengths will be as well. The next step is to select all
@@ -775,54 +792,109 @@ only those rows where the road type is ``MOTORWAY``:
     roads_itm[roads_itm['Road_class'] == 'MOTORWAY']
 
 But first, we might want to add a column to our **GeoDataFrame** that
-contains the ``.length`` of each of the features. One way to do this
-would be to *iterate* over the rows of the **GeoDataFrame** using the
-``.iterrows()``
-(`documentation <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iterrows.html>`__):
+contains the ``.length`` of each of the features in kilometers.
 
-.. code:: ipython3
-
-    help(roads_itm.iterrows)
-
-Because ``.iterrows()`` returns an **iterator** of (**index**,
-**Series**) pairs, we can use **tuple assignment** in our ``for`` loop
-definition:
+Now, it is possible to do this using a loop and the ``.iterrows()``
+(`documentation <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iterrows.html>`__)
+method - this might look something like this:
 
 .. code:: python
 
-   for ind, row in roads_itm.iterrows():
+   for ind, row in roads_itm.iterrows(): # iterate over each row in the GeoDataFrame
+       roads_itm.loc[ind, 'Length'] = row['geometry'].length / 1000 # assign the row's geometry length to a new column, Length, by dividing the geometry length by 1000
 
-This gives us two variables, ``ind`` and ``row``, which we can use
-inside the body of the ``for`` loop: - ``ind`` corresponds to the
-**index** of the ``row`` - ``row`` corresponds to the **Series**, the
-actual data contained in the ``row``
+In fact, we will see examples of using both ``.iterrows()`` and
+``.itertuples()``
+(`documentation <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.itertuples.html>`__)
+later on.
 
-We can access the value stored in each “column” of the row in the same
-way that we do for the full **GeoDataFrame** - either ``row[column]`` or
-``row.column``.
+But, we can also use a **vectorized** operation to achieve the same
+goal. In computing, a `vectorized
+operation <https://en.wikipedia.org/wiki/Array_programming>`__ is an
+operation that allows us to work on an entire squence of values (a
+“vector” or “array”), rather than having to work on individual
+(“scalar”) values within a loop. Oftentimes, this enables us to write
+clearer code, and depending on the language and the operation, it can
+even run much faster than an equivalent loop construct.
 
-Finally, we can assign a new column in the original **GeoDataFrame**
-using the ``.loc``
-`property <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html>`__,
-which uses either a *label* (for example, ``ind``), or a **Boolean
-array** to index the **GeoDataFrame**.
+A number of packages in python, including ``pandas`` (and, by
+inheritance, ``geopandas``), support vectorized operations. Let’s see
+how this works.
 
-So the line below,
-
-.. code:: python
-
-   roads_itm.loc[ind, 'Length'] = row['geometry'].length
-
-assigns the ``length`` property of the row’s geometry to a new column,
-``Length``, at the index. Putting it all together, our loop looks like
-this:
+First, we can see that the **geometry** column of our **GeoDataFrame**
+is an object of type **GeoSeries**
+(`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.html>`__)
 
 .. code:: ipython3
 
-    for ind, row in roads_itm.iterrows(): # iterate over each row in the GeoDataFrame
-        roads_itm.loc[ind, 'Length'] = row['geometry'].length # assign the row's geometry length to a new column, Length
+    type(roads_itm['geometry'])
 
-    roads_itm.head() # show the updated GeoDataFrame to see the changes
+A **GeoSeries** has an attribute, ``.length``
+(`documentation <https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.length.html>`__),
+which provides the length of each geometry in the **GeoSeries**, in the
+units of the **GeoSeries**\ ’ CRS:
+
+.. code:: ipython3
+
+    roads_itm['geometry'].length # show the length of each geometry in the geodataframe
+
+To illustrate how much faster vectorized operations can be, let’s
+compare the ``for`` loop shown above with a vectorized operation, to see
+whether there is a speed difference between the two options.
+
+First, we’ll wrap each of these operations in a function to make it
+easier to time the results:
+
+.. code:: ipython3
+
+    # wrap the for loop in a function to make it easier to use with %timeit
+    def iterrate_length(gdf):
+        for ind, row in gdf.iterrows():
+            row['geometry'].length / 1000
+
+    # wrap the vector operation in a function to make it easier to use with %timeit
+    def vector_length(gdf):
+        gdf['geometry'].length / 1000
+
+Next, we’ll use the ``%timeit`` `magic
+command <https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit>`__
+to compare the speed of these different operations. First, we’ll use
+``%timeit`` to calculate the average of iterating over the dataframe
+using ``.iterrows()``:
+
+.. code:: ipython3
+
+    %timeit iterrate_length(roads_itm)
+
+Next, we’ll use ``%timeit`` to calculate the average of using the
+equivalent vector operation:
+
+.. code:: ipython3
+
+    %timeit vector_length(roads_itm)
+
+My results show that ``.iterrows()`` took an average of ~400 ms
+(milliseconds, or 10-3 seconds) over 7 runs, while the vector operation
+took an average of ~500 µs (microseconds, or 10-6 seconds) over 7 runs -
+a difference of about 3 orders of magnitude.
+
+Your results may differ slightly, but they should be fairly similar.
+While the difference between ~400 ms and ~500 µs might not seem like
+much, it can add up a lot over the course of a program (especially if
+you’re working with large datasets).
+
+Note that it’s not always possible to use vectorized operations, and
+there are cases where it may be less advantageous to use them; most of
+the time, however, it can help keep your code a bit tidier, and it might
+mean that your code runs faster.
+
+In the cell below, use a vector operation to write a line of code that
+adds a ``Length`` column to the **GeoDataFrame**, calculated as the
+length of each feature in kilometers:
+
+.. code:: ipython3
+
+    # your code goes here!
 
 Finally, we can subset our **GeoDataFrame** to select only ``MOTORWAY``
 features, and sum their length using the ``.sum()`` method
@@ -832,14 +904,14 @@ features, and sum their length using the ``.sum()`` method
 
     sum_roads = roads_itm['Length'].sum()
     sum_motorway = roads_itm[roads_itm['Road_class'] == 'MOTORWAY']['Length'].sum()
-    print(f'{sum_roads:.2f} total m of roads')
-    print(f'{sum_motorway:.2f} total m of motorway')
+    print(f'{sum_roads:.2f} total km of roads')
+    print(f'{sum_motorway:.2f} total km of motorway')
 
 In the cell above, look at the ``print`` function argument:
 
 .. code:: python
 
-   print(f'{sum_motorway:.2f} total m of motorway')
+   print(f'{sum_motorway:.2f} total km of motorway')
 
 Here, we are using a “`formatted string
 literal <https://docs.python.org/3/tutorial/inputoutput.html#tut-f-strings>`__”
@@ -873,7 +945,7 @@ this:
 
 .. code:: ipython3
 
-    roads_itm.groupby(['Road_class'])['Length'].sum() / 1000 # convert to km
+    roads_itm.groupby(['Road_class'])['Length'].sum()
 
 ``.groupby()`` returns a **GeoDataFrame**, which we can then index to
 return a single column, ``Length``. As this is a numeric column, we can
@@ -934,7 +1006,7 @@ roads by each county, and by the type of road:
 
     group_county_road = join.groupby(['CountyName', 'Road_class']) # group by county name, then road class
 
-    group_county_road['Length'].sum() / 1000 # show the total number of km for each category
+    group_county_road['Length'].sum() # show the total number of km for each category
 
 From this, we can quickly see that County Antrim has the most motorway
 of any county in Northern Ireland (93.44 km), while County Tyrone has
@@ -954,7 +1026,7 @@ total length of roads in the original dataset:
     # check that the total length of roads is the same between both GeoDataFrames
     print(f'Total length of roads from original file: {sum_roads:.2f}')
     print(f'Total length of roads from spatial join: {join_total:.2f}')
-    print(f'Absolute difference in road length: {abs(sum_roads - join_total) / 1000:0.2f} km') # calculate the absolute difference as a percentage
+    print(f'Absolute difference in road length: {abs(sum_roads - join_total):0.2f} km') # calculate the absolute difference as a percentage
     print(f'Absolute difference in road length: {(100 * abs(sum_roads - join_total) / sum_roads):0.2f}%') # calculate the absolute difference as a percentage
 
 And indeed, we can see that the total length of roads in the spatial
@@ -990,21 +1062,20 @@ Note that we have to do this for each of county, because -
 there are multiple **Polygon** objects.
 
 Using a ``for`` loop to loop over the ``counties`` **GeoDataFrame**,
-then, we can clip ``roads_itm`` to each county, and combine the results
-in another **GeoDataFrame**:
+then, we can clip ``roads_itm`` to each county:
 
 .. code:: ipython3
 
     clipped = [] # initialize an empty list
     for county in counties['CountyName'].unique(): # iterate over unique values of county
         tmp_clip = gpd.clip(roads_itm, counties[counties['CountyName'] == county]) # clip the roads by county border
-        for ind, row in tmp_clip.iterrows():
-            tmp_clip.loc[ind, 'Length'] = row['geometry'].length # remember to update the length for any clipped roads
-            tmp_clip.loc[ind, 'CountyName'] = county # set the county name for each road feature
+        tmp_clip['Length'] = tmp_clip['geometry'].length / 1000 # remember to update the length for any clipped roads
+        tmp_clip['CountyName'] = county # set the county name for each road feature
+
         clipped.append(tmp_clip) # add the clipped GeoDataFrame to the list
 
-Note that this step will likely take some time, as we are iterating over
-a large number of features.
+Note that this step will likely take some time, as we have to clip a
+large number of features.
 
 This creates a **list** of **GeoDataFrame** objects - one for each
 unique value of ``CountyName``. Now, we can use ``pd.concat()``
@@ -1035,7 +1106,7 @@ length of roads from the original dataset:
 
     print(f'Total length of roads from original file: {sum_roads:.2f} m')
     print(f'Total length of roads from clipped join: {clip_total:.2f} m')
-    print(f'Absolute difference in road length: {abs(sum_roads - clip_total) / 1000:0.2f} km')
+    print(f'Absolute difference in road length: {abs(sum_roads - clip_total):0.2f} km')
     print(f'Absolute difference in road length: {(100 * abs(sum_roads - clip_total) / sum_roads):0.2f}%')
 
 So we don’t have perfect overlap. This is because there isn’t perfect
@@ -1072,11 +1143,17 @@ objects and ``geopandas`` **GeoDataFrame** objects, have a look at
 **exercise_script.py** in this folder.
 
 Using the topics covered in the Week 2 practical and this practical,
-modify this script to do the following: 1. Load the counties and ward
-data 2. Using a spatial join, summarize the total population by county.
-What county has the highest population? What about the lowest? 3. Create
-a map like the one below to show population information by census area,
-with the county boundaries plotted overtop of the chloropleth map.
+modify this script to do the following:
+
+1. Load the counties and ward data
+2. Using a spatial join, summarize the total population by county.
+   What county has the highest population? What about the lowest? Note that
+   there are many wards that extend over county boundaries; for the
+   purposes of this exercise, let’s ignore that small problem.
+3. Create a map like the one below to show population information by census area,
+   with the county boundaries plotted overtop of the chloropleth map. Note
+   that you may need to re-use some of the code from the Week 2 cartopy
+   exercise in order to do this.
 
 .. image:: ../../../img/egm722/week3/sample_map.png
     :width: 600
