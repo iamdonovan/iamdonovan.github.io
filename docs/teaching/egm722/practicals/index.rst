@@ -31,6 +31,7 @@ eventually work.
    raster
    earthaccess
    zonalstats
+   geopandas
 
 
 .. |binder| image:: https://mybinder.org/badge_logo.svg
