@@ -40,36 +40,36 @@ In this exercise, we’ll see how we can use ``geopandas``, together with
 objectives
 ^^^^^^^^^^^
 
--  Use ``geopandas`` to convert csv data with geographic information
-   into vector data
--  Use ``geopandas.GeoDataFrame.explore()`` to create an interactive map
-   from vector data
--  Use ``pandas.DataFrame.merge()`` to join attribute tables based on
-   shared field values
+- Use ``geopandas`` to convert csv data with geographic information into
+  vector data
+- Use ``geopandas.GeoDataFrame.explore()`` to create an interactive map
+  from vector data
+- Use ``pandas.DataFrame.merge()`` to join attribute tables based on
+  shared field values
 
 data provided
 ^^^^^^^^^^^^^^
 
 In the data_files folder, you should have the following files:
 
--  Airports.csv, a csv file with information about Airport locations in
-   Northern Ireland
--  NI_Wards.shp, a shapefile of electoral wards for Northern Ireland
--  transport_data.csv, a csv file with information about public
-   transport for the electoral wards
+- Airports.csv, a csv file with information about Airport locations in
+  Northern Ireland
+- NI_Wards.shp, a shapefile of electoral wards for Northern Ireland
+- transport_data.csv, a csv file with information about public transport
+  for the electoral wards
 
 Note: I will not go over the steps in detail, but if you would like to
 see how I created the ``transport_data.csv`` file, the script can be
 found at **data_files/aggregate_data.py**. To run that script, you will
 need to download the following files into the **data_files** folder:
 
--  ``09-05-2022busstop-list.geojson``, a Geographic JavaScript Object
-   Notation (GeoJSON) file containing locations for all bus stops in
-   Northern Ireland (valid as of May 2022), from
-   `OpenDataNI <https://www.opendatani.gov.uk/@translink/translink-bus-stop-list>`__
--  ``translink-stations-ni.geojson``, a GeoJSON file containing the
-   locations of all Bus and Rail stations in Northern Ireland, from
-   `OpenDataNI <https://www.opendatani.gov.uk/@translink/translink-ni-railways-stations>`__
+- ``09-05-2022busstop-list.geojson``, a Geographic JavaScript Object
+  Notation (GeoJSON) file containing locations for all bus stops in
+  Northern Ireland (valid as of May 2022), from
+  `OpenDataNI <https://www.opendatani.gov.uk/@translink/translink-bus-stop-list>`__
+- ``translink-stations-ni.geojson``, a GeoJSON file containing the
+  locations of all Bus and Rail stations in Northern Ireland, from
+  `OpenDataNI <https://www.opendatani.gov.uk/@translink/translink-ni-railways-stations>`__
 
 getting started
 ^^^^^^^^^^^^^^^^
@@ -113,6 +113,8 @@ colormaps <https://matplotlib.org/stable/tutorials/colors/colormaps.html>`__):
 .. code:: ipython3
 
     m = wards.explore('Population', cmap='viridis')
+
+    m # show the map
 
 As you can see, this adds a color scale/legend to the upper right-hand
 corner of the map, which tells us what the colors of each polygon
@@ -280,9 +282,9 @@ The only key/value pair in this **dict** is the ``icon``, which tells
 (`documentation <https://python-visualization.github.io/folium/modules.html#folium.map.Icon>`__),
 with the following arguments:
 
--  ``color='red'``
--  ``icon='plane'``
--  ``prefix='fa'``
+- ``color='red'``
+- ``icon='plane'``
+- ``prefix='fa'``
 
 ``folium`` has support for a number of different icon styles, including
 `FontAwesome <https://fontawesome.com/icons?d=gallery>`__ and
@@ -329,13 +331,17 @@ That wraps up the introduction to creating interactive maps using
 ``geopandas`` and ``folium``. If you’re looking for additional practice,
 here are some suggestions to get you started:
 
--  In the ``transport`` dataset, there is a column called ``NumBus``,
-   which corresponds to the number of bus stops in each electoral ward.
-   Use this, and some of the topics covered previously, to create a map
-   that shows the number of bus stops per capita for each electoral
-   ward, rather than the distance to the nearest bus/rail station.
--  Download the Translink `bus/train
-   station <https://www.opendatani.gov.uk/@translink/translink-ni-railways-stations>`__
-   location data from OpenNI, and add these data to the map using a
-   custom marker that shows whether the station is a rail station
-   (``R``), a bus station (``B``), or a mixed-use (``I``) station.
+That wraps up the introduction to creating interactive maps using
+``geopandas`` and ``folium``. If you’re looking for additional practice,
+here are some suggestions to get you started:
+
+- In the ``transport`` dataset, there is a column called ``NumBus``,
+  which corresponds to the number of bus stops in each electoral ward.
+  Use this, and some of the topics covered previously, to create a map
+  that shows the number of bus stops per capita for each electoral ward,
+  rather than the distance to the nearest bus/rail station.
+- Download the Translink `bus/train
+  station <https://www.opendatani.gov.uk/@translink/translink-ni-railways-stations>`__
+  location data from OpenNI, and add these data to the map using a
+  custom marker that shows whether the station is a rail station
+  (``R``), a bus station (``B``), or a mixed-use (``I``) station.
