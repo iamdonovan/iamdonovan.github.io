@@ -17,14 +17,21 @@ you’ve learned in the Jupyter Notebook and the mapping exercise in Practical 2
 getting started
 ---------------
 
-:doc:`Last week<cartopy>`, we saw how we can use **GitHub Desktop** to merge two branches (in this case, ``week2`` into ``main``).
-This week, we're going to see how to do this using the command line.
+:doc:`Last week<cartopy>`, we saw how we can synchronize branches of our fork on GitHub. We also saw how we can use
+**GitHub Desktop** to merge two branches (in this case, ``week2`` into ``main``). This week, we're going to see how to
+do these things using the command line.
 
-To get started with this week’s practical, open Anaconda Navigator, then launch the **Command Prompt** - either from 
-**Anaconda Navigator** (make sure that your egm722 environment is selected), or from the **Start Menu**.
+To get started with this week’s practical, open Anaconda Navigator, then launch the **Anaconda Command Prompt** - either
+from **Anaconda Navigator** (make sure that your egm722 environment is selected), or from the **Start Menu**.
 
-When the **Command Prompt** opens, navigate to your repository folder using ``cd``, then type ``dir`` and press **Enter**. 
-You should see something similar to the following:
+When the **Command Prompt** opens, navigate to your repository folder using ``cd``, then type ``dir`` and press **Enter**.
+For example, if the path to your repository folder is **C:\\Users\\bob\\egm722**, you should run the command:
+
+.. code-block:: text
+
+    cd C:\Users\bob\egm722
+
+Followed by ``dir``. You should then see something similar to the following:
 
 .. image:: ../../../img/egm722/week3/main_dir.png
     :width: 600
@@ -79,8 +86,10 @@ Remember that at the :ref:`start<desktop branches>` of last week's practical, we
 - **upstream** branches are the branches of the repository that you forked the egm722 repository from
   (https://github.com/iamdonovan/egm722).
 
-Sometimes, there may be changes to the **upstream** repository that we want to integrate into our local version of a
-repository. For example, for this module I may have added an additional exercise to the practical in one week, and you
+As we saw last week, there may be changes to the **upstream** repository that we want to integrate into our local
+version of a repository.
+
+For example, for this module I may have added an additional exercise to the practical in one week, and you
 want to make sure that you have this before you **merge** that week's branch into the ``main`` branch.
 
 To be able to keep track of the **upstream** changes, we need to make sure that our local repository knows where the
@@ -94,7 +103,7 @@ by typing the following at the command line:
 This will list the **remote** repositories, and their nicknames. You should see an output like this:
 
 .. image:: ../../../img/egm722/week3/remote_v.png
-    :width: 600
+    :width: 720
     :align: center
     :alt: the remote repositories for this repository
 
@@ -109,7 +118,9 @@ This will list the **remote** repositories, and their nicknames. You should see 
         git remote add upstream https://github.com/iamdonovan/egm722.git
 
     This adds the URL for the **upstream** repository (https://github.com/iamdonovan/egm722.git) to our local
-    configuration. You can check that this worked by typing ``git remote -v`` again - you should now see two lines
+    configuration.
+
+    You can check that this worked by typing ``git remote -v`` again - you should now see two lines
     for the **upstream** repository, as above.
 
 Now, we can tell **git** to specifically **pull** the **upstream** version of a particular branch:
@@ -128,7 +139,7 @@ Go ahead and enter this command now:
 
     git pull upstream week3
 
-You should see the following output:
+If you see the following output:
 
 .. image:: ../../../img/egm722/week3/pull_upstream.png
     :width: 600
@@ -137,6 +148,8 @@ You should see the following output:
 
 |br| This indicates that there's been no change to the **upstream** branch that isn't already in our **origin** branch,
 so we can safely merge the **local** ``main`` and ``week3`` branches.
+
+You may also see output that indicates there is XXX
 
 Now, switch back to the ``main`` branch:
 
