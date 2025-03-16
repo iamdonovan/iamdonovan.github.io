@@ -753,7 +753,11 @@ codes, but that’s for another day. If you’re interested in learning
 more, you can check out the documentation
 `here <https://matplotlib.org/stable/api/colors_api.html>`__.
 
-|title|
+.. image:: ../../../img/egm722/week2/named_colors.png
+    :width: 600
+    :align: center
+    :alt: a list of named colors in matplotlib
+
 `source <https://matplotlib.org/stable/gallery/color/named_colors.html>`__
 
 You can also go to to `ColorBrewer <https://colorbrewer2.org>`__, which
@@ -765,8 +769,6 @@ checking color accessibility or generating color palettes include
 Design <https://www.learnui.design/tools/data-color-picker.html>`__, or
 `Coloring for
 Colorblindness <https://davidmathlogic.com/colorblind/>`__.
-
-.. |title| image:: imgs/named_colors.png
 
 .. code:: ipython3
 

@@ -4,7 +4,7 @@ more fun with geopandas
 .. note::
 
     Below this point is the **non-interactive** text of the notebook. To actually run the notebook, you'll need to
-    follow the instructions
+    follow the setup instructions to install the necessary software on your computer.
 
 
 Jan Sardi
