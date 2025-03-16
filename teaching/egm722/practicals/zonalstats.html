@@ -55,7 +55,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm722/practicals/zonalstats';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="help! something went wrong!" href="../faq/index.html" />
+    <link rel="next" title="more fun with geopandas" href="geopandas.html" />
     <link rel="prev" title="searching + downloading satellite data using earthaccess" href="earthaccess.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -216,6 +216,7 @@
 <li class="toctree-l4"><a class="reference internal" href="raster.html">raster data using rasterio</a></li>
 <li class="toctree-l4"><a class="reference internal" href="earthaccess.html">searching + downloading satellite data using earthaccess</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">zonal statistics using rasterstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geopandas.html">more fun with geopandas</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -608,12 +609,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-exceptions-with-try-except">handling Exceptions with try … except</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rasterizing-vector-data-using-rasterio">rasterizing vector data using rasterio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-and-indexing-rasters">masking and indexing rasters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
 </ul>
             </nav>
         </div>
@@ -698,8 +697,11 @@ that we can automate using python.</p>
 </section>
 <section id="data-provided">
 <h3>data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
-<p>In the data_files folder, you should have the following: -
-LCM2015_Aggregate_100m.tif - NI_DEM.tif</p>
+<p>In the data_files folder, you should have the following:</p>
+<ul class="simple">
+<li><p><strong>LCM2015_Aggregate_100m.tif</strong></p></li>
+<li><p><strong>NI_DEM.tif</strong></p></li>
+</ul>
 </section>
 <section id="id1">
 <h3>getting started<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
@@ -1138,7 +1140,6 @@ we expect.</p>
 <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span> <span class="c1"># show a colorbar</span>
 </pre></div>
 </div>
-<img alt="../../../_images/ZonalStats_53_1.png" src="../../../_images/ZonalStats_53_1.png" />
 <p>As you can see, this provides us with an <strong>array</strong> whose values
 correspond to the <code class="docutils literal notranslate"><span class="pre">COUNTY_ID</span></code> of the county feature at that location
 (check the <code class="docutils literal notranslate"><span class="pre">counties</span></code> <strong>GeoDataFrame</strong> again to see which county
@@ -1180,7 +1181,6 @@ Antrim (<code class="docutils literal notranslate"><span class="pre">COUNTY_ID=1
 <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">county_antrim</span><span class="p">)</span> <span class="c1"># visualize the rasterized output</span>
 </pre></div>
 </div>
-<img alt="../../../_images/ZonalStats_57_1.png" src="../../../_images/ZonalStats_57_1.png" />
 <p>We can also combine expressions using functions like
 <code class="docutils literal notranslate"><span class="pre">`np.logical_and()</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.logical_and.html">https://numpy.org/doc/stable/reference/generated/numpy.logical_and.html</a>&gt;`__
 or
@@ -1194,7 +1194,6 @@ do the following:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">antrim_and_down</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../../_images/ZonalStats_59_1.png" src="../../../_images/ZonalStats_59_1.png" />
 <p>We could then find the mean elevation of these two counties by indexing,
 or selecting, pixels from <code class="docutils literal notranslate"><span class="pre">dem</span></code> using our mask:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ad_elevation</span> <span class="o">=</span> <span class="n">dem</span><span class="p">[</span><span class="n">antrim_and_down</span><span class="p">]</span> <span class="c1"># index the array using the antrim_and_down mask</span>
@@ -1251,7 +1250,6 @@ type using <code class="docutils literal notranslate"><span class="pre">plt.bar(
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> <span class="c1"># add a legend</span>
 </pre></div>
 </div>
-<img alt="../../../_images/ZonalStats_67_1.png" src="../../../_images/ZonalStats_67_1.png" />
 <p>From this, we can clearly see that Conifer woodlands tend to be found at
 much higher elevations than Broadleaf woodlands, and at a much larger
 range of elevations (0-500 m, compared to 0-250 m or so).</p>
@@ -1284,19 +1282,21 @@ which will help you answer this question.</p>
 </pre></div>
 </div>
 </section>
+</section>
 <section id="next-steps">
-<h3>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h3>
-<p>That’s all for this practical. In lieu of an additional exercise this
-week, spend some time working on your project - are there concepts or
-examples from this practical that you can incorporate into your project?</p>
-<section id="footnotes">
-<h4>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h4>
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
+<p>That’s all for this exercise. For some additional practice, repeat the
+last section, but instead of using <strong>NI_DEM.tif</strong>, use the ASTER GDEM
+mosaic that you downloaded during last week’s <code class="docutils literal notranslate"><span class="pre">earthaccess</span></code> practical.
+Be sure to clip the mosaicked DEM to the same extent as <strong>NI_DEM.tif</strong>.
+Do you see differences between the results that you get from each DEM?</p>
+</section>
+<section id="notes">
+<h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="#fn1-back">1</a>Rowland, C.S.; Morton, R.D.; Carrasco, L.; McShane,
 G.; O’Neil, A.W.; Wood, C.M. (2017). Land Cover Map 2015 (25m raster, N.
 Ireland). NERC Environmental Information Data Centre.
 <a class="reference external" href="https://doi.org/10.5285/47f053a0-e34f-4534-a843-76f0a0998a2f">doi:10.5285/47f053a0-e34f-4534-a843-76f0a0998a2f</a></p>
-</section>
-</section>
 </section>
 </section>
 
@@ -1321,11 +1321,11 @@ Ireland). NERC Environmental Information Data Centre.
       </div>
     </a>
     <a class="right-next"
-       href="../faq/index.html"
+       href="geopandas.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">help! something went wrong!</p>
+        <p class="prev-next-title">more fun with geopandas</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1355,12 +1355,10 @@ Ireland). NERC Environmental Information Data Centre.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-exceptions-with-try-except">handling Exceptions with try … except</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rasterizing-vector-data-using-rasterio">rasterizing vector data using rasterio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-and-indexing-rasters">masking and indexing rasters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
 </ul>
   </nav></div>
 

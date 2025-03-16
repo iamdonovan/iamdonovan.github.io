@@ -52,5 +52,7 @@ Before moving on to the :doc:`lectures` and :doc:`practicals<practicals/index>` 
 |         |                       | :doc:`practicals/earthaccess` |
 +---------+-----------------------+-------------------------------+
 | 5       |                       | :doc:`practicals/zonalstats`  |
+|         |                       |                               |
+|         |                       | :doc:`practicals/geopandas`   |
 +---------+-----------------------+-------------------------------+
 

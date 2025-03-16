@@ -80,18 +80,20 @@ that we can automate using python.
 objectives
 ^^^^^^^^^^^
 
--  learn how to use ``rasterstats`` to perform zonal statistics
--  use the ``zip`` built-in to combine iterables such as lists
--  learn how to handle exceptions using ``try`` … ``except`` blocks
--  rasterize polygon data using ``rasterio``
--  learn how to mask and select (index) rasters using vector data
--  see additional plotting examples using ``matplotlib``
+- learn how to use ``rasterstats`` to perform zonal statistics
+- use the ``zip`` built-in to combine iterables such as lists
+- learn how to handle exceptions using ``try`` … ``except`` blocks
+- rasterize polygon data using ``rasterio``
+- learn how to mask and select (index) rasters using vector data
+- see additional plotting examples using ``matplotlib``
 
 data provided
 ^^^^^^^^^^^^^^
 
-In the data_files folder, you should have the following: -
-LCM2015_Aggregate_100m.tif - NI_DEM.tif
+In the data_files folder, you should have the following:
+
+- **LCM2015_Aggregate_100m.tif**
+- **NI_DEM.tif**
 
 getting started
 ^^^^^^^^^^^^^^^^
@@ -588,9 +590,6 @@ The cell below will display the ``county_mask`` raster in a
     im = ax.imshow(county_mask) # visualize the rasterized output
     fig.colorbar(im) # show a colorbar
 
-.. image:: ZonalStats_files/ZonalStats_53_1.png
-
-
 As you can see, this provides us with an **array** whose values
 correspond to the ``COUNTY_ID`` of the county feature at that location
 (check the ``counties`` **GeoDataFrame** again to see which county
@@ -641,9 +640,6 @@ Let’s see what this mask looks like:
     fig, ax = plt.subplots(1, 1)
     ax.imshow(county_antrim) # visualize the rasterized output
 
-.. image:: ZonalStats_files/ZonalStats_57_1.png
-
-
 We can also combine expressions using functions like
 ```np.logical_and()`` <https://numpy.org/doc/stable/reference/generated/numpy.logical_and.html>`__
 or
@@ -658,9 +654,6 @@ do the following:
 
     fig, ax = plt.subplots(1, 1)
     ax.imshow(antrim_and_down)
-
-.. image:: ZonalStats_files/ZonalStats_59_1.png
-
 
 We could then find the mean elevation of these two counties by indexing,
 or selecting, pixels from ``dem`` using our mask:
@@ -727,9 +720,6 @@ type using ``plt.bar()``
     ax.set_ylabel('Area (km$^2$)') # add a y label
     ax.legend() # add a legend
 
-.. image:: ZonalStats_files/ZonalStats_67_1.png
-
-
 From this, we can clearly see that Conifer woodlands tend to be found at
 much higher elevations than Broadleaf woodlands, and at a much larger
 range of elevations (0-500 m, compared to 0-250 m or so).
@@ -767,15 +757,17 @@ which will help you answer this question.
     # now, write a loop that will populate the table with descriptive statistics about the elevation
     # of each landcover class
 
-Next steps
-^^^^^^^^^^^
+next steps
+----------
 
-That’s all for this practical. In lieu of an additional exercise this
-week, spend some time working on your project - are there concepts or
-examples from this practical that you can incorporate into your project?
+That’s all for this exercise. For some additional practice, repeat the
+last section, but instead of using **NI_DEM.tif**, use the ASTER GDEM
+mosaic that you downloaded during last week’s ``earthaccess`` practical.
+Be sure to clip the mosaicked DEM to the same extent as **NI_DEM.tif**.
+Do you see differences between the results that you get from each DEM?
 
-Footnotes
-~~~~~~~~~
+notes
+-----
 
 `1 <#fn1-back>`__\ Rowland, C.S.; Morton, R.D.; Carrasco, L.; McShane,
 G.; O’Neil, A.W.; Wood, C.M. (2017). Land Cover Map 2015 (25m raster, N.

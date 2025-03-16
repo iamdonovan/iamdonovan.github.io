@@ -1,0 +1,1572 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>more fun with geopandas &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" href="../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm722/practicals/geopandas';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="help! something went wrong!" href="../faq/index.html" />
+    <link rel="prev" title="zonal statistics using rasterstats" href="zonalstats.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm702/index.html">EGM702: photogrammetry and advanced image analysis</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm702/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/setup.html">software setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week2.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week3.html">introduction to google earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week4.html">change detection in earth engine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm702/practicals/week5.html">classification in earth engine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm702/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">EGM722: programming for gis and remote sensing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../lectures.html">lectures</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="index.html">practicals</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pythonintro.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cartopy.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="conflicts.html">conflict resolution (using git)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="vector.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="raster.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="earthaccess.html">searching + downloading satellite data using earthaccess</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zonalstats.html">zonal statistics using rasterstats</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">more fun with geopandas</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../project/environment.html">environment.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../python-programming/index.html">programming skills for phd researchers (using python)</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../python-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../python-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../python-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../python-programming/exercises/regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../python-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../ml-crash-course/index.html">a crash course in machine learning (using python) – under development</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ml-crash-course/setup.html">setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ml-crash-course/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../ml-crash-course/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../ml-crash-course/exercises/regression.html">what is machine learning?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../ml-crash-course/exercises/training_testing.html">training, testing, and validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../ml-crash-course/exercises/feature_design.html">feature design and engineering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../ml-crash-course/exercises/performance.html">measuring model performance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../ml-crash-course/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hpc-intro/index.html">introduction to high performance computing</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hpc-intro/setup.html">setup</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../hpc-intro/shell/index.html">the unix shell</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../hpc-intro/shell/shell.html">in the beginning was the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../hpc-intro/shell/navigation.html">navigating on the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../hpc-intro/shell/files.html">working with files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../hpc-intro/shell/input.html">input/output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../hpc-intro/shell/scripts.html">shell scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../hpc-intro/hpc/index.html">high performance computing</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../hpc-intro/hpc/atlas.html">atlas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../hpc-intro/hpc/data_transfer.html">transferring data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../hpc-intro/hpc/vulcan.html">vulcan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../hpc-intro/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dissertation/index.html">undergraduate dissertation projects</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dissertation/glaciers.html">mapping glacier changes over time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dissertation/glacial_lakes.html">detection of supraglacial lakes and timing of drainage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dissertation/algae.html">mapping harmful algal blooms using satellite remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dissertation/floods.html">flood detection and monitoring using remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dissertation/wildfires.html">detection and mapping of wildfires</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dissertation/heat_islands.html">urban heat islands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/thresholding.html">band maths and thresholding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/egm722/practicals/geopandas.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/egm722/practicals/geopandas.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/teaching/egm722/practicals/geopandas.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>more fun with geopandas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jan-sardi">Jan Sardi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">data provided</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-joins-revisited">spatial joins, revisited</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-spatial-joins-merges">non-spatial joins/merges</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">indexing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-joins-merges">types of joins/merges</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-and-grouping-datasets">summarizing and grouping datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterrows-vs-itertuples">iterrows vs. itertuples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-data">plotting data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#even-more-practice">even more practice</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="more-fun-with-geopandas">
+<h1>more fun with geopandas<a class="headerlink" href="#more-fun-with-geopandas" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Below this point is the <strong>non-interactive</strong> text of the notebook. To actually run the notebook, you’ll need to
+follow the instructions</p>
+</div>
+<section id="jan-sardi">
+<h2>Jan Sardi<a class="headerlink" href="#jan-sardi" title="Permalink to this heading">#</a></h2>
+<section id="overview">
+<h3>overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
+<p>In this exercise, we’ll get some additional practice using <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>
+and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to explore spatial (and non-spatial) datasets.</p>
+</section>
+<section id="objectives">
+<h3>objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> string operations to apply <strong>str</strong> methods to columns
+of tables</p></li>
+<li><p>expand on spatial joins, using representative points instead of
+centroids to join polygons</p></li>
+<li><p>get additional practice with <code class="docutils literal notranslate"><span class="pre">.groupby</span></code> operations</p></li>
+<li><p>see how we can join/merge tables using attributes</p></li>
+<li><p>compare ways of iterating over <strong>DataFrame</strong> objects</p></li>
+<li><p>use some of the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> built-in plotting tools</p></li>
+</ul>
+</section>
+<section id="data-provided">
+<h3>data provided<a class="headerlink" href="#data-provided" title="Permalink to this heading">#</a></h3>
+<p>In the data_files folder, you should have the following files:</p>
+<ul class="simple">
+<li><p><strong>schools_data.csv</strong></p></li>
+<li><p><strong>transport.csv</strong></p></li>
+</ul>
+<p>We will also make use of the county outlines and 2011 wards boundaries
+used in previous weeks.</p>
+</section>
+<section id="getting-started">
+<h3>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h3>
+<p>To get started, run the cell below to import both <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and
+<code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, and load the two spatial datasets we will use at the
+start. When we load these datasets, we’re making sure to re-project them
+to the same CRS (<a class="reference external" href="https://epsg.io/2157">EPSG:2157</a>, Irish Transverse
+Mercator) - that way, when we want to plot (or join) the datasets
+together, we know that they’re in the same coordinate system.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">counties</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../Week2/data_files/Counties.shp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;epsg:2157&#39;</span><span class="p">)</span>
+<span class="n">wards</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;../Week3/data_files/NI_Wards.shp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;epsg:2157&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s take a look at the <code class="docutils literal notranslate"><span class="pre">CountyNames</span></code> column of our county attribute
+table:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span> <span class="c1"># show the county names column from the counties dataset</span>
+</pre></div>
+</div>
+<p>As we output our data for further analysis, including formatting
+figures, we might not want the county names to be in <a class="reference external" href="https://en.wikipedia.org/wiki/All_caps">shouting
+case</a> - that is, we might
+want to update these to not be in all caps.</p>
+<p>We have previously seen how we can use <em>vectorized</em> operations on a
+single column (or multiple columns) of numerical data, but what about
+<strong>str</strong> objects? For an individual string, we can use a method such as
+<code class="docutils literal notranslate"><span class="pre">.title()</span></code>
+(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.title">documentation</a>),
+which converts the string to “title” case (first letter of each word is
+capitalized, other letters are lowercase). For example:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;TYRONE&#39;</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="c1"># convert the string TYRONE to Tyrone</span>
+</pre></div>
+</div>
+<p>As we have discussed previously, we could iterate over the items in the
+<strong>Series</strong> - for example, using a <em>list comprehension</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">not_shouting</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>Another, potentially easier way to do this, is by using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>
+<strong>str</strong> methods
+(<a class="reference external" href="https://pandas.pydata.org/docs/user_guide/text.html#string-methods">documentation</a>).
+Using the <code class="docutils literal notranslate"><span class="pre">.str</span></code> attribute of (certain types of) <strong>Series</strong> objects,
+we can use <strong>str</strong> methods such as <code class="docutils literal notranslate"><span class="pre">.title()</span></code>, which will operate on
+all of the items in the <strong>Series</strong>. For example, to convert each string
+value in a <strong>Series</strong> to title case, we can use <code class="docutils literal notranslate"><span class="pre">.str.title()</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="c1"># convert each string in the series to title case</span>
+</pre></div>
+</div>
+<p>To update the <code class="docutils literal notranslate"><span class="pre">CountyName</span></code> column, we can assign the output of
+<code class="docutils literal notranslate"><span class="pre">.str.title()</span></code> to this column of the <strong>DataFrame</strong>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">.str</span></code> attribute is only available if the <strong>Series</strong> is
+of type <strong>object</strong> (or <strong>string</strong>) - it won’t work on numeric values:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;Area_SqKM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="c1"># this won&#39;t work, because it&#39;s not a string!</span>
+</pre></div>
+</div>
+</section>
+<section id="spatial-joins-revisited">
+<h3>spatial joins, revisited<a class="headerlink" href="#spatial-joins-revisited" title="Permalink to this heading">#</a></h3>
+<p>Now that we’ve further introduced vectorized operations, let’s take a
+moment to remind ourselves what data we’re working with. The two files
+that we have loaded so far, <code class="docutils literal notranslate"><span class="pre">counties</span></code> and <code class="docutils literal notranslate"><span class="pre">wards</span></code>, represent the
+boundaries of the six counties of Northern Ireland, and the 2011 Census
+wards and their population, respectively.</p>
+<p>To visualize these, we can use the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method for a
+<strong>GeoDataFrame</strong>
+(<a class="reference external" href="https://geopandas.org/en/latest/docs/reference/api/geopandas.GeoDataFrame.plot.html">documentation</a>),
+which allows us to make a chloropleth map based on spatial data. To show
+the outlines of the counties, we’ll first use <code class="docutils literal notranslate"><span class="pre">.boundary</span></code>
+(<a class="reference external" href="https://geopandas.org/en/latest/docs/reference/api/geopandas.GeoSeries.boundary.html">documentation</a>),
+which returns a <strong>GeoSeries</strong> of <strong>LineString</strong> objects representing the
+exterior boundary of the polygons:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span><span class="o">.</span><span class="n">boundary</span>
+</pre></div>
+</div>
+<p>Putting this all together, we can make a plot that shows the outline of
+each ward, colored by the population (stretched to saturate between
+between 1000 and 8000). And, we’ll plot the county outlines as a thin
+red line on the same axis:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># create a figure and axis object to plot the data into</span>
+
+<span class="n">wards</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;Population&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">counties</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span> <span class="c1"># turn off the yticks for visibility</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span> <span class="c1"># turn off the xticks for visibility</span>
+</pre></div>
+</div>
+<p>As we saw in a previous exercise, we can perform a spatial join using
+<code class="docutils literal notranslate"><span class="pre">.sjoin()</span></code>
+(<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.sjoin.html">documentation</a>)
+to join the electoral wards to the county (or counties) that they
+intersect. Unfortunately, as we also saw, the wards dataset do not fit
+neatly inside of the county boundaries, in part because of differences
+in digitizing.</p>
+<p>To double check this, let’s join the wards to the counties, then compare
+(a) the number of items in the original dataset to the number of items
+in the joined datasets; and (b) the total population from the original
+dataset compared to the total population from the joined dataset:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joined_polygon</span> <span class="o">=</span> <span class="n">counties</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">wards</span><span class="p">)</span> <span class="c1"># join the two datasets using a basic spatial join</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of electoral wards: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">wards</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of joined wards: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">joined_polygon</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="c1"># prints a blank line</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total population from wards: </span><span class="si">{</span><span class="n">wards</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total population from joined: </span><span class="si">{</span><span class="n">joined_polygon</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From ths, it’s clear that we’re double-counting lots of wards: from the
+582 original wards, we now have 702 in the joined dataset. This (not
+surprisingly) gives us a total population of 2.21 million, an increase
+of 21% from the original 1.81 million counted in the 2011 census.</p>
+<p>When we are joining two different polygon datasets, it is sometimes
+preferable to convert one of the datasets to a set of points. This is
+especially useful in cases where datasets may have been digitized
+without
+<a class="reference external" href="https://www.geographyrealm.com/what-is-snapping-in-gis/">snapping</a>
+the vertices together, to avoid having gaps or overlaps between
+features.</p>
+<p>Let’s try the (obvious) example first, where we use the <em>centroid</em>, or
+centerpoint, of each of the polygons. <strong>GeoDataFrame</strong> and <strong>GeoSeries</strong>
+objects have a <code class="docutils literal notranslate"><span class="pre">.centroid</span></code> attribute
+(<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.centroid.html">documentation</a>),
+which gives us a <strong>GeoSeries</strong> of <strong>Point</strong> objects corresponding to the
+center of each geometry:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wards</span><span class="o">.</span><span class="n">centroid</span> <span class="c1"># show the centroids of the wards geodataframe</span>
+</pre></div>
+</div>
+<p>To visualize this <strong>GeoSeries</strong>, we’ll plot the outlines of the wards
+dataset (again using <code class="docutils literal notranslate"><span class="pre">.boundary</span></code>), along with the centroids of each
+ward:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">wards</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span> <span class="c1"># plot the outlines of the counties</span>
+<span class="n">wards</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> <span class="c1"># plot the centroids of each ward</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span> <span class="c1"># turn off the yticks for visibility</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span> <span class="c1"># turn off the xticks for visibility</span>
+</pre></div>
+</div>
+<p>And here, we see one of the potential pitfalls of using the centroid
+(noted, in fact, at the very top of the documentation page linked
+above):</p>
+<blockquote>
+<div><p>Note that centroid does not have to be on or within original
+geometry.</p>
+</div></blockquote>
+<p>You can see this most clearly for Bonamargy and Rathlin in the
+northernmost part of the map above. Because this ward is split between
+two features (<a class="reference external" href="https://www.openstreetmap.org/#map=12/55.2558/-6.2262">Rathlin Island and part of the town of
+Ballycastle</a>),
+the centerpoint ends up being somewhere between them in Rathlin Sound.</p>
+<p>In fact, there are a number of wards where the centroid is not actually
+within the original geometry - we can view this by using <code class="docutils literal notranslate"><span class="pre">.loc</span></code> along
+with <code class="docutils literal notranslate"><span class="pre">.contains()</span></code>
+(<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.contains.html">documentation</a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wards</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">wards</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This gives us a boolean (True/False) <strong>Series</strong>, with a value of
+<code class="docutils literal notranslate"><span class="pre">True</span></code> where the original feature contains its centroid, and a value
+of <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise. To view the opposite, we can use the <code class="docutils literal notranslate"><span class="pre">~</span></code>
+(“bitwise negation”) operator, which will invert the selection to show
+us only the rows where the centroid is not contained in the original
+feature:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wards</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">wards</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">wards</span><span class="o">.</span><span class="n">centroid</span><span class="p">)]</span> <span class="c1"># show the wards whose centroid is not contained within the boundary</span>
+</pre></div>
+</div>
+<p>We can see that in fact there are 5 different wards where the centroid
+is not contained in the original feature.</p>
+<p>Furthermore, some centroids may not even fall within the county outlines
+- something that we can check using <code class="docutils literal notranslate"><span class="pre">.within()</span></code>
+(<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.within.html">documentation</a>).
+Similar to <code class="docutils literal notranslate"><span class="pre">.contains()</span></code>, <code class="docutils literal notranslate"><span class="pre">.within()</span></code> returns a boolean <strong>Series</strong>
+with a value of <code class="docutils literal notranslate"><span class="pre">True</span></code> where the original feature is <em>within</em> (i.e.,
+fully contained inside of) some other geometry or <strong>GeoSeries</strong>.</p>
+<p>To check whether the centroids fall within <em>any</em> of the county
+boundaries, we can use <code class="docutils literal notranslate"><span class="pre">.union_all()</span></code>
+(<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.union_all.html">documentation</a>),
+which returns the union of all of the geometries within a <strong>GeoSeries</strong>.</p>
+<p>The following cell will show the wards whose centroid is not contained
+within any of the county boundaries:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wards</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">wards</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">within</span><span class="p">(</span><span class="n">counties</span><span class="o">.</span><span class="n">union_all</span><span class="p">())]</span> <span class="c1"># show the wards whose centroid is not contained within the county boundaries</span>
+</pre></div>
+</div>
+<p>As we might have suspected, the centroid of Bonamargy and Rathlin, which
+is located somewhere in Rathlin Sound, is not contained within a county
+outline - meaning that if we were to join using the centroids, we would
+be working with an incomplete dataset.</p>
+<p>Fortunately, we do have another way to do this, using
+<code class="docutils literal notranslate"><span class="pre">.representative_point()</span></code>
+(<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.representative_point.html">documenation</a>).
+A “representative point” is a point that is guaranteed to be within the
+original geometry, typically (but not always!) near the middle of the
+original feature.</p>
+<p>First, let’s plot the representative points for each ward, alongside the
+ward outlines and centroids:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">wards</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span> <span class="c1"># plot the outlines of the counties</span>
+<span class="n">wards</span><span class="o">.</span><span class="n">representative_point</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> <span class="c1"># plot the representative point of each ward</span>
+<span class="n">wards</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> <span class="c1"># plot the centroid as a small dot</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span> <span class="c1"># turn off the yticks for visibility</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span> <span class="c1"># turn off the xticks for visibility</span>
+</pre></div>
+</div>
+<p>For most of the wards, we can see that the representative point and the
+centroid are in a similar enough location. Now, let’s use <code class="docutils literal notranslate"><span class="pre">.copy()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.copy.html">documentation</a>)
+to create a copy of the original wards <strong>GeoDataFrame</strong>, then replace
+the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> of that <strong>GeoDataFrame</strong> with the set of representative
+points.</p>
+<p>Because later on, we will also want to make use of the area of each
+ward, we will also add this as a column, using the <code class="docutils literal notranslate"><span class="pre">.area</span></code> attribute
+of the <strong>GeoSeries</strong>
+(<a class="reference external" href="https://geopandas.org/en/latest/docs/reference/api/geopandas.GeoSeries.area.html">documentation</a>).
+Note that the <code class="docutils literal notranslate"><span class="pre">.area</span></code> attribute is calculated using the CRS of the
+<strong>GeoSeries</strong> - you’ll want to make sure that the dataset is in a
+<em>projected</em> CRS before using this!</p>
+<p>Finally, we will perform the spatial join and check the number of
+features and total population calculated from the joined datasets:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wards_point</span> <span class="o">=</span> <span class="n">wards</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">wards_point</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wards</span><span class="o">.</span><span class="n">representative_point</span><span class="p">()</span>
+<span class="n">wards_point</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wards</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">area</span>
+
+<span class="n">joined_point</span> <span class="o">=</span> <span class="n">counties</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">wards_point</span><span class="p">)</span> <span class="c1"># join the two datasets using a basic spatial join</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of electoral wards: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">wards</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of joined wards: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">joined_point</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total population from wards: </span><span class="si">{</span><span class="n">wards</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total population from joined: </span><span class="si">{</span><span class="n">joined_point</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So now we have joined the wards together with the counties, and the
+population (and number of features) in the joined dataset matches the
+original values. With this, we can move on to the next step(s) of our
+analysis, and look at how we can perform joins on non-spatial
+attributes.</p>
+</section>
+<section id="non-spatial-joins-merges">
+<h3>non-spatial joins/merges<a class="headerlink" href="#non-spatial-joins-merges" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> (and, by extension, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>) offers two main methods
+for combining tables based on (non-spatial) attributes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> (and <code class="docutils literal notranslate"><span class="pre">DataFrame.merge()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html">documentation</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DataFrame.join()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html">documentation</a>)</p></li>
+</ul>
+<p>There are (mostly) minor differences between them; <code class="docutils literal notranslate"><span class="pre">.merge()</span></code> is
+slightly more flexible and is the underlying function used for
+<code class="docutils literal notranslate"><span class="pre">.join()</span></code>, so we will show examples using this.</p>
+<section id="indexing">
+<h4>indexing<a class="headerlink" href="#indexing" title="Permalink to this heading">#</a></h4>
+<p>First, though, let’s see how we can use the <code class="docutils literal notranslate"><span class="pre">index</span></code> to add information
+to a table. In most of the examples that we have seen so far, the
+<code class="docutils literal notranslate"><span class="pre">index</span></code> of the <strong>DataFrame</strong> has been an integer, usually
+corresponding to the row number. When we add a <strong>Series</strong> to a
+<strong>DataFrame</strong>, the values of the <strong>Series</strong> are mapped to the values of
+the <code class="docutils literal notranslate"><span class="pre">index</span></code> of the <strong>DataFrame</strong>.</p>
+<p>To illustrate this more concretely, let’s look at an example. We’ll
+first create an empty <strong>DataFrame</strong> with an <code class="docutils literal notranslate"><span class="pre">index</span></code> that ranges from 0
+to 3 (remember that <code class="docutils literal notranslate"><span class="pre">range()</span></code> doesn’t include the endpoint!).</p>
+<p>Then, we’ll create two sets of values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ordered</span></code>, a <strong>list</strong> of the letters a through d;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disordered</span></code>, a <strong>Series</strong> that uses the same values as <code class="docutils literal notranslate"><span class="pre">ordered</span></code>,
+but specifies a different order for the <code class="docutils literal notranslate"><span class="pre">index</span></code> values.</p></li>
+</ul>
+<p>Before running the cell below, be sure to think about what the output
+should look like. How do you think the two columns of the <strong>DataFrame</strong>
+will look?</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ordered</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]</span>
+<span class="n">disordered</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ordered</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ordered&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordered</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;disordered&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disordered</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see from the output above, when we add something to a
+<strong>DataFrame</strong> without specifying an <code class="docutils literal notranslate"><span class="pre">index</span></code> (i.e., when we add a
+<strong>list</strong> of values), it defaults to using a numeric <code class="docutils literal notranslate"><span class="pre">index</span></code> that is
+the same as the index of the original <strong>list</strong>: starting from 0 and
+incrementing by 1. So, the <code class="docutils literal notranslate"><span class="pre">index</span></code> values of <code class="docutils literal notranslate"><span class="pre">df['ordered']</span></code> are 0,
+1, 2, and 3, in that order.</p>
+<p>However, we can also specify the <code class="docutils literal notranslate"><span class="pre">index</span></code> values when we create the
+<strong>Series</strong>, as with <code class="docutils literal notranslate"><span class="pre">disordered</span></code> above. When we do this, and then add
+<code class="docutils literal notranslate"><span class="pre">disordered</span></code> to the <strong>DataFrame</strong>, we can see that the values are
+placed in the row of the <strong>DataFrame</strong> corresponding to their <code class="docutils literal notranslate"><span class="pre">index</span></code>
+- so, ‘a’ (with an <code class="docutils literal notranslate"><span class="pre">index</span></code> of 3) gets placed in the final row of the
+<strong>DataFrame</strong>, ‘b’ (with an <code class="docutils literal notranslate"><span class="pre">index</span></code> of 0) gets placed in the first
+row, and so on.</p>
+<p>Taking this one step further, if we have a dataset with a unique
+identifier for each row (for example, the <code class="docutils literal notranslate"><span class="pre">Ward</span> <span class="pre">Code</span></code>, which uniquely
+identifies each ward), we can use this as an <code class="docutils literal notranslate"><span class="pre">index</span></code>. Then, when we
+want to add new data to our table in the form of a <strong>Series</strong>, as long
+as that <strong>Series</strong> uses the same index values as our <strong>DataFrame</strong>, it
+will add the <strong>Series</strong> values to the <strong>DataFrame</strong> in the correct
+order.</p>
+<p>To show that this works, let’s first sort <code class="docutils literal notranslate"><span class="pre">joined_point</span></code> by the ward
+name using <code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html">documentation</a>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joined_point</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Ward&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">joined_point</span> <span class="c1"># show that the table is now sorted by ward name</span>
+</pre></div>
+</div>
+<p>Next, we’ll use <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.set_index.html">documentation</a>)
+to make <code class="docutils literal notranslate"><span class="pre">Ward</span> <span class="pre">Code</span></code> the <code class="docutils literal notranslate"><span class="pre">index</span></code> of both <code class="docutils literal notranslate"><span class="pre">joined_point</span></code> and
+<code class="docutils literal notranslate"><span class="pre">wards</span></code>. Then, we’ll add the name of the county where each ward is
+located (<code class="docutils literal notranslate"><span class="pre">CountyName</span></code>) to the ward <strong>GeoDataFrame</strong>. We should see
+that, even though <code class="docutils literal notranslate"><span class="pre">joined_point</span></code> has been sorted, the <code class="docutils literal notranslate"><span class="pre">County</span></code>
+column in the ward <strong>GeoDataFrame</strong> keeps the original (non-sorted)
+order:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joined_point</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Ward Code&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wards</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Ward Code&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">wards</span><span class="p">[</span><span class="s1">&#39;County&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">joined_point</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span>
+<span class="n">wards</span> <span class="c1"># show the wards dataset, with the new column</span>
+</pre></div>
+</div>
+<p>If you look at the order of <code class="docutils literal notranslate"><span class="pre">joined_point</span></code> that we saw previously, you
+should be able to see that the order of <code class="docutils literal notranslate"><span class="pre">joined_point['CountyName']</span></code>
+is not the same as the order of <code class="docutils literal notranslate"><span class="pre">wards['County']</span></code>: the first three
+county names are Antrim, Armagh, and Antrim, whereas the first three
+county names in <code class="docutils literal notranslate"><span class="pre">wards['County']</span></code> are all Antrim.</p>
+</section>
+<section id="types-of-joins-merges">
+<h4>types of joins/merges<a class="headerlink" href="#types-of-joins-merges" title="Permalink to this heading">#</a></h4>
+<p>So far, we’ve seen how we can use <code class="docutils literal notranslate"><span class="pre">index</span></code> values to add information to
+a (<strong>Geo</strong>)<strong>DataFrame</strong>. But, we might not always have a clear
+one-to-one relationship between two tables - we might have a one-to-many
+relationship, where a single row in one table corresponds to multiple
+rows in another table. In those cases, we’ll use something like
+<code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code>, which allows us to merge rows of tables together using
+different index-like values.</p>
+<p>The example dataset that we’ll work with here is a compilation of school
+and student numbers for each of our different electoral wards. Using the
+<a class="reference external" href="https://www.opendatani.gov.uk/&#64;department-of-education/locate-a-school">school location
+dataset</a>
+provided by OpenDataNI, I have summarized the number of schools (divided
+into primary schools, non-grammar secondary schools, and grammar
+schools) found in each electoral ward, along with the total number of
+students in those categories. I also used the <a class="reference external" href="https://www.opendatani.gov.uk/&#64;libraries-ni/library-locations-ni">library
+locations</a>
+dataset to count the number of libraries found in each electoral ward.</p>
+<p>To get started, let’s first read <strong>data_files/schools_data.csv</strong> as a
+<code class="docutils literal notranslate"><span class="pre">pandas</span></code> <strong>DataFrame</strong>, then view what this looks like:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">schools_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data_files/schools_data.csv&#39;</span><span class="p">)</span>
+<span class="n">schools_data</span>
+</pre></div>
+</div>
+<p>Let’s start by looking at what happens when we use <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code>. At a
+minimum, we need to specify <code class="docutils literal notranslate"><span class="pre">left_df</span></code> and <code class="docutils literal notranslate"><span class="pre">right_df</span></code> - in this case,
+<code class="docutils literal notranslate"><span class="pre">wards_point</span></code> and <code class="docutils literal notranslate"><span class="pre">schools_data</span></code>. We also want to make sure that
+we’re merging using <code class="docutils literal notranslate"><span class="pre">Ward</span> <span class="pre">Code</span></code>, so we pass that as the <code class="docutils literal notranslate"><span class="pre">on</span></code>
+parameter.</p>
+<p>Note that if we don’t specify <code class="docutils literal notranslate"><span class="pre">on</span></code>, <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> uses the
+intersection of the columns of the two <strong>DataFrame</strong>s in order to do
+the merge - unless you’re absolutely sure that there is only one column
+that is shared between the two <strong>DataFrame</strong>s, and that there are
+common values in that column in each <strong>DataFrame</strong>, it’s better to be
+explicit!</p>
+<p>Run the following cell to see what the output of the merge looks like:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">wards_point</span><span class="p">,</span> <span class="n">schools_data</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Ward Code&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our resulting table only has 486 rows in it - we’ve lost almost 100 rows
+from our original wards table.</p>
+<p>To figure out why this is, let’s look at the types of join that we have
+available. From the documentation linked above, the default value for
+the <code class="docutils literal notranslate"><span class="pre">how</span></code> parameter of <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> is <code class="docutils literal notranslate"><span class="pre">'inner'</span></code>, meaning that by
+default, <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> uses an “inner” join. What is an “inner” join?
+We can see an explanation from the documentation linked above:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>inner</strong>: use intersection of keys from both frames, similar to a
+SQL inner join; preserve the order of the left keys.</p></li>
+</ul>
+</div></blockquote>
+<p>So an “inner” join uses the intersection of keys from both frames. In
+our example above, the result of our merge operation is only those 486
+wards that have at least one school or library - wards without a school
+or library are not included in <strong>schools_data.csv</strong>, so we don’t have
+them in our final, merged, table.</p>
+<p>To see how we can merge the two dataframes but still keep wards without
+schools or libraries, let’s look at the list of all of the accepted
+values of <code class="docutils literal notranslate"><span class="pre">how</span></code> that we can use to tell <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> how to merge
+the two <strong>DataFrame</strong>s:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>left</strong>: use only keys from left frame, similar to a SQL left
+outer join; preserve key order.</p></li>
+<li><p><strong>right</strong>: use only keys from right frame, similar to a SQL right
+outer join; preserve key order.</p></li>
+<li><p><strong>outer</strong>: use union of keys from both frames, similar to a SQL
+full outer join; sort keys lexicographically.</p></li>
+<li><p><strong>inner</strong>: use intersection of keys from both frames, similar to a
+SQL inner join; preserve the order of the left keys.</p></li>
+<li><p><strong>cross</strong>: creates the cartesian product from both frames,
+preserves the order of the left keys.</p></li>
+</ul>
+</div></blockquote>
+<p>One of these in particular stands out - the <code class="docutils literal notranslate"><span class="pre">'outer'</span></code> join, which uses
+the union of keys from both <strong>DataFrame</strong>s. We could also use the
+<code class="docutils literal notranslate"><span class="pre">'right'</span></code> join, though if there are keys in the left <strong>DataFrame</strong>
+that aren’t in the right <strong>DataFrame</strong>, we end up losing information as
+well. That’s not an issue in this case, since the right <strong>DataFrame</strong>
+contains all possible ward codes, but it’s something to keep in mind for
+other datasets.</p>
+<p>Let’s see what the output of <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> looks like when we specify
+<code class="docutils literal notranslate"><span class="pre">how='outer'</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">wards_point</span><span class="p">,</span> <span class="n">schools_data</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Ward Code&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we can see one other potential issue: by default, when
+<code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> adds a row where values are missing in one of the
+<strong>DataFrame</strong>s, it inserts those values as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (“not a number”).
+Among other things, this can mean that calculations involving those
+columns end up with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
+<p>In general, the way to handle <code class="docutils literal notranslate"><span class="pre">NaN</span></code> or missing values is potentially
+an entire module of its own, as it has different implications for the
+resulting calculations. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> has a <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/missing_data.html">good
+explainer</a>
+for how missing values propagate through different calculations, and
+different ways to handle them. You should think carefully about whether
+and how to fill, ignore, or drop missing values on a case-by-case basis,
+based on why those values are missing.</p>
+<p>Here, because we know that those values are missing because there are no
+schools or libraries in those wards, we will use <code class="docutils literal notranslate"><span class="pre">.fillna()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html">documentation</a>)
+to give those cells a value of 0. Finally, we will cast the output of
+this as a <strong>GeoDataFrame</strong>, to help preserve the spatial dimension of
+our data:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wards_schools</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">wards_point</span><span class="p">,</span> <span class="n">schools_data</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Ward Code&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">wards_schools</span>
+</pre></div>
+</div>
+<p>Before we join our school and ward dataset to the county dataset, let’s
+first take a moment to add two additional columns, using <code class="docutils literal notranslate"><span class="pre">.sum()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html">documentation</a>).</p>
+<p>The first column, <code class="docutils literal notranslate"><span class="pre">'schools'</span></code>, will be the total number of schools (of
+any type) in the ward. The second column, <code class="docutils literal notranslate"><span class="pre">'students'</span></code>, will be the
+total number of students (of any type) in the ward. To calculate these,
+we first have to select those columns that represent the three types of
+schools (or students), then calculate the sum using <code class="docutils literal notranslate"><span class="pre">.sum()</span></code>.</p>
+<p>Note, however, that the default behavior of <code class="docutils literal notranslate"><span class="pre">.sum()</span></code> is to calculate
+the sum across rows; here, we want to calculate the sum across columns,
+so that the end result is the number of schools (or students) in each
+ward. To do that, we need to pass <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> to <code class="docutils literal notranslate"><span class="pre">.sum()</span></code>, as you can
+see below:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wards_schools</span><span class="p">[</span><span class="s1">&#39;schools&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wards_schools</span><span class="p">[[</span><span class="s1">&#39;primary_schools&#39;</span><span class="p">,</span> <span class="s1">&#39;grammar_schools&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary_schools&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">wards_schools</span><span class="p">[</span><span class="s1">&#39;students&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wards_schools</span><span class="p">[[</span><span class="s1">&#39;primary_students&#39;</span><span class="p">,</span> <span class="s1">&#39;grammar_students&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary_students&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">wards_schools</span>
+</pre></div>
+</div>
+<p>Hopefully, in looking at the examples above, you can see that this has
+worked - the value of <code class="docutils literal notranslate"><span class="pre">'schools'</span></code> in row 579 is 2, as this ward has
+one primary school and one secondary school; similarly, there are 2161
+students, based on 622 primary students and 1539 secondary students.</p>
+<p>Finally, we are ready to perform a spatial join of our combined wards
+and schools datasets, with the county outlines. When we do this, we will
+make sure to only select the relevant columns from <code class="docutils literal notranslate"><span class="pre">counties</span></code>
+(<code class="docutils literal notranslate"><span class="pre">CountyName</span></code>, <code class="docutils literal notranslate"><span class="pre">Area_SqKM</span></code>, and <code class="docutils literal notranslate"><span class="pre">geometry</span></code>). We’ll then set the
+<code class="docutils literal notranslate"><span class="pre">Ward</span> <span class="pre">Code</span></code> as the <code class="docutils literal notranslate"><span class="pre">index</span></code> for the <strong>GeoDataFrame</strong>, and remove the
+<code class="docutils literal notranslate"><span class="pre">index_right</span></code> column since we don’t need to keep track of the original
+row number.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_schools</span> <span class="o">=</span> <span class="n">counties</span><span class="p">[[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">,</span> <span class="s1">&#39;Area_SqKM&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">wards_schools</span><span class="p">)</span>
+<span class="n">county_schools</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Ward Code&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># set the index to be the ward code</span>
+<span class="n">county_schools</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index_right&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># drop the original index from our wards_schools dataset</span>
+
+<span class="n">county_schools</span> <span class="c1"># show the joined dataset</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="summarizing-and-grouping-datasets">
+<h3>summarizing and grouping datasets<a class="headerlink" href="#summarizing-and-grouping-datasets" title="Permalink to this heading">#</a></h3>
+<p>Now that we have finished preparing our dataset, let’s work on starting
+to analyze what we have. First, we’ll have a look at <code class="docutils literal notranslate"><span class="pre">.describe()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html">documentation</a>),
+which provides a summary of each of the (numeric) columns in the table:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_schools</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In the output above, we can see the count (<strong>count</strong>) minimum (<strong>min</strong>),
+1st quartile (<strong>25%</strong>), median (<strong>50%</strong>), mean (<strong>mean</strong>), 3rd quartile
+(<strong>75%</strong>), maximum (<strong>max</strong>), and standard deviation (<strong>std</strong>) values of
+each numeric variable in the table.</p>
+<p>With this, we can quickly see where we might have errors in our data -
+for example, if we have non-physical or nonsense values in our
+variables. When first getting started with a dataset, it can be a good
+idea to check over the dataset using <code class="docutils literal notranslate"><span class="pre">.describe()</span></code>, if you are using
+it in an interactive environment (such as a jupyter notebook).</p>
+<p>Next, we’ll see how we can use different tools to aggregate and
+summarize our data, starting with <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html">documentation</a>),
+which allows us to aggregate the values in the table by grouping rows
+based on the values found in one or more columns.</p>
+<p>To start, we’ll group the data by <code class="docutils literal notranslate"><span class="pre">CountyName</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_groups</span> <span class="o">=</span> <span class="n">county_schools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;CountyName&#39;</span><span class="p">)</span> <span class="c1"># create a grouped dataframe</span>
+</pre></div>
+</div>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> is a <strong>DataFrameGroupBy</strong> object, which we
+can then use to do different calculations based on the groups created.
+These work in similar ways to a <strong>DataFrame</strong> - for example, we can
+select an individual column (like <code class="docutils literal notranslate"><span class="pre">Population</span></code>) and calculate the
+<code class="docutils literal notranslate"><span class="pre">.sum()</span></code> based on which county each ward is located within:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_groups</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># get a summary of the population for each county</span>
+</pre></div>
+</div>
+<p>When we only use a single column from the table, the output is a
+<strong>Series</strong> with the <code class="docutils literal notranslate"><span class="pre">index</span></code> equal to whatever values make up the
+groups - in this case, the name of each county.</p>
+<p>This means that we can start to build a <strong>DataFrame</strong> that summarizes
+different columns from our original table, using the county names as an
+<code class="docutils literal notranslate"><span class="pre">index</span></code>. We’ll start with the population, as calculated above:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">counties</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">])</span> <span class="c1"># create a new summary dataframe</span>
+<span class="n">summary</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">county_groups</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># get the total population of each county</span>
+
+<span class="n">summary</span>
+</pre></div>
+</div>
+<p>Next, we can add the area of each county (in square km), and calculate
+the population density of that county by dividing the population by the
+area (note that these are <em>vectorized</em> operations):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counties</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;CountyName&#39;</span><span class="p">)[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="mf">1e6</span> <span class="c1"># get the area of each county in square km</span>
+<span class="n">summary</span><span class="p">[</span><span class="s1">&#39;density&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="c1"># calculate population density as the population divided by the area</span>
+
+<span class="n">summary</span>
+</pre></div>
+</div>
+<p>Then, we can add additional calculations such as the total number of
+primary schools in each county, as well as the number of primary schools
+per 1000 residents:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;primary_schools&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">county_groups</span><span class="p">[</span><span class="s1">&#39;primary_schools&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">summary</span><span class="p">[</span><span class="s1">&#39;primary_schools_per_capita&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;primary_schools&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">summary</span>
+</pre></div>
+</div>
+<p>… and so on. You should be able to adapt the code snippets shown above
+to start to work on some of the suggested practice exercises listed at
+the end of the notebook, to answer some different questions about what
+this dataset shows.</p>
+</section>
+<section id="iterrows-vs-itertuples">
+<h3>iterrows vs. itertuples<a class="headerlink" href="#iterrows-vs-itertuples" title="Permalink to this heading">#</a></h3>
+<p>One other thing that we’ll look at is how we can <em>iterate</em> over the rows
+of a <strong>DataFrame</strong>. Previously, we have seen how in many cases, we can
+use <em>vectorized</em> operations to avoid needing to do this. That said,
+there are still some cases where we might need to, so let’s have a look
+at two different ways to do this: <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.iterrows.html">documentation</a>)
+and <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.itertuples.html">documentation</a>).</p>
+<p>The main differences are: - <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> converts each row into a
+<strong>Series</strong>, and the <strong>iterator</strong> returns both the <code class="docutils literal notranslate"><span class="pre">index</span></code> and
+<strong>Series</strong> of each row. - <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> converts each row into a
+<strong>namedtuple</strong>
+(<a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.namedtuple">documentation</a>),
+which is returned by the <strong>iterator</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> tends to be a bit faster than <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> (because
+converting the row into a <strong>Series</strong> is a bit slower than converting it
+into a <strong>namedtuple</strong>). Let’s look at how <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> works first,
+by iterating over the 5 wards with the most schools, and printing some
+information about them:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The wards with the most schools are:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">top_schools</span> <span class="o">=</span> <span class="n">county_schools</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;schools&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">top_schools</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ind</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Ward&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, County </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;CountyName&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;schools&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> schools and </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;students&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> students.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note the definition of our <code class="docutils literal notranslate"><span class="pre">for</span></code> loop:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">top_schools</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+</pre></div>
+</div>
+<p>Because the iterating variable of <code class="docutils literal notranslate"><span class="pre">.iterrows()</span></code> is (<code class="docutils literal notranslate"><span class="pre">index</span></code>,
+<strong>Series</strong>) pairs, we typically use two variables in the definition
+(here, <code class="docutils literal notranslate"><span class="pre">ind</span></code> and <code class="docutils literal notranslate"><span class="pre">row</span></code>). Inside of the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, this means that
+we can make use of both of these variables, and they will be updated
+each step of the loop.</p>
+<p>Notice also that the <code class="docutils literal notranslate"><span class="pre">index</span></code> values of the <code class="docutils literal notranslate"><span class="pre">row</span></code> <strong>Series</strong> are the
+names of each of the columns of the original <strong>DataFrame</strong> - we can
+access the individual values from each column of the row using the
+original column names.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code>, the iterating variable is a <strong>namedtuple</strong> of the
+values of the row. We can access the values of a <strong>namedtuple</strong> in two
+ways:</p>
+<ul class="simple">
+<li><p>using the index value (0, 1, …), exactly the same way as we would a
+<strong>tuple</strong>;</p></li>
+<li><p>as an <strong>attribute</strong> of the <strong>namedtuple</strong>: for example,
+<code class="docutils literal notranslate"><span class="pre">row.column_name</span></code>.</p></li>
+</ul>
+<p>Here is the same loop as we saw previously, but this time using
+<code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code>:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The wards with the most schools are:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ward</span> <span class="ow">in</span> <span class="n">top_schools</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ward</span><span class="o">.</span><span class="n">Index</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ward</span><span class="o">.</span><span class="n">Ward</span><span class="si">}</span><span class="s2">, County </span><span class="si">{</span><span class="n">ward</span><span class="o">.</span><span class="n">CountyName</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">ward</span><span class="o">.</span><span class="n">schools</span><span class="p">)</span><span class="si">}</span><span class="s2"> schools and </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">ward</span><span class="o">.</span><span class="n">students</span><span class="p">)</span><span class="si">}</span><span class="s2"> students.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that accessing the values of the <strong>namedtuple</strong> as an <strong>attribute</strong>
+only works if the original column names don’t have spaces in them, so
+it’s important to make sure that your column names don’t have spaces!</p>
+<p>To illustrate what happens if there are spaces, we’ll use <code class="docutils literal notranslate"><span class="pre">.rename()</span></code>
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rename.html">documentation</a>)
+to add a space to the <code class="docutils literal notranslate"><span class="pre">CountyName</span></code> column label:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_schools</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;CountyName&#39;</span><span class="p">:</span> <span class="s1">&#39;County Name&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ward</span> <span class="ow">in</span> <span class="n">top_schools</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ward&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ward</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, you can see that <code class="docutils literal notranslate"><span class="pre">'County</span> <span class="pre">Name'</span></code> has become <code class="docutils literal notranslate"><span class="pre">'_1'</span></code>, which
+isn’t nearly as helpful as something like <code class="docutils literal notranslate"><span class="pre">'CountyName'</span></code>; this is why
+it’s generally a good idea to avoid having spaces for the column names
+of your <strong>DataFrame</strong> (or <strong>GeoDataFrame</strong>). If you are working with
+datasets that do have spaces in the column names (or row index), you can
+use something like the following code to replace spaces with underscores
+(<code class="docutils literal notranslate"><span class="pre">'_'</span></code>):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">old_names</span> <span class="o">=</span> <span class="n">top_schools</span><span class="o">.</span><span class="n">columns</span> <span class="c1"># get the column names of the dataframe</span>
+<span class="n">new_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">old_names</span><span class="p">]</span> <span class="c1"># replace any space characters with an underscore</span>
+
+<span class="n">top_schools</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">old_names</span><span class="p">,</span> <span class="n">new_names</span><span class="p">)),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># use rename to rename the columns</span>
+<span class="n">top_schools</span> <span class="c1"># show the updated dataframe</span>
+</pre></div>
+</div>
+<p>This uses a <em>list comprehension</em> to replace any space characters with an
+underscore in each column names (and if there aren’t any, it returns the
+original column name). Then, like we have seen before, we use the output
+of <code class="docutils literal notranslate"><span class="pre">zip()</span></code> to create a <strong>dict</strong> that we can pass to the <code class="docutils literal notranslate"><span class="pre">columns</span></code>
+parameter of <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> and update the column names accordingly.</p>
+</section>
+<section id="plotting-data">
+<h3>plotting data<a class="headerlink" href="#plotting-data" title="Permalink to this heading">#</a></h3>
+<p>The last thing that we will look at is how to plot some of the results
+from our <strong>DataFrame</strong>. In the previous exercise, we saw how we can use
+<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> directly to plot some of our data. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> (and, as we
+have seen, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>) (<strong>Geo</strong>)<strong>DataFrame</strong> objects have a
+<code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method which allows us to plot our data, without needing to
+use the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> plotting routines directly.</p>
+<p>The generic <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> has a number of different plot types that it
+will produce, using the <code class="docutils literal notranslate"><span class="pre">kind</span></code> parameter:</p>
+<ul class="simple">
+<li><p><strong>line</strong>: a line plot (also <code class="docutils literal notranslate"><span class="pre">.plot.line()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.line.html">documentation</a>)</p></li>
+<li><p><strong>bar</strong>: a vertical bar plot (also <code class="docutils literal notranslate"><span class="pre">.plot.bar()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.bar.html">documentation</a>)</p></li>
+<li><p><strong>barh</strong>: a horizontal bar plot (also <code class="docutils literal notranslate"><span class="pre">.plot.barh()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.barh.html">documentation</a>)</p></li>
+<li><p><strong>hist</strong>: a histogram (also <code class="docutils literal notranslate"><span class="pre">.plot.hist()</span></code> and <code class="docutils literal notranslate"><span class="pre">.hist()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.hist.html">documentation</a>)</p></li>
+<li><p><strong>box</strong>: a boxplot (also <code class="docutils literal notranslate"><span class="pre">.plot.box()</span></code> and <code class="docutils literal notranslate"><span class="pre">.boxplot()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.box.html">documentation</a>)</p></li>
+<li><p><strong>kde</strong>: a Kernel Density Estimation plot (also <code class="docutils literal notranslate"><span class="pre">.plot.kde()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.kde.html">documentation</a>)</p></li>
+<li><p><strong>density</strong>: same as <strong>kde</strong> (also <code class="docutils literal notranslate"><span class="pre">.plot.density()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.density.html">documentation</a>)</p></li>
+<li><p><strong>area</strong>: an area plot (also <code class="docutils literal notranslate"><span class="pre">.plot.area()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.area.html">documentation</a>)</p></li>
+<li><p><strong>pie</strong>: a pie plot (also <code class="docutils literal notranslate"><span class="pre">.plot.pie()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.pie.html">documentation</a>)</p></li>
+<li><p><strong>scatter</strong>: a scatter plot (also <code class="docutils literal notranslate"><span class="pre">.plot.scatter()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.scatter.html">documentation</a>)</p></li>
+<li><p><strong>hexbin</strong>: a hexbin plot (also <code class="docutils literal notranslate"><span class="pre">.plot.hexbin()</span></code>)
+(<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.hexbin.html">documentation</a>)</p></li>
+</ul>
+<p>Let’s have a look at an example using <code class="docutils literal notranslate"><span class="pre">.hist()</span></code>, to show the
+distribution of the number of schools in each ward. We use the
+<code class="docutils literal notranslate"><span class="pre">column</span></code> parameter to tell <code class="docutils literal notranslate"><span class="pre">pandas</span></code> which column(s) from our
+<strong>DataFrame</strong> we want to show the distribution of, and we’ll use
+<code class="docutils literal notranslate"><span class="pre">range()</span></code> to create the bins of our histogram, to range from 0 up to
+7:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_schools</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;schools&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>If we instead want to compare the histogram for some category (for
+example, by county), we can use the <code class="docutils literal notranslate"><span class="pre">by</span></code> parameter to tell <code class="docutils literal notranslate"><span class="pre">pandas</span></code>
+how to group the data before plotting. This will create a separate
+subplot for each value in the category (i.e., one for each county).</p>
+<p>Note that if we do this, we might also want to use <code class="docutils literal notranslate"><span class="pre">sharey=True</span></code>, so
+that each panel has the same y-axis so that we can more easily compare
+them:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">county_schools</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;schools&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;CountyName&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, let’s use our <code class="docutils literal notranslate"><span class="pre">summary</span></code> <strong>DataFrame</strong> to compare the
+population of each county against the number of primary schools per 1000
+residents, using <code class="docutils literal notranslate"><span class="pre">.plot.scatter()</span></code>.</p>
+<p>We’ll then assign the output of <code class="docutils literal notranslate"><span class="pre">.plot.scatter()</span></code>, which is a
+<strong>matplotlib.axes.Axes</strong> object
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html">documentation</a>),
+so that we can use <code class="docutils literal notranslate"><span class="pre">.set_ylabel()</span></code>
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html">documentation</a>)
+and <code class="docutils literal notranslate"><span class="pre">.set_xlabel()</span></code>
+(<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html">documentation</a>)
+to change the default axis labels:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;primary_schools_per_capita&#39;</span><span class="p">)</span> <span class="c1"># make a scatter plot of primary schools per 1000 residents vs population</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Primary Schools per 1000 Residents&#39;</span><span class="p">)</span> <span class="c1"># set the y-axis label</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Population&#39;</span><span class="p">)</span> <span class="c1"># set the x-axis label</span>
+</pre></div>
+</div>
+<p>So far, we’ve seen how to make basic plots using both <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and
+the <code class="docutils literal notranslate"><span class="pre">pandas</span></code>/<code class="docutils literal notranslate"><span class="pre">geopandas</span></code> interface to <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> functionality.
+<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> is a very flexible (almost too flexible) package for
+making charts and figures, with loads of customizability that you can
+use to enhance your figures.</p>
+<p>Another package that you might want to have a look at is <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>
+(<a class="reference external" href="https://seaborn.pydata.org/">documentation</a>), which is built on top
+of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and provides a high-level interface for data
+visualization, using similar syntax to <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> for the <strong>R</strong>
+programming language. <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> makes some of the more common
+customizations much easier than using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> or the <code class="docutils literal notranslate"><span class="pre">pandas</span></code>
+interface, while still providing an easy interface for working with
+(<strong>Geo</strong>)<strong>DataFrame</strong> objects.</p>
+</section>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
+<p>That’s all for this practical exercise. If you would like some
+additional practice, use the datasets that you have already loaded to
+try to answer the following questions:</p>
+<ul class="simple">
+<li><p>what percentage of each county’s population are students in
+primary/grammar/secondary school?</p></li>
+<li><p>which county has the most schools (all types) per capita? is it
+different for each type of school?</p></li>
+<li><p>make a (interactive) map that shows the number of schools in each ward
+- do you see any differences in the number of schools between urban
+and rural wards?</p></li>
+<li><p>what is the total population who live in a ward with no schools?</p></li>
+</ul>
+<section id="even-more-practice">
+<h3>even more practice<a class="headerlink" href="#even-more-practice" title="Permalink to this heading">#</a></h3>
+<p>For even more additional practice, try the following. In the
+<strong>data_files</strong> folder, there is an additional file, <strong>transport.csv</strong>,
+which contains information about the ways that people in each ward
+travel to work or school. From left to right, the columns tell the
+number of residents who:</p>
+<ul class="simple">
+<li><p><strong>residents</strong>: are in school full-time (primary or older), or in work
+full-time (ages 16-74)</p></li>
+<li><p><strong>work_from_home</strong>: work or study primarily from home</p></li>
+<li><p><strong>train</strong>: primarily take the train to/from work or study</p></li>
+<li><p><strong>bus</strong>: primarily take a bus/minibus/coach to/from work or study</p></li>
+<li><p><strong>motorcycle</strong>: primarily take a motorcycle, scooter, or moped to/from
+work or study</p></li>
+<li><p><strong>driving</strong>: primarily drive to/from work or study</p></li>
+<li><p><strong>passenger</strong>: primarily ride in a private car to/from work or study</p></li>
+<li><p><strong>carpool</strong>: primarily participate in a carpool to/from work or study</p></li>
+<li><p><strong>taxi</strong>: primarily take a taxi to/from work or study</p></li>
+<li><p><strong>bicycle</strong>: primarily take a bicycle to/from work or study</p></li>
+<li><p><strong>walking</strong>: primarily walk to/from work or study</p></li>
+<li><p><strong>other</strong>: primarily take some other form of transportation to/from
+work or study</p></li>
+<li><p><strong>public</strong>: primarily take public transportation (e.g., train or bus)
+to/from work or study</p></li>
+</ul>
+<p>Load this dataset, then merge it to your existing wards data. Then, try
+to answer the following questions:</p>
+<ul class="simple">
+<li><p>which county has the highest percentage out of all residents who use a bicycle to get to/from work?</p></li>
+<li><p>which county has the highest percentage out of all residents who use a bicycle to get to/from work?</p></li>
+<li><p>does there appear to be a relationship between bicycle use and public transportation use?</p></li>
+<li><p>for each ward, calculate the percentage of residents who study/work full-time who primarily walk to/from school/work.
+Then, compare the histograms of the percentage of residents who walk between wards with at least one primary
+school to the wards without a primary school. Does there appear to be a difference between these two distributions?</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="zonalstats.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">zonal statistics using rasterstats</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../faq/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">help! something went wrong!</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jan-sardi">Jan Sardi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-provided">data provided</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-joins-revisited">spatial joins, revisited</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-spatial-joins-merges">non-spatial joins/merges</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">indexing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-joins-merges">types of joins/merges</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-and-grouping-datasets">summarizing and grouping datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterrows-vs-itertuples">iterrows vs. itertuples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-data">plotting data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#even-more-practice">even more practice</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

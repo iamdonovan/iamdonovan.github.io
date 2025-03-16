@@ -216,6 +216,7 @@
 <li class="toctree-l4"><a class="reference internal" href="raster.html">raster data using rasterio</a></li>
 <li class="toctree-l4"><a class="reference internal" href="earthaccess.html">searching + downloading satellite data using earthaccess</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zonalstats.html">zonal statistics using rasterstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="geopandas.html">more fun with geopandas</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -745,7 +746,13 @@ same initial steps as last week.</p>
 <p>To edit the script (<strong>practical2_script.py</strong>), open it in your IDE. If your IDE has a built-in terminal/python
 interpreter, you can also run the script directly from the IDE:</p>
 <a class="reference internal image-reference" href="../../../_images/pycharm.png"><img alt="the script open in the pycharm IDE" class="align-center" src="../../../_images/pycharm.png" style="width: 720px;" /></a>
-<p><br /> Otherwise, you can use the <strong>command prompt</strong>; the procedure will be effectively the same.</p>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The setup for this using pycharm will be the same as you did for the <a class="reference internal" href="debugging.html"><span class="doc">debugging</span></a> exercise in
+week 1.</p>
+</div>
+<p>Otherwise, you can use the <strong>command prompt</strong>; the procedure will be effectively the same.</p>
 <p>Launch the command prompt from <strong>Anaconda Navigator</strong>, taking care to ensure that your <code class="docutils literal notranslate"><span class="pre">egm722</span></code> environment is
 selected (rather than the <code class="docutils literal notranslate"><span class="pre">base</span></code> environment). When it launches, you should see the following window:</p>
 <a class="reference internal image-reference" href="../../../_images/prompt3.png"><img alt="the conda prompt" class="align-center" src="../../../_images/prompt3.png" style="width: 600px;" /></a>
@@ -801,26 +808,15 @@ plots, respectively.</p>
 <section id="objectives">
 <h3>objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>become familiar with geopandas, cartopy, and matplotlib, including
+<li><p>become familiar with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, <code class="docutils literal notranslate"><span class="pre">cartopy</span></code>, and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, including
 reading the provided documentation</p></li>
-<li><p>use list comprehensions to simplify some for loops</p></li>
+<li><p>use <em>list comprehension</em> to simplify some <code class="docutils literal notranslate"><span class="pre">for</span></code> loops</p></li>
 </ul>
 </section>
 <section id="id1">
 <h3>getting started<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>First, run the cell below to load the python modules we’ll be using in
-the practical.</p>
-<ol class="arabic simple">
-<li><p>the built-in help (i.e., <code class="docutils literal notranslate"><span class="pre">help(plt.text)</span></code>)</p></li>
-<li><p>using ipython’s (the python interpreter used by jupyter-notebooks)
-help shortcut (i.e., <code class="docutils literal notranslate"><span class="pre">plt.text?</span></code>)</p></li>
-<li><p>finding the online documentation for the module (usually achieved via
-option 4)</p></li>
-<li><p>searching google (or your search engine of choice)</p></li>
-<li><p>consulting your favorite medicine man/shaman/spiritual guide</p></li>
-<li><p>asking the instructor, who will in all likelihood resort to one of
-the other options (usually 5 or 4).</p></li>
-</ol>
+the practical:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this lets us use the figures interactively</span>
 <span class="o">%</span><span class="k">matplotlib</span> widget
 
@@ -907,10 +903,31 @@ we’ll go over these in a bit more depth as we go.</p>
     <span class="k">return</span> <span class="n">ax</span>
 </pre></div>
 </div>
+<p>Have a look at the <em>docstring</em> attached to each function, which explains
+what the function does, and how to use it. Remember that this is the
+same information that you would see if you used <code class="docutils literal notranslate"><span class="pre">help()</span></code> on a function
+- try it below:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">generate_handles</span><span class="p">)</span> <span class="c1"># show the docstring for the generate_handles function</span>
+</pre></div>
+</div>
+<p>Remember that as you work your way through this (and other) practical
+exercises, there are a number of ways that you can use to find help if
+you get stuck:</p>
+<ol class="arabic simple">
+<li><p>the built-in help (i.e., <code class="docutils literal notranslate"><span class="pre">help(plt.text)</span></code>)</p></li>
+<li><p>using ipython’s (the python interpreter used by jupyter-notebooks)
+help shortcut (i.e., <code class="docutils literal notranslate"><span class="pre">plt.text?</span></code>)</p></li>
+<li><p>finding the online documentation for the module (usually achieved via
+option 4)</p></li>
+<li><p>searching google (or your search engine of choice)</p></li>
+<li><p>consulting your favorite medicine man/shaman/spiritual guide</p></li>
+<li><p>asking the instructor, who will in all likelihood resort to one of
+the other options (usually 5 or 4).</p></li>
+</ol>
 </section>
 <section id="loading-the-data">
 <h3>loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h3>
-<p>Great. Now that we’ve imported most of the modules we’ll be needing, and
+<p>Now that we’ve imported most of the modules we’ll be needing, and
 defined a few helper functions, we can actually load our data. To load
 the shapefile data, we will use <a class="reference external" href="http://geopandas.org/">GeoPandas</a>,
 an open-source package designed to make working with geospatial data in
@@ -1071,7 +1088,7 @@ shown in the correct location:</p>
 </div>
 <p>As you can see, the <strong>Axes</strong> starts off blank - we haven’t added
 anything to it yet.</p>
-<p>Because we are using the <strong>widget</strong> option for <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> (cf. the
+<p>Because we are using the <strong>widget</strong> option for <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> (cf. the
 first cell you ran up above):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">widget</span>
 </pre></div>
@@ -1154,8 +1171,8 @@ to select colors using matplotlib, including using RGB values or Hex
 codes, but that’s for another day. If you’re interested in learning
 more, you can check out the documentation
 <a class="reference external" href="https://matplotlib.org/stable/api/colors_api.html">here</a>.</p>
-<a class="reference internal image-reference" href="../../../_images/named_colors.png"><img alt="a list of named colors in matplotlib" class="align-center" src="../../../_images/named_colors.png" style="width: 720px;" /></a>
-<p><a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">source</a></p>
+<p><img alt="title" src="teaching/egm722/practicals/imgs/named_colors.png" />
+<a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">source</a></p>
 <p>You can also go to to <a class="reference external" href="https://colorbrewer2.org">ColorBrewer</a>, which
 will help you make sure that your color palette is colorblind-friendly,
 print-friendly, and photocopy-friendly. Other helpful websites for
