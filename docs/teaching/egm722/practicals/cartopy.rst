@@ -230,7 +230,14 @@ interpreter, you can also run the script directly from the IDE:
     :align: center
     :alt: the script open in the pycharm IDE
 
-|br| Otherwise, you can use the **command prompt**; the procedure will be effectively the same.
+|br|
+
+.. note::
+
+    The setup for this using pycharm will be the same as you did for the :doc:`debugging <debugging>` exercise in
+    week 1.
+
+Otherwise, you can use the **command prompt**; the procedure will be effectively the same.
 
 Launch the command prompt from **Anaconda Navigator**, taking care to ensure that your ``egm722`` environment is
 selected (rather than the ``base`` environment). When it launches, you should see the following window:
@@ -321,25 +328,15 @@ plots, respectively.
 objectives
 ^^^^^^^^^^^
 
-- become familiar with geopandas, cartopy, and matplotlib, including
+- become familiar with ``geopandas``, ``cartopy``, and ``matplotlib``, including
   reading the provided documentation
-- use list comprehensions to simplify some for loops
+- use *list comprehension* to simplify some ``for`` loops
 
 getting started
 ^^^^^^^^^^^^^^^^
 
 First, run the cell below to load the python modules we’ll be using in
-the practical.
-
-1. the built-in help (i.e., ``help(plt.text)``)
-2. using ipython’s (the python interpreter used by jupyter-notebooks)
-   help shortcut (i.e., ``plt.text?``)
-3. finding the online documentation for the module (usually achieved via
-   option 4)
-4. searching google (or your search engine of choice)
-5. consulting your favorite medicine man/shaman/spiritual guide
-6. asking the instructor, who will in all likelihood resort to one of
-   the other options (usually 5 or 4).
+the practical:
 
 .. code:: ipython3
 
@@ -430,10 +427,33 @@ we’ll go over these in a bit more depth as we go.
 
         return ax
 
+Have a look at the *docstring* attached to each function, which explains
+what the function does, and how to use it. Remember that this is the
+same information that you would see if you used ``help()`` on a function
+- try it below:
+
+.. code:: ipython3
+
+    help(generate_handles) # show the docstring for the generate_handles function
+
+Remember that as you work your way through this (and other) practical
+exercises, there are a number of ways that you can use to find help if
+you get stuck:
+
+1. the built-in help (i.e., ``help(plt.text)``)
+2. using ipython’s (the python interpreter used by jupyter-notebooks)
+   help shortcut (i.e., ``plt.text?``)
+3. finding the online documentation for the module (usually achieved via
+   option 4)
+4. searching google (or your search engine of choice)
+5. consulting your favorite medicine man/shaman/spiritual guide
+6. asking the instructor, who will in all likelihood resort to one of
+   the other options (usually 5 or 4).
+
 loading the data
 ^^^^^^^^^^^^^^^^^
 
-Great. Now that we’ve imported most of the modules we’ll be needing, and
+Now that we’ve imported most of the modules we’ll be needing, and
 defined a few helper functions, we can actually load our data. To load
 the shapefile data, we will use `GeoPandas <http://geopandas.org/>`__,
 an open-source package designed to make working with geospatial data in
@@ -631,7 +651,7 @@ shown in the correct location:
 As you can see, the **Axes** starts off blank - we haven’t added
 anything to it yet.
 
-Because we are using the **widget** option for ``matplotlib`` (cf. the
+Because we are using the **widget** option for ``matplotlib`` (cf. the
 first cell you ran up above):
 
 .. code:: python
@@ -733,11 +753,7 @@ codes, but that’s for another day. If you’re interested in learning
 more, you can check out the documentation
 `here <https://matplotlib.org/stable/api/colors_api.html>`__.
 
-.. image:: ../../../img/egm722/week2/named_colors.png
-    :width: 720
-    :align: center
-    :alt: a list of named colors in matplotlib
-
+|title|
 `source <https://matplotlib.org/stable/gallery/color/named_colors.html>`__
 
 You can also go to to `ColorBrewer <https://colorbrewer2.org>`__, which
@@ -749,6 +765,8 @@ checking color accessibility or generating color palettes include
 Design <https://www.learnui.design/tools/data-color-picker.html>`__, or
 `Coloring for
 Colorblindness <https://davidmathlogic.com/colorblind/>`__.
+
+.. |title| image:: imgs/named_colors.png
 
 .. code:: ipython3
 
