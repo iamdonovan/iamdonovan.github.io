@@ -52,8 +52,18 @@ me and I will send you a copy.\ [1]_
 
 .. rst-class:: ref
 
-    The GlaMBIE Team (2025). Community estimate of global glacier mass changes from 2000 to 2023. *Nature*.
-    doi: `10.1038/s41586-024-08545-z <https://doi.org/10.1038/s41586-024-08545-z>`__
+    Caldwell, N. G., W. H. Armstrong, **R. McNabb**, E. M. Enderlin, D. McGrath, B. Rick, J. Hanson, and L. B. Perry,
+    (2025). Retreat and frontal ablation rates for Alaska’s lake-terminating glaciers: Investigating potential physical
+    controls with implications for future stability. *Journal of Glaciology* 71, e67. doi:
+    `10.1017/jog.2025.37 <https://doi.org/10.1017/jog.2025.37>`__.
+
+    The GlaMBIE Team (2025). Community estimate of global glacier mass changes from 2000 to 2023. *Nature* 639(**8054**),
+    382-388, 5835. doi: `10.1038/s41586-024-08545-z <https://doi.org/10.1038/s41586-024-08545-z>`__
+
+    King, O., N. Montoya, B. Davies, T. Matthews, M. Vargas, S. Ghuffar, T. Gribbin, B. Perry, M. Rado, **R. McNabb**,
+    L. Nicholson, and J. Ely, (2025). The impact of supraglacial ice cliff and pond formation on debris-free, tropical
+    glacier mass loss. *Journal of Glaciology* 71, e132.
+    doi: `10.1017/jog.2025.10109 <https://doi.org/10.1017/jog.2025.10109>`__.
 
 .. _pubs2024:
 
