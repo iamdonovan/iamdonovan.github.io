@@ -17,10 +17,12 @@ You should have the following files/folders available in the extracted ``.zip`` 
     ├─ AR5840034159997.tif
     ├─ AR5840034159998.tif
     ├─ AR5840034159999.tif
+    ├─ CPs.txt
     ├─ filtre.tif
     ├─ id_fiducial.txt
     ├─ id_gcps.txt
     ├─ GCPs.txt
+    ├─ MeasuresCPs.xml
     ├─ MicMac-LocalChantierDescripteur.xml
     ├─ NAIP_Images/
     └─ Ori-InterneScan/
@@ -106,8 +108,14 @@ their meanings. For other commands, such as ``Malt``, the text will print direct
 resampling the images
 ---------------------
 
-The first thing we have to do is make sure the images are re-sampled to a consistent geometry. To do this in MicMac,
-we use the ``SaisieAppuisInitQT`` command.
+The first pre-processing step is *geometric* pre-processing, or making sure that the images are re-sampled to a
+consistent geometry. This helps us with the camera model calibration, as it (hopefully) ensures that the images are
+as close to the actual camera geometry as possible. To do this, we will use the fiducial markers locations in each
+image, along with the specified location of each marker from the calibration report for these images, to transform the
+scanned images to a common shape.
+
+First, though, we need to identify the locations of the fiducial markers in each image. To do this in MicMac, we use
+the ``SaisieAppuisInitQT`` command.
 
 We'll start with the first image, **AR5840034159994.tif**. To begin, type the following (or copy & paste) at the
 command prompt (note the lack of space in **MeasuresIm-AR5840034159994.tif.xml**). You may also have to re-type the
@@ -180,6 +188,10 @@ into the **Ori-InterneScan** directory, being sure to remove the **-S2D** from e
 
 |br| At this point, you can delete the **S3D** files – the program creates them, but we don't actually need them.
 
+.. warning::
+
+    If you do not make sure to move and re-name the files as shown above, the next step will fail!
+
 The next step is to re-sample the images using the fiducial marks you have identified, so that each image has the same
 geometry:
 
@@ -187,10 +199,11 @@ geometry:
 
     mm3d ReSampFid "AR.*tif" 0.05
 
-This will re-sample each of the images to a resolution of 50 microns (i.e., 1 pixel = 0.05 mm). If you're worried about
-space on your disk, you can re-sample to 100 microns if need be (change 0.05 to 0.1 in the command above).
+This will re-sample each of the images to a resolution of 50 microns (i.e., 1 pixel = 0.05 mm).
 
-Note that this will lower the final resolution of your DEM and orthophoto, though, from about 4 meters to 8 meters.
+If you're worried about space on your disk, you can re-sample to 100 microns if need be (change 0.05 to 0.1 in the
+command above). Note that this will lower the final resolution of your DEM and orthophoto, though, from about 4 meters
+to 8 meters.
 
 If the command runs correctly, you should see the names of each image printed out, along with the residuals (in # of
 pixels) and the amount of time it took to re-sample each image:
@@ -200,8 +213,8 @@ pixels) and the amount of time it took to re-sample each image:
     :align: center
     :alt: the output of ReSampFid, showing the residuals for each image transformation.
 
-|br| As long as the residuals are small (<2 pixels or so), you can continue. If not, you'll need to adjust your fiducial
-mark selection, and run ``ReSampFid`` again.
+|br| As long as the residuals are small (<2 pixels or so), you can continue. If your residuals are larger than this,
+you'll need to adjust your fiducial mark selection, and run ``ReSampFid`` again.
 
 When you have successfully re-sampled the images, create a new directory called **OrigImg** and move the original
 image files into it:
@@ -344,7 +357,7 @@ step for that image.
 
 Once ``Tapas`` has finished, we can visualize the relative orientation using ``AperiCloud`` and **MeshLab** (or
 **CloudCompare**). First, run this command:
-s
+
 .. code-block:: text
 
     mm3d AperiCloud "OIS.*tif" Relative SH=HomolMasqFiltered
@@ -373,9 +386,10 @@ At this point, we're ready to compute the absolute orientation of the images - t
 to the real world.
 
 To do this, we need to find a number of Ground Control Points (GCPs), which will help the software solve the absolute
-orientation of the cameras, and compute the 3-dimensional location for each pixel in the images.
+orientation of the cameras, compute the 3-dimensional location for each pixel in the images, and calibrate the camera
+distortion model.
 
-To help save some time, and because finding GCPs in 30+ year old aerial photos can be difficult, I've provided a number
+To help save some time, and because finding GCPs in 40+ year old aerial photos can be difficult, I've provided a number
 of GCPs that you should be able to find in the images.
 
 In your folder, you should have a file, **GCPs.txt**, which contains the name and *x*, *y*, and *z* location for the
@@ -778,6 +792,92 @@ individual GCPs to see which one(s) might need to be re-positioned, and in which
 correct the position in each image, be sure to run ``SaisiePredicQT`` again, followed by ``GCPBascule`` and ``Campari``,
 before moving on to the next steps.
 
+using checkpoints to estimate accuracy
+---------------------------------------
+
+Once you are satisfied with the result of your bundle block adjustment, you can use ``GCPCtrl`` along with the two
+*checkpoint* files, **CPs.txt** and **MeasuresCPs.xml**, as a check of the accuracy of your camera calibration and
+orientation.
+
+Checkpoints (or CPs) are points that are not used to calibrate the camera calibration or orientation, but
+instead to evaluate (or "check") the accuracy of the result. The first file, **CPs.txt**, has the checkpoint location
+(*x*, *y*, and *z*), specified exactly the same as the GCPs you have been using. Before being able to run ``GCPCtrl``,
+you need to convert the file into the XML format used by MicMac as follows:
+
+.. code-block:: text
+
+    mm3d GCPConvert AppInFile CPs.txt
+
+The second file, **MeasuresCPs.xml**, has the image locations of those checkpoints, input in exactly the same way that
+you have been inputting your GCP measurements.
+
+The MicMac command ``GCPCtrl`` computes both the image and ground reprojection error of the CPs, using the specified
+orientation files. Run the following command to evaluate the accuracy of your camera calibration and orientation:
+
+.. code-block:: text
+
+    mm3d GCPCtrl "OIS.*tif" TerrainFinal CPs.xml MeasuresCPs.xml OutTxt=CPStats
+
+This will print a fair bit of text to the screen, as you have seen with the other MicMac commands.
+
+.. code-block:: text
+
+    Ctrl CP11 GCP-Bundle, D=6.59505 P=[6.49859,1.00887,-0.495144]
+    Ctrl CP15 GCP-Bundle, D=1.36044 P=[-0.654013,0.266847,1.1627]
+    Ctrl CP18 GCP-Bundle, D=0.915328 P=[0.717968,-0.0498107,0.565567]
+    Ctrl CP20 GCP-Bundle, D=16.5214 P=[-1.35862,6.3725,15.1823]
+    Ctrl CP27 GCP-Bundle, D=0.775077 P=[0.773067,0.0319436,-0.0457436]
+    Ctrl CP29 GCP-Bundle, D=2.08371 P=[0.571947,-0.201626,-1.99351]
+    Ctrl CP3 GCP-Bundle, D=7.46259e-05 P=[7.3663e-06,3.46079e-06,-7.41808e-05]
+    Ctrl CP4 GCP-Bundle, D=67.3875 P=[52.9977,-36.9045,-19.2451]
+    Ctrl CP8 GCP-Bundle, D=1.68047 P=[-0.0174329,1.52339,0.709178]
+
+       ============================= ERRROR MAX PTS FL ======================
+       ||    Value=47.3793 for Cam=OIS-Reech_AR5840034159995.tif and Pt=CP4 ; MoyErr=7.06425
+       ======================================================================
+
+The first block of numbers shown above is the reprojection error for each CP, given as the 3D residual, *D*, and the
+error in the *x*, *y*, and *z* directions, *P*. From the output above, you can see that most of the residuals are
+fairly low, but two in particular stand out: CP4 (residual of 67.4 m) and CP20 (residual of 16.5 m).
+
+As you can see if you load the CPs into QGIS or ArcGIS, these CPs are located in fairly steep areas, and so this
+indicates that the example results shown above may not be as accurate in higher-elevation areas. If you notice that
+one or more of the CPs has a high residual, it might be worth checking your GCP locations and re-running the
+``GCPBascule`` and ``Campari`` steps again.
+
+The above command will also output the results to two files, **CPStats** and **CPStats_RollCtrl.txt**. The first file
+just contains the *x*, *y*, *z* coordinates of the CPs; the second file contains the *x*, *y*, and *z* errors for
+each measured checkpoint. If you like, you can use this file for further analysis (for example, to plot a histogram
+of the residuals).
+
+Finally, ``GCPCtrl`` also prints out the statistics of the residuals for each checkpoint. The first line gives the
+average (*Moy*)\ [1]_ and maximum (*Max*) 3D residual values:
+
+.. code-block:: text
+
+    === GCP STAT ===  Dist,  Moy=10.8132 Max=67.3875
+
+The next line, which begins ``[X,Y,Z]``, gives the statistics for each direction, *x*, *y*, and *z*, starting with the
+mean absolute value (*MoyAbs*), followed by the maximum (*Max*), mean (*Mean*), standard deviation (*STD*), and root
+mean square (*Rms*) values:
+
+.. code-block:: text
+
+    [X,Y,Z],      MoyAbs=[7.06548,5.15106,4.3777] Max=[52.9977,36.9045,19.2451] Mean=[6.61435,-3.10582,-0.462203] STD=[17.5391,12.8413,8.69878] Rms=[17.8098,12.4989,8.2143]
+
+The next line provides the statistics for the *planimetric* (*x* and *y*, or horizontal) and vertical (*alti*) errors:
+
+.. code-block:: text
+
+    [Plani,alti], Mean=[9.11143,-0.462203] STD=[20.9569,8.69878] RMS=[21.758,8.2143]
+
+And finally, the values for the 3D residual (*Norm*):
+
+.. code-block:: text
+
+    Norm,         Mean=10.8132 STD= 21.8393 RMS=23.257
+
+
 dem extraction and orthophoto generation
 ----------------------------------------
 
@@ -816,8 +916,39 @@ This will create a mosaicked version of the images, which you can open using **Q
 cleaning up the outputs
 -----------------------
 
-The final step (for now) is to clean up the output DEM and Orthophoto, masking out the parts of the DEM raster that
-aren't covered by the images.
+The final steps (for now) are to export the *point cloud*, then clean up the output DEM
+and Orthophoto by masking out the parts of the DEM raster that aren't covered by the images.
+
+point cloud extraction (optional)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note::
+
+    This step is **OPTIONAL**. I will provide the point cloud file that you will use for next week's practical. If you
+    are interested in knowing how to export and convert your own point cloud, read on.
+
+The MicMac command to convert the point cloud to ``.ply`` ("Polygon File Format") is ``Nuage2Ply``. From the same
+directory where you have run your other commands, run the following:
+
+.. code-block:: text
+
+    mm3d Nuage2Ply MEC-Malt\NuageImProf_STD-MALT_Etape_9.xml Out=final_pointcloud.ply
+
+This will (eventually) create a file, **final_pointcloud.ply**, which contains the *x*, *y*, *z* coordinates for all of
+the points that MicMac has matched between the different images.
+
+Note that ArcGIS Pro will not be able to use this file by itself - we will need to convert it once again from ``.ply``
+to ``.las`` format. If you have already installed CloudCompare, you should be able to do this following
+`these instructions <https://pointly.medium.com/how-to-convert-ply-files-to-las-laz-d4100ef3625a>`__.
+
+You can also use software such as `PDAL <https://pdal.io/en/stable/>`__\ [2]_
+or `lastools <https://lastools.github.io/>`__ to do this conversion.
+
+In next week's practical, we will see how we can work with point cloud files in, for example, ArcGIS Pro, to filter and
+grid a DEM. For now, we'll work on masking the gridded DEM and Orthophotos that MicMac has produced.
+
+dem and orthoimage masking
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First, use ``cd`` to navigate into **MEC-Malt**:
 
@@ -834,6 +965,11 @@ Now, copy the **.tfw** file for the DEM to **Correl_STD-MALT_Num_8.tfw** and **A
 
 This will create a worldfile for both the correlation mask and the AutoMask, enabling you to load them into **QGIS**
 or **ArcGIS**. If you haven't already, open **QGIS** (or **ArcGIS**), and add these three raster files to the map.
+
+.. note::
+
+    The ``copy`` command will only work if you are running this through Windows. If you are using a Mac or Linux
+    computer, the command to use is ``cp``.
 
 Open the **Raster Calculator**. If you are using **ArcGIS**, skip to the next line below. If you are using **QGIS**,
 enter the following expression:
@@ -865,3 +1001,59 @@ If you are using **ArcGIS**, enter the following expression into the **Raster Ca
 
 At this point, you're done – we'll work a bit more on analyzing our DEMs in the `week 2 practical <week2.html>`__.
 
+next steps
+-----------
+
+As an optional next step, you can try using different camera calibration models to see what impact they have on your
+results.
+
+.. note::
+
+    You will only need to re-run the ``Tapas``, ``GCPBascule``, ``Campari``, and ``Malt`` steps for this, as you can
+    re-use the GCP image locations that you already created. You might also want to re-run the ``GCPCtrl`` step to
+    be able to evaluate the results using the provided checkpoints.
+
+.. tip::
+
+    Change the name(s) of your outputs so that you don't overwrite your original results. For example, for ``Tapas``
+    your command call might look like this, using the ``FraserBasic`` calibration model:
+
+    .. code-block:: text
+
+        mm3d Tapas FraserBasic "OIS.*tif" Out=Relative_FB SH=HomolMasqFiltered LibFoc=0
+
+    This would create a folder, **Ori-Relative_FB**, with the camera calibration file and camera locations and
+    orientations. The ``GCPBascule`` command call would look something like this:
+
+    .. code-block:: text
+
+        mm3d GCPBascule "OIS.*tif" Relative_FB TerrainInit_FB GCPs.xml MeasuresInit-S2D.xml
+
+    where I've changed the names of the input orientation directory (**Relative_FB**) and the output orientation
+    directory (**TerrainInit_FB**), but left the other arguments the same.
+
+Some examples of good models to try are:
+
+- ``RadialStd`` - this model is the same as ``RadialBasic`` (3 components of radial distortion), but the principal
+  point of autocollimation (PPA) is not held to be the same as the principal point of symmetry (PPS).
+- ``RadialExtended`` - this model is the same as ``RadialStd``, but it has 5 components of radial distortion rather than
+  3.
+- ``FraserBasic`` - like ``RadialBasic``, this model constrains the PPA and PPS to be the same and has 3 components of
+  radial distortion, but it also applies a decentric/affine correction to the camera calibration model.
+
+Note that you may have some trouble getting these to calibrate - this is not entirely unexpected, especially with the
+models like ``RadialExtended`` that have more parameters to calibrate, but it should be possible to get something using
+at least one of these different examples.
+
+For more (math-heavy) descriptions of camera calibration models in general, see Brown (1966)
+or `Fraser (1997) <https://doi.org/10.1016/S0924-2716(97)00005-1>`__, both of which are included in the
+`Zotero Library <https://www.zotero.org/groups/4390043/egm702/library>`__ for the module.
+
+
+notes
+-----
+
+.. [1] Short for "moyenne", or average. Bet you weren't expecting to learn French mathematical shorthand in this class.
+
+.. [2] In particular, the `translate <https://pdal.io/en/stable/apps/translate.html>`__ command. You will need to
+       specify the CRS of the data - here, it should be WGS84 UTM Zone 10N (EPSG Code: 32610).
