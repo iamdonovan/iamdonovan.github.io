@@ -150,7 +150,7 @@ random palette to view the image with:
 
 When you run the script, you will see something like the artistic image shown below:
 
-.. image:: ../../../img/egm702/week5/unsupervised.png
+.. image:: img/classification/unsupervised.png
     :width: 720
     :align: center
     :alt: the unsupervised classification shown in the map window
@@ -162,7 +162,7 @@ purple and pink (cluster values 8, 10, and 12).
 To help with interpreting the different cluster values, I have also included a number of **Point** features as part of
 the script. To see these, you can toggle them on from the **Geometry Imports** menu:
 
-.. image:: ../../../img/egm702/week5/classification_points.png
+.. image:: img/classification/classification_points.png
     :width: 720
     :align: center
     :alt: the map window, showing the different classification points
@@ -228,7 +228,7 @@ to sample the cluster values at each of the training points, which we can then p
       });
     print(chart); // remember to print the chart to the console
 
-.. image:: ../../../img/egm702/week5/kmeans_chart.png
+.. image:: img/classification/kmeans_chart.png
     :width: 720
     :align: center
     :alt: the k-means cluster values for different landcover classes
@@ -246,7 +246,7 @@ and cluster values to learn a bit more:
 
     print(clusterPoints.errorMatrix('landcover', 'cluster'));
 
-.. image:: ../../../img/egm702/week5/kmeans_error_matrix.png
+.. image:: img/classification/kmeans_error_matrix.png
     :width: 400
     :align: center
     :alt: the confusion matrix for the k-means classification
@@ -337,7 +337,7 @@ of the green (OLI Band 3) and SWIR2 (OLI Band 7). The first example, NIR vs red,
     var chart1 = tools.clusterPlot(sample, 'SR_B5', 'SR_B4');
     print(chart1);
 
-.. image:: ../../../img/egm702/week5/nir_red_scatter.png
+.. image:: img/classification/nir_red_scatter.png
     :width: 720
     :align: center
     :alt: the red vs. NIR scatter plot for each cluster
@@ -385,7 +385,7 @@ This is a *supervised* classification method, meaning that in order to train the
 
 In the **Geometry Imports** menu, you can toggle on each of the training point layers to view them on the **Map**:
 
-.. image:: ../../../img/egm702/week5/training_points.png
+.. image:: img/classification/training_points.png
     :width: 720
     :align: center
     :alt: the different training points for the classifier, shown on the map
@@ -508,7 +508,7 @@ As a reminder:
 When you run the script, you should see the following in the **Console** panel after expanding the **List** element
 under "error matrix" (remember that your results may differ slightly):
 
-.. image:: ../../../img/egm702/week5/error_matrix.png
+.. image:: img/classification/error_matrix.png
     :width: 500
     :align: center
     :alt: the error matrix for the random forest classification
@@ -540,7 +540,7 @@ We do see some misclassification for the other classes, though: two ``forest`` t
 In the **Console**, you can also see the overall accuracy (90.5%), kappa statistic (0.876), and the producer's and
 consumer's (user's) accuracy for each class:
 
-.. image:: ../../../img/egm702/week5/producer_consumer.png
+.. image:: img/classification/producer_consumer.png
     :width: 500
     :align: center
     :alt: the producer's and consumer's accuracy in the console panel
@@ -589,7 +589,7 @@ We then add this image to the **Map** with the same color scheme as the training
     Map.addLayer(classified, {min: 0, max: 4, palette: classPalette}, 'classified', true);
 
 
-.. image:: ../../../img/egm702/week5/classified_image.png
+.. image:: img/classification/classified_image.png
     :width: 720
     :align: center
     :alt: the random forest classified image
@@ -693,7 +693,7 @@ Finally, we also use ``tools.areaChart()`` to create a bar chart comparing the t
     // show the chart of area by class for the two estimates
     print(area_chart);
 
-.. image:: ../../../img/egm702/week5/pixel_area.png
+.. image:: img/classification/pixel_area.png
     :width: 720
     :align: center
     :alt: a bar chart comparing the classified and estimated area for each class in the pixel-based classified image
@@ -755,14 +755,14 @@ Next, we actually run SNIC on the image, using bands 1-7:
 To help visualize the clusters, I've added two layers to the **Map**. The first, ``segments``, shows the outlines of
 the clusters created using the chosen parameters (roughly 120 m spacing):
 
-.. image:: ../../../img/egm702/week5/segmented_image.png
+.. image:: img/classification/segmented_image.png
     :width: 720
     :align: center
     :alt: a satellite image and image segments
 
 |br| The second, ``coarse segments``, shows the clusters created using twice the spacing (roughly 240 m):
 
-.. image:: ../../../img/egm702/week5/segmentation_comparison.png
+.. image:: img/classification/segmentation_comparison.png
     :width: 720
     :align: center
     :alt: a comparison of two segmentation scales
@@ -843,7 +843,7 @@ We then load the three bands we're investigating into the **Map**:
 
 Take a look at the ASM image first:
 
-.. image:: ../../../img/egm702/week5/asm.png
+.. image:: img/classification/asm.png
     :width: 720
     :align: center
     :alt: an image showing the angular second moment in the grayscale image
@@ -868,7 +868,7 @@ window of size 2) - brighter colors indicate higher values (more repeated values
 
 Now, have a look at the ``contrast`` layer:
 
-.. image:: ../../../img/egm702/week5/contrast.png
+.. image:: img/classification/contrast.png
     :width: 720
     :align: center
     :alt: an image showing the local contrast in the grayscale image
@@ -879,7 +879,7 @@ In a way, this is showing us the same sort of information as the ASM layer - hig
 
 Finally, have a look at the ``entropy`` layer:
 
-.. image:: ../../../img/egm702/week5/entropy.png
+.. image:: img/classification/entropy.png
     :width: 720
     :align: center
     :alt: an image showing the local entropy in the grayscale image
@@ -951,7 +951,7 @@ applying the classifier to the image.
 
 To see the final classification, you can turn on the ``classification`` layer:
 
-.. image:: ../../../img/egm702/week5/obia_classified.png
+.. image:: img/classification/obia_classified.png
     :width: 720
     :align: center
     :alt: the obia classified image loaded in the map
@@ -973,7 +973,7 @@ In the script, I have added the ``segments`` layer to the **Map** twice, so that
 on top of the classification image. To compare the classification with the segment boundaries, just toggle the top
 ``segments`` layer on:
 
-.. image:: ../../../img/egm702/week5/obia_segments.png
+.. image:: img/classification/obia_segments.png
     :width: 720
     :align: center
     :alt: the obia classified image loaded in the map, with the segment boundaries displayed on top
@@ -1015,8 +1015,9 @@ accuracy analysis in ArcGIS.
     `semi-automatic classification plugin <https://fromgistors.blogspot.com/p/semi-automatic-classification-plugin.html>`__
     for QGIS will calculate the unbiased area estimate and uncertainty values as part of the accuracy analysis.
 
-To get started, either open a new project in ArcGIS Pro, or use your existing project from :doc:`week 2 <week2>`. For
-this part of the practical, we'll be using the files that you downloaded at the beginning of the practical.
+To get started, either open a new project in ArcGIS Pro, or use your existing project from
+:doc:`week 2 <../week2/arcgis>`. For this part of the practical, we'll be using the files that you downloaded at the
+beginning of the practical.
 
 .. note::
 
@@ -1026,7 +1027,7 @@ this part of the practical, we'll be using the files that you downloaded at the 
 
 Once you have the data downloaded and unpacked, add the VRT (composite image) to the ArcGIS Map:
 
-.. image:: ../../../img/egm702/week5/aa_landsat.png
+.. image:: img/classification/aa_landsat.png
     :width: 720
     :align: center
     :alt: the Landsat SR image added to the ArcGIS Map window
@@ -1040,7 +1041,7 @@ symbology for this image to match the color scheme we used in GEE. First, open t
 
 Then, click on the color patch for value 0, which will open the **Color Editor** window:
 
-.. image:: ../../../img/egm702/week5/aa_color_editor.png
+.. image:: img/classification/aa_color_editor.png
     :width: 500
     :align: center
     :alt: the color editor window
@@ -1071,7 +1072,7 @@ all of the values.
 
 The end result should look something like this:
 
-.. image:: ../../../img/egm702/week5/aa_classification.png
+.. image:: img/classification/aa_classification.png
     :width: 720
     :align: center
     :alt: the classified image, with an updated symbology to match the GEE symbology used earlier.
@@ -1082,7 +1083,7 @@ analysis.
 From the **Geoprocessing** tab, open **Create Accuracy Assessment Points**
 (`documentation <https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/create-accuracy-assessment-points.htm>`_):
 
-.. image:: ../../../img/egm702/week5/aa_create_pts.png
+.. image:: img/classification/aa_create_pts.png
     :width: 720
     :align: center
     :alt: the ArcGIS pro window with "create accuracy assessment points" opened in the geoprocessing tab
@@ -1107,7 +1108,7 @@ and choose a ``Stratified random`` **Sampling Strategy**.
 Click **OK**, and you should see the new layer added to the map. Right-click on the layer and select **Attribute Table**
 to show the attribute table for these points:
 
-.. image:: ../../../img/egm702/week5/aa_pts_table.png
+.. image:: img/classification/aa_pts_table.png
     :width: 720
     :align: center
     :alt: the ArcGIS pro window with the attribute table for the assessment points layer open
@@ -1128,7 +1129,7 @@ Our job now is to manually enter the class value for each point.
 To get started, right-click on the first row of the table, then select **Zoom To** (you may want to zoom further
 in/out, depending on the scale of the map):
 
-.. image:: ../../../img/egm702/week5/aa_pts_zoom.png
+.. image:: img/classification/aa_pts_zoom.png
     :width: 720
     :align: center
     :alt: the map zoomed in on one of the accuracy points
@@ -1152,7 +1153,7 @@ mind that those images may be out of date compared to the Landsat image.
 Once you have finished entering each point value, open the **Compute Confusion Matrix** tool from the **Geoprocessing**
 tab:
 
-.. image:: ../../../img/egm702/week5/aa_compute.png
+.. image:: img/classification/aa_compute.png
     :width: 720
     :align: center
     :alt: the "compute confusion matrix" tool open in the ArcGIS window
@@ -1168,7 +1169,7 @@ tab:
 Click **Run**, and you should see a new layer under **Standalone Tables** in the layer menu. Right-click on this layer,
 then select **Open** to open and view the table:
 
-.. image:: ../../../img/egm702/week5/aa_error.png
+.. image:: img/classification/aa_error.png
     :width: 720
     :align: center
     :alt: the output error matrix open in the ArcGIS window
@@ -1248,7 +1249,7 @@ to include the actual areas output from GEE. For example, using the areas from a
 
 Now, from the **Start** menu, find the **ArcGIS** folder, and click on **Python Command Prompt**:
 
-.. image:: ../../../img/egm702/week5/arcgis_python.png
+.. image:: img/classification/arcgis_python.png
     :width: 400
     :align: center
     :alt: the ArcGIS python command prompt shown in the start menu
@@ -1262,7 +1263,7 @@ Now, from the **Start** menu, find the **ArcGIS** folder, and click on **Python 
 Then, run the script by typing ``python area_uncertainty.py`` at the prompt. You should see the following output, or
 something very similar:
 
-.. image:: ../../../img/egm702/week5/aa_python_prompt.png
+.. image:: img/classification/aa_python_prompt.png
     :width: 720
     :align: center
     :alt: the output of a script showing the updated area and uncertainty estimates

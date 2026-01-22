@@ -1,4 +1,4 @@
-dem differencing
+dem differencing (arcgis)
 =========================
 
 .. note::
@@ -11,6 +11,9 @@ You should have the following files/folders available in the extracted ``.zip`` 
 
 .. code-block:: text
 
+    ├─ aux_files/
+        ├─ 1984_DEM_report.pdf
+        └─ 1979_DEM_report.pdf
     ├─ 1979_shapes.*
     ├─ 1984_shapes.*
     ├─ ALPSMLC30_N046W123_DSM.tif
@@ -18,6 +21,16 @@ You should have the following files/folders available in the extracted ``.zip`` 
     ├─ MtStHelens_Jul1979_10m_Z.tif
     ├─ LM02_L1TP_049028_19790719_20200906_02_T2/
     └─ LT05_L1TP_046028_19840804_20200918_02_T1/
+
+The **aux_files** folder contains two PDF reports for the DEM processing for the 1979 and 1984 DEMs. They include the
+residual values from the GCPs and checkpoints, as shown in the Week 1 practical, as well as measures of the elevation
+difference over (presumed) stable terrain between each DEM and a reference DEM.
+
+.. tip::
+
+    Make sure to look at these, and make use of the information provided in your presentation and report!
+
+    If you're not sure what you're looking at, it never hurts to ask for clarification.
 
 You should also still have the NAIP images we used in Week 1. In this practical, we're going to work on analysing the
 provided digital elevation models (DEMs) – specifically, their relative accuracy, and the spatial autocorrelation
@@ -64,7 +77,7 @@ will make a composite of the different bands to make an RGB image.
 
 First, let's load the Landsat 5 TM near-infrared (NIR) band, **LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF**:
 
-.. image:: ../../../img/egm702/week2/loaded_tm_b4.png
+.. image:: img/arcgis/loaded_tm_b4.png
     :width: 760
     :align: center
     :alt: the arcgis map with the black and white landsat band 4 image loaded
@@ -92,7 +105,7 @@ To find these values, we need to open the **MTL.txt** file in the Landsat 5 fold
 Open this file in a *text* editor (e.g., Notepad, Notepad++, **NOT MS WORD**). You should be able to find the
 ``REFLECTANCE_MULT_BAND_4`` value on line 208:
 
-.. image:: ../../../img/egm702/week2/landsat_metadata.png
+.. image:: img/arcgis/landsat_metadata.png
     :width: 500
     :align: center
     :alt: the landsat metadata file opened in notepad, showing the values for each of the metadata parameters
@@ -104,7 +117,7 @@ To do the conversion, we will use the **Raster Calculator** tool. Click on the *
 right-hand corner of the window, then enter "raster calculator" in the search bar and press **Enter**. You should be
 able to open up the **Raster Calculator** tool from the **Spatial Analyst** toolbox.
 
-Next, we need to enter
+Next, we need to enter the formula - you can copy and paste the text from the box below:
 
 .. code-block:: text
 
@@ -118,7 +131,7 @@ Next, we need to enter
 Save the output to your project geodatabase as ``tm5_band4_toa``, then press **Run**. You should see the new raster
 layer load, with values scaled from -0.005 to 0.691:
 
-.. image:: ../../../img/egm702/week2/converted_tm_b4.png
+.. image:: img/arcgis/converted_tm_b4.png
     :width: 760
     :align: center
     :alt: the arcgis map with the converted black and white landsat band 4 image loaded
@@ -143,7 +156,7 @@ then select **Composite Bands** from the **Data Management** toolbox.
 Add each of the three top-of-atmosphere bands to the raster by clicking the arrow next to **Input Rasters** and
 selecting them, then press **Add**:
 
-.. image:: ../../../img/egm702/week2/composite_bands.png
+.. image:: img/arcgis/composite_bands.png
     :width: 400
     :align: center
     :alt: the composite bands tool, with the band 4, 3, and 2 toa bands loaded in order
@@ -157,7 +170,7 @@ selecting them, then press **Add**:
 Save the file to the same folder as the rest of your data files as **LT05_L1TP_046028_19840804_20200918_02_T1.tif**,
 then press **Run**. You should see the color composite image appear on the map:
 
-.. image:: ../../../img/egm702/week2/composited.png
+.. image:: img/arcgis/composited.png
     :width: 760
     :align: center
     :alt: the false color composite image loaded in the map window
@@ -186,7 +199,7 @@ lower-lying areas are quite dark. By adding a hillshade, we can make it easier t
 
 From the **Analysis** tab, click on **Tools**:
 
-.. image:: ../../../img/egm702/week2/toolbar.png
+.. image:: img/arcgis/toolbar.png
     :width: 760
     :align: center
     :alt: the tools button highlighted
@@ -195,7 +208,7 @@ From the **Analysis** tab, click on **Tools**:
 
 Select the **Hillshade** tool from the **Spatial Analyst** toolbox:
 
-.. image:: ../../../img/egm702/week2/hillshade_dialogue.png
+.. image:: img/arcgis/hillshade_dialogue.png
     :width: 200
     :align: center
     :alt: the arcgis pro hillshade dialogue
@@ -203,10 +216,11 @@ Select the **Hillshade** tool from the **Spatial Analyst** toolbox:
 |br| Select the 1979 DEM as the **Input raster**, and save the output as ``MtStHelens_Jul1979_10m_HS.tif``. Leave the
 other parameters as the default values, then click **Run** at the bottom of the panel.
 
-Next, change the symbology of ``MtStHelens_Jul1979_10M_Z.tif`` to use a different color scheme. The example below is
-using **Elevation #4**. Finally, change the **Transparency** of the DEM layer to be about 60% transparent:
+Next, change the symbology of ``MtStHelens_Jul1979_10m_Z.tif`` to use a different color scheme. The example below is
+using **Elevation #4**. Finally, change the **Transparency** of the DEM layer to be about 60% transparent by clicking
+on **Raster Layer** in the Ribbon and adjusting the value:
 
-.. image:: ../../../img/egm702/week2/transparency.png
+.. image:: img/arcgis/transparency.png
     :width: 760
     :align: center
     :alt: adjusting the layer transparency
@@ -216,7 +230,7 @@ using **Elevation #4**. Finally, change the **Transparency** of the DEM layer to
 
 Your map should now look something like this:
 
-.. image:: ../../../img/egm702/week2/shaded_relief.png
+.. image:: img/arcgis/shaded_relief.png
     :width: 720
     :align: center
     :alt: the grouped shaded relief images
@@ -230,7 +244,7 @@ correspond to the same elevations in each map, you can import the settings from 
 
 Press the menu button in the upper right corner of the tab, then select **Import from layer**:
 
-.. image:: ../../../img/egm702/week2/symbology.png
+.. image:: img/arcgis/symbology.png
     :width: 200
     :align: center
     :alt: the symbology dialogue
@@ -240,21 +254,98 @@ scheme you want to apply (in this case, the 1979 DEM).
 
 You can do this for both the 1984 and 2008 DEMs – you should now see that the DEMs all have the same color scheme:
 
-.. image:: ../../../img/egm702/week2/common_color_scheme.png
+.. image:: img/arcgis/common_color_scheme.png
     :width: 720
     :align: center
     :alt: the dem layers with a common color scheme
 
 |br| Take a few moments to examine the differences between them. You can even use the **Swipe** tool under the
-**Appearance** tab to swipe back and forth between different DEMs – make sure that the DEM you want to swipe away is
+**Group Layer** tab to swipe back and forth between different DEMs – make sure that the DEM you want to swipe away is
 highlighted in the **Contents panel**.
 
 You should be able to clearly see the enormous differences that took place between the 1979 acquisition and the 1984
-acquisition. In the remainder of the practical, we will work on quantifying these differences.
+acquisition.
 
 .. tip::
 
     If you haven't done so already, this is a good place to save your map.
+
+
+converting the point cloud to a raster (optional)
+--------------------------------------------------
+
+Before moving on to the DEM differencing, we will first convert the point cloud provided (**final_pointcloud.las**) to
+a raster using **LAS Dataset To Raster** from the Conversion Toolbox. As before, either click on the **Geoprocessing**
+tab and search "las to raster" to find the tool, or find the tool in the **Conversion Tools** toolbox.
+
+The tool should look like this:
+
+.. image:: img/arcgis/las_to_raster.png
+    :width: 200
+    :align: center
+    :alt: the LAS Dataset to Raster tool
+
+|br| The **Input LAS Dataset** should be the **final_pointcloud.las** file. Name the **Output Raster**
+``PC_Tri_Linear_10m.tif``, and save it to the same folder as the rest of your data.
+
+Make sure that **Value Field** is **Elevation**. Under **Interpolation Type**, use the following settings:
+
+- **Interpolation Type**: **Triangulation**
+- **Interpolation Method**: **Linear**
+- **Thinning Type**: **No Thinning**
+
+Keep **Output Data Type** as **Floating Point**, and make sure that **Sampling Type** is **Cell Size**. Finally,
+make sure that **Sampling Value** is set to **10**. The window should now look like this:
+
+.. image:: img/arcgis/las_to_raster_filled.png
+    :width: 200
+    :align: center
+    :alt: the LAS Dataset to Raster tool, with the settings changed as described in the text above
+
+|br| Click **Run** to run the tool. After a few minutes, you should see the interpolated DEM loaded into your Map
+window:
+
+.. image:: img/arcgis/interpolated_loaded.png
+    :width: 720
+    :align: center
+    :alt: the map window with the newly interpolated dem showing as a grayscale raster
+
+|br| Now, run the **Hillshade** tool again, this time using your interpolated raster. Name the output
+``PC_Tri_Linear_10m_HS.tif`` and save it to the same folder as the rest of the data. Leave the **Azimuth** and **Altitude**
+settings the same as before, then click **Run**.
+
+Finally, use the same steps as before to create a Group Layer for this dataset, and ensure that the elevation layer
+has the same symbology as the other DEMs.
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Using the **Swipe** tool, compare the interpolated point cloud DEM with the 1984 DEM provided.
+
+    What differences do you notice between the two DEMs? Are there any areas of obvious difference? Do the features
+    appear to line up between the two?
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    As an optional additional exercise, repeat the **LAS to Raster** steps above, but change the parameters:
+
+    - try using **Triangulation** with **Natural Neighbor** interpolation, rather than **Linear**.
+    - instead of **Triangulation**, select **Binning** as the **Interpolation Type**
+    - how does decreasing the **Sampling Value** change the look of the DEM? Is there more detail (or more noise)
+      if you use a cell size of 5 m?
+
+    In particular, pay attention to how the DEMs look using these different parameters. Are there textural differences
+    between the DEMs that you can notice? How does the detail (or the noise) in the hillshades compare?
+
 
 dem differencing
 ----------------
@@ -272,7 +363,7 @@ To subtract the 1979 DEM from the 1984 DEM, enter the following expression into 
 
 Save the difference raster as ``MtStHelens_1984_1979_dZ.tif``, and press **Run**:
 
-.. image:: ../../../img/egm702/week2/difference_rastercalc.png
+.. image:: img/arcgis/difference_rastercalc.png
     :width: 400
     :align: center
     :alt: the raster calculator window for DEM differencing
@@ -295,7 +386,7 @@ need to change the label so that this is reflected on the contents pane (and so 
 The map should now look something like this (note that I've turned off the two shapefiles, so that you can see the
 lake changes):
 
-.. image:: ../../../img/egm702/week2/difference.png
+.. image:: img/arcgis/difference.png
     :width: 720
     :align: center
     :alt: the map showing the difference between the two DEMs
@@ -303,6 +394,21 @@ lake changes):
 |br| You should now clearly see where the mountainside has collapsed, as well the landslide and lahar/pyroclastic
 material deposits to the North of the volcano, and the two lakes that have dramatically increased their levels
 (Coldwater Lake and Spirit Lake, from West to East).
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    If you have interpolated the point cloud DEM, you should also compute the difference between the interpolated DEM
+    and the provided 1984 DEM.
+
+    Look at the difference between the two 1984 rasters. Is there a clear bias (systematic shift) between the two? Do
+    you see, for example, that the changes are mostly positive or mostly negative? In particular, pay attention to areas
+    with high slopes (for example, on the flanks of the volcano or inside the summit crater). What patterns do you
+    notice? How do these relate to what you have seen in the lecture videos or in the suggested reading for this week?
 
 accuracy estimation
 -------------------
@@ -319,7 +425,7 @@ have to do with the eruption and its aftermath – the collapse of the North fla
 pyroclastic and landslide material, the change in lake levels, and trees that were knocked down due to the force of the
 initial blast:
 
-.. image:: ../../../img/egm702/week2/labelled_difference.png
+.. image:: img/arcgis/labelled_difference.png
     :width: 400
     :align: center
     :alt: the DEM differences labelled to attribute the difference causes of change
@@ -333,19 +439,24 @@ ways that the elevation has changed in between the two acquisition dates.
 We'll worry about this in a minute, but first we'll create a grid of points to sample elevation differences. We'll use
 the **Create Fishnet** tool in the **Data Management** toolbox to do this:
 
-.. image:: ../../../img/egm702/week2/fishnet.png
+.. image:: img/arcgis/fishnet.png
     :width: 300
     :align: center
     :alt: the create fishnet tool
 
-|br| Save the points to a file called ``sample_points.shp``. Set the output extent to be the same as
-``MtStHelens_1984_1979_dZ.tif``, and set the cell size to be 50 meters in both width and height. Make sure that
-**Create Label Points** is checked, and that the **Geometry Type** is set to **Polygon**, then click **Run**.
+|br| Save the points to a file called ``sample_points.shp``.
+
+Under **Template Extent**, click "Extent of a Layer" (third button from the left), and set the output extent to be the
+same as ``MtStHelens_1984_1979_dZ.tif``. Then, set the cell size to be 50 meters in both width and height.
+
+Finally, make sure that **Create Label Points** is checked, and that the **Geometry Type** is set to **Polygon**,
+then click **Run**.
 
 This will create a regular grid of cells with 50 meters spacing, and a corresponding file that has the cell centroids.
 
 When the tool finishes running, you should now see both ``sample_points`` and ``sample_points_label`` in the
-**Contents** panel.
+**Contents** panel. Go ahead and remove ``sample_points`` from the Map, as we'll do the next step with
+``sample_points_label``.
 
 .. note::
 
@@ -355,7 +466,7 @@ When the tool finishes running, you should now see both ``sample_points`` and ``
 Now, we're going to extract the dZ values at our sample points, using the **Extract Values to Points** tool in the
 **Spatial Analyst** toolbox:
 
-.. image:: ../../../img/egm702/week2/values_to_points.png
+.. image:: img/arcgis/values_to_points.png
     :width: 300
     :align: center
     :alt: the extract values to points tool
@@ -364,10 +475,11 @@ Now, we're going to extract the dZ values at our sample points, using the **Extr
 ``MtStHelens_1984_1979_dZ.tif``. Save the output as ``dZ_1984_1979.shp``, and check **Interpolate values at the point
 locations**. Click **Run**.
 
-When the tool has finished running, open the **Attribute Table** for ``dZ_1984_1979.shp``. It should look something
-like this:
+When the tool has finished running, go ahead and remove ``sample_point_labels`` from the map.
 
-.. image:: ../../../img/egm702/week2/dz_attribute_table.png
+Next open the **Attribute Table** for ``dZ_1984_1979.shp``. It should look something like this:
+
+.. image:: img/arcgis/dz_attribute_table.png
     :width: 600
     :align: center
     :alt: the attribute table for the point elevation differences
@@ -380,17 +492,17 @@ You can do this using **Select by Attributes**, then selecting all of the featur
 
 With ``dZ_1984_1979`` highlighted in the **Contents** pane, click **Save** under the **Edit** tab to save the edits:
 
-.. image:: ../../../img/egm702/week2/save_highlighted.png
+.. image:: img/arcgis/save_highlighted.png
     :width: 760
     :align: center
     :alt: the edit tab with the save button highlighted
 
 |br| You should now have a sampling of points of elevation differences. You can visualize this from the
-**Attribute Table**. First, right-click on the **RASTERVALU** column, then select **Statistics**.
+**Attribute Table**. First, right-click on the **RASTERVALU** column, then select **Visualize Statistics**.
 
 A histogram of the values will display in the same panel:
 
-.. image:: ../../../img/egm702/week2/histogram.png
+.. image:: img/arcgis/histogram.png
     :width: 720
     :align: center
     :alt: the arcgis window with a histogram summary of the elevation differences displayed
@@ -398,17 +510,28 @@ A histogram of the values will display in the same panel:
 |br| You can increase the number of bins to display (up to 64), as well as display the mean, median, and standard
 deviation values on the graph.
 
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Click **Show Normal distribution** to plot a normal distribution with your histogram. Do your elevation changes
+    appear normally distributed? Based on the lectures/reading for this week, is this expected or not?
+
+
 Our next step is to select points that are only on stable terrain – again, this means points whose elevations we do
 not expect to have changed between the two DEM dates: we expect that the elevation difference for these points should
 be zero.
 
 To assess this, we can use the two Landsat images provided, which were acquired within a few weeks of the air photos
-that produced the DEMs. The 1979 MSS scene (``LM02_L1TP_049028_19790719_20180419_01_T2.tif``) was acquired on 19 July,
-while the 1984 TM scene (``LT05_L1TP_046028_19840804_20161004_01_T1.tif``) was acquired on 4 August.
+that produced the DEMs. The 1979 MSS scene (``LM02_L1TP_049028_19790719_20200906_02_T2.tif``) was acquired on 19 July,
+while the 1984 TM scene (``LT05_L1TP_046028_19840804_20200918_02_T1.tif``) was acquired on 4 August.
 
 We'll start by looking near the Southeast flank of the volcano:
 
-.. image:: ../../../img/egm702/week2/southeast_comparison.png
+.. image:: img/arcgis/southeast_comparison.png
     :width: 600
     :align: center
     :alt: the swipe tool showing the comparison between the 1979 and 1984 Landsat scenes on the SE flank of the volcano
@@ -422,14 +545,14 @@ Use the **Select** tool to select the dZ points that you can see in this area.
 Once you have done so, in the panel that contains the histogram, click on **Filter: Selection** to change the chart to
 only show your selected points:
 
-.. image:: ../../../img/egm702/week2/filter_selection.png
+.. image:: img/arcgis/filter_selection.png
     :width: 600
     :align: center
     :alt: the histogram panel with the filter: selection button highlighted
 
 |br| The chart should now change:
 
-.. image:: ../../../img/egm702/week2/filtered_histogram.png
+.. image:: img/arcgis/filtered_histogram.png
     :width: 600
     :align: center
     :alt: the filtered histogram
@@ -458,7 +581,7 @@ First, export the table by right-clicking on dZ_1984_1979 in the contents panel,
 
 To open the python notebook, open the **Catalog** tab and navigate to the folder where you have saved the notebook:
 
-.. image:: ../../../img/egm702/week2/catalog_highlight.png
+.. image:: img/arcgis/catalog_highlight.png
     :width: 720
     :align: center
     :alt: the arcgis catalog panel highlighted
@@ -467,7 +590,7 @@ To open the python notebook, open the **Catalog** tab and navigate to the folder
 
 You should see something like this (your notebook may open in a different panel then what is shown):
 
-.. image:: ../../../img/egm702/week2/open_notebook.png
+.. image:: img/arcgis/open_notebook.png
     :width: 720
     :align: center
     :alt: the arcgis window with the notebook opened
@@ -486,7 +609,7 @@ read the text in the notebook carefully.
 
     If you encounter the following (extremely vague) error:
 
-    .. image:: ../../../img/egm702/week2/notebook_error.png
+    .. image:: img/arcgis/notebook_error.png
         :width: 300
         :align: center
         :alt: an error message that says "failed to load notebook"
@@ -494,7 +617,7 @@ read the text in the notebook carefully.
     Don't panic - You can still run the script to calculate the NMAD and RMSE as follows. First, you will need to
     open the **Python Command Prompt** from ArcGIS Pro (**Start** > **ArcGIS** > **Python Command Prompt**):
 
-    .. image:: ../../../img/egm702/week2/python_cmd.png
+    .. image:: img/arcgis/python_cmd.png
         :width: 300
         :align: center
         :alt: the ArcGIS folder in the Windows Start Menu
@@ -515,14 +638,14 @@ read the text in the notebook carefully.
 
     This will open a browser window:
 
-    .. image:: ../../../img/egm702/week2/jupyter.png
+    .. image:: img/arcgis/jupyter.png
         :width: 720
         :align: center
         :alt: the egm702 folder opened in jupyter
 
     Click on ``AccuracyAnalysis.ipynb``, which should open the notebook in a new tab/window:
 
-    .. image:: ../../../img/egm702/week2/notebook_browser.png
+    .. image:: img/arcgis/notebook_browser.png
         :width: 720
         :align: center
         :alt: the jupyter notebook opened in a browser window
@@ -530,12 +653,24 @@ read the text in the notebook carefully.
     Be sure to read the instructions carefully to run the cells of the notebook.
 
 
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Compare the RMSE and NMAD values that you get here with the residual values from the provided GCP and CP reports.
+    How do the values compare?
+
+
 filling nodata values
 ---------------------
 
 You may notice that there are a number of voids, or gaps, in the DEM difference. I have masked the clouds present in
 the 1984 images, as well as a few other areas where there are blunders (large errors) in one or the other DEM. There
-are also smaller gaps where the photogrammetric software was unable to correlate the images and calculate an elevation.
+are also smaller gaps where the photogrammetric software was unable to correlate the images and calculate an elevation,
+most often in areas of shadow or low contrast.
 
 In order to calculate a volume change, we need to somehow fill, or interpolate, these data gaps. As discussed in the
 lectures this week, there are a number of ways to do this.
@@ -543,14 +678,14 @@ lectures this week, there are a number of ways to do this.
 We're going to focus on using **Kriging** interpolation through the **Geostatistical Wizard**, which you can find under
 the **Analysis** tab:
 
-.. image:: ../../../img/egm702/week2/wizard_toolbar.png
+.. image:: img/arcgis/wizard_toolbar.png
     :width: 760
     :align: center
     :alt: the geostatistical wizard button in the analysis tab
 
 |br| In the window that opens, you should see a number of different interpolation options:
 
-.. image:: ../../../img/egm702/week2/wizard1.png
+.. image:: img/arcgis/wizard1.png
     :width: 600
     :align: center
     :alt: the first step of the geostatistical wizard
@@ -560,7 +695,7 @@ the **Analysis** tab:
 Select **Kriging/CoKriging**, make sure that **Source Dataset** is ``dZ_1984_1979`` and the **Data Field** selected is
 ``RASTERVALU``, then click **Next**.
 
-.. image:: ../../../img/egm702/week2/wizard2.png
+.. image:: img/arcgis/wizard2.png
     :width: 600
     :align: center
     :alt: the second step of the geostatistical wizard
@@ -568,7 +703,7 @@ Select **Kriging/CoKriging**, make sure that **Source Dataset** is ``dZ_1984_197
 |br| Here, make sure to select **Ordinary Kriging** > **Prediction**. Leave both the **Transformation Type** and
 **Order of Trend Removal** as **None**, then click **Next** again:
 
-.. image:: ../../../img/egm702/week2/wizard3.png
+.. image:: img/arcgis/wizard3.png
     :width: 600
     :align: center
     :alt: the third step of the geostatistical wizard
@@ -583,7 +718,7 @@ to see how well they fit the data – you can also add multiple variogram models
 
 .. tip::
 
-    Be sure to note what model you use!
+    Be sure to note what model you use! You should also note both the **Sill** and **Nugget** values!
 
 You can also let the software choose the "best" model by clicking on **Optimize model** at the top of the window –
 this will find the best-fitting model to the data. After you've looked around at the different models and their
@@ -594,7 +729,7 @@ you can leave these as-is, and click **Next**.
 
 In this window, you should see the cross-validation statistics for the interpolation:
 
-.. image:: ../../../img/egm702/week2/wizard4.png
+.. image:: img/arcgis/wizard4.png
     :width: 600
     :align: center
     :alt: the fourth step of the geostatistical wizard
@@ -609,11 +744,16 @@ well.
 
 If this step looks alright, click **Finish** to produce the interpolated map.
 
+.. tip::
+
+    Be sure to note the **Root-Mean-Square** value - this is an estimate of the uncertainty in your predicted
+    elevation values!
+
 Once the Kriging layer loads, you can export it to a raster by right-clicking on it in the **Contents** panel and
 selecting **Export Layer** > **To Rasters**. Save the **Prediction** surface to ``MtStHelens_1984_1979_kriging_dZ.tif``
 with an **Output cell size** of ``10``, then click **Run**:
 
-.. image:: ../../../img/egm702/week2/layer_to_raster.png
+.. image:: img/arcgis/layer_to_raster.png
     :width: 300
     :align: center
     :alt: the layer to raster tool
@@ -625,7 +765,7 @@ with an **Output cell size** of ``10``, then click **Run**:
 
     Con(IsNull("MtStHelens_1984_1979_dZ.tif"), "MtStHelens_1984_1979_kriging_dZ.tif", "MtStHelens_1984_1979_dZ.tif")
 
-.. image:: ../../../img/egm702/week2/fill_rastercalc.png
+.. image:: img/arcgis/fill_rastercalc.png
     :width: 300
     :align: center
     :alt: the raster calculator with the equation to fill nodata values
@@ -634,9 +774,10 @@ with an **Output cell size** of ``10``, then click **Run**:
 has ``NoData`` values, and returns values from the original dZ raster wherever they are not ``NoData`` – in other words,
 this will fill the voids in the dZ raster using the kriging predicted values.
 
-Go ahead and examine the output using the **Swipe** tool to swipe between the two rasters (filled_dZ and dZ):
+Change the symbology to match the original dZ raster (``MtStHelens_1984_1979_dZ.tif``). Then, use the **Swipe** tool to
+examine the difference between two rasters (filled_dZ and dZ):
 
-.. image:: ../../../img/egm702/week2/dz_with_holes.png
+.. image:: img/arcgis/dz_with_holes.png
     :width: 720
     :align: center
     :alt: the swipe tool showing the elevation difference with and without holes filled
@@ -654,14 +795,14 @@ Open the tool, then set the **Input feature zone data** to ``1984_shapes``, and 
 **Input value raster** should be the filled dZ raster, and save the table to ``LakeChanges``. Leave the
 **Statistics type** as **All**:
 
-.. image:: ../../../img/egm702/week2/statistics_as_table.png
+.. image:: img/arcgis/statistics_as_table.png
     :width: 300
     :align: center
     :alt: the zonal statistics as table tool
 
 |br| Click **Run**, then open the table:
 
-.. image:: ../../../img/egm702/week2/lake_change_table.png
+.. image:: img/arcgis/lake_change_table.png
     :width: 600
     :align: center
     :alt: the table showing the lake changes output
@@ -673,7 +814,7 @@ meters, of each of the lakes.
 
 Make sure that your new field is of type **Float**, then press **OK**:
 
-.. image:: ../../../img/egm702/week2/calculate_field.png
+.. image:: img/arcgis/calculate_field.png
     :width: 300
     :align: center
     :alt: the calculate field dialog
@@ -697,7 +838,7 @@ To do this, you'll first need to digitize the outlines of these different featur
 
 .. tip::
 
-    Make sure that you describe your process for how you produced these outlines!
+    Make sure that you describe your process for how you produced these outlines in detail!
 
 You are welcome to try all three of these exercises if you like, but you should do at least one of them – this will
 form the investigation that you will present for Assessment Part 1a, as well as part of the report you will
@@ -722,7 +863,7 @@ done this, and how you can co-register your own DEMs, either for your project, o
 If you click on the |binder| link at the top of the ``README`` on the github page above, you can also try out the
 tutorial online, without having to download and set it up yourself:
 
-.. image:: ../../../img/egm702/week2/coregistration_tutorial.png
+.. image:: img/arcgis/coregistration_tutorial.png
     :width: 720
     :align: center
     :alt: the dem coregistration tutorial with the binder link highlighted.

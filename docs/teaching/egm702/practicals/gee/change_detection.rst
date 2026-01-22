@@ -1,7 +1,7 @@
 change detection in earth engine
 =========================================
 
-In this practical, we'll build on :doc:`week 3 <week3>`'s introduction to GEE and image analysis by seeing ways that
+In this practical, we'll build on the :doc:`introduction <introduction>` to GEE and image analysis by seeing ways that
 we can use GEE for change detection and analysis. Just like last week, you should be able to do finish the practical
 even if you have no prior experience with programming. All of the programming steps have been provided for you in a
 collection of scripts, and your task will be to run each script and analyze/interpret the results.
@@ -57,7 +57,7 @@ acquired 30 July 2011:
 
 Run the script. You should see the following in the **Map**:
 
-.. image:: ../../../img/egm702/week4/visual_1984.png
+.. image:: img/change_detection/visual_1984.png
     :width: 720
     :align: center
     :alt: a 1984 Landsat image showing the area around Mt St Helens
@@ -66,12 +66,12 @@ Run the script. You should see the following in the **Map**:
 see that in this color composite, vegetation appears red, water appears black, and soil/bedrock is shades of brown.
 
 This image is from July 1984, approximately the same time as the air photos that you worked with in
-:doc:`week 1 <week1>`. At this time, we can see that much of the vegetation on the north side of the volcano has been
+:doc:`week 1 <../week1>`. At this time, we can see that much of the vegetation on the north side of the volcano has been
 removed as a result of the eruption.
 
 Now, toggle the ``2011 SR`` layer on from the **Layers** menu. You should see the following image:
 
-.. image:: ../../../img/egm702/week4/visual_2011.png
+.. image:: img/change_detection/visual_2011.png
     :width: 720
     :align: center
     :alt: a 2011 Landsat image showing the area around Mt St Helens
@@ -95,7 +95,7 @@ Once you have had a look at the false color composite images, have a look at the
 ``1984 SR B4`` and ``2011 SR B4``. This should show somewhat similar patterns to the false color images. In the 1984
 image, the area impacted by the eruption north of the volcano is much darker in the NIR:
 
-.. image:: ../../../img/egm702/week4/1984_nir.png
+.. image:: img/change_detection/1984_nir.png
     :width: 720
     :align: center
     :alt: a 1984 Landsat TM B4 image showing the area around Mt St Helens
@@ -104,7 +104,7 @@ image, the area impacted by the eruption north of the volcano is much darker in 
 in areas where significant deforestation happened as a result of the 1980 eruption, and on the mountain itself where
 we see a large amount of snow:
 
-.. image:: ../../../img/egm702/week4/2011_nir.png
+.. image:: img/change_detection/2011_nir.png
     :width: 720
     :align: center
     :alt: a 2011 Landsat TM B4 image showing the area around Mt St Helens
@@ -148,7 +148,7 @@ channels showing the 2011 reflectance:
 
 To see the image, toggle ``Multi-temporal B4 composite`` on in the **Layers** menu:
 
-.. image:: ../../../img/egm702/week4/multitemporal_fcc.png
+.. image:: img/change_detection/multitemporal_fcc.png
     :width: 720
     :align: center
     :alt: a multi-temporal false color composite image showing the changes in NIR reflectance between 1984 and 2011.
@@ -254,14 +254,14 @@ the two dates.
 
 To see this, run the script, then toggle on the ``Difference`` layer:
 
-.. image:: ../../../img/egm702/week4/difference.png
+.. image:: img/change_detection/difference.png
     :width: 720
     :align: center
     :alt: the difference in NIR reflectance between 1984 and 2011
 
 |br| followed by the ``Normalized Difference`` layer:
 
-.. image:: ../../../img/egm702/week4/normalized_difference.png
+.. image:: img/change_detection/normalized_difference.png
     :width: 720
     :align: center
     :alt: the normalized difference in NIR reflectance between 1984 and 2011
@@ -282,12 +282,12 @@ range compared to the difference image.
 In addition to adding the images to the **Map**, we have also printed statistics and histograms for these two images
 to the **Console**:
 
-.. image:: ../../../img/egm702/week4/hist_difference.png
+.. image:: img/change_detection/hist_difference.png
     :width: 720
     :align: center
     :alt: a histogram of the difference in NIR reflectance between 1984 and 2011
 
-.. image:: ../../../img/egm702/week4/hist_normdiff.png
+.. image:: img/change_detection/hist_normdiff.png
     :width: 720
     :align: center
     :alt: a histogram of the normalized difference in NIR reflectance between 1984 and 2011
@@ -329,7 +329,7 @@ in your GIS software of choice.
 
 To see what this mask looks like, toggle on the **Thresholded Change** layer in the **Map**:
 
-.. image:: ../../../img/egm702/week4/change_mask.png
+.. image:: img/change_detection/change_mask.png
     :width: 720
     :align: center
     :alt: the change mask loaded in the map, showing not very much change
@@ -457,7 +457,7 @@ The final block of code will add the difference,magnitude, angle, and re-classif
 
 Run the script, then toggle the ``reclass angle`` layer on:
 
-.. image:: ../../../img/egm702/week4/angle_reclass.png
+.. image:: img/change_detection/angle_reclass.png
     :width: 720
     :align: center
     :alt: the reclassified angle image
@@ -468,7 +468,7 @@ blue corresponds to decreases in both NIR and Red reflectance.
 
 You can also consult the diagram shown below:
 
-.. image:: ../../../img/egm702/week4/change_vector.png
+.. image:: img/change_detection/change_vector.png
     :width: 400
     :align: center
     :alt: a diagram showing how the colors of the reclassified image correspond to the change vector angles
@@ -478,7 +478,7 @@ what these changes represent – a decrease in both Red and NIR reflectance – 
 in many cases, grassy meadows or new-growth trees, both of which tend to have higher spectral reflectance than
 conifer forests:
 
-.. image:: ../../../img/egm702/week4/spectral_plot_vis.png
+.. image:: img/change_detection/spectral_plot_vis.png
     :width: 600
     :align: center
     :alt: a plot showing spectral reflectance for a variety of surface types
@@ -553,7 +553,7 @@ what this looks like below. Note that some of the apparent lack of seasonality b
 the lower temporal resolution – Landsat acquisitions were often limited during this time, and so some years will only
 have a few available images.
 
-.. image:: ../../../img/egm702/week4/ndvi_timeseries.png
+.. image:: img/change_detection/ndvi_timeseries.png
     :width: 720
     :align: center
     :alt: a time series of ndvi values for different polygons
@@ -605,7 +605,7 @@ re-run the script:
 To add your own polygons, or to edit the polygons that are already included in the script, you can use the digitizing
 tools located in the upper left-hand corner of the map panel:
 
-.. image:: ../../../img/egm702/week4/digitizing_tools.png
+.. image:: img/change_detection/digitizing_tools.png
     :width: 720
     :align: center
     :alt: the digitizing tools panel highlighted
@@ -613,7 +613,7 @@ tools located in the upper left-hand corner of the map panel:
 |br| If you're adding your own polygon, be sure to start the polygon as a new layer (click on **+ new layer** at the
 bottom of the **Geometry Imports** panel):
 
-.. image:: ../../../img/egm702/week4/geometry_imports_panel.png
+.. image:: img/change_detection/geometry_imports_panel.png
     :width: 720
     :align: center
     :alt: the geometry imports panel expanded
@@ -622,7 +622,7 @@ bottom of the **Geometry Imports** panel):
 you can use the Landsat images, as well as the background satellite images, to help you. From the **Geometry Imports**
 panel, click the gear icon next to your new layer to change the properties:
 
-.. image:: ../../../img/egm702/week4/configure_import1.png
+.. image:: img/change_detection/configure_import1.png
     :width: 300
     :align: center
     :alt: the configure geometry import panel
@@ -630,7 +630,7 @@ panel, click the gear icon next to your new layer to change the properties:
 |br| Change the name to something other than ``geometry`` (or ``example``), then change it to **Import as** a
 ``Feature``, and click to add property to the feature. Call it ``label``, and add a value for the label.
 
-.. image:: ../../../img/egm702/week4/configure_import2.png
+.. image:: img/change_detection/configure_import2.png
     :width: 300
     :align: center
     :alt: the configure geometry import panel
@@ -639,7 +639,7 @@ panel, click the gear icon next to your new layer to change the properties:
 single polygon – to add multiple polygons, you’ll need to create multiple features. You can then update the
 ``ndvi_patches`` variable (line 17) and re-run the script to update the chart:
 
-.. image:: ../../../img/egm702/week4/updated_ndvi_timeseries.png
+.. image:: img/change_detection/updated_ndvi_timeseries.png
     :width: 720
     :align: center
     :alt: the ndvi time series with the new polygon layer added

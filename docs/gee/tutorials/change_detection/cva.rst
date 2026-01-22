@@ -124,7 +124,7 @@ interpreting changes
 
 Run the script, then toggle the ``reclass angle`` layer on:
 
-.. image:: ../../../img/egm702/week4/angle_reclass.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/angle_reclass.png
     :width: 720
     :align: center
     :alt: the reclassified angle image
@@ -135,7 +135,7 @@ reflectance, and blue corresponds to decreases in both SWIR2 and SWIR1 reflectan
 
 You can also consult the diagram shown below:
 
-.. image:: ../../../img/egm702/week4/change_vector.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/change_vector.png
     :width: 400
     :align: center
     :alt: a diagram showing how the colors of the reclassified image correspond to the change vector angles
@@ -150,7 +150,7 @@ what these changes represent – a decrease in both Red and NIR reflectance – 
 in many cases, grassy meadows or new-growth trees, both of which tend to have higher spectral reflectance than
 conifer forests:
 
-.. image:: ../../../img/egm702/week4/spectral_plot_vis.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/change_detection/spectral_plot_vis.png
     :width: 600
     :align: center
     :alt: a plot showing spectral reflectance for a variety of surface types

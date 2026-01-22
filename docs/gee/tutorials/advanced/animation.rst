@@ -129,7 +129,7 @@ the script, and displayed using a pseudo-Mercator projection (EPSG:3857), which 
 
 At this time, you can run the script one final time. In the **Console**, you should see a link at the bottom:
 
-.. image:: ../../../img/egm702/week3/console_link.png
+.. image:: ../../../teaching/egm702/practicals/gee/img/introduction/console_link.png
     :width: 400
     :align: center
     :alt: the link to the animated gif, printed to the console

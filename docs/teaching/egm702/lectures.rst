@@ -11,7 +11,7 @@ photogrammetry
 video playlist
 ^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm702/week1/week1.png
+.. image:: img/week1.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/watch?v=WneDAoe9q0g&list=PLswTWqhRygXvaFSLGwoyJbTu-vCOq2Eob&index=1
@@ -36,7 +36,7 @@ DEM and terrain analysis
 video playlist
 ^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm702/week2/week2.png
+.. image:: img/week2.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/watch?v=OZuF_LbYwp0&list=PLswTWqhRygXshYE_3WxLb1SiAuuodhjTA&index=1
@@ -61,7 +61,7 @@ image manipulation and analysis
 video playlist
 ^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm702/week3/week3.png
+.. image:: img/week3.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/watch?v=vw6YbfAhL6I&list=PLswTWqhRygXt_6LtK6iL6K-PeXsPddYQA&index=1
@@ -86,7 +86,7 @@ change detection
 video playlist
 ^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm702/week4/week4.png
+.. image:: img/week4.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/watch?v=5ENdo-PtxkI&list=PLswTWqhRygXuiCG5-fs0C4jS9Z8uyNVd-&index=1
@@ -111,7 +111,7 @@ advanced classification techniques
 video playlist
 ^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../img/egm702/week5/week5.png
+.. image:: img/week5.png
     :width: 600
     :align: center
     :target: https://www.youtube.com/watch?v=r3O4laOHhO0&list=PLswTWqhRygXs3oc4rxPKNGvjnYxrDRtrP&index=1

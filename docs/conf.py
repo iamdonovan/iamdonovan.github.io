@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'space cameras and glaciers'
-copyright = '2025, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
+copyright = '2020-2026, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
 author = 'Bob McNabb'
 
 language = 'en'

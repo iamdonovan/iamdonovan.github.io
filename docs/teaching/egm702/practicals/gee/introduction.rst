@@ -21,7 +21,7 @@ getting started
 To begin, point your browser to https://code.earthengine.google.com. If you are not already logged in, log in using
 your GEE account. You should see something like this:
 
-.. image:: ../../../img/egm702/week3/annotated_window.png
+.. image:: img/introduction/annotated_window.png
     :width: 720
     :align: center
     :alt: the GEE console with annotations
@@ -57,7 +57,7 @@ make a copy of the script to your own repository.
 
 You should see the following dialogue:
 
-.. image:: ../../../img/egm702/week3/save_script.png
+.. image:: img/introduction/save_script.png
     :width: 300
     :align: center
     :alt: the save script dialogue
@@ -78,7 +78,7 @@ part 1 - finding and inspecting images
 
 Once you have saved the script, you should see something like the following in the code editor:
 
-.. image:: ../../../img/egm702/week3/loaded_saved_script.png
+.. image:: img/introduction/loaded_saved_script.png
     :width: 720
     :align: center
     :alt: the gee window after loading and saving the script
@@ -228,7 +228,7 @@ clicking **Run** at the top of the code editor panel.
 
 Once the script finishes running, you should see this:
 
-.. image:: ../../../img/egm702/week3/loaded_image.png
+.. image:: img/introduction/loaded_image.png
     :width: 720
     :align: center
     :alt: the script after having added the image from step 1.
@@ -236,7 +236,7 @@ Once the script finishes running, you should see this:
 |br| When you mouse over the **Layers** button in the upper right of the **Map** panel, you should see the two layer
 names (``TOA Image`` and ``SR Image``):
 
-.. image:: ../../../img/egm702/week3/layer_parameters.png
+.. image:: img/introduction/layer_parameters.png
     :width: 400
     :align: center
     :alt: the layer visualization settings
@@ -247,7 +247,7 @@ to the layer name, you can make either image visible/invisible.
 
 In the **Console** panel, you should see the following:
 
-.. image:: ../../../img/egm702/week3/console1.png
+.. image:: img/introduction/console1.png
     :width: 400
     :align: center
     :alt: the output to the console after running Step 1.
@@ -267,7 +267,7 @@ Now, in the **Map** panel, turn off the SR Image to see the TOA Image underneath
 Next, click on the **Inspector** tab, then click anywhere on the **Map** to get the pixel values for each image
 displayed on the map at that location:
 
-.. image:: ../../../img/egm702/week3/inspector_list.png
+.. image:: img/introduction/inspector_list.png
     :width: 720
     :align: center
     :alt: the gee window with the inspector tab active, showing a list of pixel values for a given location
@@ -275,7 +275,7 @@ displayed on the map at that location:
 |br| By default, the **Inspector** tool displays the values in each band as a list, but you can toggle to view a bar
 chart by clicking the chart icon (red outline in the above screenshot):
 
-.. image:: ../../../img/egm702/week3/inspector_chart.png
+.. image:: img/introduction/inspector_chart.png
     :width: 720
     :align: center
     :alt: the gee window with the inspector tab active, showing a bar chart of pixel values for a given location
@@ -445,7 +445,7 @@ as measured from the horizon.
 When you run the script, you should see the following added to the map (after you turn off the ``elevation difference``
 layer):
 
-.. image:: ../../../img/egm702/week3/hillshade.png
+.. image:: img/introduction/hillshade.png
     :width: 720
     :align: center
     :alt: the hillshade of the SRTM loaded in the map panel
@@ -483,14 +483,14 @@ maximum/minimum, mean, median, and standard deviation.
 The second part of this prints the statistics to the **Console**. When you run the script, you should see this in
 the **Console**:
 
-.. image:: ../../../img/egm702/week3/console2.png
+.. image:: img/introduction/console2.png
     :width: 400
     :align: center
     :alt: the console panel after running step 2 of the script.
 
 |br| To see the stats for each DEM, click the arrow next to each **Object**:
 
-.. image:: ../../../img/egm702/week3/printed_stats.png
+.. image:: img/introduction/printed_stats.png
     :width: 400
     :align: center
     :alt: the stats printed to the console panel
@@ -567,7 +567,7 @@ In addition to the difference map, we can also display a histogram of the differ
 
 We then display the chart by printing it to the **Console**:
 
-.. image:: ../../../img/egm702/week3/histogram.png
+.. image:: img/introduction/histogram.png
     :width: 720
     :align: center
     :alt: the histogram showing the differences between the NASADEM and the SRTM DEM.
@@ -635,7 +635,7 @@ band (B8) from the TOA image. Then, we transform the image back to RGB space usi
 
 Run the script now. When you hover over the **Layers** menu, you should see the following:
 
-.. image:: ../../../img/egm702/week3/pan_layers.png
+.. image:: img/introduction/pan_layers.png
     :width: 300
     :align: center
     :alt: the layers added to the map after running the pan-sharpening script
@@ -683,14 +683,14 @@ This block of code creates a task to export the pan-sharpened image to a raster 
 using a CRS with `EPSG <https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset>`__ code 32610 (corresponding to
 WGS84 UTM Zone 10N). You should notice that the **Tasks** tab is highlighted:
 
-.. image:: ../../../img/egm702/week3/tasks.png
+.. image:: img/introduction/tasks.png
     :width: 400
     :align: center
     :alt: the console showing the tasks tab highlighted
 
 |br| When you click on it, you should see this:
 
-.. image:: ../../../img/egm702/week3/new_task.png
+.. image:: img/introduction/new_task.png
     :width: 400
     :align: center
     :alt: the tasks tab
@@ -702,7 +702,7 @@ size of the image. You can click the 'Refresh' button to check the status to see
 Once the task has finished, you can download the file from your Google Drive, and use it in a GIS program such as
 QGIS:
 
-.. image:: ../../../img/egm702/week3/pan_qgis.png
+.. image:: img/introduction/pan_qgis.png
     :width: 720
     :align: center
     :alt: the exported display image loaded into qgis
@@ -750,7 +750,7 @@ introduction.
 
 When the script finishes running, you should see the following:
 
-.. image:: ../../../img/egm702/week3/pca_loaded.png
+.. image:: img/introduction/pca_loaded.png
     :width: 720
     :align: center
     :alt: the decorrelation stretch image displayed on the map
@@ -791,7 +791,7 @@ One of the applications of PCA, especially in data science more generally, is fo
 most of the "information" about the image is contained in the first principal component, and the amount of information
 decreases for each PC band. We can see this by looking at ``pc7``:
 
-.. image:: ../../../img/egm702/week3/sensor_noise.png
+.. image:: img/introduction/sensor_noise.png
     :width: 720
     :align: center
     :alt: the 7th principal component displayed on the map
@@ -804,7 +804,7 @@ deep water), but due to the PCA transformation, the noise is enhanced in the fin
 
 Now, look at ``pc1`` by deactivating the other layers in the **Layer Menu**:
 
-.. image:: ../../../img/egm702/week3/pc1.png
+.. image:: img/introduction/pc1.png
     :width: 720
     :align: center
     :alt: the 1st principal component displayed on the map
