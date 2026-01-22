@@ -219,7 +219,8 @@ Select the **Hillshade** tool from the **Spatial Analyst** toolbox:
 other parameters as the default values, then click **Run** at the bottom of the panel.
 
 Next, change the symbology of ``MtStHelens_Jul1979_10M_Z.tif`` to use a different color scheme. The example below is
-using **Elevation #4**. Finally, change the **Transparency** of the DEM layer to be about 60% transparent:
+using **Elevation #4**. Finally, change the **Transparency** of the DEM layer to be about 60% transparent by clicking
+on **Raster Layer** in the Ribbon and adjusting the value:
 
 .. image:: img/arcgis/transparency.png
     :width: 760
