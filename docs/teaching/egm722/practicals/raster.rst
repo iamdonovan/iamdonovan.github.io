@@ -29,8 +29,8 @@ by switching to the ``week4`` branch:
 
 .. note::
 
-    If you don't see "This branch is up to date with iamdonovan:week4", you can **fetch** the upstream changes by
-    clicking the dropdown menu:
+    If you don't see "This branch is up to date with ``iamdonovan:week4``", make sure to **fetch** (or **sync**) the
+    upstream changes by clicking the dropdown menu:
 
     .. image:: ../../../img/egm722/week4/fetch_upstream.png
         :width: 600
@@ -81,8 +81,8 @@ merging into to :samp:`<{your_username}>/egm722:main`, and the branch that you'r
 (either because it's being added, or because it has been modified), you can see the summary of the changes in 
 the upper left of each entry.
 
-For this file, **README.md**, there have been 2 changes: 1 deletion and 1 addition (note that the current version may
-be slightly different).
+For the file shown above, **README.md**, there have been 2 changes: 1 deletion and 1 addition (note that the current
+version may be slightly different).
 
 Most of the changes that you see should be additions, since most of the files are only present on the ``week4`` branch.
 
@@ -98,12 +98,17 @@ button, which will take you to the following page:
 it can be approved. The **Message** field above allows you to explain what the proposed changes are and why they
 should be approved. 
 
-Since you're only making a change on your repository, you can leave this blank (though it's
-good practice to explain what you're doing in case you ever have to review what you've done -- future you will
-thank you...). 
+Make sure to write a message here that explains what changes are being incorporated with the pull request. If
+you would like to see some examples, you can see examples such as `this one <https://github.com/iamdonovan/egm722/pull/38>`__
+or `this one <https://github.com/iamdonovan/egm722/pull/31>`__.
+
+.. tip::
+
+    It's good practice to explain what you're doing in case you ever have to review what you've done -- future you will
+    thank you...
 
 Once you've written the message, you can press the **Create pull request** button. As long as there aren't 
-**conflicting** changes (lines that have been changed in both branches), you should be able
+**conflicting** changes (lines in a file that have been changed in both branches), you should be able
 to **merge** the pull request by clicking the **Merge pull request** button:
 
 .. image:: ../../../img/egm722/week4/no_conflicts.png
@@ -134,7 +139,7 @@ command line:
     :alt: github desktop showing the "pull origin" button
 
 |br| At this point, you can launch Jupyter Notebooks as you have in the previous weeks, and begin to work through
-the practical exercise.
+the practical exercises.
 
 .. note::
     
@@ -158,17 +163,17 @@ and numpy.
 objectives
 ^^^^^^^^^^^
 
--  Learn about opening and viewing raster data using rasterio and
-   cartopy
--  Become familiar with opening files using a ``with`` statement
--  Use ``*`` and ``**`` to unpack arguments in a function
--  Use rasterio to reproject raster data
+- Learn about opening and viewing raster data using rasterio and cartopy
+- Become familiar with opening files using a ``with`` statement
+- Use ``*`` and ``**`` to unpack arguments in a function
+- Use rasterio to reproject raster data
 
 data provided
 ^^^^^^^^^^^^^^
 
-In the **data_files** folder, you should have the following files: -
-NI_mosaic.tif
+In the **data_files** folder, you should have the following files:
+
+- NI_mosaic.tif
 
 getting started
 ^^^^^^^^^^^^^^^^
@@ -215,10 +220,10 @@ that each band has using ``.dtypes``:
 
     dataset = rio.open('data_files/NI_Mosaic.tif')
 
-    print('{} opened in {} mode'.format(dataset.name,dataset.mode))
-    print('image has {} band(s)'.format(dataset.count))
-    print('image size (width, height): {} x {}'.format(dataset.width, dataset.height))
-    print('band 1 dataype is {}'.format(dataset.dtypes[0])) # note that the band name (Band 1) differs from the list index [0]
+    print(f"{dataset.name} opened in {dataset.mode} mode")
+    print(f"image has {dataset.count} band(s)")
+    print(f"image size (width, height): {dataset.width} x {dataset.height}")
+    print(f"band 1 dataype is {dataset.dtypes[0]}") # note that the band name (Band 1) differs from the list index [0]
 
 We can also look at the georeferencing information for the dataset. The
 ``.bounds`` attribute gives locations for the left, bottom, right, and
@@ -257,15 +262,15 @@ following form:
 
 where:
 
--  *a* corresponds to the pixel width;
--  *b* is the row rotation (normally 0);
--  *c* is the x coordinate of the upper-left corner of the image;
--  *d* is the column rotation (normally 0);
--  *e* is the pixel height;
--  *f* is the y coordinate of the upper-left corner of the image;
--  *g*
--  *h*
--  *i*
+- *a* corresponds to the pixel width;
+- *b* is the row rotation (normally 0);
+- *c* is the x coordinate of the upper-left corner of the image;
+- *d* is the column rotation (normally 0);
+- *e* is the pixel height;
+- *f* is the y coordinate of the upper-left corner of the image;
+- *g*
+- *h*
+- *i*
 
 loading the data
 ^^^^^^^^^^^^^^^^^
@@ -448,11 +453,6 @@ using ``matplotlib.pyplot.subplots()``
     ni_utm = ccrs.UTM(29) # note that this matches with the CRS of our image
     fig, ax = plt.subplots(1, 1, figsize=(10, 10), subplot_kw=dict(projection=ni_utm))
 
-
-
-.. image:: Raster_files/Raster_33_0.png
-
-
 Now, we will use ``ax.imshow()``
 (`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.imshow.html>`__)
 to display a single band from our image.
@@ -469,13 +469,6 @@ our ``bands`` **array**):
     ax.set_extent([xmin, xmax, ymin, ymax], crs=ni_utm) # set the extent to the image boundary
 
     fig # show the figure
-
-
-
-
-.. image:: Raster_files/Raster_35_0.png
-
-
 
 As you can see from the link above, ``imshow()`` has a number of
 arguments that we can use to display our image. As we are using only a
@@ -508,13 +501,6 @@ the correct location on the map after we set the **Axes** extents.
 
     fig
 
-
-
-
-.. image:: Raster_files/Raster_37_0.png
-
-
-
 This is not the only way that we can display images, however. We can
 also display them as RGB color composites. Try the following code, which
 *should* display the first three bands of the image:
@@ -534,9 +520,9 @@ So that didn’t work - we get a **TypeError** with the following message:
 Remember that ``dataset.read()`` loaded the raster as a raster with
 three dimensions:
 
--  dimension 1: the bands
--  dimension 2: the rows
--  dimension 3: the columns
+- dimension 1: the bands
+- dimension 2: the rows
+- dimension 3: the columns
 
 But, ``ax.imshow()`` expects that the image indices are in the order
 (rows, columns, bands). From the documentation, we also see that:
@@ -604,13 +590,6 @@ color”:
 
     h, ax = img_display(img, ax, [2, 1, 0], ni_utm, [xmin, xmax, ymin, ymax])
     fig # just to save you from scrolling back up to see
-
-
-
-
-.. image:: Raster_files/Raster_43_0.png
-
-
 
 So that worked, but the image is very dark - this is because of the way
 that we “normalized” the values to fall between 0 and 1, using the
@@ -689,9 +668,9 @@ function:
 
 This single statement checks the following things:
 
--  that ``pmin >= 0`` (because it’s a percentage),
--  that ``pmin < pmax`` (because min < max),
--  that ``pmax <= 100`` (again, because it’s a percentage).
+- that ``pmin >= 0`` (because it’s a percentage),
+- that ``pmin < pmax`` (because min < max),
+- that ``pmax <= 100`` (again, because it’s a percentage).
 
 If any of these things are not true, we ``raise``
 (`documentation <https://docs.python.org/3/reference/simple_stmts.html#raise>`__)
@@ -764,13 +743,6 @@ for ``max`` (giving us a 99.8% stretch):
     h, ax = img_display(img, ax, [2, 1, 0], ni_utm, [xmin, xmax, ymin, ymax], pmin=0.1, pmax=99.9)
     fig # just to save you from scrolling back up to see
 
-
-
-
-.. image:: Raster_files/Raster_51_0.png
-
-
-
 That looks much better - we can now see the image, it has good contrast,
 and the image is displayed in the correct location on the map.
 
@@ -790,10 +762,10 @@ for example, we can change this to use the `unpacking
 operators <https://realpython.com/python-kwargs-and-args/>`__, ``*`` and
 ``**``:
 
--  ``*`` is used to unpack iterables - for example, a **list** or
-   **tuple**
--  ``**`` is used to unpack keyword arguments - for example, using a
-   **dict**
+- ``*`` is used to unpack iterables - for example, a **list** or
+  **tuple**
+- ``**`` is used to unpack keyword arguments - for example, using a
+  **dict**
 
 Let’s re-write our ``img_display()`` function to make use of these -
 first, by passing a **list** of percentile values to
@@ -834,13 +806,6 @@ to ``new_img_display()``:
 
     h, ax = new_img_display(img, ax, [2, 1, 0], stretch_args=stretch, **disp_kwargs)
     fig
-
-
-
-
-.. image:: Raster_files/Raster_55_0.png
-
-
 
 You should see that this is the same image as before - the only thing
 that’s changed is how we call the function.
@@ -960,7 +925,7 @@ accordingly.
                     resampling=rio.warp.Resampling.nearest)
 
 next steps
-^^^^^^^^^^^
+----------
 
 For some additional practice with the concepts covered in this
 practical, use the ``assignment_script.py`` file in the Week4 folder to

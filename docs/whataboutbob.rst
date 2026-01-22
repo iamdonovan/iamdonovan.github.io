@@ -45,6 +45,26 @@ publications
 If you are unable to access any of these via the doi links below (or if the links are somehow broken), please contact
 me and I will send you a copy.\ [1]_
 
+.. _pubs2025:
+
+2025
+^^^^
+
+.. rst-class:: ref
+
+    Caldwell, N. G., W. H. Armstrong, **R. McNabb**, E. M. Enderlin, D. McGrath, B. Rick, J. Hanson, and L. B. Perry,
+    (2025). Retreat and frontal ablation rates for Alaska’s lake-terminating glaciers: Investigating potential physical
+    controls with implications for future stability. *Journal of Glaciology* 71, e67. doi:
+    `10.1017/jog.2025.37 <https://doi.org/10.1017/jog.2025.37>`__.
+
+    The GlaMBIE Team (2025). Community estimate of global glacier mass changes from 2000 to 2023. *Nature* 639(**8054**),
+    382-388, 5835. doi: `10.1038/s41586-024-08545-z <https://doi.org/10.1038/s41586-024-08545-z>`__
+
+    King, O., N. Montoya, B. Davies, T. Matthews, M. Vargas, S. Ghuffar, T. Gribbin, B. Perry, M. Rado, **R. McNabb**,
+    L. Nicholson, and J. Ely, (2025). The impact of supraglacial ice cliff and pond formation on debris-free, tropical
+    glacier mass loss. *Journal of Glaciology* 71, e132.
+    doi: `10.1017/jog.2025.10109 <https://doi.org/10.1017/jog.2025.10109>`__.
+
 .. _pubs2024:
 
 2024
@@ -57,14 +77,12 @@ me and I will send you a copy.\ [1]_
     melt-accelerating feedbacks. *Nature Communications* 15(**1**), 5099.
     doi: `10.1038/s41467-024-49269-y <https://doi.org/10.1038/s41467-024-49269-y>`__
 
-    Piermattei, L., Zemp, M., Sommer, C., Brun, F., Braun, M.H., Andreassen, L.M., Belart, J.M.C., Berthier, E.,
-    Bhattacharya, A., Boehm Vock, L., Bolch, T., Dehecq, A., Dussaillant, I., Falaschi, D., Florentine, C., Floricioiu,
-    D., Ginzler, C., Guillet, G., Hugonnet, R., Huss, M., Kääb, A., King, O., Klug, C., Knuth, F., Krieger, L.,
-    La Frenierre, J., **McNabb, R.**, McNeil, C., Prinz, R., Sass, L., Seehaus, T., Shean, D., Treichler, D., Wendt, A.,
-    and R. Yang (2024). Observing glacier elevation changes from spaceborne optical and radar sensors – an
-    inter-comparison experiment using ASTER and TanDEM-X data. *The Cryosphere* 18, 3195–3230.
-    doi: `10.5194/tc-18-3195-2024 <https://doi.org/10.5194/tc-18-3195-2024>`__
-
+    Piermattei, L., M. Zemp, C. Sommer, F. Brun, M. Braun, L. M. Andreassen, J. Belart, E. Berthier, A. Bhattacharya,
+    L. Boehm Vock, T. Bolch, A. Dehecq, I. Dussaillant, D. Falaschi, C. Florentine, D. Floricioiu, C. Ginzler, G. Guillet,
+    R. Hugonnet, M. Huss, A. Kääb, O. King, C. Klug, F. Knuth, L. Krieger, J. La Frenierre, **R. McNabb**, C. McNeil,
+    R. Prinz, L. Sass, T. Seehaus, D. Shean, D. Treichler, A. Wendt, and R. Yang (2024). Observing glacier elevation
+    changes from spaceborne optical and radar sensors – an inter-comparison experiment using ASTER and TanDEM-X data.
+    *The Cryosphere* 18, 3195–3230. doi: `10.5194/tc-18-3195-2024 <https://doi.org/10.5194/tc-18-3195-2024>`__
 
 .. _pubs2023:
 
@@ -74,8 +92,8 @@ me and I will send you a copy.\ [1]_
 .. rst-class:: ref
 
     Ali, A., P. Dunlop, S. Coleman, D. Kerr, **R. McNabb**, and R. Noormets (2023a). Glacier area changes in Novaya
-    Zemlya from 1986–89 to 2019–21 using object-based image analysis in Google Earth Engine.
-    *Journal of Glaciology*, doi: `10.1017/jog.2023.18 <https://doi.org/10.1017/jog.2023.18>`__
+    Zemlya from 1986–89 to 2019–21 using object-based image analysis in Google Earth Engine. *Journal of Glaciology*,
+    69(**277**), 1305--1316. doi: `10.1017/jog.2023.18 <https://doi.org/10.1017/jog.2023.18>`__
 
     Ali, A., P. Dunlop, S. Coleman, D. Kerr, **R. McNabb**, and R. Noormets (2023b). Glacier area changes in the Arctic
     and high latitudes using satellite remote sensing. *Journal of Maps* 19(**1**), 2247416. doi:
@@ -83,7 +101,7 @@ me and I will send you a copy.\ [1]_
 
     Lauzon, B., L. Copland, W. Van Wychen, W. Kochtitzky, **R. McNabb**, and D. Dahl-Jensen (2023a). Dynamics throughout
     a complete surge of Iceberg Glacier on western Axel Heiberg Island, Canadian High Arctic. *Journal of Glaciology*,
-    doi: `10.1017/jog.2023.20 <https://doi.org/10.1017/jog.2023.20>`__
+    66(**277**), 1333-1350. doi: `10.1017/jog.2023.20 <https://doi.org/10.1017/jog.2023.20>`__
 
     Lauzon, B., L. Copland, W. Van Wychen, W. Kochtitzky, and **R. McNabb** (2023b). Evolution of the dynamics of
     Airdrop Glacier, western Axel Heiberg Island, over a seven decade long advance. *Arctic Science*,

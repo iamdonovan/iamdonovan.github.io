@@ -21,12 +21,17 @@ want to install the package into, and enter the following command:
 
 .. code-block:: text
 
-    pip install <package>
+    pip install {package}
 
 .. warning::
 
     Make sure that you have the correct environment activated! If you don't, ``pip`` will install the package into
     the ``base`` environment.
+
+.. warning::
+
+    Be sure to replace ``{package}`` with the `name of the package <https://www.youtube.com/watch?v=oh8iqi7u2Mc>`__
+    that you want to install.
 
 For more information on how to install packages using ``pip``, have a look at the
 `official documentation <https://pip.pypa.io/en/stable/user_guide/>`__

@@ -29,7 +29,7 @@ You should have the following files/folders available in the extracted ``.zip`` 
         └─ MeasuresCamera.xml
 
 In this practical, we're going to work on processing a digital elevation model (DEM) and orthophotos using a collection
-of aerial photos acquired in 1984 over Mt St Helens, a volcano in Washington state, USA.
+of aerial photos acquired 18 September 1984 over Mt St Helens, a volcano in Washington state, USA.
 
 During the 1980s and early 1990s, the volcano erupted several times, including an eruption in May 1980 that collapsed
 the entire north face of the mountain.

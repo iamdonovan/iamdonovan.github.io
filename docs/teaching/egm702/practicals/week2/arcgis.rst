@@ -61,8 +61,6 @@ Import the provided data into the map, re-arranging the drawing order as follows
 - MtStHelens_Jul1979_10m_Z.tif
 - MtStHelens_Sep1984_10m_Z.tif
 - ALPSMLC30_N046W123_DSM.tif
-- LM02_L1TP_049028_19790719_20180419_01_T2.tif
-- LT05_L1TP_046028_19840804_20161004_01_T1.tif
 
 Change the Map coordinate system from WGS84 geographic coordinates to WGS84 UTM Zone 10N.
 
@@ -218,7 +216,7 @@ Select the **Hillshade** tool from the **Spatial Analyst** toolbox:
 |br| Select the 1979 DEM as the **Input raster**, and save the output as ``MtStHelens_Jul1979_10m_HS.tif``. Leave the
 other parameters as the default values, then click **Run** at the bottom of the panel.
 
-Next, change the symbology of ``MtStHelens_Jul1979_10M_Z.tif`` to use a different color scheme. The example below is
+Next, change the symbology of ``MtStHelens_Jul1979_10m_Z.tif`` to use a different color scheme. The example below is
 using **Elevation #4**. Finally, change the **Transparency** of the DEM layer to be about 60% transparent by clicking
 on **Raster Layer** in the Ribbon and adjusting the value:
 

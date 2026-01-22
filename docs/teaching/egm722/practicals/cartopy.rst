@@ -14,7 +14,7 @@ getting started
 ---------------
 
 To get started with this week's practical, first head to the your GitHub repository (:samp:`https://github.com/<{your_username}>/egm722`).
-You should notice that this repository has 5 branches – you can click on the **branch** button to see all of the branches
+You should notice that this repository has 7 branches – you can click on the **branch** button to see all of the branches
 available for a particular repository:
 
 .. image:: ../../../img/egm722/week2/github.png
@@ -23,10 +23,10 @@ available for a particular repository:
     :alt: the github repository
 
 |br| You should be able to see that the available branches are ``main``, the default **branch** that we used in last
-week's practical, and branches for weeks 2 through 5.
+week's practical, branches for weeks 2 through 5, and a ``recipe`` and ``conflict-recipe`` branch (more on these later).
 
-If you open up the folder where you've **cloned** your repository, you should only see the **Week1** folder - no
-**Week2**, **Week3**, and so on:
+In **Windows Explorer** (or **Finder**), open up the folder where you've **cloned** your repository. You should
+currently see just the **Week1** folder - no **Week2**, **Week3**, and so on:
 
 .. image:: ../../../img/egm722/week2/week1_folder.png
     :width: 600
@@ -41,6 +41,56 @@ use **GitHub Desktop** to do this. In the coming weeks, we'll also introduce oth
 interface or
 `Pull Requests <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests>`_.
 
+synching forks
+--------------
+
+Before we merge the ``week2`` branch, however, let's first check that there aren't any recent changes to the original
+repository that we need to include in our fork.
+
+Back on GitHub, switch to the ``week2`` branch by clicking the drop-down menu that currently says ``main``:
+
+.. image:: ../../../img/egm722/week2/branch_menu.png
+    :width: 720
+    :align: center
+    :alt: the github repository, with the branch menu highlighted in red
+
+|br| and selecting the ``week2`` branch. You should see the page now looks like this:
+
+.. image:: ../../../img/egm722/week2/fork_behind.png
+    :width: 720
+    :align: center
+    :alt: the github repository, showing that the week2 branch is behind the upstream repository
+
+|br| If you see the message "This branch is **X** commits behind ``iamdonovan/egm722:week2``.", you will need to sync
+the fork so that you incorporate the recent changes to the original repository (``iamdonovan/egm722``).
+
+.. tip::
+
+    If you see the message "This branch is up to date with ``iamdonovan/egm722``.", you should still read through the
+    instructions below, just in case you encounter this in the future.
+
+To sync the fork, first click on **Sync fork**:
+
+.. image:: ../../../img/egm722/week2/sync_fork.png
+    :width: 720
+    :align: center
+    :alt: the github repository, with the sync fork menu active
+
+|br| Then click on **Update branch**.
+
+After a moment, you should see that the message changes:
+
+.. image:: ../../../img/egm722/week2/fork_updated.png
+    :width: 720
+    :align: center
+    :alt: the github repository, showing that the week2 branch is now up to date
+
+|br| In the coming weeks, we will see other ways that we can check whether there are changes from the upstream
+repository that need to be synced. For now, we can continue on to merging these changes into our ``main`` branch.
+
+merging branches
+----------------
+
 For now, open up **GitHub Desktop**. You should see something like this:
 
 .. image:: ../../../img/egm722/week2/desktop1.png
@@ -48,7 +98,18 @@ For now, open up **GitHub Desktop**. You should see something like this:
     :align: center
     :alt: the github desktop window
 
-|br| Click the button that shows the current branch (**main**) – you should see the following:
+|br| Before moving on, let's first make sure to **fetch** any changes from our remote repository. To do this, click on
+the **Fetch origin** button:
+
+.. image:: ../../../img/egm722/week2/fetch_origin.png
+    :width: 600
+    :align: center
+    :alt: the github desktop window, with the fetch origin button highlighted
+
+|br| After a few moments, you should see that the wheel icon stops spinning, indicating that your remote changes have
+been fetched.
+
+Now, click the button that shows the current branch (**main**) – you should see the following:
 
 .. _desktop branches:
 
@@ -141,7 +202,21 @@ You should now see that your ``main`` branch has both the **Week1** and **Week2*
     :align: center
     :alt: the repository folder showing the merged materials
 
-|br| At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the
+|br| As a final step, you can "prune" this branch by deleting it. From the **branch** menu, right-click on ``week2``
+and select **Delete**. You should see a message like the following:
+
+.. image:: ../../../img/egm722/week2/delete_branch.png
+    :width: 400
+    :align: center
+    :alt: a message asking you to confirm deleting the selected branch
+
+|br| Check the box next to **Yes, delete this branch on the remote**, then click **Delete** to remove the branch. You
+should see that the branch is no longer present in the **branch** menu.
+
+You can also confirm that the branch has been removed from your remote repository by visiting
+``https://github.com/{username}/egm722/branches/all``.
+
+At this point, you should be ready to open jupyter and work your way through the Week 2 Notebook, following the
 same initial steps as last week.
 
 running the script
@@ -155,7 +230,14 @@ interpreter, you can also run the script directly from the IDE:
     :align: center
     :alt: the script open in the pycharm IDE
 
-|br| Otherwise, you can use the **command prompt**; the procedure will be effectively the same.
+|br|
+
+.. note::
+
+    The setup for this using pycharm will be the same as you did for the :doc:`debugging <debugging>` exercise in
+    week 1.
+
+Otherwise, you can use the **command prompt**; the procedure will be effectively the same.
 
 Launch the command prompt from **Anaconda Navigator**, taking care to ensure that your ``egm722`` environment is
 selected (rather than the ``base`` environment). When it launches, you should see the following window:
@@ -246,30 +328,20 @@ plots, respectively.
 objectives
 ^^^^^^^^^^^
 
--  become familiar with geopandas, cartopy, and matplotlib, including
-   reading the provided documentation
--  use list comprehensions to simplify some for loops
+- become familiar with ``geopandas``, ``cartopy``, and ``matplotlib``, including
+  reading the provided documentation
+- use *list comprehension* to simplify some ``for`` loops
 
 getting started
 ^^^^^^^^^^^^^^^^
 
 First, run the cell below to load the python modules we’ll be using in
-the practical.
-
-1. the built-in help (i.e., ``help(plt.text)``)
-2. using ipython’s (the python interpreter used by jupyter-notebooks)
-   help shortcut (i.e., ``plt.text?``)
-3. finding the online documentation for the module (usually achieved via
-   option 4)
-4. searching google (or your search engine of choice)
-5. consulting your favorite medicine man/shaman/spiritual guide
-6. asking the instructor, who will in all likelihood resort to one of
-   the other options (usually 5 or 4).
+the practical:
 
 .. code:: ipython3
 
     # this lets us use the figures interactively
-    %matplotlib inline
+    %matplotlib widget
 
     import os
     import geopandas as gpd
@@ -282,42 +354,106 @@ the practical.
     plt.ion() # make the plotting interactive
 
 Let’s also define a few helper functions that we’ll use later on. For
-now, don’t worry too much about what each individual line does - we’ll
-go over these in a bit more depth as we go. Remember also that if you
-get stuck, you can get help in a few ways:
+now, don’t worry too much about what each individual line of code does -
+we’ll go over these in a bit more depth as we go.
 
 .. code:: ipython3
 
-    # generate matplotlib handles to create a legend of each of the features we put in our map.
     def generate_handles(labels, colors, edge='k', alpha=1):
+        """
+        Generate matplotlib patch handles to create a legend of each of the features in the map.
+
+        Parameters
+        ----------
+
+        labels : list(str)
+            the text labels of the features to add to the legend
+
+        colors : list(matplotlib color)
+            the colors used for each of the features included in the map.
+
+        edge : matplotlib color (default: 'k')
+            the color to use for the edge of the legend patches.
+
+        alpha : float (default: 1.0)
+            the alpha value to use for the legend patches.
+
+        Returns
+        -------
+
+        handles : list(matplotlib.patches.Rectangle)
+            the list of legend patches to pass to ax.legend()
+        """
         lc = len(colors)  # get the length of the color list
         handles = [] # create an empty list
         for ii in range(len(labels)): # for each label and color pair that we're given, make an empty box to pass to our legend
             handles.append(mpatches.Rectangle((0, 0), 1, 1, facecolor=colors[ii % lc], edgecolor=edge, alpha=alpha))
         return handles
 
-    # create a scale bar of length 20 km in the upper right corner of the map
     # adapted this question: https://stackoverflow.com/q/32333870
     # answered by SO user Siyh: https://stackoverflow.com/a/35705477
-    def scale_bar(ax, location=(0.92, 0.95)):
+    def scale_bar(ax, length=20, location=(0.92, 0.95)):
+        """
+        Create a scale bar in a cartopy GeoAxes.
+
+        Parameters
+        ----------
+
+        ax : cartopy.mpl.geoaxes.GeoAxes
+            the cartopy GeoAxes to add the scalebar to.
+
+        length : int, float (default 20)
+            the length of the scalebar, in km
+
+        location : tuple(float, float) (default (0.92, 0.95))
+            the location of the center right corner of the scalebar, in fractions of the axis.
+
+        Returns
+        -------
+        ax : cartopy.mpl.geoaxes.GeoAxes
+            the cartopy GeoAxes object
+
+        """
         x0, x1, y0, y1 = ax.get_extent() # get the current extent of the axis
-        sbx = x0 + (x1 - x0) * location[0] # get the lower left x coordinate of the scale bar
-        sby = y0 + (y1 - y0) * location[1] # get the lower left y coordinate of the scale bar
+        sbx = x0 + (x1 - x0) * location[0] # get the right x coordinate of the scale bar
+        sby = y0 + (y1 - y0) * location[1] # get the right y coordinate of the scale bar
 
-        ax.plot([sbx, sbx - 20000], [sby, sby], color='k', linewidth=9, transform=ax.projection) # plot a thick black line, 20 km long
-        ax.plot([sbx, sbx - 10000], [sby, sby], color='k', linewidth=6, transform=ax.projection) # plot a smaller black line from 0 to 10 km long
-        ax.plot([sbx-10000, sbx - 20000], [sby, sby], color='w', linewidth=6, transform=ax.projection) # plot a white line from 10 to 20 km
+        ax.plot([sbx, sbx-length*1000], [sby, sby], color='k', linewidth=4, transform=ax.projection) # plot a thick black line
+        ax.plot([sbx-(length/2)*1000, sbx-length*1000], [sby, sby], color='w', linewidth=2, transform=ax.projection) # plot a white line from 0 to halfway
 
-        ax.text(sbx, sby-5000, '20 km', transform=ax.projection, fontsize=8) # add a label at 20 km
-        ax.text(sbx-12500, sby-5000, '10 km', transform=ax.projection, fontsize=8) # add a label at 10 km
-        ax.text(sbx-24500, sby-5000, '0 km', transform=ax.projection, fontsize=8) # add a label at 0 km
+        ax.text(sbx, sby-(length/4)*1000, f"{length} km", ha='center', transform=ax.projection, fontsize=6) # add a label at the right side
+        ax.text(sbx-(length/2)*1000, sby-(length/4)*1000, f"{int(length/2)} km", ha='center', transform=ax.projection, fontsize=6) # add a label in the center
+        ax.text(sbx-length*1000, sby-(length/4)*1000, '0 km', ha='center', transform=ax.projection, fontsize=6) # add a label at the left side
 
         return ax
+
+Have a look at the *docstring* attached to each function, which explains
+what the function does, and how to use it. Remember that this is the
+same information that you would see if you used ``help()`` on a function
+- try it below:
+
+.. code:: ipython3
+
+    help(generate_handles) # show the docstring for the generate_handles function
+
+Remember that as you work your way through this (and other) practical
+exercises, there are a number of ways that you can use to find help if
+you get stuck:
+
+1. the built-in help (i.e., ``help(plt.text)``)
+2. using ipython’s (the python interpreter used by jupyter-notebooks)
+   help shortcut (i.e., ``plt.text?``)
+3. finding the online documentation for the module (usually achieved via
+   option 4)
+4. searching google (or your search engine of choice)
+5. consulting your favorite medicine man/shaman/spiritual guide
+6. asking the instructor, who will in all likelihood resort to one of
+   the other options (usually 5 or 4).
 
 loading the data
 ^^^^^^^^^^^^^^^^^
 
-Great. Now that we’ve imported most of the modules we’ll be needing, and
+Now that we’ve imported most of the modules we’ll be needing, and
 defined a few helper functions, we can actually load our data. To load
 the shapefile data, we will use `GeoPandas <http://geopandas.org/>`__,
 an open-source package designed to make working with geospatial data in
@@ -432,31 +568,30 @@ making plots and graphs, and
 designed for making maps and representing geopatial data.
 
 First, let’s look at the coordinate reference system (CRS) for
-``counties``, the outlines of each of the six counties of Northern
-Ireland:
+``outline``, the outline of Northern Ireland:
 
 .. code:: ipython3
 
-    counties.crs # show the CRS of the counties dataset
+    outline.crs # show the CRS of the outline dataset
 
-Here, we can see that the county outlines are geographic coordinates,
-corresponding to WGS84 Latitude/Longitude. Now, let’s look at the CRS
-for ``water``, corresponding to the lake outlines:
+Here, we can see that the outline is in UTM coordinates (WGS84 UTM Zone
+29N, to be exact). Now, let’s look at the CRS for ``water``,
+corresponding to the lake outlines:
 
 .. code:: ipython3
 
-    water.crs
+    water.crs # show the CRS of the water dataset
 
 Here, we can see the CRS is different - the coordinates of ``water`` are
-in Irish Transverse Mercator, which are very different to WGS84
-Latitude/Longitude.
+in Irish Transverse Mercator, which are similar to, but not quite the
+same as, WGS84 UTM Zone 29N easting/northing coordinates.
 
 To correctly plot our geospatial data, then, we need to have some way
 for ``cartopy`` and ``matplotlib`` to “translate” and plot the
 coordinates stored within the shapefile data - this way, even if our
-data are represented in different coordinates (e.g., WGS84
-Latitude/Longitude or Irish Transverse Mecractor), they will show up in
-the correct places on the map.
+data are represented in different coordinates (e.g., WGS84 UTM Zone 29N
+or Irish Transverse Mecractor), they will show up in the correct places
+on the map.
 
 To do this, we need to create a ``cartopy`` **CRS**, a representation of
 the spatial reference system that we will use to plot our data inside of
@@ -509,17 +644,27 @@ shown in the correct location:
 
 .. code:: ipython3
 
-    myFig = plt.figure(figsize=(8, 8))  # create a figure of size 8x8 (representing the page size in inches)
+    fig = plt.figure(figsize=(8, 8))  # create a figure of size 8x8 (representing the page size in inches)
     ax = plt.axes(projection=ni_utm)  # create an axes object in the figure, using a UTM projection,
     # where we can actually plot our data.
 
-
-
-.. image:: Cartopy_files/Cartopy_27_0.png
-
-
 As you can see, the **Axes** starts off blank - we haven’t added
 anything to it yet.
+
+Because we are using the **widget** option for ``matplotlib`` (cf. the
+first cell you ran up above):
+
+.. code:: python
+
+       %matplotlib widget
+
+you can see how the original **Figure** object updates as we continue
+through the rest of the steps of the practical by scrolling back up to
+this point after adding new objects/features to the map.
+
+However, I have also added ``fig`` statements in most of the cells where
+we add something to the map, so that you can see the updates as they are
+made without having to scroll all the way back up the page.
 
 adding data to the map
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -548,12 +693,6 @@ and ``outline.crs``, the CRS attribute of that shapefile:
     outline_feature = ShapelyFeature(outline['geometry'], ni_utm, edgecolor='k', facecolor='w')
     ax.add_feature(outline_feature) # add the features we've created to the map.
 
-    myFig
-
-.. image:: Cartopy_files/Cartopy_29_0.png
-
-
-
 The other arguments that we pass to ``ShapelyFeature`` tell
 ``matplotlib`` how to draw the features - in this case, with an edge
 color (``edgecolor``) of black (``'k'``) and a face color
@@ -579,12 +718,7 @@ below, we’re setting the extent with a 5 km buffer around each edge:
     ax.set_extent([xmin-5000, xmax+5000, ymin-5000, ymax+5000], crs=ni_utm) # because total_bounds gives output as xmin, ymin, xmax, ymax,
     # but set_extent takes xmin, xmax, ymin, ymax, we re-order the coordinates here.
 
-    myFig ## re-draw the figure (only for the notebook)
-
-
-.. image:: Cartopy_files/Cartopy_31_0.png
-
-
+    fig ## re-draw the figure so you don't have to scroll back up
 
 This is a fine start to our map, but a bit boring. For one thing, we
 might want to set different colors for the different county outlines,
@@ -614,15 +748,27 @@ results.
 
 Now that you’ve found the number of colors you need to choose, you can
 use the image below to make a list of the colors. There are other ways
-to select colors using matplotlib, including using RGB values, but
-that’s for another day. If you’re interested in learning more, you can
-check out the documentation
+to select colors using matplotlib, including using RGB values or Hex
+codes, but that’s for another day. If you’re interested in learning
+more, you can check out the documentation
 `here <https://matplotlib.org/stable/api/colors_api.html>`__.
 
-|title|
+.. image:: ../../../img/egm722/week2/named_colors.png
+    :width: 600
+    :align: center
+    :alt: a list of named colors in matplotlib
+
 `source <https://matplotlib.org/stable/gallery/color/named_colors.html>`__
 
-.. |title| image:: ../../../img/egm722/week2/named_colors.png
+You can also go to to `ColorBrewer <https://colorbrewer2.org>`__, which
+will help you make sure that your color palette is colorblind-friendly,
+print-friendly, and photocopy-friendly. Other helpful websites for
+checking color accessibility or generating color palettes include
+`Coblis <https://www.color-blindness.com/coblis-color-blindness-simulator/>`__,
+`Learn UI
+Design <https://www.learnui.design/tools/data-color-picker.html>`__, or
+`Coloring for
+Colorblindness <https://davidmathlogic.com/colorblind/>`__.
 
 .. code:: ipython3
 
@@ -648,10 +794,7 @@ check out the documentation
                               alpha=0.25) # set the alpha (transparency) to be 0.25 (out of 1)
         ax.add_feature(feat) # once we have created the feature, we have to add it to the map using ax.add_feature()
 
-    myFig # to show the updated figure
-
-.. image:: Cartopy_files/Cartopy_35_1.png
-
+    fig # to show the updated figure
 
 In the code above, note this line:
 
@@ -680,9 +823,7 @@ the same symbology, we add them with a single use of **ShapelyFeature**:
                                 linewidth=1) # set the outline width to be 1 pt
     ax.add_feature(water_feat) # add the collection of features to the map
 
-    myFig # to show the updated figure
-
-.. image:: Cartopy_files/Cartopy_37_0.png
+    fig # to show the updated figure
 
 To add the rivers dataset to the map, we can again use
 ``ShapelyFeature()``, with ``ccrs.CRS(rivers.crs)`` as the CRS argument.
@@ -697,9 +838,7 @@ we don’t set the ``facecolor`` property.
                                 linewidth=0.2) # set the linewidth to be 0.2 pt
     ax.add_feature(river_feat) # add the collection of features to the map
 
-    myFig # to show the updated figure
-
-.. image:: Cartopy_files/Cartopy_39_0.png
+    fig # to show the updated figure
 
 Before we add the ``towns`` data to the map, let’s take a look at the
 CRS attribute for this dataset:
@@ -734,9 +873,7 @@ of size 6 (``ms=6``) at each x, y location:
     # ShapelyFeature creates a polygon, so for point data we can just use ax.plot()
     town_handle = ax.plot(towns.geometry.x, towns.geometry.y, 's', color='0.5', ms=6, transform=ccrs.PlateCarree()) # towns is in UTM Zone 29N, so we can use ni_utm
 
-    myFig # to show the updated figure
-
-.. image:: Cartopy_files/Cartopy_43_1.png
+    fig # to show the updated figure
 
 adding labels and legends
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -747,12 +884,24 @@ legend to keep everything straight.
 
 To do this, we get handles for each of the county boundaries, using the
 colors we defined earlier. Here, we’re using our helper function
-``generate_handles()``, defined at the beginning of the exercise. This
-function returns a **list** of ``matplotlib`` handles (i.e., the
+``generate_handles()``, defined at the beginning of the exercise.
+
+The function as defined above has a *docstring* that can be used to view
+information about how to use the function through our normal “help”
+routines (for example, the ``?`` operator in jupyter/ipython):
+
+.. code:: ipython3
+
+    help(generate_handles) # show the help for our generate_handles function
+
+This function returns a **list** of ``matplotlib`` handles (i.e., the
 identifier that ``matplotlib`` uses for the different objects in the
-figure), given a **list** of labels and colors. We will use these
-handles to create the **legend** for our map, which explains what the
-different symbols and colors mean.
+figure) given a **list** of labels and colors, which we can then pass to
+``ax.legend()``
+(`documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html#>`__)
+in order to generate a legend for our map, which explains what the
+different symbols and colors mean. We also have optional arguments to
+change the edge color and the transparency of the patches, if we want.
 
 The cell below will generate **list**\ s of handles for the counties,
 water bodies, and rivers:
@@ -823,7 +972,7 @@ size, or other parameters:
     leg = ax.legend(handles, labels, title='Legend', title_fontsize=12,
                      fontsize=10, loc='upper left', frameon=True, framealpha=1)
 
-    myFig # to show the updated figure
+    fig # to show the updated figure
 
 Now that we have a legend, let’s go ahead and add grid lines to our plot
 using ``ax.gridlines()``
@@ -850,7 +999,7 @@ or at the documentation linked above.
     gridlines.left_labels = False # turn off the left-side labels
     gridlines.bottom_labels = False # turn off the bottom labels
 
-    myFig # to show the updated figure
+    fig # to show the updated figure
 
 Now, let’s add text labels for each of our individual towns. For each of
 the points representing our towns/cities, we can place a text label
@@ -867,7 +1016,7 @@ your questions on Blackboard.
         x, y = row.geometry.x, row.geometry.y # get the x,y location for each town
         ax.text(x, y, row['TOWN_NAME'].title(), fontsize=7, transform=ccrs.PlateCarree()) # use plt.text to place a label at x,y
 
-    myFig # to show the updated figure
+    fig # to show the updated figure
 
 Last but not least, let’s add a scale bar to the plot. The
 ``scale_bar()`` function we’ve defined above will produce a scale bar
@@ -878,7 +1027,7 @@ corner as default:
 
     scale_bar(ax) # place a scale bar in the upper right corner of the map window
 
-    myFig # to show the updated figure
+    fig # to show the updated figure
 
 Finally, we’ll save our figure using ``.savefig()``
 (`documentation <https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.savefig>`__).
@@ -890,7 +1039,7 @@ experiment with or change these parameters.
 
 .. code:: ipython3
 
-    myFig.savefig('map.png', bbox_inches='tight', dpi=300)
+    fig.savefig('map.png', bbox_inches='tight', dpi=300)
 
 further exercises and next steps
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -900,13 +1049,13 @@ In this directory, you should also have a python script,
 here (though perhaps with different colors). For some additional
 practice, try at least one of the following:
 
--  The ``towns`` dataset has an attribute, **STATUS**, that describes
-   whether the feature represents a “Town” (e.g., Coleraine), or a
-   “City” (e.g., Belfast). Modify the script to plot all of the
-   **Towns** with one marker (e.g., the gray square used above), and
-   plot all of the **Cities** with a different marker, then add each of
-   these to the legend. For more information on the available markers
-   and colors for matplotlib, see the
-   `documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html>`__.
--  Try to modify the ``scale_bar()`` function to have divisions at 1, 5,
-   and 10 km, instead of at 10 km.
+- The ``towns`` dataset has an attribute, **STATUS**, that describes
+  whether the feature represents a “Town” (e.g., Coleraine), or a “City”
+  (e.g., Belfast). Modify the script to plot all of the **Towns** with
+  one marker (e.g., the gray square used above), and plot all of the
+  **Cities** with a different marker, then add each of these to the
+  legend. For more information on the available markers and colors for
+  matplotlib, see the
+  `documentation <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html>`__.
+- Try to modify the ``scale_bar()`` function to have divisions at 1, 5,
+  and 10 km, instead of at 10 km.
