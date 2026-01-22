@@ -11,6 +11,9 @@ You should have the following files/folders available in the extracted ``.zip`` 
 
 .. code-block:: text
 
+    ├─ aux_files/
+        ├─ 1984_DEM_report.pdf
+        └─ 1979_DEM_report.pdf
     ├─ 1979_shapes.*
     ├─ 1984_shapes.*
     ├─ ALPSMLC30_N046W123_DSM.tif
@@ -18,6 +21,16 @@ You should have the following files/folders available in the extracted ``.zip`` 
     ├─ MtStHelens_Jul1979_10m_Z.tif
     ├─ LM02_L1TP_049028_19790719_20200906_02_T2/
     └─ LT05_L1TP_046028_19840804_20200918_02_T1/
+
+The **aux_files** folder contains two PDF reports for the DEM processing for the 1979 and 1984 DEMs. They include the
+residual values from the GCPs and checkpoints, as shown in the Week 1 practical, as well as measures of the elevation
+difference over (presumed) stable terrain between each DEM and a reference DEM.
+
+.. tip::
+
+    Make sure to look at these, and make use of the information provided in your presentation and report!
+
+    If you're not sure what you're looking at, it never hurts to ask for clarification.
 
 You should also still have the NAIP images we used in Week 1. In this practical, we're going to work on analysing the
 provided digital elevation models (DEMs) – specifically, their relative accuracy, and the spatial autocorrelation
