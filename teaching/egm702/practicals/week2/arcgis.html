@@ -1,0 +1,1300 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>dem differencing (arcgis) &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" href="../../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm702/practicals/week2/arcgis';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="image transformation" href="../week3/index.html" />
+    <link rel="prev" title="dem differencing (qgis)" href="qgis.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../../index.html">EGM702: photogrammetry and advanced image analysis</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../setup/micmac.html">micmac and cloudcompare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../setup/qgis.html">QGIS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../setup/orfeo.html">Orfeo ToolBox for QGIS</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="../index.html">practicals</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4 current active"><a class="reference internal" href="index.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../week3/index.html">image transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../week4/index.html">change detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../week5/index.html">image classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gee/index.html">optional gee practicals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/pythonintro.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/cartopy.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/conflicts.html">conflict resolution (using git)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/vector.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/raster.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/earthaccess.html">searching + downloading satellite data using earthaccess</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/zonalstats.html">zonal statistics using rasterstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/geopandas.html">more fun with geopandas</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/project/environment.html">environment.yml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/project/howto.html">EGM722: A how-to Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../python-programming/index.html">programming skills for phd researchers (using python)</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../python-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../python-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../python-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../python-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../ml-crash-course/index.html">a crash course in machine learning (using python) – under development</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ml-crash-course/setup.html">setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../ml-crash-course/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../ml-crash-course/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../ml-crash-course/exercises/regression.html">what is machine learning?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../ml-crash-course/exercises/training_testing.html">training, testing, and validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../ml-crash-course/exercises/feature_design.html">feature design and engineering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../ml-crash-course/exercises/performance.html">measuring model performance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../ml-crash-course/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../hpc-intro/index.html">introduction to high performance computing</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../hpc-intro/setup.html">setup</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../hpc-intro/shell/index.html">the unix shell</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/shell.html">in the beginning was the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/navigation.html">navigating on the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/files.html">working with files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/input.html">input/output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/scripts.html">shell scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../hpc-intro/hpc/index.html">high performance computing</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/hpc/atlas.html">atlas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/hpc/data_transfer.html">transferring data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/hpc/vulcan.html">vulcan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../hpc-intro/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../dissertation/index.html">undergraduate dissertation projects</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/glaciers.html">mapping glacier changes over time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/glacial_lakes.html">detection of supraglacial lakes and timing of drainage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/algae.html">mapping harmful algal blooms using satellite remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/floods.html">flood detection and monitoring using remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/wildfires.html">detection and mapping of wildfires</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/heat_islands.html">urban heat islands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/thresholding.html">band maths and thresholding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/egm702/practicals/week2/arcgis.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/egm702/practicals/week2/arcgis.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../_sources/teaching/egm702/practicals/week2/arcgis.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>dem differencing (arcgis)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-the-landsat-images">preparing the landsat images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-hillshades-and-shaded-relief">adding hillshades and shaded relief</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-the-point-cloud-to-a-raster-optional">converting the point cloud to a raster (optional)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dem-differencing">dem differencing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-estimation">accuracy estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-nodata-values">filling nodata values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-elevation-and-volume-changes">estimating elevation and volume changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment">assignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="dem-differencing-arcgis">
+<h1>dem differencing (arcgis)<a class="headerlink" href="#dem-differencing-arcgis" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to download all the data from the Practical 2 area on Blackboard before starting, or from the
+<a class="reference external" href="https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&amp;export=download">google drive link</a>,
+then extract the zip file.</p>
+</div>
+<p>You should have the following files/folders available in the extracted <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├─ aux_files/
+    ├─ 1984_DEM_report.pdf
+    └─ 1979_DEM_report.pdf
+├─ 1979_shapes.*
+├─ 1984_shapes.*
+├─ ALPSMLC30_N046W123_DSM.tif
+├─ MtStHelens_Sep1984_10m_Z.tif
+├─ MtStHelens_Jul1979_10m_Z.tif
+├─ LM02_L1TP_049028_19790719_20200906_02_T2/
+└─ LT05_L1TP_046028_19840804_20200918_02_T1/
+</pre></div>
+</div>
+<p>The <strong>aux_files</strong> folder contains two PDF reports for the DEM processing for the 1979 and 1984 DEMs. They include the
+residual values from the GCPs and checkpoints, as shown in the Week 1 practical, as well as measures of the elevation
+difference over (presumed) stable terrain between each DEM and a reference DEM.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Make sure to look at these, and make use of the information provided in your presentation and report!</p>
+<p>If you’re not sure what you’re looking at, it never hurts to ask for clarification.</p>
+</div>
+<p>You should also still have the NAIP images we used in Week 1. In this practical, we’re going to work on analysing the
+provided digital elevation models (DEMs) – specifically, their relative accuracy, and the spatial autocorrelation
+between two air photo DEMs:</p>
+<ul class="simple">
+<li><p><strong>MtStHelens_Sep1984_10m_Z.tif</strong>, based on images acquired 18 September 1984;</p></li>
+<li><p><strong>MtStHelens_Jul1979_10m_Z.tif</strong>, based on images acquired 15 July 1979.</p></li>
+</ul>
+<p>We will also estimate the changes in lake volume that occurred as a result of the eruption, using the difference in
+elevation between the two dems.</p>
+<p>If you aren’t familiar with the 1980 eruptions of Mt St Helens, here are some links that show some of the details:</p>
+<ul class="simple">
+<li><p>1980 Eruption of Mt St Helens [<a class="reference external" href="https://www.arcgis.com/apps/Cascade/index.html?appid=f5c8638734254e20bd1d4a6db68aec05">ArcGIS Online</a>]</p></li>
+<li><p>World of Change: Devastation and Recovery at Mt St Helens [<a class="reference external" href="https://earthobservatory.nasa.gov/world-of-change/StHelens">NASA Earth Observatory</a>]</p></li>
+<li><p>Footage of the 1980 Mt St Helens Eruption [<a class="reference external" href="https://www.youtube.com/watch?v=AYla6q3is6w">YouTube</a>]</p></li>
+</ul>
+<section id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<p>Open up ArcGIS Pro, and create a new project in your Week 2 folder. You may need to add a folder connection to your
+Week 2 folder – if so, do that now.</p>
+<p>Import the provided data into the map, re-arranging the drawing order as follows:</p>
+<ul class="simple">
+<li><p>1979_shapes</p></li>
+<li><p>1984_shapes</p></li>
+<li><p>MtStHelens_Jul1979_10m_Z.tif</p></li>
+<li><p>MtStHelens_Sep1984_10m_Z.tif</p></li>
+<li><p>ALPSMLC30_N046W123_DSM.tif</p></li>
+</ul>
+<p>Change the Map coordinate system from WGS84 geographic coordinates to WGS84 UTM Zone 10N.</p>
+</section>
+<section id="preparing-the-landsat-images">
+<h2>preparing the landsat images<a class="headerlink" href="#preparing-the-landsat-images" title="Permalink to this heading">#</a></h2>
+<p>Hopefully, you are already familiar with Landsat data from previous modules (the <strong>LM02</strong> file is a Landsat 2 MSS scene,
+and the <strong>LT05</strong> file is a Landsat 5 TM scene), but if not you can have a look at the
+<a class="reference external" href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-satellite-missions">USGS Landsat missions</a> page.</p>
+<p>These are Landsat Collection 2, Level 1 images - this means that they have not been corrected to surface reflectance
+values. We won’t do that here, but we will convert the raw DN values to top-of-atmosphere reflectance values, and we
+will make a composite of the different bands to make an RGB image.</p>
+<p>First, let’s load the Landsat 5 TM near-infrared (NIR) band, <strong>LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/loaded_tm_b4.png"><img alt="the arcgis map with the black and white landsat band 4 image loaded" class="align-center" src="../../../../_images/loaded_tm_b4.png" style="width: 760px;" /></a>
+<p><br /> You should see that ArcGIS Pro has set the color range for this image from 9 to 255. The images that are in each
+Landsat folder are stored as 8-bit unsigned integer (integer values from 0 to 255) digital numbers. Landsat Collection
+2 images are calibrated such that these numbers can be converted to either radiance (units of Watts per square meter
+per steradian per micrometer, <span class="math notranslate nohighlight">\(\rm W\ m^{-2}\ srad^{-1}\ {\mu}m^{-1}\)</span>) or reflectance (unitless, values typically
+between 0 and 1) values, using the provided metadata.</p>
+<p>The equation that we use to convert from the raw values to top-of-atmosphere reflectance is:</p>
+<div class="math notranslate nohighlight">
+\[\rho_\lambda = \frac{M_\rho Q_{\rm cal} + A_\rho}{\sin\theta_{\rm SE}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(M_\rho\)</span> is a multiplicative rescaling factor, <span class="math notranslate nohighlight">\(Q_{\rm cal}\)</span> is the raw value, <span class="math notranslate nohighlight">\(A_\rho\)</span> is an
+additive rescaling factor, and <span class="math notranslate nohighlight">\(\theta_{\rm SE}\)</span> is the solar elevation angle. These parameter values can be found
+in the <strong>MTL.txt</strong> file provided with the Landsat image, where they are called <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_MULT_BAND_X</span></code>,
+<code class="docutils literal notranslate"><span class="pre">REFLECTANCE_ADD_BAND_X</span></code>, and <code class="docutils literal notranslate"><span class="pre">SUN_ELEVATION</span></code>, respectively.<a class="footnote-reference brackets" href="#id3" id="id1">1</a></p>
+<p>To find these values, we need to open the <strong>MTL.txt</strong> file in the Landsat 5 folder
+(<strong>LT05_L1TP_046028_19840804_20200918_02_T1</strong>) and look for each of the parameter names.<a class="footnote-reference brackets" href="#id4" id="id2">2</a></p>
+<p>Open this file in a <em>text</em> editor (e.g., Notepad, Notepad++, <strong>NOT MS WORD</strong>). You should be able to find the
+<code class="docutils literal notranslate"><span class="pre">REFLECTANCE_MULT_BAND_4</span></code> value on line 208:</p>
+<a class="reference internal image-reference" href="../../../../_images/landsat_metadata.png"><img alt="the landsat metadata file opened in notepad, showing the values for each of the metadata parameters" class="align-center" src="../../../../_images/landsat_metadata.png" style="width: 500px;" /></a>
+<p><br /> and the <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_ADD_BAND_4</span></code> value should be on line 214. Finally, the <code class="docutils literal notranslate"><span class="pre">SUN_ELEVATION</span></code> angle value should
+be on line 64.</p>
+<p>To do the conversion, we will use the <strong>Raster Calculator</strong> tool. Click on the <strong>Geoprocessing</strong> tab in the lower
+right-hand corner of the window, then enter “raster calculator” in the search bar and press <strong>Enter</strong>. You should be
+able to open up the <strong>Raster Calculator</strong> tool from the <strong>Spatial Analyst</strong> toolbox.</p>
+<p>Next, we need to enter the formula - you can copy and paste the text from the box below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(2.7416E-03 * &quot;LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF&quot; - 0.007467) / Sin((3.1415926 / 180) * 53.03707434)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have added a conversion from degrees to radians (3.1415926 / 180), because the <code class="docutils literal notranslate"><span class="pre">Sin()</span></code> function requires
+values of radians, rather than degrees.</p>
+</div>
+<p>Save the output to your project geodatabase as <code class="docutils literal notranslate"><span class="pre">tm5_band4_toa</span></code>, then press <strong>Run</strong>. You should see the new raster
+layer load, with values scaled from -0.005 to 0.691:</p>
+<a class="reference internal image-reference" href="../../../../_images/converted_tm_b4.png"><img alt="the arcgis map with the converted black and white landsat band 4 image loaded" class="align-center" src="../../../../_images/converted_tm_b4.png" style="width: 760px;" /></a>
+<p><br /> Once the raster has loaded and the values seem correct, you can remove the original band 4 layer
+(<strong>LT05_L1TP_046028_19840804_20200918_02_T1_B4.TIF</strong>) from the map.</p>
+<p>You will now need to repeat these steps for the other two bands we will use, Landsat 5 TM Band 3 (visible red), and
+Band 2 (visible green). Save these to the geodatabase as <code class="docutils literal notranslate"><span class="pre">tm5_band3_toa</span></code> and <code class="docutils literal notranslate"><span class="pre">tm5_band2_toa</span></code>, respectively.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remember to update the values of <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_MULT_BAND_X</span></code> and <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_ADD_BAND_X</span></code> for each band - they
+will not be the same!</p>
+</div>
+<p>Once you have converted each of these images to top-of-atmosphere reflectance values, we can use <strong>Composite Bands</strong> to
+create a 3-band raster from the individual bands, so that the image displays as a false-color composite.</p>
+<p>To open the <strong>Composite Bands</strong> tool, click on the <strong>Geoprocessing</strong> tab and enter “composite bands” in the search bar,
+then select <strong>Composite Bands</strong> from the <strong>Data Management</strong> toolbox.</p>
+<p>Add each of the three top-of-atmosphere bands to the raster by clicking the arrow next to <strong>Input Rasters</strong> and
+selecting them, then press <strong>Add</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/composite_bands.png"><img alt="the composite bands tool, with the band 4, 3, and 2 toa bands loaded in order" class="align-center" src="../../../../_images/composite_bands.png" style="width: 400px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that you have the correct order!</p>
+</div>
+<p>Save the file to the same folder as the rest of your data files as <strong>LT05_L1TP_046028_19840804_20200918_02_T1.tif</strong>,
+then press <strong>Run</strong>. You should see the color composite image appear on the map:</p>
+<a class="reference internal image-reference" href="../../../../_images/composited.png"><img alt="the false color composite image loaded in the map window" class="align-center" src="../../../../_images/composited.png" style="width: 760px;" /></a>
+<p><br /> Now, you will need to repeat this process for the MSS image (<strong>LM02_L1TP_049028_19790719_20200906_02_T2</strong>),
+using bands 6, 5, and 4 - these are the MSS bands that correspond the closest to TM bands 4, 3, and 2.</p>
+<p>Once you have converted and composited both Landsat images, re-arrange the drawing order as follows:</p>
+<ul class="simple">
+<li><p>1979_shapes</p></li>
+<li><p>1984_shapes</p></li>
+<li><p>MtStHelens_Jul1979_10m_Z.tif</p></li>
+<li><p>MtStHelens_Sep1984_10m_Z.tif</p></li>
+<li><p>ALPSMLC30_N046W123_DSM.tif</p></li>
+<li><p>LM02_L1TP_049028_19790719_20200906_02_T2.tif</p></li>
+<li><p>LT05_L1TP_046028_19840804_20200918_02_T1.tif</p></li>
+</ul>
+<p>then move on to the next step.</p>
+</section>
+<section id="adding-hillshades-and-shaded-relief">
+<h2>adding hillshades and shaded relief<a class="headerlink" href="#adding-hillshades-and-shaded-relief" title="Permalink to this heading">#</a></h2>
+<p>Next, we’re going to add hillshades of our DEMs to the map. You may notice that it’s not easy to interpret the DEM when
+it’s displayed in the default way – for one thing, the upper part of the volcano is washed out, while some of the
+lower-lying areas are quite dark. By adding a hillshade, we can make it easier to see a large range of elevations.</p>
+<p>From the <strong>Analysis</strong> tab, click on <strong>Tools</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/toolbar.png"><img alt="the tools button highlighted" class="align-center" src="../../../../_images/toolbar.png" style="width: 760px;" /></a>
+<p><br /> In the search bar that pops up, type “hillshade” and press <strong>Enter</strong>.</p>
+<p>Select the <strong>Hillshade</strong> tool from the <strong>Spatial Analyst</strong> toolbox:</p>
+<a class="reference internal image-reference" href="../../../../_images/hillshade_dialogue.png"><img alt="the arcgis pro hillshade dialogue" class="align-center" src="../../../../_images/hillshade_dialogue.png" style="width: 200px;" /></a>
+<p><br /> Select the 1979 DEM as the <strong>Input raster</strong>, and save the output as <code class="docutils literal notranslate"><span class="pre">MtStHelens_Jul1979_10m_HS.tif</span></code>. Leave the
+other parameters as the default values, then click <strong>Run</strong> at the bottom of the panel.</p>
+<p>Next, change the symbology of <code class="docutils literal notranslate"><span class="pre">MtStHelens_Jul1979_10m_Z.tif</span></code> to use a different color scheme. The example below is
+using <strong>Elevation #4</strong>. Finally, change the <strong>Transparency</strong> of the DEM layer to be about 60% transparent by clicking
+on <strong>Raster Layer</strong> in the Ribbon and adjusting the value:</p>
+<a class="reference internal image-reference" href="../../../../_images/transparency.png"><img alt="adjusting the layer transparency" class="align-center" src="../../../../_images/transparency.png" style="width: 760px;" /></a>
+<p><br /> Finally, right-click on the <strong>Map</strong> layer in the Contents panel, create a <strong>New Group Layer</strong> and call it
+<code class="docutils literal notranslate"><span class="pre">1979</span> <span class="pre">Elevation</span></code>, then add the DEM and the Hillshade to this layer (click + drag on the Contents panel).</p>
+<p>Your map should now look something like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/shaded_relief.png"><img alt="the grouped shaded relief images" class="align-center" src="../../../../_images/shaded_relief.png" style="width: 720px;" /></a>
+<p><br /> Repeat these steps for the remaining two DEMs – you can call the <code class="docutils literal notranslate"><span class="pre">ALPSMLC30...</span></code> layer 2008 Elevation. You should
+now see all 3 of the DEMs as shaded relief.</p>
+<p>You may also notice that the color scheme for each of the DEMs is slightly different. To make sure that the same colors
+correspond to the same elevations in each map, you can import the settings from one DEM to the other ones under the
+<strong>Symbology</strong> tab.</p>
+<p>Press the menu button in the upper right corner of the tab, then select <strong>Import from layer</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/symbology.png"><img alt="the symbology dialogue" class="align-center" src="../../../../_images/symbology.png" style="width: 200px;" /></a>
+<p><br /> Under <strong>Input</strong> layer, select the DEM you want to apply the color scheme to, then select the DEM whose color
+scheme you want to apply (in this case, the 1979 DEM).</p>
+<p>You can do this for both the 1984 and 2008 DEMs – you should now see that the DEMs all have the same color scheme:</p>
+<a class="reference internal image-reference" href="../../../../_images/common_color_scheme.png"><img alt="the dem layers with a common color scheme" class="align-center" src="../../../../_images/common_color_scheme.png" style="width: 720px;" /></a>
+<p><br /> Take a few moments to examine the differences between them. You can even use the <strong>Swipe</strong> tool under the
+<strong>Group Layer</strong> tab to swipe back and forth between different DEMs – make sure that the DEM you want to swipe away is
+highlighted in the <strong>Contents panel</strong>.</p>
+<p>You should be able to clearly see the enormous differences that took place between the 1979 acquisition and the 1984
+acquisition.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you haven’t done so already, this is a good place to save your map.</p>
+</div>
+</section>
+<section id="converting-the-point-cloud-to-a-raster-optional">
+<h2>converting the point cloud to a raster (optional)<a class="headerlink" href="#converting-the-point-cloud-to-a-raster-optional" title="Permalink to this heading">#</a></h2>
+<p>Before moving on to the DEM differencing, we will first convert the point cloud provided (<strong>final_pointcloud.las</strong>) to
+a raster using <strong>LAS Dataset To Raster</strong> from the Conversion Toolbox. As before, either click on the <strong>Geoprocessing</strong>
+tab and search “las to raster” to find the tool, or find the tool in the <strong>Conversion Tools</strong> toolbox.</p>
+<p>The tool should look like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/las_to_raster.png"><img alt="the LAS Dataset to Raster tool" class="align-center" src="../../../../_images/las_to_raster.png" style="width: 200px;" /></a>
+<p><br /> The <strong>Input LAS Dataset</strong> should be the <strong>final_pointcloud.las</strong> file. Name the <strong>Output Raster</strong>
+<code class="docutils literal notranslate"><span class="pre">PC_Tri_Linear_10m.tif</span></code>, and save it to the same folder as the rest of your data.</p>
+<p>Make sure that <strong>Value Field</strong> is <strong>Elevation</strong>. Under <strong>Interpolation Type</strong>, use the following settings:</p>
+<ul class="simple">
+<li><p><strong>Interpolation Type</strong>: <strong>Triangulation</strong></p></li>
+<li><p><strong>Interpolation Method</strong>: <strong>Linear</strong></p></li>
+<li><p><strong>Thinning Type</strong>: <strong>No Thinning</strong></p></li>
+</ul>
+<p>Keep <strong>Output Data Type</strong> as <strong>Floating Point</strong>, and make sure that <strong>Sampling Type</strong> is <strong>Cell Size</strong>. Finally,
+make sure that <strong>Sampling Value</strong> is set to <strong>10</strong>. The window should now look like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/las_to_raster_filled.png"><img alt="the LAS Dataset to Raster tool, with the settings changed as described in the text above" class="align-center" src="../../../../_images/las_to_raster_filled.png" style="width: 200px;" /></a>
+<p><br /> Click <strong>Run</strong> to run the tool. After a few minutes, you should see the interpolated DEM loaded into your Map
+window:</p>
+<a class="reference internal image-reference" href="../../../../_images/interpolated_loaded.png"><img alt="the map window with the newly interpolated dem showing as a grayscale raster" class="align-center" src="../../../../_images/interpolated_loaded.png" style="width: 720px;" /></a>
+<p><br /> Now, run the <strong>Hillshade</strong> tool again, this time using your interpolated raster. Name the output
+<code class="docutils literal notranslate"><span class="pre">PC_Tri_Linear_10m_HS.tif</span></code> and save it to the same folder as the rest of the data. Leave the <strong>Azimuth</strong> and <strong>Altitude</strong>
+settings the same as before, then click <strong>Run</strong>.</p>
+<p>Finally, use the same steps as before to create a Group Layer for this dataset, and ensure that the elevation layer
+has the same symbology as the other DEMs.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Using the <strong>Swipe</strong> tool, compare the interpolated point cloud DEM with the 1984 DEM provided.</p>
+<p class="sd-card-text">What differences do you notice between the two DEMs? Are there any areas of obvious difference? Do the features
+appear to line up between the two?</p>
+</div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">As an optional additional exercise, repeat the <strong>LAS to Raster</strong> steps above, but change the parameters:</p>
+<ul class="simple">
+<li><p class="sd-card-text">try using <strong>Triangulation</strong> with <strong>Natural Neighbor</strong> interpolation, rather than <strong>Linear</strong>.</p></li>
+<li><p class="sd-card-text">instead of <strong>Triangulation</strong>, select <strong>Binning</strong> as the <strong>Interpolation Type</strong></p></li>
+<li><p class="sd-card-text">how does decreasing the <strong>Sampling Value</strong> change the look of the DEM? Is there more detail (or more noise)
+if you use a cell size of 5 m?</p></li>
+</ul>
+<p class="sd-card-text">In particular, pay attention to how the DEMs look using these different parameters. Are there textural differences
+between the DEMs that you can notice? How does the detail (or the noise) in the hillshades compare?</p>
+</div>
+</div>
+</section>
+<section id="dem-differencing">
+<h2>dem differencing<a class="headerlink" href="#dem-differencing" title="Permalink to this heading">#</a></h2>
+<p>The next step is to actually difference the two DEMs (in this case, the 1979 and the 1984 DEMs).</p>
+<p>From the <strong>Geoprocessing</strong> tab, enter “raster calculator” in the search bar and press <strong>Enter</strong>, then open the
+<strong>Raster Calculator</strong> tool from the <strong>Spatial Analyst</strong> toolbox.</p>
+<p>To subtract the 1979 DEM from the 1984 DEM, enter the following expression into the field:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;1984 Elevation\MtStHelens_Sep1984_10m_Z.tif&quot; - &quot;1979 Elevation\MtStHelens_Jul1979_10m_Z.tif&quot;
+</pre></div>
+</div>
+<p>Save the difference raster as <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>, and press <strong>Run</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/difference_rastercalc.png"><img alt="the raster calculator window for DEM differencing" class="align-center" src="../../../../_images/difference_rastercalc.png" style="width: 400px;" /></a>
+<p><br /> Next, we’ll change the display so that it shows the differences using a more appropriate color scale. In the
+<strong>Symbology</strong> tab, select a different color scheme – preferably one that is <em>divergent</em>, so that we can more easily
+differentiate the areas between positive/negative elevation change, as well as the areas where there’s not much change.</p>
+<p>For this example, I’ve chosen <strong>Red-Yellow-Blue</strong> (continuous), but feel free to pick a different one.</p>
+<p>Next, set the <strong>Stretch</strong> type to <strong>Minimum/Maximum</strong>. You should notice that while the extreme colors correspond to
+the correct changes, the color scale is not centered, which makes it more difficult to interpret areas of no/little
+change (the values around 0).</p>
+<p>Under the <strong>Statistics</strong> tab, select <strong>Custom</strong> from the first drop-down menu. You can now change the Min/Max values.</p>
+<p>I’ve set these to -100/+100, meaning that the color scale will saturate at -100 and +100 meters of change. You may also
+need to change the label so that this is reflected on the contents pane (and so that you don’t forget later).</p>
+<p>The map should now look something like this (note that I’ve turned off the two shapefiles, so that you can see the
+lake changes):</p>
+<a class="reference internal image-reference" href="../../../../_images/difference2.png"><img alt="the map showing the difference between the two DEMs" class="align-center" src="../../../../_images/difference2.png" style="width: 720px;" /></a>
+<p><br /> You should now clearly see where the mountainside has collapsed, as well the landslide and lahar/pyroclastic
+material deposits to the North of the volcano, and the two lakes that have dramatically increased their levels
+(Coldwater Lake and Spirit Lake, from West to East).</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">If you have interpolated the point cloud DEM, you should also compute the difference between the interpolated DEM
+and the provided 1984 DEM.</p>
+<p class="sd-card-text">Look at the difference between the two 1984 rasters. Is there a clear bias (systematic shift) between the two? Do
+you see, for example, that the changes are mostly positive or mostly negative? In particular, pay attention to areas
+with high slopes (for example, on the flanks of the volcano or inside the summit crater). What patterns do you
+notice? How do these relate to what you have seen in the lecture videos or in the suggested reading for this week?</p>
+</div>
+</div>
+</section>
+<section id="accuracy-estimation">
+<h2>accuracy estimation<a class="headerlink" href="#accuracy-estimation" title="Permalink to this heading">#</a></h2>
+<p>The next step is to estimate how accurate our DEM difference is, as this will tell us something about how well we can
+estimate both the elevation and volume changes that we’re interested in.</p>
+<p>When we expect to see changes in elevation of different surfaces within the DEM, such as elevation drop due to glacier
+melt or the collapse of a mountainside, we first need to mask out the areas of change, so that we are only estimating
+the differences over terrain that hasn’t changed in elevation (or at least, as well as we can approximate it).</p>
+<p>You should notice that there are several different examples of elevation differences present here. The most obvious
+have to do with the eruption and its aftermath – the collapse of the North flank of the mountain, the deposits of
+pyroclastic and landslide material, the change in lake levels, and trees that were knocked down due to the force of the
+initial blast:</p>
+<a class="reference internal image-reference" href="../../../../_images/labelled_difference.png"><img alt="the DEM differences labelled to attribute the difference causes of change" class="align-center" src="../../../../_images/labelled_difference.png" style="width: 400px;" /></a>
+<p><br /> In order to estimate the accuracy of our elevation differences, we need to estimate the differences over “stable”
+terrain - that is, areas where we don’t expect the elevation to have changed in between 1979 and 1984.</p>
+<p>As you can see in the image above, determining what is stable is not especially easy – there are a number of different
+ways that the elevation has changed in between the two acquisition dates.</p>
+<p>We’ll worry about this in a minute, but first we’ll create a grid of points to sample elevation differences. We’ll use
+the <strong>Create Fishnet</strong> tool in the <strong>Data Management</strong> toolbox to do this:</p>
+<a class="reference internal image-reference" href="../../../../_images/fishnet.png"><img alt="the create fishnet tool" class="align-center" src="../../../../_images/fishnet.png" style="width: 300px;" /></a>
+<p><br /> Save the points to a file called <code class="docutils literal notranslate"><span class="pre">sample_points.shp</span></code>.</p>
+<p>Under <strong>Template Extent</strong>, click “Extent of a Layer” (third button from the left), and set the output extent to be the
+same as <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>. Then, set the cell size to be 50 meters in both width and height.</p>
+<p>Finally, make sure that <strong>Create Label Points</strong> is checked, and that the <strong>Geometry Type</strong> is set to <strong>Polygon</strong>,
+then click <strong>Run</strong>.</p>
+<p>This will create a regular grid of cells with 50 meters spacing, and a corresponding file that has the cell centroids.</p>
+<p>When the tool finishes running, you should now see both <code class="docutils literal notranslate"><span class="pre">sample_points</span></code> and <code class="docutils literal notranslate"><span class="pre">sample_points_label</span></code> in the
+<strong>Contents</strong> panel. Go ahead and remove <code class="docutils literal notranslate"><span class="pre">sample_points</span></code> from the Map, as we’ll do the next step with
+<code class="docutils literal notranslate"><span class="pre">sample_points_label</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depending on your computer’s resources, this might be extremely slow. Rather than 50 m spacing, you can change this
+to 100 or even 200 m, and it will still work.</p>
+</div>
+<p>Now, we’re going to extract the dZ values at our sample points, using the <strong>Extract Values to Points</strong> tool in the
+<strong>Spatial Analyst</strong> toolbox:</p>
+<a class="reference internal image-reference" href="../../../../_images/values_to_points.png"><img alt="the extract values to points tool" class="align-center" src="../../../../_images/values_to_points.png" style="width: 300px;" /></a>
+<p><br /> Use <code class="docutils literal notranslate"><span class="pre">sample_point_labels</span></code> as the <strong>Input point features</strong>, and set the <strong>Input raster</strong> to be
+<code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>. Save the output as <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979.shp</span></code>, and check <strong>Interpolate values at the point
+locations</strong>. Click <strong>Run</strong>.</p>
+<p>When the tool has finished running, go ahead and remove <code class="docutils literal notranslate"><span class="pre">sample_point_labels</span></code> from the map.</p>
+<p>Next open the <strong>Attribute Table</strong> for <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979.shp</span></code>. It should look something like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/dz_attribute_table.png"><img alt="the attribute table for the point elevation differences" class="align-center" src="../../../../_images/dz_attribute_table.png" style="width: 600px;" /></a>
+<p><br /> The next thing we want to do is remove all of the points that correspond to <code class="docutils literal notranslate"><span class="pre">NoData</span></code> values in the raster
+(<code class="docutils literal notranslate"><span class="pre">-9999</span></code> in this case).</p>
+<p>You can do this using <strong>Select by Attributes</strong>, then selecting all of the features where <code class="docutils literal notranslate"><span class="pre">RASTERVALU</span></code> equals
+<code class="docutils literal notranslate"><span class="pre">-9999</span></code>. When you have the points selected, click <strong>Delete</strong>.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979</span></code> highlighted in the <strong>Contents</strong> pane, click <strong>Save</strong> under the <strong>Edit</strong> tab to save the edits:</p>
+<a class="reference internal image-reference" href="../../../../_images/save_highlighted.png"><img alt="the edit tab with the save button highlighted" class="align-center" src="../../../../_images/save_highlighted.png" style="width: 760px;" /></a>
+<p><br /> You should now have a sampling of points of elevation differences. You can visualize this from the
+<strong>Attribute Table</strong>. First, right-click on the <strong>RASTERVALU</strong> column, then select <strong>Visualize Statistics</strong>.</p>
+<p>A histogram of the values will display in the same panel:</p>
+<a class="reference internal image-reference" href="../../../../_images/histogram1.png"><img alt="the arcgis window with a histogram summary of the elevation differences displayed" class="align-center" src="../../../../_images/histogram1.png" style="width: 720px;" /></a>
+<p><br /> You can increase the number of bins to display (up to 64), as well as display the mean, median, and standard
+deviation values on the graph.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Click <strong>Show Normal distribution</strong> to plot a normal distribution with your histogram. Do your elevation changes
+appear normally distributed? Based on the lectures/reading for this week, is this expected or not?</p>
+</div>
+</div>
+<p>Our next step is to select points that are only on stable terrain – again, this means points whose elevations we do
+not expect to have changed between the two DEM dates: we expect that the elevation difference for these points should
+be zero.</p>
+<p>To assess this, we can use the two Landsat images provided, which were acquired within a few weeks of the air photos
+that produced the DEMs. The 1979 MSS scene (<code class="docutils literal notranslate"><span class="pre">LM02_L1TP_049028_19790719_20200906_02_T2.tif</span></code>) was acquired on 19 July,
+while the 1984 TM scene (<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif</span></code>) was acquired on 4 August.</p>
+<p>We’ll start by looking near the Southeast flank of the volcano:</p>
+<a class="reference internal image-reference" href="../../../../_images/southeast_comparison.png"><img alt="the swipe tool showing the comparison between the 1979 and 1984 Landsat scenes on the SE flank of the volcano" class="align-center" src="../../../../_images/southeast_comparison.png" style="width: 600px;" /></a>
+<p><br /> Using the <strong>Swipe</strong> tool to swipe between the two Landsat scenes, you should notice that things look very similar
+here – the same patches of trees appear in both time periods, and this area was relatively untouched by the 1980
+eruption, so we should expect this area to represent mostly stable ground.</p>
+<p>Use the <strong>Select</strong> tool to select the dZ points that you can see in this area.</p>
+<p>Once you have done so, in the panel that contains the histogram, click on <strong>Filter: Selection</strong> to change the chart to
+only show your selected points:</p>
+<a class="reference internal image-reference" href="../../../../_images/filter_selection.png"><img alt="the histogram panel with the filter: selection button highlighted" class="align-center" src="../../../../_images/filter_selection.png" style="width: 600px;" /></a>
+<p><br /> The chart should now change:</p>
+<a class="reference internal image-reference" href="../../../../_images/filtered_histogram.png"><img alt="the filtered histogram" class="align-center" src="../../../../_images/filtered_histogram.png" style="width: 600px;" /></a>
+<p><br /> From this, we can see that the mean elevation difference from our sample is fairly low, although this doesn’t
+necessarily tell us much about the accuracy of the dataset.</p>
+<p>To assess this, we can calculate the root mean square (RMS) difference:</p>
+<div class="math notranslate nohighlight">
+\[{\rm RMSD} = \sqrt{\frac{\sum_{i=1}^{N}(x_i - \hat{x}_i)^2}{N}} \label{rmsd}\tag{1}\]</div>
+<p><br /> or the normalized median absolute deviation (NMAD):</p>
+<div class="math notranslate nohighlight">
+\[{\rm NMAD} = 1.4826 * {\rm median}(|x_i - \tilde{x}|) \label{nmad}\tag{2}\]</div>
+<p><br /> which will give us a more robust and accurate representation of the accuracy of our elevation differences.
+To do these calculations, we’ll use the python notebook (<code class="docutils literal notranslate"><span class="pre">Accuracy</span> <span class="pre">Analysis.ipynb</span></code>) included in the files downloaded
+from the google drive link above.</p>
+<p>First, export the table by right-clicking on dZ_1984_1979 in the contents panel, then selecting <strong>Data</strong> &gt;
+<strong>Export Table</strong>. Save the table as <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979.csv</span></code> in your <strong>Data</strong> folder.</p>
+<p>To open the python notebook, open the <strong>Catalog</strong> tab and navigate to the folder where you have saved the notebook:</p>
+<a class="reference internal image-reference" href="../../../../_images/catalog_highlight.png"><img alt="the arcgis catalog panel highlighted" class="align-center" src="../../../../_images/catalog_highlight.png" style="width: 720px;" /></a>
+<p><br /> Right-click on <code class="docutils literal notranslate"><span class="pre">Accuracy</span> <span class="pre">Analysis.ipynb</span></code>, then select <strong>Open Notebook</strong>.</p>
+<p>You should see something like this (your notebook may open in a different panel then what is shown):</p>
+<a class="reference internal image-reference" href="../../../../_images/open_notebook.png"><img alt="the arcgis window with the notebook opened" class="align-center" src="../../../../_images/open_notebook.png" style="width: 720px;" /></a>
+<p><br /> You can now run through the instructions provided in the notebook to calculate the NMAD and RMSE values for your
+exported points. You can also run this on a selection of the points (for example, using the same selection you made
+above) by first creating a new layer from the selection (right-click, <strong>Selection</strong> &gt;
+<strong>Make Layer from Selected Features</strong>), then exporting the table from that layer to a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file.</p>
+<p>You’ll need to change the filename for the data in the notebook as well before running the calculations - be sure to
+read the text in the notebook carefully.</p>
+<div class="admonition note" id="egm702-alternate">
+<p class="admonition-title">Note</p>
+<p>If you encounter the following (extremely vague) error:</p>
+<a class="reference internal image-reference" href="../../../../_images/notebook_error.png"><img alt="an error message that says &quot;failed to load notebook&quot;" class="align-center" src="../../../../_images/notebook_error.png" style="width: 300px;" /></a>
+<p>Don’t panic - You can still run the script to calculate the NMAD and RMSE as follows. First, you will need to
+open the <strong>Python Command Prompt</strong> from ArcGIS Pro (<strong>Start</strong> &gt; <strong>ArcGIS</strong> &gt; <strong>Python Command Prompt</strong>):</p>
+<a class="reference internal image-reference" href="../../../../_images/python_cmd.png"><img alt="the ArcGIS folder in the Windows Start Menu" class="align-center" src="../../../../_images/python_cmd.png" style="width: 300px;" /></a>
+<p>When this command prompt opens, navigate to the folder where you have saved your practical data using the
+<code class="docutils literal notranslate"><span class="pre">cd</span></code> command (remember to <a class="reference external" href="https://getyarn.io/yarn-clip/876a8240-51da-4068-919d-d9111d405d3e">replace path-to-egm702-data</a>
+with the actual path!):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">egm702</span><span class="o">-</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>Now, enter the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
+</pre></div>
+</div>
+<p>This will open a browser window:</p>
+<a class="reference internal image-reference" href="../../../../_images/jupyter.png"><img alt="the egm702 folder opened in jupyter" class="align-center" src="../../../../_images/jupyter.png" style="width: 720px;" /></a>
+<p>Click on <code class="docutils literal notranslate"><span class="pre">AccuracyAnalysis.ipynb</span></code>, which should open the notebook in a new tab/window:</p>
+<a class="reference internal image-reference" href="../../../../_images/notebook_browser.png"><img alt="the jupyter notebook opened in a browser window" class="align-center" src="../../../../_images/notebook_browser.png" style="width: 720px;" /></a>
+<p>Be sure to read the instructions carefully to run the cells of the notebook.</p>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Compare the RMSE and NMAD values that you get here with the residual values from the provided GCP and CP reports.
+How do the values compare?</p>
+</div>
+</div>
+</section>
+<section id="filling-nodata-values">
+<h2>filling nodata values<a class="headerlink" href="#filling-nodata-values" title="Permalink to this heading">#</a></h2>
+<p>You may notice that there are a number of voids, or gaps, in the DEM difference. I have masked the clouds present in
+the 1984 images, as well as a few other areas where there are blunders (large errors) in one or the other DEM. There
+are also smaller gaps where the photogrammetric software was unable to correlate the images and calculate an elevation,
+most often in areas of shadow or low contrast.</p>
+<p>In order to calculate a volume change, we need to somehow fill, or interpolate, these data gaps. As discussed in the
+lectures this week, there are a number of ways to do this.</p>
+<p>We’re going to focus on using <strong>Kriging</strong> interpolation through the <strong>Geostatistical Wizard</strong>, which you can find under
+the <strong>Analysis</strong> tab:</p>
+<a class="reference internal image-reference" href="../../../../_images/wizard_toolbar.png"><img alt="the geostatistical wizard button in the analysis tab" class="align-center" src="../../../../_images/wizard_toolbar.png" style="width: 760px;" /></a>
+<p><br /> In the window that opens, you should see a number of different interpolation options:</p>
+<a class="reference internal image-reference" href="../../../../_images/wizard1.png"><img alt="the first step of the geostatistical wizard" class="align-center" src="../../../../_images/wizard1.png" style="width: 600px;" /></a>
+<p><br /> In this example, we’re going to use Kriging/CoKriging, but I encourage you to examine the other options.</p>
+<p>Select <strong>Kriging/CoKriging</strong>, make sure that <strong>Source Dataset</strong> is <code class="docutils literal notranslate"><span class="pre">dZ_1984_1979</span></code> and the <strong>Data Field</strong> selected is
+<code class="docutils literal notranslate"><span class="pre">RASTERVALU</span></code>, then click <strong>Next</strong>.</p>
+<a class="reference internal image-reference" href="../../../../_images/wizard2.png"><img alt="the second step of the geostatistical wizard" class="align-center" src="../../../../_images/wizard2.png" style="width: 600px;" /></a>
+<p><br /> Here, make sure to select <strong>Ordinary Kriging</strong> &gt; <strong>Prediction</strong>. Leave both the <strong>Transformation Type</strong> and
+<strong>Order of Trend Removal</strong> as <strong>None</strong>, then click <strong>Next</strong> again:</p>
+<a class="reference internal image-reference" href="../../../../_images/wizard3.png"><img alt="the third step of the geostatistical wizard" class="align-center" src="../../../../_images/wizard3.png" style="width: 600px;" /></a>
+<p><br /> You should see that the semivariogram levels off after some distance – that is, there doesn’t appear to be any
+correlation in the differences between values after a certain separation. You can try a few different model types here
+to see how well they fit the data – you can also add multiple variogram models.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Your values/image may differ slightly from the picture above.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Be sure to note what model you use! You should also note both the <strong>Sill</strong> and <strong>Nugget</strong> values!</p>
+</div>
+<p>You can also let the software choose the “best” model by clicking on <strong>Optimize model</strong> at the top of the window –
+this will find the best-fitting model to the data. After you’ve looked around at the different models and their
+parameters, and are happy that the modelled covariance fits the data well, click <strong>Next</strong>.</p>
+<p>In the next window, you can choose different parameters to determine how the search neighbourhood is determined. For now,
+you can leave these as-is, and click <strong>Next</strong>.</p>
+<p>In this window, you should see the cross-validation statistics for the interpolation:</p>
+<a class="reference internal image-reference" href="../../../../_images/wizard4.png"><img alt="the fourth step of the geostatistical wizard" class="align-center" src="../../../../_images/wizard4.png" style="width: 600px;" /></a>
+<p><br /> To do the cross-validation, the software compares the value for each point in the dataset versus the value
+predicted for that point by leaving it out from the interpolation – it gives you an idea of how well the prediction
+fits the data.</p>
+<p>If your predicted values fall very far away from the one-to-one line, you should go back and try different parameters
+or a different covariance model, as it indicates that you haven’t captured the statistics of the dataset particularly
+well.</p>
+<p>If this step looks alright, click <strong>Finish</strong> to produce the interpolated map.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Be sure to note the <strong>Root-Mean-Square</strong> value - this is an estimate of the uncertainty in your predicted
+elevation values!</p>
+</div>
+<p>Once the Kriging layer loads, you can export it to a raster by right-clicking on it in the <strong>Contents</strong> panel and
+selecting <strong>Export Layer</strong> &gt; <strong>To Rasters</strong>. Save the <strong>Prediction</strong> surface to <code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_kriging_dZ.tif</span></code>
+with an <strong>Output cell size</strong> of <code class="docutils literal notranslate"><span class="pre">10</span></code>, then click <strong>Run</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/layer_to_raster.png"><img alt="the layer to raster tool" class="align-center" src="../../../../_images/layer_to_raster.png" style="width: 300px;" /></a>
+<p><br /> Next, open the <strong>Raster Calculator</strong> and enter the following expression, and save the output to
+<code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_filled_dZ.tif</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Con(IsNull(&quot;MtStHelens_1984_1979_dZ.tif&quot;), &quot;MtStHelens_1984_1979_kriging_dZ.tif&quot;, &quot;MtStHelens_1984_1979_dZ.tif&quot;)
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../../_images/fill_rastercalc.png"><img alt="the raster calculator with the equation to fill nodata values" class="align-center" src="../../../../_images/fill_rastercalc.png" style="width: 300px;" /></a>
+<p><br /> This conditional statement will return a raster with values from the kriging raster wherever the original dZ raster
+has <code class="docutils literal notranslate"><span class="pre">NoData</span></code> values, and returns values from the original dZ raster wherever they are not <code class="docutils literal notranslate"><span class="pre">NoData</span></code> – in other words,
+this will fill the voids in the dZ raster using the kriging predicted values.</p>
+<p>Change the symbology to match the original dZ raster (<code class="docutils literal notranslate"><span class="pre">MtStHelens_1984_1979_dZ.tif</span></code>). Then, use the <strong>Swipe</strong> tool to
+examine the difference between two rasters (filled_dZ and dZ):</p>
+<a class="reference internal image-reference" href="../../../../_images/dz_with_holes.png"><img alt="the swipe tool showing the elevation difference with and without holes filled" class="align-center" src="../../../../_images/dz_with_holes.png" style="width: 720px;" /></a>
+<p><br /> You should see that the filled raster no longer has holes where the original dZ raster did. At this point, you can
+move on to estimating some volume changes.</p>
+</section>
+<section id="estimating-elevation-and-volume-changes">
+<h2>estimating elevation and volume changes<a class="headerlink" href="#estimating-elevation-and-volume-changes" title="Permalink to this heading">#</a></h2>
+<p>For this step, we’ll start by calculating the lake volume changes. To do this, we’ll use the
+<strong>Zonal Statistics as Table</strong> tool from the <strong>Spatial Analyst</strong> toolbox.</p>
+<p>Open the tool, then set the <strong>Input feature zone data</strong> to <code class="docutils literal notranslate"><span class="pre">1984_shapes</span></code>, and the <strong>Zone field</strong> to <code class="docutils literal notranslate"><span class="pre">name</span></code>. The
+<strong>Input value raster</strong> should be the filled dZ raster, and save the table to <code class="docutils literal notranslate"><span class="pre">LakeChanges</span></code>. Leave the
+<strong>Statistics type</strong> as <strong>All</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/statistics_as_table.png"><img alt="the zonal statistics as table tool" class="align-center" src="../../../../_images/statistics_as_table.png" style="width: 300px;" /></a>
+<p><br /> Click <strong>Run</strong>, then open the table:</p>
+<a class="reference internal image-reference" href="../../../../_images/lake_change_table.png"><img alt="the table showing the lake changes output" class="align-center" src="../../../../_images/lake_change_table.png" style="width: 600px;" /></a>
+<p><br /> Each column of this table contains the statistics extracted from each of the features in 1984_shapes. You can
+update the table to include the volume by pressing the <strong>Calculate</strong> button, then entering an expression to multiply the
+<code class="docutils literal notranslate"><span class="pre">SUM</span></code> column by the raster cell size squared – the resulting values should be the total volume change, in cubic
+meters, of each of the lakes.</p>
+<p>Make sure that your new field is of type <strong>Float</strong>, then press <strong>OK</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/calculate_field.png"><img alt="the calculate field dialog" class="align-center" src="../../../../_images/calculate_field.png" style="width: 300px;" /></a>
+<p><br /> Note that for one of the lakes, this is actually the lake volume, as it did not exist prior to the eruption. This
+is only a partial volume for another lake, as it wasn’t fully captured in the 1984 air photo acquisition.</p>
+</section>
+<section id="assignment">
+<h2>assignment<a class="headerlink" href="#assignment" title="Permalink to this heading">#</a></h2>
+<p>For your presentation, you should present one of the following case studies:</p>
+<ol class="arabic simple">
+<li><p>Lake volume changes around Mt St Helens, 1979 - 1984 - 2008;</p></li>
+<li><p>Average height of trees knocked down during the 1980 eruption;</p></li>
+<li><p>Total volume and mass change of the mountain as a result of the eruption;</p></li>
+<li><p>Analysis of the landslide deposits;</p></li>
+<li><p>Some other elevation change (e.g., glacier changes, lava dome growth).</p></li>
+</ol>
+<p>To do this, you’ll first need to digitize the outlines of these different features, then use the
+<strong>Zonal Statistics as Table</strong> tool to find the statistics for each of these areas.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Make sure that you describe your process for how you produced these outlines in detail!</p>
+</div>
+<p>You are welcome to try all three of these exercises if you like, but you should do at least one of them – this will
+form the investigation that you will present for Assessment Part 1a, as well as part of the report you will
+submit for Assessment Part 2.</p>
+<p>To do the digitizing, I recommend using a combination of the elevation difference raster and the Landsat images to
+guide you. You can also use the NAIP images provided in the Week 1 practical, the ESRI Basemap imagery, or even
+download your own Landsat or Sentinel-2 images.</p>
+<p>In addition, I have provided a number of DEMs from various sources in the Practical folder on Blackboard. You are of
+course welcome to use these, but be sure that you include the necessary information about the datasets in your
+presentation!</p>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
+<p>I have provided these three DEMs (1979, 1984, and ca. 2008) already co-registered to the
+<a class="reference external" href="https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM">Copernicus 30 m Global DEM</a>.
+You can check out the tutorial provided here: <a class="github reference external" href="https://github.com/iamdonovan/dem-coregistration">iamdonovan/dem-coregistration</a> to learn more about how I’ve
+done this, and how you can co-register your own DEMs, either for your project, or for future work.</p>
+<p>If you click on the <a class="reference external" href="https://mybinder.org/v2/gh/iamdonovan/dem-coregistration/master"><img alt="binder" src="https://mybinder.org/badge_logo.svg" /></a> link at the top of the <code class="docutils literal notranslate"><span class="pre">README</span></code> on the github page above, you can also try out the
+tutorial online, without having to download and set it up yourself:</p>
+<a class="reference internal image-reference" href="../../../../_images/coregistration_tutorial.png"><img alt="the dem coregistration tutorial with the binder link highlighted." class="align-center" src="../../../../_images/coregistration_tutorial.png" style="width: 720px;" /></a>
+<p><br /> If you are already familiar with python, you can also use the <a class="reference external" href="https://xdem.readthedocs.io/en/stable/">xDEM package</a>
+for DEM analysis, including multiple different co-registration options.</p>
+</section>
+<section id="notes-and-references">
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>This is actually the scene center solar elevation angle. To be completely thorough, we would first calculate
+the per-pixel solar elevation angle. We’re not going to do this for this tutorial, but you can find more
+information about how to do this <a class="reference external" href="https://www.usgs.gov/land-resources/nli/landsat/solar-illumination-and-sensor-viewing-angle-coefficient-files">here</a>.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Alternatively, you can open a command prompt, navigate to the folder where you have stored your practical data,
+and use the <code class="docutils literal notranslate"><span class="pre">FINDSTR</span></code> command
+(<a class="reference external" href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">documentation</a>)
+to search the text file. For example, to find the reflectance multiplier for band 4, you would run the following
+command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>findstr &quot;REFLECTANCE_MULT_BAND_4&quot; LT05_L1TP_046028_19840804_20161004_01_T1\LT05_L1TP_046028_19840804_20161004_01_T1_MTL.txt
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="qgis.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">dem differencing (qgis)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../week3/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">image transformation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-the-landsat-images">preparing the landsat images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-hillshades-and-shaded-relief">adding hillshades and shaded relief</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-the-point-cloud-to-a-raster-optional">converting the point cloud to a raster (optional)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dem-differencing">dem differencing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-estimation">accuracy estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filling-nodata-values">filling nodata values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-elevation-and-volume-changes">estimating elevation and volume changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment">assignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2026, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

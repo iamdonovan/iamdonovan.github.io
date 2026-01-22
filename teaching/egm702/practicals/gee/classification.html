@@ -1,0 +1,2162 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>classification in earth engine &#8212; space cameras and glaciers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" href="../../../../_static/customstyle.css" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm702/practicals/gee/classification';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="additional resources" href="../../resources.html" />
+    <link rel="prev" title="change detection in earth engine" href="change_detection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">space cameras and glaciers</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../whataboutbob.html">about me</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../../index.html">teaching</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../egm101/index.html">EGM101: skills toolbox</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm101/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm101/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm101/practicals/week5.html">computation, summary statistics, and graphing in excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm101/practicals/week6.html">summarizing and graphing data in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm101/practicals/week7.html">correlation and regression in spss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm101/practicals/week8.html">hypothesis testing using spss</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm101/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../egm310/index.html">EGM310: introduction to gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm310/lectures.html">lectures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm310/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../../index.html">EGM702: photogrammetry and advanced image analysis</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../setup/micmac.html">micmac and cloudcompare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../setup/qgis.html">QGIS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../setup/orfeo.html">Orfeo ToolBox for QGIS</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="../index.html">practicals</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../week1.html">dem processing using micmac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../week2/index.html">dem differencing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../week3/index.html">image transformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../week4/index.html">change detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../week5/index.html">image classification</a></li>
+<li class="toctree-l4 current active"><a class="reference internal" href="index.html">optional gee practicals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../egm703/index.html">EGM703: advanced active and passive remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm703/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm703/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week1.html">urban heat islands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week2.html">hyperspectral image analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week3.html">SAR image processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week4.html">InSAR Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm703/practicals/week5.html">SAR image interpretation and flood mapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm703/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../egm722/index.html">EGM722: programming for gis and remote sensing</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm722/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/jupyter.html">configuring jupyter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/pycharm.html">pycharm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/setup/pip.html">installing packages with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm722/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm722/practicals/index.html">practicals</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/pythonintro.html">intro to python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/debugging.html">debugging exercise</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/cartopy.html">mapping with cartopy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/conflicts.html">conflict resolution (using git)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/vector.html">vector data using shapely and geopandas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/folium.html">interactive maps with folium</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/raster.html">raster data using rasterio</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/earthaccess.html">searching + downloading satellite data using earthaccess</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/zonalstats.html">zonal statistics using rasterstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/practicals/geopandas.html">more fun with geopandas</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm722/faq/index.html">help! something went wrong!</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/faq/git.html">git troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/faq/python.html">python troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../egm722/project/index.html">programming project</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/project/github.html">creating a new github repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/project/environment.html">environment.yml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../egm722/project/howto.html">EGM722: A how-to Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../egm722/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../unis/index.html">unis glaciology (AG-325)</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../unis/optical.html">mapping glacier area change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../unis/dems.html">dem differencing and geodetic mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../python-programming/index.html">programming skills for phd researchers (using python)</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../python-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/jupyter.html">configuring the jupyterlab terminal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/setup/pycharm.html">pycharm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../python-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../python-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/intro.html">introduction to python using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/plotting.html">plotting data using seaborn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/pandas.html">working with pandas dataframes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/stats.html">basic statistical analysis using python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../python-programming/exercises/regression.html">linear regression using python</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../python-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../r-programming/index.html">programming skills for phd researchers (using R)</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../r-programming/setup/index.html">setup</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/github.html">setting up github</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/git.html">installing git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/desktop.html">installing github desktop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/fork.html">forking the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/clone.html">cloning the repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/conda.html">setting up conda/anaconda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/environment.html">setting up a conda environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/setup/jupyter.html">configuring jupyterlab</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../r-programming/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../r-programming/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/git.html">introduction to version control using git</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/project.html">starting a new project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/rintro.html">introduction to <strong>R</strong> using jupyterlab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/debugging.html">debugging code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/plotting.html">plotting data using ggplot2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/transform.html">transforming data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/stats.html">basic statistical analysis using <strong>R</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../r-programming/exercises/regression.html">linear regression using <strong>R</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../r-programming/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../ml-crash-course/index.html">a crash course in machine learning (using python) – under development</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ml-crash-course/setup.html">setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../ml-crash-course/lectures.html">lectures</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../ml-crash-course/exercises/index.html">exercises</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../ml-crash-course/exercises/regression.html">what is machine learning?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../ml-crash-course/exercises/training_testing.html">training, testing, and validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../ml-crash-course/exercises/feature_design.html">feature design and engineering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../ml-crash-course/exercises/performance.html">measuring model performance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../ml-crash-course/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../hpc-intro/index.html">introduction to high performance computing</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../hpc-intro/setup.html">setup</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../hpc-intro/shell/index.html">the unix shell</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/shell.html">in the beginning was the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/navigation.html">navigating on the command line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/files.html">working with files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/input.html">input/output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/shell/scripts.html">shell scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../hpc-intro/hpc/index.html">high performance computing</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/hpc/atlas.html">atlas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/hpc/data_transfer.html">transferring data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../hpc-intro/hpc/vulcan.html">vulcan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../hpc-intro/resources.html">additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../dissertation/index.html">undergraduate dissertation projects</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/glaciers.html">mapping glacier changes over time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/glacial_lakes.html">detection of supraglacial lakes and timing of drainage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/algae.html">mapping harmful algal blooms using satellite remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/floods.html">flood detection and monitoring using remote sensing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/wildfires.html">detection and mapping of wildfires</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../dissertation/heat_islands.html">urban heat islands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../gee/index.html">google earth engine</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../gee/tutorials/index.html">gee tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/getting_started/index.html">getting started</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/adding_exporting.html">adding and exporting images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/spectral.html">spectral signatures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/image_collections.html">image collections and vectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/mapping.html">manual mapping (digitizing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/band_maths.html">band maths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/getting_started/zonal_stats.html">zonal statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/classification/index.html">image classification</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/classification/unsupervised.html">unsupervised classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/classification/pixel.html">pixel-based classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/classification/obia.html">object-based classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/change_detection/index.html">change detection</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/visual_analysis.html">visual analysis of changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/thresholding.html">band maths and thresholding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/repeat_classification.html">repeat classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/cva.html">change vector analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/change_detection/time_series.html">time series analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/enhancement/index.html">image enhancement</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/filtering.html">image filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/pansharpening.html">pansharpening</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/edge_detection.html">edge detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/unmixing.html">spectral unmixing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/enhancement/pca.html">principle component analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../gee/tutorials/advanced/index.html">advanced topics</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../gee/tutorials/advanced/animation.html">creating an animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gee/exercises/index.html">sample exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../research/index.html">ongoing and past research projects</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../research/dar.html">deplete and retreat (DaR)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../writing/index.html">selected writing samples</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../writing/source.html">source magazine (summer 2022)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../github.html">github projects</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/edit/main/teaching/egm702/practicals/gee/classification.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/iamdonovan/iamdonovan.github.io/issues/new?title=Issue%20on%20page%20%2Fteaching/egm702/practicals/gee/classification.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../_sources/teaching/egm702/practicals/gee/classification.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>classification in earth engine</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-unsupervised-classification">part 1 - unsupervised classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-pixel-based-classification">part 2 - pixel-based classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-object-based-classification">part 3 - object-based classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-accuracy-analysis">part 4 - accuracy analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-classification">unsupervised classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pixel-based-classification">pixel-based classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#object-based-classification">object-based classification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="classification-in-earth-engine">
+<h1>classification in earth engine<a class="headerlink" href="#classification-in-earth-engine" title="Permalink to this heading">#</a></h1>
+<p>In this practical, you’ll get an introduction to using Google Earth Engine (GEE) to do image classification. Just like
+the previous weeks, you should be able to do finish the practical even if you have no prior experience with programming.
+All of the programming steps have been provided for you in a script, and your task will be to run each step in turn and
+analyse and interpret the results.</p>
+<section id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to download all the data from the Practical 5 area on Blackboard before starting, or from the
+<a class="reference external" href="https://drive.google.com/file/d/1v4ZqiDKD9_fgSoub1o-08e_GktBIWR72/view?usp=share_link">google drive link</a>,
+then extract the zip file.</p>
+</div>
+<p>You should have the following files/folders available:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├─ area_uncertainty.py
+└─ LC08_L2SP_046028_20200823_20200905_02_T1/
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1.vrt
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1_ANG.txt
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1_MTL.txt
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B1.TIF
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B2.TIF
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B3.TIF
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B4.TIF
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B5.TIF
+    ├─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B6.TIF
+    └─ LC08_L2SP_046028_20200823_20200905_02_T1_SR_B7.TIF
+</pre></div>
+</div>
+<p>We will be using these images later in the lab, for the <a class="reference internal" href="#week5-accuracy"><span class="std std-ref">accuracy assessment</span></a> portion of the
+practical.</p>
+<p>Once you have downloaded the files, point your browser to <a class="reference external" href="https://code.earthengine.google.com">https://code.earthengine.google.com</a>, and log in if you need
+to. In the <strong>Script manager</strong> under <strong>Reader</strong>, find the <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository, and click on <code class="docutils literal notranslate"><span class="pre">week5</span></code> to expand the
+week 5 folder.</p>
+<p>Just like for the previous weeks, the practical exercises are divided into a number of different scripts, labeled in
+order. For week 5, the scripts are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">01_unsupervised.js</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">02_pixel.js</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">03_obia.js</span></code></p></li>
+</ul>
+<p>In the <strong>Script manager</strong>, open the script for part 1 by clicking on <code class="docutils literal notranslate"><span class="pre">week5/01_unsupervised.js</span></code>.</p>
+<p>Remember that you have access to all of the scripts in the repository as a <em>Reader</em>, but in order to save any changes
+you’ll need to save the script to your own repository. Again, the easiest way for you to do this is to replace
+<strong>“YOUR NAME HERE!”</strong> on line 1 with your name, then click <strong>Save</strong>.</p>
+<p>Save the script to your <code class="docutils literal notranslate"><span class="pre">egm702</span></code> repository as <code class="docutils literal notranslate"><span class="pre">week5/01_unsupervised.js</span></code> - just like last week, you should
+see a <code class="docutils literal notranslate"><span class="pre">week5</span></code> folder appear in the repository with a new script, <code class="docutils literal notranslate"><span class="pre">01_unsupervised.js</span></code>.</p>
+<p>As you work your way through the practical, remember to save each script in this way, so that any changes you make to
+the scripts are saved in your repository.</p>
+</section>
+<section id="part-1-unsupervised-classification">
+<h2>part 1 - unsupervised classification<a class="headerlink" href="#part-1-unsupervised-classification" title="Permalink to this heading">#</a></h2>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">01_unsupervised.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek5%2F01_unsupervised.js">direct link</a>.</p>
+<p>In the first part of the practical, we’ll see how we can use <em>unsupervised</em> classification (also known as “clustering”)
+to help classify an image. Remember that unsupervised classification is a classification technique where we have little
+to no input to the classification routine. Instead, the classification algorithm determines how to group, or “cluster,”
+pixels, based on their properties.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s important to note that the classes, or clusters, output by an unsupervised classification have no meaning, in
+the sense that they’re only groups of pixels based on the statistics of the image data.</p>
+<p>After running an unsupervised classification, then, the next task is to interpret and identify what each of these
+clusters represent.</p>
+</div>
+<p>The algorithm that we’ll use to cluster the image is an implementation of <em>k</em>-means<a class="footnote-reference brackets" href="#kmeans" id="id1">1</a> clustering called WEKA
+<em>k</em>-means<a class="footnote-reference brackets" href="#weka" id="id2">2</a>.</p>
+<p>The <strong>Image</strong> that we’re working with in this practical is the same August 2020 OLI image that we’ve seen before. In one
+band, this image has:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>7601 * 7331 pixels = 55.7M pixels/band * 7 bands = 390M pixels
+</pre></div>
+</div>
+<p>That’s a lot of pixels.</p>
+<p>To help improve performance of the clustering algorithm, and prevent <code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">Memory</span></code> errors when we run the script,
+we want to take a random sample of 5000 pixels, rather than attempting to run the clustering algorithm on the entire set of
+~400M pixels.</p>
+<p>To do this, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.sample()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-sample">documentation</a>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create sample points to run k-means clustering on</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">training</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">).</span><span class="nx">sample</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="nx">boundary</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">numPixels</span><span class="o">:</span><span class="w"> </span><span class="mf">5000</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Once we have the training sample to work with, we have to actually train the <strong>Clusterer</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// train the unsupervised clusterer with 16 classes</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">clusterer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Clusterer</span><span class="p">.</span><span class="nx">wekaKMeans</span><span class="p">({</span><span class="nx">nClusters</span><span class="o">:</span><span class="w"> </span><span class="mf">16</span><span class="p">}).</span><span class="nx">train</span><span class="p">(</span><span class="nx">training</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The clustering algorithm then takes the input data and decides how best to group the input pixels.</p>
+<p>Remember that <em>k</em>-means requires that we specify the number of classes, <em>k</em> - the algorithm won’t decide for us how
+many classes to use. In the above example, we’re using 16 classes, specified using the argument <code class="docutils literal notranslate"><span class="pre">nClusters</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In general, the number of clusters will depend on the particular scene - you may want to experiment with choosing
+different numbers of clusters to see the effects on the end results. You can also use a different method,
+such as <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaXMeans()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekaxmeans">documentation</a>)
+or <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaCascadeKMeans()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-clusterer-wekacascadekmeans">documentation</a>),
+which are designed to optimize the number of clusters based on the input data.</p>
+</div>
+<p>Once we’ve trained the <strong>Clusterer</strong>, we have to actually apply it to the image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// classify the image using the unsupervised classifier</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">unsupervised</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">cluster</span><span class="p">(</span><span class="nx">clusterer</span><span class="p">);</span><span class="w"> </span><span class="c1">// returns an image with a single band, &#39;cluster&#39;</span>
+</pre></div>
+</div>
+<p>This will assign a class (or cluster value) to each input based on the “rules” that the <strong>Clusterer</strong> has learned from
+the input data.</p>
+<p>We can then add the classification band to the original image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">));</span><span class="w"> </span><span class="c1">// add the cluster band to the image</span>
+</pre></div>
+</div>
+<p>Because the cluster values don’t have any actual meaning, we’re using <code class="docutils literal notranslate"><span class="pre">ee.Image.randomVisualizer()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-randomvisualizer">documentation</a>) to create a
+random palette to view the image with:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">randomVisualizer</span><span class="p">(),</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="s1">&#39;clusters&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When you run the script, you will see something like the artistic image shown below:</p>
+<a class="reference internal image-reference" href="../../../../_images/unsupervised.png"><img alt="the unsupervised classification shown in the map window" class="align-center" src="../../../../_images/unsupervised.png" style="width: 720px;" /></a>
+<p><br /> Here, we can pick out some of the features from the visible image - the mountain is primarily a teal color
+(cluster value 15), the lakes are colored blue (cluster value 13), and much of the forested area is varying shades of
+purple and pink (cluster values 8, 10, and 12).</p>
+<p>To help with interpreting the different cluster values, I have also included a number of <strong>Point</strong> features as part of
+the script. To see these, you can toggle them on from the <strong>Geometry Imports</strong> menu:</p>
+<a class="reference internal image-reference" href="../../../../_images/classification_points.png"><img alt="the map window, showing the different classification points" class="align-center" src="../../../../_images/classification_points.png" style="width: 720px;" /></a>
+<p><br /> These points each have a <code class="docutils literal notranslate"><span class="pre">landcover</span></code> attribute that corresponds to the type of surface:</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>name</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">water</span></code></p></td>
+<td><p>0</p></td>
+<td><p>surface water</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">forest</span></code></p></td>
+<td><p>1</p></td>
+<td><p>forest</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clearCut</span></code></p></td>
+<td><p>2</p></td>
+<td><p>forest that has been recently cut down</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">newGrowth</span></code></p></td>
+<td><p>3</p></td>
+<td><p>new vegetation that has grown post-eruption</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">soil</span></code></p></td>
+<td><p>4</p></td>
+<td><p>eruptive material and soil</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">snow</span></code></p></td>
+<td><p>5</p></td>
+<td><p>snow and ice</p></td>
+</tr>
+</tbody>
+</table>
+<p>At the top of the script (lines 19-24), you can see where we have merged the different training points together into a
+single <strong>FeatureCollection</strong>, called <code class="docutils literal notranslate"><span class="pre">trainingPoints</span></code>.</p>
+<p>The following block of code:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// sample the cluster values at each of the training points</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">clusterPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">).</span><span class="nx">sampleRegions</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">collection</span><span class="o">:</span><span class="w"> </span><span class="nx">trainingPoints</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">properties</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;landcover&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">ee.Image.sampleRegions()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-sampleregions">documentation</a>)
+to sample the cluster values at each of the training points, which we can then plot in a chart to show the different
+<code class="docutils literal notranslate"><span class="pre">landcover</span></code> values that each cluster has been assigned to:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a chart that plots the cluster value vs the landcover class value</span>
+<span class="c1">// for the training points</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">chart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ui</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">feature</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">byFeature</span><span class="p">({</span><span class="nx">features</span><span class="o">:</span><span class="w"> </span><span class="nx">clusterPoints</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;landcover|cluster&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">xProperty</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">yProperties</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;landcover&#39;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}).</span><span class="nx">setChartType</span><span class="p">(</span><span class="s1">&#39;ScatterChart&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">setOptions</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cluster values by landcover&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">hAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}},</span>
+<span class="w">    </span><span class="nx">vAxis</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;landcover&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">titleTextStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">italic</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">}},</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">chart</span><span class="p">);</span><span class="w"> </span><span class="c1">// remember to print the chart to the console</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../../_images/kmeans_chart.png"><img alt="the k-means cluster values for different landcover classes" class="align-center" src="../../../../_images/kmeans_chart.png" style="width: 720px;" /></a>
+<p>The x-axis of this chart shows the cluster value, and the y-axis shows the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> value. From this chart,
+you can see, for example, that cluster number 13 is identified as both <code class="docutils literal notranslate"><span class="pre">landcover</span></code> 0 (<code class="docutils literal notranslate"><span class="pre">water</span></code>) and 4 (<code class="docutils literal notranslate"><span class="pre">soil</span></code>).</p>
+<p>We also see that <code class="docutils literal notranslate"><span class="pre">landcover</span></code> 1 (forest) has been spread across a number of cluster values, as have <code class="docutils literal notranslate"><span class="pre">landcover</span></code>
+values 2 through 4.</p>
+<p>This chart doesn’t tell us how many points belong to each; however, we can look at a confusion matrix of the landcover
+and cluster values to learn a bit more:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">print</span><span class="p">(</span><span class="nx">clusterPoints</span><span class="p">.</span><span class="nx">errorMatrix</span><span class="p">(</span><span class="s1">&#39;landcover&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cluster&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../../_images/kmeans_error_matrix.png"><img alt="the confusion matrix for the k-means classification" class="align-center" src="../../../../_images/kmeans_error_matrix.png" style="width: 400px;" /></a>
+<p><br /> This might be slightly difficult to interpret, so I’ve re-created it here with some labels:</p>
+<table class="table">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>cluster \ landcover</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>5</p></td>
+<td><p>6</p></td>
+<td><p>7</p></td>
+<td><p>8</p></td>
+<td><p>9</p></td>
+<td><p>10</p></td>
+<td><p>11</p></td>
+<td><p>12</p></td>
+<td><p>13</p></td>
+<td><p>14</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">water</span></code></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">forest</span></code></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+<td><p>8</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>13</p></td>
+<td><p>0</p></td>
+<td><p>13</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clearCut</span></code></p></td>
+<td><p>4</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>7</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>11</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">newGrowth</span></code></p></td>
+<td><p>1</p></td>
+<td><p>7</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>11</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>6</p></td>
+<td><p>0</p></td>
+<td><p>4</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>9</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">soil</span></code></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+<td><p>12</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>4</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">snow</span></code></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>20</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>Here, we can see that <code class="docutils literal notranslate"><span class="pre">water</span></code> (the first row of the table) has 40 points identified as cluster type 13, and no other
+values. <code class="docutils literal notranslate"><span class="pre">soil</span></code> (the fifth row of the table) has 1 point identified as cluster type 13 – in other words,
+cluster type 3 appears to correspond well to our water class.</p>
+<p>Looking at the other cluster types for <code class="docutils literal notranslate"><span class="pre">soil</span></code>, we can see that most of the points are either cluster value 15
+(20 points) or cluster value 5 (12 points), with only a few points labelled as something else.</p>
+<p>We can see a similar pattern for <code class="docutils literal notranslate"><span class="pre">clearCut</span></code>, where most of the points are identified as cluster value 1 or 14
+(16 and 11 points, respectively). However, we can also see that <code class="docutils literal notranslate"><span class="pre">newGrowth</span></code> also has a significant number of points
+in these cluster values, suggesting that there might be some overlap between the chosen feature points for these two
+classes.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Why do you think that there might be a significant amount of overlap between the different feature classes?</p>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Think about what each feature class actually represents - is it one specific surface type, or is it a mix of
+surface types?</p>
+</div>
+<p>The last part of this script displays the spectral properties of the clusters using two example scatter plots. First,
+we add the clustered <strong>Image</strong> to our original <strong>Image</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">unsupervised</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>This way, we can select pixels from that <strong>Image</strong> based on what cluster they belong to.</p>
+<p>Because of the number of pixels in the <strong>Image</strong> (remember: 7601 * 7331 pixels = 55.7M pixels),
+we can’t just plot all of the pixel values at once.</p>
+<p>Instead, we again take a random sample of pixels, this time using <code class="docutils literal notranslate"><span class="pre">ee.Image.stratifiedSample()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-stratifiedsample">documentation</a>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B.&#39;</span><span class="p">]).</span><span class="nx">stratifiedSample</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">numPoints</span><span class="o">:</span><span class="w"> </span><span class="mf">300</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">classBand</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">geometry</span><span class="p">(),</span>
+<span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">projection</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">projection</span><span class="p">()</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>This selects a random sample of (up to) 300 pixels from each cluster.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">ee.Image.stratifiedSample()</span></code> is a <strong>FeatureCollection</strong>. Because we are limited by GEE 5000
+elements for the <strong>Chart</strong>, we are limited to 5000 elements / 16 classes ~= 300 elements / class.</p>
+<p>To be able to show more elements per class, we would need to reduce the number of classes.</p>
+</div>
+<p>There are two examples shown in the script: a comparison of the NIR (OLI Band 5) and red (OLI Band 4), and a comparison
+of the green (OLI Band 3) and SWIR2 (OLI Band 7). The first example, NIR vs red, is shown below:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// compare NIR and Red</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">chart1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">clusterPlot</span><span class="p">(</span><span class="nx">sample</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B5&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SR_B4&#39;</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">chart1</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../../_images/nir_red_scatter.png"><img alt="the red vs. NIR scatter plot for each cluster" class="align-center" src="../../../../_images/nir_red_scatter.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Why do you think there is overlap between the different clusters shown in the image above?</p>
+</div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">In the chart above, you can see that cluster value 5 corresponds to pixels that have similarly high reflectance
+values in both NIR and red, while class 6 corresponds to pixels with high NIR reflectance and very low red
+reflectance.</p>
+<p class="sd-card-text">What kind of surface type might each of these two clusters describe?</p>
+</div>
+</div>
+<p>As stated above, the cluter values classes output by an unsupervised classification have no meaning - they’re only
+groups of pixels based on the image data. The next step for analyzing and using the output of the unsupervised
+classification would be to group different classes together based on the landcover type they represent
+(using, for example, <code class="docutils literal notranslate"><span class="pre">ee.Image.remap()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-remap">documentation</a>)
+or the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/reclassify.htm">Reclassify</a> tool in
+ArcGIS).</p>
+<p>For now, though, we’ll move on to look at other methods of classification.</p>
+</section>
+<section id="part-2-pixel-based-classification">
+<h2>part 2 - pixel-based classification<a class="headerlink" href="#part-2-pixel-based-classification" title="Permalink to this heading">#</a></h2>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">02_pixel.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek5%2F02_pixel.js">direct link</a>.</p>
+<p>In this part of the practical, we’re going to use a Random Forest<a class="footnote-reference brackets" href="#randforest" id="id3">3</a> classifier to classify the image.
+This is a <em>supervised</em> classification method, meaning that in order to train the classifier, we first have to provide
+<strong>labeled</strong> examples for the classifier to “learn” from.</p>
+<p>In the <strong>Geometry Imports</strong> menu, you can toggle on each of the training point layers to view them on the <strong>Map</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/training_points.png"><img alt="the different training points for the classifier, shown on the map" class="align-center" src="../../../../_images/training_points.png" style="width: 720px;" /></a>
+<p><br /> At the beginning of the script, we combine these individual layers into a single <strong>FeatureCollection</strong> in order
+to use it for the classification:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// merge all of the different training points into a single featurecollection</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">trainingPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">water</span><span class="w"> </span><span class="c1">// landcover value 0</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">forest</span><span class="p">)</span><span class="w"> </span><span class="c1">// landcover value 1</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">thinVegetation</span><span class="p">)</span><span class="w"> </span><span class="c1">// landcover value 2</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">soil</span><span class="p">)</span><span class="w"> </span><span class="c1">// landcover value 3</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span><span class="nx">snow</span><span class="p">);</span><span class="w"> </span><span class="c1">// landcover value 4</span>
+</pre></div>
+</div>
+<p>Then, at line 61, we sample the pixel values from the input image for use in training the classifier:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// select training points from the training image</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">training</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">sampleRegions</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">collection</span><span class="o">:</span><span class="w"> </span><span class="nx">trainingPoints</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">properties</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;landcover&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Next, we split the input data into two “training” and “testing” partitions using a 70-30 split (i.e., 70% of the input
+data will be used for training, 30% for testing):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// split the training points into training, testing data</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">split</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.7</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">withRandom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">training</span><span class="p">.</span><span class="nx">randomColumn</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">trainingPartition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">withRandom</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">lt</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">split</span><span class="p">));</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">testingPartition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">withRandom</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">ee</span><span class="p">.</span><span class="nx">Filter</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">split</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Once we’ve split the input data into <em>training</em> and <em>testing</em> partitions, we can “train” our <strong>Classifier</strong>. GEE has a
+number of <strong>Classifier</strong> algorithms implemented:</p>
+<ul class="simple">
+<li><p>Maximum Entropy (<code class="docutils literal notranslate"><span class="pre">amnhMaxent</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-amnhmaxent">documentation</a>)</p></li>
+<li><p>Support Vector Machine (<code class="docutils literal notranslate"><span class="pre">libsvm</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-libsvm">documentation</a>)</p></li>
+<li><p>Minimum Distance (<code class="docutils literal notranslate"><span class="pre">minimumDistance</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-minimumdistance">documentation</a>)</p></li>
+<li><p>CART (<code class="docutils literal notranslate"><span class="pre">smileCart</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilecart">documentation</a>)</p></li>
+<li><p>Gradient Tree Boost (<code class="docutils literal notranslate"><span class="pre">smileGradientTreeBoost</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilegradienttreeboost">documentation</a>)</p></li>
+<li><p>Naive Bayes (<code class="docutils literal notranslate"><span class="pre">smileNaiveBayes</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilenaivebayes">documentation</a>)</p></li>
+<li><p>Random Forest (<code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code>; <a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-smilerandomforest">documentation</a>)</p></li>
+</ul>
+<p>We’ll be using <code class="docutils literal notranslate"><span class="pre">smileRandomForest</span></code> with 10 “trees”:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// initialize a random forest with 10 &quot;trees&quot;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">classifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Classifier</span><span class="p">.</span><span class="nx">smileRandomForest</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We use <code class="docutils literal notranslate"><span class="pre">ee.Classifier.train()</span></code> (<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-classifier-train">documentation</a>),
+along with the training data that we gathered earlier, to train the <strong>Classifier</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// train the classifier using the training partition</span>
+<span class="nx">classifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">classifier</span><span class="p">.</span><span class="nx">train</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">features</span><span class="o">:</span><span class="w"> </span><span class="nx">trainingPartition</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">classProperty</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;landcover&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">inputProperties</span><span class="o">:</span><span class="w"> </span><span class="nx">bands</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Once we’ve trained the <strong>Classifier</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.FeatureCollection.classify()</span></code>
+(<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-featurecollection-classify">documentation</a>)
+to classify the testing partition to see how well the classifier does in classifying data that it hasn’t seen before:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// classify the testing data using our trained classifiers</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">testingPartition</span><span class="p">.</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Then, we calculate the error matrix for the testing data, which will compare the input label (<code class="docutils literal notranslate"><span class="pre">landcover</span></code>) to the
+classified value (<code class="docutils literal notranslate"><span class="pre">classification</span></code>):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// make the confusion matrix</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">cm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">test</span><span class="p">.</span><span class="nx">errorMatrix</span><span class="p">(</span><span class="s1">&#39;landcover&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;classification&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We can then print the error matrix and accuracy measures such as the overall, producer’s, and user’s accuracy, along
+with the kappa statistic:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// print the confusion matrix, overall accuracy, kappa, producer&#39;s and user&#39;s accuracy</span>
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;error matrix: &#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">cm</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;overall accuracy: &#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">accuracy</span><span class="p">(),</span>
+<span class="w">  </span><span class="s1">&#39;kappa: &#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">kappa</span><span class="p">(),</span>
+<span class="w">  </span><span class="s2">&quot;producer&#39;s accuracy:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">producersAccuracy</span><span class="p">().</span><span class="nx">toList</span><span class="p">().</span><span class="nx">flatten</span><span class="p">(),</span>
+<span class="w">  </span><span class="s2">&quot;consumer&#39;s accuracy:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">consumersAccuracy</span><span class="p">().</span><span class="nx">toList</span><span class="p">().</span><span class="nx">flatten</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>As a reminder:</p>
+<ul>
+<li><p>the <em>overall</em> accuracy is the number of correctly classified points, divided by the total number of points.
+It tells us the percentage of training data that the <strong>Classifier</strong> has correctly identified.</p></li>
+<li><p>the <em>producer’s</em> accuracy is the probability that a particular class is correctly classified, and it is calculated
+as the number of correctly classified points divided by the total number of points in each row of
+the <strong>ConfusionMatrix</strong>. This is also the complement of the <em>omission</em> error, the error introduced when pixels are
+incorrectly omitted from the correct class in the classification.</p></li>
+<li><p>the <em>consumer’s</em> accuracy is the probability that the map classification is correct, and it’s the number of correctly
+classified points divided by the total number of points in each column of the <strong>ConfusionMatrix</strong>. This
+is also the complement of the <em>commission</em> error, the error introduced when pixels are included in the incorrect
+class in the classification.</p></li>
+<li><p>The <em>kappa</em> score, or statistic<a class="footnote-reference brackets" href="#kappa" id="id4">4</a>, is calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[\kappa = \frac{p_o - p_e}{1 - p_e}\]</div>
+<p>where <span class="math notranslate nohighlight">\(p_o\)</span> is the observed accuracy of the classifier, and <span class="math notranslate nohighlight">\(p_e\)</span> is the hypothetical probability of
+chance agreement. The <em>kappa</em> score thus gives a measure of how much better the classifier performs than would be
+expected by random chance.</p>
+</li>
+</ul>
+<p>When you run the script, you should see the following in the <strong>Console</strong> panel after expanding the <strong>List</strong> element
+under “error matrix” (remember that your results may differ slightly):</p>
+<a class="reference internal image-reference" href="../../../../_images/error_matrix.png"><img alt="the error matrix for the random forest classification" class="align-center" src="../../../../_images/error_matrix.png" style="width: 500px;" /></a>
+<p><br /> To help make this easier to read, I’ve added row/column labels to this table below:</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 26%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>water</p></th>
+<th class="head"><p>forest</p></th>
+<th class="head"><p>thin vegetation</p></th>
+<th class="head"><p>soil</p></th>
+<th class="head"><p>snow</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>31</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>0</p></td>
+<td><p>29</p></td>
+<td><p>2</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>thin vegetation</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>23</p></td>
+<td><p>5</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>soil</strong></p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>17</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>snow</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>5</p></td>
+</tr>
+</tbody>
+</table>
+<p>Like with the unsupervised classification error matrix, the “rows” of this matrix correspond to the landcover class
+that we have identified, while the columns correspond to the classified values. In the example above, we see that 31 of
+our training samples were classified as landcover class 0 (<code class="docutils literal notranslate"><span class="pre">water</span></code>), and there were no water training samples that
+were classified as something else.</p>
+<p>We do see some misclassification for the other classes, though: two <code class="docutils literal notranslate"><span class="pre">forest</span></code> training points were misclassified as
+<code class="docutils literal notranslate"><span class="pre">thin</span> <span class="pre">vegetation</span></code>, five <code class="docutils literal notranslate"><span class="pre">thinVegetation</span></code> points were misclassified as <code class="docutils literal notranslate"><span class="pre">soil</span></code>, and so on.</p>
+<p>In the <strong>Console</strong>, you can also see the overall accuracy (90.5%), kappa statistic (0.876), and the producer’s and
+consumer’s (user’s) accuracy for each class:</p>
+<a class="reference internal image-reference" href="../../../../_images/producer_consumer.png"><img alt="the producer's and consumer's accuracy in the console panel" class="align-center" src="../../../../_images/producer_consumer.png" style="width: 500px;" /></a>
+<p><br /></p>
+<table class="table">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 26%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>water</p></th>
+<th class="head"><p>forest</p></th>
+<th class="head"><p>thin vegetation</p></th>
+<th class="head"><p>soil</p></th>
+<th class="head"><p>snow</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>producer’s accuracy</p></td>
+<td><p>100%</p></td>
+<td><p>93.5%</p></td>
+<td><p>82.1%</p></td>
+<td><p>80.9%</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>consumer’s accuracy</p></td>
+<td><p>100%</p></td>
+<td><p>96.7%</p></td>
+<td><p>82.1%</p></td>
+<td><p>77.3%</p></td>
+<td><p>100%</p></td>
+</tr>
+</tbody>
+</table>
+<p>While these are encouraging results, it’s worth keeping in mind that we’re working with only a few samples for each
+class. With small sample sizes like this, our results are less likely to be an accurate reflection of the accuracy of
+the classified image.<a class="footnote-reference brackets" href="#congalton" id="id5">5</a></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Which of these classes have the most overlap, as indicated by the error matrix? Why do you think this might be?</p>
+<p class="sd-card-text">What are some ways that we could try to address this problem?</p>
+</div>
+</div>
+<p>Once we have trained the <strong>Classifier</strong>, we use <code class="docutils literal notranslate"><span class="pre">ee.Image.classify()</span></code> to classify the image:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// classify the image</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">classified</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">bands</span><span class="p">).</span><span class="nx">classify</span><span class="p">(</span><span class="nx">classifier</span><span class="p">);</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">classPalette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;013dd6&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;059e2a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;2aff53&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;e3d4ae&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fffbf4&#39;</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>This creates a new <strong>Image</strong> with a single band, <code class="docutils literal notranslate"><span class="pre">classification</span></code>, where the pixel values are the <code class="docutils literal notranslate"><span class="pre">landcover</span></code> values
+of each class from our training <strong>FeatureCollection</strong>.</p>
+<p>We then add this image to the <strong>Map</strong> with the same color scheme as the training point layers:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// add the classified image to the map</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">classified</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="nx">classPalette</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;classified&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../../_images/classified_image.png"><img alt="the random forest classified image" class="align-center" src="../../../../_images/classified_image.png" style="width: 720px;" /></a>
+<p><br /> Note that when you are zoomed out, the classification will look different due to the way that the image is
+re-sampled at lower resolutions (similar to how it works in ArcGIS).</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Zoom in on the peak. Are there areas where you can see clear misclassification?</p>
+</div>
+</div>
+<p>Once you’ve had a look at the classified image, have a look at the next object printed to the <strong>Console</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// print the classified area for each class</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">classArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">classifiedArea</span><span class="p">(</span><span class="nx">classified</span><span class="p">,</span><span class="w"> </span><span class="nx">classes</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;Classified Area: &#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">classArea</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This table shows the total classified area for each class in the image:</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>class</p></th>
+<th class="head"><p>area (km<sup>2</sup>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>40.63</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>963.61</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>thin vegetation</strong></p></td>
+<td><p>369.67</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>bare soil</strong></p></td>
+<td><p>106.03</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>snow</strong></p></td>
+<td><p>0.59</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Based on your comparison of the classified image and the original image, which of these areas (if any) do you
+think are overestimates? Why?</p>
+</div>
+</div>
+<p>The problem with summing up the classified area and taking it at face value, is that we know that it is incorrect.
+Based on the error matrix shown above, the classifier is not perfect, which means that we can’t assume that the
+area calculated by the classifier is correct, either.</p>
+<p>Perhaps just as important as the area of each landcover class is the <em>uncertainty</em> of that classified area. Because of
+the errors of omission and commission (the complements of the producer’s and consumer’s accuracy discussed above), the
+area counts in the table above are <em>biased</em> - that is, they are skewed because they exclude (or include) areas that
+should be included (excluded) in the estimated area for each class.</p>
+<p>Based on the work presented by Olofsson et al. 2013<a class="footnote-reference brackets" href="#olofsson" id="id6">6</a>, we can use the error matrix that we produced as part
+of the <strong>Classifier</strong> training process to produce an <em>unbiased</em> estimate of the landcover area for each class, as well
+as the 95% confidence interval (CI) around that estimate.<a class="footnote-reference brackets" href="#ci" id="id7">7</a></p>
+<p>This has been implemented in the <code class="docutils literal notranslate"><span class="pre">tools.errorDict()</span></code> function:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the unbiased area for each class (after Olofsson)</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">errorDict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">errorDict</span><span class="p">(</span><span class="nx">cm</span><span class="p">,</span><span class="w"> </span><span class="nx">classes</span><span class="p">,</span><span class="w"> </span><span class="nx">classArea</span><span class="p">);</span>
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;unbiased area (± 95% CI):&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">errorDict</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The table below compares the classified area, and the estimated area<a class="footnote-reference brackets" href="#error" id="id8">8</a>:</p>
+<table class="table">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 34%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>class</p></th>
+<th class="head"><p>classified area (km<sup>2</sup>)</p></th>
+<th class="head"><p>estimated area ± 95% CI (km<sup>2</sup>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>40.63</p></td>
+<td><p>40.63 ± 0.00</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>963.61</p></td>
+<td><p>906.49 ± 85.29</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>thin vegetation</strong></p></td>
+<td><p>369.67</p></td>
+<td><p>380.97 ± 101.45</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>bare soil</strong></p></td>
+<td><p>106.03</p></td>
+<td><p>151.85 ± 56.44</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>snow</strong></p></td>
+<td><p>0.59</p></td>
+<td><p>0.59 ± 0.00</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Compare the estimated areas and the classified areas in the table above with your “eyeballed” estimate of which
+classes were over/underestimated in the classified image. How did you do?</p>
+</div>
+</div>
+<p>Finally, we also use <code class="docutils literal notranslate"><span class="pre">tools.areaChart()</span></code> to create a bar chart comparing the two estimates:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// plot a chart of area by class</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">area_chart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tools</span><span class="p">.</span><span class="nx">areaChart</span><span class="p">(</span><span class="nx">combArea</span><span class="p">,</span><span class="w"> </span><span class="nx">classes</span><span class="p">);</span>
+<span class="c1">// show the chart of area by class for the two estimates</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">area_chart</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../../_images/pixel_area.png"><img alt="a bar chart comparing the classified and estimated area for each class in the pixel-based classified image" class="align-center" src="../../../../_images/pixel_area.png" style="width: 720px;" /></a>
+<p><br /> Finally, the script initiates a <strong>Task</strong> to export the classified image to your google drive for further analysis
+in your GIS software of choice. To start the task, click on the <strong>Tasks</strong> tab, then click <strong>Run</strong>.</p>
+<p>One thing you may notice, especially when zooming in on the <strong>Map</strong>, is that the pixel-based classified image
+can appear <em>noisy</em> - that is, you may see a number of individual pixels that are classified differently to the pixels
+around it. As we have discussed in the lecture, this is because the pixel-based classification does not take any of the
+neighboring pixels into account.</p>
+<p>In the next part of the practical, we’ll see how grouping pixels together based on their spectral properties changes
+the classification result.</p>
+</section>
+<section id="part-3-object-based-classification">
+<h2>part 3 - object-based classification<a class="headerlink" href="#part-3-object-based-classification" title="Permalink to this heading">#</a></h2>
+<p>Open the script for this part of the practical by clicking on <code class="docutils literal notranslate"><span class="pre">03_obia.js</span></code> in the <strong>Script manager</strong>, or using
+this <a class="reference external" href="https://code.earthengine.google.com/?scriptPath=users%2Frobertmcnabb%2Fegm702%3Aweek5%2F03_obia.js">direct link</a>.</p>
+<p>In this part of the practical, we’ll take a look at an example of object-based classification to help illustrate some
+of the differences between object-based image analysis (OBIA) and pixel-based classification.</p>
+<p>The first sections of this script should look similar to the pixel-based script. The first major difference comes at
+line 62:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// set parameters for the size of the seeds and clusters for image segmentation</span>
+<span class="c1">// 4 appears to be the minimum value for seed size</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">seedSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span><span class="w"> </span><span class="c1">//corresponds to 4 * 30 = 120 m spacing;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">clusterScale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">30</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This is where we set the parameters for the size of the seed grid used to segment the image. We’re using an algorithm
+called simple non-iterative clustering (SNIC; Achanta and Susstrunk, 2017<a class="footnote-reference brackets" href="#snic" id="id9">9</a>) to segment our image, creating
+the objects that we’ll use for the classification.</p>
+<p>This section starts by setting two parameters, <code class="docutils literal notranslate"><span class="pre">seedSize</span></code> and <code class="docutils literal notranslate"><span class="pre">clusterScale</span></code>. I’ve added these here, rather than
+using the values directly in the code below, so that it’s easier to change the values if we want to experiment later on.</p>
+<p>Next, we actually run SNIC on the image, using bands 1-7:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a layer to seed the segmentation algorithm</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">seeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">seedGrid</span><span class="p">(</span><span class="nx">seedSize</span><span class="p">);</span>
+
+<span class="c1">// run simple non-iterative clustering (SNIC) on the image, using our seed layer</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">snic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Algorithms</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">Segmentation</span><span class="p">.</span><span class="nx">SNIC</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B.&#39;</span><span class="p">),</span>
+<span class="w">  </span><span class="nx">compactness</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">connectivity</span><span class="o">:</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">neighborhoodSize</span><span class="o">:</span><span class="w"> </span><span class="mf">128</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">seeds</span><span class="o">:</span><span class="w"> </span><span class="nx">seeds</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>To help visualize the clusters, I’ve added two layers to the <strong>Map</strong>. The first, <code class="docutils literal notranslate"><span class="pre">segments</span></code>, shows the outlines of
+the clusters created using the chosen parameters (roughly 120 m spacing):</p>
+<a class="reference internal image-reference" href="../../../../_images/segmented_image.png"><img alt="a satellite image and image segments" class="align-center" src="../../../../_images/segmented_image.png" style="width: 720px;" /></a>
+<p><br /> The second, <code class="docutils literal notranslate"><span class="pre">coarse</span> <span class="pre">segments</span></code>, shows the clusters created using twice the spacing (roughly 240 m):</p>
+<a class="reference internal image-reference" href="../../../../_images/segmentation_comparison.png"><img alt="a comparison of two segmentation scales" class="align-center" src="../../../../_images/segmentation_comparison.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Toggle the <code class="docutils literal notranslate"><span class="pre">segments</span></code> layer on, then zoom in to have a look around. How do the object boundaries you see relate
+to the image underneath? Do they agree?</p>
+<p class="sd-card-text">Are there any areas where the boundaries vary significantly from what you can see in the underlying image?</p>
+</div>
+</div>
+<p>This is something to keep in mind - the scale of our segmentation determines the size of the objects that we end up
+with. If we segment the image too coarsely, we may end up losing detail that we’re interested in.</p>
+<p>Remember from the lecture that one of the things that we can do with OBIA that is more difficult to incorporate into
+pixel-based analysis is use image properties such as texture or contrast, or even the shape of our segments, to aid our
+classification.</p>
+<p>Here, we’ll have a look at including texture into our classification using metrics extracted using the Gray Level
+Co-occurrence Matrix (GLCM; Haralick et al., 1973<a class="footnote-reference brackets" href="#glcm" id="id10">10</a>). The GLCM contains information about how frequently
+combinations of pixel values appear in a specified relationship in the image. We can use this, and the statistical
+metrics that we can extract from the GLCM, to analyze the texture of the image.</p>
+<p>Here, we’ll look at three examples in more detail:</p>
+<ul class="simple">
+<li><p>the <strong>Angular Second Momment</strong> (ASM), which measures how many repeated pairs of values we see within each small window;</p></li>
+<li><p>the <strong>local contrast</strong>, which tells us how much variation we see in each small window;</p></li>
+<li><p>and the <strong>entropy</strong>, which measures the randomness of the values in each small window.</p></li>
+</ul>
+<p>Before we compute the GLCM, we make a grayscale image from the NIR, Red, and Green bands, following
+Tassi and Vizzari (2020)<a class="footnote-reference brackets" href="#gray" id="id11">11</a>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// create a grayscale image to run texture on, following Tassi and Vizzari (2020)</span>
+<span class="c1">// paper: https://doi.org/10.3390/rs12223776</span>
+<span class="c1">// GEE script: https://code.earthengine.google.com/?accept_repo=users/mvizzari/Tassi_Vizzari_RS2020</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">gray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">expression</span><span class="p">(</span>
+<span class="w">  </span><span class="s1">&#39;(0.3 * NIR) + (0.59 * R) + (0.11 * G)&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">{</span><span class="s1">&#39;NIR&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B5&#39;</span><span class="p">),</span>
+<span class="w">   </span><span class="s1">&#39;R&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B4&#39;</span><span class="p">),</span>
+<span class="w">   </span><span class="s1">&#39;G&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;SR_B3&#39;</span><span class="p">)</span>
+<span class="p">}).</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">);</span>
+
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">gray</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">7500</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">17500</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;grayscale&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>this helps simplify the process somewhat - as we’ve seen in the lectures and previous practicals, there is often
+redundant information in neighboring bands.</p>
+<p>Once we’ve created this layer, we compute the GLCM and display the three images we’re interested in (the ASM, Contrast,
+and Entropy).</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the GLCM for the grayscale image</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">glcm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gray</span><span class="p">.</span><span class="nx">toInt</span><span class="p">().</span><span class="nx">glcmTexture</span><span class="p">({</span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">reproject</span><span class="p">({</span><span class="nx">crs</span><span class="o">:</span><span class="w"> </span><span class="nx">gray</span><span class="p">.</span><span class="nx">projection</span><span class="p">(),</span><span class="w"> </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">});</span>
+
+<span class="nx">print</span><span class="p">(</span><span class="s1">&#39;GLCM Image&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">glcm</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The result of this is an image, <code class="docutils literal notranslate"><span class="pre">glcm</span></code>, that contains 18 variables for each band in the original image. For a full
+list of the variables, you can see the
+<a class="reference external" href="https://developers.google.com/earth-engine/apidocs/ee-image-glcmtexture">documentation</a>.</p>
+<p>We then load the three bands we’re investigating into the <strong>Map</strong>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_asm&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0281</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0354</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;ASM&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_contrast&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">3e5</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">5e6</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;Contrast&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="nb">Map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_ent&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">3.391</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">3.577</span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;Entropy&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Take a look at the ASM image first:</p>
+<a class="reference internal image-reference" href="../../../../_images/asm.png"><img alt="an image showing the angular second moment in the grayscale image" class="align-center" src="../../../../_images/asm.png" style="width: 720px;" /></a>
+<p><br /> Remember that this tells us something about the repeated pairs of values within the specified window (here, a
+window of size 2) - brighter colors indicate higher values (more repeated values), darker colors indicate lower values
+(fewer repeated values).</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Where do you see the most repeated values (brightest “colors”)?</p>
+<ul class="simple">
+<li><p class="sd-card-text">What surfaces do these values represent?</p></li>
+<li><p class="sd-card-text">Why do you think this would be so?</p></li>
+</ul>
+<p class="sd-card-text">Look at the grayscale image (toggle it on in the <strong>Layers</strong>). How does the image that you see here compare to the
+ASM image? That is, where do you see more variation in the “color” values?</p>
+</div>
+</div>
+<p>Now, have a look at the <code class="docutils literal notranslate"><span class="pre">contrast</span></code> layer:</p>
+<a class="reference internal image-reference" href="../../../../_images/contrast.png"><img alt="an image showing the local contrast in the grayscale image" class="align-center" src="../../../../_images/contrast.png" style="width: 720px;" /></a>
+<p><br /> Here, the bright colors represent the greatest contrast (i.e., difference) in values within the given window.
+In a way, this is showing us the same sort of information as the ASM layer - high contrast indicates more variation
+(and therefore fewer repeated values), while low contrast indicates less variation (and therefore more repeated values).</p>
+<p>Finally, have a look at the <code class="docutils literal notranslate"><span class="pre">entropy</span></code> layer:</p>
+<a class="reference internal image-reference" href="../../../../_images/entropy.png"><img alt="an image showing the local entropy in the grayscale image" class="align-center" src="../../../../_images/entropy.png" style="width: 720px;" /></a>
+<p><br /> This is almost the inverse of the ASM layer - areas with high ASM values typically have lower entropy. This makes
+some level of sense, given that more repeat values implies that the distribution is likely less random than values that
+are more spread out.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Try to compare the three images some more.</p>
+<ul class="simple">
+<li><p class="sd-card-text">What patterns do you see in the contrast image?</p></li>
+<li><p class="sd-card-text">How could you use the texture information to help differentiate between, for example, the surfaces on north
+flank of the volcano and the clear-cut areas in the southwest of the image, which have similar values in the
+grayscale image?</p></li>
+</ul>
+</div>
+</div>
+<p>After this, we can add the texture bands to our image (lines 161-164):</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_asm&#39;</span><span class="p">))</span>
+<span class="w">  </span><span class="c1">//.addBands(glcm.select(&#39;gray_contrast&#39;)) // uncomment to add contrast</span>
+<span class="w">  </span><span class="c1">//.addBands(glcm.select(&#39;gray_ent&#39;)); // uncomment to add entropy</span>
+</pre></div>
+</div>
+<p>To start with, we’ve only added the ASM layer. Once we’ve had a look at those results, we can see how adding additional
+texture layers changes the classification results.</p>
+<p>Now that we’ve segmented the image and had a look at the image texture, we’ll move on to actually classifying the image
+using OBIA.</p>
+<p>This block of code:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// get the mean, std, and median values of all bands for each object</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">img_mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">reduceConnectedComponents</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">reducer</span><span class="o">:</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">mean</span><span class="p">(),</span>
+<span class="w">  </span><span class="nx">labelBand</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span>
+<span class="p">});</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">img_std</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">reduceConnectedComponents</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">reducer</span><span class="o">:</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">stdDev</span><span class="p">(),</span>
+<span class="w">  </span><span class="nx">labelBand</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span>
+<span class="p">});</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">img_med</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">img</span><span class="p">.</span><span class="nx">reduceConnectedComponents</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">reducer</span><span class="o">:</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Reducer</span><span class="p">.</span><span class="nx">median</span><span class="p">(),</span>
+<span class="w">  </span><span class="nx">labelBand</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span>
+<span class="p">});</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">pred_bands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">cat</span><span class="p">([</span>
+<span class="w">  </span><span class="nx">img_mean</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">img_std</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">img_med</span>
+<span class="p">]).</span><span class="kr">float</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Shows the other main difference between the pixel-based classification and the object-based classification. Here, we’re
+using a statistical description of the pixel values that fall within each object (mean, median, and standard deviation),
+rather than the pixel values themselves.</p>
+<p>Other than that, the remaining steps are the same for the object-based classification. We’re using a random forest
+classification, splitting the training points into training and testing partitions, training the classifier, and then
+applying the classifier to the image.</p>
+<p>To see the final classification, you can turn on the <code class="docutils literal notranslate"><span class="pre">classification</span></code> layer:</p>
+<a class="reference internal image-reference" href="../../../../_images/obia_classified.png"><img alt="the obia classified image loaded in the map" class="align-center" src="../../../../_images/obia_classified.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Zoom in on the classified image. What differences do you notice between the pixel-based classification from earlier
+and the object-based classification?</p>
+<p class="sd-card-text">What about the error/accuracy metrics? How do the results for the two approaches compare?</p>
+</div>
+</div>
+<p>In the script, I have added the <code class="docutils literal notranslate"><span class="pre">segments</span></code> layer to the <strong>Map</strong> twice, so that the segment boundaries can be seen
+on top of the classification image. To compare the classification with the segment boundaries, just toggle the top
+<code class="docutils literal notranslate"><span class="pre">segments</span></code> layer on:</p>
+<a class="reference internal image-reference" href="../../../../_images/obia_segments.png"><img alt="the obia classified image loaded in the map, with the segment boundaries displayed on top" class="align-center" src="../../../../_images/obia_segments.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Do the classification boundaries line up with the boundaries between objects that you can see in the original image?</p>
+</div>
+</div>
+<p>Feel free to experiment with different band combinations if you like, to see if you can improve on the accuracy results.</p>
+<p>Otherwise, just like with the pixel-based script from earlier, this script initiates a <strong>Task</strong> to export the
+classified image to your google drive for further analysis in your GIS software of choice. To start the task,
+click on the <strong>Tasks</strong> tab, then click <strong>Run</strong>.</p>
+<p>Once you have downloaded the classified image, you can move on to the final part of the practical below.</p>
+</section>
+<section id="part-4-accuracy-analysis">
+<span id="week5-accuracy"></span><h2>part 4 - accuracy analysis<a class="headerlink" href="#part-4-accuracy-analysis" title="Permalink to this heading">#</a></h2>
+<p>For the final part of this practical, we’ll use one of the exported classified images to perform an additional
+accuracy analysis in ArcGIS.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The instructions below show the object-based classification, but the steps are the same for the pixel-based
+classification. You are free to choose either image to work with.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is also possible to do this in QGIS, though some of the steps are slightly different. One benefit is that the
+<a class="reference external" href="https://fromgistors.blogspot.com/p/semi-automatic-classification-plugin.html">semi-automatic classification plugin</a>
+for QGIS will calculate the unbiased area estimate and uncertainty values as part of the accuracy analysis.</p>
+</div>
+<p>To get started, either open a new project in ArcGIS Pro, or use your existing project from
+<a class="reference internal" href="../week2/arcgis.html"><span class="doc">week 2</span></a>. For this part of the practical, we’ll be using the files that you downloaded at the
+beginning of the practical.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can download the Landsat scene used for the classification
+(Landsat product ID: <strong>LC08_L2SP_046028_20200823_20200905_02_T1</strong>) from <a class="reference external" href="https://earthexplorer.usgs.gov">https://earthexplorer.usgs.gov</a>. If you do
+this, you will need to build a composite image using either GDAL or QGIS/ArcGIS.</p>
+</div>
+<p>Once you have the data downloaded and unpacked, add the VRT (composite image) to the ArcGIS Map:</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_landsat.png"><img alt="the Landsat SR image added to the ArcGIS Map window" class="align-center" src="../../../../_images/aa_landsat.png" style="width: 720px;" /></a>
+<p><br /> For this example, I am using the same NIR/Red/Green composite that we used in GEE, but feel free to adjust/change
+this as needed. As you manually identify points, it may be easier to use different band combinations.</p>
+<p>Next, add the classified image to the map. Rather than using the default colors created by ArcGIS, you can change the
+symbology for this image to match the color scheme we used in GEE. First, open the <strong>Symbology</strong> tab for this layer
+(right-click &gt; <strong>Symbology</strong>), then change the <strong>Primary Symbology</strong> to <code class="docutils literal notranslate"><span class="pre">Unique</span> <span class="pre">Values</span></code>.</p>
+<p>Then, click on the color patch for value 0, which will open the <strong>Color Editor</strong> window:</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_color_editor.png"><img alt="the color editor window" class="align-center" src="../../../../_images/aa_color_editor.png" style="width: 500px;" /></a>
+<p><br /> Rather than trying to match RGB values using the color picker, we can use the hex code for each color directly.
+Under <strong>HEX#</strong> at the bottom, type/paste the hex code <code class="docutils literal notranslate"><span class="pre">013dd6</span></code>, then click <strong>OK</strong>. You should see the color change
+to the same blue color used for water in the GEE classified image.</p>
+<p>Change the <strong>Label</strong> for this value from <code class="docutils literal notranslate"><span class="pre">0</span></code> to water, then click on the color patch for value 1. Copy the hex code
+for <code class="docutils literal notranslate"><span class="pre">forest</span></code> from this table:</p>
+<table class="table">
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 27%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>class name</strong></p></td>
+<td><p><strong>value</strong></p></td>
+<td><p><strong>hex code</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">013dd6</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">059e2a</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>thin vegetation</strong></p></td>
+<td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2aff53</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>soil</strong></p></td>
+<td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">e3d4ae</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>snow</strong></p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fffbf4</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>and change the label as you did for water, then continue in this way until you have changed the colors and labels for
+all of the values.</p>
+<p>The end result should look something like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_classification.png"><img alt="the classified image, with an updated symbology to match the GEE symbology used earlier." class="align-center" src="../../../../_images/aa_classification.png" style="width: 720px;" /></a>
+<p><br /> Now that we have the images added to the map, we can generate a number of random points to use for the accuracy
+analysis.</p>
+<p>From the <strong>Geoprocessing</strong> tab, open <strong>Create Accuracy Assessment Points</strong>
+(<a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/create-accuracy-assessment-points.htm">documentation</a>):</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_create_pts.png"><img alt="the ArcGIS pro window with &quot;create accuracy assessment points&quot; opened in the geoprocessing tab" class="align-center" src="../../../../_images/aa_create_pts.png" style="width: 720px;" /></a>
+<p><br /> Under <strong>Input Raster or Feature Class Data</strong>, choose <code class="docutils literal notranslate"><span class="pre">OBIA_Classification.tif</span></code> (or <code class="docutils literal notranslate"><span class="pre">RandomForestClassification</span></code>
+if you are using the pixel-based classification). Under <strong>Output Accuracy Assessment Points</strong>, create a new layer in
+your project geodatabase (or a new shapefile) called <code class="docutils literal notranslate"><span class="pre">AssessmentPoints</span></code>. Under <strong>Target Field</strong>, choose <code class="docutils literal notranslate"><span class="pre">classified</span></code>,
+and choose a <code class="docutils literal notranslate"><span class="pre">Stratified</span> <span class="pre">random</span></code> <strong>Sampling Strategy</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With stratified random sampling, the <strong>Create Accuracy Assessment Points</strong> tool will create random points within
+each class, with the number of points for each class determined by the proportion of the area taken up by that class.</p>
+<p>The default value of <strong>Number of Random Points</strong> is 500, which is what I will use here. Using this with the
+classified image output from GEE, there were only 13 points classified as water, and only 10 points classified as
+snow. This is not really enough to get an accurate picture of the classification performance of these classes.</p>
+<p>For now, however, the default value will suffice, but I recommend increasing the number of points if you want to do
+this for an assignment or your MSc project.</p>
+</div>
+<p>Click <strong>OK</strong>, and you should see the new layer added to the map. Right-click on the layer and select <strong>Attribute Table</strong>
+to show the attribute table for these points:</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_pts_table.png"><img alt="the ArcGIS pro window with the attribute table for the assessment points layer open" class="align-center" src="../../../../_images/aa_pts_table.png" style="width: 720px;" /></a>
+<p><br /> In this table, you should see there is a <code class="docutils literal notranslate"><span class="pre">Classified</span></code> field, and a <code class="docutils literal notranslate"><span class="pre">GrndTruth</span></code> field. The <code class="docutils literal notranslate"><span class="pre">Classified</span></code>
+field contains the value from the classified image for each point, while the <code class="docutils literal notranslate"><span class="pre">GrndTruth</span></code> field is currently set to
+a value of -1 for all points, indicating that it has not been entered.</p>
+<p>Our job now is to manually enter the class value for each point.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Technically, because this is an object-based classification, we should be looking at the <strong>image objects</strong> where
+each point is located, rather than the individual pixels.</p>
+<p>For the purposes of this exercise, it will be fine to use the pixels.</p>
+</div>
+<p>To get started, right-click on the first row of the table, then select <strong>Zoom To</strong> (you may want to zoom further
+in/out, depending on the scale of the map):</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_pts_zoom.png"><img alt="the map zoomed in on one of the accuracy points" class="align-center" src="../../../../_images/aa_pts_zoom.png" style="width: 720px;" /></a>
+<p><br /> The <code class="docutils literal notranslate"><span class="pre">Classified</span></code> value for this point is 1, corresponding to <code class="docutils literal notranslate"><span class="pre">forest</span></code>. To my eye, this point does indeed look like
+it is located in a forest, so I have entered a 1 in the <code class="docutils literal notranslate"><span class="pre">GrndTruth</span></code> field for this row.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that this is only an example - your results will most likely be different!</p>
+</div>
+<p>Move on to the next point, and the next point, and so on, until you have manually entered the values for each point.</p>
+<p>In addition to the Landsat image, you can also use the ESRI World Imagery to help interpret each point, though keep in
+mind that those images may be out of date compared to the Landsat image.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p><strong>BE SURE TO SAVE YOUR CHANGES OFTEN!!</strong></p>
+</div>
+<p>Once you have finished entering each point value, open the <strong>Compute Confusion Matrix</strong> tool from the <strong>Geoprocessing</strong>
+tab:</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_compute.png"><img alt="the &quot;compute confusion matrix&quot; tool open in the ArcGIS window" class="align-center" src="../../../../_images/aa_compute.png" style="width: 720px;" /></a>
+<p><br /> The <strong>Input Accuracy Assessment Points</strong> should be your <code class="docutils literal notranslate"><span class="pre">AssessmentPoints</span></code> layer. Save the
+<strong>Output Confusion Matrix</strong> to a file called <code class="docutils literal notranslate"><span class="pre">OBIAErrorMatrix.csv</span></code>, in the same folder as your classification maps.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For the provided python script to work, it is important that this file be saved with a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> extension, and
+that you save it to the same folder where the <code class="docutils literal notranslate"><span class="pre">area_uncertainty.py</span></code> script is saved.</p>
+</div>
+<p>Click <strong>Run</strong>, and you should see a new layer under <strong>Standalone Tables</strong> in the layer menu. Right-click on this layer,
+then select <strong>Open</strong> to open and view the table:</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_error.png"><img alt="the output error matrix open in the ArcGIS window" class="align-center" src="../../../../_images/aa_error.png" style="width: 720px;" /></a>
+<p><br /> The error matrix shown above contains a row for the producer’s accuracy and a column for the user’s (consumer’s)
+accuracy, as well as the kappa statistic for the classification. I have re-created the error matrix here, with updated
+labels:</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 26%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>water</p></th>
+<th class="head"><p>forest</p></th>
+<th class="head"><p>thin vegetation</p></th>
+<th class="head"><p>soil</p></th>
+<th class="head"><p>snow</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>water</strong></p></td>
+<td><p>13</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>forest</strong></p></td>
+<td><p>1</p></td>
+<td><p>317</p></td>
+<td><p>7</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>thin vegetation</strong></p></td>
+<td><p>0</p></td>
+<td><p>8</p></td>
+<td><p>108</p></td>
+<td><p>8</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>soil</strong></p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>33</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>snow</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>9</p></td>
+</tr>
+</tbody>
+</table>
+<p>and the producer’s and consumer’s accuracy:</p>
+<table class="table">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 10%" />
+<col style="width: 11%" />
+<col style="width: 24%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>water</p></th>
+<th class="head"><p>forest</p></th>
+<th class="head"><p>thin vegetation</p></th>
+<th class="head"><p>soil</p></th>
+<th class="head"><p>snow</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>producer’s accuracy</strong></p></td>
+<td><p>76.5%</p></td>
+<td><p>97.5%</p></td>
+<td><p>93.9%</p></td>
+<td><p>76.7%</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>consumer’s accuracy</strong></p></td>
+<td><p>100%</p></td>
+<td><p>97.2%</p></td>
+<td><p>87.1%</p></td>
+<td><p>91.7%</p></td>
+<td><p>90%</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Compare the error matrix and accuracy measures from your table to the output from GEE.</p>
+<ul class="simple">
+<li><p class="sd-card-text">What values have changed dramatically (if any)?</p></li>
+<li><p class="sd-card-text">What values have stayed largely the same?</p></li>
+<li><p class="sd-card-text">Do you think that your result gives a good representation of the accuracy of the classification for all classes?
+Why or why not?</p></li>
+</ul>
+</div>
+</div>
+<p>The final step for the practical will be re-calculating the area and uncertainty estimates using this new error matrix,
+using the <code class="docutils literal notranslate"><span class="pre">area_uncertainty.py</span></code> script provided in the practical data.</p>
+<p>First, open the script in a text editor such as <strong>Notepad</strong>, and change the following line (line 81):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapped_area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">water</span><span class="p">,</span> <span class="n">forest</span><span class="p">,</span> <span class="n">thin_vegetation</span><span class="p">,</span> <span class="n">soil</span><span class="p">,</span> <span class="n">snow</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>to include the actual areas output from GEE. For example, using the areas from above, the line would look like this:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">mapped_area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">39.36</span><span class="p">,</span> <span class="mf">982.78</span><span class="p">,</span> <span class="mf">349.46</span><span class="p">,</span> <span class="mf">107.97</span><span class="p">,</span> <span class="mf">0.96</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Make sure that the order matches the order of the columns/rows in the error matrix. This should be the same order
+as in the table shown above; i.e.:</p>
+<p><code class="docutils literal notranslate"><span class="pre">water</span></code>, <code class="docutils literal notranslate"><span class="pre">forest</span></code>, <code class="docutils literal notranslate"><span class="pre">thin</span> <span class="pre">vegetation</span></code>, <code class="docutils literal notranslate"><span class="pre">soil</span></code>, <code class="docutils literal notranslate"><span class="pre">snow</span></code></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you have saved the error matrix to a filename other than <code class="docutils literal notranslate"><span class="pre">OBIAErrorMatrix.csv</span></code>, or you have saved it to a
+location other than the same folder where the <code class="docutils literal notranslate"><span class="pre">area_uncertainty.py</span></code> script is saved, you will need to change the
+filename at line 77:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">errmat</span> <span class="o">=</span> <span class="n">load_errmat</span><span class="p">(</span><span class="s1">&#39;OBIAErrorMatrix.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now, from the <strong>Start</strong> menu, find the <strong>ArcGIS</strong> folder, and click on <strong>Python Command Prompt</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/arcgis_python.png"><img alt="the ArcGIS python command prompt shown in the start menu" class="align-center" src="../../../../_images/arcgis_python.png" style="width: 400px;" /></a>
+<p><br /> Navigate to the folder where <code class="docutils literal notranslate"><span class="pre">area_uncertainty.py</span></code> is kept using <code class="docutils literal notranslate"><span class="pre">cd</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\b</span>ob<span class="se">\E</span>GM702<span class="se">\P</span>racticals<span class="se">\W</span>eek5<span class="se">\</span>
+</pre></div>
+</div>
+<p>Then, run the script by typing <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">area_uncertainty.py</span></code> at the prompt. You should see the following output, or
+something very similar:</p>
+<a class="reference internal image-reference" href="../../../../_images/aa_python_prompt.png"><img alt="the output of a script showing the updated area and uncertainty estimates" class="align-center" src="../../../../_images/aa_python_prompt.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Compare the output of this script to the output from GEE.</p>
+<ul class="simple">
+<li><p class="sd-card-text">How do the area estimates and associated uncertainties compare?</p></li>
+<li><p class="sd-card-text">Which estimates do you think are more realistic/representative? Why?</p></li>
+</ul>
+</div>
+</div>
+<p>That is the end of the EGM702 practicals. If you are still wanting more practice/ideas for your project, feel free to
+have a look at some of the suggestions below - otherwise, turn off the computer, go outside, and enjoy the (hopefully)
+nice weather. :)</p>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
+<section id="unsupervised-classification">
+<h3>unsupervised classification<a class="headerlink" href="#unsupervised-classification" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>How does increasing (or decreasing) the number of sample points used to train the <strong>Clusterer</strong> affect the results?</p></li>
+<li><p>Try varying the number of clusters, to see what difference it makes for the overlap between different landcover
+classes. If you reduce the number of clusters to 8, do you see more or less overlap? What about for 10 clusters?</p></li>
+<li><p>Instead of using <code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaKMeans()</span></code>, try one of the other clusterers available, such as
+<code class="docutils literal notranslate"><span class="pre">ee.Clusterer.wekaXMeans()</span></code>, which finds the “best” number of clusters for a given input image and range of
+number of clusters.</p>
+<p>To do this, replace the code at line 42 with the following:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">clusterer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ee</span><span class="p">.</span><span class="nx">Clusterer</span><span class="p">.</span><span class="nx">wekaXMeans</span><span class="p">({</span><span class="nx">maxClusters</span><span class="o">:</span><span class="w"> </span><span class="mf">16</span><span class="p">}).</span><span class="nx">train</span><span class="p">(</span><span class="nx">training</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="pixel-based-classification">
+<h3>pixel-based classification<a class="headerlink" href="#pixel-based-classification" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Try varying the number of ‘trees’ used in the random forest classifier. How does this impact the estimated accuracy
+of the classification?</p></li>
+<li><p>Test how adding additional bands such as the surface temperature or the NDVI affects the classification,
+by removing the comment (<code class="docutils literal notranslate"><span class="pre">//</span></code>) symbol from the beginning of lines 28-32. Try different combinations of the indices
+included - you may find that some additional bands help more than others.</p></li>
+</ul>
+</section>
+<section id="object-based-classification">
+<h3>object-based classification<a class="headerlink" href="#object-based-classification" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>Try varying the number of ‘trees’ used in the random forest classifier. How does this impact the estimated accuracy
+of the classification?</p></li>
+<li><p>Test how adding additional bands such as the surface temperature or the NDVI affects the classification,
+by removing the comment (<code class="docutils literal notranslate"><span class="pre">//</span></code>) symbol from the beginning of lines 29-34. Try different combinations of the indices
+included - you may find that some additional bands help more than others.</p></li>
+<li><p>You can also try adding different texture measures by adding them to the image beginning at line 165. For example,
+to include the GLCM Correlation (<code class="docutils literal notranslate"><span class="pre">gray_corr</span></code> in our <code class="docutils literal notranslate"><span class="pre">glcm</span></code> image), you would add the following line of code:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nx">addBands</span><span class="p">(</span><span class="nx">glcm</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;gray_corr&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Remember to remove the semicolon (<code class="docutils literal notranslate"><span class="pre">;</span></code>) from line 164 if you have uncommented it!</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="notes-and-references">
+<h2>notes and references<a class="headerlink" href="#notes-and-references" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="kmeans"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>For a (brief) overview of <em>k</em>-means clustering, the wikipedia page is a good place to
+start: <a class="reference external" href="https://en.wikipedia.org/wiki/K-means_clustering">https://en.wikipedia.org/wiki/K-means_clustering</a></p>
+</dd>
+<dt class="label" id="weka"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Frank, E., M. A. Hall., and I. H. Witten (2016). The WEKA Workbench. Online Appendix for
+“Data Mining: Practical Machine Learning Tools and Techniques”, Morgan Kaufmann, Fourth Edition, 2016.
+[<a class="reference external" href="https://www.cs.waikato.ac.nz/ml/weka/Witten_et_al_2016_appendix.pdf">pdf</a>]</p>
+</dd>
+<dt class="label" id="randforest"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>e.g., Belgiu, M. and L. Drăguţ (2016). <em>ISPRS J. Photogramm. Rem. Sens.</em> 114, 24-31.
+doi: <a class="reference external" href="https://doi.org/10.1016/j.isprsjprs.2016.01.011">10.1016/j.isprsjprs.2016.01.011</a></p>
+</dd>
+<dt class="label" id="kappa"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>sometimes also referred to as <em>Cohen’s kappa</em></p>
+</dd>
+<dt class="label" id="congalton"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>e.g., Congalton, R. G. (1988). <em>Photogrammetric Eng. Rem. Sens.</em> 58(<strong>5</strong>), 593-600.
+[<a class="reference external" href="https://www.asprs.org/wp-content/uploads/pers/1988journal/may/1988_may_593-600.pdf">PDF</a>]</p>
+</dd>
+<dt class="label" id="olofsson"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>Olofsson, P., et al. (2013). <em>Rem. Sens. Env.</em> 129, 122–131.
+doi: <a class="reference external" href="https://doi.org/10.1016/j.rse.2012.10.031">10.1016/j.rse.2012.10.031</a></p>
+</dd>
+<dt class="label" id="ci"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>reminder: the 95% confidence interval is obtained using 1.96 times the standard error.</p>
+</dd>
+<dt class="label" id="error"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p>Note that in this example, because the classification has worked “perfectly” for two classes, water and
+snow, the standard error for each class is 0. This is not real, as you can tell by looking at the areas at the top
+of the mountain that have been classified as “water”, and the “snow” that has been classified at low elevations.
+As we will see in part 4, rather than using the testing split, we could instead select a number of random points
+from each landcover class in the classified image, and compare the computer-classified values with human-classified
+values. This will give a better idea of both the estimated area, and the uncertainty.</p>
+</dd>
+<dt class="label" id="snic"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
+<dd><p>Achanta, R. and S. Susstrunk (2017). In <em>Proc. IEEE Conf. Comp. Vis. Patt. Recog.</em>, pp. 4651–4660.
+doi: <a class="reference external" href="https://doi.org/10.1109/CVPR.2017.520">10.1109/CVPR.2017.520</a>
+[<a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Achanta_Superpixels_and_Polygons_CVPR_2017_paper.pdf">open-access pdf</a>]</p>
+</dd>
+<dt class="label" id="glcm"><span class="brackets"><a class="fn-backref" href="#id10">10</a></span></dt>
+<dd><p>Haralick, R. M., K. Shanmugam and I. Dinstein (1973). <em>IEEE Trans. Systems, Man, Cybernetics</em>,
+SMC-3(<strong>6</strong>), pp. 610-621. doi: <a class="reference external" href="http://doi.org/10.1109/TSMC.1973.4309314">10.1109/TSMC.1973.4309314.</a></p>
+</dd>
+<dt class="label" id="gray"><span class="brackets"><a class="fn-backref" href="#id11">11</a></span></dt>
+<dd><p>Tassi, A. and M. Vizzari (2020). <em>Rem. Sens.</em> 12, 3776. doi: <a class="reference external" href="https://doi.org/10.3390/rs12223776">10.3390/rs12223776</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="change_detection.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">change detection in earth engine</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../resources.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">additional resources</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-unsupervised-classification">part 1 - unsupervised classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-pixel-based-classification">part 2 - pixel-based classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-object-based-classification">part 3 - object-based classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-accuracy-analysis">part 4 - accuracy analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-classification">unsupervised classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pixel-based-classification">pixel-based classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#object-based-classification">object-based classification</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-and-references">notes and references</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Bob McNabb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2026, Bob McNabb. Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
