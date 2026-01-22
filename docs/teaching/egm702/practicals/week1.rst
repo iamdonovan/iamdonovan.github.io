@@ -1056,4 +1056,15 @@ notes
 .. [1] Short for "moyenne", or average. Bet you weren't expecting to learn French mathematical shorthand in this class.
 
 .. [2] In particular, the `translate <https://pdal.io/en/stable/apps/translate.html>`__ command. You will need to
-       specify the CRS of the data - here, it should be WGS84 UTM Zone 10N (EPSG Code: 32610).
+       specify the CRS of the data - here, it should be WGS84 UTM Zone 10N (EPSG Code: 32610). This is the command that
+       I used to convert the ``.ply`` file to the ``.las`` file that we will use in Week 2:
+
+       .. code-block:: text
+
+            pdal translate final_pointcloud.ply final_pointcloud.las \
+                -f filters.expression --filters.expression.expression="Z >= 0" \
+                -f filters.reprojection --filters.reprojection.in_srs="EPSG:32610" \
+                --filters.reprojection.out_srs="EPSG:32610"
+
+       Note that here, I am using ``.las`` (uncompressed) rather than ``.laz`` (compressed), because ArcGIS Pro does not
+       support ``.laz`` files.
