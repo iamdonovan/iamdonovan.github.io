@@ -45,6 +45,25 @@ publications
 If you are unable to access any of these via the doi links below (or if the links are somehow broken), please contact
 me and I will send you a copy.\ [1]_
 
+.. _pubs2026:
+
+2026
+^^^^
+
+.. rst-class:: ref
+
+   Piermatteri, L., **R. McNabb**, M. Elias, C. Ressl, A. Dehecq, A. Eltner, L. Girod, and T. Dewez, (2026).
+   Unlocking the Past: A review of digital processing of historical aerial and satellite stereo analog imagery for
+   geoscience applications. *IEEE Geoscience and Remote Sensing Magazine*.
+   doi: `10.1109/MGRS.2025.364514 <https://doi.org/10.1109/MGRS.2025.364514>`__
+
+   Steiner, J., W. Armstrong, W. Kochtitzky, **R. McNabb**, R. Aguayo, T. Bolch, F. Maussion, V. Agarwal, I. Barr,
+   N. R. Baurley, M. Cloutier, K. DeWater, F. Donachie, Y. Drocourt, S. Garg, G. Joshi, B. Guzman, S. Kutuzov, T. Loriaux,
+   C. Mathias, B. Menounos, E. Miles, A. Osika, K. Potter, A. Racoviteanu, B. Rick, M. Sterner, G. D. Tallentire,
+   L. Tielidze, R. White, K. Wu, and W. Zheng, (2026). Global mapping of lake-terminating glaciers.
+   *Earth System Science Data*. doi: `10.5194/essd-2025-315 <https://doi.org/10.5194/essd-2025-315>`__
+
+
 .. _pubs2025:
 
 2025

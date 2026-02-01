@@ -40,14 +40,14 @@ To do this, double-click on ``micmac_win.zip``, then select **Extract all**:
     :align: center
     :alt: the zipped folder in windows explorer
 
-This will open the following window:
+|br| This will open the following window:
 
 .. image:: ../../../img/egm702/install/zip_dialogue.png
     :width: 600
     :align: center
     :alt: the extraction dialogue for the zipped folder
 
-Click **Browse**, then navigate to ``C:\`` and create a new folder, ``MicMac``. Click **Extract** to extract the files.
+|br| Click **Browse**, then navigate to ``C:\`` and create a new folder, ``MicMac``. Click **Extract** to extract the files.
 
 adding micmac to the path
 ...........................
