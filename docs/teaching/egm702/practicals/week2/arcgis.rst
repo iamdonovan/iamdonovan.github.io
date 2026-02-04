@@ -7,13 +7,17 @@ dem differencing (arcgis)
     `google drive link <https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&export=download>`__,
     then extract the zip file.
 
+    The ``.las`` file used in the (optional) conversion from ``.las`` to raster is available from
+    `this google drive link <https://drive.google.com/file/d/1o3zNsa1q_rDyUt4qHXfp9-vHXkjHwXFL/view?usp=sharing>`__.
+    Note: the file size is **very large** (~1.1 GB), which is why this step is entirely optional.
+
 You should have the following files/folders available in the extracted ``.zip`` file:
 
 .. code-block:: text
 
     ├─ aux_files/
-        ├─ 1984_DEM_report.pdf
-        └─ 1979_DEM_report.pdf
+        ├─ 1979_DEM_report.pdf
+        └─ 1984_DEM_report.pdf
     ├─ 1979_shapes.*
     ├─ 1984_shapes.*
     ├─ ALPSMLC30_N046W123_DSM.tif
@@ -22,9 +26,9 @@ You should have the following files/folders available in the extracted ``.zip`` 
     ├─ LM02_L1TP_049028_19790719_20200906_02_T2/
     └─ LT05_L1TP_046028_19840804_20200918_02_T1/
 
-The **aux_files** folder contains two PDF reports for the DEM processing for the 1979 and 1984 DEMs. They include the
-residual values from the GCPs and checkpoints, as shown in the Week 1 practical, as well as measures of the elevation
-difference over (presumed) stable terrain between each DEM and a reference DEM.
+The **aux_files** folder contains two PDF reports for the DEM post-processing for the 1979 and 1984 DEMs. They include
+coregistration shifts computed, the residual (NMAD) values to the reference DEM over (presumed) stable terrain, and the
+distribution of elevation differences to the reference DEM.
 
 .. tip::
 
