@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>image transformation (arcgis) &#8212; space cameras and glaciers</title>
+    <title>image enhancement and transformation (arcgis) &#8212; space cameras and glaciers</title>
   
   
   
@@ -52,6 +52,7 @@
     <script src="../../../../_static/copybutton.js"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script src="../../../../_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm702/practicals/week3/arcgis';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -582,7 +583,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -593,11 +596,30 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>image transformation (arcgis)</h1>
+    <h1>image enhancement and transformation (arcgis)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#band-maths">band maths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalized-difference-indices">normalized difference indices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-and-segmentation">filtering and segmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-threshold">choosing a threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-a-threshold">applying a threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-up-the-outputs">cleaning up the outputs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">principal component analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -607,8 +629,430 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="image-transformation-arcgis">
-<h1>image transformation (arcgis)<a class="headerlink" href="#image-transformation-arcgis" title="Permalink to this heading">#</a></h1>
+  <section id="image-enhancement-and-transformation-arcgis">
+<h1>image enhancement and transformation (arcgis)<a class="headerlink" href="#image-enhancement-and-transformation-arcgis" title="Permalink to this heading">#</a></h1>
+<p>In this practical, we’re going to look at some different methods of image enhancement and transformation in ArcGIS Pro,
+using the 1984 Landsat scene provided for last week’s practical. We will also see how we can combine these methods to
+help classify water bodies in a satellite image.</p>
+<p>In particular, by the end of this practical, you will have done and worked on interpreting the following:</p>
+<ul class="simple">
+<li><p>band ratios and differences</p></li>
+<li><p>normalized difference indices</p></li>
+<li><p>filtering and thresholding for simple image segmentation</p></li>
+<li><p>principal component analysis (pca)</p></li>
+</ul>
+<section id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<p>To get started, open the ArcGIS project that you started last week. Then, open the <strong>Catalog</strong>, and navigate to the
+folder with your data.</p>
+<p>Find the 1984 TM5 image (<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif</span></code>), and click the arrow to expand the image and
+display the different bands:</p>
+<a class="reference internal image-reference" href="../../../../_images/catalog_expanded.png"><img alt="the arcgis window with the catalog panel open, listing the different bands for the LT05 landsat image" class="align-center" src="../../../../_images/catalog_expanded.png" style="width: 720px;" /></a>
+<p><br /> Remember that last week, we created a composite image of the near-infrared (TM Band 4), red (TM Band 3), and
+green (TM Band 2) bands of this Landsat scene - these have been inserted into the composite raster as <strong>Band_1</strong>,
+<strong>Band_2</strong>, and <strong>Band_3</strong>, respectively. To use the near-infrared and red bands, then, we need to add <strong>Band_1</strong>
+and <strong>Band_2</strong> to the Map window.</p>
+<p>To do this, select the two bands you want to add, then drag them to the Map window. You should see the two bands
+added to the <strong>Contents</strong> panel as <code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif_Band_1</span></code> and
+<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif_Band_2</span></code>, respectively:</p>
+<a class="reference internal image-reference" href="../../../../_images/tm5_bands_loaded.png"><img alt="the arcgis window with the two bands loaded" class="align-center" src="../../../../_images/tm5_bands_loaded.png" style="width: 720px;" /></a>
+<p><br /> To avoid confusion, I recommend re-naming these bands as <code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif_NIR</span></code> and
+<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif_Red</span></code>, respectively. You can do this by double-clicking on the layer
+in the <strong>Contents</strong> panel, or by right-clicking and selecting <strong>Properties</strong>. You should see the following window open
+up:</p>
+<a class="reference internal image-reference" href="../../../../_images/layer_properties.png"><img alt="the layer properties for the LT05 band" class="align-center" src="../../../../_images/layer_properties.png" style="width: 400px;" /></a>
+<p><br /> Finally, change the <strong>Name</strong> for each layer as recommended above. Then, update the <strong>Symbology</strong> for
+<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif_Red</span></code> so that it is the same as
+<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif_NIR</span></code> to make comparing the two bands easier.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Using the false color image, try to identify different surface types (e.g., forest, water, soil, etc.). Then, use
+the <strong>Swipe</strong> tool to compare the NIR and Red bands.</p>
+<p class="sd-card-text">What surface types show big differences between one band and the other? Are there any surfaces that look the same
+in both bands (e.g., both show low reflectance or high reflectance)? What does this imply about the reflectance of
+each surface type?</p>
+</div>
+</div>
+</section>
+<section id="band-maths">
+<h2>band maths<a class="headerlink" href="#band-maths" title="Permalink to this heading">#</a></h2>
+<p>The idea behind using different band maths operations (e.g., difference or ratio) is to help highlight or enhance the
+differences between different surface types. To help illustrate this, we’ll calculate the NIR-Red ratio and NIR-Red
+difference for this image, and compare the results for the different surface types we identified previously.</p>
+<p>Open the <strong>Raster Calculator</strong>. To calculate the ratio of the NIR and Red bands, we use the following formula:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_NIR&quot; / &quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_Red&quot;
+</pre></div>
+</div>
+<p>Save the output to your data folder as <code class="docutils literal notranslate"><span class="pre">LT05_046028_19840804_NIR_Red_ratio.tif</span></code>, then click <strong>Run</strong>. After a moment,
+you should see the ratio appear in the Map window. Change the <strong>Symbology</strong> to another color scheme (I have chosen
+“Plasma” in the example below):</p>
+<a class="reference internal image-reference" href="../../../../_images/nir_red_ratio.png"><img alt="the arcgis window showing the ratio between the NIR and Red bands" class="align-center" src="../../../../_images/nir_red_ratio.png" style="width: 720px;" /></a>
+<p><br /> Now, let’s look at the difference between these two bands. Again using the <strong>Raster Calculator</strong>, enter the
+following formula to calculate the difference between the NIR and Red bands:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_NIR&quot; - &quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_Red&quot;
+</pre></div>
+</div>
+<p>save the output as <code class="docutils literal notranslate"><span class="pre">LT05_046028_19840804_NIR_Red_difference.tif</span></code>, and change the <strong>Symbology</strong> to use the same color
+scheme as you chose for the ratio image:</p>
+<a class="reference internal image-reference" href="../../../../_images/nir_red_difference.png"><img alt="the arcgis window showing the difference between the NIR and Red bands" class="align-center" src="../../../../_images/nir_red_difference.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text">Compare the two images. What are the differences that you can see between these two images? Do they show the
+same thing, or are there differences in what is highlighted?</p></li>
+<li><p class="sd-card-text">For each surface type you identified earlier, try to identify corresponding values of the NIR-Red difference and
+NIR-ratio. Are there clear differences between each surface type?</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="normalized-difference-indices">
+<h2>normalized difference indices<a class="headerlink" href="#normalized-difference-indices" title="Permalink to this heading">#</a></h2>
+<p>You have hopefully noticed that in general, the NIR band is brighter (has higher reflectance) than the Red band for this
+particular scene - this is why, for example, the false color composite you created last week appears mostly red.</p>
+<p>We have seen two ways of enhancing the differences between these two bands: the ratio, and the difference.
+The difference in magnitude means that directly comparing the reflectance in both the NIR and Red bands can be
+challenging - areas with low reflectance in both bands will show small differences which can be difficult to distinguish.</p>
+<p>By taking a <em>normalized difference</em><a class="footnote-reference brackets" href="#id8" id="id1">1</a>, we can enhance the differences between the two bands while also controlling
+for differences in the magnitude of reflectance between the two bands, which makes it easier to compare scenes acquired
+at different times of the year or under different illumination conditions.</p>
+<p>You have likely already seen this example, the normalized difference vegetation index (NDVI)<a class="footnote-reference brackets" href="#id9" id="id2">2</a>, which is used
+to distinguish between healthy vegetation and other surfaces. The NDVI is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[{\rm NDVI} = \frac{\rho_{\rm NIR} - \rho_{\rm Red}}{\rho_{\rm NIR} + \rho_{\rm Red}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho_{\rm NIR}\)</span> and <span class="math notranslate nohighlight">\(\rho_{\rm Red}\)</span> are the reflectance in the NIR and Red bands, respectively.</p>
+<p>To calculate the NDVI, open the <strong>Raster Calculator</strong> and enter the following formula:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(&quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_NIR&quot; - &quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_Red&quot;) / (&quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_NIR&quot; + &quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_Red&quot;)
+</pre></div>
+</div>
+<p>Save the output as <code class="docutils literal notranslate"><span class="pre">LT05_046028_19840804_NDVI.tif</span></code>.</p>
+<p>When the tool finishes running, you should see the NDVI raster appear on the Map:</p>
+<a class="reference internal image-reference" href="../../../../_images/ndvi1.png"><img alt="the arcgis window showing the NDVI raster" class="align-center" src="../../../../_images/ndvi1.png" style="width: 720px;" /></a>
+<p><br /> Change the color scheme to a divergent color scale, and change the stretch so that the values range between -1
+and 1.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text">Compare the NDVI to the NIR-Red difference. What differences do you notice? In which raster is it easier to distinguish
+between the two large lakes and the landslide area north of the volcano?</p></li>
+<li><p class="sd-card-text">Compare the NDVI values for the two large lakes north of the volcano, and the two larger lakes at the southern edge
+of the scene. What differences do you notice? Why do you think this is?</p></li>
+</ol>
+</div>
+</div>
+<p>Now, we’ll look at another example of a normalized difference spectral index: the normalized difference water index
+(NDWI)<a class="footnote-reference brackets" href="#id10" id="id3">3</a>, calculated as:</p>
+<div class="math notranslate nohighlight">
+\[{\rm NDWI} = \frac{\rho_{\rm Green} - \rho_{\rm NIR}}{\rho_{\rm Green} + \rho_{\rm NIR}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho_{\rm Green}\)</span> and <span class="math notranslate nohighlight">\(\rho_{\rm NIR}\)</span> are the reflectance in the Green and NIR bands, respectively.</p>
+<p>To calculate the NDWI for this scene, first add the green band (TM5 band 2) from this scene. To do this, you can open
+the catalog as you did earlier, then add <strong>Band_3</strong> from the false color composite image. Rename this layer to be
+<code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1.tif_Green</span></code>, then enter the following formula in the <strong>Raster Calculator</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(&quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_Green&quot; - &quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_NIR&quot;) / (&quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_Green&quot; + &quot;LT05_L1TP_046028_19840804_20200918_02_T1.tif_NIR&quot;)
+</pre></div>
+</div>
+<p>and save the output as <code class="docutils literal notranslate"><span class="pre">LT05_046028_19840804_NDWI.tif</span></code>. When the raster loads in the Map window, change the color
+scheme to a diverging color map, and change the stretch so that the values range between -0.5 and 0.5:</p>
+<a class="reference internal image-reference" href="../../../../_images/ndwi1.png"><img alt="the arcgis window showing the NDWI raster" class="align-center" src="../../../../_images/ndwi1.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Zoom in on a few different lakes to the north of the volcano.</p>
+<p class="sd-card-text">Using the <strong>Explore</strong> tool under the <strong>Map</strong> tab, try to identify a good boundary (or <em>threshold</em>) value that helps
+separate the open water of the lakes from other surface types.</p>
+<p class="sd-card-text">Make a note of this value, as we’ll check your result against other ways of selecting a threshold value.</p>
+</div>
+</div>
+</section>
+<section id="filtering-and-segmentation">
+<h2>filtering and segmentation<a class="headerlink" href="#filtering-and-segmentation" title="Permalink to this heading">#</a></h2>
+<p>In this part of the practical, we’re going to see how we can use some different tools to create polygons representing
+surface water in the Landsat image.</p>
+<section id="choosing-a-threshold">
+<h3>choosing a threshold<a class="headerlink" href="#choosing-a-threshold" title="Permalink to this heading">#</a></h3>
+<p>The first thing that we need to do is choose a suitable threshold, which means we need to isolate NDWI values that we
+know correspond to surface water. Here, we’ll use the <code class="docutils literal notranslate"><span class="pre">1984_shapes</span></code> layer to help us do this.</p>
+<p>In the NDWI layer, you should see that one of the lakes, South Fork Castle Creek Lake, has a higher NDWI value than
+the other lakes to the north of the volcano. This is because the lake is partly obscured by thin clouds, and it means
+that using the NDWI values for this lake won’t give us the best result. To avoid this, we will use the other three lakes
+to help select a good threshold value for surface water.</p>
+<p>Using <strong>Select by Rectangle</strong>, select the other three lakes in the <code class="docutils literal notranslate"><span class="pre">1984_shapes</span></code> layer.</p>
+<p>Now, open the <strong>Extract by Mask</strong> tool in the <strong>Geoprocessing</strong> panel. For the <strong>Input raster</strong>, use the NDWI
+raster you created earlier. For the <strong>Input raster or feature mask data</strong>, select the 1984 Lake shapefile
+(<code class="docutils literal notranslate"><span class="pre">1984_shapes</span></code>), and make sure that <strong>Use the selected records</strong> is selected, and that the number of records is 3<a class="footnote-reference brackets" href="#id11" id="id4">4</a>:</p>
+<a class="reference internal image-reference" href="../../../../_images/extract_by_mask.png"><img alt="the extract by mask tool, with 3 of the 1984 lakes used as input" class="align-center" src="../../../../_images/extract_by_mask.png" style="width: 720px;" /></a>
+<p><br /> Save the output to your project geodatabase as <strong>Lakes_Extract</strong>, and make sure that <strong>Extraction Area</strong> is set to
+<code class="docutils literal notranslate"><span class="pre">Inside</span></code>. Click <strong>Run</strong> - you should see the NDWI values, but with areas outside of the 1984 lake outlines masked:</p>
+<a class="reference internal image-reference" href="../../../../_images/extracted_ndwi.png"><img alt="the ndwi layer, masked to the extent of the three selected lakes" class="align-center" src="../../../../_images/extracted_ndwi.png" style="width: 720px;" /></a>
+<p><br /> Now, right-click on the layer in the <strong>Contents</strong> panel, and select <strong>Create Chart</strong> &gt; <strong>Histogram</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/blank_ndwi_histogram.png"><img alt="a blank histogram chart opened in the arcgis window" class="align-center" src="../../../../_images/blank_ndwi_histogram.png" style="width: 720px;" /></a>
+<p><br /> Now, under <strong>Variables</strong> in the <strong>Chart</strong> panel, select <strong>Band_1</strong> from the drop-down menu. This should show a
+histogram of the values in the NDWI layer within the 1984 Lake outlines:</p>
+<a class="reference internal image-reference" href="../../../../_images/extracted_ndwi_histogram.png"><img alt="a histogram of the extracted NDWI values, showing a bimodal distribution" class="align-center" src="../../../../_images/extracted_ndwi_histogram.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Look at the histogram. What do you notice about the values? Is there a good value that seems to divide the
+histogram into two halves/parts?</p>
+<p class="sd-card-text">How does this compare to the threshold value that you wrote down earlier?</p>
+</div>
+</div>
+<p>Hopefully, you should agree that the NDWI values are bi-modal (the histogram has two peaks). At this point, we
+could choose a threshold based on this visual inspection. We will use something called Otsu’s method<a class="footnote-reference brackets" href="#id12" id="id5">5</a> to estimate
+a threshold value, and compare this to what you have estimated from the visual inspection.</p>
+<p>Otsu’s method helps to segment (divide) an image into “light” and “dark” pixels based on the variance of the values in
+the two groups. In ArcGIS Pro, Otsu’s method is available as the <strong>Binary Thresholding</strong> function in the
+<strong>Raster Functions</strong> panel:</p>
+<a class="reference internal image-reference" href="../../../../_images/raster_functions.png"><img alt="the raster functions panel, with the binary thresholding function selected" class="align-center" src="../../../../_images/raster_functions.png" style="width: 720px;" /></a>
+<p><br /> Open the <strong>Binary Thresholding</strong> function, and select your <code class="docutils literal notranslate"><span class="pre">Lakes_Extract</span></code> layer as the <strong>Raster</strong>. Click
+<strong>Create new layer</strong> - you should see a new <code class="docutils literal notranslate"><span class="pre">Binary_Thresholding_Lakes_Extract</span></code> layer added to the Map:</p>
+<a class="reference internal image-reference" href="../../../../_images/thresholded_lakes_extract.png"><img alt="the binary thresholded lakes extract layer, with water shown in red and other surface types shown in yellow" class="align-center" src="../../../../_images/thresholded_lakes_extract.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may need to change the symbology of this layer to <strong>Classify</strong>, as I have done in the screenshot above, to
+consistently see two classes in the image.</p>
+</div>
+<p>For the next step, you will need to export the layer to a file - right-click on the layer in the <strong>Contents</strong> panel,
+then select <strong>Data</strong> &gt; <strong>Export Raster</strong>. Save the output as <code class="docutils literal notranslate"><span class="pre">Binary_Thresholding_Lakes.tif</span></code>. Once the exported
+image loads, remove the original binary thresholding layer from the map.</p>
+<p>Note that the output of <strong>Binary Thresholding</strong> is a thresholded version of the original raster layer. Because we want
+to know the threshold <em>value</em> to use in a different layer, we need an additional step to be able to find the value used
+as a threshold.<a class="footnote-reference brackets" href="#id13" id="id6">6</a></p>
+<p>Open <strong>Zonal Statistics as Table</strong>. The <strong>Input Raster or Feature Zone Data</strong> should be the exported binary thresholding
+layer, and <strong>Zone Field</strong> should be <strong>Value</strong>.</p>
+<p>The <strong>Input Value Raster</strong> should be <code class="docutils literal notranslate"><span class="pre">Lakes_Extract</span></code>. Use the default
+output name for the <strong>Output Table</strong>, and make sure that <strong>Statistics Type</strong> is set to <strong>All</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/extracted_ndwi_zonal_stats.png"><img alt="the zonal statistics as table tool, with the extracted ndwi layers as inputs" class="align-center" src="../../../../_images/extracted_ndwi_zonal_stats.png" style="width: 720px;" /></a>
+<p><br /> Click <strong>Run</strong>, then open the table (right-click on the table from the <strong>Contents</strong> panel, then <strong>Open</strong>). You should
+see a table with two rows, corresponding to a value of 0 or 1 in the binary thresholding layer.</p>
+<p>A good approximation of the actual calculated threshold value should be between the <strong>MAX</strong> value for value 0 (the
+“dark” objects) and the <strong>MIN</strong> value for value 1 (the “light” objects). For example, in this table:</p>
+<a class="reference internal image-reference" href="../../../../_images/zonal_table_sample.png"><img alt="an exmaple zonal statistics as table result" class="align-center" src="../../../../_images/zonal_table_sample.png" style="width: 500px;" /></a>
+<p><br /> the <strong>MAX</strong> value for the dark objects is 0.03934, and the <strong>MIN</strong> value for the light objects is 0.040981 - so,
+0.04 would be a good value to use for the threshold value.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">How does the value that you wrote down earlier compare to the value you can see in the table?</p>
+</div>
+</div>
+<p>At this point, you can remove <code class="docutils literal notranslate"><span class="pre">Lakes_Extract</span></code> and <code class="docutils literal notranslate"><span class="pre">Binary</span> <span class="pre">Thresholding_Lakes.tif</span></code> from the map.</p>
+</section>
+<section id="applying-a-threshold">
+<h3>applying a threshold<a class="headerlink" href="#applying-a-threshold" title="Permalink to this heading">#</a></h3>
+<p>Now that we have a threshold value, we can use the <strong>Raster Calculator</strong> to apply this thresholding to the raster as a
+whole.</p>
+<p>Open up the <strong>Raster Calculator</strong>, and insert the following equation:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Con(&quot;LT05_046028_19840804_NDWI.tif&quot; &gt; THRESH, 1)
+</pre></div>
+</div>
+<p>Make sure to replace <code class="docutils literal notranslate"><span class="pre">THRESH</span></code> with the value you got from your table. This uses the <code class="docutils literal notranslate"><span class="pre">Con()</span></code> function to apply a
+value of 1 to any cell in <code class="docutils literal notranslate"><span class="pre">LT05_046028_19840804_NDWI.tif</span></code> where the value is greater than <code class="docutils literal notranslate"><span class="pre">THRESH</span></code>, and a value of
+0 to any cell where the value is less than (or equal to) <code class="docutils literal notranslate"><span class="pre">THRESH</span></code>.</p>
+<p>Save the output to your project geodatabase as <code class="docutils literal notranslate"><span class="pre">water_classified</span></code>, then click <strong>Run</strong>.</p>
+<p>Once the raster has loaded, you might want to change the symbology so that the layer is more visible (depending on the
+color that ArcGIS has chosen for the layer):</p>
+<a class="reference internal image-reference" href="../../../../_images/water_classified.png"><img alt="the classified water layer, with the symbology changed to be more noticeable" class="align-center" src="../../../../_images/water_classified.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Have a look at the result - how has this approach done for mapping surface water bodies? Are there any areas of
+obvious misclassification? Why do you think this may be?</p>
+</div>
+</div>
+</section>
+<section id="cleaning-up-the-outputs">
+<h3>cleaning up the outputs<a class="headerlink" href="#cleaning-up-the-outputs" title="Permalink to this heading">#</a></h3>
+<p>Hopefully you agree that while the results here aren’t perfect, they are at least usable. Now, we’ll see how we can
+apply different filtering options to improve the classification, before ultimately converting the raster to a polygon.</p>
+<p>The first approach we’ll look as is <strong>Focal Statistics</strong>, which is a form of convolution filter that calculates
+some statistical value within a given window and outputs this to the new raster. Open the <strong>Focal Statistics</strong> tool in
+the geoprocessing panel and select <code class="docutils literal notranslate"><span class="pre">water_classified</span></code> as the <strong>Input raster</strong>.</p>
+<p>Save the output raster to your project geodatabase as <code class="docutils literal notranslate"><span class="pre">focal_median_3</span></code>. For the <strong>Neighborhood</strong>, choose <code class="docutils literal notranslate"><span class="pre">Circle</span></code>
+with a <strong>Radius</strong> of <code class="docutils literal notranslate"><span class="pre">3</span></code> and a <strong>Units type</strong> of <code class="docutils literal notranslate"><span class="pre">Cell</span></code>.</p>
+<p>Under <strong>Statistics type</strong>, choose <code class="docutils literal notranslate"><span class="pre">Median</span></code>, and make sure that <strong>Ignore NoData in calculations</strong> is checked.</p>
+<p>Click <strong>Run</strong>, then move the output layer so that it is below <code class="docutils literal notranslate"><span class="pre">water_classified</span></code> in the <strong>Contents</strong> panel:</p>
+<a class="reference internal image-reference" href="../../../../_images/focal_statistics_median_3.png"><img alt="the classified water layer and the output of the median filter of size 3" class="align-center" src="../../../../_images/focal_statistics_median_3.png" style="width: 720px;" /></a>
+<p><br /> Now, repeat the previous step but use a <code class="docutils literal notranslate"><span class="pre">Circle</span></code> with <strong>Radius</strong> <code class="docutils literal notranslate"><span class="pre">3</span></code> as the <strong>Neighborhood</strong>. Save the output
+<code class="docutils literal notranslate"><span class="pre">focal_median_1</span></code>. When the tool finishes processing, move the output layer so that it is between <code class="docutils literal notranslate"><span class="pre">focal_median_3</span></code>
+and <code class="docutils literal notranslate"><span class="pre">water_classified</span></code> in the <strong>Contents</strong> panel.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Zoom in on some of the different lakes / water bodies. What do you notice about the filtered layers, compared to the
+original?</p>
+</div>
+</div>
+<p>A median filter can be a very useful filter for smoothing classifications, but it can also cause some classified areas
+to grow, especially with a binary classification. While this has served to fill in some of the small holes present
+in some of the lakes, it has also caused the area classified as water to grow outside of the boundary in the image.</p>
+<p>One other approach that we will use here is a <em>closing</em><a class="footnote-reference brackets" href="#id14" id="id7">7</a> operation, which can be used to remove small amounts of
+noise in an image. In ArcGIS, this is done using the <strong>Boundary Clean</strong> tool. First, continuous areas in the image are
+grown (a <em>dilation</em>), then shrunk (an <em>erosion</em>). The result is that small regions inside of larger regions are
+removed.</p>
+<p>To see how this works for our classified water mask, open the <strong>Boundary Clean</strong> tool in the <strong>Geoprocessing</strong> panel.
+The <strong>Input raster</strong> should be <code class="docutils literal notranslate"><span class="pre">water_classified</span></code>, and save the <strong>Output raster</strong> as <code class="docutils literal notranslate"><span class="pre">water_mask.tif</span></code> in your
+data folder. Ensure that <strong>Sort type</strong> is set to <code class="docutils literal notranslate"><span class="pre">Do</span> <span class="pre">not</span> <span class="pre">sort</span></code>, and uncheck <strong>Run expansion and shrinking twice</strong>.</p>
+<p>Click <strong>Run</strong>. You should see the cleaned classified mask output to the Map window:</p>
+<a class="reference internal image-reference" href="../../../../_images/binary_closing_output.png"><img alt="the output of the boundary clean tool" class="align-center" src="../../../../_images/binary_closing_output.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Compare the outputs of the <strong>Boundary Clean</strong> and <strong>Focal Statistics</strong> tools with the original imagery. Which of
+these outputs has done a better job of mapping surface water bodies, without going outside the boundary of the
+water body in the original image?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="principal-component-analysis">
+<h2>principal component analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this heading">#</a></h2>
+<p>In the last part of this week’s practical, we’re going to have a look at using <em>principal component analysis</em> (PCA) to
+help analyze what is in an image. We will do this using all of the available (non-thermal) Landsat bands, which means
+we will need to first convert the band values to TOA reflectance values, then composite them into a single raster.</p>
+<p>We have already done this in last week’s practical for TM bands 2, 3, and 4 - this means that you will need to repeat
+this for TM bands 1, 5, and 7 (skipping the thermal band, TM band 6). As before, load each of these bands into your
+Map, then use the <strong>Raster Calculator</strong> to apply the following formula:</p>
+<div class="math notranslate nohighlight">
+\[\rho_\lambda = \frac{M_\rho Q_{\rm cal} + A_\rho}{\sin\theta_{\rm SE}}\]</div>
+<p>making sure to use the values of <span class="math notranslate nohighlight">\(M_\rho\)</span> (<code class="docutils literal notranslate"><span class="pre">REFLECTANCE_MULT_BAND_X</span></code>),
+<span class="math notranslate nohighlight">\(A_\rho\)</span> (<code class="docutils literal notranslate"><span class="pre">REFLECTANCE_ADD_BAND_X</span></code>), and <span class="math notranslate nohighlight">\(\theta_{\rm SE}\)</span> (<code class="docutils literal notranslate"><span class="pre">SUN_ELEVATION</span></code>) from the <strong>MTL.txt</strong> file.</p>
+<p>For example, the formula to use for TM band 1 should be:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(1.1164E-03 * &quot;LT05_L1TP_046028_19840804_20200918_02_T1_B1.TIF&quot; - 0.003644) / Sin((3.1415926 / 180) * 53.03707434)
+</pre></div>
+</div>
+<p>Save each band to the project geodatabase using the same naming convention as you did before - band 1 should be
+<code class="docutils literal notranslate"><span class="pre">tm5_band1_toa</span></code>, band 5 should be <code class="docutils literal notranslate"><span class="pre">tm5_band5_toa</span></code>, and band 7 should be <code class="docutils literal notranslate"><span class="pre">tm5_band7_toa</span></code>.</p>
+<p>Once you have each band converted, open the <strong>Principal Components</strong> tool by searching for it from the <strong>Geoprocessing</strong>
+panel, or by finding it in the <strong>Spatial Analyst Tools</strong>.</p>
+<p>Add each of the 6 TM bands (1 - 5 and 7) as the <strong>Input raster bands</strong> in the order shown in the screenshot below. Save
+the <strong>Output multiband raster</strong> to your data folder as <code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1_PCA.tif</span></code>, and save
+the <strong>Output data file</strong>, which contains the covariance and correlation matrices, as well as the eigenvalues and
+eigenvectors, to <code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1_PCA_params.txt</span></code>. The tool inputs should look like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/pca_tool.png"><img alt="the principal components tool, with the landsat bands loaded in order from 7 to 1" class="align-center" src="../../../../_images/pca_tool.png" style="width: 400px;" /></a>
+<p><br /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you do not have all 6 TM bands loaded in your map window, you can either load them before adding them to the
+list of <strong>Input raster bands</strong>, or you can click on the folder icon next to the text box. Navigate to the
+geodatabase where you saved the converted bands, then load them as you would normally.</p>
+</div>
+<p><br /> Click <strong>Run</strong>. After a few moments, you should see the results open in the map window:</p>
+<a class="reference internal image-reference" href="../../../../_images/landsat_pca.png"><img alt="the principal component image of the landsat scene loaded in the arcgis window" class="align-center" src="../../../../_images/landsat_pca.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What is the dominant color that you see here? What does that tell you about the dominant principal component values
+for the image? Do you notice anything different between the western half of the image and the eastern half?</p>
+<p class="sd-card-text">What color does the water appear in this image? Again, think about what that means in terms of the principal
+component values for the water surfaces.</p>
+</div>
+</div>
+<p>Next, open up the <code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1_PCA_params.txt</span></code> file output from the tool and scroll down
+to the last section, <strong>EIGENVALUES and EIGENVECTORS</strong>.</p>
+<p>You should notice that the eigenvalues drop off considerably after the first eigenvalue (corresponding to the first
+principal component band), which implies that a majority of the information in the scene is contained in just the
+first principal component band, and in fact ~99.6% of the information of the scene is captured by the first 3
+principal components.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">From the <strong>Catalog</strong> pane, load each of the PCA bands individually (alternatively, change the symbology for the PCA
+raster to <strong>Stretch</strong> and look through each band individually. What do you notice about the different bands?</p>
+<p class="sd-card-text">Compare the first and the second principal component bands. What surface types seem to have a higher value in the
+first principal component band, compared to the second?</p>
+<p class="sd-card-text">Look at the last principal component band (Band 6). What do you notice about this band, compared to the others?</p>
+</div>
+</div>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
+<p>In this practical, you’ve gotten some practice using different image enhancement techniques, and seen an example of how
+we can combine these approaches to perform a binary classification and map water bodies. You might also have noticed
+that the results of this binary classification include a number of spurious results, especially in shadowed areas.</p>
+<p>As a next step, you can use <strong>Raster to Polygon</strong> to convert your <code class="docutils literal notranslate"><span class="pre">water_mask.tif</span></code> layer to a polygon layer, and edit
+the results of this to remove incorrectly mapped water bodies.</p>
+<p>You could also use this as a basis to manually edit the water bodies - for example, Spirit Lake, which is only partially
+mapped due to the presence of floating logs and debris in the lake.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you have chosen to study the changes in lakes / water bodies in the area around Mt St Helens for your project,
+this could be one approach to take to help map water bodies at other points in time.</p>
+<p>If you have chosen another topic for your project, you could still use this basic approach, perhaps modified to
+focus on using the NDVI or some other index.</p>
+</div>
+</section>
+<section id="notes">
+<h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>“normalized” in this case means shifting and scaling the values, which makes them easier to compare to other
+images acquired under different conditions. You have seen examples of normalization before (for example, in
+calculating percentages, where values are scaled to fit between 0 and 100). Here, we’re scaling the values to
+fit between -1 and 1. Later, we will discuss how this is done to facilitate machine learning techniques such as
+support vector machine (SVM).</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Rouse, J.W., <em>et al.</em> (1974). <em>Proceedings, 3rd Earth Resource Technology Satellite Symposium</em>, 1, 48-62.
+<a class="reference external" href="https://ntrs.nasa.gov/citations/19740022614">https://ntrs.nasa.gov/citations/19740022614</a></p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>McFeeters, S. K. (1996). <em>Int. J. Rem. Sens.</em>, 17(<strong>7</strong>), 1425-1432.
+doi: <a class="reference external" href="https://doi.org/10.1080/01431169608948714">10.1080/01431169608948714</a>
+Note that this is one of two normalized difference water index formulas; the other one is used to monitor vegetation
+water content, rather than open water bodies.</p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>No more, no less. Five is right out.</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Otsu, N. (1979). <em>IEEE Trans. Systems, Man, Cybernetics</em>, 9(<strong>1</strong>), 62–66.
+doi: <a class="reference external" href="https://doi.org/10.1109/TSMC.1979.4310076">10.1109/TSMC.1979.4310076</a>. See also
+<a class="reference external" href="https://learnopencv.com/otsu-thresholding-with-opencv">https://learnopencv.com/otsu-thresholding-with-opencv</a></p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>To see why we couldn’t just use <strong>Binary Thresholding</strong> on the original NDWI layer, run this function on the NDWI
+layer. You should hopefully notice that there is no clear split between the lakes and the rest of the image.</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>For more information about morphological operations like this, the <a class="reference external" href="https://en.wikipedia.org/wiki/Closing_(morphology)">wikipedia entry</a>
+is quite good. The <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> python package also has a good <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/applications/plot_morphology.html">visual guide</a>,
+as does <a class="reference external" href="https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html">OpenCV</a>.</p>
+</dd>
+</dl>
+</section>
 </section>
 
 
@@ -646,6 +1090,31 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#band-maths">band maths</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalized-difference-indices">normalized difference indices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-and-segmentation">filtering and segmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-threshold">choosing a threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-a-threshold">applying a threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-up-the-outputs">cleaning up the outputs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">principal component analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
