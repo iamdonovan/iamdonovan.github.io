@@ -415,7 +415,7 @@ Click **Run**, then move the output layer so that it is below ``water_classified
     :align: center
     :alt: the classified water layer and the output of the median filter of size 3
 
-|br| Now, repeat the previous step but use a ``Circle`` with **Radius** ``3`` as the **Neighborhood**. Save the output
+|br| Now, repeat the previous step but use a ``Circle`` with **Radius** ``1`` as the **Neighborhood**. Save the output
 ``focal_median_1``. When the tool finishes processing, move the output layer so that it is between ``focal_median_3``
 and ``water_classified`` in the **Contents** panel.
 
