@@ -533,13 +533,93 @@ eigenvectors, to ``LT05_L1TP_046028_19840804_20200918_02_T1_PCA_params.txt``. Th
     What color does the water appear in this image? Again, think about what that means in terms of the principal
     component values for the water surfaces.
 
-Next, open up the ``LT05_L1TP_046028_19840804_20200918_02_T1_PCA_params.txt`` file output from the tool and scroll down
+Next, open up the ``LT05_L1TP_046028_19840804_20200918_02_T1_PCA_params.txt`` file output from the tool, and scroll down
 to the last section, **EIGENVALUES and EIGENVECTORS**.
 
-You should notice that the eigenvalues drop off considerably after the first eigenvalue (corresponding to the first
-principal component band), which implies that a majority of the information in the scene is contained in just the
-first principal component band, and in fact ~99.6% of the information of the scene is captured by the first 3
-principal components.
+First, have a look at the table that shows the *eigenvectors*, which are the columns of the table:
+
+.. list-table::
+    :header-rows: 1
+    :stub-columns: 1
+
+    * - eigenvector / input band
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+    * - 1
+      - 0.46696
+      - -0.24992
+      - -0.31884
+      - -0.69850
+      - 0.35911
+      - -0.03118
+    * - 2
+      - 0.55102
+      - 0.00185
+      - -0.59654
+      - 0.56507
+      - -0.14561
+      - 0.00173
+    * - 3
+      - 0.38061
+      - 0.88770
+      - 0.20876
+      - -0.14748
+      - 0.02439
+      - 0.03462
+    * - 4
+      - 0.39381
+      - -0.28258
+      - 0.37540
+      - -0.14979
+      - -0.62718
+      - 0.45645
+    * - 5
+      - 0.32616
+      - -0.18565
+      - 0.40545
+      - 0.08995
+      - -0.08988
+      - -0.82377
+    * - 6
+      - 0.26834
+      - -0.18762
+      - 0.43997
+      - 0.37486
+      - 0.66919
+      - 0.33299
+
+The rows of the table correspond to the original input layers. Assuming that the order of your bands is the same as
+what is shown above, input layer 1 should correspond to Landsat TM band 7, layer 2 should correspond to band 5,
+layer 3 should correspond to band 4, and so on.
+
+The value in each principal component band is a linear combination of the input bands, and the values in the
+*eigenvector* are the weights applied to each band.
+
+Looking at principal component 1 above, the values are similar across all input layers, suggesting that the first
+principal component for this image is made up of a roughly equal mixture of each input layer, with the largest
+weight being given to input band 2 (Landsat TM band 5).
+
+.. card::
+    :class-header: question
+    :class-card: question
+
+    :far:`circle-question` Question
+    ^^^
+
+    Look at the second column of the eigenvector table. What TM band has the highest weight in this band?
+
+    Compare this to the dominant color in the PCA composite that you observed earlier. Does this information help you
+    explain/understand why the dominant color is what it is?
+
+Next, have a look at the **PERCENT AND ACCUMULATIVE EIGENVALUES**. You should notice that the eigenvalues drop off
+considerably after the first eigenvalue (corresponding to the first principal component band), which implies that a
+majority of the information in the scene is contained in just the first principal component band. In fact, ~99.6%
+of the information of the scene is captured by the first 3 principal components - in effect, this means that we could
+drop the remaining 3 principal component bands and not lose very much information at all.
 
 .. card::
     :class-header: question

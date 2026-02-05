@@ -978,12 +978,103 @@ for the image? Do you notice anything different between the western half of the 
 component values for the water surfaces.</p>
 </div>
 </div>
-<p>Next, open up the <code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1_PCA_params.txt</span></code> file output from the tool and scroll down
+<p>Next, open up the <code class="docutils literal notranslate"><span class="pre">LT05_L1TP_046028_19840804_20200918_02_T1_PCA_params.txt</span></code> file output from the tool, and scroll down
 to the last section, <strong>EIGENVALUES and EIGENVECTORS</strong>.</p>
-<p>You should notice that the eigenvalues drop off considerably after the first eigenvalue (corresponding to the first
-principal component band), which implies that a majority of the information in the scene is contained in just the
-first principal component band, and in fact ~99.6% of the information of the scene is captured by the first 3
-principal components.</p>
+<p>First, have a look at the table that shows the <em>eigenvectors</em>, which are the columns of the table:</p>
+<table class="table">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"><p>eigenvector / input band</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p>1</p></th>
+<td><p>0.46696</p></td>
+<td><p>-0.24992</p></td>
+<td><p>-0.31884</p></td>
+<td><p>-0.69850</p></td>
+<td><p>0.35911</p></td>
+<td><p>-0.03118</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>2</p></th>
+<td><p>0.55102</p></td>
+<td><p>0.00185</p></td>
+<td><p>-0.59654</p></td>
+<td><p>0.56507</p></td>
+<td><p>-0.14561</p></td>
+<td><p>0.00173</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>3</p></th>
+<td><p>0.38061</p></td>
+<td><p>0.88770</p></td>
+<td><p>0.20876</p></td>
+<td><p>-0.14748</p></td>
+<td><p>0.02439</p></td>
+<td><p>0.03462</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>4</p></th>
+<td><p>0.39381</p></td>
+<td><p>-0.28258</p></td>
+<td><p>0.37540</p></td>
+<td><p>-0.14979</p></td>
+<td><p>-0.62718</p></td>
+<td><p>0.45645</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>5</p></th>
+<td><p>0.32616</p></td>
+<td><p>-0.18565</p></td>
+<td><p>0.40545</p></td>
+<td><p>0.08995</p></td>
+<td><p>-0.08988</p></td>
+<td><p>-0.82377</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>6</p></th>
+<td><p>0.26834</p></td>
+<td><p>-0.18762</p></td>
+<td><p>0.43997</p></td>
+<td><p>0.37486</p></td>
+<td><p>0.66919</p></td>
+<td><p>0.33299</p></td>
+</tr>
+</tbody>
+</table>
+<p>The rows of the table correspond to the original input layers. Assuming that the order of your bands is the same as
+what is shown above, input layer 1 should correspond to Landsat TM band 7, layer 2 should correspond to band 5,
+layer 3 should correspond to band 4, and so on.</p>
+<p>The value in each principal component band is a linear combination of the input bands, and the values in the
+<em>eigenvector</em> are the weights applied to each band.</p>
+<p>Looking at principal component 1 above, the values are similar across all input layers, suggesting that the first
+principal component for this image is made up of a roughly equal mixture of each input layer, with the largest
+weight being given to input band 2 (Landsat TM band 5).</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Look at the second column of the eigenvector table. What TM band has the highest weight in this band?</p>
+<p class="sd-card-text">Compare this to the dominant color in the PCA composite that you observed earlier. Does this information help you
+explain/understand why the dominant color is what it is?</p>
+</div>
+</div>
+<p>Next, have a look at the <strong>PERCENT AND ACCUMULATIVE EIGENVALUES</strong>. You should notice that the eigenvalues drop off
+considerably after the first eigenvalue (corresponding to the first principal component band), which implies that a
+majority of the information in the scene is contained in just the first principal component band. In fact, ~99.6%
+of the information of the scene is captured by the first 3 principal components - in effect, this means that we could
+drop the remaining 3 principal component bands and not lose very much information at all.</p>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
 <div class="sd-card-header question docutils">
 <p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
