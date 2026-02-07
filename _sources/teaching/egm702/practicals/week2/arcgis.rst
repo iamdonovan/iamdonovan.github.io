@@ -4,7 +4,7 @@ dem differencing (arcgis)
 .. note::
 
     Be sure to download all the data from the Practical 2 area on Blackboard before starting, or from the
-    `google drive link <https://drive.google.com/uc?id=15ccty2JNWr2JW6x9hL3Do1o8V3B7jMdo&export=download>`__,
+    `google drive link <https://drive.google.com/file/d/1g4b5A1dHiyB1Kq2AfLU5XnpN1qON2jue/view?usp=sharing>`__,
     then extract the zip file.
 
     The ``.las`` file used in the (optional) conversion from ``.las`` to raster is available from
