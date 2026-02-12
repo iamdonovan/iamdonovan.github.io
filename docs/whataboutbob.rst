@@ -55,7 +55,7 @@ me and I will send you a copy.\ [1]_
    Piermatteri, L., **R. McNabb**, M. Elias, C. Ressl, A. Dehecq, A. Eltner, L. Girod, and T. Dewez, (2026).
    Unlocking the Past: A review of digital processing of historical aerial and satellite stereo analog imagery for
    geoscience applications. *IEEE Geoscience and Remote Sensing Magazine*.
-   doi: `10.1109/MGRS.2025.364514 <https://doi.org/10.1109/MGRS.2025.364514>`__
+   doi: `10.1109/MGRS.2025.364514 <https://doi.org/10.1109/MGRS.2025.3645144>`__
 
    Steiner, J., W. Armstrong, W. Kochtitzky, **R. McNabb**, R. Aguayo, T. Bolch, F. Maussion, V. Agarwal, I. Barr,
    N. R. Baurley, M. Cloutier, K. DeWater, F. Donachie, Y. Drocourt, S. Garg, G. Joshi, B. Guzman, S. Kutuzov, T. Loriaux,
