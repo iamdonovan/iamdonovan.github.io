@@ -52,6 +52,7 @@
     <script src="../../../../_static/copybutton.js"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script src="../../../../_static/design-tabs.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'teaching/egm702/practicals/week4/arcgis';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -582,7 +583,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -598,6 +601,28 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-analysis">visual analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-temporal-false-color-composite">multi-temporal false color composite</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#difference">difference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalized-difference">normalized difference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-vector-analysis">change vector analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-magnitude">computing vector magnitude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-angle">computing vector angle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-using-magnitude">masking using magnitude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-information">summarizing information</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-temporal-pca">multi-temporal pca</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -609,6 +634,519 @@ document.write(`
                   
   <section id="change-detection-arcgis">
 <h1>change detection (arcgis)<a class="headerlink" href="#change-detection-arcgis" title="Permalink to this heading">#</a></h1>
+<p>In this practical, we’ll look at different methods of change detection that we can apply in ArcGIS Pro, using two
+Landsat scenes separated by about 25 years:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_19840719_20200918_02_T1</span></code>, acquired 19 July 1984</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_20110730_20200820_02_T1</span></code>, acquired 30 July 2011</p></li>
+</ul>
+<p>In particular, by the end of this practical, you will have experience applying and analyzing the following techniques
+for change detection:</p>
+<ul class="simple">
+<li><p>visual comparison using, e.g., the <strong>Swipe</strong> tool</p></li>
+<li><p>visual comparison using multi-temporal false color composites</p></li>
+<li><p>difference and normalized difference techniques</p></li>
+<li><p>change vector analysis</p></li>
+<li><p>multi-temporal principal component analysis</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that you have downloaded the data for this practical from Blackboard, or from the
+<a class="reference external" href="https://drive.google.com/file/d/1fvLbeQFDl-nX3iwkk3TztZi9v42gfNi4/view?usp=sharing">download link</a>. Once you
+have downloaded the data, extract the <strong>.zip</strong> file so that the two image folders are in the same directory as the
+data you have used for the previous two practicals.</p>
+<p>Note that these images have been cropped to the same extent as the Landsat images shared previously, to help cut
+down on the file size. You can also search for and download the full-size images yourself from
+<a class="reference external" href="https://earthexplorer.usgs.gov/">EarthExplorer</a>.</p>
+</div>
+<section id="getting-started">
+<h2>getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">#</a></h2>
+<p>To start, create a new <strong>Group Layer</strong> (right-click on the <strong>Map</strong> in the <strong>Contents</strong> panel, then select
+<strong>New Group Layer</strong>). Call the new layer “Change Detection”.</p>
+<p>Next we need to prepare the images by converting them from the raw DN values to the <em>surface reflectance</em> values -
+The images that we will use for this practical are Landsat Level-2 (L2) surface reflectance products, which means that
+they have been atmospherically corrected, unlike the Level-1 top-of-atmosphere (TOA) products we have used previously.</p>
+<p>The procedure for converting the images is the same as it was before - first, we have to scale each band, then
+composite the bands into a single raster. Start by loading the bands from the 1984 image - make sure to load
+all 6 bands (1-5, 7).</p>
+<p>You should notice that the DN values stretch much differently than the images we worked with last week: rather than
+stretching between 0-255 (8-bit integer values), the values are much larger. These are 16-bit integer values, meaning
+that the possible values range from 0 to 65,535 - though the actual values you see might not use the entire range of
+values.</p>
+<p>To be able to compare the surface reflectance values from two different points in time, we need to convert the raw DN
+values to surface reflectance, in more or less the same way as we converted the TOA images to TOA reflectance previously.</p>
+<p>Once small difference is the equation - because these are calibrated surface reflectance, we don’t need to account for
+the sun elevation as we did previously. The equation is just:</p>
+<div class="math notranslate nohighlight">
+\[\rho_\lambda = M_\rho Q_{\rm cal} + A_\rho\]</div>
+<p>where <span class="math notranslate nohighlight">\(M_\rho\)</span> and <span class="math notranslate nohighlight">\(A_\rho\)</span> are the multiplicative and additive scaling factors, respectively. Open the
+<strong>MTL.txt</strong> file provided with the data and look for the <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_MULT_BAND_X</span></code> and <code class="docutils literal notranslate"><span class="pre">REFLECTANCE_ADD_BAND_X</span></code>
+values in the <code class="docutils literal notranslate"><span class="pre">LEVEL2_SURFACE_REFLECTANCE_PARAMETERS</span></code> section. You should be able to find these aroud lines 149-160
+in the provided metadata file.<a class="footnote-reference brackets" href="#id8" id="id1">1</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to use the values in the <code class="docutils literal notranslate"><span class="pre">LEVEL2_SURFACE_REFLECTANCE_PARAMETERS</span></code> section, <strong>NOT</strong> the
+values in the <code class="docutils literal notranslate"><span class="pre">LEVEL1_RADIOMETRIC_RESCALING</span></code> section! If you use these values, your results will not be correct!</p>
+</div>
+<p>Now, convert each of the bands for the 1984 image, then use the <strong>Composite Bands</strong> tool to combine them into a single
+raster. Save the file as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_19840719_20200918_02_T1.tif</span></code> in the same directory as the rest of your
+data, making sure to order the bands from largest to smallest (i.e., 7, 5, 4, …).<a class="footnote-reference brackets" href="#id9" id="id2">2</a>.</p>
+<p>Next, do the same for the 2011 image: convert all 6 bands, then use <strong>Composite Bands</strong> to combine them into a single
+raster. Save this file as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_20110730_20200820_02_T1.tif</span></code> in the same directory as the other images.
+Once again, make sure to order the bands from largest to smallest (7, 5, 4, …).</p>
+<p>Once you have converted and composited both the 1984 and 2011 images, change them to be a 432 (NIR, Red, Green) false
+color composite, like what we have used previously. Then, re-arrange the drawing order so that the 2011 image is on top
+and the 1984 image is next, and both are layers are added to the <code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">Detection</span></code> group layer.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Once you have changed the symbology for the 1984 image, use <strong>Apply Symbology from Layer</strong> to ensure that the
+2011 image has the same symbology to help facilitate comparison.</p>
+</div>
+<p>If you have used the suggested band order for compositing, your map should look more or less like the following:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_2011_sr_fcc.png"><img alt="the 2011 false color composite image loaded in the map window" class="align-center" src="../../../../_images/arc_2011_sr_fcc.png" style="width: 720px;" /></a>
+<p><br /></p>
+</section>
+<section id="visual-analysis">
+<h2>visual analysis<a class="headerlink" href="#visual-analysis" title="Permalink to this heading">#</a></h2>
+<p>Now that we have our images prepared, let’s use the <strong>Swipe</strong> tool to inspect the changes in the area between 1984
+and 2011.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What changes/differences do you notice?</p>
+<ul class="simple">
+<li><p class="sd-card-text">If you haven’t already, make sure that the symbology matches on both images, as this helps you make the
+comparison.</p></li>
+<li><p class="sd-card-text">Are there any areas where you notice surprising changes or differences? Why?</p></li>
+<li><p class="sd-card-text">Think about the time of year these two images were acquired. Is it the same time of year (or close enough)? How
+would this impact the changes that you can see in the area?</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="multi-temporal-false-color-composite">
+<h2>multi-temporal false color composite<a class="headerlink" href="#multi-temporal-false-color-composite" title="Permalink to this heading">#</a></h2>
+<p>Next, we’ll create a multi-temporal false color composite of the NIR bands from 1984 and 2011. From the <strong>Catalog</strong>
+panel, add <strong>Band 3</strong>, the NIR band, from both the 1984 and 2011 composite images you created previously.</p>
+<p><strong>catalog</strong></p>
+<p><br /> Next, open the <strong>Composite Bands</strong> tool and add the bands in the following order:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_19840719_20200918_02_T1.tif_Band_3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_20110730_20200820_02_T1.tif_Band_3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_20110730_20200820_02_T1.tif_Band_3</span></code></p></li>
+</ul>
+<p>This means that the red channel for the multi-temporal RGB image corresponds to the 1984 NIR reflectance, while the
+green and blue channels correspond to the 2011 NIR reflectance. Save the output as
+<code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_NIR_fcc.tif</span></code> to the same directory as the other images you have created. When the tool
+finishes running, you should see something like the following:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_multitemporal_fcc.png"><img alt="the multitemporal false color composite image, with red showing areas that are brighter in 1984 and blue showing areas brighter in 2011" class="align-center" src="../../../../_images/arc_multitemporal_fcc.png" style="width: 720px;" /></a>
+<p><br /> You can interpret the colors as red showing areas that have higher reflectance in the 1984 image, and blue showing
+areas that have higher reflectance in the 2011 image. Gray areas are similar reflectance in both scenes, with the shade
+of gray depending on whether the surface has high or low reflectance.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What patterns do you notice? How do these compare to the patterns you observed in the previous section, using the
+false color composite images and the <strong>Swipe</strong> tool?</p>
+<p class="sd-card-text">Which of these two visual techniques do you find easier for identifying and interpreting change? Why?</p>
+</div>
+</div>
+</section>
+<section id="difference">
+<h2>difference<a class="headerlink" href="#difference" title="Permalink to this heading">#</a></h2>
+<p>Next, we’ll look at some different techniques that we can use to analyze change, starting with the simplest approach:
+differencing. We’ll focus on changes in NIR reflectance between 1984 and 2011 to start.</p>
+<p>Open the <strong>Raster Calculator</strong>, then enter the following formula:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>``LT05_L2SP_046028_20110730_20200820_02_T1.tif_Band_3`` - ``LT05_L2SP_046028_19840719_20200918_02_T1.tif_Band_3``
+</pre></div>
+</div>
+<p>Save the output as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_NIR_difference.tif</span></code> to the same folder as the rest of your outputs.</p>
+<p>Next, change the symbology to use a diverging color scheme, and make sure to use a Minimum/Maximum stretch. Edit the
+min/max values to be between -0.2 and 0.2. Your raster should look something like this (though perhaps with a different
+color scheme):</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_nir_difference.png"><img alt="the NIR reflectance difference between the 1984 and 2011 images" class="align-center" src="../../../../_images/arc_nir_difference.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">In what areas do you notice the most positive (negative) change? What do these changes correspond to? How does
+this compare with the changes that you noted using the different visual analysis approaches earlier?</p>
+</div>
+</div>
+<p>Next, we’ll create a histogram to visualize the distribution of differences. Right-click on the difference layer in the
+<strong>Contents</strong> panel, then select <strong>Create Chart</strong> &gt; <strong>Histogram</strong>.</p>
+<p>Under <strong>Variables</strong>, select <code class="docutils literal notranslate"><span class="pre">Band_3</span></code> to create the histogram, and click the checkbox next to <strong>Median</strong> to add a line
+showing the median difference value. You should see something like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_nir_difference_histogram.png"><img alt="the histogram of the NIR reflectance difference between the 1984 and 2011 images" class="align-center" src="../../../../_images/arc_nir_difference_histogram.png" style="width: 720px;" /></a>
+<p><br /> We can also edit the title and axis labels under the <strong>General</strong> tab in the <strong>Chart Properties</strong> panel. For
+example, you could change the chart title to state that this is the difference in NIR, and optionally include the dates
+used for the difference calculation.</p>
+<p>You could also change the <em>x</em>-axis label to say “difference”, rather than “Band_3”:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_nir_difference_histogram_edit.png"><img alt="the histogram of the NIR reflectance difference between the 1984 and 2011 images with the title and labels edited" class="align-center" src="../../../../_images/arc_nir_difference_histogram_edit.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Based on what you can see, what values do most of the differences fall between? What is the standard deviation
+of the values of this difference raster?</p>
+</div>
+</div>
+</section>
+<section id="normalized-difference">
+<h2>normalized difference<a class="headerlink" href="#normalized-difference" title="Permalink to this heading">#</a></h2>
+<p>We can also use a normalized difference to examine changes in a single band reflectance, just like we used the
+normalized difference to enhance the differences between multiple bands from a single date last week.</p>
+<p>And, just like with the normalized difference compared to a simple band difference or ratio, the normalized difference
+stretches the difference values and can help to enhance the changes or differences that we observe between the two
+dates.</p>
+<p>Open the <strong>Raster Calculator</strong> and enter the following formula:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(``LT05_L2SP_046028_20110730_20200820_02_T1.tif_Band_3`` - ``LT05_L2SP_046028_19840719_20200918_02_T1.tif_Band_3``) / (``LT05_L2SP_046028_20110730_20200820_02_T1.tif_Band_3`` + ``LT05_L2SP_046028_19840719_20200918_02_T1.tif_Band_3``)
+</pre></div>
+</div>
+<p>Save the output as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_NIR_normdiff.tif</span></code> to the same folder as the rest of your outputs.</p>
+<p>Change the <strong>Symbology</strong> so that it is the same as the symbology for the NIR difference image. You should see something
+like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_nir_normdiff.png"><img alt="the normalized NIR reflectance difference between the 1984 and 2011 images" class="align-center" src="../../../../_images/arc_nir_normdiff.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Use the <strong>Swipe</strong> tool to compare the normalized difference and difference layers.</p>
+<p class="sd-card-text">What areas do you see enhanced the most in the normalized difference layer compared to the difference image? Are
+there any areas where the change appears to be small in the difference layer that are more clear in the normalized
+difference?</p>
+</div>
+</div>
+<p>Now, create a histogram for the normalized difference image, following the same approach as you did for the difference
+image:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_nir_normdiff_histogram.png"><img alt="the normalized NIR reflectance difference between the 1984 and 2011 images" class="align-center" src="../../../../_images/arc_nir_normdiff_histogram.png" style="width: 720px;" /></a>
+<p><br /> Under the <strong>Axes</strong> tab, change the <em>x</em>-axis limits so that the minimum value is -1, and the maximum is 1, and edit
+the title and axis labels as you did before. Finally, check <strong>Show Normal distribution</strong> and <strong>Median</strong> to show the
+normal distribution and median value for this distribution.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Which of these two distributions is more normal (i.e., is closer to the normal distribution)?</p>
+<p class="sd-card-text">How does the standard deviation for the normalized difference image compare to the standard deviation for the
+difference image? What does this mean for the dispersion of values in the normalized difference image, compared
+to the difference image?</p>
+</div>
+</div>
+</section>
+<section id="change-vector-analysis">
+<h2>change vector analysis<a class="headerlink" href="#change-vector-analysis" title="Permalink to this heading">#</a></h2>
+<p>Now that we’ve seen how a lot of the same techniques that we’ve used previously, such as false color composites and
+band maths, can be applied to change detection, we’ll look at a technique we haven’t used before: change vector
+analysi s (CVA).</p>
+<p>CVA can be used for any number of band combinations (and in fact, it is often more powerful when used with multiple
+band combinations). However, because it is difficult to visualize vectors in more than three dimensions, we will stick
+to two dimensions and analyse the differences in NIR and red reflectance between the two images.</p>
+<p>The first thing we need to do as part of the CVA is calculate the change, or difference, in NIR and Red reflectance
+between 1984 and 2011. You have already done part of this (the NIR difference), so go ahead and calculate the difference
+between the 1984 and 2011 Red reflectance. Call the output <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_Red_difference.tif</span></code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you have followed the suggested band order, the Red band should be band number 4 (<strong>Band_4</strong>) for both images.</p>
+<p>Calculate the difference as 2011 minus 1984 (recent minus older), the same as we did for the NIR difference.</p>
+</div>
+<p>Once you have calculated both the Red and NIR differences, we need to use these to calculate the magnitude and the angle
+of the change vectors.</p>
+<section id="computing-vector-magnitude">
+<h3>computing vector magnitude<a class="headerlink" href="#computing-vector-magnitude" title="Permalink to this heading">#</a></h3>
+<p>Remember that the difference values in each band are the <em>components</em> of the individual change vectors,
+<span class="math notranslate nohighlight">\(\vec{u}\)</span> - we can think of the difference in Red reflectance as the <em>x</em> component of the vector, and the
+difference in NIR reflectance as the <em>y</em> component:<a class="footnote-reference brackets" href="#id10" id="id3">3</a></p>
+<p><strong>vector plot</strong></p>
+<p><br /> The magnitude of a vector is just the length of the vector. If the components of the vector are <span class="math notranslate nohighlight">\(x_i\)</span> and
+<span class="math notranslate nohighlight">\(y_i\)</span>, then, the magnitude, <span class="math notranslate nohighlight">\(\lVert\vec{u}\rVert\)</span>, is calculated using the pythogorean theorem:</p>
+<div class="math notranslate nohighlight">
+\[\lVert\vec{u}\rVert = \sqrt{{x_i}^2 + {y_i}^2}\]</div>
+<p>To create the magnitude raster, open the <strong>Raster Calculator</strong> if you haven’t already. Translating the formula above
+into the ArcGIS <strong>Raster Calculator</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SquareRoot(Power(&quot;LT05_L2SP_046028_1984_2011_NIR_difference.tif&quot;, 2) + Power(&quot;LT05_L2SP_046028_1984_2011_Red_difference.tif&quot;, 2))
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">Power(rast,</span> <span class="pre">2)</span></code> raises the value of each raster cell to the second power, and <code class="docutils literal notranslate"><span class="pre">SquareRoot()</span></code> calculates the
+square root of the values inside the brackets.</p>
+<p>Save the output as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_NIR_Red_magnitude.tif</span></code> to the same folder as before. You should see
+something like the following in the Map window:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_cva_magnitude.png"><img alt="the cva magnitude raster" class="align-center" src="../../../../_images/arc_cva_magnitude.png" style="width: 720px;" /></a>
+<p><br /></p>
+</section>
+<section id="computing-vector-angle">
+<h3>computing vector angle<a class="headerlink" href="#computing-vector-angle" title="Permalink to this heading">#</a></h3>
+<p>The next step is to calculate the angle of the change vectors. If we again think of a vector <span class="math notranslate nohighlight">\(\vec{u}\)</span> as
+having components <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(y_i\)</span>, the angle, <span class="math notranslate nohighlight">\(\theta\)</span> that <span class="math notranslate nohighlight">\(\vec{u}\)</span> makes with respect to the
+horizontal (<em>x</em>) axis is:</p>
+<div class="math notranslate nohighlight">
+\[\theta = \arctan\left(\frac{y_i}{x_i}\right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\arctan\)</span> is the <em>inverse tangent</em>, or <em>arctangent</em>. In the <strong>Raster Calculator</strong>, the function to use
+for the arctangent is <code class="docutils literal notranslate"><span class="pre">ATan2()</span></code>. Using the to bands that we have defined previously, the equation to use is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ATan2(&quot;LT05_L2SP_046028_1984_2011_NIR_difference.tif&quot;, &quot;LT05_L2SP_046028_1984_2011_Red_difference.tif&quot;) * (180 / 3.1415926)
+</pre></div>
+</div>
+<p>Finally, the output of <code class="docutils literal notranslate"><span class="pre">ATan2()</span></code> is in radians, so we have multiplied by <code class="docutils literal notranslate"><span class="pre">180</span> <span class="pre">/</span> <span class="pre">3.1415926</span></code> to convert the result
+from radians to degrees.</p>
+<p>Save the output as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_NIR_Red_angle.tif</span></code> to the same folder as before. You should see
+something like the following in the Map window:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_cva_angle.png"><img alt="the cva angle raster" class="align-center" src="../../../../_images/arc_cva_angle.png" style="width: 720px;" /></a>
+<p><br /> While this shows the change vector angle for each pixel, it’s not necessarily the easiest to interpret the
+stretched symbology of the raster. For a start, we could divide the angles into four quadrants, depending on which
+quadrant of the unit circle the angle is part of:</p>
+<a class="reference internal image-reference" href="../../../../_images/change_vector.png"><img alt="a diagram showing how the colors of the reclassified image correspond to the change vector angles" class="align-center" src="../../../../_images/change_vector.png" style="width: 400px;" /></a>
+<p><br /> Areas with positive changes in both NIR and Red reflectance have an angle between 0° and 90°; positive NIR
+difference and negative Red difference have an angle between 90° and 180°; negative difference in both have an angle
+between -180° and -90° (or between 180° and 270°); and finally, negative NIR and positive Red difference have an angle
+between -90° and 0° (or 270° and 360°).</p>
+<p>To apply the color scheme shown above, open the <strong>Symbology</strong> tab for the angle raster and change the <strong>Primary Symbology</strong>
+from <strong>Stretch</strong> to <strong>Classify</strong>. Change the <strong>Method</strong> to <strong>Manual Interval</strong>, and change the upper values in the first
+4 classes to be -90, 0, 90, and 180, respectively.<a class="footnote-reference brackets" href="#id11" id="id4">4</a> You can change the colors to match the example shown, or pick
+your own color scheme.</p>
+<p>When you’re finished, you should see something like the following:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_cva_classify.png"><img alt="the cva angle raster with the symbology changed to classify" class="align-center" src="../../../../_images/arc_cva_classify.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What color do you see the most of in this image? What kind of change does this represent, in terms of the
+difference in both NIR reflectance and red reflectance?</p>
+<p class="sd-card-text">What kind of change does this represent in terms of the surfaces that you have identified in the image?</p>
+</div>
+</div>
+</section>
+<section id="masking-using-magnitude">
+<h3>masking using magnitude<a class="headerlink" href="#masking-using-magnitude" title="Permalink to this heading">#</a></h3>
+<p>Because this is showing any change at all, even small changes that may not represent an actual change in surface type,
+we normally want to mask the raster to only consider areas with changes above a certain threshold. To help choose
+the threshold, we can use the histogram of the magnitude values.</p>
+<p>To show this, right-click on the magnitude layer in the contents panel, then select <strong>Create Chart</strong> &gt; <strong>Histogram</strong>.
+Select <strong>Band_3</strong> under <strong>Number</strong> to plot the histogram, and check <strong>Median</strong> to show the median value of the
+magnitude raster. You should see something like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_cva_magnitude_hist.png"><img alt="a histogram of cva magnitudes" class="align-center" src="../../../../_images/arc_cva_magnitude_hist.png" style="width: 720px;" /></a>
+<p><br /> From the histogram, you should see that most of the changes are small in magnitude
+(<span class="math notranslate nohighlight">\(\lVert\vec{u}\rVert\)</span> &lt; 0.1), and the median magnitude is around 0.066 - this should be a good value to use for
+the threshold.</p>
+<p>To mask the raster, we use the <code class="docutils literal notranslate"><span class="pre">Con()</span></code> function in the <strong>Raster Calculator</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Con(&quot;LT05_L2SP_046028_1984_2011_NIR_Red_magnitude.tif&quot; &gt; 0.06, &quot;LT05_L2SP_046028_1984_2011_NIR_Red_angle.tif&quot;)
+</pre></div>
+</div>
+<p>This creates a new raster where the values are equal to the values in <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_NIR_Red_angle.tif</span></code>
+wherever the magnitude value is greater than 0.06, and <code class="docutils literal notranslate"><span class="pre">NoData</span></code> where the magnitude is less than (or equal to) 0.06.</p>
+<p>Save the output as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_NIR_Red_angle_masked.tif</span></code>. Once the map loads, change the symbology so
+that it matches the original angle layer. You should see something like the following:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_cva_classify_masked.png"><img alt="the cva angle raster with the symbology changed to classify and small changes masked" class="align-center" src="../../../../_images/arc_cva_classify_masked.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What color(s) do you see the most of in this masked image? How does this compare to the original angle raster?
+What does this mean in terms of the types of (large) surface changes that are visible in the images?</p>
+</div>
+</div>
+</section>
+<section id="summarizing-information">
+<h3>summarizing information<a class="headerlink" href="#summarizing-information" title="Permalink to this heading">#</a></h3>
+<p>In addition to changing the raster symbology to <em>classify</em>, we could also use the <strong>Reclassify</strong> tool to assign new
+values based on a range of values in the original raster.</p>
+<p>Open the <strong>Reclassify</strong> tool, then select the masked angle raster as the <strong>Input raster</strong>. The <strong>Reclass value</strong>
+should be <code class="docutils literal notranslate"><span class="pre">VALUE</span></code>, and you should see 5 classes to start with:</p>
+<ul class="simple">
+<li><p>-180 to -90 -&gt; 1</p></li>
+<li><p>-90 to 0 -&gt; 2</p></li>
+<li><p>0 to 90 -&gt; 3</p></li>
+<li><p>90 to 180 -&gt; 4</p></li>
+<li><p>NoData -&gt; NoData</p></li>
+</ul>
+<p>You could use this classification, which will give you the same result as what you saw visually in the previous section.
+This might be a good opportunity to provide a little bit more detail, though, by increasing the number of classes from
+4 to 8 - this will allow us to differentiate where the difference is higher in the NIR or the Red for each of the four
+quadrants.</p>
+<p>Click on <strong>Classify</strong>, then change the <strong>Method</strong> to <strong>Defined Interval</strong>. Change the <strong>Interval size</strong> to 45 - you
+should see the number of classes change to 8, and the <strong>Upper value</strong> should range from -135 to 180 in increments of
+45<a class="footnote-reference brackets" href="#id12" id="id5">5</a>:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_cva_classify_intervals.png"><img alt="the classify window showing the upper value for each class ranging from -135 to 180 in increments of 45" class="align-center" src="../../../../_images/arc_cva_classify_intervals.png" style="width: 300px;" /></a>
+<p><br /> Click <strong>OK</strong>. You should see the reclassification table update with the new start/end values. Save the output
+as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_NIR_Red_angle_reclass.tif</span></code>, then click <strong>Run</strong>.</p>
+<p>You should see the output raster load with a random assortment of colors:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_cva_angle_reclass.png"><img alt="the cva angle raster with reclassified values based on 45° bins" class="align-center" src="../../../../_images/arc_cva_angle_reclass.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To help remind you of what the angle values are for each class, update the <strong>Label</strong> for each class from the
+<strong>Symbology</strong> tab.</p>
+</div>
+<p>Once you have updated the labels, we can create a chart to show the number of pixels of each angle class, to help
+understand what types of change are most prevalent between our two images.</p>
+<p>Right-click on the reclass layer in the <strong>Contents</strong> panel, then select <strong>Create Chart</strong> &gt; <strong>Bar Chart</strong>.</p>
+<p>Under <strong>Category or Date</strong> in the <strong>Chart Properties</strong> panel, select <code class="docutils literal notranslate"><span class="pre">Value</span></code>. Leave <strong>Aggregation</strong> as <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+then press the <strong>Select</strong> button to add a numeric field, and select <code class="docutils literal notranslate"><span class="pre">Count</span></code> from the drop-down menu.</p>
+<p>You should see something like this:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_cva_angle_count.png"><img alt="a bar chart showing the count of pixels by reclassified change vector angle" class="align-center" src="../../../../_images/arc_cva_angle_count.png" style="width: 720px;" /></a>
+<p><br /> Remember to edit the title and labels for the axes (if needed) before moving on!</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Which class has the most values, according to the bar chart? How does this compare to what you estimated visually
+earlier?</p>
+<p class="sd-card-text">What kind of change does this correspond to?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="multi-temporal-pca">
+<h2>multi-temporal pca<a class="headerlink" href="#multi-temporal-pca" title="Permalink to this heading">#</a></h2>
+<p>Finally, we’ll take a look at how we can use principal component analysis to help us identify and study areas of change
+between two different images.</p>
+<p>To run PCA on the combined 1984 and 2011 images, open <strong>Principal Components</strong> in the <strong>Geoprocessing</strong> panel. Under
+<strong>Input raster bands</strong>, add the composited 1984 raster first (<code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_19840719_20200918_02_T1.tif</span></code>),
+followed by the composited 2011 raster (<code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_20110730_20200820_02_T1.tif</span></code>).</p>
+<p>Save the <strong>Output multiband raster</strong> as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_PCA.tif</span></code> to the same directory where you have
+saved your other outputs, and ensure that the <strong>Number of Principal components</strong> is <code class="docutils literal notranslate"><span class="pre">12</span></code>. Finally, save the
+<strong>Output data file</strong> as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028_1984_2011_PCA_params.txt</span></code>, then click <strong>Run</strong>.</p>
+<p>After a few moments, you should see the following image load in the map<a class="footnote-reference brackets" href="#id13" id="id6">6</a>:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_multitemp_pca.png"><img alt="the multi-temporal pca image loaded in the map window" class="align-center" src="../../../../_images/arc_multitemp_pca.png" style="width: 720px;" /></a>
+<p><br /> In this example, we can see that the dominant colors are pink/magenta, primarily in areas where we see snow/ice
+(or cloud) in one of the images; teal/green, and yellow.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What color are the water bodies? Why do you think this is?</p>
+</div>
+</div>
+<p>The pink/magenta areas indicate areas that are brightest in the first principal component band (PC1), darker in the
+second principal component band (PC2), and bright in the third principal component band (PC3).</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Use the <strong>Explore</strong> tool from the <strong>Map</strong> tab to see the PC values for different pixels by clicking on them.
+What are typical values in PC1-3 for different areas of change that you have identified earlier in the exercise?</p>
+</div>
+</div>
+<p>In general, a multi-temporal PCA gives some bands that contain information about areas that haven’t changed
+(<em>stable components</em>) alongside bands that contain information about areas that have changed (<em>change components</em>).</p>
+<p>Start by looking at the first PC band (PC1) by changing the <strong>Symbology</strong> from <strong>RGB</strong> to <strong>Stretch</strong> and ensuring
+that the <strong>Band</strong> is <code class="docutils literal notranslate"><span class="pre">Band_1</span></code>:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_multitemp_pca_band1.png"><img alt="the multi-temporal pca image loaded in the map window, showing principal component band 1" class="align-center" src="../../../../_images/arc_multitemp_pca_band1.png" style="width: 720px;" /></a>
+<p><br /></p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What features do you notice in this image? How does this compare to the original images? Do you think this layer
+highlights areas of change, or something else? If you think they highlight areas of change, what kind of change?</p>
+<p class="sd-card-text">Now, view each of the other PC bands in turn and think about the questions above. Pay attention to the values
+that the images are stretched between - are the values staying the same as you look at each band, or are they also
+changing?</p>
+</div>
+</div>
+<p>Finally, with the <strong>Symbology</strong> again set to <strong>RGB</strong>, right-click on the PCA layer and select <strong>Create Chart</strong> &gt;
+<strong>Spectral Profile</strong>:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_multitemp_pca_profile.png"><img alt="the multi-temporal pca image, with a spectral profile chart open" class="align-center" src="../../../../_images/arc_multitemp_pca_profile.png" style="width: 720px;" /></a>
+<p><br /> This type of chart will allow you to click on different areas of the map and plot the values across all bands in
+that area of interest. I recommend starting with <strong>Point</strong> areas of interest. Zoom in on the peak of the volcano and
+click on an area of pink/magenta:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_multitemp_pca_profile1.png"><img alt="the multi-temporal pca image, with a spectral profile chart open and a point profile shown" class="align-center" src="../../../../_images/arc_multitemp_pca_profile1.png" style="width: 720px;" /></a>
+<p><br /> Now, click on an area where there is clear vegetation regrowth:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_multitemp_pca_profile2.png"><img alt="the multi-temporal pca image, with a spectral profile chart open and two point profiles shown" class="align-center" src="../../../../_images/arc_multitemp_pca_profile2.png" style="width: 720px;" /></a>
+<p><br /> And finally, click on one of the more stable forest areas:</p>
+<a class="reference internal image-reference" href="../../../../_images/arc_multitemp_pca_profile3.png"><img alt="the multi-temporal pca image, with a spectral profile chart open and three point profiles shown" class="align-center" src="../../../../_images/arc_multitemp_pca_profile3.png" style="width: 720px;" /></a>
+<p><br /> Click on a few other areas, paying attention to the type of surface you’re clicking on, then have a look at the
+plot.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">What band(s) show the biggest differences between the points you have selected? What band(s) show the most
+similarity?</p>
+<p class="sd-card-text">If you were trying to distinguish between, say, vegetation regrowth and stable vegetation, what PC band(s) would
+you try to focus on? Why?</p>
+</div>
+</div>
+</section>
+<section id="next-steps">
+<h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
+<p>In this practical, we’ve seen examples of using different band arithmetic to look at changes in individual bands - for
+example, using the NIR band or the Red band. But, you can also combine the techniques we’ve used here with techniques
+we introduced last week - for example, using the change in NDVI between two dates to investigate the change in vegetative
+cover or health.</p>
+<p>As a next step, calculate the NDVI for both the 1984 and 2011 surface reflectance images we have used in this exercise.
+Then, subtract the 1984 NDVI from the 2011 NDVI to obtain the change in NDVI between the two dates.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">
+<div class="sd-card-header question docutils">
+<p class="sd-card-text"><span class="far fa-circle-question"></span> Question</p>
+</div>
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Compare the NDVI change with the other change detection techniques you have used in this practical. Do these
+approaches highlight similar things? Do you notice any differences between the changes you observe with these
+techniques? Are changes more clear with one technique compared to others?</p>
+</div>
+</div>
+<p>Very often, the multi-temporal PCA can also be combined with some of the classification techniques we will discuss
+next week, to help classify types of change.<a class="footnote-reference brackets" href="#id14" id="id7">7</a> After next week’s practical, you might consider combining the
+change detection technique(s) we have looked at here with some of the techniques introduced next week, to see how well
+the combination performs at classifying/identifying changes, compared to repeat classification (as an example).</p>
+</section>
+<section id="notes">
+<h2>notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>You may notice that the values of <span class="math notranslate nohighlight">\(M_\rho\)</span> and <span class="math notranslate nohighlight">\(A_\rho\)</span> are the same for all bands. This is true no
+matter what Landsat L2 surface reflectance product you use, whether it was produced from TM, ETM+, or OLI.</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>You can, of course, put these in any order you like. Just be warned that the rest of the instructions might get
+very confusing, and the results might look very different if you do!</p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>There isn’t anything special about the choice of axes here - we could also make the NIR difference the <em>x</em> axis
+and the Red difference the <em>y</em> axis. The only thing that would change is the interpretation of the angle values.</p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>The reason that we use -180 and -90 here, instead of 180 and 270 (or -90 and 0 instead of 270 and 360) is because
+the output of <code class="docutils literal notranslate"><span class="pre">ATan2()</span></code> returns values between <span class="math notranslate nohighlight">\(-\pi\)</span> (-180) and <span class="math notranslate nohighlight">\(\pi\)</span> (180).</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>If you see something else here, don’t worry. Change the <strong>Method</strong> to <strong>Manual interval</strong> and change the values
+manually.</p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>If you see something different (for example, an image that is mostly green/purple), don’t panic - the stretch
+hasn’t worked, most likely because ArcGIS hasn’t calculated the statistics for the image. Open
+<strong>Calculate Statistics</strong> in the <strong>Geoprocessing</strong> panel, and use your multi-temporal PCA image as the
+<strong>Input Raster Dataset</strong>. After the tool finishes, you may need to change the symbology to <code class="docutils literal notranslate"><span class="pre">None</span></code> before
+changing it back to <code class="docutils literal notranslate"><span class="pre">Percent</span> <span class="pre">Clip</span></code> for the update to take effect.</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>See, for example, Richards JA (1984) <em>Remote Sensing of Environment</em> 16(<strong>1</strong>), 35–46. doi:
+<a class="reference external" href="https://doi.org/10.1016/0034-4257(84)90025-7">10.1016/0034-4257(84)90025-7</a>. Note that this article is included
+in the Zotero library, along with a PDF of the article if you’ve set up your account!</p>
+</dd>
+</dl>
+</section>
 </section>
 
 
@@ -646,6 +1184,34 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-analysis">visual analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-temporal-false-color-composite">multi-temporal false color composite</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#difference">difference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalized-difference">normalized difference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-vector-analysis">change vector analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-magnitude">computing vector magnitude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-vector-angle">computing vector angle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-using-magnitude">masking using magnitude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-information">summarizing information</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-temporal-pca">multi-temporal pca</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">next steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">notes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
