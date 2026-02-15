@@ -297,7 +297,7 @@ change vector analysis
 
 Now that we've seen how a lot of the same techniques that we've used previously, such as false color composites and
 band maths, can be applied to change detection, we'll look at a technique we haven't used before: change vector
-analysi s (CVA).
+analysis (CVA).
 
 CVA can be used for any number of band combinations (and in fact, it is often more powerful when used with multiple
 band combinations). However, because it is difficult to visualize vectors in more than three dimensions, we will stick
@@ -364,7 +364,7 @@ horizontal (*x*) axis is:
     \theta = \arctan\left(\frac{y_i}{x_i}\right)
 
 where :math:`\arctan` is the *inverse tangent*, or *arctangent*. In the **Raster Calculator**, the function to use
-for the arctangent is ``ATan2()``. Using the to bands that we have defined previously, the equation to use is:
+for the arctangent is ``ATan2()``. Using the two bands that we have defined previously, the equation to use is:
 
 .. code-block:: text
 
@@ -399,6 +399,11 @@ To apply the color scheme shown above, open the **Symbology** tab for the angle 
 from **Stretch** to **Classify**. Change the **Method** to **Manual Interval**, and change the upper values in the first
 4 classes to be -90, 0, 90, and 180, respectively.\ [4]_ You can change the colors to match the example shown, or pick
 your own color scheme.
+
+.. tip::
+
+    To help remind you of what the angle values are for each class, you can also update the **Label** for each class
+    from the **Symbology** tab.
 
 When you're finished, you should see something like the following:
 
@@ -513,8 +518,7 @@ You should see the output raster load with a random assortment of colors:
 
 .. tip::
 
-    To help remind you of what the angle values are for each class, update the **Label** for each class from the
-    **Symbology** tab.
+    Remember to update the **Label** for each class from the **Symbology** tab.
 
 Once you have updated the labels, we can create a chart to show the number of pixels of each angle class, to help
 understand what types of change are most prevalent between our two images.

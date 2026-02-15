@@ -849,7 +849,7 @@ to the difference image?</p>
 <h2>change vector analysis<a class="headerlink" href="#change-vector-analysis" title="Permalink to this heading">#</a></h2>
 <p>Now that we’ve seen how a lot of the same techniques that we’ve used previously, such as false color composites and
 band maths, can be applied to change detection, we’ll look at a technique we haven’t used before: change vector
-analysi s (CVA).</p>
+analysis (CVA).</p>
 <p>CVA can be used for any number of band combinations (and in fact, it is often more powerful when used with multiple
 band combinations). However, because it is difficult to visualize vectors in more than three dimensions, we will stick
 to two dimensions and analyse the differences in NIR and red reflectance between the two images.</p>
@@ -893,7 +893,7 @@ horizontal (<em>x</em>) axis is:</p>
 <div class="math notranslate nohighlight">
 \[\theta = \arctan\left(\frac{y_i}{x_i}\right)\]</div>
 <p>where <span class="math notranslate nohighlight">\(\arctan\)</span> is the <em>inverse tangent</em>, or <em>arctangent</em>. In the <strong>Raster Calculator</strong>, the function to use
-for the arctangent is <code class="docutils literal notranslate"><span class="pre">ATan2()</span></code>. Using the to bands that we have defined previously, the equation to use is:</p>
+for the arctangent is <code class="docutils literal notranslate"><span class="pre">ATan2()</span></code>. Using the two bands that we have defined previously, the equation to use is:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ATan2(&quot;LT05_L2SP_046028_1984_2011_NIR_difference.tif&quot;, &quot;LT05_L2SP_046028_1984_2011_Red_difference.tif&quot;) * (180 / 3.1415926)
 </pre></div>
 </div>
@@ -914,6 +914,11 @@ between -90° and 0° (or 270° and 360°).</p>
 from <strong>Stretch</strong> to <strong>Classify</strong>. Change the <strong>Method</strong> to <strong>Manual Interval</strong>, and change the upper values in the first
 4 classes to be -90, 0, 90, and 180, respectively.<a class="footnote-reference brackets" href="#id11" id="id4">4</a> You can change the colors to match the example shown, or pick
 your own color scheme.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To help remind you of what the angle values are for each class, you can also update the <strong>Label</strong> for each class
+from the <strong>Symbology</strong> tab.</p>
+</div>
 <p>When you’re finished, you should see something like the following:</p>
 <a class="reference internal image-reference" href="../../../../_images/arc_cva_classify.png"><img alt="the cva angle raster with the symbology changed to classify" class="align-center" src="../../../../_images/arc_cva_classify.png" style="width: 720px;" /></a>
 <p><br /></p>
@@ -988,8 +993,7 @@ as <code class="docutils literal notranslate"><span class="pre">LT05_L2SP_046028
 <p><br /></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To help remind you of what the angle values are for each class, update the <strong>Label</strong> for each class from the
-<strong>Symbology</strong> tab.</p>
+<p>Remember to update the <strong>Label</strong> for each class from the <strong>Symbology</strong> tab.</p>
 </div>
 <p>Once you have updated the labels, we can create a chart to show the number of pixels of each angle class, to help
 understand what types of change are most prevalent between our two images.</p>
