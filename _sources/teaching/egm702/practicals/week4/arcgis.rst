@@ -323,7 +323,10 @@ Remember that the difference values in each band are the *components* of the ind
 :math:`\vec{u}` - we can think of the difference in Red reflectance as the *x* component of the vector, and the
 difference in NIR reflectance as the *y* component:\ [3]_
 
-**vector plot**
+.. image:: img/arcgis/angle_diagram.png
+    :width: 400
+    :align: center
+    :alt: a vector diagram, illustrating the different pieces of the vector u
 
 |br| The magnitude of a vector is just the length of the vector. If the components of the vector are :math:`x_i` and
 :math:`y_i`, then, the magnitude, :math:`\lVert\vec{u}\rVert`, is calculated using the pythogorean theorem:
@@ -356,8 +359,14 @@ computing vector angle
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The next step is to calculate the angle of the change vectors. If we again think of a vector :math:`\vec{u}` as
-having components :math:`x_i` and :math:`y_i`, the angle, :math:`\theta` that :math:`\vec{u}` makes with respect to the
-horizontal (*x*) axis is:
+having components :math:`x_i` and :math:`y_i`:
+
+.. image:: img/arcgis/angle_diagram.png
+    :width: 400
+    :align: center
+    :alt: a vector diagram, illustrating the different pieces of the vector u
+
+|br| the angle, :math:`\theta` that :math:`\vec{u}` makes with respect to the horizontal (*x*) axis is:
 
 .. math::
 
