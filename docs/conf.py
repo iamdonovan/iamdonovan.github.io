@@ -50,7 +50,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # html_theme = 'sphinx_rtd_theme'
 html_theme = 'sphinx_book_theme'
 
-#html_title = 'space cameras and glaciers'
+html_title = 'space cameras and glaciers'
 html_logo = 'img/space_camera_glacier_banner.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
