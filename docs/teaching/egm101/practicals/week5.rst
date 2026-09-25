@@ -521,7 +521,14 @@ In cell B5, enter the following formula to calculate the *mean absolute deviatio
 
     = AVEDEV(armaghdata!C3:C1916)
 
-then, use **flash fill** to copy this formula to ``Tmean`` and ``Tmin``.
+then, use **flash fill** to copy this formula to ``Tmean`` and ``Tmin``:
+
+.. image:: img/week5/avedev_fill.png
+    :width: 720
+    :align: center
+    :alt: The workbook, with the average deviation formula filled in for Tmax, Tmean, and Tmin.
+
+|br|
 
 For the *standard deviation*, Excel has two functions: `STDEV.P <https://support.microsoft.com/en-us/excel/stdev-p-function>`__
 and `STDEV.S <https://support.microsoft.com/en-us/excel/stdev-s-function>`__,
