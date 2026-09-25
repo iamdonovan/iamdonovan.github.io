@@ -139,8 +139,14 @@
   
   
   
+    
+    
+      
+    
+    
+    <img src="../../../_static/space_camera_glacier_banner.png" class="logo__image only-light" alt="space cameras and glaciers - Home"/>
+    <script>document.write(`<img src="../../../_static/space_camera_glacier_banner.png" class="logo__image only-dark" alt="space cameras and glaciers - Home"/>`);</script>
   
-    <p class="title logo__title">space cameras and glaciers</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -779,7 +785,7 @@ be sure to highlight the column that you want to remove, rather than the row.</p
 <p class="admonition-title">Warning</p>
 <p>Be sure to double-check that you are saving this to your OneDrive folder, <strong>not</strong> the local disk. If you
 save the file to the local disk, <strong>it will not be backed up</strong>, and you won’t be able to access it unless you are
-sitting at this exact same computer. And tven then, there’s no guarantee that the computer won’t have been wiped
+sitting at this exact same computer. And even then, there’s no guarantee that the computer won’t have been wiped
 clean in the meantime.</p>
 </div>
 <p>Once you’ve saved the file, you should see that the warning about possible data loss at the top of the view has gone
@@ -937,7 +943,7 @@ statistics that we will calculate:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= AVERAGE(armaghdata!C3:C1916)
 </pre></div>
 </div>
-<p>This uses the built-in <a class="reference external" href="https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6">AVERAGE</a>
+<p>This uses the built-in <a class="reference external" href="https://support.microsoft.com/en-us/excel/functions/average-function">AVERAGE</a>
 function to calculate the <em>arithmetic mean</em> of the cells used as input.</p>
 <p>Unlike in the previous example, here we are referencing cells/values from another sheet in the same workbook using the
 sheet name (<code class="docutils literal notranslate"><span class="pre">armaghdata</span></code>). This tells Excel to take the values from cells C3 to C1916 from the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet,
@@ -953,20 +959,29 @@ like we did to fill out the <code class="docutils literal notranslate"><span cla
 B2, then drag the cursor over to cell D2:</p>
 <a class="reference internal image-reference" href="../../../_images/horizontal_fill.png"><img alt="The mean values of each temperature variable, filled using flash fill." class="align-center" src="../../../_images/horizontal_fill.png" style="width: 720px;" /></a>
 <p><br /> Next, we need to fill out the rest of the table. First, use the
-<a class="reference external" href="https://support.microsoft.com/en-us/office/median-function-d0916313-4753-414c-8537-ce85bdd967d2">MEDIAN</a>
+<a class="reference external" href="https://support.microsoft.com/en-us/excel/median-function">MEDIAN</a>
 function to calculate the median value of <code class="docutils literal notranslate"><span class="pre">Tmax</span></code> by inserting the following formula into cell B3:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= MEDIAN(armaghdata!C3:C1916)
 </pre></div>
 </div>
 <p>Next, use <strong>flash fill</strong> to copy this formula to <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>, as you did above for the arithmetic mean.</p>
-<p>For the <em>standard deviation</em>, Excel has two functions: <a class="reference external" href="https://support.microsoft.com/en-us/office/stdev-p-function-6e917c05-31a0-496f-ade7-4f4e7462f285">STDEV.P</a>
-and <a class="reference external" href="https://support.microsoft.com/en-us/office/stdev-s-function-7d69cf97-0c1f-4acf-be27-f3e83904cc23">STDEV.S</a>,
+<p>Now, we’ll calculate the <em>mean absolute deviation</em>, which uses the function
+<a class="reference external" href="https://support.microsoft.com/en-us/excel/functions/avedev-function">AVEDEV</a> in Excel.</p>
+<p>In cell B5, enter the following formula to calculate the <em>mean absolute deviation</em>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= AVEDEV(armaghdata!C3:C1916)
+</pre></div>
+</div>
+<p>then, use <strong>flash fill</strong> to copy this formula to <code class="docutils literal notranslate"><span class="pre">Tmean</span></code> and <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>:</p>
+<a class="reference internal image-reference" href="../../../_images/avedev_fill.png"><img alt="The workbook, with the average deviation formula filled in for Tmax, Tmean, and Tmin." class="align-center" src="../../../_images/avedev_fill.png" style="width: 720px;" /></a>
+<p><br /></p>
+<p>For the <em>standard deviation</em>, Excel has two functions: <a class="reference external" href="https://support.microsoft.com/en-us/excel/stdev-p-function">STDEV.P</a>
+and <a class="reference external" href="https://support.microsoft.com/en-us/excel/stdev-s-function">STDEV.S</a>,
 for the <em>population</em> and <em>sample</em> standard deviation, respectively.</p>
-<p>In cell B5, enter the following formula to calculate the <em>population</em> standard deviation:</p>
+<p>In cell B7, enter the following formula to calculate the <em>population</em> standard deviation:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= STDEV.P(armaghdata!C3:C1916)
 </pre></div>
 </div>
-<p>And in cell B6, enter the following to calculate the <em>sample</em> standard deviation:</p>
+<p>And in cell B8, enter the following to calculate the <em>sample</em> standard deviation:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= STDEV.S(armaghdata!C3:C1916)
 </pre></div>
 </div>
@@ -976,8 +991,8 @@ using functions that Excel does have. Remember that the <em>range</em> is just t
 minimum values of a variable:</p>
 <div class="math notranslate nohighlight">
 \[{\rm RANGE} = {\rm MAX} - {\rm MIN}\]</div>
-<p>We use the same equation here, using the <a class="reference external" href="https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098">MAX</a>
-and <a class="reference external" href="https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a70f-96f202dcc152">MIN</a> functions:</p>
+<p>We use the same equation here, using the <a class="reference external" href="https://support.microsoft.com/en-us/excel/functions/max-function">MAX</a>
+and <a class="reference external" href="https://support.microsoft.com/en-us/excel/functions/min-function">MIN</a> functions:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= MAX(armaghdata!C3:C1916) - MIN(armaghdata!C3:C1916)
 </pre></div>
 </div>
@@ -986,11 +1001,11 @@ and <a class="reference external" href="https://support.microsoft.com/en-us/offi
 first quartile, <span class="math notranslate nohighlight">\(Q_1\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[{\rm IQR} = Q_3 - Q_1\]</div>
-<p>Excel has two functions to calculate quartiles: <a class="reference external" href="https://support.microsoft.com/en-us/office/quartile-inc-function-1bbacc80-5075-42f1-aed6-47d735c4819d">QUARTILE.INC</a>,
+<p>Excel has two functions to calculate quartiles: <a class="reference external" href="https://support.microsoft.com/en-us/excel/functions/quartile-inc-function">QUARTILE.INC</a>,
 for calculating the quartile <em>inclusive</em> of the endpoints, and
-<a class="reference external" href="https://support.microsoft.com/en-us/office/quartile-exc-function-5a355b7a-840b-4a01-b0f1-f538c2864cad">QUARTILE.EXC</a>,
+<a class="reference external" href="https://support.microsoft.com/en-us/excel/functions/quartile-exc-function">QUARTILE.EXC</a>,
 for calculating the quartile <em>exclusive</em> of the endpoints. We’ll use <code class="docutils literal notranslate"><span class="pre">QUARTILE.INC</span></code> here.</p>
-<p>Enter the following formula into cell B9:</p>
+<p>Enter the following formula into cell B11:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= QUARTILE.INC(armaghdata!C3:C1916, 3) - QUARTILE.INC(armaghdata!C3:C1916, 1)
 </pre></div>
 </div>
@@ -1008,8 +1023,8 @@ for calculating the quartile <em>exclusive</em> of the endpoints. We’ll use <c
 <section id="formatting-cells">
 <h3>formatting cells<a class="headerlink" href="#formatting-cells" title="Permalink to this heading">#</a></h3>
 <p>The final step we’ll do in this part of the practical is <em>format</em> the cells, so that they show an appropriate number of
-<em>significant figures</em>. In the example above, you can see that the <em>mean</em> value is shown with 5 decimal places, despite
-the fact that the original data only has a single decimal place.</p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Significant_figures">significant figures</a>. In the example above, you can see that the
+<em>mean</em> value is shown with 5 decimal places, despite the fact that the original data only has a single decimal place.</p>
 <p>Highlight all of the cells with numbers in this sheet, right-click, and select <strong>Format Cells</strong> to bring up the
 following window:</p>
 <a class="reference internal image-reference" href="../../../_images/format_cells.png"><img alt="the Format Cells dialogue window" class="align-center" src="../../../_images/format_cells.png" style="width: 400px;" /></a>
@@ -1030,9 +1045,12 @@ far less important. Here, where <span class="math notranslate nohighlight">\(n\a
 <div class="sd-card-body docutils">
 <ul class="simple">
 <li><p class="sd-card-text">Which temperature variable (<code class="docutils literal notranslate"><span class="pre">Tmax</span></code>, <code class="docutils literal notranslate"><span class="pre">Tmean</span></code>, or <code class="docutils literal notranslate"><span class="pre">Tmin</span></code>) has the largest range? What does this tell you about
-extreme values?</p></li>
-<li><p class="sd-card-text">Look at the standard deviation values for each temperature variable. Which variable has more variation? How does
-this compare to what you see for the range and IQR?</p></li>
+the extreme values of the different variables?</p></li>
+<li><p class="sd-card-text">Look at the standard deviation values for each temperature variable. Based only on the standard deviation, which
+variable has more variation?</p></li>
+<li><p class="sd-card-text">Compare the measures of dispersion (mean absolute deviation, standard deviation, range, IQR) for each of the
+different temperature variables. Do all of the different measures of dispersion tell you the same “story” about
+the variability in the different temperature variables? Why or why not?</p></li>
 </ul>
 </div>
 </div>
@@ -1062,7 +1080,7 @@ pattern from the first two cells (1, 2, …) and fill the remaining cells by con
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= AVERAGEIF(armaghdata!$B$3:$B$1916, $A3, armaghdata!C$3:C$1916)
 </pre></div>
 </div>
-<p>This formula uses the <a class="reference external" href="https://support.microsoft.com/en-us/office/averageif-function-faec8e2e-0dec-4308-af69-f5576d8ac642">AVERAGEIF</a>
+<p>This formula uses the <a class="reference external" href="https://support.microsoft.com/en-us/excel/functions/averageif-function">AVERAGEIF</a>
 function to average cells in some range, based on some criteria. Here, we’re telling the function to average all of
 the values in cells C3:C1916 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet, but <em>only</em> where the value in cells B3:B1916
 of the <code class="docutils literal notranslate"><span class="pre">armaghdata</span></code> sheet is equal to the value in cell A3 - in other words, we’re only taking the average of the
@@ -1103,8 +1121,8 @@ procedure that we used earlier (right-click, <strong>Format Cells</strong>).</p>
 <h4>standard deviation<a class="headerlink" href="#standard-deviation" title="Permalink to this heading">#</a></h4>
 <p>Next, we want to calculate the standard deviation of temperatures for each month. Unfortunately, there is no
 <code class="docutils literal notranslate"><span class="pre">STDEV.IF</span></code> function like there is for <code class="docutils literal notranslate"><span class="pre">AVERAGE</span></code>. Instead, we have to use
-<a class="reference external" href="https://support.microsoft.com/en-us/office/if-function-nested-formulas-and-avoiding-pitfalls-0b22ff44-f149-44ba-aeb5-4ef99da241c8">IF</a>
-along with <code class="docutils literal notranslate"><span class="pre">STDEV.S</span></code>.</p>
+<a class="reference external" href="https://support.microsoft.com/en-us/excel/if-function-nested-formulas-and-avoiding-pitfalls">IF</a> along with
+<code class="docutils literal notranslate"><span class="pre">STDEV.S</span></code>.</p>
 <p>In cell G3, enter the following formula:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>= STDEV.S(IF(armaghdata!$B$3:$B$1916 = $A3, armaghdata!C$3:C$1916))
 </pre></div>
@@ -1364,8 +1382,7 @@ additional exercises you could try.</p>
 <h2>next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Calculate descriptive statistics, monthly descriptive statistics, and annual total values for Rain. To calculate the
-annual total, you will use the
-<a class="reference external" href="https://support.microsoft.com/en-us/office/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89">SUM</a> function
+annual total, you will use the <a class="reference external" href="https://support.microsoft.com/en-us/excel/functions/sum-function">SUM</a> function
 instead of <code class="docutils literal notranslate"><span class="pre">AVERAGE</span></code>.</p></li>
 </ul>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm question docutils">

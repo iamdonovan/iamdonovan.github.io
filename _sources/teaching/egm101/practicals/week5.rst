@@ -200,7 +200,7 @@ Re-name the file as ``EGM101_Week5_Practical``, make sure to change the file typ
 
     Be sure to double-check that you are saving this to your OneDrive folder, **not** the local disk. If you
     save the file to the local disk, **it will not be backed up**, and you won't be able to access it unless you are
-    sitting at this exact same computer. And tven then, there's no guarantee that the computer won't have been wiped
+    sitting at this exact same computer. And even then, there's no guarantee that the computer won't have been wiped
     clean in the meantime.
 
 Once you've saved the file, you should see that the warning about possible data loss at the top of the view has gone
@@ -473,7 +473,7 @@ statistics that we will calculate:
 
     = AVERAGE(armaghdata!C3:C1916)
 
-This uses the built-in `AVERAGE <https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6>`__
+This uses the built-in `AVERAGE <https://support.microsoft.com/en-us/excel/functions/average-function>`__
 function to calculate the *arithmetic mean* of the cells used as input.
 
 Unlike in the previous example, here we are referencing cells/values from another sheet in the same workbook using the
@@ -503,7 +503,7 @@ B2, then drag the cursor over to cell D2:
     :alt: The mean values of each temperature variable, filled using flash fill.
 
 |br| Next, we need to fill out the rest of the table. First, use the
-`MEDIAN <https://support.microsoft.com/en-us/office/median-function-d0916313-4753-414c-8537-ce85bdd967d2>`__
+`MEDIAN <https://support.microsoft.com/en-us/excel/median-function>`__
 function to calculate the median value of ``Tmax`` by inserting the following formula into cell B3:
 
 .. code-block:: text
@@ -512,17 +512,35 @@ function to calculate the median value of ``Tmax`` by inserting the following fo
 
 Next, use **flash fill** to copy this formula to ``Tmean`` and ``Tmin``, as you did above for the arithmetic mean.
 
-For the *standard deviation*, Excel has two functions: `STDEV.P <https://support.microsoft.com/en-us/office/stdev-p-function-6e917c05-31a0-496f-ade7-4f4e7462f285>`__
-and `STDEV.S <https://support.microsoft.com/en-us/office/stdev-s-function-7d69cf97-0c1f-4acf-be27-f3e83904cc23>`__,
+Now, we'll calculate the *mean absolute deviation*, which uses the function
+`AVEDEV <https://support.microsoft.com/en-us/excel/functions/avedev-function>`__ in Excel.
+
+In cell B5, enter the following formula to calculate the *mean absolute deviation*:
+
+.. code-block:: text
+
+    = AVEDEV(armaghdata!C3:C1916)
+
+then, use **flash fill** to copy this formula to ``Tmean`` and ``Tmin``:
+
+.. image:: img/week5/avedev_fill.png
+    :width: 720
+    :align: center
+    :alt: The workbook, with the average deviation formula filled in for Tmax, Tmean, and Tmin.
+
+|br|
+
+For the *standard deviation*, Excel has two functions: `STDEV.P <https://support.microsoft.com/en-us/excel/stdev-p-function>`__
+and `STDEV.S <https://support.microsoft.com/en-us/excel/stdev-s-function>`__,
 for the *population* and *sample* standard deviation, respectively.
 
-In cell B5, enter the following formula to calculate the *population* standard deviation:
+In cell B7, enter the following formula to calculate the *population* standard deviation:
 
 .. code-block:: text
 
     = STDEV.P(armaghdata!C3:C1916)
 
-And in cell B6, enter the following to calculate the *sample* standard deviation:
+And in cell B8, enter the following to calculate the *sample* standard deviation:
 
 .. code-block:: text
 
@@ -538,8 +556,8 @@ minimum values of a variable:
 
     {\rm RANGE} = {\rm MAX} - {\rm MIN}
 
-We use the same equation here, using the `MAX <https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098>`__
-and `MIN <https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a70f-96f202dcc152>`__ functions:
+We use the same equation here, using the `MAX <https://support.microsoft.com/en-us/excel/functions/max-function>`__
+and `MIN <https://support.microsoft.com/en-us/excel/functions/min-function>`__ functions:
 
 .. code-block:: text
 
@@ -554,12 +572,12 @@ first quartile, :math:`Q_1`:
 
     {\rm IQR} = Q_3 - Q_1
 
-Excel has two functions to calculate quartiles: `QUARTILE.INC <https://support.microsoft.com/en-us/office/quartile-inc-function-1bbacc80-5075-42f1-aed6-47d735c4819d>`__,
+Excel has two functions to calculate quartiles: `QUARTILE.INC <https://support.microsoft.com/en-us/excel/functions/quartile-inc-function>`__,
 for calculating the quartile *inclusive* of the endpoints, and
-`QUARTILE.EXC <https://support.microsoft.com/en-us/office/quartile-exc-function-5a355b7a-840b-4a01-b0f1-f538c2864cad>`__,
+`QUARTILE.EXC <https://support.microsoft.com/en-us/excel/functions/quartile-exc-function>`__,
 for calculating the quartile *exclusive* of the endpoints. We'll use ``QUARTILE.INC`` here.
 
-Enter the following formula into cell B9:
+Enter the following formula into cell B11:
 
 .. code-block:: text
 
@@ -586,8 +604,8 @@ formatting cells
 ..................
 
 The final step we'll do in this part of the practical is *format* the cells, so that they show an appropriate number of
-*significant figures*. In the example above, you can see that the *mean* value is shown with 5 decimal places, despite
-the fact that the original data only has a single decimal place.
+`significant figures <https://en.wikipedia.org/wiki/Significant_figures>`__. In the example above, you can see that the
+*mean* value is shown with 5 decimal places, despite the fact that the original data only has a single decimal place.
 
 Highlight all of the cells with numbers in this sheet, right-click, and select **Format Cells** to bring up the
 following window:
@@ -623,9 +641,12 @@ far less important. Here, where :math:`n\approx 2000`, the difference only shows
     ^^^
 
     - Which temperature variable (``Tmax``, ``Tmean``, or ``Tmin``) has the largest range? What does this tell you about
-      extreme values?
-    - Look at the standard deviation values for each temperature variable. Which variable has more variation? How does
-      this compare to what you see for the range and IQR?
+      the extreme values of the different variables?
+    - Look at the standard deviation values for each temperature variable. Based only on the standard deviation, which
+      variable has more variation?
+    - Compare the measures of dispersion (mean absolute deviation, standard deviation, range, IQR) for each of the
+      different temperature variables. Do all of the different measures of dispersion tell you the same "story" about
+      the variability in the different temperature variables? Why or why not?
 
 
 monthly averages
@@ -674,7 +695,7 @@ pattern from the first two cells (1, 2, ...) and fill the remaining cells by con
 
     = AVERAGEIF(armaghdata!$B$3:$B$1916, $A3, armaghdata!C$3:C$1916)
 
-This formula uses the `AVERAGEIF <https://support.microsoft.com/en-us/office/averageif-function-faec8e2e-0dec-4308-af69-f5576d8ac642>`__
+This formula uses the `AVERAGEIF <https://support.microsoft.com/en-us/excel/functions/averageif-function>`__
 function to average cells in some range, based on some criteria. Here, we're telling the function to average all of
 the values in cells C3:C1916 of the ``armaghdata`` sheet, but *only* where the value in cells B3:B1916
 of the ``armaghdata`` sheet is equal to the value in cell A3 - in other words, we're only taking the average of the
@@ -731,8 +752,8 @@ standard deviation
 ^^^^^^^^^^^^^^^^^^^^
 Next, we want to calculate the standard deviation of temperatures for each month. Unfortunately, there is no
 ``STDEV.IF`` function like there is for ``AVERAGE``. Instead, we have to use
-`IF <https://support.microsoft.com/en-us/office/if-function-nested-formulas-and-avoiding-pitfalls-0b22ff44-f149-44ba-aeb5-4ef99da241c8>`__
-along with ``STDEV.S``.
+`IF <https://support.microsoft.com/en-us/excel/if-function-nested-formulas-and-avoiding-pitfalls>`__ along with
+``STDEV.S``.
 
 In cell G3, enter the following formula:
 
@@ -1169,8 +1190,7 @@ next steps
 -------------
 
 - Calculate descriptive statistics, monthly descriptive statistics, and annual total values for Rain. To calculate the
-  annual total, you will use the
-  `SUM <https://support.microsoft.com/en-us/office/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89>`__ function
+  annual total, you will use the `SUM <https://support.microsoft.com/en-us/excel/functions/sum-function>`__ function
   instead of ``AVERAGE``.
 
 .. card::

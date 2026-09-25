@@ -52,10 +52,17 @@ me and I will send you a copy.\ [1]_
 
 .. rst-class:: ref
 
+   Dehecq, A., F. Knuth, J. M. C. Belart, L. Piermattei, C. Ressl, A. Racoviteanu, **R. McNabb**, D. Shean,
+   and L. Godin (2026). Historical Images for Surface Topography Reconstruction Intercomparison eXperiment (HistoriX).
+   *The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences*, XLIX-B2-2026,
+   9–16.
+   doi: `10.5194/isprs-archives-XLIX-B2-2026-9-2026 <https://doi.org/10.5194/isprs-archives-XLIX-B2-2026-9-2026>`__
+
+
    Piermatteri, L., **R. McNabb**, M. Elias, C. Ressl, A. Dehecq, A. Eltner, L. Girod, and T. Dewez, (2026).
    Unlocking the Past: A review of digital processing of historical aerial and satellite stereo analog imagery for
    geoscience applications. *IEEE Geoscience and Remote Sensing Magazine*.
-   doi: `10.1109/MGRS.2025.364514 <https://doi.org/10.1109/MGRS.2025.3645144>`__
+   doi: `10.1109/MGRS.2025.3645144 <https://doi.org/10.1109/MGRS.2025.3645144>`__
 
    Steiner, J., W. Armstrong, W. Kochtitzky, **R. McNabb**, R. Aguayo, T. Bolch, F. Maussion, V. Agarwal, I. Barr,
    N. R. Baurley, M. Cloutier, K. DeWater, F. Donachie, Y. Drocourt, S. Garg, G. Joshi, B. Guzman, S. Kutuzov, T. Loriaux,
