@@ -52,12 +52,15 @@ me and I will send you a copy.\ [1]_
 
 .. rst-class:: ref
 
+   Carrivick, J. L., **R. McNabb**, B. J. Davies, L. J. Larocca, E. Stephens, R. Barry, J. L. Sutherland, J. Reinthaler,
+   J. Mason, and E. Lee (2026). Accelerated mass loss of glaciers across Alaska since the Little Ice Age.
+   *Scientific Reports* 16, 34634, doi: `10.1038/s41598-026-70307-w <https://doi.org/10.1038/s41598-026-70307-w>`__.
+
    Dehecq, A., F. Knuth, J. M. C. Belart, L. Piermattei, C. Ressl, A. Racoviteanu, **R. McNabb**, D. Shean,
    and L. Godin (2026). Historical Images for Surface Topography Reconstruction Intercomparison eXperiment (HistoriX).
    *The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences*, XLIX-B2-2026,
    9–16.
    doi: `10.5194/isprs-archives-XLIX-B2-2026-9-2026 <https://doi.org/10.5194/isprs-archives-XLIX-B2-2026-9-2026>`__
-
 
    Piermatteri, L., **R. McNabb**, M. Elias, C. Ressl, A. Dehecq, A. Eltner, L. Girod, and T. Dewez, (2026).
    Unlocking the Past: A review of digital processing of historical aerial and satellite stereo analog imagery for
