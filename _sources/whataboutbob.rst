@@ -54,7 +54,7 @@ me and I will send you a copy.\ [1]_
 
    Carrivick, J. L., **R. McNabb**, B. J. Davies, L. J. Larocca, E. Stephens, R. Barry, J. L. Sutherland, J. Reinthaler,
    J. Mason, and E. Lee (2026). Accelerated mass loss of glaciers across Alaska since the Little Ice Age.
-   *Scientific Reports* 16, 34634, doi: `10.1038/s41598-026-70307-w <https://doi.org/10.1038/s41598-026-70307-w>`__.
+   *Scientific Reports* 16, 34634, doi: `10.1038/s41598-026-70307-w <https://doi.org/10.1038/s41598-026-70307-w>`__
 
    Dehecq, A., F. Knuth, J. M. C. Belart, L. Piermattei, C. Ressl, A. Racoviteanu, **R. McNabb**, D. Shean,
    and L. Godin (2026). Historical Images for Surface Topography Reconstruction Intercomparison eXperiment (HistoriX).
