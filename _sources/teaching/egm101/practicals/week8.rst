@@ -444,13 +444,19 @@ the *t*-test
     **Analyze all cases, do not create groups** in the **Split File** dialog.
 
 To perform the independent samples *t*-test, open the **Independent-Samples T Test** dialog (**Analyze** >
-**Compare Means and Proportions** > **Independent-Samples T Test**). Add ``Tmean_mean`` as the **Test Variable**, and
-``Period`` as the **Grouping Variable**, and uncheck **Estimate effect sizes**.
+**Compare Means and Proportions** > **Independent-Samples T Test**):
 
 .. image:: img/week8/independent1.png
     :width: 400
     :align: center
     :alt: the independent samples t-test dialog
+
+|br| Add ``Tmean_mean`` as the **Test Variable**, and ``Period`` as the **Grouping Variable**:
+
+.. image:: img/week8/independent2.png
+    :width: 400
+    :align: center
+    :alt: the independent samples t-test dialog with the two variables added
 
 |br| Next, click on **Define Groups** to choose which two groups to test, and enter 1 and 3 to test the data from
 1871-1920 against the data from 1971-2020:
@@ -460,14 +466,15 @@ To perform the independent samples *t*-test, open the **Independent-Samples T Te
     :align: center
     :alt: the define groups dialog, with values 1 and 3 selected to define the time period groups to use
 
-|br| Click **Continue** - you should see the entry in the **Grouping Variable** change:
+|br| Click **Continue** - you should see the entry in the **Grouping Variable** change. Next, click to uncheck
+**Estimate effect sizes**, but click on **Homogeneity of variance test**:
 
-.. image:: img/week8/independent2.png
+.. image:: img/week8/independent3.png
     :width: 400
     :align: center
-    :alt: the independent samples t-test dialog
+    :alt: the independent samples t-test dialog with the variables added and groups defined
 
-|br| Click **OK** to run the test. You should see two tables added to the **Statistics Viewer** window: one provides
+|br| Click **OK** to run the test. You should see three tables added to the **Statistics Viewer** window: one provides
 the same information that we saw with the **Descriptive Statistics** step: the mean, standard deviation, and standard
 error of the mean:
 
@@ -480,13 +487,18 @@ error of the mean:
 that the variances of the two populations are equal, and the second where the test is performed without this
 assumption.
 
-The first two columns, **F** and **Sig.**, are the results of a statistical test for equality of variance
+The last table contains the results of a statistical test for equality of variance
 (`Levene's Test for equality of variances <https://www.statisticshowto.com/levene-test/>`__), providing the
 *F*-statistic and *p*-value for the test. From this, we can see that there is not sufficient evidence to conclude that
 the variances between the groups are different - since we checked this assumption already, it shouldn't be too
-surprising.
+surprising:
 
-The remaining columns give us the results of the test:
+.. image:: img/week8/independent_output2.png
+    :width: 720
+    :align: center
+    :alt: the independent samples t-test output, showing the results of levene's test for equality of variances
+
+|br| The second table, titled **Independent Samples Test**, gives us the results of the test:
 
 - **t** is the value of the *t*-statistic for both versions of the test;
 - **df** is the number of degrees of freedom;
